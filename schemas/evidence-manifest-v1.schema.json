@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local acceptance evidence manifest v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "is_template",
+    "subject",
+    "status",
+    "kind",
+    "recorded_at",
+    "producer",
+    "artifact"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "is_template": {
+      "const": false
+    },
+    "subject": {
+      "type": "object"
+    },
+    "status": {
+      "const": "passed"
+    },
+    "kind": {
+      "enum": [
+        "source_read",
+        "official_documentation",
+        "design_analysis",
+        "static_review",
+        "experiment_run",
+        "native_aot_run",
+        "build_run",
+        "model_check",
+        "conformance_run"
+      ]
+    },
+    "recorded_at": {
+      "type": "string"
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ]
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "command": {
+      "type": "string"
+    },
+    "exit_code": {
+      "const": 0
+    },
+    "toolchain": {
+      "type": "object"
+    },
+    "platform": {
+      "type": "object",
+      "required": [
+        "os",
+        "arch"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "completed",
+        "timed_out",
+        "failed"
+      ],
+      "properties": {
+        "completed": {
+          "const": true
+        },
+        "timed_out": {
+          "const": false
+        },
+        "failed": {
+          "const": 0
+        }
+      }
+    },
+    "logs": {
+      "type": "object",
+      "required": [
+        "stdout",
+        "stderr"
+      ]
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "finished_at": {
+      "type": "string"
+    },
+    "aot": {
+      "type": "object",
+      "required": [
+        "published",
+        "executed",
+        "runtime_mode",
+        "target_rid",
+        "binary",
+        "publish_command",
+        "run_command"
+      ],
+      "properties": {
+        "published": {
+          "const": true
+        },
+        "executed": {
+          "const": true
+        },
+        "runtime_mode": {
+          "const": "native_aot"
+        },
+        "target_rid": {
+          "type": "string"
+        },
+        "binary": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ]
+        },
+        "publish_command": {
+          "type": "string"
+        },
+        "run_command": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "experiment_run",
+              "native_aot_run",
+              "build_run",
+              "model_check",
+              "conformance_run"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "source_commit",
+          "command",
+          "exit_code",
+          "toolchain",
+          "platform",
+          "checks",
+          "logs",
+          "started_at",
+          "finished_at"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "native_aot_run"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "aot"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,4320 @@
+{
+  "schema_version": "1.0.0",
+  "graph_kind": "delivery",
+  "created_at": "2026-11-12",
+  "authority": "IzuSharp/Plan",
+  "graph_status": "bootstrap_draft",
+  "scope": "First-delivery research and documentation system; not accepted product architecture",
+  "nodes": [
+    {
+      "id": "A01",
+      "title": "ABI描述、布局探针和版本读取",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A01",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R03",
+        "R04"
+      ],
+      "documentation_refs": [
+        "D02",
+        "D01"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Abi/",
+        "NativeWeave:tests/Interop.Abi/",
+        "Plan:ledger/evidence/A01/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Abi/",
+        "NativeWeave:tests/Interop.Abi/",
+        "Plan:ledger/evidence/A01/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Abi",
+      "candidate_api": "struct NwSlice { byte* data; nuint length; }; nw_get_abi_info(out NwAbiInfo)",
+      "method": "从accepted布局表生成双语言sizeof/alignof/offset探针；检查所有固定宽度字段、空指针/零长度约定及calling convention",
+      "failure_paths": [
+        "不匹配版本、size不足、32/64位差异、padding、越界长度必须确定失败"
+      ],
+      "specific_verification": [
+        "layout golden；C#/Rust双边探针；旧新客户端组合；Windows/Linux真实AOT加载"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A01.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "71d37e885a1e0aea5dbc41b2709a85e2626a89fb806f123c912d388efe420afd"
+    },
+    {
+      "id": "A02",
+      "title": "状态、能力及兼容性协商入口",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A02",
+      "start_dependencies": [
+        "A01"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ERROR-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R03",
+        "R11",
+        "R18"
+      ],
+      "documentation_refs": [
+        "D02",
+        "D08",
+        "D11"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Negotiation/",
+        "NativeWeave:tests/Interop.Negotiation/",
+        "Plan:ledger/evidence/A02/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Negotiation/",
+        "NativeWeave:tests/Interop.Negotiation/",
+        "Plan:ledger/evidence/A02/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Negotiation",
+      "candidate_api": "nw_query_capability(capability_id, requested_version, out descriptor)",
+      "method": "最小发现只暴露版本化能力与状态，不强迫runtime；同步engine能仅使用固定导出",
+      "failure_paths": [
+        "未知能力、旧结构大小、未支持版本和native loader错误不可被误判成功"
+      ],
+      "specific_verification": [
+        "版本兼容矩阵；未知字段测试；无原生依赖的C#进程启动对照"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A02.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A01": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "b210d9603c62de4c6b58722f98f028f29c737b1bf4c66a9152508cd8c109e3be"
+    },
+    {
+      "id": "A03",
+      "title": "同步句柄与资源lease",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A03",
+      "start_dependencies": [
+        "A01",
+        "A05"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R07",
+        "R15"
+      ],
+      "documentation_refs": [
+        "D04"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Lifetime/",
+        "NativeWeave:tests/Interop.Lifetime/",
+        "Plan:ledger/evidence/A03/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Lifetime/",
+        "NativeWeave:tests/Interop.Lifetime/",
+        "Plan:ledger/evidence/A03/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Lifetime",
+      "candidate_api": "sealed class EngineHandle : SafeHandle; BorrowLease Acquire()",
+      "method": "按契约选SafeHandle或代际句柄；所有有效调用持有lease；精确定义父子销毁和最后释放",
+      "failure_paths": [
+        "并发Dispose、双Dispose、构造中失败、finalizer及父资源先关需无悬空访问"
+      ],
+      "specific_verification": [
+        "释放恰一次计数；ABA性质；Dispose/Call竞态；线程亲和错误；ASan适用目标"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A03.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A01": "0.1.0",
+        "A05": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "de0eed065008f6c4141f3db2ae23704c03d84ef446925ff074fcf168e3f451fc"
+    },
+    {
+      "id": "A04",
+      "title": "拥有Buffer与异步租约",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A04",
+      "start_dependencies": [
+        "A01",
+        "A05"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R10",
+        "R07"
+      ],
+      "documentation_refs": [
+        "D07",
+        "D04"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Memory/",
+        "NativeWeave:tests/Interop.Memory/",
+        "Plan:ledger/evidence/A04/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Memory/",
+        "NativeWeave:tests/Interop.Memory/",
+        "Plan:ledger/evidence/A04/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Memory",
+      "candidate_api": "OwnedNativeBuffer; NativeMemoryLease; ReadOnlySpan<byte> for synchronous borrow",
+      "method": "分别实现同步借用和跨await拥有；allocator与释放函数成对；长度乘加checked；不默认引入池",
+      "failure_paths": [
+        "复制分配失败、取消、异常投影、重复Return、超限长度保持清理与错误语义"
+      ],
+      "specific_verification": [
+        "allocator配对；fuzz长度；pin/native allocation归零；batch与copy计数"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A04.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A01": "0.1.0",
+        "A05": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "9c5da6988c93c4a319981a26f9df5ac67dcb9dd1ecf04ce9bd633c8b19b13b78"
+    },
+    {
+      "id": "A05",
+      "title": "受控错误与panic转换边界",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A05",
+      "start_dependencies": [
+        "A01"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ERROR-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R11",
+        "R34"
+      ],
+      "documentation_refs": [
+        "D08"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Errors/",
+        "NativeWeave:tests/Interop.Errors/",
+        "Plan:ledger/evidence/A05/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Errors/",
+        "NativeWeave:tests/Interop.Errors/",
+        "Plan:ledger/evidence/A05/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Errors",
+      "candidate_api": "NwStatus; NativeErrorLease; TryMapStatus(status, out exception)",
+      "method": "保持成功路径最少开销；边界捕获受支持unwind；reverse P/Invoke不抛越界；abort和OOM明确进程语义",
+      "failure_paths": [
+        "panic=abort不能恢复；错误消息分配失败；二次panic；无错误detail仍可返回status"
+      ],
+      "specific_verification": [
+        "正常/失败/消息释放；panic子进程退出；托管回调异常封闭；错误码往返"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A05.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A01": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "5d3789a31fdf984583e139acfd6a2bb3c0392c34676034584c26287932881e76"
+    },
+    {
+      "id": "A06",
+      "title": "Callback注册、撤销与排空",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A06",
+      "start_dependencies": [
+        "A03",
+        "A05"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-CALLBACK-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R08",
+        "R07",
+        "R15"
+      ],
+      "documentation_refs": [
+        "D05",
+        "D04"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Callbacks/",
+        "NativeWeave:tests/Interop.Callbacks/",
+        "Plan:ledger/evidence/A06/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Callbacks/",
+        "NativeWeave:tests/Interop.Callbacks/",
+        "Plan:ledger/evidence/A06/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Callbacks",
+      "candidate_api": "CallbackRegistration; RequestUnregister(); WaitForQuiescenceAsync()",
+      "method": "注册token和上下文存活分离；明确注销线性化点与in-flight排空；回调线程来源不隐式切换",
+      "failure_paths": [
+        "回调内Dispose不能同步等自身；迟到回调、重复注销与GCHandle提前free必须被测试"
+      ],
+      "specific_verification": [
+        "可重放交错；reentrancy；注销后静默；GCHandle计数；双端异常注入"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A06.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A03": "0.1.0",
+        "A05": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "1c934f70ea019f4b8951748f176fc698bed67dbe497ae2c9fc054e6639b82642"
+    },
+    {
+      "id": "A07",
+      "title": "Task异步桥与取消状态机",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A07",
+      "start_dependencies": [
+        "A04",
+        "A06"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CALLBACK-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R09",
+        "R08"
+      ],
+      "documentation_refs": [
+        "D06",
+        "D05"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Async/",
+        "NativeWeave:tests/Interop.Async/",
+        "Plan:ledger/evidence/A07/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Async/",
+        "NativeWeave:tests/Interop.Async/",
+        "Plan:ledger/evidence/A07/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Async",
+      "candidate_api": "NativeOperation<T>; RequestCancel(); Complete(status, result_lease)",
+      "method": "先实现简单可验证completion；取消请求不自动代表native静默；终态、result ownership和排空独立表示",
+      "failure_paths": [
+        "同步cancel callback、迟到完成、重复通知、cancel/dispose/timeout竞争不可双完成或丢结果"
+      ],
+      "specific_verification": [
+        "全部终态竞争；未消费结果释放；Task continuation调度；AOT end-to-end异步"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A07.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A04": "0.1.0",
+        "A06": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "4a510f041c45c1ef51ab0a645309d4467d7d35dd2a435cdaa9e7b4b31bfad844"
+    },
+    {
+      "id": "A08",
+      "title": "可选执行器、容量与关闭",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A08",
+      "start_dependencies": [
+        "A07"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-CONCURRENCY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R12",
+        "R29"
+      ],
+      "documentation_refs": [
+        "D09"
+      ],
+      "outputs": [
+        "NativeWeave:src/Interop.Execution/",
+        "NativeWeave:tests/Interop.Execution/",
+        "Plan:ledger/evidence/A08/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Execution/",
+        "NativeWeave:tests/Interop.Execution/",
+        "Plan:ledger/evidence/A08/"
+      ],
+      "resource_locks": [],
+      "module": "Interop.Execution",
+      "candidate_api": "IEngineExecutionCapability; QueueBudget; ShutdownAsync(deadline)",
+      "method": "仅所需engine启用executor；容量按任务和字节记录；拒绝策略与shutdown drain显式",
+      "failure_paths": [
+        "runtime嵌套、阻塞调用耗尽线程、关闭中新提交、排空超时与任务泄漏"
+      ],
+      "specific_verification": [
+        "有界队列性质；shutdown压力；线程计数；无executor同步engine空闲成本"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A08.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A07": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "7e24818f1a36163a92b2ea40ca3f11e5fcf1f6696da59ad542aece1c4a00ecf0"
+    },
+    {
+      "id": "A09",
+      "title": "绑定契约IR与输入验证",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A09",
+      "start_dependencies": [
+        "A01"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R05",
+        "R06"
+      ],
+      "documentation_refs": [
+        "D03"
+      ],
+      "outputs": [
+        "NativeWeave:src/Generators.Model/",
+        "NativeWeave:tests/Generators.Model/",
+        "Plan:ledger/evidence/A09/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.Model/",
+        "NativeWeave:tests/Generators.Model/",
+        "Plan:ledger/evidence/A09/"
+      ],
+      "resource_locks": [],
+      "module": "Generators.Model",
+      "candidate_api": "AbiModule; AbiType; FunctionContract; ValidateAbiModel()",
+      "method": "选定来源解析为小IR；ownership/thread/capability是显式字段；禁止任意Rust/C#类型偷偷透传",
+      "failure_paths": [
+        "递归不支持类型、重复symbol、ABI版本漂移、丢失lifetime annotation"
+      ],
+      "specific_verification": [
+        "输入正反fixtures；确定性序列化；精确diagnostic span；schema升级"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A09.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A01": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "48f8357ae638187c4e4fdaaecfc75a0450d107eb38f21fb3c81310ed620165ec"
+    },
+    {
+      "id": "A10",
+      "title": "C# LibraryImport绑定发射",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A10",
+      "start_dependencies": [
+        "A09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R04",
+        "R05",
+        "R06"
+      ],
+      "documentation_refs": [
+        "D03"
+      ],
+      "outputs": [
+        "NativeWeave:src/Generators.CSharp/",
+        "NativeWeave:tests/Generators.CSharp/",
+        "Plan:ledger/evidence/A10/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.CSharp/",
+        "NativeWeave:tests/Generators.CSharp/",
+        "Plan:ledger/evidence/A10/"
+      ],
+      "resource_locks": [],
+      "module": "Generators.CSharp",
+      "candidate_api": "IncrementalGenerator -> partial LibraryImport methods + strongly typed adapter stubs",
+      "method": "生成稳定导入与强类型窄包装，分离生成输出与手写domain API；确定性避免无关重建；拒绝不满足UCO约束的非blittable签名；Direct P/Invoke loader行为需按官方约束测试",
+      "failure_paths": [
+        "unsupported marshaling、dll名称/RID差异、重复partial、泛型AOT缺元数据"
+      ],
+      "specific_verification": [
+        "golden编译；Windows/Linux AOT导入运行；incremental cache invalidation",
+        "隔离进程Native AOT负例：runtime marshalling启用时非blittable UCO签名可能fail-fast，不能靠catch恢复",
+        "Direct P/Invoke不能假定遵循DefaultDllImportSearchPaths，验证真实loader搜索路径"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A10.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "0fb4672aea3a365da212e9324dd20c385874ade654713fe27298e7cd02d5a899"
+    },
+    {
+      "id": "A11",
+      "title": "Rust导出与ABI一致性检查",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A11",
+      "start_dependencies": [
+        "A09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ERROR-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R03",
+        "R05"
+      ],
+      "documentation_refs": [
+        "D03",
+        "D02"
+      ],
+      "outputs": [
+        "NativeWeave:src/Generators.Rust/",
+        "NativeWeave:tests/Generators.Rust/",
+        "Plan:ledger/evidence/A11/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.Rust/",
+        "NativeWeave:tests/Generators.Rust/",
+        "Plan:ledger/evidence/A11/"
+      ],
+      "resource_locks": [],
+      "module": "Generators.Rust",
+      "candidate_api": "extern C export descriptor; ABI fingerprint; header/signature conformance",
+      "method": "生成或校验导出签名、layout与status；保持engine crate可独立使用；不得生成伪安全生命周期",
+      "failure_paths": [
+        "导出函数丢失、repr不符、symbol冲突、unwind遗漏、native descriptor版本不符"
+      ],
+      "specific_verification": [
+        "编译符号表；双语signature diff；负向ABI变更检测；独立crate build"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A11.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "d062f1fbf70263ffeb28eb78e2aaf519aac47ab4a91e5113282144fc848ffea6"
+    },
+    {
+      "id": "A12",
+      "title": "ABI、生命周期与AOT分析器",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A12",
+      "start_dependencies": [
+        "A09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R06",
+        "R02"
+      ],
+      "documentation_refs": [
+        "D03",
+        "D01"
+      ],
+      "outputs": [
+        "NativeWeave:src/Analyzers/",
+        "NativeWeave:tests/Analyzers/",
+        "Plan:ledger/evidence/A12/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Analyzers/",
+        "NativeWeave:tests/Analyzers/",
+        "Plan:ledger/evidence/A12/"
+      ],
+      "resource_locks": [],
+      "module": "Analyzers",
+      "candidate_api": "NWABI diagnostic family; NWLIFETIME diagnostics; NWAOT diagnostics",
+      "method": "只承诺静态可证明的检查；不支持生命周期逃逸、managed字段及动态code路径给清晰诊断；拒绝不满足UCO约束的非blittable签名；Direct P/Invoke loader行为需按官方约束测试",
+      "failure_paths": [
+        "错误误报和漏报、跨assembly不可见、生成文件重复诊断、编译器版本差异"
+      ],
+      "specific_verification": [
+        "正反诊断快照；location/codefix验证；AOT trimming warnings基线",
+        "隔离进程Native AOT负例：runtime marshalling启用时非blittable UCO签名可能fail-fast，不能靠catch恢复",
+        "Direct P/Invoke不能假定遵循DefaultDllImportSearchPaths，验证真实loader搜索路径"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A12.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "975b0d576fa741d89fffe5665bd19a6ba660fb380e1b3fa52176dcf93fa896d5"
+    },
+    {
+      "id": "A13",
+      "title": "MSBuild与Cargo可复现构建图",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A13",
+      "start_dependencies": [
+        "A09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R13",
+        "R14"
+      ],
+      "documentation_refs": [
+        "D10"
+      ],
+      "outputs": [
+        "NativeWeave:src/Build.Integration/",
+        "NativeWeave:tests/Build.Integration/",
+        "Plan:ledger/evidence/A13/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Build.Integration/",
+        "NativeWeave:tests/Build.Integration/",
+        "Plan:ledger/evidence/A13/"
+      ],
+      "resource_locks": [],
+      "module": "Build.Integration",
+      "candidate_api": "NativeWeave.targets; inputs.lock; cargo artifact metadata resolver",
+      "method": "host/target分离；inputs指纹连结binding/native产物；避免每次restore隐式联网构建",
+      "failure_paths": [
+        "stale binding、工具链缺失、路径空格、并行构建同输出、目标不匹配"
+      ],
+      "specific_verification": [
+        "clean/rebuild/offline；双RID并行；含空格路径；日志可复现"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A13.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "b7a6638dd6845b86d514774f46da753394c0cc23085067ab1904734b3a4b32c2"
+    },
+    {
+      "id": "A14",
+      "title": "Linux原生产物与AOT包验证",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A14",
+      "start_dependencies": [
+        "A13",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R13",
+        "R02"
+      ],
+      "documentation_refs": [
+        "D10",
+        "D01"
+      ],
+      "outputs": [
+        "NativeWeave:src/Packaging.Linux/",
+        "NativeWeave:tests/Packaging.Linux/",
+        "Plan:ledger/evidence/A14/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Packaging.Linux/",
+        "NativeWeave:tests/Packaging.Linux/",
+        "Plan:ledger/evidence/A14/"
+      ],
+      "resource_locks": [],
+      "module": "Packaging.Linux",
+      "candidate_api": "runtimes/linux-<arch>/native + target smoke app",
+      "method": "按已accept Linux profile确定glibc/musl/arch，不把x64成功扩成arm64；记录实际loader依赖",
+      "failure_paths": [
+        "缺共享库、glibc符号过新、错误架构、trim/link移除导出"
+      ],
+      "specific_verification": [
+        "在目标Linux构建/运行；无SDK干净环境；ldd/readelf依赖核验"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A14.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A13": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "f25b08ebae079f20080c2ddfd3d487033e877e0f1969b8839f73ec768a0d5e3c"
+    },
+    {
+      "id": "A15",
+      "title": "Windows原生产物与AOT包验证",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A15",
+      "start_dependencies": [
+        "A13",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R13",
+        "R02"
+      ],
+      "documentation_refs": [
+        "D10",
+        "D01"
+      ],
+      "outputs": [
+        "NativeWeave:src/Packaging.Windows/",
+        "NativeWeave:tests/Packaging.Windows/",
+        "Plan:ledger/evidence/A15/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Packaging.Windows/",
+        "NativeWeave:tests/Packaging.Windows/",
+        "Plan:ledger/evidence/A15/"
+      ],
+      "resource_locks": [],
+      "module": "Packaging.Windows",
+      "candidate_api": "runtimes/win-<arch>/native + target smoke app",
+      "method": "按accepted Windows profile选MSVC/CRT/SDK；验证DLL搜索与导出名，不更改系统DLL策略",
+      "failure_paths": [
+        "CRT缺失、x86/x64不符、DLL shadowing、路径编码、PDB丢失"
+      ],
+      "specific_verification": [
+        "真实Windows AOT发布运行；干净目标机；dumpbin符号与依赖；路径测试"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A15.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A13": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "37a377d075fd7b1004385a3772b9fce31fd52e6101de48756f2a9fad6dc45848"
+    },
+    {
+      "id": "A16",
+      "title": "独立NuGet/crate发布与来源记录",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A16",
+      "start_dependencies": [
+        "A14",
+        "A15",
+        "A22"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R14",
+        "R13"
+      ],
+      "documentation_refs": [
+        "D10"
+      ],
+      "outputs": [
+        "NativeWeave:src/Packaging.Release/",
+        "NativeWeave:tests/Packaging.Release/",
+        "Plan:ledger/evidence/A16/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Packaging.Release/",
+        "NativeWeave:tests/Packaging.Release/",
+        "Plan:ledger/evidence/A16/"
+      ],
+      "resource_locks": [],
+      "module": "Packaging.Release",
+      "candidate_api": "package manifest; SPDX SBOM; provenance; compatibility manifest",
+      "method": "独立包版本、签名/来源和符号；自动恢复发布包再运行；发布为单独授权动作",
+      "failure_paths": [
+        "缺许可证、native依赖遗漏、同版本内容变化、旧包不能回滚"
+      ],
+      "specific_verification": [
+        "本地pack/install；SBOM许可核对；版本矩阵；发布审查清单和dry-run"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A16.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A14": "0.1.0",
+        "A15": "0.1.0",
+        "A22": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "263136793a3df30daa34af2b5dcffd49d197b333d8611c97e53d983d899ed2b7"
+    },
+    {
+      "id": "A17",
+      "title": "真实同步Engine接入验证",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A17",
+      "start_dependencies": [
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PERF-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R18",
+        "R10",
+        "R17"
+      ],
+      "documentation_refs": [
+        "D11",
+        "D13"
+      ],
+      "outputs": [
+        "NativeWeave:src/Engines.SyncProof/",
+        "NativeWeave:tests/Engines.SyncProof/",
+        "Plan:ledger/evidence/A17/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Engines.SyncProof/",
+        "NativeWeave:tests/Engines.SyncProof/",
+        "Plan:ledger/evidence/A17/"
+      ],
+      "resource_locks": [],
+      "module": "Engines.SyncProof",
+      "candidate_api": "SyncEngine.Transform(ReadOnlySpan<byte>, Span<byte>) -> Result<bytes_written>",
+      "method": "在候选同步codec/计算库中证据选型；若选Zstd，必须比较.NET11 System.IO.Compression.Zstandard；无需async runtime",
+      "failure_paths": [
+        "目标buffer不足、损坏输入、构造失败、重复Dispose、不支持指令集"
+      ],
+      "specific_verification": [
+        "真实库完整调用链；纯C#与native同语义；runtime/线程零额外要求检查"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A17.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A02": "0.1.0",
+        "A03": "0.1.0",
+        "A04": "0.1.0",
+        "A05": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "376dd988dc90e310d7a88f089c974bf724b2574eb6a1a411c4be8d5b1e383e4c"
+    },
+    {
+      "id": "A18",
+      "title": "真实异步Engine接入验证",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A18",
+      "start_dependencies": [
+        "A02",
+        "A07",
+        "A08",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CONCURRENCY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R18",
+        "R09",
+        "R27"
+      ],
+      "documentation_refs": [
+        "D11",
+        "D06"
+      ],
+      "outputs": [
+        "NativeWeave:src/Engines.AsyncProof/",
+        "NativeWeave:tests/Engines.AsyncProof/",
+        "Plan:ledger/evidence/A18/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Engines.AsyncProof/",
+        "NativeWeave:tests/Engines.AsyncProof/",
+        "Plan:ledger/evidence/A18/"
+      ],
+      "resource_locks": [],
+      "module": "Engines.AsyncProof",
+      "candidate_api": "AsyncEngine.ExecuteAsync(request, CancellationToken) -> response stream",
+      "method": "选择真实异步HTTP或数据engine，与同步engine共享窄基础并验证能力差异；不复制领域状态到Core",
+      "failure_paths": [
+        "取消与完成、slow consumer、shutdown、重复回调、engine自身runtime退出"
+      ],
+      "specific_verification": [
+        "真实网络/异步资源；取消/关闭长测；独立crate/NuGet；跨Windows/Linux AOT"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A18.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A02": "0.1.0",
+        "A07": "0.1.0",
+        "A08": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "f9923ebe76263742855d5f9e75deedf2490e9ceaccf827018e50683c1047cf35"
+    },
+    {
+      "id": "A19",
+      "title": "生命周期与异步可执行模型",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A19",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-VERIFY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CALLBACK-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R15",
+        "R08",
+        "R09"
+      ],
+      "documentation_refs": [
+        "D12",
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "outputs": [
+        "NativeWeave:src/Verification.Models/",
+        "NativeWeave:tests/Verification.Models/",
+        "Plan:ledger/evidence/A19/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Models/",
+        "NativeWeave:tests/Verification.Models/",
+        "Plan:ledger/evidence/A19/"
+      ],
+      "resource_locks": [],
+      "module": "Verification.Models",
+      "candidate_api": "Model states: registered, in_flight, terminal, quiescent, reclaimed",
+      "method": "依据accepted契约独立写小状态模型与反例，模型可先于产品实现并行；假设与边界须映射到代码",
+      "failure_paths": [
+        "省略公平性、有限counter溢出、回调内注销、cancel同步触发、模型与实现不一致"
+      ],
+      "specific_verification": [
+        "TLA+/Loom/Kani按适用性选；反例seed；性质-实现映射；独立模型Review"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A19.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "kind": "model_check"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "kind": "model_check"
+        }
+      ],
+      "packet_sha256": "16ac6d9b80fdb5d530d953f06fda34913bbb0c96c246862259ec0dd7b3db6617"
+    },
+    {
+      "id": "A20",
+      "title": "ABI和资源跨语言性质与模糊测试",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A20",
+      "start_dependencies": [
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-VERIFY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R16",
+        "R34"
+      ],
+      "documentation_refs": [
+        "D12"
+      ],
+      "outputs": [
+        "NativeWeave:src/Verification.Interop/",
+        "NativeWeave:tests/Verification.Interop/",
+        "Plan:ledger/evidence/A20/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Interop/",
+        "NativeWeave:tests/Verification.Interop/",
+        "Plan:ledger/evidence/A20/"
+      ],
+      "resource_locks": [],
+      "module": "Verification.Interop",
+      "candidate_api": "property harness; differential layout oracle; fault schedules",
+      "method": "用最小native fixture测试错误length/handle/状态；支持可复放seed；已知崩溃子进程隔离",
+      "failure_paths": [
+        "越界/整数溢出、use-after-free、double-free、native abort、重复完成"
+      ],
+      "specific_verification": [
+        "property/fuzz seeds；支持目标sanitizer；失败最小化；Windows/Linux AOT conformance"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A20.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A03": "0.1.0",
+        "A04": "0.1.0",
+        "A05": "0.1.0",
+        "A06": "0.1.0",
+        "A07": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "c6b71b163f5dec452bdde9ed37ff3e90b48eb0f433d7ad577380e68c6758bf7e"
+    },
+    {
+      "id": "A21",
+      "title": "三路线基准与资源观测工具",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A21",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-PERF-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R17",
+        "R10"
+      ],
+      "documentation_refs": [
+        "D13"
+      ],
+      "outputs": [
+        "NativeWeave:src/Benchmarks.Harness/",
+        "NativeWeave:tests/Benchmarks.Harness/",
+        "Plan:ledger/evidence/A21/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Benchmarks.Harness/",
+        "NativeWeave:tests/Benchmarks.Harness/",
+        "Plan:ledger/evidence/A21/"
+      ],
+      "resource_locks": [],
+      "module": "Benchmarks.Harness",
+      "candidate_api": "WorkloadSpec; RunManifest; latency histogram; allocation and thread snapshots",
+      "method": "基准框架可与Engine实现并行；stub不能用于性能结论；采集运行配置与原始数据",
+      "failure_paths": [
+        "采样偏差、不同业务语义、遗漏冷启动、RSS归因错误、observability自扰动"
+      ],
+      "specific_verification": [
+        "harness重复性；负载发生器饱和排除；原始数据校验；不编造性能阈值"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A21.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "da689d5c5d5d3fe5981712c5644d17ecd84131007dc12852764c970c8efd2476"
+    },
+    {
+      "id": "A22",
+      "title": "ABI/API升级与兼容性测试",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A22",
+      "start_dependencies": [
+        "A02",
+        "A09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ABI-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R03",
+        "R14"
+      ],
+      "documentation_refs": [
+        "D02",
+        "D10"
+      ],
+      "outputs": [
+        "NativeWeave:src/Verification.Compatibility/",
+        "NativeWeave:tests/Verification.Compatibility/",
+        "Plan:ledger/evidence/A22/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Compatibility/",
+        "NativeWeave:tests/Verification.Compatibility/",
+        "Plan:ledger/evidence/A22/"
+      ],
+      "resource_locks": [],
+      "module": "Verification.Compatibility",
+      "candidate_api": "ContractFingerprint; old-client/new-engine and new-client/old-engine matrix",
+      "method": "保留已发布fixture；ABI兼容与API语义升级分开；兼容不等于所有功能可用",
+      "failure_paths": [
+        "能力不存在、size演进、enum扩展、symbol重命名、包native版本不一致"
+      ],
+      "specific_verification": [
+        "破坏性变更负向测试；明确拒绝路径；过期evidence重验"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A22.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A02": "0.1.0",
+        "A09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "e8793277663b8b2cd74e0ad59cdf6adc1457f27360616eede12a52364ddfea0d"
+    },
+    {
+      "id": "A23",
+      "title": "线程亲和与特殊平台接入探针",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A23",
+      "start_dependencies": [
+        "A02",
+        "A03",
+        "A06"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-EXTENSION-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CALLBACK-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R32",
+        "R33",
+        "R18"
+      ],
+      "documentation_refs": [
+        "D21",
+        "D11"
+      ],
+      "outputs": [
+        "NativeWeave:src/Verification.ExtensionProof/",
+        "NativeWeave:tests/Verification.ExtensionProof/",
+        "Plan:ledger/evidence/A23/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.ExtensionProof/",
+        "NativeWeave:tests/Verification.ExtensionProof/",
+        "Plan:ledger/evidence/A23/"
+      ],
+      "resource_locks": [],
+      "module": "Verification.ExtensionProof",
+      "candidate_api": "ThreadAffineCapability; dispatch token; platform link profile",
+      "method": "只实现验证边界所需最小探针，不实施GUI/GPU产品；证明event-loop和销毁线程可表达",
+      "failure_paths": [
+        "非拥有线程释放、主loop退出、迟到事件、静态链接缺symbol"
+      ],
+      "specific_verification": [
+        "桌面线程亲和fixture；移动目标仅在工具/设备可用时实测，其余显式blocked"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A23.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A02": "0.1.0",
+        "A03": "0.1.0",
+        "A06": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "d993b10a6555dbb429e2da2f650d78e797c4ac1a233c1ef40528c40837d50cc9"
+    },
+    {
+      "id": "A24",
+      "title": "Engine接入脚手架及conformance入口",
+      "phase": "A",
+      "status": "planned_candidate",
+      "owner_role": "delivery/A24",
+      "start_dependencies": [
+        "A02",
+        "A09",
+        "A13"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-ENGINE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BINDING-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R18",
+        "R05",
+        "R14"
+      ],
+      "documentation_refs": [
+        "D11"
+      ],
+      "outputs": [
+        "NativeWeave:src/Tooling.EngineScaffold/",
+        "NativeWeave:tests/Tooling.EngineScaffold/",
+        "Plan:ledger/evidence/A24/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Tooling.EngineScaffold/",
+        "NativeWeave:tests/Tooling.EngineScaffold/",
+        "Plan:ledger/evidence/A24/"
+      ],
+      "resource_locks": [],
+      "module": "Tooling.EngineScaffold",
+      "candidate_api": "engine manifest -> adapter skeleton + conformance commands",
+      "method": "按需生成sync/state/async/buffer/affinity能力；输出无多余executor；独立版本任务自动加入fragment",
+      "failure_paths": [
+        "能力组合不合法、覆盖手写文件、未知版本、缺许可/来源、重复Task ID"
+      ],
+      "specific_verification": [
+        "新engine空目录接入走通；两个不同能力fixture；生成内容determinism"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/A24.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A02": "0.1.0",
+        "A09": "0.1.0",
+        "A13": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "04ce65fe290ff3b5c1516eb96deb0cc48c25ef5896c8bcb9a4c608c70917f080"
+    },
+    {
+      "id": "B01",
+      "title": "DataSource与数据库能力基础",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B01",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R19",
+        "R20",
+        "R22"
+      ],
+      "documentation_refs": [
+        "D14"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Abstractions/",
+        "NativeWeave:tests/Data.Abstractions/",
+        "Plan:ledger/evidence/B01/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Abstractions/",
+        "NativeWeave:tests/Data.Abstractions/",
+        "Plan:ledger/evidence/B01/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Abstractions",
+      "candidate_api": "IDataSource; IConnectionLease; DbCommandSpec; RowReader",
+      "method": "确定强类型公共API和provider capability；不要为统一抽象隐藏事务/async差异；纯C#路线独立于native runtime",
+      "failure_paths": [
+        "不支持类型、错误provider、非法连接寿命、取消后读取"
+      ],
+      "specific_verification": [
+        "接口可编译样例；provider契约fixture；AOT泛型/序列化smoke"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B01.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "049b40756ae70190295b35a579848b61826ca489707e63cfc1733f5bceae5984"
+    },
+    {
+      "id": "B02",
+      "title": "PostgreSQL纯C#适配与基线",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B02",
+      "start_dependencies": [
+        "B01",
+        "B07"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R19",
+        "R21"
+      ],
+      "documentation_refs": [
+        "D14",
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Postgres.Managed/",
+        "NativeWeave:tests/Data.Postgres.Managed/",
+        "Plan:ledger/evidence/B02/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Postgres.Managed/",
+        "NativeWeave:tests/Data.Postgres.Managed/",
+        "Plan:ledger/evidence/B02/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Postgres.Managed",
+      "candidate_api": "Npgsql-backed DataSource adapter; explicit static type registration",
+      "method": "固定Npgsql版本核查AOT路径；dynamic JSON/tuple等opt-in的RequiresDynamicCode不能静默启用；复用driver自身池",
+      "failure_paths": [
+        "query cancel后的连接同步、未知类型、连接断开、timeout、partial reader dispose"
+      ],
+      "specific_verification": [
+        "PostgreSQL真实实例；AOT发布运行；类型/取消/复用测试；基础吞吐RSS记录"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B02.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0",
+        "B07": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "9643260b9aa6791ae3007146958cad4b99443ef66c819deb401c7cb8f65d9e83"
+    },
+    {
+      "id": "B03",
+      "title": "SQLite适配与线程/锁语义",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B03",
+      "start_dependencies": [
+        "B01",
+        "B07"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R20",
+        "R21"
+      ],
+      "documentation_refs": [
+        "D14",
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Sqlite/",
+        "NativeWeave:tests/Data.Sqlite/",
+        "Plan:ledger/evidence/B03/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Sqlite/",
+        "NativeWeave:tests/Data.Sqlite/",
+        "Plan:ledger/evidence/B03/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Sqlite",
+      "candidate_api": "SqliteDataSource; explicit transaction and statement lease",
+      "method": "以证据选provider，明确同步工作是否使用独立执行能力；不伪造底层async；statement严格finalize",
+      "failure_paths": [
+        "busy/locked、WAL切换、文件不存在、statement泄漏、同连接线程误用"
+      ],
+      "specific_verification": [
+        "真实SQLite文件；锁竞争；dispose后解锁；AOT本机打包；文件恢复"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B03.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0",
+        "B07": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "b01005aa871b2dbb2ea84f6b8b1ff582ad0ce15badab42f613ecdf138e837783"
+    },
+    {
+      "id": "B04",
+      "title": "可选Rust PostgreSQL Engine与Adapter",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B04",
+      "start_dependencies": [
+        "B01",
+        "B07",
+        "A03",
+        "A04",
+        "A05",
+        "A07",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CONCURRENCY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R19",
+        "R21",
+        "R22"
+      ],
+      "documentation_refs": [
+        "D14",
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Postgres.Native/",
+        "NativeWeave:tests/Data.Postgres.Native/",
+        "Plan:ledger/evidence/B04/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Postgres.Native/",
+        "NativeWeave:tests/Data.Postgres.Native/",
+        "Plan:ledger/evidence/B04/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Postgres.Native",
+      "candidate_api": "sqlx-backed engine adapter; typed row batches; NativeDbOperation",
+      "method": "只有native数据库路径被正式选中才实施；参数/行批量传输并量化copy；保留纯C#同语义基线",
+      "failure_paths": [
+        "SQLx Drop只start_rollback不能代表rollback完成；返池需确定协议与事务已干净；取消/stream关闭"
+      ],
+      "specific_verification": [
+        "PostgreSQL故障注入；native queue drain；跨语言生命周期；AOT端到端和对照性能"
+      ],
+      "selection_required": true,
+      "selection_status": "undecided",
+      "prompt": "tasks/B04.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0",
+        "B07": "0.1.0",
+        "A03": "0.1.0",
+        "A04": "0.1.0",
+        "A05": "0.1.0",
+        "A07": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "4cf74c3e96bc103a1c0a1443a4380f15704f106b52d5a34ae3575eb9fd9ee2ee"
+    },
+    {
+      "id": "B05",
+      "title": "事务状态、池租约与恢复策略",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B05",
+      "start_dependencies": [
+        "B01"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R21",
+        "R19",
+        "R20"
+      ],
+      "documentation_refs": [
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Transactions/",
+        "NativeWeave:tests/Data.Transactions/",
+        "Plan:ledger/evidence/B05/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Transactions/",
+        "NativeWeave:tests/Data.Transactions/",
+        "Plan:ledger/evidence/B05/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Transactions",
+      "candidate_api": "TransactionState: active/committing/committed/rolled_back/unknown; ConnectionHealth",
+      "method": "显式commit unknown；只在证据确认可复用时返池；不得对非幂等操作自动重试",
+      "failure_paths": [
+        "commit响应丢失、rollback失败、cancel后未排空、池满、savepoint失败"
+      ],
+      "specific_verification": [
+        "网络断开时序矩阵；事务绝不错误提交性质；pool conservation；真实DB恢复"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B05.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "ddc5093bc82e132eb6a7e41e7f0bd57aac7d97c2652dc87cd362d44dbe962e8e"
+    },
+    {
+      "id": "B06",
+      "title": "批量、COPY与流式读取",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B06",
+      "start_dependencies": [
+        "B01",
+        "B07"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R22",
+        "R10",
+        "R21"
+      ],
+      "documentation_refs": [
+        "D14",
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Streaming/",
+        "NativeWeave:tests/Data.Streaming/",
+        "Plan:ledger/evidence/B06/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Streaming/",
+        "NativeWeave:tests/Data.Streaming/",
+        "Plan:ledger/evidence/B06/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Streaming",
+      "candidate_api": "IAsyncEnumerable<RowBatch<T>>; BulkWriteAsync; bounded row lease",
+      "method": "批量/流式遵从provider能力；row和connection寿命绑定；每batch字节上限；不把iterator丢弃当正常完成",
+      "failure_paths": [
+        "消费者提前break、cancel、partial write、codec异常、reader未排空"
+      ],
+      "specific_verification": [
+        "大结果恒定资源趋势；backpressure；early dispose；事务原子性与pool归还"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B06.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0",
+        "B07": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "2ca0b2457e3442d51d739fe47c2ed1e2ad4bc484ca66b7f1afb0edc9d9fa3b75"
+    },
+    {
+      "id": "B07",
+      "title": "静态类型codec与值语义",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B07",
+      "start_dependencies": [
+        "B01"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R22",
+        "R24"
+      ],
+      "documentation_refs": [
+        "D14"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Codecs/",
+        "NativeWeave:tests/Data.Codecs/",
+        "Plan:ledger/evidence/B07/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Codecs/",
+        "NativeWeave:tests/Data.Codecs/",
+        "Plan:ledger/evidence/B07/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Codecs",
+      "candidate_api": "DbCodec<T>; NullableCodec<T>; decimal/time/UUID/JSON registration",
+      "method": "生成静态已知codec注册；精度/scale/时区/NULL语义显式；类型不支持给编译诊断或确定异常",
+      "failure_paths": [
+        "decimal溢出、NaN差异、time zone偏移、NULL进入非nullable、JSON动态反射"
+      ],
+      "specific_verification": [
+        "PostgreSQL/SQLite往返fixture；边界值property；AOT closed-generic验证"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B07.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "88d96aa0a063e1dbd11955ca5ccc08abf8b19ba637cc5c10200526403c3022ef"
+    },
+    {
+      "id": "B08",
+      "title": "迁移、Schema检查与升级协调",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B08",
+      "start_dependencies": [
+        "B01",
+        "B05"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R22",
+        "R21"
+      ],
+      "documentation_refs": [
+        "D15",
+        "D14"
+      ],
+      "outputs": [
+        "NativeWeave:src/Data.Migrations/",
+        "NativeWeave:tests/Data.Migrations/",
+        "Plan:ledger/evidence/B08/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Migrations/",
+        "NativeWeave:tests/Data.Migrations/",
+        "Plan:ledger/evidence/B08/"
+      ],
+      "resource_locks": [],
+      "module": "Data.Migrations",
+      "candidate_api": "MigrationPlan; SchemaVersion; ValidateSchemaAsync; migration lease",
+      "method": "迁移脚本与运行时ORM分离；schema版本检查与并发迁移锁显式；不承诺所有DDL可回滚",
+      "failure_paths": [
+        "半完成migration、进程crash、旧新应用共存、checksum变化、锁丢失"
+      ],
+      "specific_verification": [
+        "upgrade/failed upgrade/retry；兼容窗口；Postgres/SQLite特有DDL差异；无数据损坏oracle"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B08.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B01": "0.1.0",
+        "B05": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "62266bbd00b2cf931e98fd4a2d45c609427652ba9447939c21b25de7a9616742"
+    },
+    {
+      "id": "B09",
+      "title": "受限查询语义IR",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B09",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R23",
+        "R24",
+        "R25"
+      ],
+      "documentation_refs": [
+        "D16"
+      ],
+      "outputs": [
+        "NativeWeave:src/Query.Model/",
+        "NativeWeave:tests/Query.Model/",
+        "Plan:ledger/evidence/B09/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Model/",
+        "NativeWeave:tests/Query.Model/",
+        "Plan:ledger/evidence/B09/"
+      ],
+      "resource_locks": [],
+      "module": "Query.Model",
+      "candidate_api": "SelectNode; Predicate; ParameterRef; Projection; Join; Aggregate",
+      "method": "定义可支持关系操作和类型/nullability；不直接绑定driver；拒绝无法证明语义的表达式",
+      "failure_paths": [
+        "不可翻译方法、identifier注入、NULL逻辑误判、无序分页、聚合空集"
+      ],
+      "specific_verification": [
+        "IR正反fixtures；null真值表；类型检查；无运行时codegen"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B09.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "1cf7d318ccd5f6361cf578efa7667aad31cdcc00e0b85afb7ce5cb44fe97a605"
+    },
+    {
+      "id": "B10",
+      "title": "LINQ/Fluent语法捕获增量生成",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B10",
+      "start_dependencies": [
+        "B09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERYGEN-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-QUERY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R23",
+        "R06"
+      ],
+      "documentation_refs": [
+        "D17"
+      ],
+      "outputs": [
+        "NativeWeave:src/Query.Generator/",
+        "NativeWeave:tests/Query.Generator/",
+        "Plan:ledger/evidence/B10/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Generator/",
+        "NativeWeave:tests/Query.Generator/",
+        "Plan:ledger/evidence/B10/"
+      ],
+      "resource_locks": [],
+      "module": "Query.Generator",
+      "candidate_api": "query marker -> syntax/semantic analysis -> Query IR + diagnostics",
+      "method": "明确当前程序集静态可见边界；受限查询组合与闭包参数；不使用Expression.Compile；输出代码可审阅",
+      "failure_paths": [
+        "跨assembly不可见查询、运行时选择表达式、side effect、泛型未知、generator skip"
+      ],
+      "specific_verification": [
+        "supported/unsupported语法快照；skip必须诊断；生成源码编译；Windows/Linux AOT"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B10.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "16bdc2ccdfbe6b1942b9c4e5ec1ba4e4b90070888574d26f83c8a64a3db837b8"
+    },
+    {
+      "id": "B11",
+      "title": "PostgreSQL/SQLite SQL方言生成",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B11",
+      "start_dependencies": [
+        "B09"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R24",
+        "R22"
+      ],
+      "documentation_refs": [
+        "D16"
+      ],
+      "outputs": [
+        "NativeWeave:src/Query.Sql/",
+        "NativeWeave:tests/Query.Sql/",
+        "Plan:ledger/evidence/B11/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Sql/",
+        "NativeWeave:tests/Query.Sql/",
+        "Plan:ledger/evidence/B11/"
+      ],
+      "resource_locks": [],
+      "module": "Query.Sql",
+      "candidate_api": "SqlDialect.Emit(QueryModel) -> SQL + ParameterSchema",
+      "method": "值一律参数化；identifier来自受控元数据；NULL/collation/order/group语义按方言明确",
+      "failure_paths": [
+        "三值逻辑、LIMIT/OFFSET、join空值提升、reserved identifier、参数数量上限"
+      ],
+      "specific_verification": [
+        "真实双数据库差分；攻击字符串；结果与error类别oracle；SQL快照辅助"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B11.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B09": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "bf9d8fa19fa5397bced038eb43166309df0a8320d848935c7b44f57216152f4e"
+    },
+    {
+      "id": "B12",
+      "title": "静态Mapper、实体元数据与AOT",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B12",
+      "start_dependencies": [
+        "B07",
+        "B10"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERYGEN-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R25",
+        "R23",
+        "R22"
+      ],
+      "documentation_refs": [
+        "D17",
+        "D14"
+      ],
+      "outputs": [
+        "NativeWeave:src/Query.Materialization/",
+        "NativeWeave:tests/Query.Materialization/",
+        "Plan:ledger/evidence/B12/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Materialization/",
+        "NativeWeave:tests/Query.Materialization/",
+        "Plan:ledger/evidence/B12/"
+      ],
+      "resource_locks": [],
+      "module": "Query.Materialization",
+      "candidate_api": "GeneratedRowMapper<T>; EntityDescriptor<T>; generated parameter binder",
+      "method": "所有实体/投影/构造函数静态可见；DapperAOT仅作候选机制不能以引用包证明生成成功；检查生成是否跳过",
+      "failure_paths": [
+        "private ctor不可见、nullable不符、duplicate columns、泛型遗漏、converter动态代码"
+      ],
+      "specific_verification": [
+        "projection类型矩阵；generator输出审查；AOT trimming warnings；行映射差分"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B12.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B07": "0.1.0",
+        "B10": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "591e28ea3f5331875d4e973480b50645bb32e44b0a4bf5bd44dfb62107ba0cab"
+    },
+    {
+      "id": "B13",
+      "title": "运行时安全动态查询API",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B13",
+      "start_dependencies": [
+        "B09",
+        "B11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERYGEN-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-QUERY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R23",
+        "R24"
+      ],
+      "documentation_refs": [
+        "D17",
+        "D16"
+      ],
+      "outputs": [
+        "NativeWeave:src/Query.Dynamic/",
+        "NativeWeave:tests/Query.Dynamic/",
+        "Plan:ledger/evidence/B13/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Dynamic/",
+        "NativeWeave:tests/Query.Dynamic/",
+        "Plan:ledger/evidence/B13/"
+      ],
+      "resource_locks": [],
+      "module": "Query.Dynamic",
+      "candidate_api": "TypedFilter<T>; SortKey<T>; ParameterBag; validated query builder",
+      "method": "提供有限安全动态组合，不承诺任意IQueryable；枚举元数据驱动排序/过滤；明确客户端执行escape hatch",
+      "failure_paths": [
+        "未知字段、无限组合缓存、SQL标识符输入、隐式client evaluation"
+      ],
+      "specific_verification": [
+        "白名单负向测试；cache上界；参数化；AOT运行；诊断可理解性检查"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B13.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B09": "0.1.0",
+        "B11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "0c50d88c024edecbf99470adb042276f2ec684f4f702482c3857f7e4399d729b"
+    },
+    {
+      "id": "B14",
+      "title": "关系、工作单元与并发更新",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B14",
+      "start_dependencies": [
+        "B05",
+        "B11",
+        "B12"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-QUERY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-TX-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R25",
+        "R21",
+        "R24"
+      ],
+      "documentation_refs": [
+        "D16",
+        "D15"
+      ],
+      "outputs": [
+        "NativeWeave:src/Orm.Relations/",
+        "NativeWeave:tests/Orm.Relations/",
+        "Plan:ledger/evidence/B14/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Orm.Relations/",
+        "NativeWeave:tests/Orm.Relations/",
+        "Plan:ledger/evidence/B14/"
+      ],
+      "resource_locks": [],
+      "module": "Orm.Relations",
+      "candidate_api": "UnitOfWork; ExplicitLoad; ConcurrencyToken; relation descriptors",
+      "method": "按accepted范围选择tracking/no-tracking；关系加载显式；乐观并发冲突保留；不引入隐式lazy proxy",
+      "failure_paths": [
+        "N+1、重复实体身份、graph循环、并发token冲突、partial update失败"
+      ],
+      "specific_verification": [
+        "关系和join用例；冲突未吞掉；transaction rollback；AOT无动态proxy"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B14.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B05": "0.1.0",
+        "B11": "0.1.0",
+        "B12": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "bc9a3b82297c473277e61ec6ca44caf1de962cb3ec14b2da666bb6ddd9eaeeed"
+    },
+    {
+      "id": "B15",
+      "title": "Kestrel Native AOT Host与Handler",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B15",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-PLATFORM-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R26",
+        "R02"
+      ],
+      "documentation_refs": [
+        "D18"
+      ],
+      "outputs": [
+        "NativeWeave:src/Server.Kestrel/",
+        "NativeWeave:tests/Server.Kestrel/",
+        "Plan:ledger/evidence/B15/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Kestrel/",
+        "NativeWeave:tests/Server.Kestrel/",
+        "Plan:ledger/evidence/B15/"
+      ],
+      "resource_locks": [],
+      "module": "Server.Kestrel",
+      "candidate_api": "NativeWeaveHostBuilder; statically registered handler; generated serializer context",
+      "method": "先实现纯C#基线；复用Kestrel能力并控制默认服务；host不强制Rust runtime",
+      "failure_paths": [
+        "AOT route不支持、未知序列化类型、请求异常、配置错误、启动端口冲突"
+      ],
+      "specific_verification": [
+        "真实HTTP应用AOT运行；端点契约；startup/RSS；取消与关停"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B15.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "8b5c8ba50960829ce490c340dde0b5bc4face362335f30ac8fd2907e4ca0d6a5"
+    },
+    {
+      "id": "B16",
+      "title": "HTTP流、请求预算与背压",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B16",
+      "start_dependencies": [
+        "B15"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R29",
+        "R10"
+      ],
+      "documentation_refs": [
+        "D18"
+      ],
+      "outputs": [
+        "NativeWeave:src/Server.Streaming/",
+        "NativeWeave:tests/Server.Streaming/",
+        "Plan:ledger/evidence/B16/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Streaming/",
+        "NativeWeave:tests/Server.Streaming/",
+        "Plan:ledger/evidence/B16/"
+      ],
+      "resource_locks": [],
+      "module": "Server.Streaming",
+      "candidate_api": "RequestBudget; ReadBodyAsync; WriteBodyAsync; bounded stream lease",
+      "method": "端到端传递backpressure；按字节/连接/请求预算限制；取消和超时从request寿命驱动",
+      "failure_paths": [
+        "slowloris、slow consumer、half-close、header/body超限、write失败"
+      ],
+      "specific_verification": [
+        "slow-client长测；并发上界；超时/取消时清理；stream数据完整性"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B16.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B15": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "df4d2fa854b6c4b9810d115d7393eb33a8e9901079bd034a7bef2c27f87794db"
+    },
+    {
+      "id": "B17",
+      "title": "可选Rust Server Engine适配",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B17",
+      "start_dependencies": [
+        "A07",
+        "A08",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CONCURRENCY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R27",
+        "R09",
+        "R29"
+      ],
+      "documentation_refs": [
+        "D18"
+      ],
+      "outputs": [
+        "NativeWeave:src/Server.Native/",
+        "NativeWeave:tests/Server.Native/",
+        "Plan:ledger/evidence/B17/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Native/",
+        "NativeWeave:tests/Server.Native/",
+        "Plan:ledger/evidence/B17/"
+      ],
+      "resource_locks": [],
+      "module": "Server.Native",
+      "candidate_api": "RustServerEngine; coarse HandlerRequest lease; response stream credits",
+      "method": "仅证据通过后启用；自己版本化受限稳定C ABI；hyper现有C API为unstable/no semver不能直接成为NativeWeave稳定承诺",
+      "failure_paths": [
+        "handler panic/exception、迟到response、runtime shutdown、double buffering、每chunk跨FFI过量"
+      ],
+      "specific_verification": [
+        "同HTTP协议集差分；callback/stream races；Windows/Linux AOT；完整负载对照"
+      ],
+      "selection_required": true,
+      "selection_status": "undecided",
+      "prompt": "tasks/B17.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "A07": "0.1.0",
+        "A08": "0.1.0",
+        "A10": "0.1.0",
+        "A11": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "5cf31ccb929d44bda2fb4e144b82ef9f2c5c1647bde3742164f25eae3a68c96f"
+    },
+    {
+      "id": "B18",
+      "title": "gRPC强类型与AOT协议包",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B18",
+      "start_dependencies": [
+        "B15"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-PROTOCOL-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R28",
+        "R02"
+      ],
+      "documentation_refs": [
+        "D19"
+      ],
+      "outputs": [
+        "NativeWeave:src/Protocols.Grpc/",
+        "NativeWeave:tests/Protocols.Grpc/",
+        "Plan:ledger/evidence/B18/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Protocols.Grpc/",
+        "NativeWeave:tests/Protocols.Grpc/",
+        "Plan:ledger/evidence/B18/"
+      ],
+      "resource_locks": [],
+      "module": "Protocols.Grpc",
+      "candidate_api": "generated protobuf service adapter; explicit service registration",
+      "method": "独立协议包；固定支持的传输与serializer；复用grpc-dotnet官方生成路径后实证AOT",
+      "failure_paths": [
+        "未知service、stream cancel、message太大、deadline、error trailers"
+      ],
+      "specific_verification": [
+        "interop客户端；unary/streaming矩阵；deadline propagation；AOT双平台"
+      ],
+      "selection_required": true,
+      "selection_status": "undecided",
+      "prompt": "tasks/B18.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B15": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "50e42fd729e84f92bc12b49c9adc80475f7e2071bf1bd6af74b25debb2784a9a"
+    },
+    {
+      "id": "B19",
+      "title": "MCP协议包与静态JSON元数据",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B19",
+      "start_dependencies": [
+        "B15"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-PROTOCOL-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R28",
+        "R34"
+      ],
+      "documentation_refs": [
+        "D19"
+      ],
+      "outputs": [
+        "NativeWeave:src/Protocols.Mcp/",
+        "NativeWeave:tests/Protocols.Mcp/",
+        "Plan:ledger/evidence/B19/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Protocols.Mcp/",
+        "NativeWeave:tests/Protocols.Mcp/",
+        "Plan:ledger/evidence/B19/"
+      ],
+      "resource_locks": [],
+      "module": "Protocols.Mcp",
+      "candidate_api": "generated tool/resource registration; JsonSerializerContext; protocol-version profile",
+      "method": "固定MCP版本与capabilities；按SDK实际AOT能力选择；auth与endpoint安全显式",
+      "failure_paths": [
+        "非法消息、版本不支持、tool取消、认证失败、动态schema不可生成"
+      ],
+      "specific_verification": [
+        "协议合规fixture；畸形JSON；权限/limit；AOT工具调用；敏感数据不进日志"
+      ],
+      "selection_required": true,
+      "selection_status": "undecided",
+      "prompt": "tasks/B19.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B15": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "80f1f5b4f68f903605b80eef5d612d3c1330f3c52fa45e89ee4e3c11cb1eef31"
+    },
+    {
+      "id": "B20",
+      "title": "诊断关联、超时与关闭协调",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B20",
+      "start_dependencies": [
+        "B15",
+        "B16"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R30",
+        "R29",
+        "R11"
+      ],
+      "documentation_refs": [
+        "D18"
+      ],
+      "outputs": [
+        "NativeWeave:src/Server.Diagnostics/",
+        "NativeWeave:tests/Server.Diagnostics/",
+        "Plan:ledger/evidence/B20/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Diagnostics/",
+        "NativeWeave:tests/Server.Diagnostics/",
+        "Plan:ledger/evidence/B20/"
+      ],
+      "resource_locks": [],
+      "module": "Server.Diagnostics",
+      "candidate_api": "Activity bridge; Meter instruments; ShutdownCoordinator",
+      "method": "避免双重trace/provider；低基数metrics；请求deadline与host shutdown联动但状态独立",
+      "failure_paths": [
+        "span重复、high-cardinality增长、敏感参数泄漏、drain超时、未释放请求"
+      ],
+      "specific_verification": [
+        "关闭压力；指标计数守恒；禁记字段检查；观测启停的CPU/RSS成本"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B20.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {
+        "B15": "0.1.0",
+        "B16": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "1805ff633e038f36b36b5182a009c5f3a2783464915e8be981c258e116dbf9e9"
+    },
+    {
+      "id": "B21",
+      "title": "通用幂等任务参考服务",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B21",
+      "start_dependencies": [
+        "B02",
+        "B03",
+        "B05",
+        "B06",
+        "B08",
+        "B14",
+        "B15",
+        "B16"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-REFERENCE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-DB-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-SERVER-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R31",
+        "R21",
+        "R17"
+      ],
+      "documentation_refs": [
+        "D20"
+      ],
+      "outputs": [
+        "NativeWeave:src/Reference.TaskService/",
+        "NativeWeave:tests/Reference.TaskService/",
+        "Plan:ledger/evidence/B21/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Reference.TaskService/",
+        "NativeWeave:tests/Reference.TaskService/",
+        "Plan:ledger/evidence/B21/"
+      ],
+      "resource_locks": [],
+      "module": "Reference.TaskService",
+      "candidate_api": "POST /jobs with idempotency key; GET /jobs; transaction + paged/streamed results",
+      "method": "保持领域通用不依赖ArcForges；同功能可替换driver/host；schema和数据集固定",
+      "failure_paths": [
+        "重复请求、commit未知、request取消、分页稳定性、迁移并发和服务重启"
+      ],
+      "specific_verification": [
+        "端到端契约；数据库事实oracle；纯C# AOT基线；native可选路线差分"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B21.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B04",
+            "selection_status": "selected"
+          },
+          "task_id": "B04",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        }
+      ],
+      "selection_inputs": [
+        "B04",
+        "B17"
+      ],
+      "dependency_pins": {
+        "B02": "0.1.0",
+        "B03": "0.1.0",
+        "B05": "0.1.0",
+        "B06": "0.1.0",
+        "B08": "0.1.0",
+        "B14": "0.1.0",
+        "B15": "0.1.0",
+        "B16": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "3dd449a219f535d058ec387a81dc4846275b7e4c30c132f7926c92e68dc4ac9b"
+    },
+    {
+      "id": "B22",
+      "title": "端到端故障、崩溃与长期资源验证",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B22",
+      "start_dependencies": [
+        "B21"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-REFERENCE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-VERIFY-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R31",
+        "R16",
+        "R21"
+      ],
+      "documentation_refs": [
+        "D20",
+        "D12"
+      ],
+      "outputs": [
+        "NativeWeave:src/Verification.EndToEnd/",
+        "NativeWeave:tests/Verification.EndToEnd/",
+        "Plan:ledger/evidence/B22/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.EndToEnd/",
+        "NativeWeave:tests/Verification.EndToEnd/",
+        "Plan:ledger/evidence/B22/"
+      ],
+      "resource_locks": [],
+      "module": "Verification.EndToEnd",
+      "candidate_api": "fault schedule; process kill/restart; network proxy interruption; resource ledger",
+      "method": "对每个拟发布候选组合执行；外部oracle区分成功、失败和未知commit；记录长期资源曲线",
+      "failure_paths": [
+        "数据库掉线、进程强杀、连接池耗尽、TLS错误、重试重复提交、关闭竞态"
+      ],
+      "specific_verification": [
+        "Windows/Linux真实目标；故障种子重放；一致性和资源归还；未支持组合不标pass"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B22.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B04",
+            "selection_status": "selected"
+          },
+          "task_id": "B04",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        }
+      ],
+      "selection_inputs": [
+        "B04",
+        "B17"
+      ],
+      "dependency_pins": {
+        "B21": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "04581fe01c9449265caa25d0dda06008f99405938bdb490850045afbdc4ece50"
+    },
+    {
+      "id": "B23",
+      "title": "领域全负载性能与内存报告",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B23",
+      "start_dependencies": [
+        "B21",
+        "A21"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-PERF-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-REFERENCE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R17",
+        "R31",
+        "R27"
+      ],
+      "documentation_refs": [
+        "D13",
+        "D20"
+      ],
+      "outputs": [
+        "NativeWeave:src/Benchmarks.Domain/",
+        "NativeWeave:tests/Benchmarks.Domain/",
+        "Plan:ledger/evidence/B23/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Benchmarks.Domain/",
+        "NativeWeave:tests/Benchmarks.Domain/",
+        "Plan:ledger/evidence/B23/"
+      ],
+      "resource_locks": [],
+      "module": "Benchmarks.Domain",
+      "candidate_api": "workloads: transactional writes, filtered reads, streaming, cancellation-heavy",
+      "method": "同语义同数据比较C# AOT、selected mixed、适当纯Rust；可选路径未实现则缺测标记",
+      "failure_paths": [
+        "冷启动遗漏、连接池不同、DB瓶颈掩盖差异、尾延迟采样偏差"
+      ],
+      "specific_verification": [
+        "CPU/RSS/alloc/thread/startup/package/P95/P99原始数据；统计处理；无臆造阈值"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B23.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B04",
+            "selection_status": "selected"
+          },
+          "task_id": "B04",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        }
+      ],
+      "selection_inputs": [
+        "B04",
+        "B17"
+      ],
+      "dependency_pins": {
+        "B21": "0.1.0",
+        "A21": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "packet_sha256": "c31e2ad0c743a7de9b5a5b9a156088183b9f222a470ae3e75df322564f28b0c2"
+    },
+    {
+      "id": "B24",
+      "title": "领域兼容矩阵、独立包与发布验收",
+      "phase": "B",
+      "status": "planned_candidate",
+      "owner_role": "delivery/B24",
+      "start_dependencies": [
+        "B22",
+        "B23"
+      ],
+      "acceptance_dependencies": [],
+      "contract_inputs": [
+        {
+          "id": "C-BUILD-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-REFERENCE-001",
+          "version": "0.1.0-draft",
+          "required_status": "accepted"
+        }
+      ],
+      "research_refs": [
+        "R14",
+        "R31",
+        "R34"
+      ],
+      "documentation_refs": [
+        "D10",
+        "D20"
+      ],
+      "outputs": [
+        "NativeWeave:src/Packaging.Domain/",
+        "NativeWeave:tests/Packaging.Domain/",
+        "Plan:ledger/evidence/B24/"
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Packaging.Domain/",
+        "NativeWeave:tests/Packaging.Domain/",
+        "Plan:ledger/evidence/B24/"
+      ],
+      "resource_locks": [],
+      "module": "Packaging.Domain",
+      "candidate_api": "provider/protocol/ORM compatibility manifest; release checklist",
+      "method": "每domain独立打包；公开支持矩阵由真实证据决定；new engine不强制所有domain升级；发布单独审查",
+      "failure_paths": [
+        "driver版本错配、旧schema/new API、协议版本差异、遗漏native资产/许可"
+      ],
+      "specific_verification": [
+        "安装发布候选包到干净环境；AOT回归；证据可追溯；独立review和签收"
+      ],
+      "selection_required": false,
+      "selection_status": "not_applicable",
+      "prompt": "tasks/B24.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.0",
+      "author": "unassigned",
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B04",
+            "selection_status": "selected"
+          },
+          "task_id": "B04",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "选中的native组合必须进入参考应用/故障/基准/发布验收，纯C#路线不等待未选择native分支"
+        },
+        {
+          "condition": {
+            "task_id": "B18",
+            "selection_status": "selected"
+          },
+          "task_id": "B18",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "只有选择并验收的协议包可列入本次发布支持矩阵"
+        },
+        {
+          "condition": {
+            "task_id": "B19",
+            "selection_status": "selected"
+          },
+          "task_id": "B19",
+          "revision": "0.1.0",
+          "gate": "acceptance",
+          "reason": "只有选择并验收的协议包可列入本次发布支持矩阵"
+        }
+      ],
+      "selection_inputs": [
+        "B04",
+        "B17",
+        "B18",
+        "B19"
+      ],
+      "dependency_pins": {
+        "B22": "0.1.0",
+        "B23": "0.1.0"
+      },
+      "implementation_authorization": {
+        "status": "not_authorized",
+        "approval_record": null
+      },
+      "verification_requirements": [
+        {
+          "os": "Windows",
+          "arch": "x64",
+          "target_rid": "win-x64",
+          "kind": "native_aot_run"
+        },
+        {
+          "os": "Linux",
+          "arch": "x64",
+          "target_rid": "linux-x64",
+          "kind": "native_aot_run"
+        }
+      ],
+      "release_scope": {
+        "id": "domain-release-0.1",
+        "revision": "0.1.0",
+        "status": "proposed",
+        "components": [
+          {
+            "task_id": "B01",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B02",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B03",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B05",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B06",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B07",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B08",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B09",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B10",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B11",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B12",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B13",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B14",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B15",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B16",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B20",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B21",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B22",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B23",
+            "revision": "0.1.0",
+            "when": "always"
+          },
+          {
+            "task_id": "B04",
+            "revision": "0.1.0",
+            "when": "selected"
+          },
+          {
+            "task_id": "B17",
+            "revision": "0.1.0",
+            "when": "selected"
+          },
+          {
+            "task_id": "B18",
+            "revision": "0.1.0",
+            "when": "selected"
+          },
+          {
+            "task_id": "B19",
+            "revision": "0.1.0",
+            "when": "selected"
+          }
+        ]
+      },
+      "packet_sha256": "2a717d5e993f7b62b0f8acda169f1d966ccbb0bb1a407d308ff1cb3f796e9a74"
+    }
+  ]
+}
