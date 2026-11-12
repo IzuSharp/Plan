@@ -1,5 +1,20 @@
 # NativeWeave Plan：并行研究、并行文档与候选实施图
 
+## 首次启动输入定位
+
+本次启动包位于以下研究分支与 Draft PR，不能假定默认分支已经包含这些文件：
+
+- Design：[research/bootstrap-2026-11-12 分支](https://github.com/IzuSharp/NativeWeave-Design/tree/research/bootstrap-2026-11-12)；[Draft PR #1](https://github.com/IzuSharp/NativeWeave-Design/pull/1)。
+- Plan：[research/bootstrap-2026-11-12 分支](https://github.com/IzuSharp/Plan/tree/research/bootstrap-2026-11-12)；[Draft PR #1](https://github.com/IzuSharp/Plan/pull/1)。
+
+开始时分别解析两仓库该分支的**当前完整 commit SHA**，记录 `design_commit` 和 `plan_commit`，随后从这两个固定快照读取输入；仓库分支与 PR 只是导航入口，不能充当不可变源码证据。两个仓库的 SHA 各自记录，不能假定它们相同或原子更新；若跨仓库引用不一致，记录具体缺口并局部协调。
+
+在固定的 Plan 快照中读取本任务对应图节点和提示词/packet，核对 Task ID、`revision` 和正文实际字节的 `packet_sha256`；不匹配时先定位正确版本，不得直接改 hash 掩盖不一致。记录选用的任务版本及 hash。需要写入哪个仓库，就从其已记录的对应快照创建独立 `task/<ID>-<short-topic>` 分支，再按本任务的文件范围工作；不要从仅含初始化文件的默认分支开始，也不要将不同快照的契约与任务混用。
+
+产品仓库 https://github.com/IzuSharp/NativeWeave 本轮**不假定已有产品实现**。研究原型、规范草案和候选开发任务仍遵循下文的实际状态，不因找到发布入口而升级为已完成或已授权产品实施。
+
+本批114份任务提示词/packet统一修订为0.1.1，任务状态及契约版本保持原状。
+
 状态：**首次交付草案，2026-11-12**。本仓库中的计划从用户本次NativeWeave目标独立制定。ArcForges Design/Plan只参考文档格式与组织，内容、规则和验收政策不是本计划依据。
 
 这是实质性的研究启动包：34个研究专题、32个独立文档编制任务，以及阶段A 24项和阶段B 24项候选实施任务。每项都附可独立复制到新窗口的说明、具体问题/接口、文件范围和验收方法。**候选实施任务不是已经研究完成或已授权开工的产品计划。** 当前21个契约均为proposed，所有产品delivery均被明确阻塞；研究及文档draft可并行开始。
