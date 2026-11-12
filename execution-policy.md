@@ -33,3 +33,10 @@ B24包含精确revision的release_scope。总accepted只能描述scope内已验�
 accepted/complete/delivered等终结态均使用相同严格证据门禁。源码与packet/spec hash匹配；独立Review绑定当前内容和证据；依赖版本匹配；无blocking发现。身份不独立、manifest只是模板、测试失败/超时、AOT未执行、目标RID不符都会拒绝。
 
 部分交付记partially_verified；失败记failed并保留可复放seed/日志。修复后只复验实际影响范围与required gate，不能通过删失败证据、全局抑制警告或修改验收值冒充通过。发布包/合并/权限变更遵从任务与用户已有授权；本研究启动包不会执行产品发布。
+
+
+## Source-driven amendment (2026-11-12)
+
+NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，不授权大规模产品实现。
+
+读取source-driven-baseline.json、同ID新packet和Design ADR-0002。独立Review检查新hash、backend拒绝、fallible binder、无逐实体Cargo、Server body/retirement、三图和未完成验证。旧Review不接受新内容；不增加规划层。

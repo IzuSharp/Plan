@@ -28,3 +28,10 @@
 每个finding包含稳定ID、severity、精确位置与证据、反例、影响范围、处置建议、修复owner、复验步骤和状态。通过仅限实际检查的范围，未解决blocking问题不能用一句未来补充关闭。每个可独立修复的问题局部处理，不让无关专题停止。
 
 输出独立审查报告与本次实际运行结果。不要发送review邀请/人际消息、合并PR、发布产品或改权限；除非用户本会话另有明确授权。
+
+
+## Source-driven amendment (2026-11-12)
+
+NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，不授权大规模产品实现。
+
+读取source-driven-baseline.json、同ID新packet和Design ADR-0002。独立Review检查新hash、backend拒绝、fallible binder、无逐实体Cargo、Server body/retirement、三图和未完成验证。旧Review不接受新内容；不增加规划层。

@@ -16,3 +16,10 @@
 | 独立Review | 仅限本次初始体系实际审查记录 | 不替代全部未来Design与产品最终验收 |
 
 进入accepted需要本地manifest完整性校验和独立实质审查。manifest自身可被人写出来；工具不认证身份或实际执行真伪，Review必须回到固定源码、原始日志、制品与可信执行环境。
+
+
+## Source-driven amendment (2026-11-12)
+
+NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，不授权大规模产品实现。
+
+读取source-driven-baseline.json、同ID新packet和Design ADR-0002。独立Review检查新hash、backend拒绝、fallible binder、无逐实体Cargo、Server body/retirement、三图和未完成验证。旧Review不接受新内容；不增加规划层。

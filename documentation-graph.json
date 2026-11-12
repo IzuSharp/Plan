@@ -3,7 +3,7 @@
   "graph_kind": "documentation",
   "created_at": "2026-11-12",
   "authority": "IzuSharp/Plan",
-  "graph_status": "bootstrap_draft",
+  "graph_status": "source-driven-revision-proposed",
   "scope": "First-delivery research and documentation system; not accepted product architecture",
   "nodes": [
     {
@@ -34,22 +34,23 @@
       "contract_outputs": [
         "C-PLATFORM-001"
       ],
-      "specific_scope": "选定稳定基线的证据、每RID真实构建/运行要求、动态代码禁区、平台支持等级与升级策略；外延研究只作参考，核心profile可以独立接受，移动/GUI专题不能阻塞桌面core",
+      "specific_scope": "稳定工具链/平台矩阵；有限Linux SQLite原型不是正式Windows/Linux支持，逐项核验当前特性状态。",
       "prompt": "documentation-tasks/D01.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R33"
       ],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R01": "0.1.1",
-        "R02": "0.1.1"
+        "R01": "0.2.0",
+        "R02": "0.2.0"
       },
-      "packet_sha256": "4658002785f551e6c7fcbe1cf056d69651efad759d23fca88cf67b93c168c897"
+      "packet_sha256": "c11c28bcf59ebd81e4bc22d4d6c748fd4f09d9701dde73f6081857a30607facf",
+      "source_driven_amendment": "稳定工具链/平台矩阵；有限Linux SQLite原型不是正式Windows/Linux支持，逐项核验当前特性状态。"
     },
     {
       "id": "D02",
@@ -78,20 +79,21 @@
       "contract_outputs": [
         "C-ABI-001"
       ],
-      "specific_scope": "逐类型布局/对齐/编码、调用约定、版本协商、旧客户端行为、layout probes和非法输入规则",
+      "specific_scope": "私有native类型不跨ABI；direct/batch领域边界不改变Core布局/所有权，capability/version明确拒绝。",
       "prompt": "documentation-tasks/D02.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R03": "0.1.1",
-        "R04": "0.1.1"
+        "R03": "0.2.0",
+        "R04": "0.2.0"
       },
-      "packet_sha256": "4cfa2c834139045c8499cc9b6a19e2219d5af23539059e09914ed8a58fcb0b0d"
+      "packet_sha256": "c954e6708b2afc763067fc1084a076023a9cad6026c95f00ea102ec90b6ff102",
+      "source_driven_amendment": "私有native类型不跨ABI；direct/batch领域边界不改变Core布局/所有权，capability/version明确拒绝。"
     },
     {
       "id": "D03",
@@ -122,21 +124,22 @@
       "contract_outputs": [
         "C-BINDING-001"
       ],
-      "specific_scope": "唯一契约来源、规范化IR、确定性生成、诊断ID、LibraryImport发射、native签名对比和增量失效策略",
+      "specific_scope": "最小glue与校验，不在managed重写领域引擎；SG不得Cargo或假设能读取其他SG本轮输出。",
       "prompt": "documentation-tasks/D03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R04": "0.1.1",
-        "R05": "0.1.1",
-        "R06": "0.1.1"
+        "R04": "0.2.0",
+        "R05": "0.2.0",
+        "R06": "0.2.0"
       },
-      "packet_sha256": "ae3bfcff1f51311a907ac874ab9a7fdcd35b36cce62fd87f14a463f290aa9420"
+      "packet_sha256": "d67586807da56d80bcf92c6df8a2993d1cc9f749609e0eb7d1de0a1555880b7a",
+      "source_driven_amendment": "最小glue与校验，不在managed重写领域引擎；SG不得Cargo或假设能读取其他SG本轮输出。"
     },
     {
       "id": "D04",
@@ -167,21 +170,22 @@
       "contract_outputs": [
         "C-LIFETIME-001"
       ],
-      "specific_scope": "borrow/own/share/move定义、SafeHandle与lease选择、父子顺序、Dispose/终结器和有效调用保护",
+      "specific_scope": "保留lease，明确native可变builder单writer admission与SafeHandle的区别。",
       "prompt": "documentation-tasks/D04.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R07": "0.1.1",
-        "R10": "0.1.1",
-        "R15": "0.1.1"
+        "R07": "0.2.0",
+        "R10": "0.2.0",
+        "R15": "0.2.0"
       },
-      "packet_sha256": "75c6ccd848ed543a3eae0a2738ca1097a62959621c5b764565d3a5f10fe2ed02"
+      "packet_sha256": "0fccabe9b27415c831cb1f9aa1d05c3b9b9a8210fc367518c4934d6163406199",
+      "source_driven_amendment": "保留lease，明确native可变builder单writer admission与SafeHandle的区别。"
     },
     {
       "id": "D05",
@@ -212,21 +216,22 @@
       "contract_outputs": [
         "C-CALLBACK-001"
       ],
-      "specific_scope": "注册token、in-flight计数、reentrant Dispose、注销返回保证、GCHandle释放点和线程来源",
+      "specific_scope": "保留callback quiescence，ForeignHandler/body/context退休及注册代际，不以Task完成替代。",
       "prompt": "documentation-tasks/D05.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R08": "0.1.1",
-        "R07": "0.1.1",
-        "R15": "0.1.1"
+        "R08": "0.2.0",
+        "R07": "0.2.0",
+        "R15": "0.2.0"
       },
-      "packet_sha256": "e493b0ba781d216860587eb6f8e46bc809bba78549733b92e9439c79d349cdbb"
+      "packet_sha256": "a368eb03a961b27bd1a4d4939477ed63d85bbc7c86e0bd4fbce0cd06db32f0b7",
+      "source_driven_amendment": "保留callback quiescence，ForeignHandler/body/context退休及注册代际，不以Task完成替代。"
     },
     {
       "id": "D06",
@@ -257,21 +262,22 @@
       "contract_outputs": [
         "C-ASYNC-001"
       ],
-      "specific_scope": "submit、cancel-request、terminal、quiescent的区分；终态唯一；结果lease；continuation调度；迟到通知处置",
+      "specific_scope": "保留create/start/take_result/retire，分开response-head/body和deadline/真实回收。",
       "prompt": "documentation-tasks/D06.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R09": "0.1.1",
-        "R08": "0.1.1",
-        "R12": "0.1.1"
+        "R09": "0.2.0",
+        "R08": "0.2.0",
+        "R12": "0.2.0"
       },
-      "packet_sha256": "0d6f8c06dbccf3fbd2a7a391addc203f797a003ede9bbf4b38edd68483917102"
+      "packet_sha256": "3137d3c7ff8d5a2c616537d2a26bee6d33e478d7e14988f9d3dec7ee2adb99cb",
+      "source_driven_amendment": "保留create/start/take_result/retire，分开response-head/body和deadline/真实回收。"
     },
     {
       "id": "D07",
@@ -302,21 +308,22 @@
       "contract_outputs": [
         "C-BUFFER-001"
       ],
-      "specific_scope": "UTF8/slice/owned buffer布局、allocator归属、同步Span与异步Memory lease、容量与复制成本",
+      "specific_scope": "类型长度ownership与bounded批次，retained bytes不由protocol credit自动释放。",
       "prompt": "documentation-tasks/D07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R10": "0.1.1",
-        "R03": "0.1.1",
-        "R29": "0.1.1"
+        "R10": "0.2.0",
+        "R03": "0.2.0",
+        "R29": "0.2.0"
       },
-      "packet_sha256": "ae569639b9a5bc85818b66b972c788be61e3dd7c57e4b051bc0a25822b25e04c"
+      "packet_sha256": "198ab40d12ec88dd39578930abdf230646174feb5a9c849ae52c3aca9681cbbd",
+      "source_driven_amendment": "类型长度ownership与bounded批次，retained bytes不由protocol credit自动释放。"
     },
     {
       "id": "D08",
@@ -345,20 +352,21 @@
       "contract_outputs": [
         "C-ERROR-001"
       ],
-      "specific_scope": "status与消息寿命、错误分类、reverse P/Invoke封闭、panic=abort不可恢复路径、OOM和低成本成功路径",
+      "specific_scope": "panic containment/poisoned builder，fallible binder/UnsupportedCapability；catch不恢复abort或silent no-op。",
       "prompt": "documentation-tasks/D08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R11": "0.1.1",
-        "R34": "0.1.1"
+        "R11": "0.2.0",
+        "R34": "0.2.0"
       },
-      "packet_sha256": "64665225e71ff86c0dfa9eb006049333de7dc48bbf8c73624218e07ab68320c9"
+      "packet_sha256": "246d4f74c2f9f72dc3eb7956b4b1a0dbee3867f7236aaad26b66b8a400cfc26f",
+      "source_driven_amendment": "panic containment/poisoned builder，fallible binder/UnsupportedCapability；catch不恢复abort或silent no-op。"
     },
     {
       "id": "D09",
@@ -389,21 +397,22 @@
       "contract_outputs": [
         "C-CONCURRENCY-001"
       ],
-      "specific_scope": "Send/Sync能力、线程亲和、可选executor、队列容量、死锁禁止规则、shutdown排空与超时",
+      "specific_scope": "无全局Tokio；Engine-local与worker-affine策略、线程/runtime/关闭所有权。",
       "prompt": "documentation-tasks/D09.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R12": "0.1.1",
-        "R09": "0.1.1",
-        "R29": "0.1.1"
+        "R12": "0.2.0",
+        "R09": "0.2.0",
+        "R29": "0.2.0"
       },
-      "packet_sha256": "f115d314667a09678bbf5352b8b0a61147125c610bfdfe0e6a872f9abfb042d5"
+      "packet_sha256": "89359e6741f5c1dff58471c61279e2466e2c08b72b36e9963a3ea58582f493f6",
+      "source_driven_amendment": "无全局Tokio；Engine-local与worker-affine策略、线程/runtime/关闭所有权。"
     },
     {
       "id": "D10",
@@ -434,21 +443,22 @@
       "contract_outputs": [
         "C-BUILD-001"
       ],
-      "specific_scope": "Cargo/MSBuild DAG、RID/CRT/glibc矩阵、AOT链接、NuGet/crate版本、SBOM/许可、回滚与符号",
+      "specific_scope": "维护者预编译native和NuGet消费，不默认每entity Cargo；pins/锁闭包/patch/差分/升级。",
       "prompt": "documentation-tasks/D10.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R13": "0.1.1",
-        "R14": "0.1.1",
-        "R02": "0.1.1"
+        "R13": "0.2.0",
+        "R14": "0.2.0",
+        "R02": "0.2.0"
       },
-      "packet_sha256": "7c397cebe35583648c53695cd63a81de26efeaf52681b37bd6e4b822ac92bd34"
+      "packet_sha256": "dbd5a70bafed6a5ff78099a4ee234d6f61798ee1c3577a8114f25aef0b72cbe8",
+      "source_driven_amendment": "维护者预编译native和NuGet消费，不默认每entity Cargo；pins/锁闭包/patch/差分/升级。"
     },
     {
       "id": "D11",
@@ -478,22 +488,23 @@
       "contract_outputs": [
         "C-ENGINE-001"
       ],
-      "specific_scope": "按能力组合manifest、纯C#零原生成本、两类真实engine接入、API/ABI升级、独立发布和新增任务模板；外延研究只作参考，核心profile可以独立接受，移动/GUI专题不能阻塞桌面core",
+      "specific_scope": "完整source-driven梯度、小Core/领域Adapter，至少两个异质真实Engine验证，未来领域仅边界。",
       "prompt": "documentation-tasks/D11.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R32"
       ],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R18": "0.1.1",
-        "R05": "0.1.1"
+        "R18": "0.2.0",
+        "R05": "0.2.0"
       },
-      "packet_sha256": "77c398655d52788f77cf2b87dcb21c3ed31f4747bd26732fcdadc3c4993fba7f"
+      "packet_sha256": "1bf9a82ae56f199263a3ec43622b5141b208494d32a4186e518602e0142b6e25",
+      "source_driven_amendment": "完整source-driven梯度、小Core/领域Adapter，至少两个异质真实Engine验证，未来领域仅边界。"
     },
     {
       "id": "D12",
@@ -524,21 +535,22 @@
       "contract_outputs": [
         "C-VERIFY-001"
       ],
-      "specific_scope": "有限状态模型性质、形式化假设、fuzz/property/差分、Windows/Linux AOT、失败日志、复验和范围限制",
+      "specific_scope": "保留model/property/fuzz/race/AOT，区分恢复原型、author-side模型和独立Review。",
       "prompt": "documentation-tasks/D12.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R15": "0.1.1",
-        "R16": "0.1.1",
-        "R34": "0.1.1"
+        "R15": "0.2.0",
+        "R16": "0.2.0",
+        "R34": "0.2.0"
       },
-      "packet_sha256": "c35b340c963bfe6d82b3492ae3f9a623b5f49b9f575884264bafb7e72db24b66"
+      "packet_sha256": "3e57878725efd36dc8639a9d8ac3fe85b39f1a264a2b0020a16f67ae0c230b9a",
+      "source_driven_amendment": "保留model/property/fuzz/race/AOT，区分恢复原型、author-side模型和独立Review。"
     },
     {
       "id": "D13",
@@ -568,22 +580,23 @@
       "contract_outputs": [
         "C-PERF-001"
       ],
-      "specific_scope": "三路线同语义负载、硬件和数据集、吞吐尾延迟、GC/native分配/RSS、开发工作量、统计与回归规则；外延研究只作参考，核心profile可以独立接受，移动/GUI专题不能阻塞桌面core",
+      "specific_scope": "native direct/batch/static fast path及原生/managed AOT完整成本；数值门槛有基线。",
       "prompt": "documentation-tasks/D13.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R31"
       ],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R17": "0.1.1",
-        "R10": "0.1.1"
+        "R17": "0.2.0",
+        "R10": "0.2.0"
       },
-      "packet_sha256": "a8abd2ad199a9996375e07e590ef6b0e60c3d94f0ddbe0371c3f0e7eb31ea73d"
+      "packet_sha256": "3f9de9d527f05ca3c830fe957eb688026750da28f6a5813dcf9a6444b2682592",
+      "source_driven_amendment": "native direct/batch/static fast path及原生/managed AOT完整成本；数值门槛有基线。"
     },
     {
       "id": "D14",
@@ -614,21 +627,22 @@
       "contract_outputs": [
         "C-DB-001"
       ],
-      "specific_scope": "PostgreSQL/SQLite能力矩阵、DataSource/Connection/Command/Row契约、显式类型codec、批量/流式、provider失败差异",
+      "specific_scope": "Rust DB mandatory，动态SeaQuery+SQLx与专用SeaORM比较；metadata/codec分开，typed batches/fallible binder。",
       "prompt": "documentation-tasks/D14.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R19": "0.1.1",
-        "R20": "0.1.1",
-        "R22": "0.1.1"
+        "R19": "0.2.0",
+        "R20": "0.2.0",
+        "R22": "0.2.0"
       },
-      "packet_sha256": "4e88a711f4ebac25ffd83b41f7a9f283b515ef4d047bc28a432ca3ae0377e84c"
+      "packet_sha256": "6bbde2f9fa15346b8c10c1abb899b13cd0841f4faedd126ead0285788292c692",
+      "source_driven_amendment": "Rust DB mandatory，动态SeaQuery+SQLx与专用SeaORM比较；metadata/codec分开，typed batches/fallible binder。"
     },
     {
       "id": "D15",
@@ -659,21 +673,22 @@
       "contract_outputs": [
         "C-TX-001"
       ],
-      "specific_scope": "lease与毒化连接、isolation/savepoint、commit unknown、rollback失败、超时、幂等重试职责和migration协调",
+      "specific_scope": "保留Unknown/effect/protocol/local lifetime与fixed session lease；移除必需SeaORM trait/model编译前置。",
       "prompt": "documentation-tasks/D15.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R21": "0.1.1",
-        "R19": "0.1.1",
-        "R20": "0.1.1"
+        "R21": "0.2.0",
+        "R19": "0.2.0",
+        "R20": "0.2.0"
       },
-      "packet_sha256": "cce4d00e3cc7983c2808cf7a5d47e4a08707885973c497ba5a929a78c5bd554c"
+      "packet_sha256": "5aeb66bea84dfbf10b149e615db764d916392fec0d199b2d92c5d50efc869388",
+      "source_driven_amendment": "保留Unknown/effect/protocol/local lifetime与fixed session lease；移除必需SeaORM trait/model编译前置。"
     },
     {
       "id": "D16",
@@ -704,21 +719,22 @@
       "contract_outputs": [
         "C-QUERY-001"
       ],
-      "specific_scope": "投影/关系/聚合/join/分页及NULL三值逻辑；方言/排序/标识符；tracking选择；真实数据库差分oracle",
+      "specific_scope": "SQL语义typed Fluent直接复用SeaQuery；不要求全LINQ/C# null补偿；CTE/window/join及backend拒绝。",
       "prompt": "documentation-tasks/D16.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R24": "0.1.1",
-        "R25": "0.1.1",
-        "R22": "0.1.1"
+        "R24": "0.2.0",
+        "R25": "0.2.0",
+        "R22": "0.2.0"
       },
-      "packet_sha256": "e7c09be39a8817ba183ff525c7e526eee2879924b52af251de4f5ee253d2c8b6"
+      "packet_sha256": "1b8ab05a519d3307e5579e4ca9f5e27365f17ca5afcfe7c930e6324b7e08a988",
+      "source_driven_amendment": "SQL语义typed Fluent直接复用SeaQuery；不要求全LINQ/C# null补偿；CTE/window/join及backend拒绝。"
     },
     {
       "id": "D17",
@@ -749,21 +765,22 @@
       "contract_outputs": [
         "C-QUERYGEN-001"
       ],
-      "specific_scope": "受支持LINQ/Fluent语法、静态分析可见范围、诊断ID、参数提取、mapper生成、动态过滤安全替代与AOT验证",
+      "specific_scope": "可选static descriptor/DTO增量生成，手写static同等路径；不默认schema-specific Rust或C#SQL Provider。",
       "prompt": "documentation-tasks/D17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R23": "0.1.1",
-        "R06": "0.1.1",
-        "R25": "0.1.1"
+        "R23": "0.2.0",
+        "R06": "0.2.0",
+        "R25": "0.2.0"
       },
-      "packet_sha256": "ae92f367f9f3d6d61004d903da62225179e38df270ce15801a334d617194ff3d"
+      "packet_sha256": "c10b6aad475c30f507a4014d25917fb281cb7a84b864d91121c074544b69e82b",
+      "source_driven_amendment": "可选static descriptor/DTO增量生成，手写static同等路径；不默认schema-specific Rust或C#SQL Provider。"
     },
     {
       "id": "D18",
@@ -794,21 +811,22 @@
       "contract_outputs": [
         "C-SERVER-001"
       ],
-      "specific_scope": "C# handler、request/response stream、容量/背压、取消/超时、TLS归属、Kestrel基线和可选Rust成本边界",
+      "specific_scope": "原生Service/Body/connection+C#handler，ResponseFuture/body许可与H2retained bytes分开，Kestrel对照。",
       "prompt": "documentation-tasks/D18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R26": "0.1.1",
-        "R27": "0.1.1",
-        "R29": "0.1.1"
+        "R26": "0.2.0",
+        "R27": "0.2.0",
+        "R29": "0.2.0"
       },
-      "packet_sha256": "b187b29c82f560462e1f64d56a6efd104ea3bf0cc4425838e8594b386a13372a"
+      "packet_sha256": "1823f95e01d0f8ee072c688c9da16e2c79cfac4af7f3a132430807d765cfe519",
+      "source_driven_amendment": "原生Service/Body/connection+C#handler，ResponseFuture/body许可与H2retained bytes分开，Kestrel对照。"
     },
     {
       "id": "D19",
@@ -844,16 +862,16 @@
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R28": "0.1.1",
-        "R30": "0.1.1",
-        "R34": "0.1.1"
+        "R28": "0.2.0",
+        "R30": "0.2.0",
+        "R34": "0.2.0"
       },
-      "packet_sha256": "03654e557279ef183119623d5a8dd9c1bf7aef0aa19591f7b16bc6548ab7d4aa"
+      "packet_sha256": "014825512df7acd169215901bbc1606161d307925aaab68cc1159ce1e541fcde"
     },
     {
       "id": "D20",
@@ -884,21 +902,22 @@
       "contract_outputs": [
         "C-REFERENCE-001"
       ],
-      "specific_scope": "通用幂等任务服务、迁移/事务/流式、外部一致性oracle、故障恢复、持续负载和3路线同语义比较",
+      "specific_scope": "Rust DB必需，同nativehash新增C#entity；保留幂等/outbox/Unknown/close，不默认逐schema SeaORM构建。",
       "prompt": "documentation-tasks/D20.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R31": "0.1.1",
-        "R17": "0.1.1",
-        "R21": "0.1.1"
+        "R31": "0.2.0",
+        "R17": "0.2.0",
+        "R21": "0.2.0"
       },
-      "packet_sha256": "73d137afaa90a9e6de5f411c12b3c80e870121ac73448b2a95c9d9ba572d0abb"
+      "packet_sha256": "541722c1b588e8dfbd40b25ad6f20a1aaf2e4fbdd0b6de0b8118d99d12a4f944",
+      "source_driven_amendment": "Rust DB必需，同nativehash新增C#entity；保留幂等/outbox/Unknown/close，不默认逐schema SeaORM构建。"
     },
     {
       "id": "D21",
@@ -934,16 +953,16 @@
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R32": "0.1.1",
-        "R33": "0.1.1",
-        "R18": "0.1.1"
+        "R32": "0.2.0",
+        "R33": "0.2.0",
+        "R18": "0.2.0"
       },
-      "packet_sha256": "217a660dc2ea0fba752bfcb02add884b40ec98f058dd3ab4e3c8a832efc89574"
+      "packet_sha256": "8b7807804498cdbc296e6b6a7bb818c0e1de6acfab32b0220529cbddf4e87218"
     },
     {
       "id": "D22",
@@ -983,26 +1002,27 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "A01-A05、A22的候选接口、文件边界、layout和释放测试、契约版本与验收证据；不能自改ABI",
+      "specific_scope": "细化既有ABI/lifetime/error，领域native对象不泄漏到Core。",
       "prompt": "documentation-tasks/D22.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R03": "0.1.1",
-        "R07": "0.1.1",
-        "R10": "0.1.1",
-        "R11": "0.1.1",
-        "D02": "0.1.1",
-        "D04": "0.1.1",
-        "D07": "0.1.1",
-        "D08": "0.1.1"
+        "R03": "0.2.0",
+        "R07": "0.2.0",
+        "R10": "0.2.0",
+        "R11": "0.2.0",
+        "D02": "0.2.0",
+        "D04": "0.2.0",
+        "D07": "0.2.0",
+        "D08": "0.2.0"
       },
-      "packet_sha256": "ffb10a59021b97fa40877a59514b57e1309074698833aebca5175ea1a4156b0e"
+      "packet_sha256": "1ada8329ca63b373342f1635a5ec748e6a645cfebb5dd4cddba6b479ad0b7b1e",
+      "source_driven_amendment": "细化既有ABI/lifetime/error，领域native对象不泄漏到Core。"
     },
     {
       "id": "D23",
@@ -1034,22 +1054,23 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "A09-A12的IR/生成器/诊断任务，golden与增量测试、AOT smoke、禁止改其他worker生成输出",
+      "specific_scope": "细化薄绑定与metadata/DTO，不预设完整查询编译器。",
       "prompt": "documentation-tasks/D23.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R04": "0.1.1",
-        "R05": "0.1.1",
-        "R06": "0.1.1",
-        "D03": "0.1.1"
+        "R04": "0.2.0",
+        "R05": "0.2.0",
+        "R06": "0.2.0",
+        "D03": "0.2.0"
       },
-      "packet_sha256": "0c34488eb076568950e47433db22cf03faebe22f3be5128277054a58fcf7a4ef"
+      "packet_sha256": "e3fe1c9c01f2ebb2e426e11e8ff0358ceba3e3ec61025236ac1562a5c6e69439",
+      "source_driven_amendment": "细化薄绑定与metadata/DTO，不预设完整查询编译器。"
     },
     {
       "id": "D24",
@@ -1085,24 +1106,25 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "A06-A08的状态机实现顺序和独立文件边界，迟到通知/取消/关闭与reentrant Dispose反例",
+      "specific_scope": "异步桥与body/retirement验证，不自动共享runtime。",
       "prompt": "documentation-tasks/D24.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R08": "0.1.1",
-        "R09": "0.1.1",
-        "R12": "0.1.1",
-        "D05": "0.1.1",
-        "D06": "0.1.1",
-        "D09": "0.1.1"
+        "R08": "0.2.0",
+        "R09": "0.2.0",
+        "R12": "0.2.0",
+        "D05": "0.2.0",
+        "D06": "0.2.0",
+        "D09": "0.2.0"
       },
-      "packet_sha256": "63bc1220afbd541762108ed8a9508001addfb0631a412d6f2588eab14989d4cf"
+      "packet_sha256": "8b55c98005b44ff8dcdce77103ce745e1277e1bd05b287c4d891b4e6c05dd6b8",
+      "source_driven_amendment": "异步桥与body/retirement验证，不自动共享runtime。"
     },
     {
       "id": "D25",
@@ -1136,23 +1158,24 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "A13-A16的Windows/Linux证据、RID、toolchain锁、包验证、来源与回滚；跨平台CI可并行",
+      "specific_scope": "维护者build、clean no-Rust/RID-free消费及AOT发布完整矩阵。",
       "prompt": "documentation-tasks/D25.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R13": "0.1.1",
-        "R14": "0.1.1",
-        "R02": "0.1.1",
-        "D01": "0.1.1",
-        "D10": "0.1.1"
+        "R13": "0.2.0",
+        "R14": "0.2.0",
+        "R02": "0.2.0",
+        "D01": "0.2.0",
+        "D10": "0.2.0"
       },
-      "packet_sha256": "c9adf782a03f03d6e694f8d4f021d1bf6cf154866e8297b8cd373cf570715522"
+      "packet_sha256": "e60b13a1651e0f5ab87ca43c8ab3bc27a92969a2451e85c1d9939cfd51763735",
+      "source_driven_amendment": "维护者build、clean no-Rust/RID-free消费及AOT发布完整矩阵。"
     },
     {
       "id": "D26",
@@ -1192,26 +1215,27 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "A17-A21、A23-A24双模块接入、模型到实现映射、fuzz与bench边界，安全验收不以表面并行跳过",
+      "specific_scope": "异质Engine、差分/fuzz/race/成本，补silent-no-op与body许可负例。",
       "prompt": "documentation-tasks/D26.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R15": "0.1.1",
-        "R16": "0.1.1",
-        "R17": "0.1.1",
-        "R18": "0.1.1",
-        "D11": "0.1.1",
-        "D12": "0.1.1",
-        "D13": "0.1.1",
-        "D21": "0.1.1"
+        "R15": "0.2.0",
+        "R16": "0.2.0",
+        "R17": "0.2.0",
+        "R18": "0.2.0",
+        "D11": "0.2.0",
+        "D12": "0.2.0",
+        "D13": "0.2.0",
+        "D21": "0.2.0"
       },
-      "packet_sha256": "0f6fd254584a0fe92b28bfdd63594d3c9f64e327495409656757a122205583ff"
+      "packet_sha256": "b56fc700b1e025680f5bd879c8a18839fc1c9fdd1b65fb34a7acddd3152f5f60",
+      "source_driven_amendment": "异质Engine、差分/fuzz/race/成本，补silent-no-op与body许可负例。"
     },
     {
       "id": "D27",
@@ -1247,24 +1271,25 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B01-B08驱动、池、事务、批量codec、migration任务，C#路线不人为等待全部Interop，Rust分支按所需契约依赖",
+      "specific_scope": "B01–B08 Rust驱动/host/池/事务/codec/流/迁移，B04必需而非可选。",
       "prompt": "documentation-tasks/D27.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R19": "0.1.1",
-        "R20": "0.1.1",
-        "R21": "0.1.1",
-        "R22": "0.1.1",
-        "D14": "0.1.1",
-        "D15": "0.1.1"
+        "R19": "0.2.0",
+        "R20": "0.2.0",
+        "R21": "0.2.0",
+        "R22": "0.2.0",
+        "D14": "0.2.0",
+        "D15": "0.2.0"
       },
-      "packet_sha256": "3ac4d78c77750ef66f86061ce3e4fcc9c789f85ef4b29c07735636418a09a389"
+      "packet_sha256": "d0bc6ce74ee4fd6a691002e613a38d02dc75e163ab9f97ce604a08e5501ff915",
+      "source_driven_amendment": "B01–B08 Rust驱动/host/池/事务/codec/流/迁移，B04必需而非可选。"
     },
     {
       "id": "D28",
@@ -1298,23 +1323,24 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B09-B14的IR、方言、syntax capture、mapper、动态API、关系，PostgreSQL/SQLite正确性与不支持语法诊断",
+      "specific_scope": "B09–B14 metadata/可选SG/native builder/binder/DTO/Fluent/关系，删除全LINQ与重复C#SQL任务。",
       "prompt": "documentation-tasks/D28.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R23": "0.1.1",
-        "R24": "0.1.1",
-        "R25": "0.1.1",
-        "D16": "0.1.1",
-        "D17": "0.1.1"
+        "R23": "0.2.0",
+        "R24": "0.2.0",
+        "R25": "0.2.0",
+        "D16": "0.2.0",
+        "D17": "0.2.0"
       },
-      "packet_sha256": "9dd662becfc649e5b3f72074a97fd0b5dd3d8c8b2f11dc902ea39ac9497bf565"
+      "packet_sha256": "cb632fa41f9537978b6355fc27f202a07f76c1bdd3f0e71f0d705b946545329f",
+      "source_driven_amendment": "B09–B14 metadata/可选SG/native builder/binder/DTO/Fluent/关系，删除全LINQ与重复C#SQL任务。"
     },
     {
       "id": "D29",
@@ -1352,25 +1378,26 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B15-B20的hosting/streaming/可选Rust/gRPC/MCP/诊断，纯C# baseline与可选native避免相互强制依赖",
+      "specific_scope": "原生Server成熟接缝和body预算，Kestrel对照/可选协议保持局部依赖。",
       "prompt": "documentation-tasks/D29.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R26": "0.1.1",
-        "R27": "0.1.1",
-        "R28": "0.1.1",
-        "R29": "0.1.1",
-        "R30": "0.1.1",
-        "D18": "0.1.1",
-        "D19": "0.1.1"
+        "R26": "0.2.0",
+        "R27": "0.2.0",
+        "R28": "0.2.0",
+        "R29": "0.2.0",
+        "R30": "0.2.0",
+        "D18": "0.2.0",
+        "D19": "0.2.0"
       },
-      "packet_sha256": "0fc6849f36f2eb8030400e455ccef97b77f5429913324efe376bf15f89f7c5a2"
+      "packet_sha256": "4e0e0d36ad81fffeac404f282780360634e0891f360c69308dec8d0006dcef42",
+      "source_driven_amendment": "原生Server成熟接缝和body预算，Kestrel对照/可选协议保持局部依赖。"
     },
     {
       "id": "D30",
@@ -1406,24 +1433,25 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B21-B24通用参考应用、失败注入、同语义benchmark、包兼容、持续运行和发布验收",
+      "specific_scope": "B21–B24必须包含B04；PG/SQLite故障、no-Rust consumer、Windows/Linux AOT及完整负载。",
       "prompt": "documentation-tasks/D30.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R31": "0.1.1",
-        "R17": "0.1.1",
-        "R21": "0.1.1",
-        "D20": "0.1.1",
-        "D12": "0.1.1",
-        "D13": "0.1.1"
+        "R31": "0.2.0",
+        "R17": "0.2.0",
+        "R21": "0.2.0",
+        "D20": "0.2.0",
+        "D12": "0.2.0",
+        "D13": "0.2.0"
       },
-      "packet_sha256": "956b00e5355d86cf3cb5e268e7a7ba06d34332668918e4bfb524c96cf05b0d26"
+      "packet_sha256": "bc1174315bdb881f2ef7d6513b1eaa0bb403fde98a3d1f6458bbf7143b540f7c",
+      "source_driven_amendment": "B21–B24必须包含B04；PG/SQLite故障、no-Rust consumer、Windows/Linux AOT及完整负载。"
     },
     {
       "id": "D31",
@@ -1459,24 +1487,25 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "契约版本固定、破坏性变更影响分析、新engine独立加图、证据过期和重新验证；局部协调不加全局锁",
+      "specific_scope": "源码/内部seam/patch/ABI/行为追溯，在既有三图内维护。",
       "prompt": "documentation-tasks/D31.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R14": "0.1.1",
-        "R18": "0.1.1",
-        "R34": "0.1.1",
-        "D02": "0.1.1",
-        "D10": "0.1.1",
-        "D11": "0.1.1"
+        "R14": "0.2.0",
+        "R18": "0.2.0",
+        "R34": "0.2.0",
+        "D02": "0.2.0",
+        "D10": "0.2.0",
+        "D11": "0.2.0"
       },
-      "packet_sha256": "d17d6e8d2e2fc69f044f14bd2602182deb3ffd0f261279697f786d3f24c32cef"
+      "packet_sha256": "d390fa0b7801df74bf0933e8db7e7b942688f129e042265af2100ed163ea9b3b",
+      "source_driven_amendment": "源码/内部seam/patch/ABI/行为追溯，在既有三图内维护。"
     },
     {
       "id": "D32",
@@ -1568,52 +1597,55 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "四层独立Review；查证据、接口矛盾、所有权/async竞态、AOT声明、SQL语义、无界资源和任务冲突，带发现ID与处置",
+      "specific_scope": "独立检查精确新commit/packet/contract hash；PR2–4旧Review不接受本轮修改。",
       "prompt": "documentation-tasks/D32.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R15": "0.1.1",
-        "R16": "0.1.1",
-        "R34": "0.1.1",
-        "D01": "0.1.1",
-        "D02": "0.1.1",
-        "D03": "0.1.1",
-        "D04": "0.1.1",
-        "D05": "0.1.1",
-        "D06": "0.1.1",
-        "D07": "0.1.1",
-        "D08": "0.1.1",
-        "D09": "0.1.1",
-        "D10": "0.1.1",
-        "D11": "0.1.1",
-        "D12": "0.1.1",
-        "D13": "0.1.1",
-        "D14": "0.1.1",
-        "D15": "0.1.1",
-        "D16": "0.1.1",
-        "D17": "0.1.1",
-        "D18": "0.1.1",
-        "D19": "0.1.1",
-        "D20": "0.1.1",
-        "D21": "0.1.1",
-        "D22": "0.1.1",
-        "D23": "0.1.1",
-        "D24": "0.1.1",
-        "D25": "0.1.1",
-        "D26": "0.1.1",
-        "D27": "0.1.1",
-        "D28": "0.1.1",
-        "D29": "0.1.1",
-        "D30": "0.1.1",
-        "D31": "0.1.1"
+        "R15": "0.2.0",
+        "R16": "0.2.0",
+        "R34": "0.2.0",
+        "D01": "0.2.0",
+        "D02": "0.2.0",
+        "D03": "0.2.0",
+        "D04": "0.2.0",
+        "D05": "0.2.0",
+        "D06": "0.2.0",
+        "D07": "0.2.0",
+        "D08": "0.2.0",
+        "D09": "0.2.0",
+        "D10": "0.2.0",
+        "D11": "0.2.0",
+        "D12": "0.2.0",
+        "D13": "0.2.0",
+        "D14": "0.2.0",
+        "D15": "0.2.0",
+        "D16": "0.2.0",
+        "D17": "0.2.0",
+        "D18": "0.2.0",
+        "D19": "0.2.0",
+        "D20": "0.2.0",
+        "D21": "0.2.0",
+        "D22": "0.2.0",
+        "D23": "0.2.0",
+        "D24": "0.2.0",
+        "D25": "0.2.0",
+        "D26": "0.2.0",
+        "D27": "0.2.0",
+        "D28": "0.2.0",
+        "D29": "0.2.0",
+        "D30": "0.2.0",
+        "D31": "0.2.0"
       },
-      "packet_sha256": "8e31d61a6ca4ccad06f31270fe3185478e7bab7f3e8fa9857287d074bc8f2e1b"
+      "packet_sha256": "3d1cb32c394ac7201869da2c6868aaf3cd4380042cff053f24b76805c3f4bde1",
+      "source_driven_amendment": "独立检查精确新commit/packet/contract hash；PR2–4旧Review不接受本轮修改。"
     }
-  ]
+  ],
+  "revision": "0.2.0",
+  "amendment": "Existing task IDs and gates retained; no product implementation authorization."
 }
