@@ -1,0 +1,2544 @@
+{
+  "schema_version": "1.0.0",
+  "graph_kind": "research",
+  "created_at": "2026-11-12",
+  "authority": "IzuSharp/Plan",
+  "graph_status": "bootstrap_draft",
+  "scope": "First-delivery research and documentation system; not accepted product architecture",
+  "nodes": [
+    {
+      "id": "R01",
+      "title": "稳定工具链与现代语言机制",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R01",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R01/report.md",
+        "NativeWeave-Design:docs/research/topics/R01/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R01/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R01/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/core",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/csharplang",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/roslyn",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "release metadata",
+        "language-version feature status",
+        "compiler feature tests",
+        "Rust RELEASES.md"
+      ],
+      "questions": [
+        "核验执行当日 .NET SDK、C#、Rust 稳定版及支持周期；Union Types、Closed Hierarchies 和内存安全功能究竟稳定、预览还是提案；哪些机制确实减少 NativeWeave 代码与成本"
+      ],
+      "alternatives": [
+        "当前稳定语法与兼容基线；Source Generator 与语言新特性；Rust stable 与 nightly 实验"
+      ],
+      "failure_paths": [
+        "版本漂移；SDK 与语言版本不匹配；看见提案误认为已交付"
+      ],
+      "verification": "官方发布记录逐项交叉核对，并给能力-状态-替代方案表",
+      "cross_review_by": [
+        "R02",
+        "R06",
+        "R33"
+      ],
+      "prompt": "research-tasks/R01.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/toolchain/report.md"
+      ],
+      "initial_seed_note": "核对初始证据：.NET11/C#15/Rust1.99.1；C#15 union内部object?可能装箱，不能等同零分配ABI union；不要把runtime async preview纳入稳定核心。",
+      "packet_sha256": "df0b83f6acb62605dec8b08b7fd52fd11a27c6fa8dabee698f3232b75c4095aa"
+    },
+    {
+      "id": "R02",
+      "title": "Native AOT、裁剪与平台支持",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R02",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R02/report.md",
+        "NativeWeave-Design:docs/research/topics/R02/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R02/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R02/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/sdk",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "src/coreclr/nativeaot",
+        "ILLink annotations",
+        "AOT smoke tests",
+        "NativeAOT restrictions"
+      ],
+      "questions": [
+        "动态代码、反射、泛型实例化和序列化怎样影响公开API；Windows/Linux各RID如何真实编译运行；静态元数据与插件的发布时扩展边界"
+      ],
+      "alternatives": [
+        "静态生成与显式注册；泛型封闭化与反射保留；静态/动态原生链接"
+      ],
+      "failure_paths": [
+        "MissingMetadata；动态加载缺失；裁剪后序列化错误；目标RID不可运行"
+      ],
+      "verification": "最小AOT矩阵覆盖禁止机制的失败样例和允许机制的成功样例",
+      "cross_review_by": [
+        "R01",
+        "R06",
+        "R13"
+      ],
+      "prompt": "research-tasks/R02.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "9e03cc5de735f5cc0d01da7af711db03bdeaf42c83dd2b3210351153a1cc9926"
+    },
+    {
+      "id": "R03",
+      "title": "C ABI、布局与版本协商",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R03",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R03/report.md",
+        "NativeWeave-Design:docs/research/topics/R03/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R03/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R03/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/llvm/llvm-project",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "repr(C) tests",
+        "LibraryImport marshalling tests",
+        "target ABI docs",
+        "layout probes"
+      ],
+      "questions": [
+        "整数宽度、bool/enum、结构体/union、UTF8切片和opaque handle如何编码；size/version字段如何演进；32/64位和调用约定的兼容边界",
+        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+      ],
+      "alternatives": [
+        "固定宽度DTO与opaque handle；指针返回与out参数；版本化函数表与版本化导出符号"
+      ],
+      "failure_paths": [
+        "padding；未初始化字节；错误调用约定；length溢出；旧客户端误读新布局",
+        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+      ],
+      "verification": "双语言sizeof/alignof/offset探针与不兼容变更反例",
+      "cross_review_by": [
+        "R04",
+        "R07",
+        "R10"
+      ],
+      "prompt": "research-tasks/R03.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "598a52bb7f8b9025062f6853b31b0f432e5c4eafb88650e6cc9aee78e3b7a0cf"
+    },
+    {
+      "id": "R04",
+      "title": "P/Invoke、回调入口与FFI调用成本",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R04",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R04/report.md",
+        "NativeWeave-Design:docs/research/topics/R04/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R04/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R04/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/csbindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "LibraryImportGenerator",
+        "UnmanagedCallersOnly tests",
+        "native export and generated bindings"
+      ],
+      "questions": [
+        "LibraryImport与DllImport何时适用；UnmanagedCallersOnly与delegate如何管理；SuppressGCTransition是否有安全且值得的使用面",
+        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+      ],
+      "alternatives": [
+        "源生成P/Invoke与手写声明；函数指针与固定委托；粗粒度批处理与细粒度调用"
+      ],
+      "failure_paths": [
+        "回调跨线程；错误GC transition；ABI bool映射；入口在AOT中缺失",
+        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+      ],
+      "verification": "固定版本入口调用链和真实AOT smoke，单独量化调用次数而非宣称端到端提速",
+      "cross_review_by": [
+        "R03",
+        "R05",
+        "R08"
+      ],
+      "prompt": "research-tasks/R04.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "62eed201365702eb81b3f5e43b084d1b7665797bf18dc8e98b19d55e9b8008cf"
+    },
+    {
+      "id": "R05",
+      "title": "绑定生成器与契约描述来源",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R05",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R05/report.md",
+        "NativeWeave-Design:docs/research/topics/R05/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R05/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R05/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/Cysharp/csbindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/mozilla/uniffi-rs",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/ralfbiedert/interoptopus",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-diplomat/diplomat",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/mozilla/cbindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/rust-bindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "AST parser",
+        "type mapping",
+        "IR",
+        "emitters",
+        "unsupported-type fixtures"
+      ],
+      "questions": [
+        "应复用现成生成器还是构建最小可验证IR；契约唯一权威放Rust声明、IDL还是受限描述；生命周期和线程语义如何进入生成链"
+      ],
+      "alternatives": [
+        "csbindgen+cbindgen；UniFFI/Interoptopus/Diplomat；自有窄IR与手写Adapter"
+      ],
+      "failure_paths": [
+        "生成器漂移；宏后类型不可见；静默不支持；错误生成ABI；缺少稳定诊断"
+      ],
+      "verification": "特性/成本矩阵及同一小API的绑定结果对照，不预设采用任一项目",
+      "cross_review_by": [
+        "R03",
+        "R04",
+        "R06"
+      ],
+      "prompt": "research-tasks/R05.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "d9ba7233f24feb089de793c0c7a2dca304532eca6dfeecbe3bf6967bca47fa88"
+    },
+    {
+      "id": "R06",
+      "title": "Roslyn增量生成与分析器",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R06",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R06/report.md",
+        "NativeWeave-Design:docs/research/topics/R06/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R06/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R06/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/roslyn",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/DapperLib/DapperAOT",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "IIncrementalGenerator pipeline",
+        "syntax/semantic providers",
+        "generator snapshots",
+        "diagnostic tests"
+      ],
+      "questions": [
+        "增量输入如何保持可缓存和确定性；如何诊断非法ABI类型、生命周期逃逸与未支持查询；生成代码怎样服务AOT",
+        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+      ],
+      "alternatives": [
+        "增量Generator与构建前工具；语义分析与受限标记API；自动推断与显式元数据"
+      ],
+      "failure_paths": [
+        "增量失效；多target差异；IDE/CLI不一致；重复符号；诊断定位错误",
+        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+      ],
+      "verification": "变更最小化与诊断golden tests方案，生成代码须可独立编译",
+      "cross_review_by": [
+        "R02",
+        "R05",
+        "R23"
+      ],
+      "prompt": "research-tasks/R06.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "5bab0ce41dc12e606e2272a961ddfa469bde7082cd8b3ea04799554f5cb257fc"
+    },
+    {
+      "id": "R07",
+      "title": "句柄、所有权、GC与父子资源",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R07",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R07/report.md",
+        "NativeWeave-Design:docs/research/topics/R07/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R07/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R07/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/godotengine/godot",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/qt/qtforpython",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "modules/mono",
+        "libshiboken ownership",
+        "SafeHandle implementation",
+        "GCHandle use"
+      ],
+      "questions": [
+        "借用/拥有/共享资源的身份如何表达；SafeHandle和generation handle table何时需要；父子销毁、转移所有权和终结器如何互不冲突"
+      ],
+      "alternatives": [
+        "SafeHandle直接指针；代际句柄表；显式lease；引用计数"
+      ],
+      "failure_paths": [
+        "ABA；双重释放；终结器线程违规；父已释放子仍活动；Dispose与调用竞争"
+      ],
+      "verification": "追踪创建->使用->最后释放以及异常路径；给释放一次与无悬空访问证明义务",
+      "cross_review_by": [
+        "R08",
+        "R09",
+        "R32"
+      ],
+      "prompt": "research-tasks/R07.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "e983236fed611d62a949927a5d1a14a4189e4338ae5da884df984e7a813015f8"
+    },
+    {
+      "id": "R08",
+      "title": "Callback注销、重入与释放竞态",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R08",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R08/report.md",
+        "NativeWeave-Design:docs/research/topics/R08/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R08/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R08/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/godotengine/godot",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/qt/qtforpython",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "callback registration",
+        "signal dispatch",
+        "GCHandle cleanup",
+        "cancellation callbacks"
+      ],
+      "questions": [
+        "注销返回是否保证静默；在回调中Dispose会不会死锁；如何让外来线程和迟到回调不访问已回收上下文"
+      ],
+      "alternatives": [
+        "同步drain；异步quiescence；代际token；事件队列转发"
+      ],
+      "failure_paths": [
+        "回调内注销；reentrant Dispose；in-flight回调；异常跨ABI；context提前free"
+      ],
+      "verification": "定义注册/撤销/排空线性化点，枚举至少一条迟到回调反例并给可检验修复",
+      "cross_review_by": [
+        "R07",
+        "R09",
+        "R12"
+      ],
+      "prompt": "research-tasks/R08.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:experiments/async-quiescence/model.py"
+      ],
+      "initial_seed_note": "初始有限模型：早free模型226状态发现UAF反例，quiescence+lease模型159状态无安全反例；需复核状态界限与假设，仅为研究seed。",
+      "packet_sha256": "690b702013f788e3c99144467a6c8157f313b1f5a5bdd398b87fad44c927d36a"
+    },
+    {
+      "id": "R09",
+      "title": "异步、取消与完成状态机",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R09",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R09/report.md",
+        "NativeWeave-Design:docs/research/topics/R09/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R09/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R09/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/tokio",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/mozilla/uniffi-rs",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "TaskCompletionSource",
+        "IValueTaskSource",
+        "ManualResetValueTaskSourceCore",
+        "Rust Future wake",
+        "cancellation paths"
+      ],
+      "questions": [
+        "完成/失败/取消/超时/关闭怎样竞争；取消请求与原生停止是否分离；ValueTask复用和continuation调度是否值得"
+      ],
+      "alternatives": [
+        "TaskCompletionSource初版；池化IValueTaskSource；callback push与poll/wake桥"
+      ],
+      "failure_paths": [
+        "重复完成；丢失wake；token注册同步触发；完成后迟到取消；结果资源泄漏"
+      ],
+      "verification": "终态唯一、最终静默和结果回收模型；包含所有竞争顺序的测试设计",
+      "cross_review_by": [
+        "R07",
+        "R08",
+        "R12"
+      ],
+      "prompt": "research-tasks/R09.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/toolchain/report.md"
+      ],
+      "initial_seed_note": "runtime async在初始官方证据中仍为preview；正式async桥不得依赖预览机制。另有experiments/async-quiescence/model.py有限状态实验，不能将顺序一致有限模型结论外推产品。",
+      "packet_sha256": "b695871a811c8d556edf74d8f75a2f2997bbb808286ae2abea49bd2db45d6afd"
+    },
+    {
+      "id": "R10",
+      "title": "Buffer、Pinning、批处理与数据传输",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R10",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R10/report.md",
+        "NativeWeave-Design:docs/research/topics/R10/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R10/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R10/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/bytes",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "MemoryManager",
+        "MemoryHandle",
+        "Pipelines",
+        "bytes ownership",
+        "native buffer release"
+      ],
+      "questions": [
+        "同步Span借用与跨async Memory租约如何区分；零拷贝是否降低总成本；池化、批处理与大对象如何有界"
+      ],
+      "alternatives": [
+        "必要复制；固定pin lease；原生owned buffer；批处理DTO；stream分块"
+      ],
+      "failure_paths": [
+        "pin泄漏；取消未归还；length/offset越界；错误allocator；池中对象提前复用"
+      ],
+      "verification": "每条数据路径给复制次数、所有者、访问窗口和销毁事件；基准需含长时间运行",
+      "cross_review_by": [
+        "R03",
+        "R07",
+        "R29"
+      ],
+      "prompt": "research-tasks/R10.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "db9f83593d9539269417f457a0a0dfc22919d674760942550da6ec37494023c4"
+    },
+    {
+      "id": "R11",
+      "title": "Error、panic、异常与故障隔离",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R11",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R11/report.md",
+        "NativeWeave-Design:docs/research/topics/R11/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R11/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R11/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/rust-lang/rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/mozilla/uniffi-rs",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "catch_unwind",
+        "panic ABI docs",
+        "error mapping",
+        "exception-to-status boundaries"
+      ],
+      "questions": [
+        "错误码和消息谁释放；Rust unwind、panic=abort、OOM与外部异常各有何边界；C#异常如何在reverse P/Invoke处封闭"
+      ],
+      "alternatives": [
+        "固定status+owned detail；thread-local last-error；Result风格与Exception Adapter"
+      ],
+      "failure_paths": [
+        "panic=abort进程终止；二次panic；错误分配失败；错误消息被下一调用覆盖"
+      ],
+      "verification": "明确可恢复/不可恢复边界并提出子进程故障注入，不能将catch_unwind写成万能保证",
+      "cross_review_by": [
+        "R03",
+        "R08",
+        "R34"
+      ],
+      "prompt": "research-tasks/R11.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "4450ce8ebaea49e3040dcfec110453d2deca4958c633ef16269259d019e1fdd5"
+    },
+    {
+      "id": "R12",
+      "title": "并发、执行器、线程亲和与关闭",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R12",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R12/report.md",
+        "NativeWeave-Design:docs/research/topics/R12/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R12/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R12/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/tokio-rs/tokio",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/egametang/ET",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/godotengine/godot",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "runtime builder",
+        "blocking pool",
+        "channels",
+        "actor/fiber scheduling",
+        "shutdown"
+      ],
+      "questions": [
+        "每引擎是否自带runtime；何时可共享；阻塞/异步/线程亲和机制如何按需组合；关闭如何达到排空与资源回收"
+      ],
+      "alternatives": [
+        "不引入runtime；可选共享executor；每引擎独立runtime；专用亲和线程"
+      ],
+      "failure_paths": [
+        "嵌套runtime；同步等待异步死锁；无界队列；线程池饥饿；shutdown期间新请求"
+      ],
+      "verification": "容量和等待关系图、关闭状态机、运行时数量/RSS成本表",
+      "cross_review_by": [
+        "R08",
+        "R09",
+        "R29"
+      ],
+      "prompt": "research-tasks/R12.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "5441c9b158bcb13b20ce5478ccea2c3dbdeafed8bd346aba16426093796d08ca"
+    },
+    {
+      "id": "R13",
+      "title": "MSBuild/Cargo、链接与目标平台",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R13",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R13/report.md",
+        "NativeWeave-Design:docs/research/topics/R13/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R13/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R13/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/sdk",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/cargo",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/csbindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "MSBuild targets",
+        "native linker invocation",
+        "cargo build metadata",
+        "RID resolution"
+      ],
+      "questions": [
+        "native产物怎样与托管生成依赖绑定；host/target工具链如何区分；静态动态链接、符号与loader path如何保证"
+      ],
+      "alternatives": [
+        "独立预构建runtime NuGet；源码构建targets；静态与动态native library"
+      ],
+      "failure_paths": [
+        "交叉编译不能执行；glibc基线；Windows CRT/链接器差异；错误RID选包；stale binding"
+      ],
+      "verification": "可复现Windows/Linux构建和无SDK目标机运行矩阵，逐项记录当前可执行范围",
+      "cross_review_by": [
+        "R02",
+        "R03",
+        "R14"
+      ],
+      "prompt": "research-tasks/R13.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "6747dcd619b59f5cb793c65f3483ec08ade22eea831688718e765b7da594aa57"
+    },
+    {
+      "id": "R14",
+      "title": "打包、兼容性、独立发布与来源",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R14",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R14/report.md",
+        "NativeWeave-Design:docs/research/topics/R14/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R14/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R14/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/NuGet/NuGet.Client",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/cargo",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/sigstore/cosign",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/anchore/syft",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "runtimes assets",
+        "package restore",
+        "cargo package",
+        "SBOM",
+        "provenance verification"
+      ],
+      "questions": [
+        "crate与Adapter NuGet如何独立版本；ABI兼容与API语义版本如何分离；许可证和传递native依赖怎样审计"
+      ],
+      "alternatives": [
+        "聚合包与RID拆包；内嵌native与外部分发；显式版本协商与强制同版"
+      ],
+      "failure_paths": [
+        "依赖替换；旧native被加载；许可证冲突；符号/来源缺失；重发布不可复现"
+      ],
+      "verification": "版本组合矩阵、SBOM/许可记录及回滚方法，选工具须考虑成本",
+      "cross_review_by": [
+        "R03",
+        "R13",
+        "R34"
+      ],
+      "prompt": "research-tasks/R14.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "e5cd148d2c75c3a3394d0a6f963babcaa3698a9cdb2c10c15de35093552dfdb0"
+    },
+    {
+      "id": "R15",
+      "title": "形式化与并发证明义务",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R15",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R15/report.md",
+        "NativeWeave-Design:docs/research/topics/R15/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R15/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R15/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/tlaplus/tlaplus",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/loom",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/model-checking/kani",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/miri",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "model examples",
+        "scheduler bounds",
+        "unsafe checks",
+        "proof harness"
+      ],
+      "questions": [
+        "哪些状态机可用TLA+或Loom精确建模；Miri/Kani覆盖什么不能覆盖什么；抽象与真实FFI实现如何对应"
+      ],
+      "alternatives": [
+        "小状态模型；线性化推理；Loom调度；Kani有界验证；手写性质测试"
+      ],
+      "failure_paths": [
+        "状态爆炸；公平性假设遗漏；模型与实现脱节；FFI不可执行；错误宣称全系统证明"
+      ],
+      "verification": "每个工具给性质、假设、界限、反例输出和实现映射；不要求形式化所有模块",
+      "cross_review_by": [
+        "R07",
+        "R08",
+        "R09"
+      ],
+      "prompt": "research-tasks/R15.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:experiments/async-quiescence/model.py"
+      ],
+      "initial_seed_note": "复核初始quiescence有限模型，检查顺序一致、事件上界、无真实FFI与平台行为等限制；不是产品正确性证明。",
+      "packet_sha256": "2d77114e0c3461528cf9d250c7888ee4e470252b2fe5c96c3aeefb9953c21f4c"
+    },
+    {
+      "id": "R16",
+      "title": "差分、属性、模糊与故障测试",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R16",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R16/report.md",
+        "NativeWeave-Design:docs/research/topics/R16/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R16/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R16/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/rust-fuzz/cargo-fuzz",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/proptest-rs/proptest",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/llvm/llvm-project",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "fuzz harnesses",
+        "sanitizer support",
+        "interop tests",
+        "property strategies"
+      ],
+      "questions": [
+        "跨语言布局/生命周期/SQL转换如何构造测试oracle；哪些sanitizer目标支持；崩溃如何归档复现"
+      ],
+      "alternatives": [
+        "proptest与FsCheck；进程隔离fuzz；差分SQL；ASan/TSan适用目标"
+      ],
+      "failure_paths": [
+        "oracle错误；UB隐藏；非确定性失败；unsupported sanitizer误标通过；取消时泄漏"
+      ],
+      "verification": "每类机制至少一个正常、错误、竞争、兼容fixture及可重放seed格式",
+      "cross_review_by": [
+        "R03",
+        "R09",
+        "R24"
+      ],
+      "prompt": "research-tasks/R16.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "7aab141de48823e6d3a3b142f63c42ea521b5212c97ed4976e30adc3e1c9173c"
+    },
+    {
+      "id": "R17",
+      "title": "端到端性能、内存与开发成本",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R17",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R17/report.md",
+        "NativeWeave-Design:docs/research/topics/R17/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R17/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R17/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/BenchmarkDotNet",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/diagnostics",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/bheisler/criterion.rs",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/HdrHistogram/HdrHistogram",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "AOT toolchain",
+        "profiler counters",
+        "histogram correction",
+        "benchmark harness"
+      ],
+      "questions": [
+        "如何公允比较纯C# AOT、混合、纯Rust；吞吐/尾延迟/GC/native alloc/线程/启动/包体/开发复杂度怎样一起评估"
+      ],
+      "alternatives": [
+        "固定负载open-loop与closed-loop；隔离microbench与全链路；RSS与分配归因"
+      ],
+      "failure_paths": [
+        "coordinated omission；不同语义/缓存；warmup偏差；采样不足；只选赢家负载"
+      ],
+      "verification": "硬件/功耗/负载/数据集/统计方法与回归规则，未测不编造数值目标",
+      "cross_review_by": [
+        "R10",
+        "R12",
+        "R31"
+      ],
+      "prompt": "research-tasks/R17.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "4e9c0ac680391b04e93a7fa828f3af8d1a48b806e4ac0304a45a60fda4c1339f"
+    },
+    {
+      "id": "R18",
+      "title": "按能力组合的Engine接入与通用性",
+      "phase": "A",
+      "status": "planned",
+      "owner_role": "research/R18",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R18/report.md",
+        "NativeWeave-Design:docs/research/topics/R18/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R18/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R18/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/Cysharp/csbindgen",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/mozilla/uniffi-rs",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/longbridge/nsh",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "engine manifests",
+        "adapter generation",
+        "link metadata",
+        "synchronous and async examples"
+      ],
+      "questions": [
+        "最小engine描述包含哪些能力；如何避免巨大core runtime；两个真实不同模块怎样验证可扩展而非同构demo"
+      ],
+      "alternatives": [
+        "同步编解码或计算模块；有状态异步HTTP/数据库模块；可选亲和性扩展"
+      ],
+      "failure_paths": [
+        "所有engine强制executor；领域状态泄入core；ABI扩展导致旧engine重建"
+      ],
+      "verification": "至少两类真实候选引擎的完整接入走查与新增engine增量成本表",
+      "cross_review_by": [
+        "R05",
+        "R12",
+        "R32"
+      ],
+      "prompt": "research-tasks/R18.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/toolchain/report.md"
+      ],
+      "initial_seed_note": "同步engine若选Zstd，必须纳入.NET11 System.IO.Compression.Zstandard基线，不预设Rust优势。",
+      "packet_sha256": "8dfdf204064aab258f9c4cc1c40018b66493b43a11e877cb3bd72ee9bf98f2b1"
+    },
+    {
+      "id": "R19",
+      "title": "PostgreSQL驱动与纯C#对照",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R19",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R19/report.md",
+        "NativeWeave-Design:docs/research/topics/R19/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R19/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R19/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/npgsql/npgsql",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/postgres/postgres",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "NpgsqlDataSourceBuilder",
+        "NpgsqlConnector",
+        "sqlx-postgres connection/protocol",
+        "protocol tests"
+      ],
+      "questions": [
+        "Npgsql NativeAOT能力与限制是什么；SQLx跨FFI是否值得；参数/类型协商/取消请求/协议同步怎样处理"
+      ],
+      "alternatives": [
+        "Npgsql直接适配；SQLx native adapter；其他成熟驱动仅在有具体问题时加入"
+      ],
+      "failure_paths": [
+        "查询取消后协议未同步；并发共享连接；unknown type；网络中断；超时复用污染"
+      ],
+      "verification": "同语义查询/事务负载比较，并追踪query->reader->dispose与取消恢复路径",
+      "cross_review_by": [
+        "R02",
+        "R21",
+        "R22"
+      ],
+      "prompt": "research-tasks/R19.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/domains/initial-findings.md"
+      ],
+      "initial_seed_note": "核查Npgsql动态JSON/tuple opt-in上的RequiresDynamicCode，不把全部驱动能力一并标为AOT安全。",
+      "packet_sha256": "ff0d0303b2b0a58d8d9b7e07b89eecc807af79dd62c3c057a2ff50a504f5e019"
+    },
+    {
+      "id": "R20",
+      "title": "SQLite适配、并发与线程限制",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R20",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R20/report.md",
+        "NativeWeave-Design:docs/research/topics/R20/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R20/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R20/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/efcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/ericsink/SQLitePCL.raw",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rusqlite/rusqlite",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/sqlite/sqlite",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "Microsoft.Data.Sqlite",
+        "sqlite3_step/finalize",
+        "busy handling",
+        "rusqlite Connection"
+      ],
+      "questions": [
+        "嵌入式SQLite实际同步行为怎样影响async API；线程模式、WAL、锁与busy timeout如何表达；NativeAOT打包成本"
+      ],
+      "alternatives": [
+        "Microsoft.Data.Sqlite/SQLitePCL.raw；rusqlite；轻薄原生API适配"
+      ],
+      "failure_paths": [
+        "busy/locked；statement未finalize；事务中取消；线程归属；文件损坏"
+      ],
+      "verification": "并发读写、busy、迁移、崩溃恢复与无伪async保证的矩阵",
+      "cross_review_by": [
+        "R02",
+        "R07",
+        "R21"
+      ],
+      "prompt": "research-tasks/R20.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "8064d704f2e3b2e07e4d1fbf1922a97b01ce2a93ce4f4f4ff4bc151b6d8b853f"
+    },
+    {
+      "id": "R21",
+      "title": "连接池、事务、取消与恢复",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R21",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R21/report.md",
+        "NativeWeave-Design:docs/research/topics/R21/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R21/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R21/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/npgsql/npgsql",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/postgres/postgres",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "pool rent/return",
+        "transaction commit rollback",
+        "savepoint",
+        "cancellation tests"
+      ],
+      "questions": [
+        "取消/timeout后何时可以返池；事务commit应答丢失如何表示未知结果；重试与幂等归谁；隔离级别怎样透传"
+      ],
+      "alternatives": [
+        "驱动自带池；框架轻薄policy；显式transaction lease；无自动重试"
+      ],
+      "failure_paths": [
+        "commit成功但响应丢失；rollback失败；池耗尽；连接毒化；嵌套事务误用"
+      ],
+      "verification": "事务状态机、commit unknown语义、池容量不变量和故障注入步骤",
+      "cross_review_by": [
+        "R09",
+        "R19",
+        "R20"
+      ],
+      "prompt": "research-tasks/R21.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/domains/initial-findings.md"
+      ],
+      "initial_seed_note": "SQLx v0.8.6事务Drop触发start_rollback；PG queue_simple_query不代表回滚已完成，必须追踪排空/返池。",
+      "packet_sha256": "1f7c1b4bb1baaf188e3da40b1286e20d334fac10d941f04f103f00b80ecf7ab4"
+    },
+    {
+      "id": "R22",
+      "title": "类型映射、批量流与Schema演进",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R22",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R22/report.md",
+        "NativeWeave-Design:docs/research/topics/R22/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R22/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R22/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/npgsql/npgsql",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/DapperLib/DapperAOT",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-orm",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "type handlers",
+        "COPY/batch",
+        "row mapping",
+        "migrations",
+        "schema introspection"
+      ],
+      "questions": [
+        "数字精度/时区/UUID/JSON/NULL如何保持语义；流式结果如何释放；迁移与schema版本如何安全协调"
+      ],
+      "alternatives": [
+        "显式codec；静态生成mapper；driver原生batch；独立migration工具"
+      ],
+      "failure_paths": [
+        "decimal溢出；时区改变；结果未消费；backpressure丢行；迁移半完成"
+      ],
+      "verification": "类型往返与跨驱动差分、批量故障原子性、迁移升级/回滚边界",
+      "cross_review_by": [
+        "R19",
+        "R20",
+        "R24"
+      ],
+      "prompt": "research-tasks/R22.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "4d1a2391ad586e528cc898985824bc3c3f27381685de53ffe3c5a8263b564b9a"
+    },
+    {
+      "id": "R23",
+      "title": "LINQ、Expression与编译期查询捕获",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R23",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R23/report.md",
+        "NativeWeave-Design:docs/research/topics/R23/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R23/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R23/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/roslyn",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/efcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/DapperLib/DapperAOT",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/linq2db/linq2db",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "query syntax lowering",
+        "expression visitor",
+        "query interceptor",
+        "source generator"
+      ],
+      "questions": [
+        "LINQ to Objects/IQueryable/Expression Trees分别承诺什么；哪些调用图可静态捕获；捕获闭包/泛型/组合查询怎样拒绝或改写"
+      ],
+      "alternatives": [
+        "受限LINQ generator；强类型Fluent DSL；显式命名查询；受控运行时解释"
+      ],
+      "failure_paths": [
+        "跨assembly不可见；动态组合；局部函数；表达式副作用；Expression.Compile引入动态代码"
+      ],
+      "verification": "给可支持语法清单、明确诊断与AOT smoke；不承诺任意LINQ编译期翻译",
+      "cross_review_by": [
+        "R06",
+        "R24",
+        "R25"
+      ],
+      "prompt": "research-tasks/R23.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/domains/initial-findings.md"
+      ],
+      "initial_seed_note": "DapperAOT存在skip生成路径，引用包不是成功生成或真实AOT验证的证据。",
+      "packet_sha256": "fa138a96a5ee3e9cb94071783be1bd5070b0cd1057207af92848ad4082cec221"
+    },
+    {
+      "id": "R24",
+      "title": "SQL语义、关系代数与参数安全",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R24",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R24/report.md",
+        "NativeWeave-Design:docs/research/topics/R24/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R24/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R24/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/efcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/linq2db/linq2db",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-query",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/postgres/postgres",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/sqlite/sqlite",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "SQL translators",
+        "relational nullability",
+        "query builders",
+        "query test suites"
+      ],
+      "questions": [
+        "NULL三值逻辑、collation、排序、join、group、distinct和分页如何定义；参数化能防哪些不能防哪些注入"
+      ],
+      "alternatives": [
+        "小关系IR+方言；复用查询构建器；有限操作白名单；直接参数SQL escape hatch"
+      ],
+      "failure_paths": [
+        "NULL与C# bool差异；非确定分页；identifier注入；integer溢出；provider差异"
+      ],
+      "verification": "对照真实PostgreSQL/SQLite的结果与error类别进行属性/差分测试",
+      "cross_review_by": [
+        "R22",
+        "R23",
+        "R25"
+      ],
+      "prompt": "research-tasks/R24.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "eb8ca392ff71d128ca7a373e4dcdacc261d2cb280389f02450c692cb9d2dede0"
+    },
+    {
+      "id": "R25",
+      "title": "ORM特性、跟踪与现成方案比较",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R25",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R25/report.md",
+        "NativeWeave-Design:docs/research/topics/R25/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R25/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R25/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/efcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/DapperLib/Dapper",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/DapperLib/DapperAOT",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/linq2db/linq2db",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-orm",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "materialization",
+        "change tracking",
+        "relationship fixup",
+        "query compilation",
+        "AOT tests"
+      ],
+      "questions": [
+        "强类型自然API需要多少ORM能力；哪些可复用哪些应显式不支持；变更跟踪/关系/并发token的成本和AOT边界"
+      ],
+      "alternatives": [
+        "静态轻量mapper；DapperAOT；EF编译查询相关机制；linq2db；自建有限ORM"
+      ],
+      "failure_paths": [
+        "隐式lazy load；N+1；全局缓存增长；未注册泛型；乐观并发冲突误吞"
+      ],
+      "verification": "用户用例矩阵与相同任务代码量/诊断/维护成本，不用框架名代替证明",
+      "cross_review_by": [
+        "R22",
+        "R23",
+        "R24"
+      ],
+      "prompt": "research-tasks/R25.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "22a35bfe736e0f07bfb21bc10115a6ea7dd20233489b07d9a7926f1c0436524f"
+    },
+    {
+      "id": "R26",
+      "title": "Kestrel与纯C# AOT服务器基线",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R26",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R26/report.md",
+        "NativeWeave-Design:docs/research/topics/R26/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R26/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R26/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "Kestrel Core",
+        "transport sockets",
+        "RequestDelegateGenerator",
+        "PipeReader",
+        "WebApplication"
+      ],
+      "questions": [
+        "现有C# stack能完成哪些目标；handler如何静态生成；HTTP生命周期/内存池/connection limit怎样控制"
+      ],
+      "alternatives": [
+        "ASP.NET Core slim/AOT路径；裸.NET sockets仅作特殊对照；平台原生transport"
+      ],
+      "failure_paths": [
+        "半关闭；request body未读；slow client；同步阻塞；AOT endpoint不可达"
+      ],
+      "verification": "真实应用发布运行、长连接/流式/取消路径与成本数据需求",
+      "cross_review_by": [
+        "R02",
+        "R27",
+        "R29"
+      ],
+      "prompt": "research-tasks/R26.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "655685a2f330da38f28fc79fb230840684fd0960037fb86b7df6fb52dafb8b8f"
+    },
+    {
+      "id": "R27",
+      "title": "Rust网络引擎与C# Handler边界",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R27",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R27/report.md",
+        "NativeWeave-Design:docs/research/topics/R27/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R27/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R27/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/tokio-rs/tokio",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/hyperium/hyper",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tower-rs/tower",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/axum",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "connection serve",
+        "request body stream",
+        "executor",
+        "Tower service",
+        "ffi callback"
+      ],
+      "questions": [
+        "把网络搬到Rust究竟减少还是增加分配/调度；HTTP模型怎样跨ABI；是否能避免重复TLS和两套executor"
+      ],
+      "alternatives": [
+        "纯Kestrel；Rust transport细粒度桥；Rust完整server+粗粒度handler桥"
+      ],
+      "failure_paths": [
+        "每chunk跨FFI；双缓冲；handler取消不传递；executor重入；panic关闭连接"
+      ],
+      "verification": "相同协议功能下成本分解，未有实测收益时维持可选候选",
+      "cross_review_by": [
+        "R09",
+        "R12",
+        "R26"
+      ],
+      "prompt": "research-tasks/R27.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/domains/initial-findings.md"
+      ],
+      "initial_seed_note": "hyper C API标注unstable/no semver，不能直接继承为NativeWeave稳定ABI承诺。",
+      "packet_sha256": "62de63775d25bf11e444b934ecd97353faa97de288fba6f54e3ef3342ee07868"
+    },
+    {
+      "id": "R28",
+      "title": "gRPC、MCP、TLS与协议适配",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R28",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R28/report.md",
+        "NativeWeave-Design:docs/research/topics/R28/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R28/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R28/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/grpc/grpc-dotnet",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/modelcontextprotocol/csharp-sdk",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/modelcontextprotocol/rust-sdk",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rustls/rustls",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "generated service bindings",
+        "JSON serialization context",
+        "protocol cancellation",
+        "TLS config"
+      ],
+      "questions": [
+        "协议与transport怎样分层；gRPC代码生成和MCP序列化可否AOT；TLS证书与认证归谁；协议版本如何固定"
+      ],
+      "alternatives": [
+        "现成C# SDK静态注册；Rust适配；protocol package独立于engine"
+      ],
+      "failure_paths": [
+        "不支持动态service发现；消息超限；认证绕过；证书轮换；版本互操作失败"
+      ],
+      "verification": "固定协议版本+能力矩阵+安全失败测试，不自建无必要的HTTP/TLS协议栈",
+      "cross_review_by": [
+        "R02",
+        "R26",
+        "R34"
+      ],
+      "prompt": "research-tasks/R28.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "66b0e922eed53c7d69cf7add9f9b303bacf20b64217f500d0b8a8110c0b11bdb"
+    },
+    {
+      "id": "R29",
+      "title": "请求流、背压、超时与优雅关闭",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R29",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R29/report.md",
+        "NativeWeave-Design:docs/research/topics/R29/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R29/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R29/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/tokio",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/hyperium/hyper",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/bytes",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "Pipelines pause/resume thresholds",
+        "body polling",
+        "cancellation",
+        "graceful shutdown"
+      ],
+      "questions": [
+        "请求与响应双向背压怎样贯通FFI；容量预算由字节还是条目限制；关闭时新请求/已接受请求如何处理"
+      ],
+      "alternatives": [
+        "Pull读取；有界channel；credit-based lease；驱动原生backpressure"
+      ],
+      "failure_paths": [
+        "slow reader；半关闭；超时/完成竞争；drain永不结束；缓冲无界"
+      ],
+      "verification": "给队列/租约上界性质、流终止状态机与slow-client长测方案",
+      "cross_review_by": [
+        "R09",
+        "R10",
+        "R12"
+      ],
+      "prompt": "research-tasks/R29.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "9e5b592c768f4990071a5010c24b420050eccecb5e38b08cda78dc1d720a4cea"
+    },
+    {
+      "id": "R30",
+      "title": "可观测性、诊断关联与成本",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R30",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R30/report.md",
+        "NativeWeave-Design:docs/research/topics/R30/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R30/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R30/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/diagnostics",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/open-telemetry/opentelemetry-dotnet",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/tokio-rs/tracing",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/open-telemetry/opentelemetry-rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "Activity propagation",
+        "Meter",
+        "trace context",
+        "subscriber",
+        "native stack symbols"
+      ],
+      "questions": [
+        "如何跨FFI关联trace而不复制大量状态；采样/metrics cardinality如何有界；错误诊断如何保留native stack"
+      ],
+      "alternatives": [
+        "C#统一出口；双方provider桥接；只传trace id与轻量标签"
+      ],
+      "failure_paths": [
+        "重复span；高基数内存增长；敏感SQL/参数泄漏；native崩溃无符号"
+      ],
+      "verification": "定义诊断字段、成本开关和禁记数据；无observer情况下测空闲成本",
+      "cross_review_by": [
+        "R11",
+        "R14",
+        "R29"
+      ],
+      "prompt": "research-tasks/R30.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "ffa4dd8840a5e2f68a1a6c2eea01fa1e83b07f241410985274068db97170779d"
+    },
+    {
+      "id": "R31",
+      "title": "数据库+服务器参考应用与故障恢复",
+      "phase": "B",
+      "status": "planned",
+      "owner_role": "research/R31",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R31/report.md",
+        "NativeWeave-Design:docs/research/topics/R31/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R31/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R31/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/npgsql/npgsql",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/postgres/postgres",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "transactional handlers",
+        "integration tests",
+        "network fault injection",
+        "crash recovery"
+      ],
+      "questions": [
+        "用何种最小通用业务同时暴露事务、流式、幂等和并发问题；如何比较3条技术路径同语义"
+      ],
+      "alternatives": [
+        "带幂等键的任务提交/查询服务；纯C#基线；可选Rust数据/网络后端"
+      ],
+      "failure_paths": [
+        "重复提交；commit未知；数据库重启；请求取消；进程crash；限流持续压力"
+      ],
+      "verification": "可重复数据集、外部oracle、长测/故障/恢复以及p95/p99统计计划",
+      "cross_review_by": [
+        "R17",
+        "R21",
+        "R26"
+      ],
+      "prompt": "research-tasks/R31.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "ff6ebe45d69e7a3390fa6c029ac7cb4dc499e9807b7132cdb720d2b02fad086c"
+    },
+    {
+      "id": "R32",
+      "title": "桌面GUI/GPU与线程亲和扩展",
+      "phase": "future",
+      "status": "planned",
+      "owner_role": "research/R32",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R32/report.md",
+        "NativeWeave-Design:docs/research/topics/R32/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R32/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R32/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/zed-industries/zed",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/longbridge/gpui-kit",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/longbridge/nsh",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/gfx-rs/wgpu",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/godotengine/godot",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "GPUI platform dispatcher",
+        "render context",
+        "native shell handles",
+        "event-loop integration"
+      ],
+      "questions": [
+        "不实现GUI时怎样证明engine契约容纳主线程、GPU对象寿命和事件循环；窗口/设备丢失怎样传播"
+      ],
+      "alternatives": [
+        "平台dispatcher能力；独立engine线程；应用主loop integration"
+      ],
+      "failure_paths": [
+        "GPU device lost；窗口先销毁；callback跨UI线程；句柄跨平台布局"
+      ],
+      "verification": "只输出扩展能力需求与契约反例，不预造完整GUI runtime或正式支持声明",
+      "cross_review_by": [
+        "R07",
+        "R12",
+        "R18"
+      ],
+      "prompt": "research-tasks/R32.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "1a61a414b5bb07b3abbadcc44060869784c1ca154d20ef573e39f619ad2bcb2b"
+    },
+    {
+      "id": "R33",
+      "title": "iOS/Android、静态链接与平台生命周期",
+      "phase": "future",
+      "status": "planned",
+      "owner_role": "research/R33",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R33/report.md",
+        "NativeWeave-Design:docs/research/topics/R33/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R33/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R33/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/maui",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/rust-lang/rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/android",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "NativeAOT target support docs",
+        "mobile packaging",
+        "native library load",
+        "lifecycle callbacks"
+      ],
+      "questions": [
+        "iOS和Android不同部署模式怎样影响AOT/链接/签名；app suspend/resume与UI线程如何约束engine；平台当前支持状态如何验证"
+      ],
+      "alternatives": [
+        "静态archive；平台原生library；独立移动profile；明确暂不支持的组合"
+      ],
+      "failure_paths": [
+        "符号裁剪；ABI架构不符；加载失败；后台挂起资源；分发平台限制"
+      ],
+      "verification": "官方支持证据+真机/模拟器分列，不以桌面AOT成功外推手机支持",
+      "cross_review_by": [
+        "R01",
+        "R02",
+        "R13"
+      ],
+      "prompt": "research-tasks/R33.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "dbb132841acff825dd8691db3e5a3faf5498067b9ce408dcc2a3880963da31b8"
+    },
+    {
+      "id": "R34",
+      "title": "边界安全、输入验证与资源滥用",
+      "phase": "A+B",
+      "status": "planned",
+      "owner_role": "research/R34",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contract_inputs": [],
+      "research_refs": [],
+      "documentation_refs": [],
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R34/report.md",
+        "NativeWeave-Design:docs/research/topics/R34/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R34/coverage.json"
+      ],
+      "write_scopes": [
+        "NativeWeave-Design:docs/research/topics/R34/"
+      ],
+      "resource_locks": [],
+      "source_targets": [
+        {
+          "repository": "https://github.com/rust-lang/rust",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/runtime",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/postgres/postgres",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/hyperium/hyper",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/dotnet/aspnetcore",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        }
+      ],
+      "symbol_targets": [
+        "slice construction",
+        "parser limits",
+        "TLS authentication",
+        "SQL parameters",
+        "request limits"
+      ],
+      "questions": [
+        "不可信length/handle/SQL标识符/请求体如何进入边界；资源预算怎样避免DoS；FFI内存安全和应用安全怎样分工"
+      ],
+      "alternatives": [
+        "受信内部ABI与可疑native输入分级；checked lengths；配额；显式参数化与认证"
+      ],
+      "failure_paths": [
+        "整数乘加溢出；悬空handle；超大body；SQL注入；panic；secret泄漏"
+      ],
+      "verification": "列具体信任边界和恶意输入测试，不把safe语言等同系统安全",
+      "cross_review_by": [
+        "R03",
+        "R11",
+        "R24"
+      ],
+      "prompt": "research-tasks/R34.md",
+      "acceptance_evidence": [],
+      "independent_reviewers": [],
+      "revision": "0.1.1",
+      "author": "unassigned",
+      "conditional_dependencies": [],
+      "selection_inputs": [],
+      "dependency_pins": {},
+      "packet_sha256": "e19b997569ec8ce0235d703d32e6fe1fdc090ce188fe3dcf1867ff964fbee6de"
+    }
+  ]
+}
