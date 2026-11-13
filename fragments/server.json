@@ -69,7 +69,7 @@
   ],
   "task_details": {
     "B15": {
-      "title": "C# Server Application、强类型 Handler 与静态注册",
+      "title": "C# Server Application, strongly typed Handlers and static registration",
       "boundary_and_ownership": "C# application/Handler/DI/static serializer surface; B17 owns actual native host.",
       "native_reuse": [
         "Required Rust Server B17 provides all transport/protocol/runtime resources.",
@@ -122,7 +122,7 @@
       }
     },
     "B16": {
-      "title": "Rust Body 与 C# 租约的有界流和预算",
+      "title": "Bounded streams and budgets for Rust Body and C# leases",
       "boundary_and_ownership": "Owned Body/Bytes budget and stream component; native/server/streaming is independent of host orchestration.",
       "native_reuse": [
         "http-body/Bytes/Tokio bounded channels and owner-backed buffers; no managed protocol AST/runtime."
@@ -173,7 +173,7 @@
       }
     },
     "B17": {
-      "title": "必需 Rust Server Host 与 Handler 边界",
+      "title": "Mandatory Rust Server Host and Handler boundaries",
       "boundary_and_ownership": "Only production host: Rust Tokio/Hyper/Tower/Axum composition, Engine-local runtime and native network/protocol/connection/shutdown.",
       "native_reuse": [
         "Tokio1.54.1, Hyper1.12.0/hyper-util0.1.21, Tower0.5.3; selective Axum0.8.9 routing; rustls0.23.46.",
@@ -231,7 +231,7 @@
       }
     },
     "B18": {
-      "title": "原生 Tonic gRPC 与 C# 静态 Protobuf 映射",
+      "title": "Native Tonic gRPC and C# static Protobuf mappings",
       "boundary_and_ownership": "Rust Tonic gRPC protocol with statically generated C# DTO codec/dispatch; optional package for consumers.",
       "native_reuse": [
         "Tonic0.14.9 public Codec/Encoder/Decoder, Grpc and Unary/ServerStreaming/ClientStreaming/StreamingService traits.",
@@ -287,7 +287,7 @@
       }
     },
     "B19": {
-      "title": "原生 rmcp 与 C# 静态工具和 JSON 映射",
+      "title": "Native rmcp and C# static tools and JSON mappings",
       "boundary_and_ownership": "Rust rmcp protocol with runtime tool metadata and static C# handlers/JSON metadata; optional package for consumers.",
       "native_reuse": [
         "rmcp3.10.0 StreamableHttpService<ForeignMcp,LocalSessionManager> Tower service and native model/transport."
@@ -341,7 +341,7 @@
       }
     },
     "B20": {
-      "title": "诊断关联、总期限与关闭协调",
+      "title": "Diagnostic correlation, overall deadlines and shutdown coordination",
       "boundary_and_ownership": "Native and managed diagnostic context/deadline/shutdown coordination, reusing actual host/stream state.",
       "native_reuse": [
         "ActivitySource/Meter and optional bounded OpenTelemetry exporter; Rust tracing0.1.44 per-poll Instrumented/WithDispatch."

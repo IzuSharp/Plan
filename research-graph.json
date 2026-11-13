@@ -8,7 +8,7 @@
   "nodes": [
     {
       "id": "R01",
-      "title": "稳定工具链与现代语言机制",
+      "title": "Stable toolchains and modern language mechanisms",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R01",
@@ -64,15 +64,15 @@
         "Rust RELEASES.md"
       ],
       "questions": [
-        "核验执行当日 .NET SDK、C#、Rust 稳定版及支持周期；Union Types、Closed Hierarchies 和内存安全功能究竟稳定、预览还是提案；哪些机制确实减少 NativeWeave 代码与成本"
+        "Verify the stable .NET SDK, C# and Rust versions and support lifecycles on the execution date; determine whether Union Types, Closed Hierarchies and memory safety features are stable, in preview or proposals; identify which mechanisms actually reduce NativeWeave code and cost"
       ],
       "alternatives": [
-        "当前稳定语法与兼容基线；Source Generator 与语言新特性；Rust stable 与 nightly 实验"
+        "Current stable syntax and compatibility baseline; Source Generator versus new language features; Rust stable versus nightly experiments"
       ],
       "failure_paths": [
-        "版本漂移；SDK 与语言版本不匹配；看见提案误认为已交付"
+        "Version drift; SDK and language version mismatch; mistaking a proposal for a shipped feature"
       ],
-      "verification": "官方发布记录逐项交叉核对，并给能力-状态-替代方案表",
+      "verification": "Cross-check official release records item by item and provide a capability-status-alternative table",
       "cross_review_by": [
         "R02",
         "R06",
@@ -108,7 +108,7 @@
     },
     {
       "id": "R02",
-      "title": "Native AOT、裁剪与平台支持",
+      "title": "Native AOT, trimming and platform support",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R02",
@@ -156,15 +156,15 @@
         "NativeAOT restrictions"
       ],
       "questions": [
-        "动态代码、反射、泛型实例化和序列化怎样影响公开API；Windows/Linux各RID如何真实编译运行；静态元数据与插件的发布时扩展边界"
+        "How dynamic code, reflection, generic instantiation and serialization affect public APIs; how to actually compile and run each Windows/Linux RID; publish-time extension boundaries for static metadata and plugins"
       ],
       "alternatives": [
-        "静态生成与显式注册；泛型封闭化与反射保留；静态/动态原生链接"
+        "Static generation and explicit registration; closed generic instantiations and reflection preservation; static/dynamic native linking"
       ],
       "failure_paths": [
-        "MissingMetadata；动态加载缺失；裁剪后序列化错误；目标RID不可运行"
+        "MissingMetadata; missing dynamic loading support; serialization errors after trimming; target RID cannot run"
       ],
-      "verification": "最小AOT矩阵覆盖禁止机制的失败样例和允许机制的成功样例",
+      "verification": "A minimal AOT matrix covering failure examples of prohibited mechanisms and successful examples of permitted mechanisms",
       "cross_review_by": [
         "R01",
         "R06",
@@ -196,7 +196,7 @@
     },
     {
       "id": "R03",
-      "title": "C ABI、布局与版本协商",
+      "title": "C ABI, layout and version negotiation",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R03",
@@ -245,18 +245,18 @@
         "layout probes"
       ],
       "questions": [
-        "比较稳定C ABI与native直接/批量操作；Rust AST/Value/trait私有布局不跨ABI；布局、版本、所有权分别验证。",
-        "整数宽度、bool/enum、结构体/union、UTF8切片和opaque handle如何编码；size/version字段如何演进；32/64位和调用约定的兼容边界",
-        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+        "Compare a stable C ABI with direct/batched native operations; private Rust AST/Value/trait layouts must not cross the ABI; validate layout, versioning and ownership separately.",
+        "How to encode integer widths, bool/enum, struct/union, UTF8 slices and opaque handles; how size/version fields evolve; compatibility boundaries for 32/64-bit targets and calling conventions",
+        "Verify .NET11 UCO restrictions on non-blittable signatures and fail-fast paths; how Direct P/Invoke bypassing DefaultDllImportSearchPaths affects diagnostics and loader tests"
       ],
       "alternatives": [
-        "固定宽度DTO与opaque handle；指针返回与out参数；版本化函数表与版本化导出符号"
+        "Fixed-width DTOs and opaque handles; pointer returns and out parameters; versioned function tables and versioned exported symbols"
       ],
       "failure_paths": [
-        "padding；未初始化字节；错误调用约定；length溢出；旧客户端误读新布局",
-        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+        "Padding; uninitialized bytes; incorrect calling convention; length overflow; old clients misreading new layouts",
+        "With runtime marshalling enabled, native calls to non-blittable UCO signatures such as bool returns/char parameters may fail fast; tests must run in an isolated process"
       ],
-      "verification": "双语言sizeof/alignof/offset探针与不兼容变更反例",
+      "verification": "Dual-language sizeof/alignof/offset probes and counterexamples for incompatible changes",
       "cross_review_by": [
         "R04",
         "R07",
@@ -291,7 +291,7 @@
     },
     {
       "id": "R04",
-      "title": "P/Invoke、回调入口与FFI调用成本",
+      "title": "P/Invoke, callback entry points and FFI call cost",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R04",
@@ -338,18 +338,18 @@
         "native export and generated bindings"
       ],
       "questions": [
-        "验证LibraryImport/UCO/函数指针、native线程回调和AOT；薄绑定仍须保证GCHandle与异常边界。",
-        "LibraryImport与DllImport何时适用；UnmanagedCallersOnly与delegate如何管理；SuppressGCTransition是否有安全且值得的使用面",
-        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+        "Validate LibraryImport/UCO/function pointers, native-thread callbacks and AOT; thin bindings must still guarantee GCHandle and exception boundaries.",
+        "When LibraryImport and DllImport apply; how to manage UnmanagedCallersOnly and delegates; whether SuppressGCTransition has a safe and worthwhile scope of use",
+        "Verify .NET11 UCO restrictions on non-blittable signatures and fail-fast paths; how Direct P/Invoke bypassing DefaultDllImportSearchPaths affects diagnostics and loader tests"
       ],
       "alternatives": [
-        "源生成P/Invoke与手写声明；函数指针与固定委托；粗粒度批处理与细粒度调用"
+        "Source-generated P/Invoke versus handwritten declarations; function pointers versus rooted delegates; coarse-grained batching versus fine-grained calls"
       ],
       "failure_paths": [
-        "回调跨线程；错误GC transition；ABI bool映射；入口在AOT中缺失",
-        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+        "Cross-thread callbacks; incorrect GC transition; ABI bool mapping; missing entry points in AOT",
+        "With runtime marshalling enabled, native calls to non-blittable UCO signatures such as bool returns/char parameters may fail fast; tests must run in an isolated process"
       ],
-      "verification": "固定版本入口调用链和真实AOT smoke，单独量化调用次数而非宣称端到端提速",
+      "verification": "Pin the version of the entry-point call chain and run an actual AOT smoke test; quantify call counts separately rather than claiming an end-to-end speedup",
       "cross_review_by": [
         "R03",
         "R05",
@@ -384,7 +384,7 @@
     },
     {
       "id": "R05",
-      "title": "绑定生成器与契约描述来源",
+      "title": "Binding generators and contract description sources",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R05",
@@ -454,16 +454,16 @@
         "unsupported-type fixtures"
       ],
       "questions": [
-        "比较现成生成器和最小绑定输入；生成ABI glue不等于重写领域引擎；分开动态metadata与编译native能力。",
-        "应复用现成生成器还是构建最小可验证IR；契约唯一权威放Rust声明、IDL还是受限描述；生命周期和线程语义如何进入生成链"
+        "Compare existing generators and minimal binding inputs; generating ABI glue does not mean reimplementing the domain engine; separate dynamic metadata from compiled native capabilities.",
+        "Whether to reuse an existing generator or build a minimal verifiable IR; whether Rust declarations, an IDL or a restricted description should be the sole contract authority; how lifetime and threading semantics enter the generation pipeline"
       ],
       "alternatives": [
-        "csbindgen+cbindgen；UniFFI/Interoptopus/Diplomat；自有窄IR与手写Adapter"
+        "csbindgen+cbindgen; UniFFI/Interoptopus/Diplomat; a narrow custom IR and handwritten Adapter"
       ],
       "failure_paths": [
-        "生成器漂移；宏后类型不可见；静默不支持；错误生成ABI；缺少稳定诊断"
+        "Generator drift; types hidden after macro expansion; silently unsupported features; incorrect generated ABI; missing stable diagnostics"
       ],
-      "verification": "特性/成本矩阵及同一小API的绑定结果对照，不预设采用任一项目",
+      "verification": "A feature/cost matrix and a comparison of binding results for the same small API, without presupposing adoption of any project",
       "cross_review_by": [
         "R03",
         "R04",
@@ -495,7 +495,7 @@
     },
     {
       "id": "R06",
-      "title": "Roslyn增量生成与分析器",
+      "title": "Roslyn incremental generation and analyzers",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R06",
@@ -543,18 +543,18 @@
         "diagnostic tests"
       ],
       "questions": [
-        "可选static descriptor/DTO生成、增量稳定性和诊断；不以SG/完整LINQ捕获为唯一查询路线，不在SG调用Cargo。",
-        "增量输入如何保持可缓存和确定性；如何诊断非法ABI类型、生命周期逃逸与未支持查询；生成代码怎样服务AOT",
-        "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
+        "Optional static descriptor/DTO generation, incremental stability and diagnostics; do not make SG/full LINQ capture the only query route, and do not invoke Cargo from an SG.",
+        "How incremental inputs remain cacheable and deterministic; how to diagnose illegal ABI types, lifetime escapes and unsupported queries; how generated code serves AOT",
+        "Verify .NET11 UCO restrictions on non-blittable signatures and fail-fast paths; how Direct P/Invoke bypassing DefaultDllImportSearchPaths affects diagnostics and loader tests"
       ],
       "alternatives": [
-        "增量Generator与构建前工具；语义分析与受限标记API；自动推断与显式元数据"
+        "Incremental Generator versus pre-build tools; semantic analysis versus restricted marker APIs; automatic inference versus explicit metadata"
       ],
       "failure_paths": [
-        "增量失效；多target差异；IDE/CLI不一致；重复符号；诊断定位错误",
-        "runtime marshalling启用时native调用bool返回/char参数等非blittableUCO可能fail-fast；必须隔离进程测试"
+        "Incremental invalidation; differences across targets; IDE/CLI inconsistency; duplicate symbols; incorrect diagnostic locations",
+        "With runtime marshalling enabled, native calls to non-blittable UCO signatures such as bool returns/char parameters may fail fast; tests must run in an isolated process"
       ],
-      "verification": "变更最小化与诊断golden tests方案，生成代码须可独立编译",
+      "verification": "A change-minimization and diagnostic golden-test plan; generated code must compile independently",
       "cross_review_by": [
         "R02",
         "R05",
@@ -586,7 +586,7 @@
     },
     {
       "id": "R07",
-      "title": "句柄、所有权、GC与父子资源",
+      "title": "Handles, ownership, GC and parent-child resources",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R07",
@@ -641,16 +641,16 @@
         "GCHandle use"
       ],
       "questions": [
-        "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。",
-        "借用/拥有/共享资源的身份如何表达；SafeHandle和generation handle table何时需要；父子销毁、转移所有权和终结器如何互不冲突"
+        "Single-writer admission for a mutable native builder differs from SafeHandle physical lifetime; validate cross-query owner/dispose/inflight leases.",
+        "How to express the identity of borrowed/owned/shared resources; when SafeHandle and a generation handle table are needed; how parent-child destruction, ownership transfer and finalizers avoid conflicts"
       ],
       "alternatives": [
-        "SafeHandle直接指针；代际句柄表；显式lease；引用计数"
+        "Direct pointers in SafeHandle; generational handle tables; explicit leases; reference counting"
       ],
       "failure_paths": [
-        "ABA；双重释放；终结器线程违规；父已释放子仍活动；Dispose与调用竞争"
+        "ABA; double release; finalizer thread violations; a child remains active after its parent is released; Dispose races with calls"
       ],
-      "verification": "追踪创建->使用->最后释放以及异常路径；给释放一次与无悬空访问证明义务",
+      "verification": "Trace creation->use->final release and exceptional paths; provide proof obligations for exactly-once release and no dangling access",
       "cross_review_by": [
         "R08",
         "R09",
@@ -685,7 +685,7 @@
     },
     {
       "id": "R08",
-      "title": "Callback注销、重入与释放竞态",
+      "title": "Callback unregistration, reentrancy and release races",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R08",
@@ -733,16 +733,16 @@
         "cancellation callbacks"
       ],
       "questions": [
-        "ForeignHandler注册代际、注销及body/context退休；回调只进入有界dispatcher，不执行任意用户同步代码。",
-        "注销返回是否保证静默；在回调中Dispose会不会死锁；如何让外来线程和迟到回调不访问已回收上下文"
+        "ForeignHandler registration generations, unregistration and body/context retirement; callbacks enter only a bounded dispatcher and do not execute arbitrary synchronous user code.",
+        "Whether unregistration returning guarantees quiescence; whether Dispose inside a callback can deadlock; how to prevent foreign threads and late callbacks from accessing reclaimed contexts"
       ],
       "alternatives": [
-        "同步drain；异步quiescence；代际token；事件队列转发"
+        "Synchronous drain; asynchronous quiescence; generational tokens; event-queue forwarding"
       ],
       "failure_paths": [
-        "回调内注销；reentrant Dispose；in-flight回调；异常跨ABI；context提前free"
+        "Unregistration inside a callback; reentrant Dispose; in-flight callbacks; exceptions crossing the ABI; premature context free"
       ],
-      "verification": "定义注册/撤销/排空线性化点，枚举至少一条迟到回调反例并给可检验修复",
+      "verification": "Define registration/revocation/drain linearization points, enumerate at least one late-callback counterexample and provide a verifiable fix",
       "cross_review_by": [
         "R07",
         "R09",
@@ -777,7 +777,7 @@
     },
     {
       "id": "R09",
-      "title": "异步、取消与完成状态机",
+      "title": "Async, cancellation and completion state machines",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R09",
@@ -833,16 +833,16 @@
         "cancellation paths"
       ],
       "questions": [
-        "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。",
-        "完成/失败/取消/超时/关闭怎样竞争；取消请求与原生停止是否分离；ValueTask复用和continuation调度是否值得"
+        "Future/Task completion bridge and response-head/body separation; a close deadline is not quiescence; retain late completion and cancellation races.",
+        "How completion/failure/cancellation/timeout/shutdown race; whether cancellation requests and native stopping are separate; whether ValueTask reuse and continuation scheduling are worthwhile"
       ],
       "alternatives": [
-        "TaskCompletionSource初版；池化IValueTaskSource；callback push与poll/wake桥"
+        "Initial TaskCompletionSource implementation; pooled IValueTaskSource; callback push versus poll/wake bridges"
       ],
       "failure_paths": [
-        "重复完成；丢失wake；token注册同步触发；完成后迟到取消；结果资源泄漏"
+        "Duplicate completion; lost wake; synchronous token-registration firing; late cancellation after completion; leaked result resources"
       ],
-      "verification": "终态唯一、最终静默和结果回收模型；包含所有竞争顺序的测试设计",
+      "verification": "A model of a unique terminal state, eventual quiescence and result reclamation; test design including all race orderings",
       "cross_review_by": [
         "R07",
         "R08",
@@ -877,7 +877,7 @@
     },
     {
       "id": "R10",
-      "title": "Buffer、Pinning、批处理与数据传输",
+      "title": "Buffer, pinning, batching and data transfer",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R10",
@@ -933,16 +933,16 @@
         "native buffer release"
       ],
       "questions": [
-        "Rust AST/value/batch与DTO复制成本；protocol credit不能释放managed仍持有的字节预算。",
-        "同步Span借用与跨async Memory租约如何区分；零拷贝是否降低总成本；池化、批处理与大对象如何有界"
+        "Rust AST/value/batch and DTO copy costs; protocol credit cannot release the byte budget still held by managed code.",
+        "How to distinguish synchronous Span borrowing from cross-async Memory leases; whether zero-copy reduces total cost; how to bound pooling, batching and large objects"
       ],
       "alternatives": [
-        "必要复制；固定pin lease；原生owned buffer；批处理DTO；stream分块"
+        "Necessary copies; fixed pin leases; native owned buffers; batched DTOs; stream chunking"
       ],
       "failure_paths": [
-        "pin泄漏；取消未归还；length/offset越界；错误allocator；池中对象提前复用"
+        "Pin leaks; failure to return resources on cancellation; length/offset out of bounds; wrong allocator; premature reuse of pooled objects"
       ],
-      "verification": "每条数据路径给复制次数、所有者、访问窗口和销毁事件；基准需含长时间运行",
+      "verification": "Specify copy count, owner, access window and destruction event for every data path; benchmarks must include long-running execution",
       "cross_review_by": [
         "R03",
         "R07",
@@ -977,7 +977,7 @@
     },
     {
       "id": "R11",
-      "title": "Error、panic、异常与故障隔离",
+      "title": "Error, panic, exceptions and fault isolation",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R11",
@@ -1032,15 +1032,15 @@
         "exception-to-status boundaries"
       ],
       "questions": [
-        "错误码和消息谁释放；Rust unwind、panic=abort、OOM与外部异常各有何边界；C#异常如何在reverse P/Invoke处封闭"
+        "Who releases error codes and messages; the respective boundaries of Rust unwind, panic=abort, OOM and foreign exceptions; how to contain C# exceptions at reverse P/Invoke boundaries"
       ],
       "alternatives": [
-        "固定status+owned detail；thread-local last-error；Result风格与Exception Adapter"
+        "Fixed status+owned detail; thread-local last-error; Result style versus Exception Adapter"
       ],
       "failure_paths": [
-        "panic=abort进程终止；二次panic；错误分配失败；错误消息被下一调用覆盖"
+        "Process termination from panic=abort; a second panic; error allocation failure; an error message overwritten by the next call"
       ],
-      "verification": "明确可恢复/不可恢复边界并提出子进程故障注入，不能将catch_unwind写成万能保证",
+      "verification": "Define recoverable/unrecoverable boundaries and propose subprocess fault injection; do not describe catch_unwind as a universal guarantee",
       "cross_review_by": [
         "R03",
         "R08",
@@ -1072,7 +1072,7 @@
     },
     {
       "id": "R12",
-      "title": "并发、执行器、线程亲和与关闭",
+      "title": "Concurrency, executors, thread affinity and shutdown",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R12",
@@ -1128,15 +1128,15 @@
         "shutdown"
       ],
       "questions": [
-        "每引擎是否自带runtime；何时可共享；阻塞/异步/线程亲和机制如何按需组合；关闭如何达到排空与资源回收"
+        "Whether each engine owns a runtime; when sharing is possible; how blocking/async/thread-affinity mechanisms combine as needed; how shutdown achieves draining and resource reclamation"
       ],
       "alternatives": [
-        "不引入runtime；可选共享executor；每引擎独立runtime；专用亲和线程"
+        "No runtime; an optional shared executor; an independent runtime per engine; dedicated affinity threads"
       ],
       "failure_paths": [
-        "嵌套runtime；同步等待异步死锁；无界队列；线程池饥饿；shutdown期间新请求"
+        "Nested runtimes; deadlock from synchronously waiting on async work; unbounded queues; thread-pool starvation; new requests during shutdown"
       ],
-      "verification": "容量和等待关系图、关闭状态机、运行时数量/RSS成本表",
+      "verification": "Capacity and wait-dependency graphs, shutdown state machines and a runtime-count/RSS cost table",
       "cross_review_by": [
         "R08",
         "R09",
@@ -1168,7 +1168,7 @@
     },
     {
       "id": "R13",
-      "title": "MSBuild/Cargo、链接与目标平台",
+      "title": "MSBuild/Cargo, linking and target platforms",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R13",
@@ -1223,16 +1223,16 @@
         "RID resolution"
       ],
       "questions": [
-        "维护者native构建与普通C#消费分离；无Cargo/CI的RID-free本地开发和显式RID AOT都必须验证。",
-        "native产物怎样与托管生成依赖绑定；host/target工具链如何区分；静态动态链接、符号与loader path如何保证"
+        "Separate maintainer native builds from ordinary C# consumption; verify both RID-free local development without Cargo/CI and explicit-RID AOT.",
+        "How native artifacts are bound to managed generation dependencies; how host/target toolchains are distinguished; how static/dynamic linking, symbols and loader paths are guaranteed"
       ],
       "alternatives": [
-        "独立预构建runtime NuGet；源码构建targets；静态与动态native library"
+        "Independent prebuilt runtime NuGet; source-build targets; static and dynamic native libraries"
       ],
       "failure_paths": [
-        "交叉编译不能执行；glibc基线；Windows CRT/链接器差异；错误RID选包；stale binding"
+        "Cross-compiled output cannot execute; glibc baseline; Windows CRT/linker differences; wrong RID package selection; stale bindings"
       ],
-      "verification": "可复现Windows/Linux构建和无SDK目标机运行矩阵，逐项记录当前可执行范围",
+      "verification": "A reproducible Windows/Linux build and SDK-free target-machine execution matrix, recording the currently executable scope item by item",
       "cross_review_by": [
         "R02",
         "R03",
@@ -1267,7 +1267,7 @@
     },
     {
       "id": "R14",
-      "title": "打包、兼容性、独立发布与来源",
+      "title": "Packaging, compatibility, independent releases and provenance",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R14",
@@ -1323,16 +1323,16 @@
         "provenance verification"
       ],
       "questions": [
-        "固定commit/crate checksum/Cargo.lock/features/patch queue；稳定升级、安全修复和差分/性能回归，不自动升级生产。",
-        "crate与Adapter NuGet如何独立版本；ABI兼容与API语义版本如何分离；许可证和传递native依赖怎样审计"
+        "Pin commit/crate checksum/Cargo.lock/features/patch queue; stable upgrades, security fixes and differential/performance regression checks, without automatically upgrading production.",
+        "How crate and Adapter NuGet versions are independent; how ABI compatibility and API semantic versioning are separated; how licenses and transitive native dependencies are audited"
       ],
       "alternatives": [
-        "聚合包与RID拆包；内嵌native与外部分发；显式版本协商与强制同版"
+        "Aggregate packages versus RID-specific packages; embedded native assets versus external distribution; explicit version negotiation versus mandatory matching versions"
       ],
       "failure_paths": [
-        "依赖替换；旧native被加载；许可证冲突；符号/来源缺失；重发布不可复现"
+        "Dependency substitution; loading an old native library; license conflicts; missing symbols/provenance; irreproducible re-releases"
       ],
-      "verification": "版本组合矩阵、SBOM/许可记录及回滚方法，选工具须考虑成本",
+      "verification": "A version-combination matrix, SBOM/license records and rollback methods; tool selection must consider cost",
       "cross_review_by": [
         "R03",
         "R13",
@@ -1364,7 +1364,7 @@
     },
     {
       "id": "R15",
-      "title": "形式化与并发证明义务",
+      "title": "Formal methods and concurrency proof obligations",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R15",
@@ -1419,16 +1419,16 @@
         "proof harness"
       ],
       "questions": [
-        "形式化适用边界，response-head permit早释反例；有限模型不是weak-memory、whole-RSS或运行证明。",
-        "哪些状态机可用TLA+或Loom精确建模；Miri/Kani覆盖什么不能覆盖什么；抽象与真实FFI实现如何对应"
+        "The scope of formal methods and a counterexample for early response-head permit release; finite models do not prove weak-memory behavior, whole-RSS bounds or execution.",
+        "Which state machines can be modeled precisely with TLA+ or Loom; what Miri/Kani cover and cannot cover; how abstractions map to the actual FFI implementation"
       ],
       "alternatives": [
-        "小状态模型；线性化推理；Loom调度；Kani有界验证；手写性质测试"
+        "Small state models; linearization reasoning; Loom scheduling; Kani bounded verification; handwritten property tests"
       ],
       "failure_paths": [
-        "状态爆炸；公平性假设遗漏；模型与实现脱节；FFI不可执行；错误宣称全系统证明"
+        "State explosion; omitted fairness assumptions; model/implementation divergence; non-executable FFI; falsely claiming a whole-system proof"
       ],
-      "verification": "每个工具给性质、假设、界限、反例输出和实现映射；不要求形式化所有模块",
+      "verification": "For each tool, provide properties, assumptions, bounds, counterexample output and implementation mapping; formalization of every module is not required",
       "cross_review_by": [
         "R07",
         "R08",
@@ -1463,7 +1463,7 @@
     },
     {
       "id": "R16",
-      "title": "差分、属性、模糊与故障测试",
+      "title": "Differential, property, fuzz and fault testing",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R16",
@@ -1518,16 +1518,16 @@
         "property strategies"
       ],
       "questions": [
-        "原生对照差分、SQLite silent no-op/值窄化panic、混合owner、巨大值、decoder异常和真实AOT负例。",
-        "跨语言布局/生命周期/SQL转换如何构造测试oracle；哪些sanitizer目标支持；崩溃如何归档复现"
+        "Differential testing against native baselines, SQLite silent no-op/value-narrowing panics, mixed owners, huge values, decoder exceptions and actual AOT negative cases.",
+        "How to construct test oracles for cross-language layout/lifetime/SQL translation; which sanitizer targets are supported; how crashes are archived and reproduced"
       ],
       "alternatives": [
-        "proptest与FsCheck；进程隔离fuzz；差分SQL；ASan/TSan适用目标"
+        "proptest and FsCheck; process-isolated fuzzing; differential SQL; applicable ASan/TSan targets"
       ],
       "failure_paths": [
-        "oracle错误；UB隐藏；非确定性失败；unsupported sanitizer误标通过；取消时泄漏"
+        "Incorrect oracle; hidden UB; nondeterministic failures; unsupported sanitizer incorrectly marked passed; leaks during cancellation"
       ],
-      "verification": "每类机制至少一个正常、错误、竞争、兼容fixture及可重放seed格式",
+      "verification": "At least one normal, error, race and compatibility fixture for each mechanism, plus a replayable seed format",
       "cross_review_by": [
         "R03",
         "R09",
@@ -1559,7 +1559,7 @@
     },
     {
       "id": "R17",
-      "title": "端到端性能、内存与开发成本",
+      "title": "End-to-end performance, memory and development cost",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R17",
@@ -1614,16 +1614,16 @@
         "benchmark harness"
       ],
       "questions": [
-        "直接builder/batch/static fast path与原生/managed AOT完整负载比较；度量FFI/alloc/copy/RSS和工程成本。",
-        "如何公允比较纯C# AOT、混合、纯Rust；吞吐/尾延迟/GC/native alloc/线程/启动/包体/开发复杂度怎样一起评估"
+        "Compare direct builder/batch/static fast paths with full native/managed AOT workloads; measure FFI/alloc/copy/RSS and engineering cost.",
+        "How to compare pure C# AOT, hybrid and pure Rust fairly; how to evaluate throughput/tail latency/GC/native alloc/threads/startup/package size/development complexity together"
       ],
       "alternatives": [
-        "固定负载open-loop与closed-loop；隔离microbench与全链路；RSS与分配归因"
+        "Fixed-workload open-loop versus closed-loop; isolated microbenchmarks versus the full pipeline; RSS and allocation attribution"
       ],
       "failure_paths": [
-        "coordinated omission；不同语义/缓存；warmup偏差；采样不足；只选赢家负载"
+        "Coordinated omission; different semantics/caches; warmup bias; insufficient sampling; selecting only winning workloads"
       ],
-      "verification": "硬件/功耗/负载/数据集/统计方法与回归规则，未测不编造数值目标",
+      "verification": "Hardware/power/workload/dataset/statistical methodology and regression rules; do not invent numerical targets without measurement",
       "cross_review_by": [
         "R10",
         "R12",
@@ -1655,7 +1655,7 @@
     },
     {
       "id": "R18",
-      "title": "按能力组合的Engine接入与通用性",
+      "title": "Capability-composed Engine integration and generality",
       "phase": "A",
       "status": "accepted",
       "owner_role": "research/R18",
@@ -1710,16 +1710,16 @@
         "synchronous and async examples"
       ],
       "questions": [
-        "source-driven接入梯度：公开API、source-informed Adapter、上游扩展、受控Fork；动态metadata与native能力分开，小Core。",
-        "最小engine描述包含哪些能力；如何避免巨大core runtime；两个真实不同模块怎样验证可扩展而非同构demo"
+        "Source-driven integration levels: public APIs, source-informed Adapter, upstream extensions and controlled Fork; separate dynamic metadata from native capabilities and keep Core small.",
+        "Which capabilities a minimal engine description includes; how to avoid a huge core runtime; how two genuinely different modules demonstrate extensibility instead of equivalent demos"
       ],
       "alternatives": [
-        "同步编解码或计算模块；有状态异步HTTP/数据库模块；可选亲和性扩展"
+        "Synchronous codec or compute modules; stateful asynchronous HTTP/database modules; optional affinity extensions"
       ],
       "failure_paths": [
-        "所有engine强制executor；领域状态泄入core；ABI扩展导致旧engine重建"
+        "Mandatory executor for every engine; domain state leaking into core; ABI extensions requiring old engines to be rebuilt"
       ],
-      "verification": "至少两类真实候选引擎的完整接入走查与新增engine增量成本表",
+      "verification": "A complete integration walkthrough for at least two genuinely different candidate engine types and a table of incremental costs for adding an engine",
       "cross_review_by": [
         "R05",
         "R12",
@@ -1754,7 +1754,7 @@
     },
     {
       "id": "R19",
-      "title": "PostgreSQL驱动与纯C#对照",
+      "title": "PostgreSQL drivers and pure C# comparisons",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R19",
@@ -1802,16 +1802,16 @@
         "protocol tests"
       ],
       "questions": [
-        "Rust SQLx PostgreSQL执行、取消/ReadyForQuery与Unknown提交恢复；managed驱动只作对照，不是产品后端。"
+        "Rust SQLx PostgreSQL execution, cancellation/ReadyForQuery and Unknown commit recovery; managed drivers are comparators only, not product backends."
       ],
       "alternatives": [
         "SQLx native PostgreSQL adapter; Npgsql source/behavior comparator only",
         "Other mature Rust driver only for a concrete missing capability"
       ],
       "failure_paths": [
-        "查询取消后协议未同步；并发共享连接；unknown type；网络中断；超时复用污染"
+        "Protocol not synchronized after query cancellation; concurrent connection sharing; unknown type; network interruption; timeout contaminating reuse"
       ],
-      "verification": "同语义查询/事务负载比较，并追踪query->reader->dispose与取消恢复路径",
+      "verification": "Compare query/transaction workloads with the same semantics and trace query->reader->dispose and cancellation recovery paths",
       "cross_review_by": [
         "R02",
         "R21",
@@ -1846,7 +1846,7 @@
     },
     {
       "id": "R20",
-      "title": "SQLite适配、并发与线程限制",
+      "title": "SQLite adaptation, concurrency and threading restrictions",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R20",
@@ -1901,16 +1901,16 @@
         "rusqlite Connection"
       ],
       "questions": [
-        "Rust SQLx SQLite worker/队列/锁/progress取消，条数和bytes分开；公开接口不足可评估源码扩展，不伪造即时取消。",
-        "嵌入式SQLite实际同步行为怎样影响async API；线程模式、WAL、锁与busy timeout如何表达；NativeAOT打包成本"
+        "Rust SQLx SQLite worker/queue/locks/progress cancellation, with item counts and bytes treated separately; source extensions may be evaluated where public APIs are insufficient, without claiming instant cancellation.",
+        "How embedded SQLite's actual synchronous behavior affects async APIs; how threading modes, WAL, locks and busy timeout are expressed; NativeAOT packaging cost"
       ],
       "alternatives": [
-        "Microsoft.Data.Sqlite/SQLitePCL.raw；rusqlite；轻薄原生API适配"
+        "Microsoft.Data.Sqlite/SQLitePCL.raw; rusqlite; thin native API adaptation"
       ],
       "failure_paths": [
-        "busy/locked；statement未finalize；事务中取消；线程归属；文件损坏"
+        "busy/locked; statements not finalized; cancellation within a transaction; thread ownership; file corruption"
       ],
-      "verification": "并发读写、busy、迁移、崩溃恢复与无伪async保证的矩阵",
+      "verification": "A matrix for concurrent reads/writes, busy conditions, migrations and crash recovery, without false async guarantees",
       "cross_review_by": [
         "R02",
         "R07",
@@ -1942,7 +1942,7 @@
     },
     {
       "id": "R21",
-      "title": "连接池、事务、取消与恢复",
+      "title": "Connection pooling, transactions, cancellation and recovery",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R21",
@@ -1997,16 +1997,16 @@
         "cancellation tests"
       ],
       "questions": [
-        "效果/协议/本地生命周期独立状态、SQLx池归还和cleanup；Drop排队rollback不等于服务端确认。",
-        "取消/timeout后何时可以返池；事务commit应答丢失如何表示未知结果；重试与幂等归谁；隔离级别怎样透传"
+        "Independent states for effects/protocol/local lifecycle, SQLx pool return and cleanup; queuing rollback in Drop does not mean server acknowledgement.",
+        "When a connection can return to the pool after cancellation/timeout; how to represent an unknown outcome when a transaction commit acknowledgement is lost; who owns retry and idempotency; how isolation levels are passed through"
       ],
       "alternatives": [
-        "驱动自带池；框架轻薄policy；显式transaction lease；无自动重试"
+        "Driver-provided pools; thin framework policy; explicit transaction leases; no automatic retries"
       ],
       "failure_paths": [
-        "commit成功但响应丢失；rollback失败；池耗尽；连接毒化；嵌套事务误用"
+        "Commit succeeds but its response is lost; rollback failure; pool exhaustion; poisoned connections; nested transaction misuse"
       ],
-      "verification": "事务状态机、commit unknown语义、池容量不变量和故障注入步骤",
+      "verification": "Transaction state machines, commit unknown semantics, pool capacity invariants and fault injection steps",
       "cross_review_by": [
         "R09",
         "R19",
@@ -2041,7 +2041,7 @@
     },
     {
       "id": "R22",
-      "title": "类型映射、批量流与Schema演进",
+      "title": "Type mapping, batch streams and schema evolution",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R22",
@@ -2098,16 +2098,16 @@
         "schema introspection"
       ],
       "questions": [
-        "native Value到SQLx Arguments必须fallible；unsigned窄化、编码错误、NULL/precision、SQLite text-decimal、大字段边界。",
-        "数字精度/时区/UUID/JSON/NULL如何保持语义；流式结果如何释放；迁移与schema版本如何安全协调"
+        "Native Value to SQLx Arguments conversion must be fallible; unsigned narrowing, encoding errors, NULL/precision, SQLite text-decimal and large-field boundaries.",
+        "How numeric precision/time zones/UUID/JSON/NULL retain semantics; how streaming results are released; how migrations and schema versions are coordinated safely"
       ],
       "alternatives": [
-        "显式codec；静态生成mapper；driver原生batch；独立migration工具"
+        "Explicit codecs; statically generated mappers; driver-native batches; independent migration tools"
       ],
       "failure_paths": [
-        "decimal溢出；时区改变；结果未消费；backpressure丢行；迁移半完成"
+        "Decimal overflow; time zone changes; unconsumed results; rows lost under backpressure; partially completed migrations"
       ],
-      "verification": "类型往返与跨驱动差分、批量故障原子性、迁移升级/回滚边界",
+      "verification": "Type roundtrips and cross-driver differential tests, batch failure atomicity and migration upgrade/rollback boundaries",
       "cross_review_by": [
         "R19",
         "R20",
@@ -2142,7 +2142,7 @@
     },
     {
       "id": "R23",
-      "title": "强类型查询、Expression 边界与静态捕获",
+      "title": "Strongly typed queries, Expression boundaries and static capture",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R23",
@@ -2218,18 +2218,18 @@
         "source generator"
       ],
       "questions": [
-        "普通typed Fluent优先；比较direct native builder、batch和可选static metadata；不要求任意IQueryable/Expression.Compile或C#SQL引擎。"
+        "Ordinary typed Fluent first; compare direct native builders, batching and optional static metadata; do not require arbitrary IQueryable/Expression.Compile or a C# SQL engine."
       ],
       "alternatives": [
-        "预编译SeaQuery动态native builder + SQLx",
-        "batch与可选static fast path",
-        "专用SeaORM静态Entity及native构建代价",
-        "managed外部对照；不重写完整C#SQL Provider"
+        "Precompiled SeaQuery dynamic native builder + SQLx",
+        "Batching and optional static fast paths",
+        "Dedicated SeaORM static Entity and native build cost",
+        "External managed comparators; do not reimplement a complete C# SQL Provider"
       ],
       "failure_paths": [
-        "跨assembly不可见；动态组合；局部函数；表达式副作用；Expression.Compile引入动态代码"
+        "Cross-assembly invisibility; dynamic composition; local functions; expression side effects; Expression.Compile introducing dynamic code"
       ],
-      "verification": "给可支持语法清单、明确诊断与AOT smoke；不承诺任意LINQ编译期翻译",
+      "verification": "Provide a supported syntax list, explicit diagnostics and AOT smoke tests; do not promise compile-time translation of arbitrary LINQ",
       "cross_review_by": [
         "R06",
         "R24",
@@ -2264,7 +2264,7 @@
     },
     {
       "id": "R24",
-      "title": "SQL语义、关系代数与参数安全",
+      "title": "SQL semantics, relational algebra and parameter safety",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R24",
@@ -2326,16 +2326,16 @@
         "query test suites"
       ],
       "questions": [
-        "SQL三值逻辑和backend能力；SQLite忽略row-lock/SELECT INTO/SEARCH CYCLE必须拒绝；CTE/window/join/aggregate差分。",
-        "NULL三值逻辑、collation、排序、join、group、distinct和分页如何定义；参数化能防哪些不能防哪些注入"
+        "SQL three-valued logic and backend capabilities; reject row-lock/SELECT INTO/SEARCH CYCLE that SQLite ignores; differential tests for CTE/window/join/aggregate.",
+        "How to define NULL three-valued logic, collation, sorting, join, group, distinct and pagination; which injection attacks parameterization can and cannot prevent"
       ],
       "alternatives": [
-        "小关系IR+方言；复用查询构建器；有限操作白名单；直接参数SQL escape hatch"
+        "Small relational IR+dialects; reuse of query builders; a limited operation allowlist; a direct parameterized SQL escape hatch"
       ],
       "failure_paths": [
-        "NULL与C# bool差异；非确定分页；identifier注入；integer溢出；provider差异"
+        "Differences between NULL and C# bool; nondeterministic pagination; identifier injection; integer overflow; provider differences"
       ],
-      "verification": "对照真实PostgreSQL/SQLite的结果与error类别进行属性/差分测试",
+      "verification": "Property/differential tests against actual PostgreSQL/SQLite results and error categories",
       "cross_review_by": [
         "R22",
         "R23",
@@ -2367,7 +2367,7 @@
     },
     {
       "id": "R25",
-      "title": "ORM特性、跟踪与现成方案比较",
+      "title": "ORM features, tracking and comparison of existing solutions",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R25",
@@ -2445,18 +2445,18 @@
         "AOT tests"
       ],
       "questions": [
-        "SeaQuery动态AST/identifier/value/CRUD/CTE/window与SeaORM静态Entity边界，比较SQLx执行；普通新实体不默认编译Rust。"
+        "SeaQuery dynamic AST/identifier/value/CRUD/CTE/window and SeaORM static Entity boundaries, comparing SQLx execution; ordinary new entities do not require Rust compilation by default."
       ],
       "alternatives": [
-        "预编译SeaQuery动态native builder + SQLx",
-        "batch与可选static fast path",
-        "专用SeaORM静态Entity及native构建代价",
-        "managed外部对照；不重写完整C#SQL Provider"
+        "Precompiled SeaQuery dynamic native builder + SQLx",
+        "Batching and optional static fast paths",
+        "Dedicated SeaORM static Entity and native build cost",
+        "External managed comparators; do not reimplement a complete C# SQL Provider"
       ],
       "failure_paths": [
-        "隐式lazy load；N+1；全局缓存增长；未注册泛型；乐观并发冲突误吞"
+        "Implicit lazy loading; N+1; global cache growth; unregistered generics; incorrectly swallowing optimistic concurrency conflicts"
       ],
-      "verification": "用户用例矩阵与相同任务代码量/诊断/维护成本，不用框架名代替证明",
+      "verification": "A user-use-case matrix and code volume/diagnostic/maintenance cost for the same tasks; framework names do not substitute for proof",
       "cross_review_by": [
         "R22",
         "R23",
@@ -2492,7 +2492,7 @@
     },
     {
       "id": "R26",
-      "title": "Kestrel与纯C# AOT服务器基线",
+      "title": "Kestrel and pure C# AOT server baselines",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R26",
@@ -2534,16 +2534,16 @@
         "WebApplication"
       ],
       "questions": [
-        "Kestrel现代Native AOT能力等价基线；保留独立无DB示例，源码可绑定不等于Server有实测收益。",
-        "现有C# stack能完成哪些目标；handler如何静态生成；HTTP生命周期/内存池/connection limit怎样控制"
+        "An equivalent baseline for modern Kestrel Native AOT capabilities; retain an independent example without a DB; bindable source does not imply measured Server benefits.",
+        "Which goals the existing C# stack can achieve; how handlers are generated statically; how HTTP lifecycle/memory pools/connection limits are controlled"
       ],
       "alternatives": [
-        "ASP.NET Core slim/AOT路径；裸.NET sockets仅作特殊对照；平台原生transport"
+        "ASP.NET Core slim/AOT paths; bare .NET sockets only as a special comparator; platform-native transport"
       ],
       "failure_paths": [
-        "半关闭；request body未读；slow client；同步阻塞；AOT endpoint不可达"
+        "Half-close; unread request body; slow clients; synchronous blocking; unreachable AOT endpoints"
       ],
-      "verification": "真实应用发布运行、长连接/流式/取消路径与成本数据需求",
+      "verification": "Actual application publication and execution, long-lived connection/streaming/cancellation paths and cost-data requirements",
       "cross_review_by": [
         "R02",
         "R27",
@@ -2575,7 +2575,7 @@
     },
     {
       "id": "R27",
-      "title": "Rust网络引擎与C# Handler边界",
+      "title": "Rust network engines and C# Handler boundaries",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R27",
@@ -2654,8 +2654,8 @@
         "ffi callback"
       ],
       "questions": [
-        "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。",
-        "把网络搬到Rust究竟减少还是增加分配/调度；HTTP模型怎样跨ABI；是否能避免重复TLS和两套executor"
+        "Hyper Service/Body, Tower/Axum, Actix worker affinity and Pingora proxy integration points; C# is the handler layer and does not reimplement the network core.",
+        "Whether moving networking to Rust reduces or increases allocation/scheduling; how the HTTP model crosses the ABI; whether duplicate TLS and two executor stacks can be avoided"
       ],
       "alternatives": [
         "Rust Hyper/Tower/Axum foreign Handler bridge",
@@ -2664,9 +2664,9 @@
         "Kestrel comparison executable only"
       ],
       "failure_paths": [
-        "每chunk跨FFI；双缓冲；handler取消不传递；executor重入；panic关闭连接"
+        "Crossing FFI for every chunk; double buffering; handler cancellation not propagated; executor reentrancy; panic closing the connection"
       ],
-      "verification": "相同协议功能下分解成本，实际收益证据指导必需 Rust Host 的引擎组合与优化；不把 Rust Host 改为可选或以 Kestrel 替代",
+      "verification": "Break down costs with the same protocol features; actual benefit evidence guides the engine composition and optimization of the mandatory Rust Host; do not make the Rust Host optional or replace it with Kestrel",
       "cross_review_by": [
         "R09",
         "R12",
@@ -2703,7 +2703,7 @@
     },
     {
       "id": "R28",
-      "title": "gRPC、MCP、TLS与协议适配",
+      "title": "gRPC, MCP, TLS and protocol adaptation",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R28",
@@ -2765,16 +2765,16 @@
         "TLS config"
       ],
       "questions": [
-        "所选gRPC/MCP/TLS的静态注册/DTO与错误；协议包选择不阻塞无关Server/DB工作。",
-        "协议与transport怎样分层；gRPC代码生成和MCP序列化可否AOT；TLS证书与认证归谁；协议版本如何固定"
+        "Static registration/DTOs and errors for the selected gRPC/MCP/TLS; protocol package selection must not block unrelated Server/DB work.",
+        "How protocols and transport are layered; whether gRPC code generation and MCP serialization support AOT; who owns TLS certificates and authentication; how protocol versions are pinned"
       ],
       "alternatives": [
-        "现成C# SDK静态注册；Rust适配；protocol package独立于engine"
+        "Existing C# SDKs with static registration; Rust adaptation; protocol packages independent of engines"
       ],
       "failure_paths": [
-        "不支持动态service发现；消息超限；认证绕过；证书轮换；版本互操作失败"
+        "Unsupported dynamic service discovery; oversized messages; authentication bypass; certificate rotation; version interoperability failure"
       ],
-      "verification": "固定协议版本+能力矩阵+安全失败测试，不自建无必要的HTTP/TLS协议栈",
+      "verification": "Pinned protocol versions + capability matrices + security failure tests; do not build an unnecessary custom HTTP/TLS stack",
       "cross_review_by": [
         "R02",
         "R26",
@@ -2806,7 +2806,7 @@
     },
     {
       "id": "R29",
-      "title": "请求流、背压、超时与优雅关闭",
+      "title": "Request streams, backpressure, timeouts and graceful shutdown",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R29",
@@ -2861,16 +2861,16 @@
         "graceful shutdown"
       ],
       "questions": [
-        "Tower ResponseFuture许可不覆盖body；Hyper H2credit不覆盖retained bytes；waiters/chunks/close预算分别验证。",
-        "请求与响应双向背压怎样贯通FFI；容量预算由字节还是条目限制；关闭时新请求/已接受请求如何处理"
+        "Tower ResponseFuture permits do not cover bodies; Hyper H2 credit does not cover retained bytes; validate waiter/chunk/close budgets separately.",
+        "How bidirectional request/response backpressure crosses FFI end to end; whether capacity budgets are limited by bytes or entries; how new/already-accepted requests are handled during shutdown"
       ],
       "alternatives": [
-        "Pull读取；有界channel；credit-based lease；驱动原生backpressure"
+        "Pull reads; bounded channels; credit-based leases; driver-native backpressure"
       ],
       "failure_paths": [
-        "slow reader；半关闭；超时/完成竞争；drain永不结束；缓冲无界"
+        "Slow readers; half-close; timeout/completion races; drain never finishing; unbounded buffering"
       ],
-      "verification": "给队列/租约上界性质、流终止状态机与slow-client长测方案",
+      "verification": "Provide queue/lease upper-bound properties, stream termination state machines and a slow-client sustained-test plan",
       "cross_review_by": [
         "R09",
         "R10",
@@ -2905,7 +2905,7 @@
     },
     {
       "id": "R30",
-      "title": "可观测性、诊断关联与成本",
+      "title": "Observability, diagnostic correlation and cost",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R30",
@@ -2961,16 +2961,16 @@
         "native stack symbols"
       ],
       "questions": [
-        "跨语言诊断关联、bounded telemetry和credentials/参数脱敏，诊断队列不能破坏预算。",
-        "如何跨FFI关联trace而不复制大量状态；采样/metrics cardinality如何有界；错误诊断如何保留native stack"
+        "Cross-language diagnostic correlation, bounded telemetry and credential/parameter redaction; diagnostic queues must not violate budgets.",
+        "How to correlate traces across FFI without copying large amounts of state; how sampling/metrics cardinality are bounded; how error diagnostics retain native stacks"
       ],
       "alternatives": [
-        "C#统一出口；双方provider桥接；只传trace id与轻量标签"
+        "A unified C# output path; bridging both providers; passing only trace IDs and lightweight tags"
       ],
       "failure_paths": [
-        "重复span；高基数内存增长；敏感SQL/参数泄漏；native崩溃无符号"
+        "Duplicate spans; memory growth from high cardinality; sensitive SQL/parameter leaks; native crashes without symbols"
       ],
-      "verification": "定义诊断字段、成本开关和禁记数据；无observer情况下测空闲成本",
+      "verification": "Define diagnostic fields, cost controls and prohibited logged data; measure idle cost with no observer",
       "cross_review_by": [
         "R11",
         "R14",
@@ -3002,7 +3002,7 @@
     },
     {
       "id": "R31",
-      "title": "数据库+服务器参考应用与故障恢复",
+      "title": "Database+server reference application and fault recovery",
       "phase": "B",
       "status": "accepted",
       "owner_role": "research/R31",
@@ -3057,17 +3057,17 @@
         "crash recovery"
       ],
       "questions": [
-        "Rust DB+C#业务参考服务；保留原子幂等/outbox/Unknown；普通新实体复用nativehash与干净消费者验证。",
-        "用何种最小通用业务同时暴露事务、流式、幂等和并发问题；如何比较3条技术路径同语义"
+        "A Rust DB+C# business-logic reference service; preserve atomic idempotency/outbox/Unknown; ordinary new entities reuse the native hash and undergo pristine-consumer validation.",
+        "Which minimal general-purpose business scenario exposes transaction, streaming, idempotency and concurrency issues together; how to compare three technical routes with the same semantics"
       ],
       "alternatives": [
         "Idempotent task service over mandatory Rust DB/ORM/Server",
         "Equivalent pure Rust and managed AOT comparison executables"
       ],
       "failure_paths": [
-        "重复提交；commit未知；数据库重启；请求取消；进程crash；限流持续压力"
+        "Duplicate submissions; unknown commit outcome; database restart; request cancellation; process crash; sustained rate-limit pressure"
       ],
-      "verification": "可重复数据集、外部oracle、长测/故障/恢复以及p95/p99统计计划",
+      "verification": "Reproducible datasets, external oracles, sustained/fault/recovery tests and a p95/p99 statistical plan",
       "cross_review_by": [
         "R17",
         "R21",
@@ -3099,7 +3099,7 @@
     },
     {
       "id": "R32",
-      "title": "桌面GUI/GPU与线程亲和扩展",
+      "title": "Desktop GUI/GPU and thread-affinity extensions",
       "phase": "future",
       "status": "accepted",
       "owner_role": "research/R32",
@@ -3161,15 +3161,15 @@
         "event-loop integration"
       ],
       "questions": [
-        "不实现GUI时怎样证明engine契约容纳主线程、GPU对象寿命和事件循环；窗口/设备丢失怎样传播"
+        "How to demonstrate that engine contracts accommodate the main thread, GPU object lifetimes and event loops without implementing a GUI; how window/device loss propagates"
       ],
       "alternatives": [
-        "平台dispatcher能力；独立engine线程；应用主loop integration"
+        "Platform dispatcher capabilities; independent engine threads; application main-loop integration"
       ],
       "failure_paths": [
-        "GPU device lost；窗口先销毁；callback跨UI线程；句柄跨平台布局"
+        "GPU device lost; window destroyed first; callbacks crossing UI threads; cross-platform handle layout"
       ],
-      "verification": "只输出扩展能力需求与契约反例，不预造完整GUI runtime或正式支持声明",
+      "verification": "Produce only extension capability requirements and contract counterexamples; do not prebuild a complete GUI runtime or claim formal support",
       "cross_review_by": [
         "R07",
         "R12",
@@ -3201,7 +3201,7 @@
     },
     {
       "id": "R33",
-      "title": "iOS/Android、静态链接与平台生命周期",
+      "title": "iOS/Android, static linking and platform lifecycles",
       "phase": "future",
       "status": "accepted",
       "owner_role": "research/R33",
@@ -3256,15 +3256,15 @@
         "lifecycle callbacks"
       ],
       "questions": [
-        "iOS和Android不同部署模式怎样影响AOT/链接/签名；app suspend/resume与UI线程如何约束engine；平台当前支持状态如何验证"
+        "How different iOS and Android deployment modes affect AOT/linking/signing; how app suspend/resume and UI threads constrain engines; how current platform support is verified"
       ],
       "alternatives": [
-        "静态archive；平台原生library；独立移动profile；明确暂不支持的组合"
+        "Static archives; platform-native libraries; independent mobile profiles; explicitly unsupported combinations for now"
       ],
       "failure_paths": [
-        "符号裁剪；ABI架构不符；加载失败；后台挂起资源；分发平台限制"
+        "Symbol trimming; ABI architecture mismatch; loading failure; resources during background suspension; distribution-platform restrictions"
       ],
-      "verification": "官方支持证据+真机/模拟器分列，不以桌面AOT成功外推手机支持",
+      "verification": "Official support evidence with physical-device/simulator results separated; do not extrapolate mobile support from desktop AOT success",
       "cross_review_by": [
         "R01",
         "R02",
@@ -3296,7 +3296,7 @@
     },
     {
       "id": "R34",
-      "title": "边界安全、输入验证与资源滥用",
+      "title": "Boundary security, input validation and resource abuse",
       "phase": "A+B",
       "status": "accepted",
       "owner_role": "research/R34",
@@ -3359,15 +3359,15 @@
         "request limits"
       ],
       "questions": [
-        "不可信length/handle/SQL标识符/请求体如何进入边界；资源预算怎样避免DoS；FFI内存安全和应用安全怎样分工"
+        "How untrusted lengths/handles/SQL identifiers/request bodies enter the boundary; how resource budgets prevent DoS; how FFI memory safety and application security divide responsibilities"
       ],
       "alternatives": [
-        "受信内部ABI与可疑native输入分级；checked lengths；配额；显式参数化与认证"
+        "Distinguish trusted internal ABI from suspicious native input; checked lengths; quotas; explicit parameterization and authentication"
       ],
       "failure_paths": [
-        "整数乘加溢出；悬空handle；超大body；SQL注入；panic；secret泄漏"
+        "Integer multiplication/addition overflow; dangling handles; oversized bodies; SQL injection; panic; secret leaks"
       ],
-      "verification": "列具体信任边界和恶意输入测试，不把safe语言等同系统安全",
+      "verification": "List concrete trust boundaries and malicious-input tests; do not equate a safe language with system security",
       "cross_review_by": [
         "R03",
         "R11",

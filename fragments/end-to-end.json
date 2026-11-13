@@ -55,7 +55,7 @@
   ],
   "task_details": {
     "B21": {
-      "title": "通用幂等任务参考服务",
+      "title": "General-purpose idempotent task reference service",
       "boundary_and_ownership": "Implement the exact D20 domain-neutral work-item reference service with operations, items, outbox and attachments. Do not replace it with an additional durable job/attempt/claim/complete state machine or import ArcForges business behavior.",
       "native_reuse": "SQLx/SeaQuery and selected Rust host; use native transaction/relations/streaming implementation from B04/B14/B17.",
       "csharp_surface": "Static Item, OperationResult, OutboxEvent and Attachment DTO/entity declarations; POST /v1/items, keyset GET /v1/items, GET /v1/operations/{id}, and authorized attachment PUT/GET. Natural typed Fluent and C# business Handlers consume mandatory Rust DB/ORM/Server; optional protocols call the same service.",
@@ -103,7 +103,7 @@
       }
     },
     "B22": {
-      "title": "端到端故障、崩溃与长期资源验证",
+      "title": "End-to-end fault, crash and long-term resource validation",
       "boundary_and_ownership": "End-to-end failure/crash/soak correctness and bounded resource accounting of exact product composition.",
       "native_reuse": "Real PostgreSQL/SQLite/native HTTP/TLS stack, process control and protocol fault proxy.",
       "csharp_surface": "External fault driver and durable-data oracle; no in-process mock substitutes for server/database failures.",
@@ -148,7 +148,7 @@
       }
     },
     "B23": {
-      "title": "领域全负载性能与内存报告",
+      "title": "Domain full-workload performance and memory reports",
       "boundary_and_ownership": "Complete workload performance/memory/developer-cost report for actual accepted reference artifacts.",
       "native_reuse": "Direct Rust Engine and equivalent C# AOT comparator including Kestrel only in comparator executable.",
       "csharp_surface": "Reproducible comparison report and raw dataset; no product-host selection vote.",
@@ -188,7 +188,7 @@
       }
     },
     "B24": {
-      "title": "领域兼容矩阵、独立包与发布验收",
+      "title": "Domain compatibility matrices, independent packages and release acceptance",
       "boundary_and_ownership": "Final immutable domain release matrix and independent package acceptance; all existing domain components included.",
       "native_reuse": "Same selected mature Rust closure and D10 provenance; no alternate Kestrel product profile.",
       "csharp_surface": "Versioned Data/Query/Server plus optional-to-consumers gRPC/MCP packages over one mandatory Rust host.",
