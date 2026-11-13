@@ -2,19 +2,32 @@
   "design_main": "baa953772d2a771bb4da3aff0cf4b4be6fc811a1",
   "plan_main": "da9e4a6337a5af0ec3d5e40a4695a2760d6ac5f5",
   "design_pr": 5,
-  "design_amendment_commit": "8f7f80d10943b9ca6f5c26df563f14423d7d85ab",
-  "task_revision": "0.2.0",
-  "contract_registry_sha256": "04c93d515cd4dc5ebaf3fc49544aacf59c7744c80ddcd1569a06a0c239cac873",
-  "review_status": "independent_review_pending",
+  "design_amendment_commit": "22053fd97d701ad771ef51bd3681441597b8d0da",
+  "contract_registry_sha256": "7c50ad03e491741389c00a7cce70f79dbd6b524e00dc4c0c2c1cafe5f11c5bb4",
+  "review_status": "self_review_user_exception_independent_followup_pending",
   "product_implementation_authorized": false,
   "additional_research": [
     {
       "design_commit": "608f7e1ea6e6605f833d47a8c2c337b0ae2afeba",
       "path": "docs/research/topics/R25/seaorm-dynamic-boundary.md",
-      "affected_existing_tasks": ["R22", "R25", "D14", "D16", "D17", "D27", "D28", "B04", "B11", "B14"],
+      "affected_existing_tasks": [
+        "R22",
+        "R25",
+        "D14",
+        "D16",
+        "D17",
+        "D27",
+        "D28",
+        "B04",
+        "B11",
+        "B14"
+      ],
       "disposition": "Read alongside the frozen proposed specifications. SeaORM has an explicitly unstable runtime-typed dynamic module; static EntityTrait does not establish that every SeaORM path needs per-entity Rust compilation. Compare its public connection/projection route and a narrow metadata-constructor extension with direct SeaQuery+SQLx. Do not claim either unexecuted SeaORM route is inferior or equivalent to the complete static ORM.",
       "review": "Recovery author reread dynamic/mod.rs, entity.rs, execute.rs, model.rs and SQLx Row::try_get from the existing fixed source snapshots. No new SeaORM binary or upstream test execution; not an independent review.",
       "contract_delta": "The appended research commit changes no frozen specification or registry bytes. The current recommendation remains proposed; subsequent normative changes must repin contracts and affected tasks."
     }
-  ]
+  ],
+  "task_revision_policy": "0.2.1 only for affected packets and actual dependency-pin propagation; others remain0.2.0",
+  "user_execution_authorization": "conditional on existing task gates; no repeated user confirmation",
+  "rust_toolchain": "1.100.0"
 }

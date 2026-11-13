@@ -1,4 +1,4 @@
-# NativeWeave task index — source-driven revision 0.2.0
+# NativeWeave task index — source-driven Rust1.100 revision
 
 Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exact paired Design commit: source-driven-baseline.json. No product implementation authorized.
 
@@ -6,7 +6,7 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 
 | ID | Task / packet | State |
 |---|---|---|
-| R01 | [稳定工具链与现代语言机制](research-tasks/R01.md) | planned |
+| R01 | [稳定工具链与现代语言机制](research-tasks/R01.md) | partially_evidenced |
 | R02 | [Native AOT、裁剪与平台支持](research-tasks/R02.md) | planned |
 | R03 | [C ABI、布局与版本协商](research-tasks/R03.md) | planned |
 | R04 | [P/Invoke、回调入口与FFI调用成本](research-tasks/R04.md) | planned |
@@ -130,3 +130,5 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 | B22 | [端到端故障、崩溃与长期资源验证](tasks/B22.md) | planned_candidate |
 | B23 | [领域全负载性能与内存报告](tasks/B23.md) | planned_candidate |
 | B24 | [领域兼容矩阵、独立包与发布验收](tasks/B24.md) | planned_candidate |
+
+Task revisions are exact per graph; unaffected packets were not rewritten. R/D continuation is distinct from product acceptance.

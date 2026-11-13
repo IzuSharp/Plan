@@ -281,7 +281,9 @@ class Validator:
   c=self.contracts.get(key)
   if not c or c.get('status')!='accepted':return False
   self.checking_contracts.add(key);before=len(self.errors);where=f'contract/{key[0]}@{key[1]}'
-  raw=self.require_file_hash(c.get('spec_path'),c.get('content_sha256'),where+'/spec')
+  spec_ref=c.get('spec_path')
+  if isinstance(spec_ref,str) and ':' not in spec_ref:spec_ref='NativeWeave-Design:'+spec_ref
+  raw=self.require_file_hash(spec_ref,c.get('content_sha256'),where+'/spec')
   if raw is not None and not raw.strip():self.err('EMPTY_SPEC',where)
   subject={'kind':'contract','id':key[0],'version':key[1],'content_sha256':c.get('content_sha256')}
   ev=self.evidence(c.get('evidence'),subject,where)
@@ -392,6 +394,17 @@ class Validator:
     if shared:resource_conflicts.append({'tasks':[a,b],'resources':shared})
   return ready,blocked,resource_conflicts
 
+ def continuable(self):
+  result={'research':[],'documentation':[],'delivery':[]}
+  if self.errors:return result
+  states={'research':{'in_progress','partially_evidenced','review_ready'},'documentation':{'drafting','partially_evidenced','review_ready'}}
+  for nid,n in self.nodes.items():
+   kind=self.kind[nid]
+   if n.get('status') not in states.get(kind,set()):continue
+   if any(self.nodes.get(d,{}).get('status') not in TERMINAL for d in n.get('start_dependencies',[])):continue
+   result[kind].append(nid)
+  return result
+
  def run(self):
   self.load()
   if not self.errors:
@@ -401,7 +414,7 @@ class Validator:
    ready={k:[] for k in ('research','documentation','delivery')};blocked={k:['validation errors'] for k in self.nodes};resources=[]
    self.warn('READY_FAIL_CLOSED','Validation errors make every executable ready set empty.')
   else:ready,blocked,resources=self.ready()
-  return {'validator_version':VERSION,'ok':not self.errors,'counts':{k:sum(v==k for v in self.kind.values()) for k in ('research','documentation','delivery')},'errors':self.errors,'warnings':self.warnings,'write_conflicts':self.conflicts,'ready':ready,'blocked':blocked,'resource_conflicts':resources,'accepted_contracts':len(self.checked_contracts),'limitations':['Local structure, hashes and manifest bindings are checked; this does not authenticate reviewer identity or prove commands truly executed.','An empty or proposed contract registry never authorizes delivery.','The initial delivery graph is a candidate decomposition, not accepted implementation instructions.']}
+  return {'validator_version':VERSION,'ok':not self.errors,'counts':{k:sum(v==k for v in self.kind.values()) for k in ('research','documentation','delivery')},'errors':self.errors,'warnings':self.warnings,'write_conflicts':self.conflicts,'ready':ready,'continuable':self.continuable(),'blocked':blocked,'resource_conflicts':resources,'accepted_contracts':len(self.checked_contracts),'limitations':['Local structure, hashes and manifest bindings are checked; this does not authenticate reviewer identity or prove commands truly executed.','An empty or proposed contract registry never authorizes delivery.','The initial delivery graph is a candidate decomposition, not accepted implementation instructions.']}
 
 
 def main():

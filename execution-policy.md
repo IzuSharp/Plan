@@ -1,6 +1,6 @@
 # Codex并行执行政策 v0.1（proposed）
 
-本政策规划未来实施，不授权本次研究会话开始完整产品开发。初始delivery节点全部`planned_candidate`。它们要在相关技术选择被接受后细化接口、更新packet/hash、明确实施范围，再提升为planned。这里的实施授权记录表示用户已要求的审查门禁通过，不制造额外的逐任务用户确认流程。
+本政策管理实际并行执行。2026-11-12用户已授权按现有真实门禁推进实施；不再需要逐步询问。初始delivery节点全部`planned_candidate`。它们要在相关技术选择被接受后细化接口、更新packet/hash、明确实施范围，再提升为planned。这里的实施授权记录表示用户已要求的审查门禁通过，不制造额外的逐任务用户确认流程。
 
 ## 工作单元与文件所有权
 
@@ -14,11 +14,11 @@ worker提交自己的模块和测试、证据目录。根solution、集中Cargo 
 
 `start_dependencies`只包含当前packet需要的实际实现产物。契约输入是精确ID+版本+accepted；可在依赖实现未完成前写mock的情形须另建明确的契约/fixture任务，不能把mock测试当集成验收。研究和文档接受依赖与产品编译依赖不是同一张表。
 
-纯C# Data/Query/Kestrel不需要等待全部Interop Core实现。原生数据库/Server只依赖所需handle/buffer/async/绑定能力。模型和基准工具可在accepted规范下独立实现。正式阶段B的native功能依赖已验收的相关阶段A机制；纯C#路径没有虚构native runtime依赖。
+Database底层必需Rust；不存在产品纯C#Data/Query fallback。Kestrel、独立研究/fixture和无数据库应用不等待全部Interop实现。正式native产品功能只依赖所需accepted契约/实现，不制造全局等待，也不把研究探针当阶段A生产验收。
 
 ## 可选路线及发布范围
 
-B04原生PostgreSQL、B17原生Server、B18 gRPC、B19 MCP是独立可选包/路线；selection_status未决时不代表已采用。选择后将该节点加入相关B21–B24局部验收，不选则显式excluded且不阻塞纯C#组合。选择状态和版本进入验收subject快照；后选新引擎必须重验相关组合，不能复用旧纯C#报告冒充。
+B04是必需Rust Database Host，B02/B03是Rust providers。B17原生Server、B18 gRPC、B19 MCP才是独立可选路线。选择状态进入对应B21–B24验收快照；新增组合必须复验，不能复用旧组合报告。
 
 B24包含精确revision的release_scope。总accepted只能描述scope内已验收组件，不能外推到未选择协议包、架构或平台。每个engine/crate/adapter独立版本发布；新engine增加独立task/fragment，不重排无关任务。
 
@@ -37,6 +37,13 @@ accepted/complete/delivered等终结态均使用相同严格证据门禁。源�
 
 ## Source-driven amendment (2026-11-12)
 
-NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，不授权大规模产品实现。
+NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，实施授权以当前用户请求和精确任务门禁为准；不得把候选任务直接标为已验收。
 
 读取source-driven-baseline.json、同ID新packet和Design ADR-0002。独立Review检查新hash、backend拒绝、fallible binder、无逐实体Cargo、Server body/retirement、三图和未完成验证。旧Review不接受新内容；不增加规划层。
+
+
+## 本轮文档合并例外与后续执行
+
+用户当前明确授权Design PR5/Plan PR2在真实独立Reviewer不可用时，严格自审、可执行检查通过、无未解决文档阻断项后合并；如实标记self-review并保留D32独立复审。此例外不绕过GitHub强制规则，不将作者冒充独立Reviewer，不自动接受技术契约或Delivery终结态。
+
+合并后直接从ready/continuable开始实际源码/编译工作。Research/Documentation下的小型可执行fixture可以作为已有研究任务输出，不伪装成已满足A01/B01等全部产品前置。产品实施任务仍须自己的精确accepted契约、依赖与授权记录；这是真实技术门禁，不是要求用户再次批准。

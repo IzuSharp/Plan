@@ -76,6 +76,9 @@ for n in nodes.values():
         n['rust1100_impact']=notes[n['id']]
         text+='\n## Rust1.100局部修订（2026-11-12）\n\n'+notes[n['id']]+'\n依据：Design docs/research/topics/R01/rust-1.100.md及精确source-driven-baseline.json。原有正确性、平台与独立产品接受门禁不变；当前用户授权按真实门禁实际执行，不重复成功研究。\n'
     put(n['prompt'],text);n['packet_sha256']=hashlib.sha256((P/n['prompt']).read_bytes()).hexdigest()
+for n in nodes.values():
+    for component in (n.get('release_scope') or {}).get('components',[]):
+        component['revision']=nodes[component['task_id']]['revision']
 for k,g in graphs.items():g['revision']='0.2.1';dump(k+'-graph.json',g)
 # Localized policy corrections replace stale contradictory statements.
 p=P/'execution-policy.md';s=p.read_text().replace('本政策规划未来实施，不授权本次研究会话开始完整产品开发。','本政策管理实际并行执行。2026-11-12用户已授权按现有真实门禁推进实施；不再需要逐步询问。')
@@ -128,6 +131,7 @@ s=s.replace("raw=self.require_file_hash(c.get('spec_path'),c.get('content_sha256
 put('tools/validate_graphs.py',s)
 base=json.loads((P/'source-driven-baseline.json').read_text())
 base.update(design_amendment_commit=DESIGN,contract_registry_sha256=hashlib.sha256((D/'docs/contracts/registry.json').read_bytes()).hexdigest(),task_revision_policy='0.2.1 only for affected packets and actual dependency-pin propagation; others remain0.2.0',review_status='self_review_user_exception_independent_followup_pending',user_execution_authorization='conditional on existing task gates; no repeated user confirmation',rust_toolchain='1.100.0')
+base.pop('task_revision',None)
 dump('source-driven-baseline.json',base)
 dump('verification/rust1100-impact.json',{'design_commit':DESIGN,'plan_input':os.environ.get('GITHUB_SHA'),'affected_task_ids':sorted(affected),'unaffected_task_ids':sorted(set(nodes)-affected),'counts':{k:len(g['nodes']) for k,g in graphs.items()},'review':'self-review, not independent','formal_delivery_auto_accepted':False})
 # Keep original index links/titles; only state entry and revision note change.

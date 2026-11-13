@@ -10,7 +10,7 @@
       "id": "R01",
       "title": "稳定工具链与现代语言机制",
       "phase": "A",
-      "status": "planned",
+      "status": "partially_evidenced",
       "owner_role": "research/R01",
       "start_dependencies": [],
       "acceptance_dependencies": [],
@@ -20,7 +20,8 @@
       "outputs": [
         "NativeWeave-Design:docs/research/topics/R01/report.md",
         "NativeWeave-Design:docs/research/topics/R01/evidence.json",
-        "NativeWeave-Design:docs/research/topics/R01/coverage.json"
+        "NativeWeave-Design:docs/research/topics/R01/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R01/rust-1.100.md"
       ],
       "write_scopes": [
         "NativeWeave-Design:docs/research/topics/R01/"
@@ -72,16 +73,18 @@
       "prompt": "research-tasks/R01.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
       "initial_seed_refs": [
-        "NativeWeave-Design:docs/research/toolchain/report.md"
+        "NativeWeave-Design:docs/research/toolchain/report.md",
+        "NativeWeave-Design:docs/research/topics/R01/rust-1.100.md"
       ],
       "initial_seed_note": "历史版本观察不是永久latest或稳定性结论。重新核验官方stable/preview与实际AOT支持，保留原日期和纠正关系。",
-      "packet_sha256": "47464422eee30f3a456694683b853ec6f1e9a37d1aae673741d28daeaae38dec"
+      "packet_sha256": "9c6a1931e4375c71bc89ba7fcefb68fe71e1ca10dfc9b4cdfbd50e21b1b6d561",
+      "rust1100_impact": "Rust1.100真实release/compiler/Cargo及源码、两OS13项unit/13项command已记录；继续缺失.NET/编译器范围，不重复成功Rust probes。"
     },
     {
       "id": "R02",
@@ -215,13 +218,14 @@
       "prompt": "research-tasks/R03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "4dc2cb98c706a083a765369bc3a4b4e0ce249a516b3ce24621f8f584fcff9e9a",
-      "source_driven_amendment": "比较稳定C ABI与native直接/批量操作；Rust AST/Value/trait私有布局不跨ABI；布局、版本、所有权分别验证。"
+      "packet_sha256": "b2a1db0bd87da28a451702ccc34e1a9e3ad5f9b9b24d3ffd84fd568c62f69bbb",
+      "source_driven_amendment": "比较稳定C ABI与native直接/批量操作；Rust AST/Value/trait私有布局不跨ABI；布局、版本、所有权分别验证。",
+      "rust1100_impact": "extern custom不是P/Invoke；内部never/Allocator不改变固定C ABI。构建实际layout/错误/owned-buffer探针，不伪造C-ABI已接受。"
     },
     {
       "id": "R04",
@@ -286,13 +290,14 @@
       "prompt": "research-tasks/R04.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "57d517b1a6bee5e83e8e632eedcf834c7aac1bdc1a7b905242c9928f0a6dc288",
-      "source_driven_amendment": "验证LibraryImport/UCO/函数指针、native线程回调和AOT；薄绑定仍须保证GCHandle与异常边界。"
+      "packet_sha256": "639917e2e6ef3a401b4a924ecb3b958648959fd05ae1b46dc02128503c251089",
+      "source_driven_amendment": "验证LibraryImport/UCO/函数指针、native线程回调和AOT；薄绑定仍须保证GCHandle与异常边界。",
+      "rust1100_impact": "Rust1.100+C#静态LibraryImport的Windows/Linux真实AOT ABI切片；保持回调、borrowed length和SafeHandle寿命前置。"
     },
     {
       "id": "R05",
@@ -519,13 +524,14 @@
       "prompt": "research-tasks/R07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "7f758f5ba02670f931ddebb9bdf87dc84745faa6c25bdd0fb5ba94219e108f1e",
-      "source_driven_amendment": "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。"
+      "packet_sha256": "6dfbc1c8fa9efc4737e168fc9f232899ba9c929fc29668242c8f2c5e6a7852ec",
+      "source_driven_amendment": "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。",
+      "rust1100_impact": "DropGuard仅简化同步局部rollback；Box/Arc map不用于已发布句柄，allocator owner不能早于所有lease释放。"
     },
     {
       "id": "R08",
@@ -669,7 +675,7 @@
       "prompt": "research-tasks/R09.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -678,8 +684,9 @@
         "NativeWeave-Design:docs/research/toolchain/report.md"
       ],
       "initial_seed_note": "runtime async在初始官方证据中仍为preview；正式async桥不得依赖预览机制。另有experiments/async-quiescence/model.py有限状态实验，不能将顺序一致有限模型结论外推产品。",
-      "packet_sha256": "8a64bf98b9de31b64ff3eee65c51f641556ab3b28db72b7853581a43c834ae21",
-      "source_driven_amendment": "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。"
+      "packet_sha256": "5d00e36d41799e73fd70ed85ababc7dd6bd4fc7bcee0c5df7e932ebe1cfe0e73",
+      "source_driven_amendment": "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。",
+      "rust1100_impact": "DropGuard/Drop不会await；不删除create/start/take_result/retire或取消静默规则。"
     },
     {
       "id": "R10",
@@ -749,13 +756,14 @@
       "prompt": "research-tasks/R10.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "1059bb41eee35bd1ce36f3990f367c1f8c0de2db47d5263b5c47a46fa46b72d9",
-      "source_driven_amendment": "Rust AST/value/batch与DTO复制成本；protocol credit不能释放managed仍持有的字节预算。"
+      "packet_sha256": "05174e1d3c171042a3ed9071d8fad8b033807565ad46d0123f4421830117b977",
+      "source_driven_amendment": "Rust AST/value/batch与DTO复制成本；protocol credit不能释放managed仍持有的字节预算。",
+      "rust1100_impact": "稳定Allocator作用于自身分配，不控制SeaQuery嵌套String/Vec或整个RSS；grow成功旧pointer失效，错误保留。"
     },
     {
       "id": "R11",
@@ -823,12 +831,13 @@
       "prompt": "research-tasks/R11.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "eb47b7a0edf446d946c25472f7cb5e44404e75d746a1082eccb36e6fa22e50b6"
+      "packet_sha256": "b73fd4ad87694ae121602f919ab8e459ba20e1b2472cf9ce4043319c382c8b74",
+      "rust1100_impact": "allocator方法和Drop不得unwind；catch_unwind不覆盖abort/OOM；never仅内部类型，不跨ABI。"
     },
     {
       "id": "R12",
@@ -971,13 +980,14 @@
       "prompt": "research-tasks/R13.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "ad4f7284d39b6a74ac16f57bae9886dc8e174424c3cf1d5a4b0bc64a1b491370",
-      "source_driven_amendment": "维护者native构建与普通C#消费分离；无Cargo/CI的RID-free本地开发和显式RID AOT都必须验证。"
+      "packet_sha256": "5ebae80b9c463b501de289657218862eeac14b09b4508a055fde83121a053900",
+      "source_driven_amendment": "维护者native构建与普通C#消费分离；无Cargo/CI的RID-free本地开发和显式RID AOT都必须验证。",
+      "rust1100_impact": "Rust/Cargo1.100，Cargo JSON compiler-artifact定位，worktree缓存与目标资产分开；保留clean no-Rust/AOT矩阵。"
     },
     {
       "id": "R14",
@@ -1047,13 +1057,14 @@
       "prompt": "research-tasks/R14.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "05b6404947c3d1bf816ac28e2bd3a9951bae1916a4d4c549bb28ee5e8537f211",
-      "source_driven_amendment": "固定commit/crate checksum/Cargo.lock/features/patch queue；稳定升级、安全修复和差分/性能回归，不自动升级生产。"
+      "packet_sha256": "bcfe42d9db46069c69b5091fc6570488b8d51d109ca0b5d00e89b299a3190252",
+      "source_driven_amendment": "固定commit/crate checksum/Cargo.lock/features/patch queue；稳定升级、安全修复和差分/性能回归，不自动升级生产。",
+      "rust1100_impact": "Cargo unused-dependencies有target/dev/feature边界；min-publish-age不审计已锁定/无timestamp依赖，7day是政策不是安全证明。"
     },
     {
       "id": "R15",
@@ -1276,13 +1287,14 @@
       "prompt": "research-tasks/R17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "9d788e4428e8898ffeb86734abe49e2aa05ffea008c89c887aab8a2e43f37fae",
-      "source_driven_amendment": "直接builder/batch/static fast path与原生/managed AOT完整负载比较；度量FFI/alloc/copy/RSS和工程成本。"
+      "packet_sha256": "652e52487b409ae69e5629debf9de5ec66be7e9322986e33b8c4b0d07104130c",
+      "source_driven_amendment": "直接builder/batch/static fast path与原生/managed AOT完整负载比较；度量FFI/alloc/copy/RSS和工程成本。",
+      "rust1100_impact": "Box/Arc map指针相同只为当前实现观察；PGO和cache收益须完整负载，不发布target-cpu=native。"
     },
     {
       "id": "R18",
@@ -1351,7 +1363,7 @@
       "prompt": "research-tasks/R18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1360,8 +1372,9 @@
         "NativeWeave-Design:docs/research/toolchain/report.md"
       ],
       "initial_seed_note": "同步engine若选Zstd，必须纳入.NET11 System.IO.Compression.Zstandard基线，不预设Rust优势。",
-      "packet_sha256": "b21ae0b665d369a4f69450909e0cda6ae94690b3ba6e778260c2192276b7ce44",
-      "source_driven_amendment": "source-driven接入梯度：公开API、source-informed Adapter、上游扩展、受控Fork；动态metadata与native能力分开，小Core。"
+      "packet_sha256": "918cb22160fd69bd5b60e27e46b2a2ea5c21bc59bd659be48b0e6ad1a000695e",
+      "source_driven_amendment": "source-driven接入梯度：公开API、source-informed Adapter、上游扩展、受控Fork；动态metadata与native能力分开，小Core。",
+      "rust1100_impact": "最新stable机制只缩减必要glue，不新增全局allocator/Tokio；保留独立Engine源码/patch升级责任。"
     },
     {
       "id": "R19",
@@ -1658,13 +1671,14 @@
       "prompt": "research-tasks/R22.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "568345f31add496662b59f38fc04baef568d17168564e024c3ecaa94d2e9b533",
-      "source_driven_amendment": "native Value到SQLx Arguments必须fallible；unsigned窄化、编码错误、NULL/precision、SQLite text-decimal、大字段边界。"
+      "packet_sha256": "dfa49a8033e25fec3d52a7fa6336a03ab6f3baf8a39e83b8a5449602dfa9ca33",
+      "source_driven_amendment": "native Value到SQLx Arguments必须fallible；unsigned窄化、编码错误、NULL/precision、SQLite text-decimal、大字段边界。",
+      "rust1100_impact": "现有SeaQuery/SQLx closure须用1.100真实编译；fallible Arguments::add/整数窄化，不能拿MSRV元数据当通过。"
     },
     {
       "id": "R23",
@@ -1928,16 +1942,17 @@
       "prompt": "research-tasks/R25.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "d0be9a01215d578de9489b051511486c6f56b77288ecaf20ae7605ad62d8b351",
+      "packet_sha256": "b3137f6d3a9bfba3b580590468ff15670c10431fdc530a7fb92eeb4d2b511cda",
       "source_driven_amendment": "SeaQuery动态AST/identifier/value/CRUD/CTE/window与SeaORM静态Entity边界，比较SQLx执行；普通新实体不默认编译Rust。",
       "initial_seed_refs": [
         "NativeWeave-Design:docs/research/topics/R25/source-driven-seaquery.md"
-      ]
+      ],
+      "rust1100_impact": "结合SeaORM dynamic补充，对比普通动态metadata路线；不逐entity Cargo、不完整C#SQL Provider；Rust升级不自动换库。"
     },
     {
       "id": "R26",
@@ -2089,7 +2104,7 @@
       "prompt": "research-tasks/R27.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2099,8 +2114,9 @@
         "NativeWeave-Design:docs/research/topics/R27/source-driven-server.md"
       ],
       "initial_seed_note": "hyper C API标注unstable/no semver，不能直接继承为NativeWeave稳定ABI承诺。",
-      "packet_sha256": "52230afa4f102604b3447c8d94da4d26f53d4cb0784f567ebc18d109bec190c1",
-      "source_driven_amendment": "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。"
+      "packet_sha256": "ca5e79adec11fb99221d53541179332e50e9fc48ee1f3f2a699660bcfbf22ac8",
+      "source_driven_amendment": "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。",
+      "rust1100_impact": "在1.100实际执行native Service/Body生命周期切片，避免仅有抽象模型；Rust Server仍需Kestrel比较。"
     },
     {
       "id": "R28",
@@ -2639,6 +2655,6 @@
       "packet_sha256": "3e3516ccede113240f78fb60a3a32fc4c9b598070223e0b3708a427fad9ca091"
     }
   ],
-  "revision": "0.2.0",
+  "revision": "0.2.1",
   "amendment": "Existing task IDs and gates retained; no product implementation authorization."
 }
