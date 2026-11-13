@@ -211,9 +211,14 @@ def accept(kind,attestation_paths):
     for value in values:
         value['status']='accepted'
         if kind=='contract':value['specification_status']='accepted_research_and_detailed_design'
-    if kind=='contract':dump(D/'docs/contracts/registry.json',registry)
+    if kind=='contract':
+        registry['status']='accepted_research_and_detailed_design'
+        dump(D/'docs/contracts/registry.json',registry)
     else:
-        for name in ('research','documentation'):dump(P/(name+'-graph.json'),check.graphs[name])
+        for name in ('research','documentation'):
+            check.graphs[name]['graph_status']='accepted_research_and_detailed_design'
+            check.graphs[name]['scope']='Source-backed research and detailed design accepted for future implementation guidance; no product implementation, release or performance accepted.'
+            dump(P/(name+'-graph.json'),check.graphs[name])
     index.update(state='accepted_research_and_detailed_design',binding_attestations=refs)
     dump(index_path,index)
     print(json.dumps({'accepted_kind':kind,'count':len(values),'product_implementation_authorized':False}))
