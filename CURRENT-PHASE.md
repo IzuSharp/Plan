@@ -1,17 +1,30 @@
-# Current phase: research, design and future Codex planning
+# Current phase — complete research/design, prepare future implementation
 
-The latest user instruction supersedes previous product-execution authorization.
-Research prototypes, Cargo/.NET projects, native tests, Actions and raw evidence live
-in IzuSharp/NativeWeave-Design. Plan maintains the existing34 Research,32 Documentation
-and48 candidate Delivery tasks and detailed future implementation instructions. Do not
-copy executable projects here. Do not execute A/B Delivery or write NativeWeave product
-source. The only product-repository mutation authorized now is closing PR1 AFTER the
-verified Design and Plan migration has merged. Do not merge PR1 or delete its history.
+The active user authorization covers the existing34 Research and32 Documentation tasks,
+source inspection, research experiments in NativeWeave-Design, detailed specifications,
+all48 future Delivery packets, verification, Design/Plan PRs and permitted merges.
+NativeWeave product repository remains untouched. Product PR1 is already closed/unmerged;
+there is no remaining product-repository mutation to perform in this phase.
 
-Keep current and historical evidence identities distinct. The current Design asset
-commit/map/results are in source-driven-baseline.json. Historical checkpoint records
-and one-shot repair scripts remain historical inputs, not permission to resume product
-writes. New experiments and documentation may proceed in parallel under existing R/D
-IDs. Self-review and CI are not independent review; research merges do not accept product
-contracts. Future Codex Worktrees retain exact file ownership, local dependencies,
-platform/AOT/fault/performance acceptance and a separately authorized phase transition.
+Research/design acceptance means the current technical decision and implementation-guiding
+specification have sufficient actual evidence and independent review. It does not mean a
+product implementation, release, production soak or performance claim has passed. Future
+product evidence obligations are explicit in the existing A/B tasks and do not circularly
+block design acceptance. All Delivery nodes retain implementation_authorization:not_authorized.
+
+Database/ORM and Server native layers are mandatory Rust. B15 is the C# application surface;
+B17 is the sole production host. Kestrel is a comparison executable only. Ordinary C# entities,
+DTOs and handlers consume precompiled native modules. No fourth task graph or new product
+implementation is created by this completion effort.
+
+Use current exact graph/packet/registry/source identities. Old source-lifecycle/logical-admission
+and migration checkpoints remain immutable historical evidence and are verified at their
+original paired commits. New source or packet bytes require current review, not reused old approval.
+
+Final research/design acceptance is complete:34R,32D and21 contracts are accepted against
+exact committed inputs and real independent technical reviews plus executor-authored binding
+attestations. The Design baseline is merged commit08e3aaee73aad174620dcff18ed21b3b14c5e632;
+task input semantics are frozen at Plan c3947b378e0a251f8dfeaf7fd7d4acc636631974. The current
+acceptance indices, graphs and verify_completion.py --require-complete are authoritative.
+All114 packets and10 implementation fragments are reviewed future instructions. This completion
+does not change the product phase or the not_authorized status of any of the48 Delivery tasks.

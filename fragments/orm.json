@@ -1,0 +1,301 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D28",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "B09",
+    "B10",
+    "B11",
+    "B12",
+    "B13",
+    "B14"
+  ],
+  "design_inputs": [
+    {
+      "id": "R23",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R23/report.md",
+        "NativeWeave-Design:docs/research/topics/R23/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R23/coverage.json"
+      ]
+    },
+    {
+      "id": "R24",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R24/report.md",
+        "NativeWeave-Design:docs/research/topics/R24/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R24/coverage.json"
+      ]
+    },
+    {
+      "id": "R25",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R25/report.md",
+        "NativeWeave-Design:docs/research/topics/R25/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R25/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R25/source-driven-seaquery.md"
+      ]
+    },
+    {
+      "id": "D16",
+      "outputs": [
+        "NativeWeave-Design:docs/database/query-semantics.md"
+      ]
+    },
+    {
+      "id": "D17",
+      "outputs": [
+        "NativeWeave-Design:docs/generators/query-generation.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "B09": {
+      "title": "最小查询绑定与metadata定义",
+      "boundary_and_ownership": "Own minimal query-operation ABI descriptors and query owner IDs under Query.Binding/native/database/binding. Import canonical metadata/value/result shapes from B01; do not publish another Table/Column schema or a serialized C# SQL AST.",
+      "native_reuse": "Versioned calls target SeaQuery-native builder operations. Start with direct native operations; batching is an optional measured encoding optimization with identical semantics, not a prerequisite or second query language.",
+      "csharp_surface": "Internal typed call descriptors and owner/alias tokens used by B10/B11/B13, with public application types from B01.",
+      "implementation_steps": [
+        "Define direct operation contracts for query create, predicates/joins/projection/order/limit, seal and execute plan reference, plus capability errors and legal state transitions.",
+        "Distinguish synchronous borrowed parameter input from copied/owned async arguments. A business descriptor hash is content identity, not Engine ABI fingerprint.",
+        "Bind owner identity and alias/type metadata to each operation. Raw ABI validation repeats type/capability/size checks; C# generics are not the only protection.",
+        "If implementing batches later, retain finite version/node/depth/bytes and prevalidate all operations before applying; failure cannot leave an executable partly mutated AST."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Reject unknown opcode/capability/version, wrong owner, reused/disposed owner and overflow before mutation.",
+        "Use Core D08 statuses and bounded structured domain detail; do not export a new generic runtime object/trait abstraction."
+      ],
+      "specific_acceptance": [
+        "Double-sided ABI/signature and operation golden fixtures; direct operation state/property negatives without needing a real DB.",
+        "If a batch path is added, same direct oracle SQL+parameters+errors and all-or-nothing validation; no benchmark claim without measured evidence."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Binding/",
+        "NativeWeave:tests/Query.Binding/",
+        "Plan:ledger/evidence/B09/",
+        "NativeWeave:native/database/binding/"
+      ],
+      "dependency_rationale": "Add B01 start dependency because it owns canonical metadata and value/row contracts. B09 stays independent of B11 implementation and of whole database host.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B10": {
+      "title": "可选静态descriptor与DTO生成",
+      "boundary_and_ownership": "Own optional incremental generator, its diagnostic fixtures and generated-output golden files only. B01/B09 own input contracts; B12 owns runtime/static reader behavior. Do not require this generator for ordinary querying.",
+      "native_reuse": "Roslyn incremental APIs only for static C# metadata/constructor emission; native SeaQuery/SQLx are unchanged application-independent assets.",
+      "csharp_surface": "Opt-in model/projection declarations emit immutable descriptors and static materializers equivalent to handwritten forms; direct C# constructor access is AOT-visible.",
+      "implementation_steps": [
+        "Filter syntax then resolve explicit symbols; output deterministic fully-qualified names and ordering. No database connection, network, Cargo, source checkout or native compilation in generator execution.",
+        "Emit supported codec/nullability/key/alias/constructor descriptors and static DTO readers using B12 contract; closed generics/JsonTypeInfo are explicit.",
+        "Implement the complete D17 NWQ0101-NWQ0107 family with exact locations and meanings, including NWQ0107 for mappings requiring dynamic code or unbounded reflective discovery. Preserve historical old diagnostic numbers rather than repurposing them; test every diagnostic with a compile-negative fixture.",
+        "Handle incremental invalidation for relevant model changes and stable unrelated changes. Do not rely on another generator output appearing in the same pass."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Unsupported constructor/codec/type/nullability fails clearly with handwritten alternative only when it truly supports that model; no reflection fallback.",
+        "Generated materialization always scopes the owned batch lease; constructor exceptions follow B12 cleanup."
+      ],
+      "specific_acceptance": [
+        "Real compile success/failure and deterministic output tests, partial types/nullable/constructor cases, incremental unchanged-output assertions.",
+        "Generated and handwritten same metadata/result DTO on Windows/Linux AOT and two supported entities with exact unchanged native SHA; B13 integration is acceptance, not generator start gate."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Generator/",
+        "NativeWeave:tests/Query.Generator/",
+        "Plan:ledger/evidence/B10/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B11": {
+      "title": "Rust SeaQuery深度绑定与能力检查",
+      "boundary_and_ownership": "Own actual SeaQuery AST/builder/capability checking and managed narrow binding adapter; call B07 for Arguments conversion. B09 owns operation declaration, B13 application Fluent composition.",
+      "native_reuse": "SeaQuery Expr/Condition/Select/Insert/Update/Delete/Dialect and SQLx B07 binder. No C# SQL parser/emitter, no duplicated Rust SQL builder.",
+      "csharp_surface": "Internal native query/plan owner and typed operation calls; public high-level Fluent surface is B13.",
+      "implementation_steps": [
+        "Implement Mutable→Sealed→Submitted/Closed/Poisoned with single-writer admission. Immutable sealed shape and each execution parameter snapshot are distinct owners.",
+        "Translate typed metadata/operations directly into SeaQuery public APIs; retain metadata owner and aliases. Value placeholders remain values, identifiers come from trusted metadata.",
+        "Validate backend capabilities before SeaQuery render and before send: reject SQLite row lock/SELECT INTO/SEARCH CYCLE, unsupported CTE/ANY/SOME/ALL or named-window cardinality instead of accepting upstream ignore/panic.",
+        "Implement ordinary CRUD, joins, aggregates, bounded subqueries/CTE/window capabilities with SQL three-valued logic; call B07 once for native binding and propagate its error.",
+        "Cache immutable compiled shapes only under finite entries/bytes and exact ABI/profile/metadata/query keys. Eviction retains in-use owners; no cache of mutable argument buffers."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Cross-query expression/alias transfer requires explicit native clone or rejection, never pointer reuse; Dispose races are admission failures.",
+        "Seal failure is either no mutation/retryable or explicit Poisoned; caught panic cannot leave a valid-looking partially changed builder.",
+        "No client-side hidden expression evaluation or C# NULL compensation."
+      ],
+      "specific_acceptance": [
+        "For every supported operation compare direct Rust SeaQuery SQL, placeholder order, typed arguments and real PG/SQLite result/errors against C#→ABI.",
+        "Property/negative tests: malformed raw operations, SQL injection through value vs identifier, nonfinite/overflow values, NULL joins, Unicode, empty sets, capability mismatches and budget exhaustion.",
+        "Same-native-hash ordinary entity changes and Windows/Linux AOT, with fallible binder source owned by B07 only."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Native/",
+        "NativeWeave:tests/Query.Native/",
+        "Plan:ledger/evidence/B11/",
+        "NativeWeave:native/database/query/"
+      ],
+      "dependency_rationale": "Add B07 to start because B11 must consume one codec/binder implementation rather than duplicate it. B09 provides query/metadata binding; actual providers and host gate composition acceptance only.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B12": {
+      "title": "静态C# DTO物化与异常清理",
+      "boundary_and_ownership": "Own static managed typed readers and DTO construction/runtime contract. Read B01 row-lease interface and B07 scalar conversion; B06 owns batch allocation/cursor implementation, B10 optional emitted constructor code.",
+      "native_reuse": "Native provider/codec computes typed result values and shape; C# maps that finite representation directly to application DTOs. SeaORM dynamic projection is optional inside Rust and must obey identical shape checks.",
+      "csharp_surface": "Static RowReader<T>/projection constructor interface, typed scalar access and lease scope; no identity map, reflection setter, arbitrary runtime generic instantiation or managed relation graph.",
+      "implementation_steps": [
+        "Validate expected shape count/order/IDs/alias/type/nullability before nullable getters. SeaORM Option<T> can map a missing SQLx column to None; guard that native path too.",
+        "Generate/implement direct typed scalar reads and constructor/member assignment. SQL NULL in a present nullable column is distinct from missing shape and from a nonnullable failure.",
+        "Scope every borrowed view to the owned batch lease; copying a retained CLR string/array is explicit. Do not return an escaping Span backed by already-released native memory.",
+        "Wrap constructor/setter/JSON reader exceptions in finally cleanup; cursor close and protocol cleanup remain asynchronous owners and are not abandoned on mapping failure."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Wrong type/shape, narrowing/precision failure or constructor throw is a typed mapping failure with no partially published DTO result collection.",
+        "Task completion/early enumeration stop does not prematurely release batch or parent; cancellation invokes the same B06 cleanup flow."
+      ],
+      "specific_acceptance": [
+        "Handwritten independent oracle checks missing nullable field, duplicate alias, wrong type, nonnullable NULL and throwing constructor; then same oracle validates generated materializers.",
+        "Actual two-provider AOT enumeration and NuGet consumer; owner/allocation accounting for every failure path."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Materialization/",
+        "NativeWeave:tests/Data.Materialization/",
+        "Plan:ledger/evidence/B12/"
+      ],
+      "dependency_rationale": "Keep start B07/B09: B01 row-lease contract is transitively available and a local fixture can implement it. Actual B06 ownership and providers must pass composition before acceptance, without forcing B10 first.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B13": {
+      "title": "强类型runtime Fluent原生查询",
+      "boundary_and_ownership": "Own natural application-facing typed Fluent calls/proxies under Query.Fluent; no persistent managed SQL tree. B11 owns builder, B09 operation descriptors, B12 DTO materialization.",
+      "native_reuse": "Direct SeaQuery builder calls and shared runtime metadata; optional batching only if supported by B09 with measured benefit.",
+      "csharp_surface": "Query<TEntity>, typed columns, scoped aliases/expressions, typed Select<TDto>, async execute/stream; handwritten and SG metadata are equivalent paths.",
+      "implementation_steps": [
+        "Map every Fluent operation to the native owner immediately; retain only typed owner/descriptor/proxy references required by the user interface.",
+        "Snapshot each value at its documented call or submit point, before await; do not reread mutable closures. Reused query shapes take new isolated parameter owners.",
+        "Enforce query/alias/entity/value type association, explicit IS NULL/IS NOT NULL and deterministic page tie-breakers; dynamic external fields resolve metadata allowlist and native validation.",
+        "Connect seal/execute/cursor and DTO projection without assuming generator availability. Unsupported constructs fail with structured capability diagnostics, never fall back to a hidden managed LINQ engine."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Concurrent mutations, mutation after Seal, cross-query proxy, wrong backend, parent closing and repeated dispose are explicit errors with preserved resource safety.",
+        "Enumeration mapping failure or cancellation releases current batch then completes cursor/session cleanup through B06/B04."
+      ],
+      "specific_acceptance": [
+        "Compile negatives for wrong TEntity/TValue/alias use; runtime wrong-owner and disposed query negatives; closure value mutation before/after snapshot oracle.",
+        "Real filter/order/limit, explicit join, aggregate, CTE/window capability and projection examples in clean Windows/Linux NuGet consumers; same native hash for new supported entities.",
+        "Record direct-operation call/copy costs for B23; no zero-overhead or full EF compatibility acceptance claim."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Query.Fluent/",
+        "NativeWeave:tests/Query.Fluent/",
+        "Plan:ledger/evidence/B13/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B14": {
+      "title": "Rust显式关系CRUD与乐观并发",
+      "boundary_and_ownership": "Own explicit native relation/CRUD/CAS policy and narrow C# changeset surface. No implicit lazy loading, identity map, tracking or aggregate save-graph semantics added silently.",
+      "native_reuse": "SeaQuery joins/CRUD and SQLx transactional execution for the ordinary route. SeaORM LoaderTrait offers valuable native batching/grouping but has static ModelTrait/EntityTrait bounds and all() materialization; dynamic eager loading requires an explicit upstream/native adapter scope with bounded grouping, not a C# relation engine.",
+      "csharp_surface": "Explicit typed relation projections, Change<T> with NotSet/Null/Value, tenant/key/version CAS, and transaction-scoped operation results.",
+      "implementation_steps": [
+        "Build joins and projections from explicit relationship metadata; distinguish an unmatched LEFT JOIN row via a nonnullable joined key/null marker rather than a nullable business column alone.",
+        "Implement NotSet as omitted update column, Null as bound SQL NULL and Value as bound checked value. Construct tenant+key+version predicates in native code before execution.",
+        "Perform CAS update with version increment, inspect affected rows and return conflict without automatic write replay. Multiple statements use B05 transaction scope.",
+        "Expose explicit bulk/relationship batches within finite parent/key/result budgets. Initial ordinary baseline supports joins and explicit batches; do not claim SeaORM eager loader is already dynamic or bounded.",
+        "Any optional dynamic native loader extension must cite the existing SeaORM algorithm/license/pin, prove parent order/duplicate/null/many-to-many semantics and stay separate from basic CRUD acceptance."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Tenant scope is never removed by keyset cursor, relation path or recovery query. Composite keys and duplicate parent rows have explicit deterministic handling.",
+        "CAS conflict differs from encoding error, missing row and Unknown commit. Cancellation after write dispatch follows B05, not a fictional rollback guarantee.",
+        "Partial changesets and failed multi-statement updates cannot publish success or leak held parent/cursor/transaction owners."
+      ],
+      "specific_acceptance": [
+        "Use actual native LEFT JOIN/count/sum and tenant CAS Design oracle cases, plus duplicate/composite parent keys, absent child and NULL fields on both real providers.",
+        "Concurrent same-version writers: one success and one conflict; cross-tenant negative; rollback failure/COMMIT Unknown propagation and no blind retry.",
+        "Static DTO and handwritten/generated metadata parity on AOT with unchanged native asset; any optional loader is evaluated separately by explicit coverage."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Orm.Relations/",
+        "NativeWeave:tests/Orm.Relations/",
+        "Plan:ledger/evidence/B14/",
+        "NativeWeave:native/database/relations/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

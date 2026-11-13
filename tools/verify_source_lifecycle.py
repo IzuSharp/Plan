@@ -47,7 +47,7 @@ def verify_ci_result(manifest,result):
     assert result['platform_test_executions']==manifest['platform_test_executions']
     assert result['accepted_contracts']==0 and result['product_delivery_executed'] is False
 
-def main():
+def verify_original_working_snapshot():
     baseline=read(P/'source-driven-baseline.json')
     checkpoint=read(P/baseline['source_lifecycle_checkpoint'])
     assert checkpoint['record_kind']=='research_source_lifecycle_plan_pair'
@@ -119,5 +119,17 @@ def main():
             'accepted_contracts':0,'independent_review':False}
     (P/'verification/source-lifecycle-checks.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False,indent=2))
+
+def main():
+    # The old assertions remain executable at their original exact pair. Current
+    # accepted research must not pretend to be that earlier proposed snapshot.
+    from history_gate import run_frozen
+    from verify_completion import verify
+    historical = run_frozen('verify_source_lifecycle.py')
+    current = verify()
+    result = {'ok': True, 'historical': historical, 'current': current,
+              'scope': 'Original lifecycle gate plus current exact acceptance gate; no native rerun.'}
+    (P/'verification/source-lifecycle-current-checks.json').write_text(json.dumps(result, indent=2)+'\n')
+    print(json.dumps(result, indent=2))
 
 if __name__=='__main__':main()

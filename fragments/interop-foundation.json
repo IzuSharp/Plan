@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D22",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05"
+  ],
+  "design_inputs": [
+    {
+      "id": "R03",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R03/report.md",
+        "NativeWeave-Design:docs/research/topics/R03/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R03/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R03/native-slice-validation.md"
+      ]
+    },
+    {
+      "id": "R07",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R07/report.md",
+        "NativeWeave-Design:docs/research/topics/R07/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R07/coverage.json"
+      ]
+    },
+    {
+      "id": "R10",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R10/report.md",
+        "NativeWeave-Design:docs/research/topics/R10/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R10/coverage.json"
+      ]
+    },
+    {
+      "id": "R11",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R11/report.md",
+        "NativeWeave-Design:docs/research/topics/R11/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R11/coverage.json"
+      ]
+    },
+    {
+      "id": "D02",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/abi-v0.1.md"
+      ]
+    },
+    {
+      "id": "D04",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/lifetime-v0.1.md"
+      ]
+    },
+    {
+      "id": "D07",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/buffer-v0.1.md"
+      ]
+    },
+    {
+      "id": "D08",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/error-v0.1.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "A01": {
+      "title": "ABI描述、布局探针和版本读取",
+      "boundary_and_ownership": "One canonical fixed-layout C ABI description, independent of SQL/HTTP/GPU. Rust/C/C# records and status/storage widths must agree.",
+      "native_reuse": "Rust repr(C), C fixed-width declarations, .NET Sequential structs/LibraryImport; no Rust native ABI.",
+      "csharp_surface": "Internal blittable ABI records and engine-prefixed get_abi_v1 bootstrap; application code sees no raw pointers.",
+      "implementation_steps": [
+        "Implement D02 complete wire records, defined reserved fields, size/capacity negotiation and engine-prefixed symbols from one versioned description.",
+        "Generate sizeof/alignof/every-offset probes for C and Rust plus C# SizeOf/OffsetOf; archive actual output and compiler target.",
+        "Implement only scalar status plus out-pointer returns; document null/alias/alignment/borrow/output initialization for every export.",
+        "Bind layout/symbol inventory to source and ABI version; keep examples/goldens distinct from implementation-generated output."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Null output or insufficient complete prefix writes nothing; no probe deliberately dereferences arbitrary invalid memory in the parent process.",
+        "Never export bool, C long/wchar_t, Rust enums/Vec/Future, CLR references or unmanaged generic layouts."
+      ],
+      "specific_acceptance": [
+        "Full record matrix and reserved/padding checks on both OS AOT; deliberately altered field offset/width causes detection.",
+        "Different architecture/major/short output capacity rejected before ownership transfer."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Abi/",
+        "NativeWeave:tests/Interop.Abi/",
+        "Plan:ledger/evidence/A01/",
+        "NativeWeave:native/interop/abi/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A02": {
+      "title": "状态、能力及兼容性协商入口",
+      "boundary_and_ownership": "Engine-local loading, bootstrap and capabilities; no global service locator or universal function table.",
+      "native_reuse": "OS native loader and D02 C ABI; optional function table only for an Engine that needs one.",
+      "csharp_surface": "EngineModule/CapabilityProfile bootstrap with immutable supported-feature set.",
+      "implementation_steps": [
+        "Resolve packaged native assets through SDK-supported application-local loading; verify identity/RID/ABI and required capabilities.",
+        "Read only supported bootstrap prefixes; reject incompatible major and missing required bits without partial owners.",
+        "Support engine-prefixed fixed imports first; opt-in table validates every required pointer and retains module lifetime.",
+        "Keep module loaded for process lifetime and instances separately disposable; emit bounded Engine/version/RID diagnostics."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Missing assets or unsupported feature never select a managed driver/host fallback.",
+        "No unload while any call/callback/release can execute; unknown optional fields remain ignored/defaulted."
+      ],
+      "specific_acceptance": [
+        "Old/new compatible minor and rejected major/capability/size combinations; wrong DLL/ELF/RID in isolated consumers.",
+        "Two independent bootstrap fixture modules load without symbol collision or unwanted executor startup. Complete heterogeneous real Engine conformance belongs to A17/A18 and is not an A02 prerequisite."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Negotiation/",
+        "NativeWeave:tests/Interop.Negotiation/",
+        "Plan:ledger/evidence/A02/",
+        "NativeWeave:native/interop/negotiation/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A03": {
+      "title": "同步句柄与资源lease",
+      "boundary_and_ownership": "Logical admission gate plus physical native resource lease; SafeHandle alone is not the admission policy.",
+      "native_reuse": "Rust RAII owners/Arc as source semantics permit; creating module releases its own resources.",
+      "csharp_surface": "Private SafeHandle owner; TryAcquire/lease and Dispose/DisposeAsync with explicit lifecycle.",
+      "implementation_steps": [
+        "Implement Open→Closing→Closed admission under one synchronization policy; acquire logical token and DangerousAddRef before exposing native pointer.",
+        "Roll back all earlier increments if a later acquisition fails; close admission atomically and let previously admitted calls finish.",
+        "Release physical lease and logical token exactly once in finally/RAII, including managed mapping/native errors.",
+        "Expose completion of true retirement separately from synchronous Dispose request; finalizer path must be bounded/nonblocking."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "No new admission succeeds after close linearization; a call holding an earlier admitted lease may enter/finish native code during Closing. No native release before every admitted lease ends.",
+        "Double Dispose is idempotent but arbitrary double native release is a caller defect; avoid false reuse of recycled pointer identity."
+      ],
+      "specific_acceptance": [
+        "Deterministic barriers cover each named acquire/close/AddRef boundary schedule under recorded operation/thread/preemption bounds and verify actual native live/release counters.",
+        "Late GC/finalizer with in-flight call, allocation failure between acquisitions and mapper exception leave no leaked owner."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Lifetime/",
+        "NativeWeave:tests/Interop.Lifetime/",
+        "Plan:ledger/evidence/A03/",
+        "NativeWeave:native/interop/lifetime/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A04": {
+      "title": "拥有Buffer与异步租约",
+      "boundary_and_ownership": "Owned/borrowed byte regions and retained async leases; no allocator identity guessing.",
+      "native_reuse": "Rust Vec/Bytes owners and source-verified destruction; D07 complete extent/stride contract.",
+      "csharp_surface": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
+      "implementation_steps": [
+        "Implement D07 contiguous byte-view length/count/element-width and offset checks, checked u64↔nuint conversion, isize::MAX and allocation-capacity bounds; preserve null+zero rules. A strided view requires a separately accepted profile and is not part of v1.",
+        "Attach owner/type/release function to every allocation; copy/pin/borrow is an explicit profile with a defined end.",
+        "Hold owner and budget through clones/slices/async delivery; retain full backing allocation charge rather than visible slice length.",
+        "Dispose/pin release occurs after the last admitted consumer; mapper/conversion errors release all unpublished outputs."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Never create Span from untrusted extent before validation; no CLR free of Rust memory or cross-CRT ownership.",
+        "Cancel/timeout/Body EOF does not revoke another live buffer lease.",
+        "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
+      ],
+      "specific_acceptance": [
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
+        "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Memory/",
+        "NativeWeave:tests/Interop.Memory/",
+        "Plan:ledger/evidence/A04/",
+        "NativeWeave:native/interop/memory/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A05": {
+      "title": "受控错误与panic转换边界",
+      "boundary_and_ownership": "Single status/ErrorRecord/panic containment authority for every adapter.",
+      "native_reuse": "Rust catch_unwind only for unwind-mode panic and nonpanicking native cleanup; no invented process-fault recovery.",
+      "csharp_surface": "Typed managed exception/result translation outside ABI callbacks; bounded native detail record.",
+      "implementation_steps": [
+        "Implement D08 exact status constants, complete ErrorRecord capacity algorithm and bounded UTF8 detail ownership.",
+        "Initialize every valid out-owner slot before fallible work; on error destroy unpublished state and translate without callbacks/reentrancy.",
+        "Contain exported Rust panics; handle caught payload destruction risk and poison the owning Engine after every contained native panic under D08; permit only explicitly trusted cleanup and never resume normal admission.",
+        "Catch managed Handler exceptions inside valid UCO entrypoints and preserve committed operation outcome; diagnostics cannot overwrite terminal results."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "OOM abort, access violation and invalid UCO signature can terminate before body catch; isolate negative tests.",
+        "Error reporting cannot allocate unbounded strings, recursively panic, leak secret connection data or change committed success to cancellation."
+      ],
+      "specific_acceptance": [
+        "UTF8 truncation/capacity boundaries, no-detail failures, valid callback exception, poison behavior.",
+        "Child processes verify ordinary catch, panic=abort, double-panic payload destruction and invalid unmanaged-signature outcomes."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Errors/",
+        "NativeWeave:tests/Interop.Errors/",
+        "Plan:ledger/evidence/A05/",
+        "NativeWeave:native/interop/errors/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

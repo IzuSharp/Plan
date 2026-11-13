@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D30",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "B21",
+    "B22",
+    "B23",
+    "B24"
+  ],
+  "design_inputs": [
+    {
+      "id": "R31",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R31/report.md",
+        "NativeWeave-Design:docs/research/topics/R31/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R31/coverage.json"
+      ]
+    },
+    {
+      "id": "R17",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R17/report.md",
+        "NativeWeave-Design:docs/research/topics/R17/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R17/coverage.json"
+      ]
+    },
+    {
+      "id": "R21",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R21/report.md",
+        "NativeWeave-Design:docs/research/topics/R21/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R21/coverage.json"
+      ]
+    },
+    {
+      "id": "D20",
+      "outputs": [
+        "NativeWeave-Design:docs/verification/reference-application.md"
+      ]
+    },
+    {
+      "id": "D12",
+      "outputs": [
+        "NativeWeave-Design:docs/verification/models-and-matrix.md"
+      ]
+    },
+    {
+      "id": "D13",
+      "outputs": [
+        "NativeWeave-Design:docs/performance/methodology.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "B21": {
+      "title": "通用幂等任务参考服务",
+      "boundary_and_ownership": "Implement the exact D20 domain-neutral work-item reference service with operations, items, outbox and attachments. Do not replace it with an additional durable job/attempt/claim/complete state machine or import ArcForges business behavior.",
+      "native_reuse": "SQLx/SeaQuery and selected Rust host; use native transaction/relations/streaming implementation from B04/B14/B17.",
+      "csharp_surface": "Static Item, OperationResult, OutboxEvent and Attachment DTO/entity declarations; POST /v1/items, keyset GET /v1/items, GET /v1/operations/{id}, and authorized attachment PUT/GET. Natural typed Fluent and C# business Handlers consume mandatory Rust DB/ORM/Server; optional protocols call the same service.",
+      "implementation_steps": [
+        "Implement D20's four-table schema and explicit migrations for both PostgreSQL and SQLite. Preserve operations(scope,request_key) uniqueness, stable operation_id, tenant/item keys, expected version and outbox event identity. Freeze v1 request-hash length-prefixed UTF-8/integer golden vectors and response-version bytes; do not infer a universal JSON canonicalizer.",
+        "Create items with authenticated scope, validated 1-128 ASCII idempotency key and request hash. The unique operation record, business write, stable replay response and outbox row commit in one Rust-owned transaction. Same key/hash replays; different hash returns 409 without changing the winning record.",
+        "For PostgreSQL ReadCommitted, ON CONFLICT DO NOTHING returning no row is followed by a separate SELECT statement and hash/scope verification. For SQLite use short BEGIN IMMEDIATE writer admission. COMMIT Unknown returns the D20 outcome_unknown recovery identity/503 when HTTP remains available; missing recovery data does not prove rollback or permit unprotected replay.",
+        "Implement tenant-authorized keyset listing with (created_at,id), maximum 100 rows and tamper-resistant scoped cursor, plus authorized operation-result recovery. No cross-page snapshot guarantee is invented; any consistent export uses its explicit bounded transaction/stream profile.",
+        "Implement the outbox worker with bounded claim/lease batches, external publication after its claim transaction ends, stable event_id, explicit retry/backoff and acknowledgement recording. Include an independent persistent deduplicating consumer; at-least-once delivery can repeat attempts and does not promise external exactly-once effects.",
+        "Implement attachment PUT/GET with authorization, 64MiB route length, 32KiB chunks and finite disk/byte/upload budgets. Stage, hash and durably finish the blob before same-filesystem immutable rename, then commit the authorized DB reference/result/outbox. Retain staging/recovery manifests and a grace period so orphan collection cannot delete an active upload or recovery blob; never hold a DB transaction during the client upload.",
+        "Apply D20's 7-day idempotency retention profile and protect records referenced by recovery/outbox. Do not promise replay after expiry or remove tenant/principal/operation scope. The initial operations table stores confirmed replayable results, not a separately committed InProgress job state.",
+        "Use explicit finite CloseAsync on HTTP completion: Pending keeps native parents, roots, callbacks and budgets in the Engine, without retaining an ended request context/DI scope. Do not follow Pending with an implicit indefinite await-using join; already-dispatched COMMIT uses its independent deadline and outcome semantics.",
+        "Supply clean independent NuGet consumers for both real databases over the Rust HTTP1/2/TLS Host on Windows/Linux AOT. Normal model/DTO/Handler edits retain the native module hash, require no Cargo and obey D18's separate managed/native and per-request payload credits."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "ACK loss never blindly repeats a non-idempotent mutation. HTTP response loss after a known commit leaves the durable same-key replay record intact; Unknown stays distinct from known rollback and confirmed success.",
+        "Outbox publish success followed by acknowledgement-write failure may cause another delivery attempt; the independent consumer proves one business effect under stable event_id deduplication.",
+        "Blob and database are not a distributed atomic transaction. A failed reference commit may leave an unreferenced blob, but a successful DB reference must never name an incomplete blob; authorization always comes through the tenant's DB reference.",
+        "Cancellation, Body EOF and handler return do not free retained DB/response owners. Finite HTTP cleanup can stop waiting while the Engine still accounts for every pending owner and cancellation registration."
+      ],
+      "specific_acceptance": [
+        "Run the complete D20 REST API through real HTTP -> C# Handler -> Rust query/database on both Windows/Linux AOT and PostgreSQL/SQLite; verify static hash/response golden vectors, no-Rust ordinary build/run and unchanged native bytes after entity/Handler edits.",
+        "Concurrent same-key same-hash requests produce one item/operation/outbox effect and the same replay response; different hash and cross-tenant/principal scope attempts cannot expose or overwrite another result. Exercise PG conflict snapshot and protected Unknown recovery.",
+        "Execute an outbox duplicate-attempt oracle and attachment upload/download/orphan-grace oracle. Demonstrate blob durability before DB reference, bounded streaming without a held upload DB session, and authorization even for an existing shared content hash.",
+        "Verify the declared retention window, keyset tie-breaker/cursor scope and 1MiB JSON/100-row/64MiB attachment limits. CloseAsync Pending may end HTTP waiting but live owner counters and budgets remain until actual safe retirement; B22 supplies the full fault/soak matrix."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Reference.TaskService/",
+        "NativeWeave:tests/Reference.TaskService/",
+        "Plan:ledger/evidence/B21/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B22": {
+      "title": "端到端故障、崩溃与长期资源验证",
+      "boundary_and_ownership": "End-to-end failure/crash/soak correctness and bounded resource accounting of exact product composition.",
+      "native_reuse": "Real PostgreSQL/SQLite/native HTTP/TLS stack, process control and protocol fault proxy.",
+      "csharp_surface": "External fault driver and durable-data oracle; no in-process mock substitutes for server/database failures.",
+      "implementation_steps": [
+        "Exercise every D20 operation using independent durable-data and protocol oracles: operations/items/outbox atomicity, same/different hash replay, tenant/principal isolation, authorized recovery, keyset paging and attachment upload/download.",
+        "Inject DB faults before BEGIN/write/COMMIT dispatch and after dispatch or acknowledgement: lost COMMIT replies, failed transactions, early stream exit, server/process restart, SQLite busy/disk-full and pool reset failure. Reconcile transaction effect and same-session identity independently; preserve Unknown, rollback-unconfirmed and provider-cleanup distinctions.",
+        "Crash between outbox publish and acknowledgement recording, then prove repeated delivery attempts cause one deduplicated consumer effect. Crash attachment work before durable blob, after rename but before DB commit, and during orphan collection; verify no successful reference targets incomplete content and no active/recovery blob is collected. Cover actual Windows/Linux filesystem persistence differences without claiming power-loss guarantees from a process crash alone.",
+        "Test retention/cleanup against in-progress protected recovery and outbox references, expired-key semantics, cross-tenant same keys and tampered cursors. A single not-found read cannot authorize an unprotected business replay.",
+        "Inject slow upload/download, over-budget decompression/JSON/chunks, HTTP1 half-close/HTTP2 reset, handler faults, old permits, late cancellation and shutdown races. Test CloseAsync Pending ending response waiting while resources remain charged, followed by eventual safe DisposeAsync join; Body EOF or channel closed alone never proves byte-owner retirement.",
+        "Run repeated load/drain/idle cycles and D20's staged 30-minute steady, 24-hour regression and 72-hour release soak profiles with fixed workload and faults. Freeze load/duration/resource thresholds before the run, record live owners/roots/permits/threads/handles plus RSS trends, and keep missing release-soak rows unaccepted rather than substituting a shorter run.",
+        "Record exact source/native/package/AOT/DB/storage/profile identity, failure seed, timeline, raw observations and minimized reproductions. Functional oracle failure blocks performance/release claims; every executed or unexecuted profile is explicit."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "External timeout, process termination, Body EOF and an HTTP cancellation token are not graceful resource retirement or proof that a COMMIT rolled back.",
+        "Flat RSS is not proof of no leak; leaked owners or still-live byte charges fail even if allocator retention hides growth. Conversely, owned-byte caps alone do not bound driver/protocol/TLS/GC/whole-process RSS.",
+        "Outbox is at-least-once and blob-before-reference is not distributed atomic commit; preserve those explicit limits while independently checking actual business effects and reachable content.",
+        "Pending cleanup must retain finite reserved capacity and ownership without deadlocking control paths or keeping an ended request DI scope alive. Primary errors and Unknown outcomes survive cleanup failures."
+      ],
+      "specific_acceptance": [
+        "All specified reference operations pass on real PostgreSQL/SQLite with the native HTTP1/2/TLS profile on Windows/Linux AOT; declared optional protocol profiles are separately identified and unsupported cells are not claimed executed.",
+        "Pass D20's exact idempotency, Unknown, outbox duplicate, attachment persistence/orphan, retention, authorization, memory-credit and bounded-close oracles with independent effect counters and raw fault timelines.",
+        "Record stage-specific 30-minute/24-hour/72-hour workload evidence and finite resource thresholds from the accepted profile. Release acceptance requires its full declared soak row; research/model success cannot stand in for actual product execution."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.EndToEnd/",
+        "NativeWeave:tests/Verification.EndToEnd/",
+        "Plan:ledger/evidence/B22/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B23": {
+      "title": "领域全负载性能与内存报告",
+      "boundary_and_ownership": "Complete workload performance/memory/developer-cost report for actual accepted reference artifacts.",
+      "native_reuse": "Direct Rust Engine and equivalent C# AOT comparator including Kestrel only in comparator executable.",
+      "csharp_surface": "Reproducible comparison report and raw dataset; no product-host selection vote.",
+      "implementation_steps": [
+        "Use A21 controller with B21 applications and B22 correctness oracles; keep DB durability/TLS/serialization/query semantics equal.",
+        "Measure cold/warm, small/large payload, low/high concurrency, streaming and overload with raw histograms and repeated processes.",
+        "Attribute FFI/DTO/copy/managed/native allocation and runtime threads, plus RSS/working set/package/build/application edit costs.",
+        "Report adverse/unsupported cells and confidence intervals; propose optimisations only with source/lifetime tradeoff and repeatable benefit."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Invalid functional oracle, unequal workload or generator saturation invalidates benchmark.",
+        "Do not declare Rust faster from a microbenchmark, language name or single favourable percentile."
+      ],
+      "specific_acceptance": [
+        "All three routes with pinned binaries/config/data on Windows/Linux where equivalent; missing route explicitly explained.",
+        "Predeclared regression bands grounded in baseline/noise, no guessed percentage target; raw data independently reviewed.",
+        "Measure disabled Release, default Debug and explicit local Debug, sampled/full tracing, configured log/Meter sinks and exporter saturation/failure separately. Record allocations/native memory/CPU/callback latency/drop counts; scoped no-listener probe is not a product zero-cost claim."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Benchmarks.Domain/",
+        "NativeWeave:tests/Benchmarks.Domain/",
+        "Plan:ledger/evidence/B23/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B24": {
+      "title": "领域兼容矩阵、独立包与发布验收",
+      "boundary_and_ownership": "Final immutable domain release matrix and independent package acceptance; all existing domain components included.",
+      "native_reuse": "Same selected mature Rust closure and D10 provenance; no alternate Kestrel product profile.",
+      "csharp_surface": "Versioned Data/Query/Server plus optional-to-consumers gRPC/MCP packages over one mandatory Rust host.",
+      "implementation_steps": [
+        "Bind all B01–B23 accepted component revisions and A16/A22 package/compatibility outcomes to one release scope.",
+        "Run clean Windows/Linux consumers: SQLite and real PG, HTTP1/2/TLS, chosen gRPC/MCP packages independently and combined.",
+        "Verify no-Rust ordinary build/run/edit and explicit Native AOT publication/execution with byte-identical native module for model/Handler changes.",
+        "Audit licenses/transitive artifacts/provenance/ABI/behavior versions and rollback set; publish only after actual future release authorization."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "A research/design accepted contract is not a product evidence row; every actual release component needs its own verified result.",
+        "Missing mandatory B04/B17, implicit managed driver/host fallback, unknown profile or stale digest blocks release."
+      ],
+      "specific_acceptance": [
+        "Exact final source/native/NuGet/AOT artifact hashes, real DB/network fault/soak and performance evidence on both OS.",
+        "Independent NuGet isolated consumption, old/new upgrade/downgrade and incompatible ABI/native asset negative; all 23 domain component revisions pinned.",
+        "Run the A16 exact package-closure, partial publication, override/missing leaf/RID, signing-aware readback and previous-closure rollback gates for the assembled required Rust DB/ORM/Server plus selected protocol packages on every supported profile/RID. Partial registry success is not release acceptance."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Packaging.Domain/",
+        "NativeWeave:tests/Packaging.Domain/",
+        "Plan:ledger/evidence/B24/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}
