@@ -20,7 +20,7 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 | [documentation-graph.json](documentation-graph.json) | 谁写哪些规范、契约及领域任务 | D01–D32 | 可带明确假设立即draft | 本领域必要证据和精确接口接受；外延专题不能成为普遍等待 |
 | [delivery-graph.json](delivery-graph.json) | Codex未来实现什么、怎样验证 | A01–A24、B01–B24 | 本节点变为planned、被接受的精确契约和必要局部依赖 | 真实平台证据、哈希绑定、独立Review、选定发布组合 |
 
-`start_dependencies`约束开始；`acceptance_dependencies`约束最后接受。`research_refs`和`documentation_refs`提供追溯，不自动制造等待。`contract_inputs`总是精确版本，并显式要求accepted。`conditional_dependencies`只在可选路线被选中时进入本地验收，避免“所有人等待整个阶段A”。
+`start_dependencies`约束开始；`acceptance_dependencies`约束最后接受。`research_refs`和`documentation_refs`提供追溯，不自动制造等待。`contract_inputs`总是精确版本，并显式要求accepted。`conditional_dependencies`只在路线selected时按gate=start/acceptance约束局部开始或接受。B15/B17均是未选择的产品host；相关`required_selection_groups`要求所有选择已决定且至少一个host selected，允许两个都选而不指定默认。Kestrel研究对照不自动成为产品选择。
 
 ## 立即开始
 
@@ -32,11 +32,12 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 ```bash
 python3 tools/validate_graphs.py --root . --output verification/graph-validation.json
 python3 tools/mutation_checks.py
+python3 tools/host_selection_checks.py
 ```
 
 Windows可使用`py -3`代替`python3`。两仓库本地位置应为同级`Plan/`和`NativeWeave-Design/`；第三个`NativeWeave/`只在正式实施/证据需要时存在。独立检出时使用受控同级目录，不把另一个仓库的内容复制成新权威。
 
-当前实际结果见[graph-validation.json](verification/graph-validation.json)及[mutation-checks.json](verification/mutation-checks.json)。这些只验证图和证据门禁工具，**不是NativeWeave产品的Windows/Linux或AOT验收**。
+当前实际结果见[graph-validation.json](verification/graph-validation.json)、[mutation-checks.json](verification/mutation-checks.json)及[host-selection-checks.json](verification/host-selection-checks.json)。这些只验证图和证据门禁工具，**不是NativeWeave产品的Windows/Linux或AOT验收**。
 
 ## 两阶段范围
 
@@ -68,7 +69,17 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 2026-11-12 Rust1.100连续执行授权
 
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+Rust/Cargo1.100研究与真实两OS测试见Design R01；这是固定研究基线，升级工具链另需当时的真实证据。Design PR5/Plan PR2的历史self-review合并例外不绕过GitHub门禁或伪造accepted契约。当前按CURRENT-PHASE.md仅推进已有R/D的源码、Design内实验和详细设计；所有Delivery保持候选，未获正式产品实施授权。普通已授权研究不逐项询问。
+
+## 生命周期研究输入与候选任务细化
+
+本轮在原114个ID内细化A03/A07、B05、B11/B13及Server任务的API边界、状态/owner、失败路径和可执行oracle，保持全部status、acceptance/review记录和产品实施授权状态。C-TX/C-SERVER精确消费0.2.1-draft，C-LIFETIME仍0.1.0-draft并绑定PR8的新增同步准入证据。输入与证据边界见[source-driven-baseline.json](source-driven-baseline.json)及其source-lifecycle checkpoint。
+
+本次增量的实际基线是已合并Plan PR6 `886fec7e6c702372e3b5f8dee2c85f039844b462`。PR6的R07/D04证据、六个packet增量和独立checkpoint均保留；D04的partially_evidenced状态继承自该主线，不是本次提升或回退。相对该基线，本批53个packet修订、61个原样；当前Research为10 partial/24 planned，Documentation为4 partial/28 draft_ready，Delivery仍48个planned_candidate，接受的契约为0。
+
+历史迁移checkpoint保持原字节；`tools/verify_research_assets.py`在已合并Plan 04c2快照验证33/81个packet和当时Delivery未变，同时单独验证当前pair与114个packet。不能把合法后续任务修订伪装成迁移时的33个修改，也不能把旧raw logs记作新的实验执行。
+
+`tools/verify_logical_admission_history.py`另按Plan 886fec7 / Design 3767f3c的固定历史核验6/108个packet、64份既有raw files和当时Delivery未变。原record脚本、历史检查记录与checkpoint原字节保留；当前CI不再用该一次性脚本的“只有六个packet变化”断言约束后续合法研究修订。
 
 ## Detailed logical-admission research input
 

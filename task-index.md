@@ -132,3 +132,5 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 | B24 | [领域兼容矩阵、独立包与发布验收](tasks/B24.md) | planned_candidate |
 
 Task revisions are exact per graph; unaffected packets were not rewritten. R/D continuation is distinct from product acceptance.
+
+Source-lifecycle detail preserves all states and IDs. B15/B17 remain undecided host candidates; the selected host group is required by shared Server and composition/release tasks. Exact paired inputs and changed packet hashes are recorded by source-driven-baseline.json and its source-lifecycle checkpoint. A prototype's successful run does not complete a Delivery task.

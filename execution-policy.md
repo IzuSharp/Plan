@@ -18,9 +18,17 @@ Database底层必需Rust；不存在产品纯C#Data/Query fallback。Kestrel、�
 
 ## 可选路线及发布范围
 
-B04是必需Rust Database Host，B02/B03是Rust providers。B17原生Server、B18 gRPC、B19 MCP才是独立可选路线。选择状态进入对应B21–B24验收快照；新增组合必须复验，不能复用旧组合报告。
+B04是必需Rust Database Host，B02/B03是Rust providers。B15 Kestrel与B17 Rust Server均为未决定的产品host候选；R26/R17必须研究Kestrel对照，但不据此指定产品默认。B18 gRPC、B19 MCP分别选择。选择状态进入所有相关共享任务及B21–B24验收快照；新增组合必须复验，不能复用旧组合报告。
 
-B24包含精确revision的release_scope。总accepted只能描述scope内已验收组件，不能外推到未选择协议包、架构或平台。每个engine/crate/adapter独立版本发布；新engine增加独立task/fragment，不重排无关任务。
+`conditional_dependencies.gate`可为`start`或`acceptance`：selected start边需要所选host的真实实现才能开始，并在终结接受时复查；selected acceptance边允许先开始局部工作，但最后接受必须有被选依赖的真实证据。B16/B18/B19/B20/B21按选中host建立start边，B22–B24按选中host建立acceptance边。未选中Kestrel时不制造B15产品等待，未选中Rust Server时不制造B17等待。
+
+`required_selection_groups`的server-host组列出B15/B17，minimum_selected=1。相关节点的selection_inputs必须全部明确selected/excluded，且组内至少一项selected，才能ready或终结接受；两项都excluded、都undecided或一项selected另一项未定都不放行。允许两个host都selected，但形成各有证据的明确profile，不自动设置全局默认。组规则和两host的revision/content/selection一起绑定验收subject。这是候选依赖设计，不是产品阶段授权。
+
+B18/B19额外使用`protocol_host_profiles`明确协议在哪个host启用；该矩阵复用现有精确`contract_inputs`与accepted契约检查，不接受自由填写的approved布尔。当前D19接缝仅为Kestrel候选设计，Rust条目contract_input=null。协议包selected时，所有selected host的协议启用/排除须决定且至少一个profile启用；启用条目缺适用accepted设计即blocked。双host可显式只支持Kestrel协议，Rust对应profile excluded；条件start边的`protocol_profile_selected=true`避免等待未启用的协议host。Rust-only + selected协议必须先补该host设计/adapter能力、精确契约和真实AOT/transport验收，不能暗装Kestrel或把Unsupported标为成功。矩阵与选择变更使旧任务/组合审查失效。
+
+协议spec中的唯一`json nativeweave-protocol-host-profiles-v1`代码块声明`host_task_ids`，作为原有spec字节纳入content_sha256和独立Review；validator只从已接受且当前hash匹配的spec读取。Kestrel-only声明不能用于B17，无声明亦不放行。扩大host范围必然改变spec hash，原有接受机制必须重新核验；registry外的自由approved标志、Plan里换个映射或旧Review均不能扩权。
+
+B24包含精确revision的release_scope。B04 when=always；B15/B17以及可选协议只在selected时进入组合。proposed scope也检查组件revision与选择引用；总accepted只能描述scope内已验收组件，不能外推到未选择协议包、架构或平台。每个engine/crate/adapter独立版本发布；新engine增加独立task/fragment，不重排无关任务。
 
 ## Windows、Linux与Native AOT
 
