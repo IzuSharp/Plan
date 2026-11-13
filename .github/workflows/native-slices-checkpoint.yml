@@ -59,7 +59,8 @@ jobs:
           git diff --check
           python3 - <<'PY'
           import subprocess
-          for line in subprocess.check_output(['git','status','--porcelain'],text=True).splitlines():
+          # Inspect individual untracked files, not Git's collapsed directory names.
+          for line in subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],text=True).splitlines():
               p=line[3:]
               assert p in ('research-graph.json','documentation-graph.json','delivery-graph.json','task-index.md','source-driven-baseline.json') or p.startswith(('research-tasks/','documentation-tasks/','tasks/','verification/','ledger/checkpoints/')),p
           PY
