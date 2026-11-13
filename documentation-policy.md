@@ -1,9 +1,9 @@
-# Documentation 政策
+# Documentation policy
 
-D01–D21拥有21份详细规范；D22–D31拥有10个既有Delivery细化fragment；D32汇总实际独立审查和准备度。它们是现有32项任务，不增加第四张图。Research与Documentation按局部证据并行，不需要全局先后锁。
+D01–D21 own 21 detailed specifications; D22–D31 own 10 implementation fragments elaborating existing Delivery tasks; D32 consolidates actual independent reviews and readiness. These are the existing 32 tasks, without adding a fourth graph. Research and Documentation proceed in parallel based on local evidence and require no global ordering lock.
 
-规范必须写清成熟Rust原生复用、必要C#界面、精确ABI/状态机/所有权/生命周期、错误/取消/并发/资源释放、平台限制、实现例子及可验证验收。普通实体不编译Rust、C#不重写SQL/网络引擎、小Core、Rust Server强制边界是约束。
+Specifications must clearly state reuse of mature native Rust capabilities, the necessary C# surface, exact ABI/state machines/ownership/lifetimes, errors/cancellation/concurrency/resource release, platform restrictions, implementation examples and verifiable acceptance criteria. Ordinary entities without Rust compilation, no reimplementation of SQL/network engines in C#, a small Core and the mandatory Rust Server boundary are constraints.
 
-技术契约接受绑定非空spec、version、内容hash、实际研究证据和独立审查。产品完整实现、真实发布/长负载/性能验证另列为Delivery义务，不能形成“先实现才能接受指导实现的设计”的循环。示意代码必须标示未编译，实际运行只能引用对应源和日志。
+Technical contract acceptance binds a nonempty spec, version, content hash, actual research evidence and independent review. Complete product implementation and actual release/sustained-load/performance validation are separate Delivery obligations; they must not create a cycle in which implementation must precede acceptance of the design that guides it. Illustrative code must be marked as uncompiled; actual execution may cite only the corresponding source and logs.
 
-fragment只细化对应现有Delivery任务的具体步骤、scope、接口、错误行为与验收；三图保持唯一调度权威。整合时校验fragment与图的内容相同、114packet hash、所有权冲突和局部依赖。任何内容变更使旧review失效；旧历史记录保持原始字节和适用范围。
+A fragment only elaborates concrete steps, scopes, interfaces, error behavior and acceptance criteria for its corresponding existing Delivery tasks; the three graphs remain the sole scheduling authority. During integration, validate fragment/graph content equality, 114 packet hashes, ownership conflicts and local dependencies. Any content change invalidates the old review; historical records retain their original bytes and scope of applicability.

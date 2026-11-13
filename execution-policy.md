@@ -1,29 +1,29 @@
-# 既有任务执行与并行政策
+# Execution and parallelism policy for existing tasks
 
-## 当前阶段
+## Current phase
 
-Research/Documentation及Design实验已授权；全部A/B任务只是未来实施说明，保持planned_candidate和not_authorized。接受相关契约不会自动授予产品写权限。无需为已授权的研究、修复、审查、提交和规则允许的Design/Plan合并反复确认。
+Research/Documentation and Design experiments are authorized; all A/B tasks are future implementation instructions only and remain planned_candidate and not_authorized. Acceptance of relevant contracts does not automatically grant permission to write product code. Do not repeatedly request confirmation for already-authorized research, fixes, reviews, commits and Design/Plan merges permitted by repository rules.
 
-## 局部依赖与组件验收
+## Local dependencies and component acceptance
 
-start边限制实际开始，acceptance边限制最终接受；两类边合并必须无环。references只追溯，不能变成等待全部Research/Documentation或整个阶段A的隐式锁。单一组件可以通过实际上游/ABI fixture完成组件验收；最终组合必须由明确下游任务使用精确组件Commit真实验证，不能让fixture冒充Host或无人负责集成。
+Start edges constrain actual commencement, and acceptance edges constrain final acceptance; the union of both edge types must be acyclic. References provide traceability only and must not become implicit locks waiting for all Research/Documentation or the whole of phase A. A single component may complete component acceptance using actual upstream/ABI fixtures; final composition must be validated by explicit downstream tasks against exact component commits. A fixture must not impersonate a Host, and integration must have an owner.
 
-B01声明Data公共接口；B02/B03原生provider、B05事务、B06流、B07codec可按接口并行，B04承担完整Host组合。B09依赖B01且B11复用B07，避免重复metadata/binder。B15声明C#应用层并在接受时等待B17真实Host；B16独立流组件，B17依赖B16，避免B16↔B17循环。A16可在A13后编制包，最终接受等待A14/A15/A22。A10/A11验证生成组件，A17/A18和领域Host负责与真实Core组合的完整验收。
+B01 declares public Data interfaces; B02/B03 native providers, B05 transactions, B06 streams and B07 codecs may proceed in parallel against those interfaces, while B04 owns complete Host composition. B09 depends on B01, and B11 reuses B07 to avoid duplicate metadata/binders. B15 declares the C# application layer and waits for the actual B17 Host for acceptance; B16 is an independent streaming component, and B17 depends on B16, avoiding a B16↔B17 cycle. A16 may prepare packages after A13, with final acceptance waiting for A14/A15/A22. A10/A11 validate generated components; A17/A18 and the domain Hosts own complete acceptance of composition with the actual Core.
 
-## Rust Host 与协议
+## Rust Host and protocols
 
-NativeWeave 采用 Source-Driven Deep Native Integration。C# 是应用开发语言，提供强类型 Fluent、静态元数据/DTO 和业务 Handler；数据库驱动、查询/方言/ORM 关系执行及 Server 网络/协议/运行时必须复用成熟 Rust 引擎。Kestrel、Npgsql 等只作对照。普通应用不手写 Rust/FFI，不因新增 Entity/DTO/Handler 重编译 native。保持正常 dotnet build/run 与真实 Native AOT 发布，不构造 C# SQL AST/完整 LINQ Provider 或巨型 Core runtime。
+NativeWeave uses Source-Driven Deep Native Integration. C# is the application development language, providing strongly typed Fluent APIs, static metadata/DTOs and business Handlers; database drivers, query/dialect/ORM relational execution and Server networking/protocols/runtimes must reuse mature Rust engines. Kestrel, Npgsql and similar components are comparators only. Ordinary applications do not require handwritten Rust/FFI or native recompilation when adding Entity/DTO/Handler types. Preserve normal dotnet build/run and actual Native AOT publication; do not build a C# SQL AST/full LINQ Provider or a monolithic Core runtime.
 
-B15与B17不是候选Host选择组。B17是唯一正式Host；B18/B19的规范声明host_task_ids=[B17]，应用可不引用协议包，但现有48任务仍完整规划这两个包。B24发布scope包含B01–B23的精确revision，B04/B17始终必需。旧条件选择schema保留用于历史验证，当前图不再使用它表达已确定的Rust使命。
+B15 and B17 are not a group of alternative candidate Hosts. B17 is the sole production Host; the B18/B19 specifications declare host_task_ids=[B17]. Applications may omit protocol packages, but the existing 48 tasks still fully plan both packages. B24's release scope includes exact revisions of B01–B23, and B04/B17 are always mandatory. The old conditional-selection schema is retained for historical validation; the current graph no longer uses it to express the already-settled Rust mission.
 
-## Worktree与文件所有权
+## Worktrees and file ownership
 
-每任务使用task/<ID>-implementation（研究阶段相应research分支）。只改packet列出的模块/测试/evidence路径；native子目录互不覆盖。根solution、Directory.Build.props、Directory.Packages.props、global.json及native/Cargo.toml/lock由A13的workspace-manifest-integration锁串行合入最小注册补丁。任务自身代码与测试继续并行，不锁整个仓库。
+Each task uses task/<ID>-implementation (a corresponding research branch in the research phase). Modify only the module/test/evidence paths listed in its packet; native subdirectories must not overlap. The root solution, Directory.Build.props, Directory.Packages.props, global.json and native/Cargo.toml/lock receive minimal registration patches serialized under A13's workspace-manifest-integration lock. Task-specific code and tests continue in parallel; the entire repository is not locked.
 
-新版本按精确输入更新受影响节点/契约和审查；不任意重排无关任务。先固定失败、输入hash和实际状态，再修复再验。发现真实基础契约冲突时回到其规范/ADR解决，不能在每个模块里各加一层胶水规避。
+For new versions, update affected nodes/contracts and reviews against exact inputs; do not arbitrarily reorder unrelated tasks. First pin failures, input hashes and actual status, then fix and revalidate. Resolve actual foundational contract conflicts in their specifications/ADRs, rather than adding another glue layer in every module to work around them.
 
-## 实施证据
+## Implementation evidence
 
-正式产品验收必须覆盖任务的正常/异常/取消/并发/释放语义、Windows/Linux实际AOT、独立NuGet、真实DB/HTTP/TLS、源和制品身份。A16/B24要求真正干净的无Rust消费环境；移除当前PATH工具是已执行研究的一种机制验证，不能冒充从未安装Rust的机器。
+Formal product acceptance must cover the task's normal/exceptional/cancellation/concurrency/release semantics, actual Windows/Linux AOT, independent NuGet, actual DB/HTTP/TLS and source/artifact identities. A16/B24 require genuinely pristine consumer environments without Rust; removing tools from the current PATH is one mechanism check performed in research and must not be presented as a machine on which Rust was never installed.
 
-B22/B23负责完整故障/长期资源/性能证据，正确性失败不能换成性能成功。比较路线必须功能/协议/数据/持久性等价；Kestrel只属于对照程序。包发布还需未来明确授权，当前不发布。
+B22/B23 own complete fault/long-term resource/performance evidence; correctness failures cannot be replaced with performance successes. Comparison routes must have equivalent features/protocols/data/durability; Kestrel belongs only to comparison executables. Package publication still requires explicit future authorization and is not performed in the current phase.
