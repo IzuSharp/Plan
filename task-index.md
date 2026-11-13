@@ -8,17 +8,17 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 |---|---|---|
 | R01 | [稳定工具链与现代语言机制](research-tasks/R01.md) | partially_evidenced |
 | R02 | [Native AOT、裁剪与平台支持](research-tasks/R02.md) | planned |
-| R03 | [C ABI、布局与版本协商](research-tasks/R03.md) | planned |
-| R04 | [P/Invoke、回调入口与FFI调用成本](research-tasks/R04.md) | planned |
+| R03 | [C ABI、布局与版本协商](research-tasks/R03.md) | partially_evidenced |
+| R04 | [P/Invoke、回调入口与FFI调用成本](research-tasks/R04.md) | partially_evidenced |
 | R05 | [绑定生成器与契约描述来源](research-tasks/R05.md) | planned |
 | R06 | [Roslyn增量生成与分析器](research-tasks/R06.md) | planned |
-| R07 | [句柄、所有权、GC与父子资源](research-tasks/R07.md) | planned |
+| R07 | [句柄、所有权、GC与父子资源](research-tasks/R07.md) | partially_evidenced |
 | R08 | [Callback注销、重入与释放竞态](research-tasks/R08.md) | planned |
 | R09 | [异步、取消与完成状态机](research-tasks/R09.md) | planned |
-| R10 | [Buffer、Pinning、批处理与数据传输](research-tasks/R10.md) | planned |
+| R10 | [Buffer、Pinning、批处理与数据传输](research-tasks/R10.md) | partially_evidenced |
 | R11 | [Error、panic、异常与故障隔离](research-tasks/R11.md) | planned |
 | R12 | [并发、执行器、线程亲和与关闭](research-tasks/R12.md) | planned |
-| R13 | [MSBuild/Cargo、链接与目标平台](research-tasks/R13.md) | planned |
+| R13 | [MSBuild/Cargo、链接与目标平台](research-tasks/R13.md) | partially_evidenced |
 | R14 | [打包、兼容性、独立发布与来源](research-tasks/R14.md) | planned |
 | R15 | [形式化与并发证明义务](research-tasks/R15.md) | planned |
 | R16 | [差分、属性、模糊与故障测试](research-tasks/R16.md) | planned |
@@ -27,14 +27,14 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 | R19 | [PostgreSQL驱动与纯C#对照](research-tasks/R19.md) | planned |
 | R20 | [SQLite适配、并发与线程限制](research-tasks/R20.md) | planned |
 | R21 | [连接池、事务、取消与恢复](research-tasks/R21.md) | planned |
-| R22 | [类型映射、批量流与Schema演进](research-tasks/R22.md) | planned |
+| R22 | [类型映射、批量流与Schema演进](research-tasks/R22.md) | partially_evidenced |
 | R23 | [LINQ、Expression与编译期查询捕获](research-tasks/R23.md) | planned |
 | R24 | [SQL语义、关系代数与参数安全](research-tasks/R24.md) | planned |
 | R25 | [ORM特性、跟踪与现成方案比较](research-tasks/R25.md) | partially_evidenced |
 | R26 | [Kestrel与纯C# AOT服务器基线](research-tasks/R26.md) | planned |
 | R27 | [Rust网络引擎与C# Handler边界](research-tasks/R27.md) | partially_evidenced |
 | R28 | [gRPC、MCP、TLS与协议适配](research-tasks/R28.md) | planned |
-| R29 | [请求流、背压、超时与优雅关闭](research-tasks/R29.md) | planned |
+| R29 | [请求流、背压、超时与优雅关闭](research-tasks/R29.md) | partially_evidenced |
 | R30 | [可观测性、诊断关联与成本](research-tasks/R30.md) | planned |
 | R31 | [数据库+服务器参考应用与故障恢复](research-tasks/R31.md) | planned |
 | R32 | [桌面GUI/GPU与线程亲和扩展](research-tasks/R32.md) | planned |
@@ -45,13 +45,13 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 
 | ID | Task / packet | State |
 |---|---|---|
-| D01 | [工具链、AOT与平台规范](documentation-tasks/D01.md) | draft_ready |
-| D02 | [ABI及类型布局契约](documentation-tasks/D02.md) | draft_ready |
+| D01 | [工具链、AOT与平台规范](documentation-tasks/D01.md) | partially_evidenced |
+| D02 | [ABI及类型布局契约](documentation-tasks/D02.md) | partially_evidenced |
 | D03 | [绑定IR、生成器与分析器规范](documentation-tasks/D03.md) | draft_ready |
 | D04 | [所有权与资源生命周期契约](documentation-tasks/D04.md) | draft_ready |
 | D05 | [Callback注册撤销与静默契约](documentation-tasks/D05.md) | draft_ready |
 | D06 | [异步完成与取消契约](documentation-tasks/D06.md) | draft_ready |
-| D07 | [Buffer、传输及内存契约](documentation-tasks/D07.md) | draft_ready |
+| D07 | [Buffer、传输及内存契约](documentation-tasks/D07.md) | partially_evidenced |
 | D08 | [Error、panic与异常边界契约](documentation-tasks/D08.md) | draft_ready |
 | D09 | [并发、Runtime与关闭规范](documentation-tasks/D09.md) | draft_ready |
 | D10 | [构建打包、版本与来源规范](documentation-tasks/D10.md) | draft_ready |
