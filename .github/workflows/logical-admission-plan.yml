@@ -1,0 +1,75 @@
+name: Integrate logical-admission research inputs
+on:
+  push:
+    branches: [research/logical-admission-r07]
+    paths:
+      - tools/record_logical_admission.py
+      - .github/workflows/logical-admission-plan.yml
+permissions:
+  contents: read
+jobs:
+  integrate:
+    if: github.repository == 'IzuSharp/Plan' && github.ref == 'refs/heads/research/logical-admission-r07'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          path: Plan
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: 3767f3c932ebf95bd82f6ed1c9bafc9eec1c5b1e
+          fetch-depth: 0
+          persist-credentials: false
+          path: NativeWeave-Design
+      - name: Record actual research; no Delivery transition
+        working-directory: Plan
+        run: |
+          if [ -f ledger/checkpoints/logical-admission-r07.json ]; then
+            python3 tools/record_logical_admission.py --check
+          else
+            python3 tools/record_logical_admission.py
+          fi
+          python3 tools/verify_research_assets.py
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,jsonschema
+          s=json.loads(Path('schemas/graph-v1.schema.json').read_text())
+          for k in ('research','documentation','delivery'):
+              jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
+          print('PASS all three graph schemas')
+          PY
+      - name: Commit scoped documentation and evidence references
+        working-directory: Plan
+        run: |
+          git diff --check
+          python3 - <<'PY'
+          import subprocess
+          allowed={'research-graph.json','documentation-graph.json','source-driven-baseline.json','task-index.md','tools/verify_research_assets.py','README.md'}
+          for line in subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],text=True).splitlines():
+              p=line[3:]
+              assert p in allowed or p.startswith(('research-tasks/','documentation-tasks/','verification/','ledger/checkpoints/')),p
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research-graph.json documentation-graph.json source-driven-baseline.json task-index.md tools/verify_research_assets.py README.md research-tasks documentation-tasks verification ledger/checkpoints
+          git commit -m 'plan: bind executed R07 D04 study and retain future-only Delivery obligations'
+          git push origin HEAD:refs/heads/research/logical-admission-r07
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: logical-admission-plan-checks
+          retention-days: 30
+          path: |
+            Plan/verification/*.json
+            Plan/ledger/checkpoints/logical-admission-r07.json
+            Plan/source-driven-baseline.json
