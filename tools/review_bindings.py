@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Normalize the actual scoped review formats without inventing review decisions."""
+import json
+
 ACCEPT = {'accepted', 'accept_research_design', 'recommend_accept_research_design',
           'recommend_accept_research_and_detailed_design'}
 BLOCKERS = ('open_blocking_findings', 'unresolved_blocking_findings',
@@ -70,3 +72,31 @@ def verify_scoped_review(checker, report, kind, value):
         for key, expected in decision.get('semantic_node_projection', {}).items():
             assert value.get(key) == expected, (identity, 'reviewed task semantics changed', key)
     return own, required
+
+def acceptance_index_subject(kind, value):
+    evidence = value['evidence'] if kind == 'contract' else value['acceptance_evidence']
+    reviews = value['reviews'] if kind == 'contract' else value['independent_reviewers']
+    return {'kind': kind, 'id': value['id'],
+            'evidence_sha256': [entry['sha256'] for entry in evidence],
+            'review_sha256': [entry['sha256'] for entry in reviews]}
+
+def verify_acceptance_index(checker, index, kind, values, allowed_states):
+    """The human-facing index must describe the same subjects and immutable inputs."""
+    assert index['state'] in allowed_states, ('acceptance index state', index['state'])
+    assert index['product_implementation_authorized'] is False
+    assert index['subjects'] == [acceptance_index_subject(kind, value) for value in values]
+    for value in values:
+        source_key = 'design_source_commit' if kind == 'contract' else 'plan_source_commit'
+        assert value['source_commit'] == index[source_key], (value['id'], 'index source commit')
+        evidence = value['evidence'] if kind == 'contract' else value['acceptance_evidence']
+        assert evidence, (value['id'], 'index without input evidence')
+        for entry in evidence:
+            raw = checker.require_file_hash(entry['manifest_path'], entry['sha256'], value['id']+'/index-evidence')
+            assert raw is not None
+            artifact = json.loads(raw)['artifact']
+            snapshot_raw = checker.require_file_hash(artifact['path'], artifact['sha256'], value['id']+'/index-input')
+            assert snapshot_raw is not None
+            sources = json.loads(snapshot_raw)['source_commits']
+            assert sources['NativeWeave-Design'] == index['design_source_commit'], (value['id'], 'index Design source')
+            if kind == 'task':
+                assert sources['Plan'] == index['plan_source_commit'], (value['id'], 'index Plan source')

@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from validate_graphs import Validator, node_digest
-from review_bindings import required_paths, verify_scoped_review
+from review_bindings import required_paths, verify_acceptance_index, verify_scoped_review
 
 P = Path(__file__).resolve().parents[1]
 D = P.parent / 'NativeWeave-Design'
@@ -146,7 +146,11 @@ def verify(require_complete=False):
         ledgers += ([P/'ledger/completion-acceptance.json'] if 'task' in kinds else [])
         for path in ledgers:
             ledger = read(path)
-            assert ledger['product_implementation_authorized'] is False
+            ledger_kind = 'contract' if path.parent == D/'docs/contracts' else 'task'
+            values = ([c for c in registry if c['status'] == 'accepted'] if ledger_kind == 'contract'
+                      else [n for kind in ('research','documentation') for n in checker.graphs[kind]['nodes'] if n['status'] == 'accepted'])
+            verify_acceptance_index(checker, ledger, ledger_kind, values,
+                                    {'accepted_research_and_detailed_design'})
             for ref in ledger['binding_attestations']:
                 raw = checker.require_file_hash(ref['path'], ref['sha256'], 'binding-attestation')
                 assert raw is not None, checker.errors
