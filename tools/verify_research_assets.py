@@ -23,7 +23,7 @@ for r in fresh['records']:
  for f in r['files']:assert sha(D/f['path'])==f['sha256'];n_new+=1
 assert (n_old,n_new)==(112,90)
 checkpoint=read(P,'ledger/checkpoints/research-assets-migration.json')
-assert checkpoint['design_merge']==b['design_merge_commit']
+assert checkpoint['design_merge']==b['research_asset_commit']
 changed=[]
 for kind in ('research','documentation','delivery'):
  for node in read(P,kind+'-graph.json')['nodes']:
@@ -34,7 +34,7 @@ for kind in ('research','documentation','delivery'):
   for e in node.get('continuation_evidence',[]):
    if e.get('historical_native_evidence_commit'):
     assert e['evidence_repository']=='IzuSharp/NativeWeave-Design'
-    assert e['design_commit']==b['design_merge_commit']
+    assert e['design_commit']==b['research_asset_commit']
     assert (D/e['evidence_manifest']).exists()
 assert sorted(changed)==checkpoint['changed_packets'] and len(changed)==33
 assert (P/'delivery-graph.json').read_bytes()==subprocess.check_output(['git','show',checkpoint['plan_base']+':delivery-graph.json'])

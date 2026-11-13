@@ -1,7 +1,7 @@
 name: Verify Design-owned native research assets
 on:
   push:
-    branches: [main, research/pr1-asset-migration]
+    branches: [main, research/pr1-asset-migration, research/logical-admission-r07]
     paths:
       - source-driven-baseline.json
       - verification/research-assets-final-trigger.json
@@ -10,6 +10,7 @@ on:
     paths:
       - source-driven-baseline.json
       - tools/verify_research_assets.py
+      - tools/record_logical_admission.py
       - .github/workflows/native-slices-final-check.yml
   workflow_dispatch:
 permissions:
@@ -46,6 +47,9 @@ jobs:
         working-directory: Plan
         run: |
           python3 tools/verify_research_assets.py
+          if [ -f ledger/checkpoints/logical-admission-r07.json ]; then
+            python3 tools/record_logical_admission.py --check
+          fi
           python3 tools/validate_graphs.py --output verification/graph-validation.json
           python3 tools/mutation_checks.py
           python3 tools/rust1100_checks.py
@@ -66,4 +70,5 @@ jobs:
           path: |
             Plan/verification/*.json
             Plan/ledger/checkpoints/research-assets-migration.json
+            Plan/ledger/checkpoints/logical-admission-r07.json
             Plan/source-driven-baseline.json

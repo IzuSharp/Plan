@@ -69,3 +69,7 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 ## 2026-11-12 Rust1.100连续执行授权
 
 当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+
+## Detailed logical-admission research input
+
+See [future Codex acceptance supplement](verification/logical-admission-obligations.md) for existing A03/A20/A06/A07/B11/B16/B17/B20 steps and missing verification, based on executed R07/D04 research. This is planning detail, not permission to implement product code. The current Design pin and historical migration pin remain separate in `source-driven-baseline.json`.
