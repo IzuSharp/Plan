@@ -1,0 +1,47 @@
+name: Verify Plan against merged Design
+on:
+  push:
+    branches: [research/source-driven-integration-2026-11-12]
+    paths: [.github/workflows/verify-merged-design.yml, source-driven-baseline.json]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: Plan
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: 7759248e8c3bb37a99481f09c690d2c9f9b49248
+          path: NativeWeave-Design
+          persist-credentials: false
+      - name: Verify all paired hashes, task gates and regressions
+        working-directory: Plan
+        run: |
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          import hashlib,json,pathlib,subprocess,jsonschema
+          schema=json.loads(pathlib.Path('schemas/graph-v1.schema.json').read_text())
+          for k in ('research','documentation','delivery'):
+              jsonschema.validate(json.loads(pathlib.Path(k+'-graph.json').read_text()),schema)
+          d=pathlib.Path('../NativeWeave-Design');b=json.loads(pathlib.Path('source-driven-baseline.json').read_text())
+          actual=subprocess.check_output(['git','-C',str(d),'rev-parse','HEAD'],text=True).strip()
+          assert b['design_main']==b['design_merge_commit']==b['design_amendment_commit']==actual
+          assert b['contract_registry_sha256']==hashlib.sha256((d/'docs/contracts/registry.json').read_bytes()).hexdigest()
+          pathlib.Path('verification/merged-baseline-check.json').write_text(json.dumps({'ok':True,'design_merge':actual,'plan_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'review':'author self-review; independent D32 followup pending'},indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: plan-merged-design-verification
+          path: Plan/verification/
+          retention-days: 14
