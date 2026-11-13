@@ -1,3 +1,5 @@
+# HISTORICAL one-shot importer for old fixed snapshots; current migration is tools/migrate_research_asset_refs.py.
+# Do not use historical execution authorization as current policy.
 """Advance existing partial Research/Documentation tasks from actual evidence.
 No new IDs, no accepted contracts, no delivery authorization shortcut.
 """

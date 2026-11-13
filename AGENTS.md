@@ -1,3 +1,5 @@
+> **Current phase:** research and detailed design only; see [CURRENT-PHASE.md](CURRENT-PHASE.md). Research experiments and current evidence belong in NativeWeave-Design. No product write or A/B Delivery execution is authorized.
+
 # NativeWeave Plan工作规则
 
 本仓库是NativeWeave研究、文档与执行计划权威；Design契约在IzuSharp/NativeWeave-Design，产品在IzuSharp/NativeWeave。ArcForges文档只参考格式，不能继承其内容规则。
@@ -23,4 +25,4 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 2026-11-12 Rust1.100连续执行授权
 
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。此段历史授权已由 CURRENT-PHASE.md 及最新用户指令收窄：只允许 Design 内的研究实验与详细设计，不允许正式产品实施。

@@ -1,3 +1,5 @@
+> **Current phase:** research and detailed design only; see [CURRENT-PHASE.md](CURRENT-PHASE.md). Research experiments and current evidence belong in NativeWeave-Design. No product write or A/B Delivery execution is authorized.
+
 # NativeWeave Plan：并行研究、并行文档与候选实施图
 
 ## 当前输入与继续规则
