@@ -2,6 +2,10 @@
 
 本仓库是NativeWeave研究、文档与执行计划权威；Design契约在IzuSharp/NativeWeave-Design，产品在IzuSharp/NativeWeave。ArcForges文档只参考格式，不能继承其内容规则。
 
+## 当前用户阶段约束
+
+先读`CURRENT-PHASE.md`。当前只允许研究、详细设计、Design内实验及Plan完善，不允许任何正式产品实施。`NativeWeave:src/...`等Delivery输出是未来Codex任务路径，不是本轮写入授权。NativeWeave产品仓库保持只读；唯一例外是研究资产在Design／Plan验证并合并后关闭PR #1，不合并、不删除历史分支。本文或旧packet中的历史授权措辞不能覆盖当前用户要求。
+
 1. 先读README、对应独立packet及精确版本输入；用户本会话的明确要求优先。
 2. 三图不得合并成一条串行清单。研究/文档draft可以并行；产品任务必须有相关已接受契约和局部依赖。
 3. 不把planned_candidate提升为accepted，也不把未执行的代码/模型/AOT声明为通过。
@@ -23,4 +27,4 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 2026-11-12 Rust1.100连续执行授权
 
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+历史Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2当时允许严格self-review和真实检查后合并；独立审查未完成的事实保留D32复审。现在从R/D的ready/continuable集合继续源码、设计及Design内fixture，不执行正式A/B Delivery。普通技术任务不再逐个询问；合并Design／Plan仍遵守实际GitHub门禁，不伪造独立审查或accepted契约。

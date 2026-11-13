@@ -1,5 +1,13 @@
 # NativeWeave Plan：并行研究、并行文档与候选实施图
 
+## 当前阶段与研究资产入口
+
+先读 [CURRENT-PHASE.md](CURRENT-PHASE.md)。当前只推进深度研究、详细设计、真实技术实验和未来 Codex 开发计划。所有实验工程、编译和平台测试留在 **NativeWeave-Design**；**当前不执行任何正式 A/B 产品任务**。NativeWeave 产品仓库只读，唯一允许的写操作是在 Design／Plan 迁移更新均验证并合并后关闭 PR #1，不能合并或删除该 PR 的历史分支。
+
+研究资产已由 Design PR #7 保存到 `c7e123a74405a92dc3de1ef450355b08d1c05ceb`。从该仓库 `experiments/native-slices/README.md` 继续实验；`verification/native-slices/migration-map.json` 对应原 PR 的全部 139 个文件，`migration-results.json` 保存新的六组 Windows/Linux 运行身份。旧 NativeWeave SHA 和成功／失败日志仍是原始历史，不能改名为本轮测试。
+
+本次 Plan 配对入口为 [迁移检查点](ledger/checkpoints/research-assets-migration-2026-11-12.json)，验证命令为 `python3 tools/validate_research_migration.py`。它只核查保存的证据和任务一致性，不重跑 native 实验，也不接受产品契约。
+
 ## 当前输入与继续规则
 
 启动PR #1已合并，不再从旧bootstrap分支重启。历史main：Design `baa953772d2a771bb4da3aff0cf4b4be6fc811a1`，Plan `da9e4a6337a5af0ec3d5e40a4695a2760d6ac5f5`。读取source-driven-baseline.json中的精确Design修订和当前Plan snapshot，分别记录design_commit/plan_commit；两个仓库不是原子更新，不能混用旧packet与新spec。
@@ -32,7 +40,7 @@ python3 tools/validate_graphs.py --root . --output verification/graph-validation
 python3 tools/mutation_checks.py
 ```
 
-Windows可使用`py -3`代替`python3`。两仓库本地位置应为同级`Plan/`和`NativeWeave-Design/`；第三个`NativeWeave/`只在正式实施/证据需要时存在。独立检出时使用受控同级目录，不把另一个仓库的内容复制成新权威。
+Windows可使用`py -3`代替`python3`。两仓库本地位置应为同级`Plan/`和`NativeWeave-Design/`；第三个`NativeWeave/`当前仅用于只读核验原始 PR 的固定源码身份。迁移配对校验所需的三个精确修订见`source-driven-baseline.json`和迁移检查点。独立检出时使用受控同级目录，不把另一个仓库的内容复制成新权威。
 
 当前实际结果见[graph-validation.json](verification/graph-validation.json)及[mutation-checks.json](verification/mutation-checks.json)。这些只验证图和证据门禁工具，**不是NativeWeave产品的Windows/Linux或AOT验收**。
 
@@ -66,4 +74,4 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 2026-11-12 Rust1.100连续执行授权
 
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+历史 Rust/Cargo1.100 研究与真实两OS测试见Design R01。Design PR5/Plan PR2当时获准经严格self-review和真实检查合并，独立审查未完成的事实保留供D32复审。当前继续授权已有R/D的源码、详细设计及Design内编译fixture，普通技术决策无需逐项询问。最新阶段边界以CURRENT-PHASE.md为准：即使未来门禁满足，本轮仍不启动正式Delivery；不绕过GitHub门禁或伪造accepted契约。

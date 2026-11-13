@@ -2,6 +2,8 @@
 
 Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exact paired Design commit: source-driven-baseline.json. No product implementation authorized.
 
+Current phase: [CURRENT-PHASE.md](CURRENT-PHASE.md). Native-slice reproduction now belongs to Design `experiments/native-slices/`; the [migration checkpoint](ledger/checkpoints/research-assets-migration-2026-11-12.json) binds original and new execution identities. Task states below are unchanged by relocation. Packet revisions and dependency pins are exact in their graphs.
+
 ## research
 
 | ID | Task / packet | State |

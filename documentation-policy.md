@@ -1,5 +1,7 @@
 # 并行文档编制与整合政策 v0.1（proposed）
 
+本阶段以[CURRENT-PHASE.md](CURRENT-PHASE.md)为准：文档、契约和未来Codex任务可以深入编制，真实研究实验统一在Design；不启动正式产品实施。文档合并、技术决策接受和产品验收分别记录。
+
 D01–D21分别拥有独占Design规范；D22–D31分别拥有独占Plan领域fragment；D32执行独立交叉审查。每个作者可以在证据仍进入时写draft。草拟、review_ready和accepted是不同状态，不能把先写的候选变成未经审查的架构权威。
 
 ## 版本与唯一权威
@@ -36,4 +38,4 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 2026-11-12 Rust1.100连续执行授权
 
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。旧“仅规划、当前全面不授权执行”指的是历史启动轮，不覆盖此次授权。
+历史Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2当时允许严格self-review和真实检查后合并；独立审查未完成的事实保留D32复审。当前继续已有R/D的源码、详细设计及Design内编译fixture，普通技术决策无需逐项询问。按CURRENT-PHASE.md维持研究阶段，不启动正式Delivery，也不绕过GitHub门禁或伪造accepted契约。

@@ -1,0 +1,69 @@
+name: Verify Design research migration pair
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ledger/checkpoints/research-assets-migration-2026-11-12.json
+      - tools/validate_research_migration.py
+      - verification/research-assets-migration-checks.json
+      - .github/workflows/research-assets-migration-pair.yml
+  push:
+    branches: ['research/design-assets-migration-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  research-migration-pair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          path: Plan
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: c7e123a74405a92dc3de1ef450355b08d1c05ceb
+          fetch-depth: 0
+          path: NativeWeave-Design
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave
+          ref: 267364a440074a61e193cf33315f1b9d0fa8126b
+          fetch-depth: 0
+          path: NativeWeave
+          persist-credentials: false
+      - name: Verify saved migration identities and unchanged historical evidence
+        working-directory: Plan
+        run: python3 tools/validate_research_migration.py --output verification/research-assets-migration-checks.json
+      - name: Verify task graphs and existing evidence gates
+        working-directory: Plan
+        run: |
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,jsonschema
+          schema=json.loads(Path('schemas/graph-v1.schema.json').read_text())
+          for name in ('research','documentation','delivery'):
+              jsonschema.Draft202012Validator(schema).validate(json.loads(Path(name+'-graph.json').read_text()))
+          print('PASS all three graph schemas')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: research-assets-migration-pair-checks
+          retention-days: 30
+          path: |
+            Plan/verification/research-assets-migration-checks.json
+            Plan/verification/graph-validation.json
+            Plan/verification/mutation-checks.json
+            Plan/verification/rust1100-checks.json
+            Plan/ledger/checkpoints/research-assets-migration-2026-11-12.json
+            Plan/source-driven-baseline.json

@@ -1,6 +1,6 @@
 # Codex并行执行政策 v0.1（proposed）
 
-本政策管理实际并行执行。2026-11-12用户已授权按现有真实门禁推进实施；不再需要逐步询问。初始delivery节点全部`planned_candidate`。它们要在相关技术选择被接受后细化接口、更新packet/hash、明确实施范围，再提升为planned。这里的实施授权记录表示用户已要求的审查门禁通过，不制造额外的逐任务用户确认流程。
+本政策管理研究、文档并行执行和未来Codex实施的技术规则。当前用户阶段边界见[CURRENT-PHASE.md](CURRENT-PHASE.md)：允许深入研究、详细设计及Design内真实实验，**当前不授权正式产品实施**，普通技术任务不需要逐步询问。全部48个Delivery节点仍为`planned_candidate`。未来进入产品实施阶段后，才按实际契约与依赖细化接口、更新packet/hash和明确范围；研究原型通过不能代替阶段授权或正式验收。
 
 ## 工作单元与文件所有权
 
@@ -44,6 +44,6 @@ NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层�
 
 ## 本轮文档合并例外与后续执行
 
-用户当前明确授权Design PR5/Plan PR2在真实独立Reviewer不可用时，严格自审、可执行检查通过、无未解决文档阻断项后合并；如实标记self-review并保留D32独立复审。此例外不绕过GitHub强制规则，不将作者冒充独立Reviewer，不自动接受技术契约或Delivery终结态。
+Design PR5/Plan PR2曾获准在真实独立Reviewer不可用时，经严格自审、可执行检查和无未解决文档阻断项后合并；其self-review和独立复审缺口继续如实保留。当前用户允许符合条件的Design／Plan研究文档变更合并，应使用实际可用子代理开展独立核查并区分其审查与GitHub required review。此授权不绕过GitHub强制规则，不将作者冒充独立Reviewer，不自动接受技术契约或Delivery终结态。
 
-合并后直接从ready/continuable开始实际源码/编译工作。Research/Documentation下的小型可执行fixture可以作为已有研究任务输出，不伪装成已满足A01/B01等全部产品前置。产品实施任务仍须自己的精确accepted契约、依赖与授权记录；这是真实技术门禁，不是要求用户再次批准。
+合并后直接从R/D的ready/continuable开始源码、详细设计和编译研究。可执行fixture作为已有研究任务输出统一保存在Design，规模按研究需要确定；不得伪装成已满足A01/B01等全部产品前置。本轮禁止正式产品实施，即使一个设计或fixture已经通过。未来Codex实施另行进入产品阶段后仍须精确accepted契约、依赖与实际授权记录。
