@@ -1,3 +1,5 @@
+> **Current phase:** research and detailed design only; see [CURRENT-PHASE.md](CURRENT-PHASE.md). Research experiments and current evidence belong in NativeWeave-Design. No product write or A/B Delivery execution is authorized.
+
 # 并行文档编制与整合政策 v0.1（proposed）
 
 D01–D21分别拥有独占Design规范；D22–D31分别拥有独占Plan领域fragment；D32执行独立交叉审查。每个作者可以在证据仍进入时写draft。草拟、review_ready和accepted是不同状态，不能把先写的候选变成未经审查的架构权威。

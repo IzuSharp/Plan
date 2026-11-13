@@ -1,3 +1,5 @@
+> **Current phase:** research and detailed design only; see [CURRENT-PHASE.md](CURRENT-PHASE.md). Research experiments and current evidence belong in NativeWeave-Design. No product write or A/B Delivery execution is authorized.
+
 # 研究政策 v0.1（proposed）
 
 研究以问题与证据为单位。`Rxx`不是一个需要等其他专题结束才开始的串行阶段；交叉Review通常是接口，不是研究启动依赖。任务提示词包含具体问题、候选源码、正常/异常路径、成本比较、验证方法与独占输出。

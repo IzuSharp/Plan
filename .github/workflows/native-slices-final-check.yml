@@ -1,9 +1,15 @@
-name: Verify final native-slice documentation pair
+name: Verify Design-owned native research assets
 on:
   push:
-    branches: [research/native-slices-evidence-2026-11-12]
+    branches: [main, research/pr1-asset-migration]
     paths:
       - source-driven-baseline.json
+      - verification/research-assets-final-trigger.json
+  pull_request:
+    branches: [main]
+    paths:
+      - source-driven-baseline.json
+      - tools/verify_research_assets.py
       - .github/workflows/native-slices-final-check.yml
   workflow_dispatch:
 permissions:
@@ -15,52 +21,31 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          repository: IzuSharp/NativeWeave-Design
-          ref: 4adf7a38c3159c9e12e2f89b85884514a430f0a4
-          fetch-depth: 0
-          path: NativeWeave-Design
-          persist-credentials: false
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          repository: IzuSharp/NativeWeave
-          ref: 267364a440074a61e193cf33315f1b9d0fa8126b
-          path: NativeWeave
-          persist-credentials: false
-      - name: Check merged snapshots and durable evidence without rerunning native tests
+      - name: Read exact current Design input
+        id: input
         working-directory: Plan
         run: |
           python3 - <<'PY'
-          from pathlib import Path
-          import hashlib,json,subprocess
-          p=Path.cwd();d=p.parent/'NativeWeave-Design';n=p.parent/'NativeWeave'
-          b=json.loads((p/'source-driven-baseline.json').read_text())
-          for root,expected in [(d,b['design_merge_commit']),(n,b['native_slice_evidence_commit'])]:
-              assert subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()==expected
-          subprocess.run(['git','-C',str(d),'diff','--exit-code',b['validated_design_head'],b['design_merge_commit']],check=True)
-          assert hashlib.sha256((d/'docs/contracts/registry.json').read_bytes()).hexdigest()==b['contract_registry_sha256']
-          m=json.loads((n/'verification/native-slices/manifest.json').read_text());count=0
-          for record in m['records']:
-              for f in record['files']:
-                  assert hashlib.sha256((n/f['path']).read_bytes()).hexdigest()==f['sha256'];count+=1
-          assert count==112 and sum(x['success'] for x in m['records'])==6 and len(m['records'])==8
-          checkpoint=json.loads((p/'ledger/checkpoints/native-slices-2026-11-12.json').read_text())
-          assert checkpoint['changed_packets'] and checkpoint['unchanged_packets']==81
-          changed=[]
-          for kind in ('research','documentation','delivery'):
-              g=json.loads((p/(kind+'-graph.json')).read_text())
-              for node in g['nodes']:
-                  old=subprocess.check_output(['git','show',checkpoint['plan_base']+':'+node['prompt']])
-                  if old!=(p/node['prompt']).read_bytes():changed.append(node['id'])
-          assert sorted(changed)==checkpoint['changed_packets'] and len(changed)==33
-          assert (p/'delivery-graph.json').read_bytes()==subprocess.check_output(['git','show',checkpoint['plan_base']+':delivery-graph.json'])
-          print(json.dumps({'raw_native_files':count,'changed_packets':33,'unchanged_packets':81,'merged_design_content_equal':True,'delivery_graph_unchanged':True}))
+          import json,os,re
+          b=json.load(open('source-driven-baseline.json'));sha=b['design_merge_commit']
+          assert re.fullmatch('[0-9a-f]{40}',sha)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('design_sha='+sha+'\n')
           PY
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: ${{ steps.input.outputs.design_sha }}
+          fetch-depth: 0
+          path: NativeWeave-Design
+          persist-credentials: false
+      - name: Verify provenance and existing graph gates; no native rerun
+        working-directory: Plan
+        run: |
+          python3 tools/verify_research_assets.py
           python3 tools/validate_graphs.py --output verification/graph-validation.json
           python3 tools/mutation_checks.py
           python3 tools/rust1100_checks.py
@@ -68,19 +53,17 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import json,jsonschema
-          schema=json.loads(Path('schemas/graph-v1.schema.json').read_text())
-          for name in ('research','documentation','delivery'):
-              jsonschema.Draft202012Validator(schema).validate(json.loads(Path(name+'-graph.json').read_text()))
+          s=json.loads(Path('schemas/graph-v1.schema.json').read_text())
+          for k in ('research','documentation','delivery'):
+              jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
           print('PASS all three graph schemas')
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: final-native-slice-plan-checks
-          retention-days: 14
+          name: research-assets-plan-integrity
+          retention-days: 30
           path: |
-            Plan/verification/graph-validation.json
-            Plan/verification/mutation-checks.json
-            Plan/verification/rust1100-checks.json
-            Plan/ledger/checkpoints/native-slices-2026-11-12.json
+            Plan/verification/*.json
+            Plan/ledger/checkpoints/research-assets-migration.json
             Plan/source-driven-baseline.json

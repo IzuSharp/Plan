@@ -1,0 +1,77 @@
+name: Migrate current research asset references
+on:
+  push:
+    branches: [research/pr1-asset-migration]
+    paths:
+      - tools/migrate_research_asset_refs.py
+      - .github/workflows/research-assets-reference-migration.yml
+permissions:
+  contents: read
+jobs:
+  align:
+    if: github.repository == 'IzuSharp/Plan' && github.ref == 'refs/heads/research/pr1-asset-migration'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          path: Plan
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: c7e123a74405a92dc3de1ef450355b08d1c05ceb
+          fetch-depth: 0
+          persist-credentials: false
+          path: NativeWeave-Design
+      - name: Change affected references and current phase only
+        working-directory: Plan
+        shell: bash
+        run: |
+          if [ ! -f ledger/checkpoints/research-assets-migration.json ]; then
+            python3 tools/migrate_research_asset_refs.py
+          fi
+          python3 tools/verify_research_assets.py
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,jsonschema
+          s=json.loads(Path('schemas/graph-v1.schema.json').read_text())
+          for k in ('research','documentation','delivery'):
+              jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
+          print('PASS all three graph schemas')
+          PY
+      - name: Commit only verified Plan reference and policy changes
+        working-directory: Plan
+        run: |
+          git diff --check
+          python3 - <<'PY'
+          import subprocess
+          allowed={'research-graph.json','documentation-graph.json','source-driven-baseline.json','CURRENT-PHASE.md','README.md','AGENTS.md','research-policy.md','documentation-policy.md','execution-policy.md','tools/native_slices_checkpoint.py'}
+          for line in subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],text=True).splitlines():
+              path=line[3:]
+              assert path in allowed or path.startswith(('research-tasks/','documentation-tasks/','verification/','ledger/checkpoints/')),path
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research-graph.json documentation-graph.json source-driven-baseline.json CURRENT-PHASE.md README.md AGENTS.md research-policy.md documentation-policy.md execution-policy.md tools/native_slices_checkpoint.py research-tasks documentation-tasks verification ledger/checkpoints
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: point current research to Design and freeze formal Delivery execution'
+            git push origin HEAD:refs/heads/research/pr1-asset-migration
+          fi
+          python3 tools/verify_research_assets.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: research-asset-reference-checks
+          retention-days: 30
+          path: |
+            Plan/verification/*.json
+            Plan/ledger/checkpoints/research-assets-migration.json
+            Plan/source-driven-baseline.json
