@@ -48,7 +48,7 @@ Existing 34 Research, 32 Documentation, 48 candidate Delivery IDs retained. Exac
 | D01 | [工具链、AOT与平台规范](documentation-tasks/D01.md) | partially_evidenced |
 | D02 | [ABI及类型布局契约](documentation-tasks/D02.md) | partially_evidenced |
 | D03 | [绑定IR、生成器与分析器规范](documentation-tasks/D03.md) | draft_ready |
-| D04 | [所有权与资源生命周期契约](documentation-tasks/D04.md) | draft_ready |
+| D04 | [所有权与资源生命周期契约](documentation-tasks/D04.md) | partially_evidenced |
 | D05 | [Callback注册撤销与静默契约](documentation-tasks/D05.md) | draft_ready |
 | D06 | [异步完成与取消契约](documentation-tasks/D06.md) | draft_ready |
 | D07 | [Buffer、传输及内存契约](documentation-tasks/D07.md) | partially_evidenced |
