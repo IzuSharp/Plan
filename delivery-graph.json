@@ -215,8 +215,8 @@
       ],
       "resource_locks": [],
       "module": "Interop.Lifetime",
-      "candidate_api": "sealed class EngineHandle : SafeHandle; BorrowLease Acquire()",
-      "method": "按契约选SafeHandle或代际句柄；所有有效调用持有lease；精确定义父子销毁和最后释放",
+      "candidate_api": "internal AdmissionGate; typed SafeHandle owner; scoped CallLease; explicit close capability",
+      "method": "同一准入门内检查Open并AddRef，锁外FFI/finally Release；Closing拒绝新业务，旧lease保活不授予新准入；parent/child与最后释放责任明确。",
       "failure_paths": [
         "并发Dispose、双Dispose、构造中失败、finalizer及父资源先关需无悬空访问"
       ],
@@ -228,7 +228,7 @@
       "prompt": "tasks/A03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -254,7 +254,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "177944de3794bb3b9811d44f2180cee75751340edb087a958129841d2e8ff0f5",
+      "packet_sha256": "bbc0a9b77b5d72797036bac10631f38731e77f7ccd1255586f986937045a315f",
       "rust1100_impact": "未来实施可用Rust1.100 owner-aware Vec/Box；仍要接受的Buffer/ABI规范，allocator不可unwind、grow失效明确。"
     },
     {
@@ -480,12 +480,12 @@
       "prompt": "tasks/A06.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "A03": "0.2.1",
+        "A03": "0.2.2",
         "A05": "0.2.1"
       },
       "implementation_authorization": {
@@ -506,7 +506,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "967d6f8f6749ae0ed727a96ef00bd5514e5e24040939f464acf2ef472837fe61"
+      "packet_sha256": "ef68b516211559f50928788a46f770f36631bed5fbaebd44ec3b28813d59a3da"
     },
     {
       "id": "A07",
@@ -556,8 +556,8 @@
       ],
       "resource_locks": [],
       "module": "Interop.Async",
-      "candidate_api": "NativeOperation<T>; RequestCancel(); Complete(status, result_lease)",
-      "method": "先实现简单可验证completion；取消请求不自动代表native静默；终态、result ownership和排空独立表示",
+      "candidate_api": "NativeOperation<T>; create/start/request_cancel/take_result/try_retire/release; bounded retirement coordinator",
+      "method": "按既有契约拆开native终态、managed setup/registration/control-call屏障；结果take-once，Task发布不释放仍被native或managed访问的context。",
       "failure_paths": [
         "同步cancel callback、迟到完成、重复通知、cancel/dispose/timeout竞争不可双完成或丢结果"
       ],
@@ -569,13 +569,13 @@
       "prompt": "tasks/A07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "A04": "0.2.1",
-        "A06": "0.2.1"
+        "A06": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -595,7 +595,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "6fa9aff9aebaefa5d142ce06074a8e48a0a7a8f4540d4c390b53e7a8bf194fa0"
+      "packet_sha256": "8ba13c62a4ed4124920c90ff3358ce0fd29da487e0b98dc983fc2dac1e9d970b"
     },
     {
       "id": "A08",
@@ -651,12 +651,12 @@
       "prompt": "tasks/A08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "A07": "0.2.1"
+        "A07": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -676,7 +676,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "79bdc9db7549991efe129b2abc19824a156f410c4339e7ac023a81bf1de5df16"
+      "packet_sha256": "4de43dabce23d1a1f468432bef0c1e2ec12dd04af75e1b01b4bde377acd39281"
     },
     {
       "id": "A09",
@@ -1419,13 +1419,13 @@
       "prompt": "tasks/A17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "A02": "0.2.1",
-        "A03": "0.2.1",
+        "A03": "0.2.2",
         "A04": "0.2.1",
         "A05": "0.2.1",
         "A10": "0.2.0",
@@ -1449,7 +1449,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "646af794159a63605f621c704e1496674c02d34ae9ccdfe100f70614a7d7cb8c"
+      "packet_sha256": "fa20984e3530767c4c3a37ccf84e0da3700e6835caf202a40f427505f9d85371"
     },
     {
       "id": "A18",
@@ -1516,14 +1516,14 @@
       "prompt": "tasks/A18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "A02": "0.2.1",
-        "A07": "0.2.1",
-        "A08": "0.2.1",
+        "A07": "0.2.2",
+        "A08": "0.2.2",
         "A10": "0.2.0",
         "A11": "0.2.0"
       },
@@ -1545,7 +1545,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "2d1d42bf119c1cef4768a3ea44b4faf43b0db29055a882d29897f75ccb0fbcec"
+      "packet_sha256": "4d14c5c6cb4ed2e99655dc1bf6e1c7d0a9ec5a47d7935aadcb27e460abba1aaa"
     },
     {
       "id": "A19",
@@ -1694,16 +1694,16 @@
       "prompt": "tasks/A20.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "A03": "0.2.1",
+        "A03": "0.2.2",
         "A04": "0.2.1",
         "A05": "0.2.1",
-        "A06": "0.2.1",
-        "A07": "0.2.1"
+        "A06": "0.2.2",
+        "A07": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -1723,7 +1723,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "d5ce3e091e44d6297fb7d278124ec389bdff54ad55dae4db67aa625f38413297"
+      "packet_sha256": "58db38aae4d069efb662a38dd52029ee9bdd14e0b45e4933287b80e47957a9ad"
     },
     {
       "id": "A21",
@@ -1951,14 +1951,14 @@
       "prompt": "tasks/A23.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "A02": "0.2.1",
-        "A03": "0.2.1",
-        "A06": "0.2.1"
+        "A03": "0.2.2",
+        "A06": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -1978,7 +1978,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "94062fdf749cdd28edbad1a16c4b561343f6e4d90caf1db2ca68da43b6976cb2"
+      "packet_sha256": "eef60c12137d738742e64190983f96f64950d05e6b77f6bd5dec8952823c4358"
     },
     {
       "id": "A24",
@@ -2172,7 +2172,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -2211,7 +2211,7 @@
       "prompt": "tasks/B02.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2237,7 +2237,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "5414fd32d20f095c7d58c4049ee0cb3048d5562daaf474d5e9f3115d6b623aba"
+      "packet_sha256": "d3927ac198a02ee0cd20c577d196524e559d757dcba6aaf015ec836f53716068"
     },
     {
       "id": "B03",
@@ -2258,7 +2258,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -2297,7 +2297,7 @@
       "prompt": "tasks/B03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2323,7 +2323,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "fdf37540a95a6963a8fc04af3bc4b456e79c440fb8bd20007e80d9b93226510a"
+      "packet_sha256": "6a94fd063a5e71ab57d56116064f844232dceccd7224e7d19262edfaff7f6e3a"
     },
     {
       "id": "B04",
@@ -2350,7 +2350,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         },
         {
@@ -2405,19 +2405,19 @@
       "prompt": "tasks/B04.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "B01": "0.2.0",
-        "B07": "0.2.1",
-        "A03": "0.2.1",
+        "A03": "0.2.2",
         "A04": "0.2.1",
         "A05": "0.2.1",
-        "A07": "0.2.1",
+        "A07": "0.2.2",
         "A10": "0.2.0",
-        "A11": "0.2.0"
+        "A11": "0.2.0",
+        "B01": "0.2.0",
+        "B07": "0.2.1"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -2437,7 +2437,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "bcf7da3dbeefc9cb309cc03fdc668d7326ccd9deeed5bc8d8f85aa06502c140a"
+      "packet_sha256": "09a6b102f64b991ad0a05cf730ab4d9586a52ed3c77da8592049117d71eeecf6"
     },
     {
       "id": "B05",
@@ -2452,7 +2452,7 @@
       "contract_inputs": [
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         },
         {
@@ -2484,7 +2484,7 @@
       "resource_locks": [],
       "module": "Data.Transactions",
       "candidate_api": "TxLifecycle/Outcome/ConnectionDisposition/LocalLifetime",
-      "method": "按D15状态机；commit入线后断开不覆盖效果；Drop排队rollback不是确认；未知协议隔离。",
+      "method": "复用驱动worker/池并明确固定session：CommitDispatched后ACK未知不改写RolledBack；Drop排队rollback不等于确认；协议同步/本地退休/远端效果独立。SeaORM trait仅限显式profile。",
       "failure_paths": [
         "lost commit reply、rollback未确认、reset失败"
       ],
@@ -2496,7 +2496,7 @@
       "prompt": "tasks/B05.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2521,7 +2521,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "0622e93b14cd63e3d08d3ed91c293bc60c67040b1e294f2c3ee650cbdec2c09d"
+      "packet_sha256": "4eb76c29156e55bb5793976893803e28ce249b1a4e61a92669c539db6e3faa51"
     },
     {
       "id": "B06",
@@ -2542,7 +2542,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -2582,7 +2582,7 @@
       "prompt": "tasks/B06.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2608,7 +2608,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "f89d70cc47338a844b8193951983c0e9d6053a67b45f2c412c3a686f6e094b49"
+      "packet_sha256": "5b4fb80df2345ef4ebc248d460f35e740125152b304e414e717f8ecc4d61c284"
     },
     {
       "id": "B07",
@@ -2708,7 +2708,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -2747,13 +2747,13 @@
       "prompt": "tasks/B08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "B01": "0.2.0",
-        "B05": "0.2.0"
+        "B05": "0.2.1"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -2773,7 +2773,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ec8260b59eb13a8782a6db61c3bd36afc23b638f0f0b121fbd42e37a2dfc50cb"
+      "packet_sha256": "425c75189f7ef59501724d06ec4bef959f499f2f5f80cc8d16ffc9f641a0b3a4"
     },
     {
       "id": "B09",
@@ -2970,7 +2970,7 @@
       "resource_locks": [],
       "module": "Query.Native",
       "candidate_api": "Native CRUD/Condition/Expr and fallible binder",
-      "method": "复用native AST/方言，先查backend能力；拒绝SQLite silent no-op，fallible binder与多named-window扩展单独评估。",
+      "method": "Rust SeaQuery拥有AST/方言，单writer准入与owner匹配；Mutable/Sealed/Submitted/Closed/Poisoned明确；backend先验证再render/send，fallible binder与批次预算避免panic/静默降级。",
       "failure_paths": [
         "row-lock/SELECT INTO/SEARCH CYCLE被忽略、CTE panic、编码失败"
       ],
@@ -2982,7 +2982,7 @@
       "prompt": "tasks/B11.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -3007,7 +3007,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "fbaa6978873fa95671f1628727741a6d95d6de52b820952d03e846188461d166",
+      "packet_sha256": "ad401765d0cf501f82455000b9026fbc753985a0918634ff8f8f686ec2321452",
       "rust1100_impact": "保留SeaQuery1.0.2主体pin；binder0.9.1需单独compat验证，不能混用crate与Git证据。"
     },
     {
@@ -3139,7 +3139,7 @@
       "resource_locks": [],
       "module": "Query.Fluent",
       "candidate_api": "Native-backed Query<TEntity> and scoped expression proxies",
-      "method": "普通C#调用native builder；direct参考，batch优化须测；SQL三值语义，无IQueryable/Expression.Compile/SQL emitter。",
+      "method": "typed Fluent只操作native builder和static/dynamic受控metadata；参数快照、query owner/alias检查；手写metadata与可选SG同等，普通entity变化复用同native hash。",
       "failure_paths": [
         "single-writer竞态、seal后修改、cross-query expression、非法动态字段"
       ],
@@ -3151,13 +3151,13 @@
       "prompt": "tasks/B13.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
         "B09": "0.2.1",
-        "B11": "0.2.1"
+        "B11": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -3177,7 +3177,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "fb139e35db845c5483793513132247f440570d3dfc8da32b0dd1a7ba02d5791b"
+      "packet_sha256": "bb8fa8d02fcfb353187b8c283fdca3f591755b0e74f53ec84fccc4f6b2551698"
     },
     {
       "id": "B14",
@@ -3199,7 +3199,7 @@
         },
         {
           "id": "C-TX-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -3239,13 +3239,13 @@
       "prompt": "tasks/B14.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "B05": "0.2.0",
-        "B11": "0.2.1",
+        "B05": "0.2.1",
+        "B11": "0.2.2",
         "B12": "0.2.1"
       },
       "implementation_authorization": {
@@ -3266,7 +3266,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "73cadfdeb1f072d9fe030bcf7af936ffac227bac1f76cc92a112eb83a8a7d9e9"
+      "packet_sha256": "68e6cfde82491a01365e4817df639bd33589ac25630757c48031b301af7f614f"
     },
     {
       "id": "B15",
@@ -3279,7 +3279,7 @@
       "contract_inputs": [
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         },
         {
@@ -3308,19 +3308,19 @@
       "resource_locks": [],
       "module": "Server.Kestrel",
       "candidate_api": "NativeWeaveHostBuilder; statically registered handler; generated serializer context",
-      "method": "先实现纯C#基线；复用Kestrel能力并控制默认服务；host不强制Rust runtime",
+      "method": "Kestrel是必需研究对照；产品host选择保持undecided。只有选中并获未来实施授权才复用Kestrel/静态handler，纯server不强制Rust runtime。",
       "failure_paths": [
         "AOT route不支持、未知序列化类型、请求异常、配置错误、启动端口冲突"
       ],
       "specific_verification": [
         "真实HTTP应用AOT运行；端点契约；startup/RSS；取消与关停"
       ],
-      "selection_required": false,
-      "selection_status": "not_applicable",
+      "selection_required": true,
+      "selection_status": "undecided",
       "prompt": "tasks/B15.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -3343,7 +3343,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "a527fba1d49581c643b19982becbb6e60ee7045f68b6f1b865f4ed645c928b76"
+      "packet_sha256": "f370317e6a7c4e3debc7398186707d864d7e6a0a5fdbf0a082990630a5f22680"
     },
     {
       "id": "B16",
@@ -3351,14 +3351,12 @@
       "phase": "B",
       "status": "planned_candidate",
       "owner_role": "delivery/B16",
-      "start_dependencies": [
-        "B15"
-      ],
+      "start_dependencies": [],
       "acceptance_dependencies": [],
       "contract_inputs": [
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         },
         {
@@ -3387,7 +3385,7 @@
       "resource_locks": [],
       "module": "Server.Streaming",
       "candidate_api": "RequestBudget; ReadBodyAsync; WriteBodyAsync; bounded stream lease",
-      "method": "端到端传递backpressure；按字节/连接/请求预算限制；取消和超时从request寿命驱动",
+      "method": "对selected host分别实现head/body/retained allocation/reservation预算；close关闭逻辑准入但旧permit仍有独立退休责任，channel条数不是RSS上界。",
       "failure_paths": [
         "slowloris、slow consumer、half-close、header/body超限、write失败"
       ],
@@ -3400,13 +3398,35 @@
       "prompt": "tasks/B16.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
-      "conditional_dependencies": [],
-      "selection_inputs": [],
-      "dependency_pins": {
-        "B15": "0.2.0"
-      },
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.2.2",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        }
+      ],
+      "selection_inputs": [
+        "B15",
+        "B17"
+      ],
+      "dependency_pins": {},
       "implementation_authorization": {
         "status": "not_authorized",
         "approval_record": null
@@ -3425,7 +3445,17 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "480834107d70e68911d00e714244af095606ae61ce53c3cdd8bf338046c63c23"
+      "packet_sha256": "1b6827037b82da0d6fb9c7559a7009d599aeca761b1da75af549578c1b7b2f03",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     },
     {
       "id": "B17",
@@ -3443,7 +3473,7 @@
       "contract_inputs": [
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         },
         {
@@ -3478,7 +3508,7 @@
       "resource_locks": [],
       "module": "Server.Native",
       "candidate_api": "RustServerEngine; coarse HandlerRequest lease; response stream credits",
-      "method": "复用Hyper Service/Body/connection/Tokio及Tower/Axum，比较Actix worker-affine与Pingora proxy；一个ForeignService接C#runtime handler/route，不重写网络核心。B17仍可选未选定，Kestrel AOT完整对照。",
+      "method": "选中后复用成熟Hyper/Tokio/Tower/Axum接缝与C#业务handler；Kestrel仅为必需研究比较，产品B15/B17均undecided。head/body/Bytes/permit/callback退休分别验证。",
       "failure_paths": [
         "handler panic/exception、迟到response、runtime shutdown、double buffering、每chunk跨FFI过量"
       ],
@@ -3491,13 +3521,13 @@
       "prompt": "tasks/B17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "A07": "0.2.1",
-        "A08": "0.2.1",
+        "A07": "0.2.2",
+        "A08": "0.2.2",
         "A10": "0.2.0",
         "A11": "0.2.0"
       },
@@ -3519,7 +3549,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "6ac3738cd9e5ad0bbdcdc2f325d301f0aa80266b9fcd4eb5304a3738737ea11a",
+      "packet_sha256": "0c55d08820feb0da75cbed4ee4bcfb32788ca06e76b0ad57d2e690183b3e9203",
       "rust1100_impact": "实际native Service/Body probe独立于数据库；仍需正式已接受Core契约后转生产。"
     },
     {
@@ -3528,9 +3558,7 @@
       "phase": "B",
       "status": "planned_candidate",
       "owner_role": "delivery/B18",
-      "start_dependencies": [
-        "B15"
-      ],
+      "start_dependencies": [],
       "acceptance_dependencies": [],
       "contract_inputs": [
         {
@@ -3540,7 +3568,7 @@
         },
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -3576,13 +3604,37 @@
       "prompt": "tasks/B18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
-      "conditional_dependencies": [],
-      "selection_inputs": [],
-      "dependency_pins": {
-        "B15": "0.2.0"
-      },
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected",
+            "protocol_profile_selected": true
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "start",
+          "reason": "host与该协议在host上的profile均selected时才需要实际host；现有D19仅提供Kestrel接缝，Rust需额外accepted设计。"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected",
+            "protocol_profile_selected": true
+          },
+          "task_id": "B17",
+          "revision": "0.2.2",
+          "gate": "start",
+          "reason": "host与该协议在host上的profile均selected时才需要实际host；现有D19仅提供Kestrel接缝，Rust需额外accepted设计。"
+        }
+      ],
+      "selection_inputs": [
+        "B15",
+        "B17"
+      ],
+      "dependency_pins": {},
       "implementation_authorization": {
         "status": "not_authorized",
         "approval_record": null
@@ -3601,7 +3653,33 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "047b66c5eab36380eb6b3a60117662960c800e34cc0292b24a9dabd0501c1949"
+      "packet_sha256": "fab37d5e458c4446f73131ff065b2dc821692b87994ebb9e70e81534e7fe395f",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ],
+      "protocol_host_profiles": [
+        {
+          "host_task_id": "B15",
+          "selection_status": "undecided",
+          "contract_input": {
+            "id": "C-PROTOCOL-001",
+            "version": "0.1.0-draft",
+            "required_status": "accepted"
+          }
+        },
+        {
+          "host_task_id": "B17",
+          "selection_status": "undecided",
+          "contract_input": null
+        }
+      ]
     },
     {
       "id": "B19",
@@ -3609,9 +3687,7 @@
       "phase": "B",
       "status": "planned_candidate",
       "owner_role": "delivery/B19",
-      "start_dependencies": [
-        "B15"
-      ],
+      "start_dependencies": [],
       "acceptance_dependencies": [],
       "contract_inputs": [
         {
@@ -3621,7 +3697,7 @@
         },
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -3657,13 +3733,37 @@
       "prompt": "tasks/B19.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
-      "conditional_dependencies": [],
-      "selection_inputs": [],
-      "dependency_pins": {
-        "B15": "0.2.0"
-      },
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected",
+            "protocol_profile_selected": true
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "start",
+          "reason": "host与该协议在host上的profile均selected时才需要实际host；现有D19仅提供Kestrel接缝，Rust需额外accepted设计。"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected",
+            "protocol_profile_selected": true
+          },
+          "task_id": "B17",
+          "revision": "0.2.2",
+          "gate": "start",
+          "reason": "host与该协议在host上的profile均selected时才需要实际host；现有D19仅提供Kestrel接缝，Rust需额外accepted设计。"
+        }
+      ],
+      "selection_inputs": [
+        "B15",
+        "B17"
+      ],
+      "dependency_pins": {},
       "implementation_authorization": {
         "status": "not_authorized",
         "approval_record": null
@@ -3682,7 +3782,33 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ceddd2a7dd85ddb5a1b4d91aa997ac22817bea850d24c2a03a09e342dc06e289"
+      "packet_sha256": "cf867c4432a360cb6125d8532bd87823b57e2da88593dbe6320afd23b97f4f59",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ],
+      "protocol_host_profiles": [
+        {
+          "host_task_id": "B15",
+          "selection_status": "undecided",
+          "contract_input": {
+            "id": "C-PROTOCOL-001",
+            "version": "0.1.0-draft",
+            "required_status": "accepted"
+          }
+        },
+        {
+          "host_task_id": "B17",
+          "selection_status": "undecided",
+          "contract_input": null
+        }
+      ]
     },
     {
       "id": "B20",
@@ -3691,14 +3817,13 @@
       "status": "planned_candidate",
       "owner_role": "delivery/B20",
       "start_dependencies": [
-        "B15",
         "B16"
       ],
       "acceptance_dependencies": [],
       "contract_inputs": [
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -3723,7 +3848,7 @@
       "resource_locks": [],
       "module": "Server.Diagnostics",
       "candidate_api": "Activity bridge; Meter instruments; ShutdownCoordinator",
-      "method": "避免双重trace/provider；低基数metrics；请求deadline与host shutdown联动但状态独立",
+      "method": "对selected host协调停止准入、queue/permit/body/retained bytes和callback退休；deadline停止等待不提前free；计数定义线性化点，低基数无敏感参数诊断。",
       "failure_paths": [
         "span重复、high-cardinality增长、敏感参数泄漏、drain超时、未释放请求"
       ],
@@ -3736,13 +3861,36 @@
       "prompt": "tasks/B20.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
-      "conditional_dependencies": [],
-      "selection_inputs": [],
+      "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.2.2",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        }
+      ],
+      "selection_inputs": [
+        "B15",
+        "B17"
+      ],
       "dependency_pins": {
-        "B15": "0.2.0",
-        "B16": "0.2.0"
+        "B16": "0.2.1"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -3762,7 +3910,17 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "3f404607d075053bc4f832eeb4cfb6c27ebceb1fc54486a537f8f5f9dfd7929b"
+      "packet_sha256": "fa5924f95b63c41a795ccac616e5d4a3c22b1b68cab293b730505dacc5f3bfcf",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     },
     {
       "id": "B21",
@@ -3777,7 +3935,6 @@
         "B06",
         "B08",
         "B14",
-        "B15",
         "B16"
       ],
       "acceptance_dependencies": [
@@ -3796,7 +3953,7 @@
         },
         {
           "id": "C-SERVER-001",
-          "version": "0.2.0-draft",
+          "version": "0.2.1-draft",
           "required_status": "accepted"
         }
       ],
@@ -3834,33 +3991,43 @@
       "prompt": "tasks/B21.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
         {
           "condition": {
             "task_id": "B17",
             "selection_status": "selected"
           },
           "task_id": "B17",
-          "revision": "0.2.1",
-          "gate": "acceptance",
-          "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
+          "revision": "0.2.2",
+          "gate": "start",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
         }
       ],
       "selection_inputs": [
+        "B15",
         "B17"
       ],
       "dependency_pins": {
-        "B02": "0.2.1",
-        "B03": "0.2.1",
-        "B05": "0.2.0",
-        "B06": "0.2.1",
-        "B08": "0.2.0",
-        "B14": "0.2.1",
-        "B15": "0.2.0",
-        "B16": "0.2.0",
-        "B04": "0.2.1"
+        "B02": "0.2.2",
+        "B03": "0.2.2",
+        "B04": "0.2.2",
+        "B05": "0.2.1",
+        "B06": "0.2.2",
+        "B08": "0.2.1",
+        "B14": "0.2.2",
+        "B16": "0.2.1"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -3880,7 +4047,17 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "e2e4a025dd5afb0377c5db285be1957ae59509c942d730faafad499b76977231"
+      "packet_sha256": "f9f675f3a531962053432effb238e30ca58fce2a6f127f8ea6729b5b85d47ed6",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     },
     {
       "id": "B22",
@@ -3942,26 +4119,37 @@
       "prompt": "tasks/B22.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "acceptance",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
         {
           "condition": {
             "task_id": "B17",
             "selection_status": "selected"
           },
           "task_id": "B17",
-          "revision": "0.2.1",
+          "revision": "0.2.2",
           "gate": "acceptance",
-          "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
         }
       ],
       "selection_inputs": [
+        "B15",
         "B17"
       ],
       "dependency_pins": {
-        "B21": "0.2.1",
-        "B04": "0.2.1"
+        "B04": "0.2.2",
+        "B21": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -3981,7 +4169,17 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "772c4053f984beca7771d1ce641c0a3cf89a81319370e68bf3ba60a55f604eb7"
+      "packet_sha256": "43c78c9931cce7e8b2f38a810024ebeef3c2560c9941d4f212035c3cfd93126b",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     },
     {
       "id": "B23",
@@ -4043,27 +4241,38 @@
       "prompt": "tasks/B23.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "acceptance",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
         {
           "condition": {
             "task_id": "B17",
             "selection_status": "selected"
           },
           "task_id": "B17",
-          "revision": "0.2.1",
+          "revision": "0.2.2",
           "gate": "acceptance",
-          "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
         }
       ],
       "selection_inputs": [
+        "B15",
         "B17"
       ],
       "dependency_pins": {
-        "B21": "0.2.1",
         "A21": "0.2.0",
-        "B04": "0.2.1"
+        "B04": "0.2.2",
+        "B21": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -4083,7 +4292,17 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "3604d713a042c13ab209491ca5edb4555528b02f846dfc036f8f05342e67a66f"
+      "packet_sha256": "3eebb678cb3429109d9631e9e291e194a050b945fa7a9a0fb2096337291d457e",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     },
     {
       "id": "B24",
@@ -4145,26 +4364,16 @@
       "prompt": "tasks/B24.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [
-        {
-          "condition": {
-            "task_id": "B17",
-            "selection_status": "selected"
-          },
-          "task_id": "B17",
-          "revision": "0.2.1",
-          "gate": "acceptance",
-          "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
-        },
         {
           "condition": {
             "task_id": "B18",
             "selection_status": "selected"
           },
           "task_id": "B18",
-          "revision": "0.2.0",
+          "revision": "0.2.1",
           "gate": "acceptance",
           "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
         },
@@ -4174,20 +4383,41 @@
             "selection_status": "selected"
           },
           "task_id": "B19",
-          "revision": "0.2.0",
+          "revision": "0.2.1",
           "gate": "acceptance",
           "reason": "仅选中的可选Rust Server/协议包进入组合；Database Rust host B04始终必需。"
+        },
+        {
+          "condition": {
+            "task_id": "B15",
+            "selection_status": "selected"
+          },
+          "task_id": "B15",
+          "revision": "0.2.1",
+          "gate": "acceptance",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
+        },
+        {
+          "condition": {
+            "task_id": "B17",
+            "selection_status": "selected"
+          },
+          "task_id": "B17",
+          "revision": "0.2.2",
+          "gate": "acceptance",
+          "reason": "仅选中的host profile提供实际实现/验收；Kestrel研究对照不自动选择产品host。"
         }
       ],
       "selection_inputs": [
+        "B15",
         "B17",
         "B18",
         "B19"
       ],
       "dependency_pins": {
-        "B22": "0.2.1",
-        "B23": "0.2.1",
-        "B04": "0.2.1"
+        "B04": "0.2.2",
+        "B22": "0.2.2",
+        "B23": "0.2.2"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -4209,7 +4439,7 @@
       ],
       "release_scope": {
         "id": "domain-release-0.1",
-        "revision": "0.1.1",
+        "revision": "0.1.2",
         "status": "proposed",
         "components": [
           {
@@ -4219,22 +4449,22 @@
           },
           {
             "task_id": "B02",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B03",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B05",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "always"
           },
           {
             "task_id": "B06",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
@@ -4244,7 +4474,7 @@
           },
           {
             "task_id": "B08",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "always"
           },
           {
@@ -4259,7 +4489,7 @@
           },
           {
             "task_id": "B11",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
@@ -4269,67 +4499,77 @@
           },
           {
             "task_id": "B13",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B14",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B15",
-            "revision": "0.2.0",
-            "when": "always"
+            "revision": "0.2.1",
+            "when": "selected"
           },
           {
             "task_id": "B16",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "always"
           },
           {
             "task_id": "B20",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "always"
           },
           {
             "task_id": "B21",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B22",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B23",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "always"
           },
           {
             "task_id": "B04",
-            "revision": "0.2.1",
-            "when": "selected"
+            "revision": "0.2.2",
+            "when": "always"
           },
           {
             "task_id": "B17",
-            "revision": "0.2.1",
+            "revision": "0.2.2",
             "when": "selected"
           },
           {
             "task_id": "B18",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "selected"
           },
           {
             "task_id": "B19",
-            "revision": "0.2.0",
+            "revision": "0.2.1",
             "when": "selected"
           }
         ]
       },
-      "packet_sha256": "10881cb88b45292e4b77b2f1e820e59f82a5ae7b74d832199f691f5e9de60e78"
+      "packet_sha256": "9b182f2bfd4f1d7d43f5169bfaa81fa319128180d6bdcfb7ecaebeae55fa3c82",
+      "required_selection_groups": [
+        {
+          "id": "server-host",
+          "task_ids": [
+            "B15",
+            "B17"
+          ],
+          "minimum_selected": 1
+        }
+      ]
     }
   ],
   "revision": "0.2.1",

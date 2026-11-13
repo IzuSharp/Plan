@@ -250,19 +250,66 @@ class Validator:
    else:
     for dep,rev in pins.items():
      if dep in self.nodes and rev!=self.nodes[dep].get('revision'):self.err('DEPENDENCY_VERSION',f'{nid}->{dep}@{rev}')
+   seen_conditionals=set()
    for conditional in n.get('conditional_dependencies',[]):
     dep=conditional.get('task_id');condition=conditional.get('condition',{})
     if dep not in self.nodes or condition.get('task_id') not in self.nodes:self.err('MISSING_CONDITIONAL_DEPENDENCY',nid)
     elif conditional.get('revision')!=self.nodes[dep].get('revision'):self.err('CONDITIONAL_VERSION',nid)
-    if conditional.get('gate')!='acceptance' or condition.get('selection_status')!='selected':self.err('CONDITIONAL_SCHEMA',nid)
+    if conditional.get('gate') not in {'start','acceptance'} or condition.get('selection_status')!='selected':self.err('CONDITIONAL_SCHEMA',nid)
+    if 'protocol_profile_selected' in condition and (condition['protocol_profile_selected'] is not True or not n.get('protocol_host_profiles')):
+     self.err('CONDITIONAL_PROTOCOL_PROFILE',nid)
+    selector=condition.get('task_id')
+    if selector not in n.get('selection_inputs',[]) or not self.nodes.get(selector,{}).get('selection_required'):self.err('CONDITIONAL_SELECTION_REFERENCE',nid)
+    edge=(conditional.get('gate'),dep,selector)
+    if edge in seen_conditionals:self.err('DUPLICATE_CONDITIONAL_EDGE',nid)
+    seen_conditionals.add(edge)
    for selection in n.get('selection_inputs',[]):
     if selection not in self.nodes or not self.nodes[selection].get('selection_required'):self.err('SELECTION_REFERENCE',nid)
+   groups=n.get('required_selection_groups',[]);seen_groups=set()
+   if not isinstance(groups,list):self.err('SELECTION_GROUP_SCHEMA',nid);groups=[]
+   for group in groups:
+    if not isinstance(group,dict):self.err('SELECTION_GROUP_SCHEMA',nid);continue
+    group_id=group.get('id');members=group.get('task_ids')
+    if not isinstance(group_id,str) or not group_id or group_id in seen_groups:self.err('SELECTION_GROUP_ID',nid)
+    else:seen_groups.add(group_id)
+    if self.kind[nid]!='delivery' or group.get('minimum_selected')!=1 or type(group.get('minimum_selected')) is not int or not isinstance(members,list) or not members or any(not isinstance(d,str) for d in members):
+     self.err('SELECTION_GROUP_SCHEMA',nid);continue
+    if len(members)!=len(set(members)):self.err('SELECTION_GROUP_SCHEMA',nid)
+    for member in members:
+     if member==nid or member not in n.get('selection_inputs',[]) or not self.nodes.get(member,{}).get('selection_required'):
+      self.err('SELECTION_GROUP_REFERENCE',nid+':'+str(member))
+   profiles=n.get('protocol_host_profiles')
+   if profiles is not None:
+    if not isinstance(profiles,list) or not profiles or self.kind[nid]!='delivery' or not n.get('selection_required'):
+     self.err('PROTOCOL_PROFILE_SCHEMA',nid);profiles=[]
+    hosts=[]
+    for profile in profiles:
+     if not isinstance(profile,dict):self.err('PROTOCOL_PROFILE_SCHEMA',nid);continue
+     host=profile.get('host_task_id')
+     if not isinstance(host,str):self.err('PROTOCOL_PROFILE_HOST',nid);continue
+     hosts.append(host)
+     if host not in n.get('selection_inputs',[]) or not self.nodes.get(host,{}).get('selection_required'):self.err('PROTOCOL_PROFILE_HOST',nid)
+     if profile.get('selection_status') not in {'selected','excluded','undecided'}:self.err('PROTOCOL_PROFILE_SCHEMA',nid)
+     contract=profile.get('contract_input')
+     if contract is not None and (not isinstance(contract,dict) or contract not in n.get('contract_inputs',[])):
+      self.err('PROTOCOL_PROFILE_CONTRACT',nid)
+    if len(hosts)!=len(set(str(h) for h in hosts)) or set(hosts)!=set(n.get('selection_inputs',[])):
+     self.err('PROTOCOL_PROFILE_COVERAGE',nid)
+   scope=n.get('release_scope')
+   if scope:
+    for component in scope.get('components',[]):
+     dep=self.nodes.get(component.get('task_id'))
+     if not dep:self.err('RELEASE_COMPONENT_MISSING',nid);continue
+     if component.get('revision')!=dep.get('revision'):self.err('RELEASE_COMPONENT_VERSION',nid)
+     if component.get('when') not in {'always','selected'}:self.err('RELEASE_COMPONENT_CONDITION',nid)
+     if component.get('when')=='selected' and (not dep.get('selection_required') or dep['id'] not in n.get('selection_inputs',[])):
+      self.err('RELEASE_SELECTION_REFERENCE',nid+':'+dep['id'])
    for c in n.get('contract_inputs',[]):
     if not isinstance(c,dict) or c.get('required_status')!='accepted' or not c.get('version'):
      self.err('CONTRACT_PIN',nid);continue
     if (c.get('id'),c.get('version')) not in self.contracts:self.err('CONTRACT_MISSING',f'{nid}: {c}')
   for label,fields in [('start',('start_dependencies',)),('acceptance',('start_dependencies','acceptance_dependencies'))]:
-   for path in cycles(self.nodes,lambda v:[d for f in fields for d in self.nodes[v].get(f,[])]+([c['task_id'] for c in self.nodes[v].get('conditional_dependencies',[])] if label=='acceptance' else [])):
+   for path in cycles(self.nodes,lambda v:[d for f in fields for d in self.nodes[v].get(f,[])]+[c['task_id'] for c in self.nodes[v].get('conditional_dependencies',[]) if label=='acceptance' or c.get('gate')=='start']):
     self.err('DEPENDENCY_CYCLE',label+': '+' -> '.join(path))
   ckeys=set(self.contracts)
   for key,c in self.contracts.items():
@@ -274,6 +321,21 @@ class Validator:
  def contract_accepted(self,key):
   c=self.contracts.get(key)
   return bool(c and c.get('status')=='accepted' and key in self.checked_contracts)
+
+ def contract_host_profiles(self,key):
+  """Host scope lives in the spec bytes already bound by contract acceptance."""
+  if not self.contract_accepted(key):return set()
+  contract=self.contracts[key];ref=contract.get('spec_path')
+  if isinstance(ref,str) and ':' not in ref:ref='NativeWeave-Design:'+ref
+  raw=self.require_file_hash(ref,contract.get('content_sha256'),'protocol-host-scope/'+key[0]+'@'+key[1])
+  if raw is None:return set()
+  try:
+   blocks=re.findall(r'^```json nativeweave-protocol-host-profiles-v1\r?\n(.*?)^```[ \t]*\r?$',raw.decode('utf-8'),re.M|re.S)
+   if len(blocks)!=1:return set()
+   declaration=json.loads(blocks[0]);hosts=declaration.get('host_task_ids')
+   if set(declaration)!={'host_task_ids'} or not isinstance(hosts,list) or not hosts or any(not isinstance(h,str) or not re.fullmatch(r'B\d{2,}',h) for h in hosts) or len(hosts)!=len(set(hosts)):return set()
+   return set(hosts)
+  except (UnicodeError,ValueError,TypeError,AttributeError):return set()
 
  def check_contract(self,key):
   if key in self.checked_contracts:return True
@@ -295,15 +357,45 @@ class Validator:
   if len(self.errors)==before:self.checked_contracts.add(key);return True
   return False
 
- def active_acceptance_dependencies(self,n):
-  result=list(n.get('acceptance_dependencies',[]))
+ def active_dependencies(self,n,gate):
+  result=list(n.get(gate+'_dependencies',[]))
   for c in n.get('conditional_dependencies',[]):
    cond=c['condition']
-   if self.nodes.get(cond['task_id'],{}).get('selection_status')==cond['selection_status']:result.append(c['task_id'])
-  return result
+   profile_active=not cond.get('protocol_profile_selected') or any(p['host_task_id']==cond['task_id'] and p['selection_status']=='selected' for p in n.get('protocol_host_profiles',[]))
+   if c.get('gate')==gate and profile_active and self.nodes.get(cond['task_id'],{}).get('selection_status')==cond['selection_status']:result.append(c['task_id'])
+  return list(dict.fromkeys(result))
+
+ def active_start_dependencies(self,n):return self.active_dependencies(n,'start')
+ def active_acceptance_dependencies(self,n):return self.active_dependencies(n,'acceptance')
+
+ def selection_issues(self,n):
+  issues=[]
+  for member in n.get('selection_inputs',[]):
+   if self.nodes.get(member,{}).get('selection_status') not in {'selected','excluded'}:
+    issues.append(('SELECTION_UNRESOLVED',member))
+  for group in n.get('required_selection_groups',[]):
+   selected=sum(self.nodes.get(member,{}).get('selection_status')=='selected' for member in group['task_ids'])
+   if selected<group['minimum_selected']:issues.append(('SELECTION_GROUP_UNSATISFIED',group['id']))
+  return issues
+
+ def protocol_profile_issues(self,n):
+  if 'protocol_host_profiles' not in n or n.get('selection_status')!='selected':return []
+  issues=[];enabled=0
+  for profile in n['protocol_host_profiles']:
+   host=profile['host_task_id'];global_choice=self.nodes[host].get('selection_status');choice=profile['selection_status']
+   if global_choice=='selected':
+    if choice=='undecided':issues.append(('PROTOCOL_PROFILE_UNRESOLVED',host))
+    elif choice=='selected':
+     enabled+=1;contract=profile.get('contract_input')
+     if contract is None:issues.append(('PROTOCOL_PROFILE_DESIGN_MISSING',host))
+     elif not self.contract_accepted((contract['id'],contract['version'])):issues.append(('PROTOCOL_PROFILE_CONTRACT_UNACCEPTED',host))
+     elif host not in self.contract_host_profiles((contract['id'],contract['version'])):issues.append(('PROTOCOL_PROFILE_HOST_NOT_IN_CONTRACT',host))
+   elif choice=='selected':issues.append(('PROTOCOL_PROFILE_HOST_UNSELECTED',host))
+  if not enabled:issues.append(('PROTOCOL_PROFILE_EMPTY',n['id']))
+  return issues
 
  def task_subject(self,nid,n):
-  deps=n.get('start_dependencies',[])+self.active_acceptance_dependencies(n)
+  deps=self.active_start_dependencies(n)+self.active_acceptance_dependencies(n)
   return {'kind':'task','id':nid,'revision':n.get('revision'),'content_sha256':node_digest(n),'source_commit':n.get('source_commit'),
    'dependency_snapshot':{d:{'revision':self.nodes[d].get('revision'),'content_sha256':node_digest(self.nodes[d]),'source_commit':self.nodes[d].get('source_commit'),'acceptance_evidence_sha256':[e.get('sha256') for e in self.nodes[d].get('acceptance_evidence',[])]} for d in deps if d in self.nodes},
    'selection_snapshot':{d:{'revision':self.nodes[d].get('revision'),'selection_status':self.nodes[d].get('selection_status'),'content_sha256':node_digest(self.nodes[d])} for d in n.get('selection_inputs',[]) if d in self.nodes}}
@@ -327,12 +419,13 @@ class Validator:
    if not GITSHA.fullmatch(str(n.get('source_commit',''))):self.err('TASK_COMMIT',nid)
    ev=self.evidence(n.get('acceptance_evidence'),subject,nid)
    self.reviews(n.get('independent_reviewers'),subject,n.get('author'),[h for h,m in ev],nid)
-   for dep in n.get('start_dependencies',[])+self.active_acceptance_dependencies(n):
+   for dep in self.active_start_dependencies(n)+self.active_acceptance_dependencies(n):
     if self.nodes.get(dep,{}).get('status') not in TERMINAL:self.err('DEPENDENCY_NOT_ACCEPTED',f'{nid}->{dep}')
    for c in n.get('contract_inputs',[]):
     if not self.contract_accepted((c.get('id'),c.get('version'))):self.err('CONTRACT_NOT_ACCEPTED',f'{nid}: {c.get("id")}@{c.get("version")}')
    if self.kind[nid]=='delivery':
     if n.get('selection_required') and n.get('selection_status')!='selected':self.err('UNSELECTED_OPTION',nid)
+    for code,detail in self.selection_issues(n)+self.protocol_profile_issues(n):self.err(code,nid+':'+detail)
     self.authorization(nid,n)
     self.check_release_scope(nid,n)
     for req in n.get('verification_requirements',[]):
@@ -370,9 +463,10 @@ class Validator:
   for nid,n in self.nodes.items():
    kind=self.kind[nid]; reasons=[]
    if n.get('status') not in READY_STATES[kind]:reasons.append('state='+str(n.get('status')))
-   for dep in n.get('start_dependencies',[]):
+   for dep in self.active_start_dependencies(n):
     if self.nodes.get(dep,{}).get('status') not in TERMINAL:reasons.append('dependency='+dep)
    if kind=='delivery':
+    for code,detail in self.selection_issues(n)+self.protocol_profile_issues(n):reasons.append(code+'='+detail)
     for c in n.get('contract_inputs',[]):
      if not self.contract_accepted((c.get('id'),c.get('version'))):reasons.append('contract='+str(c.get('id'))+'@'+str(c.get('version')))
     if n.get('selection_required') and n.get('selection_status')!='selected':reasons.append('optional route undecided')

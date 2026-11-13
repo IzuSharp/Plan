@@ -559,12 +559,12 @@
       "prompt": "research-tasks/R07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.4",
+      "revision": "0.2.5",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "0e17a5035dbc2458293556d654c2fb0947ea120b142e22cccef0dce563cc38c4",
+      "packet_sha256": "5aa7894ad9e2d3c06e4d4a6bc236e54905dc11b8a14f60df840c2456276bc8f4",
       "source_driven_amendment": "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。",
       "rust1100_impact": "DropGuard仅简化同步局部rollback；Box/Arc map不用于已发布句柄，allocator owner不能早于所有lease释放。",
       "continuation_evidence": [
@@ -592,7 +592,12 @@
       ],
       "initial_seed_refs": [
         "NativeWeave-Design:docs/research/topics/R03/native-slice-validation.md"
-      ]
+      ],
+      "source_lifecycle_followup": {
+        "scope": "物理寿命与准入证据",
+        "requirements": "从 SafeHandle 固定源码与新物理租约反例继续：旧 lease 延迟 free 时 AddRef 仍可能成功，Open→Closing 的独立门才拒绝新业务。明确关闭线性化点、父子 lease、模块寿命、mutable builder 单 writer 与所有失败分支。已合并 Design PR8 的 docs/research/topics/R07/logical-admission.md 与 verification/logical-admission/primary-results.json 记录 source 28f6cf7e6e4e80b9f32a92ad587a528d82911bd0、run 43373306474：Windows/Linux 各普通运行和真实 Native AOT 通过 653 assertions/64 rounds；不重复该实验。它只覆盖同步准入子集，async retirement、弱内存、长期资源、mutable builder 完整并发和产品协议仍待验证，不把 R07/C-LIFETIME/A03 提升 accepted。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R08",
@@ -656,7 +661,7 @@
       "prompt": "research-tasks/R08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -665,8 +670,13 @@
         "NativeWeave-Design:experiments/async-quiescence/model.py"
       ],
       "initial_seed_note": "初始有限模型：早free模型226状态发现UAF反例，quiescence+lease模型159状态无安全反例；需复核状态界限与假设，仅为研究seed。",
-      "packet_sha256": "f68e149b8f8cfb8f07d1fdd207022764fdefec5e289a3e804611e90b1d407bf1",
-      "source_driven_amendment": "ForeignHandler注册代际、注销及body/context退休；回调只进入有界dispatcher，不执行任意用户同步代码。"
+      "packet_sha256": "68b1675fcdefb802cd7057a8030c2d2aca5c83037c736d9fd0fb2efee2c1e17b",
+      "source_driven_amendment": "ForeignHandler注册代际、注销及body/context退休；回调只进入有界dispatcher，不执行任意用户同步代码。",
+      "source_lifecycle_followup": {
+        "scope": "注册/撤销与 managed 屏障",
+        "requirements": "沿既有 async-quiescence 有限模型继续调查 token Register 的同步回调、回调内注销、晚到取消和 start 返回前 terminal。输出 native quiet 与 managed callback/control-call/registration drain 的独立证明义务，并为 A07/B17 定义可控 barrier 测试；队列通知和代际检测不能替代永久关闭 callback 来源。研究输入不等于已完成 R08 实验。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R09",
@@ -736,7 +746,7 @@
       "prompt": "research-tasks/R09.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.1",
+      "revision": "0.2.2",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -745,9 +755,14 @@
         "NativeWeave-Design:docs/research/toolchain/report.md"
       ],
       "initial_seed_note": "runtime async在初始官方证据中仍为preview；正式async桥不得依赖预览机制。另有experiments/async-quiescence/model.py有限状态实验，不能将顺序一致有限模型结论外推产品。",
-      "packet_sha256": "5d00e36d41799e73fd70ed85ababc7dd6bd4fc7bcee0c5df7e932ebe1cfe0e73",
+      "packet_sha256": "4acbdbf36b2cd4a11d224e11f78112ed9a65a592db5ce3362e59ee640c0ba1ae",
       "source_driven_amendment": "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。",
-      "rust1100_impact": "DropGuard/Drop不会await；不删除create/start/take_result/retire或取消静默规则。"
+      "rust1100_impact": "DropGuard/Drop不会await；不删除create/start/take_result/retire或取消静默规则。",
+      "source_lifecycle_followup": {
+        "scope": "Task 结果与资源退休",
+        "requirements": "保留 create/start/take_result/try_retire；给预取消、同步注册、同步 terminal、conversion 失败、owner Close、满队列逐路径的状态与清理责任。SQLx 丢弃已 dispatch commit Future 后仍可能提交是领域反例，不能从 Task 取消推导远端回滚。现有 native/有限模型不能证明 CLR 取消注册排空和真实 AOT。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R10",
@@ -984,12 +999,17 @@
       "prompt": "research-tasks/R12.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "5cec1587c490f428db810af000e01a04c84b1da113d47e17a1836185f98e2d10"
+      "packet_sha256": "d0f0d24418cb2c39184da4b33257ba416868eecbadae8c2d7ab6f6f99474013b",
+      "source_lifecycle_followup": {
+        "scope": "有界执行与关闭边界",
+        "requirements": "调查 Tokio outstanding reservation 在 receiver.close 后仍可发送的规则，以及 SQLx start_rollback/shutdown 的同步 bounded send。给出 callback/finalizer 不阻塞、容量预留、permit 消失与 worker OS thread 退出的不同边界；timeout 无法抢占任意同步代码。记录 runtime ownership 和等待图，保留无进展时的隔离/诊断；不新增全局 executor。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R13",
@@ -1686,7 +1706,7 @@
       "prompt": "research-tasks/R21.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1695,8 +1715,13 @@
         "NativeWeave-Design:docs/research/domains/initial-findings.md"
       ],
       "initial_seed_note": "SQLx v0.8.6事务Drop触发start_rollback；PG queue_simple_query不代表回滚已完成，必须追踪排空/返池。",
-      "packet_sha256": "87765c96ec058c0db8c517cd636cb2d27b85893d0b57447f8227eed67b2460b8",
-      "source_driven_amendment": "效果/协议/本地生命周期独立状态、SQLx池归还和cleanup；Drop排队rollback不等于服务端确认。"
+      "packet_sha256": "a5c44188247a7b8718d29d1cd2f985ec8549401b7e4510ef6b87fb7551156c64",
+      "source_driven_amendment": "效果/协议/本地生命周期独立状态、SQLx池归还和cleanup；Drop排队rollback不等于服务端确认。",
+      "source_lifecycle_followup": {
+        "scope": "SQLx worker、commit 与退休",
+        "requirements": "先读 NativeWeave-Design:docs/database/sqlx-retirement-study.md、experiments/database-retirement/source-inspection.json 和 execution-summary.json。六项 SQLite 原生实验覆盖 Drop 后同连接、row 早停、pending acquire 取消、commit hook 后丢 Future、progress handler 和 pool.close；后续 Design run 43375871731 在 Windows/Linux 各运行六项。接续调查 PG 响应方向丢 ACK、CLR 取消注册、同步 bounded send 的关闭延迟及 worker join；Unknown/effect/protocol/local lifetime 分开。固定六文件与 git pin 的逐字对应，不把不同 package .cargo_vcs_info 的完整来源宣称相同；R21 planned 和正式接受状态保持。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R22",
@@ -2140,13 +2165,18 @@
       "prompt": "research-tasks/R26.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.0",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "634d10cf6ec6487264e360fa2d42e7e71148670cf79c8abdf0e1f4ca8d5e4e95",
-      "source_driven_amendment": "Kestrel现代Native AOT能力等价基线；保留独立无DB示例，源码可绑定不等于Server有实测收益。"
+      "packet_sha256": "3728a4a38aa0899dde1b4c22919f5c479e95f89c9c9f5fd07a58795ecd644691",
+      "source_driven_amendment": "Kestrel现代Native AOT能力等价基线；保留独立无DB示例，源码可绑定不等于Server有实测收益。",
+      "source_lifecycle_followup": {
+        "scope": "公平基线与产品选择分离",
+        "requirements": "Kestrel Native AOT 是 R26/R17 必须读取/执行的公平基线；它不自动成为产品默认或 B15 accepted。B15 Kestrel 与 B17 Rust 均 undecided；同协议、TLS、序列化、业务 handler 和负载条件下比较 startup、分配、RSS、p99、slow body 和关闭。选定宿主属于后续有证据的明确决策，可同时选两个 profile；无默认路由和无产品授权。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R27",
@@ -2233,7 +2263,7 @@
       "prompt": "research-tasks/R27.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.3",
+      "revision": "0.2.4",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -2244,7 +2274,7 @@
         "NativeWeave-Design:docs/research/topics/R27/native-slice-validation.md"
       ],
       "initial_seed_note": "hyper C API标注unstable/no semver，不能直接继承为NativeWeave稳定ABI承诺。",
-      "packet_sha256": "ec2d1dc42f6b433acf24677e64c8833f176dfbc8b738661f8cf8ebe4ee55ad6b",
+      "packet_sha256": "e4a3c3224a239ee69daf0b2a06918bd5c3edadeaf364f16b64961dd26c5e7763",
       "source_driven_amendment": "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。",
       "rust1100_impact": "在1.100实际执行native Service/Body生命周期切片，避免仅有抽象模型；Rust Server仍需Kestrel比较。",
       "continuation_evidence": [
@@ -2260,7 +2290,12 @@
           "migration_map": "verification/native-slices/migration-map.json",
           "migration_results": "verification/native-slices/migration-results.json"
         }
-      ]
+      ],
+      "source_lifecycle_followup": {
+        "scope": "Service/head/body/retained memory",
+        "requirements": "新增底层 retained-Bytes/Tokio reservation 反例后，继续真实 Hyper Service/Body、C# handler、Tower 许可和 H2 flow credit 的所有权追踪。response-head Future 完成、body EOS/Drop、Bytes backing allocation 释放、callback retirement 分开；成熟库接缝可复用不代表产品已选择 Rust host。保留 Actix affinity/Pingora proxy 对比和 Windows/Linux AOT 网络消费缺口。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R28",
@@ -2409,12 +2444,12 @@
       "prompt": "research-tasks/R29.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.2.2",
+      "revision": "0.2.3",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "69e6dcaabca17807384d4cdcb456bc289a2ddfc699b108dbdfd26149bba9fb80",
+      "packet_sha256": "598538f994ea06f2cd80796904b4e7d7d6ef1fed9296c5f02c088ff26b83f3ef",
       "source_driven_amendment": "Tower ResponseFuture许可不覆盖body；Hyper H2credit不覆盖retained bytes；waiters/chunks/close预算分别验证。",
       "continuation_evidence": [
         {
@@ -2432,7 +2467,12 @@
       ],
       "initial_seed_refs": [
         "NativeWeave-Design:docs/research/topics/R27/native-slice-validation.md"
-      ]
+      ],
+      "source_lifecycle_followup": {
+        "scope": "流预算与关闭后的 permit",
+        "requirements": "对 retain/slice/clone 的真实 backing allocation 计账，不能用 Bytes.len、channel 条数或 H2 credit 当 whole-RSS 上界。记录取 permit→close receiver→send/drop 的固定顺序，区分逻辑停止准入和旧 reservation 的底层权利。继续慢读者/巨大 chunk/head完成body未结束/取消关闭/长期RSS实验，明确哪些只是 native library probe，哪些是真实跨语言网络流。",
+        "acceptance_effect": "none; research/design/candidate detail only"
+      }
     },
     {
       "id": "R30",

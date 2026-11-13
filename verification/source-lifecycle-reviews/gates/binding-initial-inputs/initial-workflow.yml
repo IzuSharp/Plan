@@ -1,0 +1,82 @@
+name: Verify Design-owned native research assets
+on:
+  push:
+    branches: [main, research/pr1-asset-migration]
+    paths:
+      - source-driven-baseline.json
+      - verification/research-assets-final-trigger.json
+  pull_request:
+    branches: [main]
+    paths:
+      - source-driven-baseline.json
+      - tools/verify_research_assets.py
+      - tools/validate_graphs.py
+      - tools/host_selection_checks.py
+      - tools/verify_source_lifecycle.py
+      - ledger/checkpoints/**
+      - delivery-graph.json
+      - research-graph.json
+      - documentation-graph.json
+      - schemas/**
+      - tasks/**
+      - research-tasks/**
+      - documentation-tasks/**
+      - .github/workflows/native-slices-final-check.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  paired-integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          path: Plan
+          persist-credentials: false
+      - name: Read exact current Design input
+        id: input
+        working-directory: Plan
+        run: |
+          python3 - <<'PY'
+          import json,os,re
+          b=json.load(open('source-driven-baseline.json'));sha=b['design_merge_commit']
+          assert re.fullmatch('[0-9a-f]{40}',sha)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('design_sha='+sha+'\n')
+          PY
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: ${{ steps.input.outputs.design_sha }}
+          fetch-depth: 0
+          path: NativeWeave-Design
+          persist-credentials: false
+      - name: Verify provenance and existing graph gates; no native rerun
+        working-directory: Plan
+        run: |
+          python3 tools/verify_research_assets.py
+          python3 tools/verify_source_lifecycle.py
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/host_selection_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,jsonschema
+          s=json.loads(Path('schemas/graph-v1.schema.json').read_text())
+          for k in ('research','documentation','delivery'):
+              jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
+          print('PASS all three graph schemas')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: research-assets-plan-integrity
+          retention-days: 30
+          path: |
+            Plan/verification/*.json
+            Plan/ledger/checkpoints/research-assets-migration.json
+            Plan/source-driven-baseline.json
