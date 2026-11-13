@@ -20,3 +20,11 @@ implementation is created by this completion effort.
 Use current exact graph/packet/registry/source identities. Old source-lifecycle/logical-admission
 and migration checkpoints remain immutable historical evidence and are verified at their
 original paired commits. New source or packet bytes require current review, not reused old approval.
+
+Final research/design acceptance is complete:34R,32D and21 contracts are accepted against
+exact committed inputs and real independent technical reviews plus executor-authored binding
+attestations. The Design baseline is merged commit08e3aaee73aad174620dcff18ed21b3b14c5e632;
+task input semantics are frozen at Plan c3947b378e0a251f8dfeaf7fd7d4acc636631974. The current
+acceptance indices, graphs and verify_completion.py --require-complete are authoritative.
+All114 packets and10 implementation fragments are reviewed future instructions. This completion
+does not change the product phase or the not_authorized status of any of the48 Delivery tasks.

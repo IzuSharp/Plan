@@ -2,6 +2,8 @@
 
 当前处于研究、详细设计和未来 Codex 开发规划阶段；**NativeWeave 产品仓库不写入，A/B Delivery 不执行**。恢复入口是 [source-driven-baseline.json](source-driven-baseline.json)，实际状态以现有三图、精确证据和审查为准。
 
+**本轮最终接受：34 Research / 32 Documentation / 21 技术契约全部 accepted。** Design PR #10 已合并为 `08e3aaee73aad174620dcff18ed21b3b14c5e632`；66 项任务绑定固定 Plan 输入 `c3947b378e0a251f8dfeaf7fd7d4acc636631974`、该 Design Commit、实际独立报告与对应执行者的精确确认。[接受索引](ledger/completion-acceptance.json)、[最终检查点](ledger/checkpoints/rd-acceptance-2026-11-13.json)及[完整校验结果](verification/completion.json)提供可复核记录。48 项 Delivery 的说明已完成审查，产品实施与产品验收均未开始。
+
 NativeWeave 采用 Source-Driven Deep Native Integration。C# 是应用开发语言，提供强类型 Fluent、静态元数据/DTO 和业务 Handler；数据库驱动、查询/方言/ORM 关系执行及 Server 网络/协议/运行时必须复用成熟 Rust 引擎。Kestrel、Npgsql 等只作对照。普通应用不手写 Rust/FFI，不因新增 Entity/DTO/Handler 重编译 native。保持正常 dotnet build/run 与真实 Native AOT 发布，不构造 C# SQL AST/完整 LINQ Provider 或巨型 Core runtime。
 
 ## 三图与职责
@@ -29,9 +31,12 @@ python3 tools/validate_graphs.py --root . --output verification/graph-validation
 python3 tools/mutation_checks.py
 python3 tools/host_selection_checks.py
 python3 tools/verify_completion.py
+python3 tools/verify_completion.py --require-complete
 ```
 
 两仓库应为同级`Plan/`和`NativeWeave-Design/`。当前证明工具检查结构、hash和门禁；它不能认证真实人员身份或把研究实验转成产品运行。历史冻结验证对原始Commit执行，当前接受验证对本轮确切输入执行，二者不能混淆。
+
+先检出 baseline 指定的完整 Design SHA。`--require-complete` 要求 34R / 32D / 21 契约全部接受，并验证 840 个输入条目、114 份说明、10 个 fragment 和真实独立绑定；不会执行原生实验或启动 Delivery。
 
 ## 继续与实现入口
 
