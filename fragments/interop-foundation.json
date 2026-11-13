@@ -166,7 +166,7 @@
         "Double Dispose is idempotent but arbitrary double native release is a caller defect; avoid false reuse of recycled pointer identity."
       ],
       "specific_acceptance": [
-        "Deterministic barriers force every acquire/close/AddRef interleaving and verify actual native live/release counters.",
+        "Deterministic barriers cover each named acquire/close/AddRef boundary schedule under recorded operation/thread/preemption bounds and verify actual native live/release counters.",
         "Late GC/finalizer with in-flight call, allocation failure between acquisitions and mapper exception leave no leaked owner."
       ],
       "write_scopes": [
@@ -194,19 +194,20 @@
       "title": "拥有Buffer与异步租约",
       "boundary_and_ownership": "Owned/borrowed byte regions and retained async leases; no allocator identity guessing.",
       "native_reuse": "Rust Vec/Bytes owners and source-verified destruction; D07 complete extent/stride contract.",
-      "csharp_surface": "Read-only borrowed span for synchronous use; owned result/MemoryManager with explicit disposal and safe async retention.",
+      "csharp_surface": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
       "implementation_steps": [
-        "Implement checked bounds/stride extent and u64↔nuint conversion against native allocation capacity; preserve zero-length rules.",
+        "Implement D07 contiguous byte-view length/count/element-width and offset checks, checked u64↔nuint conversion, isize::MAX and allocation-capacity bounds; preserve null+zero rules. A strided view requires a separately accepted profile and is not part of v1.",
         "Attach owner/type/release function to every allocation; copy/pin/borrow is an explicit profile with a defined end.",
         "Hold owner and budget through clones/slices/async delivery; retain full backing allocation charge rather than visible slice length.",
         "Dispose/pin release occurs after the last admitted consumer; mapper/conversion errors release all unpublished outputs."
       ],
       "error_cancellation_resources_concurrency": [
         "Never create Span from untrusted extent before validation; no CLR free of Rust memory or cross-CRT ownership.",
-        "Cancel/timeout/Body EOF does not revoke another live buffer lease."
+        "Cancel/timeout/Body EOF does not revoke another live buffer lease.",
+        "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
       ],
       "specific_acceptance": [
-        "Property oracle using arbitrary precision plus native/C# parity for zero/huge/negative-stride/overflow extents.",
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
         "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT."
       ],
       "write_scopes": [
@@ -238,7 +239,7 @@
       "implementation_steps": [
         "Implement D08 exact status constants, complete ErrorRecord capacity algorithm and bounded UTF8 detail ownership.",
         "Initialize every valid out-owner slot before fallible work; on error destroy unpublished state and translate without callbacks/reentrancy.",
-        "Contain exported Rust panics; handle caught payload destruction risk and mark engine poisoned when invariants cannot be restored.",
+        "Contain exported Rust panics; handle caught payload destruction risk and poison the owning Engine after every contained native panic under D08; permit only explicitly trusted cleanup and never resume normal admission.",
         "Catch managed Handler exceptions inside valid UCO entrypoints and preserve committed operation outcome; diagnostics cannot overwrite terminal results."
       ],
       "error_cancellation_resources_concurrency": [

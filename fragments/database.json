@@ -234,23 +234,27 @@
       "title": "Rust事务、池恢复与Unknown",
       "boundary_and_ownership": "Own transaction lifecycle/outcome/recovery and connection disposition policy in native/database/transactions; provider hooks remain B01 interfaces. Keep response-loss uncertainty out of generic Core status definitions.",
       "native_reuse": "SQLx transaction/savepoint/pool mechanics and native provider hooks. SeaORM TransactionTrait is only relevant to an explicit specialized profile, not mandatory for ordinary adapters.",
-      "csharp_surface": "Typed transaction scope, CommitAsync result distinguishing Committed/RolledBack/Unknown, recoverable correlation data and explicit retry advice; no automatic replay of arbitrary business delegates.",
+      "csharp_surface": "D15 DataTransaction scope with immutable Outcome/Cleanup snapshots and CommitAttempted. CommitAsync succeeds only for Committed; confirmed transaction failure is a DataException, Unknown is CommitOutcomeUnknownException, and explicit RollbackAsync failure is DataCleanupException. CloseAsync(deadline) may return Pending while DisposeAsync joins actual local safety; no automatic replay of business delegates.",
       "implementation_steps": [
-        "Implement distinct state dimensions: transaction Active/CommitDispatched/Finalizing/Closed; durable outcome; protocol Reusable/NeedsDrain/Retire; local active leases/callbacks/retirement.",
-        "Record COMMIT dispatch before awaiting its response. Known confirmation chooses committed outcome; cancellation/error after dispatch with no definitive evidence remains Unknown.",
-        "Perform rollback/drain/probe through cleanup admission on the original session; release the pool permit only when the connection is reusable or physically retired.",
-        "Implement explicit savepoints and isolation capabilities. SQLite Deferred/Immediate mode is not a simulated PostgreSQL isolation matrix.",
-        "Expose application idempotency recovery using stable operation ID, tenant/key and request hash. Conflicting INSERT/SELECT in one Read Committed CTE can miss the winner; use a separate recovery SELECT after conflict."
+        "Implement exactly the D15 four independent dimensions: TxLifecycle Active/Failed/CommitInFlight/RollbackInFlight/Closed; TransactionOutcome InProgress/Committed/RolledBack/Unknown; ConnectionDisposition Usable/ProviderResetPending/Quarantined/Discarded; LocalLifetime Live/Closing/Quiescent/Reclaimed. Private internal states require an explicit mapping and may not weaken these public observations.",
+        "The CommitAsync admission token can reject before the conservative provider-commit dispatch boundary. After entering CommitInFlight, use a separate finite commit deadline; request cancellation or loss of a trustworthy reply cannot replace Unknown with Cancelled or RolledBack. Reject Commit while Failed and distinguish trustworthy COMMIT confirmation from failed-transaction termination.",
+        "Run rollback/drain/probe through cleanup admission on the original session. Known ordered provider maintenance may be ProviderResetPending; unknown protocol damage is Quarantined and cannot be loaned to another tenant. Return the permit only when reuse is safe or physical retirement has completed; close_on_drop is intent, not observed retirement.",
+        "For unconfirmed rollback without any COMMIT attempt, expose Closed/InProgress, CommitAttempted=false, Cleanup=RollbackUnconfirmed and quarantine. After a previous Unknown COMMIT, every later cleanup rollback or no-transaction response leaves Unknown unchanged. Preserve primary and cleanup errors separately.",
+        "Implement explicit savepoint stack/generation and isolation capabilities on the same session. SQLite Deferred/Immediate is not a PostgreSQL isolation matrix; unsupported levels fail before begin. Ordinary commands cannot change transaction ownership through raw transaction-control SQL.",
+        "CloseAsync closes public admission, requests or joins already-admitted transaction/cursor cleanup and may return Pending with LocalResourcesReleased=false. The Engine retains parents, callbacks, roots and budgets until safe retirement. DisposeAsync joins the same cleanup and cannot claim success while access remains possible; synchronous Dispose only transfers cleanup responsibility without blocking a finalizer.",
+        "Propagate recovery ID and D20 tenant/key/request-hash identity without creating an automatic business retry service. PG ReadCommitted conflict recovery uses a subsequent SELECT statement; one missing same-statement CTE result or cleanup completion never proves rollback. Persist uncertainty separately from releasable native owners."
       ],
       "error_cancellation_resources_concurrency": [
-        "Drop queues rollback; it is not rollback confirmation. Subsequent cleanup, no-active-transaction response or connection close does not retroactively resolve an Unknown commit.",
-        "Old cancellation generation and reused session must be isolated; rollback/drain failure means retire, not return to next tenant.",
-        "Unknown can be durably recorded while local native/managed resources retire; keeping an undecidable business result does not require leaking the operation."
+        "Drop may queue rollback but does not confirm it. Commit dispatch, application result, transaction effect, protocol reuse and local retirement remain independently observable.",
+        "A stale cancellation generation cannot affect the next session owner. Cleanup after public close remains admitted; failed or unknown protocol cleanup cannot return a connection to the next tenant.",
+        "Unknown may outlive released native resources as a managed or durable recovery identity. A bounded HTTP flow uses CloseAsync explicitly and must not immediately follow Pending with an implicit indefinite await-using DisposeAsync join.",
+        "Automatic cleanup never overwrites the primary business or CommitUnknown error. Explicit rollback errors remain visible in their own result and Cleanup snapshot."
       ],
       "specific_acceptance": [
-        "Actual product response-loss proxy forwards COMMIT and drops all reply frames after server durable completion; separate connection proves effect and client returns Unknown without retry.",
-        "Same-session failed transaction rollback and reuse, dropped active transaction, savepoint recovery, acquire cancellation, pool close and stale cancel races on both providers.",
-        "Cross-language model/oracle maps actual code transitions to C-TX invariants; finite state exploration does not claim weak-memory or soak proof."
+        "Execute the real product response-loss proxy: forward COMMIT, observe server COMMIT plus idle ReadyForQuery, drop those replies, then prove durable effects through another connection while the client reports Unknown without blind retry.",
+        "Verify pre-dispatch cancellation, post-dispatch request cancellation, failed-transaction commit rejection, rollback unconfirmed with CommitAttempted=false, Unknown followed by cleanup rollback, and bounded CloseAsync Pending followed by eventual DisposeAsync join against D15's exact state table.",
+        "On both actual providers check same-session identity after failed-transaction rollback, dropped transaction, savepoint recovery, acquire cancellation, pool close and stale cancellation. Count live callbacks/roots/leases/permits until their actual retirement.",
+        "Map the implemented native and C# transitions to the four C-TX dimensions in an independent oracle; finite state exploration does not claim weak-memory, full fault-matrix or soak proof."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Transactions/",

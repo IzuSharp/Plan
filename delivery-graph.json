@@ -24,6 +24,11 @@
           "id": "C-PLATFORM-001",
           "version": "0.3.0",
           "required_status": "accepted"
+        },
+        {
+          "id": "C-ERROR-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
         }
       ],
       "research_refs": [
@@ -32,7 +37,8 @@
       ],
       "documentation_refs": [
         "D02",
-        "D01"
+        "D01",
+        "D08"
       ],
       "outputs": [
         "NativeWeave:src/Interop.Abi/",
@@ -86,7 +92,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "72789538f683af69ec0db9f6d37da59b35b167549b0c672b0b972297997ea592",
+      "packet_sha256": "ad616e0e4736bf5f0d8c51e33b3ac06f83ff46094fb2eb2fb8775c5464a94543",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A01",
       "parallel_worktree": "task/A01-implementation",
@@ -216,7 +222,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "38c3e81d41398bf87b3b619189c8406765c4624d21412e6ec43f764b9ee7e276",
+      "packet_sha256": "d3625295299cb1c0b7acc076b614614ac5e5ee19910f1a09b156ba0c515c7714",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A02",
       "parallel_worktree": "task/A02-implementation",
@@ -306,7 +312,7 @@
         "Double Dispose is idempotent but arbitrary double native release is a caller defect; avoid false reuse of recycled pointer identity."
       ],
       "specific_verification": [
-        "Deterministic barriers force every acquire/close/AddRef interleaving and verify actual native live/release counters.",
+        "Deterministic barriers cover each named acquire/close/AddRef boundary schedule under recorded operation/thread/preemption bounds and verify actual native live/release counters.",
         "Late GC/finalizer with in-flight call, allocation failure between acquisitions and mapper exception leave no leaked owner."
       ],
       "selection_required": false,
@@ -340,7 +346,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "7cc94f8e3fd1b5f4481ec722e44626e0aee88cac41c055c175c26e7ec51339cf",
+      "packet_sha256": "fec66ede34e91d48dafc8f1cbbd6bb01db21ae39002f8f3f23e237f6b5e22388",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A03",
       "parallel_worktree": "task/A03-implementation",
@@ -361,7 +367,7 @@
         "Double Dispose is idempotent but arbitrary double native release is a caller defect; avoid false reuse of recycled pointer identity."
       ],
       "specific_acceptance": [
-        "Deterministic barriers force every acquire/close/AddRef interleaving and verify actual native live/release counters.",
+        "Deterministic barriers cover each named acquire/close/AddRef boundary schedule under recorded operation/thread/preemption bounds and verify actual native live/release counters.",
         "Late GC/finalizer with in-flight call, allocation failure between acquisitions and mapper exception leave no leaked owner."
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
@@ -424,14 +430,15 @@
       ],
       "resource_locks": [],
       "module": "Interop.Memory",
-      "candidate_api": "Read-only borrowed span for synchronous use; owned result/MemoryManager with explicit disposal and safe async retention.",
+      "candidate_api": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
         "Never create Span from untrusted extent before validation; no CLR free of Rust memory or cross-CRT ownership.",
-        "Cancel/timeout/Body EOF does not revoke another live buffer lease."
+        "Cancel/timeout/Body EOF does not revoke another live buffer lease.",
+        "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
       ],
       "specific_verification": [
-        "Property oracle using arbitrary precision plus native/C# parity for zero/huge/negative-stride/overflow extents.",
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
         "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT."
       ],
       "selection_required": false,
@@ -465,7 +472,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "c5e23a9fb0dcbbebade93e1939f34169456a2a6a32439a4b9d1a3816054bd8f5",
+      "packet_sha256": "76ba613f3c309a7eca88a4805666bfe199967d4d59255705fab85dda99c8cad4",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A04",
       "parallel_worktree": "task/A04-implementation",
@@ -473,20 +480,21 @@
       "implementation_authorization_required": true,
       "product_validation_scope": "Actual product component and stated integration oracles. Design research evidence is a specification/regression source, never a passed product row.",
       "boundary_and_ownership": "Owned/borrowed byte regions and retained async leases; no allocator identity guessing.",
-      "csharp_surface": "Read-only borrowed span for synchronous use; owned result/MemoryManager with explicit disposal and safe async retention.",
+      "csharp_surface": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
       "native_reuse": "Rust Vec/Bytes owners and source-verified destruction; D07 complete extent/stride contract.",
       "implementation_steps": [
-        "Implement checked bounds/stride extent and u64↔nuint conversion against native allocation capacity; preserve zero-length rules.",
+        "Implement D07 contiguous byte-view length/count/element-width and offset checks, checked u64↔nuint conversion, isize::MAX and allocation-capacity bounds; preserve null+zero rules. A strided view requires a separately accepted profile and is not part of v1.",
         "Attach owner/type/release function to every allocation; copy/pin/borrow is an explicit profile with a defined end.",
         "Hold owner and budget through clones/slices/async delivery; retain full backing allocation charge rather than visible slice length.",
         "Dispose/pin release occurs after the last admitted consumer; mapper/conversion errors release all unpublished outputs."
       ],
       "error_cancellation_resources_concurrency": [
         "Never create Span from untrusted extent before validation; no CLR free of Rust memory or cross-CRT ownership.",
-        "Cancel/timeout/Body EOF does not revoke another live buffer lease."
+        "Cancel/timeout/Body EOF does not revoke another live buffer lease.",
+        "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
       ],
       "specific_acceptance": [
-        "Property oracle using arbitrary precision plus native/C# parity for zero/huge/negative-stride/overflow extents.",
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
         "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT."
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
@@ -587,7 +595,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "06e8b5eb8449c6118e6c4a70d082a1413a2a94768154cab0cb3acb89317511d4",
+      "packet_sha256": "a444559e90e0ecbba4a92e65c0870d7415f102ef78df160b0c354bf3e60463ed",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A05",
       "parallel_worktree": "task/A05-implementation",
@@ -600,7 +608,7 @@
       "implementation_steps": [
         "Implement D08 exact status constants, complete ErrorRecord capacity algorithm and bounded UTF8 detail ownership.",
         "Initialize every valid out-owner slot before fallible work; on error destroy unpublished state and translate without callbacks/reentrancy.",
-        "Contain exported Rust panics; handle caught payload destruction risk and mark engine poisoned when invariants cannot be restored.",
+        "Contain exported Rust panics; handle caught payload destruction risk and poison the owning Engine after every contained native panic under D08; permit only explicitly trusted cleanup and never resume normal admission.",
         "Catch managed Handler exceptions inside valid UCO entrypoints and preserve committed operation outcome; diagnostics cannot overwrite terminal results."
       ],
       "error_cancellation_resources_concurrency": [
@@ -672,7 +680,7 @@
       ],
       "resource_locks": [],
       "module": "Interop.Callbacks",
-      "candidate_api": "Opaque registration token; static UnmanagedCallersOnly trampoline dispatches through a validated cookie.",
+      "candidate_api": "Opaque registration token; static UnmanagedCallersOnly trampoline uses a cookie guaranteed live by the rooted registration and two-sided retirement protocol, not by probing an arbitrary nonzero GCHandle.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
         "A pending ThreadPool item can outlive native callback return; native ack alone cannot free its cookie.",
@@ -713,7 +721,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ca8bcccd59b0fd0542fc924d0e1929f4b70a2999fdfe547250e15c7dd62605cd",
+      "packet_sha256": "482c0c463b33713578e910a4a0b1f8c6743a7698d0bec5767a300cb63e001cb3",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A06",
       "parallel_worktree": "task/A06-implementation",
@@ -721,12 +729,12 @@
       "implementation_authorization_required": true,
       "product_validation_scope": "Actual product component and stated integration oracles. Design research evidence is a specification/regression source, never a passed product row.",
       "boundary_and_ownership": "Registration and revocation of statically compiled callbacks with explicit managed root lifetime.",
-      "csharp_surface": "Opaque registration token; static UnmanagedCallersOnly trampoline dispatches through a validated cookie.",
+      "csharp_surface": "Opaque registration token; static UnmanagedCallersOnly trampoline uses a cookie guaranteed live by the rooted registration and two-sided retirement protocol, not by probing an arbitrary nonzero GCHandle.",
       "native_reuse": "Existing native wake/event hooks; one optional bridge, no reflection/delegate dynamic export.",
       "implementation_steps": [
         "Implement registration state with active native invocations and queued/running managed deliveries counted separately.",
         "Revocation closes admission then requests native quiescence; keep GCHandle/cookie until both native and managed counts retire.",
-        "Make the native callback O(1), nonblocking, exception-contained and safe for reentrancy; schedule business work outside native locks.",
+        "Keep fixed terminal-notice bookkeeping bounded O(1). Ordinary notification validation/copy is bounded O(payload bytes) under declared byte/item limits, nonblocking and exception-contained; dispatch business handlers outside native locks. Explicit synchronous decision profiles follow D05 fail-closed and no-self-wait rules.",
         "Handle registration failure, callback-before-return and final release through single owner-transfer rules."
       ],
       "error_cancellation_resources_concurrency": [
@@ -843,7 +851,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "f295d28308893f4b958fc26c32ee8d459f908687ed5ddb1c81586043e96a61ca",
+      "packet_sha256": "9476039220941be58dc5fac1fae36784d40ae1d207ad4b18a5ede9e8e5e6aef6",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A07",
       "parallel_worktree": "task/A07-implementation",
@@ -966,7 +974,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "57c4bd8c54de23b38224c1618e214adbff2f23ef19d92b50706098f41e31ac71",
+      "packet_sha256": "318fa169b22c81154bebfae5022f94ba7b362c828b72748513082b99597e93bf",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A08",
       "parallel_worktree": "task/A08-implementation",
@@ -1086,7 +1094,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "68267d04cf2f515f6b305ccb98c7dc87d8c064f201b628ba2c008aea4e965b30",
+      "packet_sha256": "1337c3ff20248025a97a2661a48bd7fa4cd22699cf71ceb7c07425111b296a30",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A09",
       "parallel_worktree": "task/A09-implementation",
@@ -1145,6 +1153,31 @@
           "id": "C-ABI-001",
           "version": "0.3.0",
           "required_status": "accepted"
+        },
+        {
+          "id": "C-LIFETIME-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-CALLBACK-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ASYNC-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-BUFFER-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
+        },
+        {
+          "id": "C-ERROR-001",
+          "version": "0.3.0",
+          "required_status": "accepted"
         }
       ],
       "research_refs": [
@@ -1153,7 +1186,12 @@
         "R06"
       ],
       "documentation_refs": [
-        "D03"
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08"
       ],
       "outputs": [
         "NativeWeave:src/Generators.CSharp/",
@@ -1207,7 +1245,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "0f0a9156573864cd38cb31fe7deb7fd163f91fe6170378779e6d420acb08df2a",
+      "packet_sha256": "dcb0be1aff751f94821001b6426b50da1f4227f28b3cab71f0c6904ee46ca753",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A10",
       "parallel_worktree": "task/A10-implementation",
@@ -1219,7 +1257,7 @@
       "native_reuse": "Framework LibraryImport generator; compare csbindgen-generated raw imports where useful, never assume its DllImport output equals this profile.",
       "implementation_steps": [
         "Consume A09 validated schema; emit exact managed representation, import calling conventions and private ownership wrappers.",
-        "Generate static callback dispatch and cleanup guards using A03–A07 contracts instead of duplicating lifecycle algorithms.",
+        "Generate static callback dispatch and cleanup guards from the exact pinned D04–D08 contracts and reusable A03–A07 interfaces instead of duplicating lifecycle algorithms; early emitter tests may use a clearly labelled fixed conformance fixture, while A14/A15 acceptance must execute the real completed A07 dependency closure.",
         "Use incremental semantic inputs with stable equality; never depend on another generator seeing generated source in the same pass.",
         "Package analyzer/compiler-compatible generator separately from net11 runtime facade; keep handwritten-static path equivalent."
       ],
@@ -1335,7 +1373,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "5c77bdfa82a47b5e96b2ba344218873cad461d7ab9eee3c472d70eee6ed477e5",
+      "packet_sha256": "960608019eaa098951548762fddcad69fa199dc6cfe5582d05a2493032e1d5c9",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A11",
       "parallel_worktree": "task/A11-implementation",
@@ -1461,7 +1499,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "8b6c49286ebb9c3814b6668da1a295c395c74801ee6b8dee3756c52b8544bd72",
+      "packet_sha256": "fce5e2bccca725724dd433014ab388460b0aaad22c1294ef54a2f370ccd10eac",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A12",
       "parallel_worktree": "task/A12-implementation",
@@ -1595,7 +1633,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "7098ed8fcae3c75a8bcf94d154105d2e9ea1ace1bd9a511e2d0ca3778ce9e3a7",
+      "packet_sha256": "1555818b21ced9b884aa21d8465d7eeb11ffc3c29bafe82e939e1d5627262120",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A13",
       "parallel_worktree": "task/A13-implementation",
@@ -1645,7 +1683,9 @@
         "A10",
         "A11"
       ],
-      "acceptance_dependencies": [],
+      "acceptance_dependencies": [
+        "A07"
+      ],
       "contract_inputs": [
         {
           "id": "C-BUILD-001",
@@ -1700,7 +1740,8 @@
       "dependency_pins": {
         "A13": "0.3.0",
         "A10": "0.3.0",
-        "A11": "0.3.0"
+        "A11": "0.3.0",
+        "A07": "0.3.0"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -1714,7 +1755,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "9f36df533cb38b89a7d50489040833497f5b4e37af72c731ae0c3825c0afb436",
+      "packet_sha256": "51a05d69f2c2b3f1972b28dffbfa119087e5a3a74a17a7d4a05e50c9bf7e0928",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A14",
       "parallel_worktree": "task/A14-implementation",
@@ -1738,7 +1779,7 @@
         "All relevant layout/lease/error/async tests execute on Linux AOT; no build-only or JIT substitute.",
         "Minimum declared CPU and distro plus missing asset negative; NuGet independent consumer provenance."
       ],
-      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "dependency_rationale": "Packaging/profile tooling may start after A13/A10/A11. Acceptance additionally requires A07 and its transitive A03/A04/A05/A06 implementation closure so the promised lease/callback/error/async product tests execute real completed Core modules; fixture-only generation evidence is insufficient.",
       "verification_matrix": {
         "operating_systems": [
           "Linux x64"
@@ -1763,7 +1804,9 @@
         "A10",
         "A11"
       ],
-      "acceptance_dependencies": [],
+      "acceptance_dependencies": [
+        "A07"
+      ],
       "contract_inputs": [
         {
           "id": "C-BUILD-001",
@@ -1818,7 +1861,8 @@
       "dependency_pins": {
         "A13": "0.3.0",
         "A10": "0.3.0",
-        "A11": "0.3.0"
+        "A11": "0.3.0",
+        "A07": "0.3.0"
       },
       "implementation_authorization": {
         "status": "not_authorized",
@@ -1832,7 +1876,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "c856d02b8733b87555e518c474066c0ff0c6ce2aad2ba9ce79470cc9d2e6aa4f",
+      "packet_sha256": "9cf4a9756cd77a3e9d445221d1c3dba549e7b8a10b9a0b6d7933ed511c4d1070",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A15",
       "parallel_worktree": "task/A15-implementation",
@@ -1856,7 +1900,7 @@
         "All relevant layout/lease/callback/error/async product cases on actual Windows AOT.",
         "Windows packaging, no-Rust independent consumer, runtime-only transfer and wrong asset negative."
       ],
-      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "dependency_rationale": "Packaging/profile tooling may start after A13/A10/A11. Acceptance additionally requires A07 and its transitive A03/A04/A05/A06 implementation closure so the promised lease/callback/error/async product tests execute real completed Core modules; fixture-only generation evidence is insufficient.",
       "verification_matrix": {
         "operating_systems": [
           "Windows x64"
@@ -1923,7 +1967,10 @@
       ],
       "specific_verification": [
         "Both OS clean-image consumption and runtime-only execution; restored asset manifest matches actual loaded native hash.",
-        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations."
+        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations.",
+        "Inspect owned-package nuspec exact [V] edges and test application direct-version override with NU1608 warnings both enabled and suppressed; the project closure hard-error still rejects the invalid package/native profile.",
+        "Exercise missing leaf/RID, partially published closure, matching existing ID/version, conflicting existing payload, allowed repository-signature-envelope renewal versus changed payload/nuspec/native entry, and unlisted known-version restore. A successful subset of uploads or skip-duplicate response never accepts a complete release.",
+        "Restore and execute the complete accepted closure from an independent source/cache on clean Windows/Linux no-Rust consumers; capture uploaded/downloaded archive identities, signature verification, native-file hashes, full per-package journal and previous-complete-closure rollback."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -1958,7 +2005,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ebc95bc163d6fab104f211e4b7c33e529b0e37f69fd8506f1821d463235c0afb",
+      "packet_sha256": "605fd50bc9fdf4bd8e57afd76da1ea1ad5cb4d6372b2e5fec242f908e4efa189",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A16",
       "parallel_worktree": "task/A16-implementation",
@@ -1972,7 +2019,12 @@
         "Package exact validated artifacts and license/NOTICE/source manifest; bind external package digest without circular self-hashing.",
         "Run pristine no-Rust independent consumer: restore/build/run, offline-after-restore edit and explicit-RID AOT publish/execute.",
         "Add an Entity/DTO/Handler and verify native hash unchanged; missing feature produces clear diagnostic instead of rebuilding Rust.",
-        "Verify provenance identity/subject digest and compatibility matrix before immutable publication; retain rollback package set."
+        "Verify provenance identity/subject digest and compatibility matrix before immutable publication; retain rollback package set.",
+        "Build D10 exact owned-package closure: normalized package ID/version entries, explicit dependency edges using exact [V] NuGet ranges, Engine/RID/ABI/capability and native payload hashes. Unrelated ecosystem dependencies retain their separately reviewed policy.",
+        "Provide build-transitive validation after restore and before build/publish that compares resolved owned packages and selected native metadata to the accepted closure, emitting a hard mismatch error even if application direct overrides or suppressed NU1608/NU1605 warnings would otherwise restore. A13 integrates shared targets; A02 supplies independent runtime bootstrap compatibility checks.",
+        "Verify the complete closure from isolated staging on the declared Windows/Linux profiles, upload immutable dependency leaves before facades, journal each package outcome, then read back and restore every required destination package before exposing the catalog. Partial publication has no atomic rollback.",
+        "On 409 or retry/skip-duplicate, read the existing package and verify allowed signing identities, accepted payload entries/nuspec/dependencies/native hashes before resumption. Record upload and downloaded archive hashes separately; legitimate repository-signature envelope change is checked by a package-signature verifier, never by ignoring arbitrary differing entries. A payload or identity conflict stops this release and requires a new version.",
+        "Unlist/deprecate is visibility guidance: known-version restores and caches remain. Preserve a previously tested complete closure for deployment rollback; do not hot-unload or replace a native module in an existing process."
       ],
       "error_cancellation_resources_concurrency": [
         "Hash integrity is not publisher authentication; unknown builder or unexpected digest fails release.",
@@ -1980,7 +2032,10 @@
       ],
       "specific_acceptance": [
         "Both OS clean-image consumption and runtime-only execution; restored asset manifest matches actual loaded native hash.",
-        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations."
+        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations.",
+        "Inspect owned-package nuspec exact [V] edges and test application direct-version override with NU1608 warnings both enabled and suppressed; the project closure hard-error still rejects the invalid package/native profile.",
+        "Exercise missing leaf/RID, partially published closure, matching existing ID/version, conflicting existing payload, allowed repository-signature-envelope renewal versus changed payload/nuspec/native entry, and unlisted known-version restore. A successful subset of uploads or skip-duplicate response never accepts a complete release.",
+        "Restore and execute the complete accepted closure from an independent source/cache on clean Windows/Linux no-Rust consumers; capture uploaded/downloaded archive identities, signature verification, native-file hashes, full per-package journal and previous-complete-closure rollback."
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -2099,7 +2154,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "2a6ebfa7bf324dd62fadc9f05d6e0099023b924df7a2972bd6af4c96fd7ae509",
+      "packet_sha256": "578a800a69511d5ebf973a91b5a7bf9056e60390f5936e5c4dc3ad8100e3b408",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A17",
       "parallel_worktree": "task/A17-implementation",
@@ -2113,7 +2168,8 @@
         "Wrap real pinned native algorithm in minimal C exports and explicit owner release; opt out of executor/callback capabilities.",
         "Use fallible checked admission and bounded decompressor; state honest OOM/unwind limits and partial-output drop behavior.",
         "Consume through generated facade and independent NuGet ordinary/AOT application.",
-        "Record incremental Engine code/dependency/package costs and compare direct Rust behavior without numerical superiority claims."
+        "Record incremental Engine code/dependency/package costs and compare direct Rust behavior without numerical superiority claims.",
+        "Keep codec raw-input, compressed-input and decompressed-output limits separate. A successful compression must be admissible by this same profile decoder: reserve a source-justified worst output/peak bound or fail compression before owner publication when the encoded result would exceed its input cap. Never copy the finite fixture same-4MiB-input assumption into a product round-trip guarantee."
       ],
       "error_cancellation_resources_concurrency": [
         "Malformed or oversized/decompression-bomb inputs expose no partial owner; empty input handled explicitly.",
@@ -2121,7 +2177,9 @@
       ],
       "specific_acceptance": [
         "Direct Rust versus C# versus ZLibStream round-trip for varied sizes, malformed input and limit; creating allocator frees exactly once.",
-        "Windows/Linux AOT and no global Tokio startup; independent app change preserves native hash."
+        "Windows/Linux AOT and no global Tokio startup; independent app change preserves native hash.",
+        "Inject a deterministic managed-wrapper construction exception after native success returns a non-null owned result but before managed ownership commits; assert exactly-once release of the raw native owner, no partial result, leak or double free. A successful wrapper uses the single SafeHandle release path. Execute both cases on Windows/Linux normal and Native AOT consumers.",
+        "At each declared codec limit test incompressible boundary data and encoded expansion: either successful compress/decompress round-trips under the same profile or compression returns the documented limit error without publishing an unusable owner. Include decoded-output overrun and truncated/corrupt input with exact retirement."
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -2196,7 +2254,7 @@
       "candidate_api": "Typed async request/stream API using A07 and owned chunks.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
-        "Future completion is not Body or Bytes lifetime; no permit release before backing owner retirement.",
+        "Future completion is not Body or backing-Bytes retirement. Retained-byte capacity stays charged until the last backing owner releases it; the live-stream slot follows its separately defined Body/producer/handler completion predicate and is not the same permit.",
         "Abort/reset/cancel and late managed delivery cannot free callback roots early or lose terminal result."
       ],
       "specific_verification": [
@@ -2236,7 +2294,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "90e4ad5b3e3ff60eedeef936f57a095ce6dd7df3ce26fad151eb449256f2a755",
+      "packet_sha256": "4d05bb9138c71d7aeeb38f6973de2c1f359f5a3d7c0838ea2fc0132a21885a57",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A18",
       "parallel_worktree": "task/A18-implementation",
@@ -2253,7 +2311,7 @@
         "Package independently and record incremental adapter cost versus A17 synchronous Engine."
       ],
       "error_cancellation_resources_concurrency": [
-        "Future completion is not Body or Bytes lifetime; no permit release before backing owner retirement.",
+        "Future completion is not Body or backing-Bytes retirement. Retained-byte capacity stays charged until the last backing owner releases it; the live-stream slot follows its separately defined Body/producer/handler completion predicate and is not the same permit.",
         "Abort/reset/cancel and late managed delivery cannot free callback roots early or lose terminal result."
       ],
       "specific_acceptance": [
@@ -2364,7 +2422,7 @@
           "kind": "model_check"
         }
       ],
-      "packet_sha256": "0e62f3b2c9e293ac9778dd65e049627bd79443739e74494053fea5f9688553a6",
+      "packet_sha256": "8e968aa13a3696d014b7469136330405c203859afa470c5013d61713dfeaae9b",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A19",
       "parallel_worktree": "task/A19-implementation",
@@ -2491,7 +2549,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "5ff920e7113e0b5cdef08f2d92c01ebcb7871c2d1f979db7c469d038e623c6fd",
+      "packet_sha256": "753c812e7e7c9d454bbdb5b7a472b4c44e78d731e62ec9c220de5f105a10e207",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A20",
       "parallel_worktree": "task/A20-implementation",
@@ -2503,7 +2561,7 @@
       "native_reuse": "libFuzzer/property tooling/Miri/Loom/sanitizers only on supported components/targets; no blanket all-FFI tooling claim.",
       "implementation_steps": [
         "Generate valid/invalid descriptors and compare native/C# outcomes to independent mathematical/reference oracles.",
-        "Force every owner/callback/async/close interleaving with barriers; separate managed GC scheduling from native counters.",
+        "Use controlled barriers for every named boundary schedule in D04–D09 and enumerate the exact bounded model schedules selected for this implementation. Record operation/thread/queue/preemption bounds and untested schedules; separate managed GC scheduling from native owner counters and make no exhaustive unbounded-interleaving claim.",
         "Run malformed boundary/crash negatives in isolated subprocesses with timeouts and saved seeds/minimized cases.",
         "Declare exact sanitizer/model-supported subsets and carry unsupported full CLR FFI coverage through real target tests."
       ],
@@ -2607,7 +2665,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "0810506ccc88d92e59624c4721e84bdc17524d97a1c4cf3fdaaa8c909fbbc92e",
+      "packet_sha256": "84d8d52bb3e1cfba09fe7cadc1545e40cfccf72b96a3eba869c54ebe90367b4a",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A21",
       "parallel_worktree": "task/A21-implementation",
@@ -2698,7 +2756,8 @@
       ],
       "specific_verification": [
         "Deliberately incompatible layout/capability/semantic changes fail, compatible optional minor passes on both OS.",
-        "Manifest/provenance substitution, stale artifact and changed private seam negatives; reviewed update/rollback record."
+        "Manifest/provenance substitution, stale artifact and changed private seam negatives; reviewed update/rollback record.",
+        "Verify compatible/incompatible exact package-closure evolution, permitted author/repository signature identity and payload/nuspec/native verification, same-version conflict handling, unlist behavior and rollback to the previous complete closure. Never disable signature or identity checks to make a retry succeed."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -2731,7 +2790,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "18e6b11d3425e2c631c1d2d9a472adcca403b2abb058cf47a48cae2831dea651",
+      "packet_sha256": "f8ce5ecc8cac90070b3e844d2ec809ac66ceedd8b4ee8c5404ed80c240505ea4",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A22",
       "parallel_worktree": "task/A22-implementation",
@@ -2753,7 +2812,8 @@
       ],
       "specific_acceptance": [
         "Deliberately incompatible layout/capability/semantic changes fail, compatible optional minor passes on both OS.",
-        "Manifest/provenance substitution, stale artifact and changed private seam negatives; reviewed update/rollback record."
+        "Manifest/provenance substitution, stale artifact and changed private seam negatives; reviewed update/rollback record.",
+        "Verify compatible/incompatible exact package-closure evolution, permitted author/repository signature identity and payload/nuspec/native verification, same-version conflict handling, unlist behavior and rollback to the previous complete closure. Never disable signature or identity checks to make a retry succeed."
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -2864,7 +2924,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ce125904e865c3da4d6831129d27a18a561eaba2570d9e683f287251df858fbf",
+      "packet_sha256": "f91d147b3ec28f1ff0d6dabef0c289644736d44c29439d28f598c684670e2d22",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A23",
       "parallel_worktree": "task/A23-implementation",
@@ -2999,7 +3059,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "db9b7111087e618a19672ba5ee81787828eaf5b0b6549012de2f2d09a402ac97",
+      "packet_sha256": "da532bbeec904d4cb98007b2adfa8aebbb0e0c9008d9f2404f2c051dcc09970e",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/A24",
       "parallel_worktree": "task/A24-implementation",
@@ -3156,7 +3216,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "a33ae881a6b48b75349314ce9eb46822ade5532530fe83afd3e82c2c028667d7",
+      "packet_sha256": "1ca9d662a00ae30de5f66c50a9d6b32b47ef8ea3454ec7e5e4602828cacad833",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B01",
       "parallel_worktree": "task/B01-implementation",
@@ -3304,7 +3364,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "f460cbc8f17430b162cabd4081c042c78f735bb871988b8643e75177530b9906",
+      "packet_sha256": "4d371fdc9e5b225238363c6e014b4d4ff92ed9d6cb6a60c0858cdf9fa70dee2e",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B02",
       "parallel_worktree": "task/B02-implementation",
@@ -3457,7 +3517,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ccc41814686451094fc4d25b46bb484aa68c3359f1e3a60fb28017e0e0fcccad",
+      "packet_sha256": "49bb21a5b7582179ac482f960746cd9c621d3a343ae50f2a912ffdd19808d56d",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B03",
       "parallel_worktree": "task/B03-implementation",
@@ -3660,7 +3720,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "cfe4a047ae1b554f41530c0df9f79fe6d0d40d8dc6875f5dedb287de7f157a47",
+      "packet_sha256": "a9411cbd7b21ebd566e0241dd47282498189e855c3e1e847ff03c4ac66c3c974",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B04",
       "parallel_worktree": "task/B04-implementation",
@@ -3777,17 +3837,19 @@
       ],
       "resource_locks": [],
       "module": "Data.Transactions",
-      "candidate_api": "Typed transaction scope, CommitAsync result distinguishing Committed/RolledBack/Unknown, recoverable correlation data and explicit retry advice; no automatic replay of arbitrary business delegates.",
+      "candidate_api": "D15 DataTransaction scope with immutable Outcome/Cleanup snapshots and CommitAttempted. CommitAsync succeeds only for Committed; confirmed transaction failure is a DataException, Unknown is CommitOutcomeUnknownException, and explicit RollbackAsync failure is DataCleanupException. CloseAsync(deadline) may return Pending while DisposeAsync joins actual local safety; no automatic replay of business delegates.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
-        "Drop queues rollback; it is not rollback confirmation. Subsequent cleanup, no-active-transaction response or connection close does not retroactively resolve an Unknown commit.",
-        "Old cancellation generation and reused session must be isolated; rollback/drain failure means retire, not return to next tenant.",
-        "Unknown can be durably recorded while local native/managed resources retire; keeping an undecidable business result does not require leaking the operation."
+        "Drop may queue rollback but does not confirm it. Commit dispatch, application result, transaction effect, protocol reuse and local retirement remain independently observable.",
+        "A stale cancellation generation cannot affect the next session owner. Cleanup after public close remains admitted; failed or unknown protocol cleanup cannot return a connection to the next tenant.",
+        "Unknown may outlive released native resources as a managed or durable recovery identity. A bounded HTTP flow uses CloseAsync explicitly and must not immediately follow Pending with an implicit indefinite await-using DisposeAsync join.",
+        "Automatic cleanup never overwrites the primary business or CommitUnknown error. Explicit rollback errors remain visible in their own result and Cleanup snapshot."
       ],
       "specific_verification": [
-        "Actual product response-loss proxy forwards COMMIT and drops all reply frames after server durable completion; separate connection proves effect and client returns Unknown without retry.",
-        "Same-session failed transaction rollback and reuse, dropped active transaction, savepoint recovery, acquire cancellation, pool close and stale cancel races on both providers.",
-        "Cross-language model/oracle maps actual code transitions to C-TX invariants; finite state exploration does not claim weak-memory or soak proof."
+        "Execute the real product response-loss proxy: forward COMMIT, observe server COMMIT plus idle ReadyForQuery, drop those replies, then prove durable effects through another connection while the client reports Unknown without blind retry.",
+        "Verify pre-dispatch cancellation, post-dispatch request cancellation, failed-transaction commit rejection, rollback unconfirmed with CommitAttempted=false, Unknown followed by cleanup rollback, and bounded CloseAsync Pending followed by eventual DisposeAsync join against D15's exact state table.",
+        "On both actual providers check same-session identity after failed-transaction rollback, dropped transaction, savepoint recovery, acquire cancellation, pool close and stale cancellation. Count live callbacks/roots/leases/permits until their actual retirement.",
+        "Map the implemented native and C# transitions to the four C-TX dimensions in an independent oracle; finite state exploration does not claim weak-memory, full fault-matrix or soak proof."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -3821,7 +3883,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "c2f980c7a9dfefcacc0ddb3f77ce0c92e16a388c016a41b30ef54e42f5514f9d",
+      "packet_sha256": "597a7ab1e478a11b4afeb3c0b6e514f2aa734853b6d28caa3ad7ec15b735b2ce",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B05",
       "parallel_worktree": "task/B05-implementation",
@@ -3830,23 +3892,27 @@
       "product_validation_scope": "Actual product component and stated integration oracles. Design research evidence is a specification/regression source, never a passed product row.",
       "boundary_and_ownership": "Own transaction lifecycle/outcome/recovery and connection disposition policy in native/database/transactions; provider hooks remain B01 interfaces. Keep response-loss uncertainty out of generic Core status definitions.",
       "native_reuse": "SQLx transaction/savepoint/pool mechanics and native provider hooks. SeaORM TransactionTrait is only relevant to an explicit specialized profile, not mandatory for ordinary adapters.",
-      "csharp_surface": "Typed transaction scope, CommitAsync result distinguishing Committed/RolledBack/Unknown, recoverable correlation data and explicit retry advice; no automatic replay of arbitrary business delegates.",
+      "csharp_surface": "D15 DataTransaction scope with immutable Outcome/Cleanup snapshots and CommitAttempted. CommitAsync succeeds only for Committed; confirmed transaction failure is a DataException, Unknown is CommitOutcomeUnknownException, and explicit RollbackAsync failure is DataCleanupException. CloseAsync(deadline) may return Pending while DisposeAsync joins actual local safety; no automatic replay of business delegates.",
       "implementation_steps": [
-        "Implement distinct state dimensions: transaction Active/CommitDispatched/Finalizing/Closed; durable outcome; protocol Reusable/NeedsDrain/Retire; local active leases/callbacks/retirement.",
-        "Record COMMIT dispatch before awaiting its response. Known confirmation chooses committed outcome; cancellation/error after dispatch with no definitive evidence remains Unknown.",
-        "Perform rollback/drain/probe through cleanup admission on the original session; release the pool permit only when the connection is reusable or physically retired.",
-        "Implement explicit savepoints and isolation capabilities. SQLite Deferred/Immediate mode is not a simulated PostgreSQL isolation matrix.",
-        "Expose application idempotency recovery using stable operation ID, tenant/key and request hash. Conflicting INSERT/SELECT in one Read Committed CTE can miss the winner; use a separate recovery SELECT after conflict."
+        "Implement exactly the D15 four independent dimensions: TxLifecycle Active/Failed/CommitInFlight/RollbackInFlight/Closed; TransactionOutcome InProgress/Committed/RolledBack/Unknown; ConnectionDisposition Usable/ProviderResetPending/Quarantined/Discarded; LocalLifetime Live/Closing/Quiescent/Reclaimed. Private internal states require an explicit mapping and may not weaken these public observations.",
+        "The CommitAsync admission token can reject before the conservative provider-commit dispatch boundary. After entering CommitInFlight, use a separate finite commit deadline; request cancellation or loss of a trustworthy reply cannot replace Unknown with Cancelled or RolledBack. Reject Commit while Failed and distinguish trustworthy COMMIT confirmation from failed-transaction termination.",
+        "Run rollback/drain/probe through cleanup admission on the original session. Known ordered provider maintenance may be ProviderResetPending; unknown protocol damage is Quarantined and cannot be loaned to another tenant. Return the permit only when reuse is safe or physical retirement has completed; close_on_drop is intent, not observed retirement.",
+        "For unconfirmed rollback without any COMMIT attempt, expose Closed/InProgress, CommitAttempted=false, Cleanup=RollbackUnconfirmed and quarantine. After a previous Unknown COMMIT, every later cleanup rollback or no-transaction response leaves Unknown unchanged. Preserve primary and cleanup errors separately.",
+        "Implement explicit savepoint stack/generation and isolation capabilities on the same session. SQLite Deferred/Immediate is not a PostgreSQL isolation matrix; unsupported levels fail before begin. Ordinary commands cannot change transaction ownership through raw transaction-control SQL.",
+        "CloseAsync closes public admission, requests or joins already-admitted transaction/cursor cleanup and may return Pending with LocalResourcesReleased=false. The Engine retains parents, callbacks, roots and budgets until safe retirement. DisposeAsync joins the same cleanup and cannot claim success while access remains possible; synchronous Dispose only transfers cleanup responsibility without blocking a finalizer.",
+        "Propagate recovery ID and D20 tenant/key/request-hash identity without creating an automatic business retry service. PG ReadCommitted conflict recovery uses a subsequent SELECT statement; one missing same-statement CTE result or cleanup completion never proves rollback. Persist uncertainty separately from releasable native owners."
       ],
       "error_cancellation_resources_concurrency": [
-        "Drop queues rollback; it is not rollback confirmation. Subsequent cleanup, no-active-transaction response or connection close does not retroactively resolve an Unknown commit.",
-        "Old cancellation generation and reused session must be isolated; rollback/drain failure means retire, not return to next tenant.",
-        "Unknown can be durably recorded while local native/managed resources retire; keeping an undecidable business result does not require leaking the operation."
+        "Drop may queue rollback but does not confirm it. Commit dispatch, application result, transaction effect, protocol reuse and local retirement remain independently observable.",
+        "A stale cancellation generation cannot affect the next session owner. Cleanup after public close remains admitted; failed or unknown protocol cleanup cannot return a connection to the next tenant.",
+        "Unknown may outlive released native resources as a managed or durable recovery identity. A bounded HTTP flow uses CloseAsync explicitly and must not immediately follow Pending with an implicit indefinite await-using DisposeAsync join.",
+        "Automatic cleanup never overwrites the primary business or CommitUnknown error. Explicit rollback errors remain visible in their own result and Cleanup snapshot."
       ],
       "specific_acceptance": [
-        "Actual product response-loss proxy forwards COMMIT and drops all reply frames after server durable completion; separate connection proves effect and client returns Unknown without retry.",
-        "Same-session failed transaction rollback and reuse, dropped active transaction, savepoint recovery, acquire cancellation, pool close and stale cancel races on both providers.",
-        "Cross-language model/oracle maps actual code transitions to C-TX invariants; finite state exploration does not claim weak-memory or soak proof."
+        "Execute the real product response-loss proxy: forward COMMIT, observe server COMMIT plus idle ReadyForQuery, drop those replies, then prove durable effects through another connection while the client reports Unknown without blind retry.",
+        "Verify pre-dispatch cancellation, post-dispatch request cancellation, failed-transaction commit rejection, rollback unconfirmed with CommitAttempted=false, Unknown followed by cleanup rollback, and bounded CloseAsync Pending followed by eventual DisposeAsync join against D15's exact state table.",
+        "On both actual providers check same-session identity after failed-transaction rollback, dropped transaction, savepoint recovery, acquire cancellation, pool close and stale cancellation. Count live callbacks/roots/leases/permits until their actual retirement.",
+        "Map the implemented native and C# transitions to the four C-TX dimensions in an independent oracle; finite state exploration does not claim weak-memory, full fault-matrix or soak proof."
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "integration_artifact_requirements": [
@@ -3983,7 +4049,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "28a6d3a86ad2d8494f5a0684c184024a63f200205b2b70f244e29a4ffee5fcef",
+      "packet_sha256": "aee7873898e596af1c0bc90d323e58523e53dc5c92e6d412414d00c63f04d4b4",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B06",
       "parallel_worktree": "task/B06-implementation",
@@ -4128,7 +4194,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ecd313b8c1c3b3095fdf453651fc29e60c745ad9aa7d95dd7da59b0489e0de5d",
+      "packet_sha256": "9c6b7241fbc57e5eb15db9d5faeb1daf0bedab576ee5575e1a3d204e57532d49",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B07",
       "parallel_worktree": "task/B07-implementation",
@@ -4270,7 +4336,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "c86dc27ec9793c6ab10510e2c9763be9c2736ea2709341551308aa4d0da91ce3",
+      "packet_sha256": "fcd5cd73f95b8b01213bbfd3fceeb74b6102688957ab86b80d341b28650cdb16",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B08",
       "parallel_worktree": "task/B08-implementation",
@@ -4427,7 +4493,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "61a10cf92a82d909937b36f90f488e6dea830288998f0bddfb603fe4baecfce8",
+      "packet_sha256": "8a321d8b753d0d279cec03c82017bc6b28876ccaf06ac2684df175fcbd65212d",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B09",
       "parallel_worktree": "task/B09-implementation",
@@ -4567,7 +4633,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "db5e3dddde552cdc0da744cb2336d1764919167252127b61631ce819333f4348",
+      "packet_sha256": "df8202a006b23e916368b02b6877e89bd031178b543f649800eb21f42d6a374b",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B10",
       "parallel_worktree": "task/B10-implementation",
@@ -4580,7 +4646,7 @@
       "implementation_steps": [
         "Filter syntax then resolve explicit symbols; output deterministic fully-qualified names and ordering. No database connection, network, Cargo, source checkout or native compilation in generator execution.",
         "Emit supported codec/nullability/key/alias/constructor descriptors and static DTO readers using B12 contract; closed generics/JsonTypeInfo are explicit.",
-        "Implement D17 NWQ0101–NWQ0106 family with exact location and meaning; preserve historical old diagnostic numbers rather than repurposing them.",
+        "Implement the complete D17 NWQ0101-NWQ0107 family with exact locations and meanings, including NWQ0107 for mappings requiring dynamic code or unbounded reflective discovery. Preserve historical old diagnostic numbers rather than repurposing them; test every diagnostic with a compile-negative fixture.",
         "Handle incremental invalidation for relevant model changes and stable unrelated changes. Do not rely on another generator output appearing in the same pass."
       ],
       "error_cancellation_resources_concurrency": [
@@ -4726,7 +4792,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "3df68d5508e5338cb4a6c33b3f68087c6ba28fef9efad540f9f2def525948d92",
+      "packet_sha256": "c22b81393ee0ace3cdb23de3c8dc1b002039076efb823eac8918c6b65509cf42",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B11",
       "parallel_worktree": "task/B11-implementation",
@@ -4886,7 +4952,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "ba4fbc9509670d04934071d50c05e0fb712970717427e58ac278e0d023622fc7",
+      "packet_sha256": "5b2c69e536a82e7815c4723b20736aa3171f8ac706bc2b5e50ae397ceaee40b0",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B12",
       "parallel_worktree": "task/B12-implementation",
@@ -5043,7 +5109,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "28024eb884ec28db7cc177830072bbe38f0c2b8f09fbf75764a47ed441aa1e83",
+      "packet_sha256": "29c982c6ac440efd48763b99074fd54f33f79a65b0524abc1a4ab95f7e359960",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B13",
       "parallel_worktree": "task/B13-implementation",
@@ -5202,7 +5268,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "7ac7126d37d064625d80f1ba82fd6744b17fbcb01672e846cdb706da6223c832",
+      "packet_sha256": "5cbe9f9e81a7849d33a2c2985baf67e6a5aaa9c64f5f0231b5f14917c7b2fa07",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B14",
       "parallel_worktree": "task/B14-implementation",
@@ -5374,7 +5440,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "96f5e1c9d3b137a474a75aed4405d45a9fc68f7b9aea9b71b17a4e09da31eeb4",
+      "packet_sha256": "0a6028421433b011a46825d7a754a88f825b37f3f337900b4d57f3a7f264ec43",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B15",
       "parallel_worktree": "task/B15-implementation",
@@ -5520,7 +5586,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "5fbc593aa23c95a70b6cbfa54a5ba990e754f8ce3b115daf0dee0777b616e2c8",
+      "packet_sha256": "e44161634dc42ce2ed575cab49e07dbca64097de21881e99b4061da1534adee4",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B16",
       "parallel_worktree": "task/B16-implementation",
@@ -5680,7 +5746,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "90d6d56cf3309024e629b026bcb2a9ad4b1f3e9a8c49d0bec8c6c4ebff87168f",
+      "packet_sha256": "99929c354796338610fe4fef797d88c2f8bb450d2f8a07e463efb16d363e88c8",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B17",
       "parallel_worktree": "task/B17-implementation",
@@ -5834,7 +5900,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "7005e876818510fe0ef64a0076396e70bffe26c3f7b9797a35a5e8f5edcaee64",
+      "packet_sha256": "7d44e1f72c0e624967b1d6b9b778a085fb426503e25dd47b0d19c7838a143ba7",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B18",
       "parallel_worktree": "task/B18-implementation",
@@ -5984,7 +6050,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "a1d0ace00cb4dd370ddffdb8e616181b08c5221090bacb60f875066180e13908",
+      "packet_sha256": "82fe67c4ee69f86fa35ebe652e5bf6f3ed2fff8874fa947709c93680b199e701",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B19",
       "parallel_worktree": "task/B19-implementation",
@@ -6004,7 +6070,8 @@
         "Register runtime tools and exact get_tool schemas; schema-dependent SEP-2243 Mcp-Param-* checks do not equal general JSON Schema argument validation.",
         "Map native-decoded arguments through bounded owned UTF8 buffers into typed static C# DTOs and back; charge double parse/encode temporaries and measure cost.",
         "Keep native protocol/JSON-RPC/MCP errors distinct from tool execution error results and HTTP pre-parser failures.",
-        "No-event-store unfinished response disconnect cancels; persisted/replay/legacy profiles remain explicitly unsupported until separately specified and accepted."
+        "No-event-store unfinished response disconnect cancels; persisted/replay/legacy profiles remain explicitly unsupported until separately specified and accepted.",
+        "Before public rmcp StreamableHttpService parses a body, apply D19/D07 native Tower preflight with budgeted wire buffer and serde Deserializer/DeserializeSeed/Visitor structural scan; reserve the source-justified worst live native/managed peak including SDK recollection/tree and DTO copies. No private expect_json call or handwritten parser; unproved profile bounds cannot be enabled."
       ],
       "error_cancellation_resources_concurrency": [
         "Unsupported version/tool/schema, header/meta mismatch, malformed JSON, body limit, auth failure and cancellation fail explicitly.",
@@ -6017,7 +6084,8 @@
         "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Exact modern request metadata and method/Host/Origin/body negative matrix plus generated C# AOT tools on both platforms.",
-        "GET/DELETE405 only for initial no-event-store profile; disconnect/EOF/cancel, malformed/truncated requests and no session/replay leaks."
+        "GET/DELETE405 only for initial no-event-store profile; disconnect/EOF/cancel, malformed/truncated requests and no session/replay leaks.",
+        "Many tiny elements, deep nesting, long escaped strings and wire+tree+UTF8+DTO overlap must be rejected before SDK parse/Handler when 4MiB/request/side or global budget cannot fit; prove zero parse/Handler admission on failure and exactly-once lease release under cancel. The 1MiB wire cap is not a decoded-memory guarantee."
       ],
       "native_backend_policy": "mandatory_rust_server",
       "native_host_task": "B17",
@@ -6130,7 +6198,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "5cf9be489a756f45d43766899481fabff8537b3443085af960db567646103e0c",
+      "packet_sha256": "13085d7933dad89eff458870efebb455ef6ccb374a6334d158fdb255e678bd33",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B20",
       "parallel_worktree": "task/B20-implementation",
@@ -6149,7 +6217,8 @@
         "Instrument native futures with explicit owned dispatcher, never hold span.enter guard across await or seize global subscriber in a library.",
         "Implement fixed-cardinality route/provider/category metrics and bounded attribute/event/queue bytes, with overflow drop counters.",
         "Coordinate single monotonic request deadline and bounded close; expose ClosePending and continue retirement safely rather than free on timeout.",
-        "Flush optional exporters only after business owners close and within independent finite timeout; network export never blocks FFI callback or native lock."
+        "Flush optional exporters only after business owners close and within independent finite timeout; network export never blocks FFI callback or native lock.",
+        "Implement D19 explicit modes: Release/Debug install no listener/provider/global subscriber/exporter by default; optional application sink preset Warning/Error; IsEnabled/sampling before formatting; all correctness/retirement checks remain active."
       ],
       "error_cancellation_resources_concurrency": [
         "No listener avoids creating Activity/tags; sampling changes diagnostics only.",
@@ -6162,7 +6231,8 @@
         "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Actual cross-language context golden/malformed fields and worker migration; repeat callbacks/cancel/dispose races.",
-        "Exporter saturation/disconnect/block/timeout and no-secret assertions; disabled/sampled/full diagnostics cost from matched workloads."
+        "Exporter saturation/disconnect/block/timeout and no-secret assertions; disabled/sampled/full diagnostics cost from matched workloads.",
+        "Check default Release and Debug activation independently, bounded opt-in local Debug diagnostics, disabled/sampled/full tracing and exporter-fault modes; validate no auto-export or global subscriber and no log-level-dependent resource correctness."
       ],
       "native_backend_policy": "mandatory_rust_server",
       "native_host_task": "B17",
@@ -6236,15 +6306,19 @@
       ],
       "resource_locks": [],
       "module": "Reference.TaskService",
-      "candidate_api": "Typed Task/Attempt/Lease entities, Fluent queries and C# Handler business logic on mandatory Rust DB/ORM/Server.",
+      "candidate_api": "Static Item, OperationResult, OutboxEvent and Attachment DTO/entity declarations; POST /v1/items, keyset GET /v1/items, GET /v1/operations/{id}, and authorized attachment PUT/GET. Natural typed Fluent and C# business Handlers consume mandatory Rust DB/ORM/Server; optional protocols call the same service.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
-        "ACK loss never blindly repeats a non-idempotent mutation; Unknown retained until durable reconciliation.",
-        "Cancelled request cannot free live DB transaction/body owners; scope drains actual operations before release."
+        "ACK loss never blindly repeats a non-idempotent mutation. HTTP response loss after a known commit leaves the durable same-key replay record intact; Unknown stays distinct from known rollback and confirmed success.",
+        "Outbox publish success followed by acknowledgement-write failure may cause another delivery attempt; the independent consumer proves one business effect under stable event_id deduplication.",
+        "Blob and database are not a distributed atomic transaction. A failed reference commit may leave an unreferenced blob, but a successful DB reference must never name an incomplete blob; authorization always comes through the tenant's DB reference.",
+        "Cancellation, Body EOF and handler return do not free retained DB/response owners. Finite HTTP cleanup can stop waiting while the Engine still accounts for every pending owner and cancellation registration."
       ],
       "specific_verification": [
-        "Real HTTP→C# Handler→Rust ORM/DB response on Windows/Linux AOT for both databases.",
-        "Concurrent duplicate requests, conflict snapshot, crash/restart and durable reconciliation; native hash unchanged across ordinary entities."
+        "Run the complete D20 REST API through real HTTP -> C# Handler -> Rust query/database on both Windows/Linux AOT and PostgreSQL/SQLite; verify static hash/response golden vectors, no-Rust ordinary build/run and unchanged native bytes after entity/Handler edits.",
+        "Concurrent same-key same-hash requests produce one item/operation/outbox effect and the same replay response; different hash and cross-tenant/principal scope attempts cannot expose or overwrite another result. Exercise PG conflict snapshot and protected Unknown recovery.",
+        "Execute an outbox duplicate-attempt oracle and attachment upload/download/orphan-grace oracle. Demonstrate blob durability before DB reference, bounded streaming without a held upload DB session, and authorization even for an existing shared content hash.",
+        "Verify the declared retention window, keyset tie-breaker/cursor scope and 1MiB JSON/100-row/64MiB attachment limits. CloseAsync Pending may end HTTP waiting but live owner counters and budgets remain until actual safe retirement; B22 supplies the full fault/soak matrix."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -6282,30 +6356,38 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "bd8da6f75e9aeb533b1c09d0f88970174a4d4d626a0acd5d5148e9010a7703a9",
+      "packet_sha256": "5953644156cfa793fa504f8080e9b37840b969ce3ba2f0a0f26f47d063b5b927",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B21",
       "parallel_worktree": "task/B21-implementation",
       "workspace_manifest_integration_owner": "A13",
       "implementation_authorization_required": true,
       "product_validation_scope": "Actual product component and stated integration oracles. Design research evidence is a specification/regression source, never a passed product row.",
-      "boundary_and_ownership": "One domain-neutral idempotent task-service reference application, no ArcForges business dependency.",
-      "csharp_surface": "Typed Task/Attempt/Lease entities, Fluent queries and C# Handler business logic on mandatory Rust DB/ORM/Server.",
+      "boundary_and_ownership": "Implement the exact D20 domain-neutral work-item reference service with operations, items, outbox and attachments. Do not replace it with an additional durable job/attempt/claim/complete state machine or import ArcForges business behavior.",
+      "csharp_surface": "Static Item, OperationResult, OutboxEvent and Attachment DTO/entity declarations; POST /v1/items, keyset GET /v1/items, GET /v1/operations/{id}, and authorized attachment PUT/GET. Natural typed Fluent and C# business Handlers consume mandatory Rust DB/ORM/Server; optional protocols call the same service.",
       "native_reuse": "SQLx/SeaQuery and selected Rust host; use native transaction/relations/streaming implementation from B04/B14/B17.",
       "implementation_steps": [
-        "Define deterministic schema/migrations and API operation semantics including idempotency key, CAS version and retryable outcomes.",
-        "Implement create/claim/complete/query flows with explicit transaction boundaries and native-backed typed Fluent calls.",
-        "Handle conflict CTE snapshot using a new statement when necessary; reconcile durable result after COMMIT Unknown before retry.",
-        "Exercise request/body/DB result streaming and correlation through C# Handlers, never Kestrel hosting.",
-        "Supply independent NuGet consumer profiles for SQLite and real PostgreSQL, including ordinary app model/Handler edits."
+        "Implement D20's four-table schema and explicit migrations for both PostgreSQL and SQLite. Preserve operations(scope,request_key) uniqueness, stable operation_id, tenant/item keys, expected version and outbox event identity. Freeze v1 request-hash length-prefixed UTF-8/integer golden vectors and response-version bytes; do not infer a universal JSON canonicalizer.",
+        "Create items with authenticated scope, validated 1-128 ASCII idempotency key and request hash. The unique operation record, business write, stable replay response and outbox row commit in one Rust-owned transaction. Same key/hash replays; different hash returns 409 without changing the winning record.",
+        "For PostgreSQL ReadCommitted, ON CONFLICT DO NOTHING returning no row is followed by a separate SELECT statement and hash/scope verification. For SQLite use short BEGIN IMMEDIATE writer admission. COMMIT Unknown returns the D20 outcome_unknown recovery identity/503 when HTTP remains available; missing recovery data does not prove rollback or permit unprotected replay.",
+        "Implement tenant-authorized keyset listing with (created_at,id), maximum 100 rows and tamper-resistant scoped cursor, plus authorized operation-result recovery. No cross-page snapshot guarantee is invented; any consistent export uses its explicit bounded transaction/stream profile.",
+        "Implement the outbox worker with bounded claim/lease batches, external publication after its claim transaction ends, stable event_id, explicit retry/backoff and acknowledgement recording. Include an independent persistent deduplicating consumer; at-least-once delivery can repeat attempts and does not promise external exactly-once effects.",
+        "Implement attachment PUT/GET with authorization, 64MiB route length, 32KiB chunks and finite disk/byte/upload budgets. Stage, hash and durably finish the blob before same-filesystem immutable rename, then commit the authorized DB reference/result/outbox. Retain staging/recovery manifests and a grace period so orphan collection cannot delete an active upload or recovery blob; never hold a DB transaction during the client upload.",
+        "Apply D20's 7-day idempotency retention profile and protect records referenced by recovery/outbox. Do not promise replay after expiry or remove tenant/principal/operation scope. The initial operations table stores confirmed replayable results, not a separately committed InProgress job state.",
+        "Use explicit finite CloseAsync on HTTP completion: Pending keeps native parents, roots, callbacks and budgets in the Engine, without retaining an ended request context/DI scope. Do not follow Pending with an implicit indefinite await-using join; already-dispatched COMMIT uses its independent deadline and outcome semantics.",
+        "Supply clean independent NuGet consumers for both real databases over the Rust HTTP1/2/TLS Host on Windows/Linux AOT. Normal model/DTO/Handler edits retain the native module hash, require no Cargo and obey D18's separate managed/native and per-request payload credits."
       ],
       "error_cancellation_resources_concurrency": [
-        "ACK loss never blindly repeats a non-idempotent mutation; Unknown retained until durable reconciliation.",
-        "Cancelled request cannot free live DB transaction/body owners; scope drains actual operations before release."
+        "ACK loss never blindly repeats a non-idempotent mutation. HTTP response loss after a known commit leaves the durable same-key replay record intact; Unknown stays distinct from known rollback and confirmed success.",
+        "Outbox publish success followed by acknowledgement-write failure may cause another delivery attempt; the independent consumer proves one business effect under stable event_id deduplication.",
+        "Blob and database are not a distributed atomic transaction. A failed reference commit may leave an unreferenced blob, but a successful DB reference must never name an incomplete blob; authorization always comes through the tenant's DB reference.",
+        "Cancellation, Body EOF and handler return do not free retained DB/response owners. Finite HTTP cleanup can stop waiting while the Engine still accounts for every pending owner and cancellation registration."
       ],
       "specific_acceptance": [
-        "Real HTTP→C# Handler→Rust ORM/DB response on Windows/Linux AOT for both databases.",
-        "Concurrent duplicate requests, conflict snapshot, crash/restart and durable reconciliation; native hash unchanged across ordinary entities."
+        "Run the complete D20 REST API through real HTTP -> C# Handler -> Rust query/database on both Windows/Linux AOT and PostgreSQL/SQLite; verify static hash/response golden vectors, no-Rust ordinary build/run and unchanged native bytes after entity/Handler edits.",
+        "Concurrent same-key same-hash requests produce one item/operation/outbox effect and the same replay response; different hash and cross-tenant/principal scope attempts cannot expose or overwrite another result. Exercise PG conflict snapshot and protected Unknown recovery.",
+        "Execute an outbox duplicate-attempt oracle and attachment upload/download/orphan-grace oracle. Demonstrate blob durability before DB reference, bounded streaming without a held upload DB session, and authorization even for an existing shared content hash.",
+        "Verify the declared retention window, keyset tie-breaker/cursor scope and 1MiB JSON/100-row/64MiB attachment limits. CloseAsync Pending may end HTTP waiting but live owner counters and budgets remain until actual safe retirement; B22 supplies the full fault/soak matrix."
       ],
       "native_backend_policy": "mandatory_rust_database_and_server",
       "native_host_task": "B17",
@@ -6370,12 +6452,15 @@
       "candidate_api": "External fault driver and durable-data oracle; no in-process mock substitutes for server/database failures.",
       "method": "Follow the ordered implementation_steps and normative Design contracts; reuse mature native capabilities.",
       "failure_paths": [
-        "External timeout or process termination cannot be counted as graceful retirement.",
-        "Flat RSS is not proof of no leak; leaked owner counters fail even when allocator returns no memory to OS."
+        "External timeout, process termination, Body EOF and an HTTP cancellation token are not graceful resource retirement or proof that a COMMIT rolled back.",
+        "Flat RSS is not proof of no leak; leaked owners or still-live byte charges fail even if allocator retention hides growth. Conversely, owned-byte caps alone do not bound driver/protocol/TLS/GC/whole-process RSS.",
+        "Outbox is at-least-once and blob-before-reference is not distributed atomic commit; preserve those explicit limits while independently checking actual business effects and reachable content.",
+        "Pending cleanup must retain finite reserved capacity and ownership without deadlocking control paths or keeping an ended request DI scope alive. Primary errors and Unknown outcomes survive cleanup failures."
       ],
       "specific_verification": [
-        "All reference operations with real PG and SQLite plus native HTTP1/2/TLS on both AOT OS.",
-        "Crash recovery, Unknown reconciliation, exhausted budget and shutdown liveness; explicit test duration/load and resource thresholds based on design limits."
+        "All specified reference operations pass on real PostgreSQL/SQLite with the native HTTP1/2/TLS profile on Windows/Linux AOT; declared optional protocol profiles are separately identified and unsupported cells are not claimed executed.",
+        "Pass D20's exact idempotency, Unknown, outbox duplicate, attachment persistence/orphan, retention, authorization, memory-credit and bounded-close oracles with independent effect counters and raw fault timelines.",
+        "Record stage-specific 30-minute/24-hour/72-hour workload evidence and finite resource thresholds from the accepted profile. Release acceptance requires its full declared soak row; research/model success cannot stand in for actual product execution."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -6407,7 +6492,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "e6711f76a46afd2f0092d0e678ade86e3c4f0b734140d50863b3f9b7372b58cd",
+      "packet_sha256": "8d5ac57e890bd7d32b27972ab938504cfc6dc86331bf35e5597c3fc86e49e210",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B22",
       "parallel_worktree": "task/B22-implementation",
@@ -6418,18 +6503,24 @@
       "csharp_surface": "External fault driver and durable-data oracle; no in-process mock substitutes for server/database failures.",
       "native_reuse": "Real PostgreSQL/SQLite/native HTTP/TLS stack, process control and protocol fault proxy.",
       "implementation_steps": [
-        "Inject lost COMMIT replies, failed transactions, early stream exit, slow readers, network reset, handler faults and shutdown races.",
-        "Reconcile database effects and session identity/state independently; differentiate rollback queued/acknowledged and worker retirement.",
-        "Run repeated load/drain/idle cycles and fixed-duration long workload with live owners/roots/permits/thread/RSS trends.",
-        "Record failure seed/timeline/build/DB identity and minimized reproduction; require no silent data loss/duplicate side effects."
+        "Exercise every D20 operation using independent durable-data and protocol oracles: operations/items/outbox atomicity, same/different hash replay, tenant/principal isolation, authorized recovery, keyset paging and attachment upload/download.",
+        "Inject DB faults before BEGIN/write/COMMIT dispatch and after dispatch or acknowledgement: lost COMMIT replies, failed transactions, early stream exit, server/process restart, SQLite busy/disk-full and pool reset failure. Reconcile transaction effect and same-session identity independently; preserve Unknown, rollback-unconfirmed and provider-cleanup distinctions.",
+        "Crash between outbox publish and acknowledgement recording, then prove repeated delivery attempts cause one deduplicated consumer effect. Crash attachment work before durable blob, after rename but before DB commit, and during orphan collection; verify no successful reference targets incomplete content and no active/recovery blob is collected. Cover actual Windows/Linux filesystem persistence differences without claiming power-loss guarantees from a process crash alone.",
+        "Test retention/cleanup against in-progress protected recovery and outbox references, expired-key semantics, cross-tenant same keys and tampered cursors. A single not-found read cannot authorize an unprotected business replay.",
+        "Inject slow upload/download, over-budget decompression/JSON/chunks, HTTP1 half-close/HTTP2 reset, handler faults, old permits, late cancellation and shutdown races. Test CloseAsync Pending ending response waiting while resources remain charged, followed by eventual safe DisposeAsync join; Body EOF or channel closed alone never proves byte-owner retirement.",
+        "Run repeated load/drain/idle cycles and D20's staged 30-minute steady, 24-hour regression and 72-hour release soak profiles with fixed workload and faults. Freeze load/duration/resource thresholds before the run, record live owners/roots/permits/threads/handles plus RSS trends, and keep missing release-soak rows unaccepted rather than substituting a shorter run.",
+        "Record exact source/native/package/AOT/DB/storage/profile identity, failure seed, timeline, raw observations and minimized reproductions. Functional oracle failure blocks performance/release claims; every executed or unexecuted profile is explicit."
       ],
       "error_cancellation_resources_concurrency": [
-        "External timeout or process termination cannot be counted as graceful retirement.",
-        "Flat RSS is not proof of no leak; leaked owner counters fail even when allocator returns no memory to OS."
+        "External timeout, process termination, Body EOF and an HTTP cancellation token are not graceful resource retirement or proof that a COMMIT rolled back.",
+        "Flat RSS is not proof of no leak; leaked owners or still-live byte charges fail even if allocator retention hides growth. Conversely, owned-byte caps alone do not bound driver/protocol/TLS/GC/whole-process RSS.",
+        "Outbox is at-least-once and blob-before-reference is not distributed atomic commit; preserve those explicit limits while independently checking actual business effects and reachable content.",
+        "Pending cleanup must retain finite reserved capacity and ownership without deadlocking control paths or keeping an ended request DI scope alive. Primary errors and Unknown outcomes survive cleanup failures."
       ],
       "specific_acceptance": [
-        "All reference operations with real PG and SQLite plus native HTTP1/2/TLS on both AOT OS.",
-        "Crash recovery, Unknown reconciliation, exhausted budget and shutdown liveness; explicit test duration/load and resource thresholds based on design limits."
+        "All specified reference operations pass on real PostgreSQL/SQLite with the native HTTP1/2/TLS profile on Windows/Linux AOT; declared optional protocol profiles are separately identified and unsupported cells are not claimed executed.",
+        "Pass D20's exact idempotency, Unknown, outbox duplicate, attachment persistence/orphan, retention, authorization, memory-credit and bounded-close oracles with independent effect counters and raw fault timelines.",
+        "Record stage-specific 30-minute/24-hour/72-hour workload evidence and finite resource thresholds from the accepted profile. Release acceptance requires its full declared soak row; research/model success cannot stand in for actual product execution."
       ],
       "native_backend_policy": "mandatory_rust_database_and_server",
       "native_host_task": "B17",
@@ -6536,7 +6627,7 @@
           "kind": "native_aot_run"
         }
       ],
-      "packet_sha256": "270cd5302b82bb20a8f4c189cd235f9b515a504649fd82b770d526a0890bf4e8",
+      "packet_sha256": "5eb0f3890ff230763efec138a7a815ab52a68ed41908b8fc9df58990db15c98e",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B23",
       "parallel_worktree": "task/B23-implementation",
@@ -6558,7 +6649,8 @@
       ],
       "specific_acceptance": [
         "All three routes with pinned binaries/config/data on Windows/Linux where equivalent; missing route explicitly explained.",
-        "Predeclared regression bands grounded in baseline/noise, no guessed percentage target; raw data independently reviewed."
+        "Predeclared regression bands grounded in baseline/noise, no guessed percentage target; raw data independently reviewed.",
+        "Measure disabled Release, default Debug and explicit local Debug, sampled/full tracing, configured log/Meter sinks and exporter saturation/failure separately. Record allocations/native memory/CPU/callback latency/drop counts; scoped no-listener probe is not a product zero-cost claim."
       ],
       "native_backend_policy": "mandatory_rust_database_and_server",
       "native_host_task": "B17",
@@ -6634,7 +6726,8 @@
       ],
       "specific_verification": [
         "Exact final source/native/NuGet/AOT artifact hashes, real DB/network fault/soak and performance evidence on both OS.",
-        "Independent NuGet isolated consumption, old/new upgrade/downgrade and incompatible ABI/native asset negative; all 23 domain component revisions pinned."
+        "Independent NuGet isolated consumption, old/new upgrade/downgrade and incompatible ABI/native asset negative; all 23 domain component revisions pinned.",
+        "Run the A16 exact package-closure, partial publication, override/missing leaf/RID, signing-aware readback and previous-closure rollback gates for the assembled required Rust DB/ORM/Server plus selected protocol packages on every supported profile/RID. Partial registry success is not release acceptance."
       ],
       "selection_required": false,
       "selection_status": "not_applicable",
@@ -6793,7 +6886,7 @@
           }
         ]
       },
-      "packet_sha256": "3d929a87f02815447f2b37be1df509136cdb0920fc9f72d0fb7156a29c929bf0",
+      "packet_sha256": "11e9fa376a302bf31b5b7567d16efb782b1821c5eaf1369dfce13b9a7c258a71",
       "plan_author": "/root",
       "implementation_owner_role": "delivery/B24",
       "parallel_worktree": "task/B24-implementation",
@@ -6815,7 +6908,8 @@
       ],
       "specific_acceptance": [
         "Exact final source/native/NuGet/AOT artifact hashes, real DB/network fault/soak and performance evidence on both OS.",
-        "Independent NuGet isolated consumption, old/new upgrade/downgrade and incompatible ABI/native asset negative; all 23 domain component revisions pinned."
+        "Independent NuGet isolated consumption, old/new upgrade/downgrade and incompatible ABI/native asset negative; all 23 domain component revisions pinned.",
+        "Run the A16 exact package-closure, partial publication, override/missing leaf/RID, signing-aware readback and previous-closure rollback gates for the assembled required Rust DB/ORM/Server plus selected protocol packages on every supported profile/RID. Partial registry success is not release acceptance."
       ],
       "native_backend_policy": "mandatory_rust_database_and_server",
       "native_host_task": "B17",

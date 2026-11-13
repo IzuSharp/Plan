@@ -57,11 +57,11 @@
       "title": "Callback注册、撤销与排空",
       "boundary_and_ownership": "Registration and revocation of statically compiled callbacks with explicit managed root lifetime.",
       "native_reuse": "Existing native wake/event hooks; one optional bridge, no reflection/delegate dynamic export.",
-      "csharp_surface": "Opaque registration token; static UnmanagedCallersOnly trampoline dispatches through a validated cookie.",
+      "csharp_surface": "Opaque registration token; static UnmanagedCallersOnly trampoline uses a cookie guaranteed live by the rooted registration and two-sided retirement protocol, not by probing an arbitrary nonzero GCHandle.",
       "implementation_steps": [
         "Implement registration state with active native invocations and queued/running managed deliveries counted separately.",
         "Revocation closes admission then requests native quiescence; keep GCHandle/cookie until both native and managed counts retire.",
-        "Make the native callback O(1), nonblocking, exception-contained and safe for reentrancy; schedule business work outside native locks.",
+        "Keep fixed terminal-notice bookkeeping bounded O(1). Ordinary notification validation/copy is bounded O(payload bytes) under declared byte/item limits, nonblocking and exception-contained; dispatch business handlers outside native locks. Explicit synchronous decision profiles follow D05 fail-closed and no-self-wait rules.",
         "Handle registration failure, callback-before-return and final release through single owner-transfer rules."
       ],
       "error_cancellation_resources_concurrency": [

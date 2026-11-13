@@ -117,7 +117,7 @@
         "NativeWeave:tests/Packaging.Linux/",
         "Plan:ledger/evidence/A14/"
       ],
-      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "dependency_rationale": "Packaging/profile tooling may start after A13/A10/A11. Acceptance additionally requires A07 and its transitive A03/A04/A05/A06 implementation closure so the promised lease/callback/error/async product tests execute real completed Core modules; fixture-only generation evidence is insufficient.",
       "verification_matrix": {
         "operating_systems": [
           "Linux x64"
@@ -155,7 +155,7 @@
         "NativeWeave:tests/Packaging.Windows/",
         "Plan:ledger/evidence/A15/"
       ],
-      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "dependency_rationale": "Packaging/profile tooling may start after A13/A10/A11. Acceptance additionally requires A07 and its transitive A03/A04/A05/A06 implementation closure so the promised lease/callback/error/async product tests execute real completed Core modules; fixture-only generation evidence is insufficient.",
       "verification_matrix": {
         "operating_systems": [
           "Windows x64"
@@ -178,7 +178,12 @@
         "Package exact validated artifacts and license/NOTICE/source manifest; bind external package digest without circular self-hashing.",
         "Run pristine no-Rust independent consumer: restore/build/run, offline-after-restore edit and explicit-RID AOT publish/execute.",
         "Add an Entity/DTO/Handler and verify native hash unchanged; missing feature produces clear diagnostic instead of rebuilding Rust.",
-        "Verify provenance identity/subject digest and compatibility matrix before immutable publication; retain rollback package set."
+        "Verify provenance identity/subject digest and compatibility matrix before immutable publication; retain rollback package set.",
+        "Build D10 exact owned-package closure: normalized package ID/version entries, explicit dependency edges using exact [V] NuGet ranges, Engine/RID/ABI/capability and native payload hashes. Unrelated ecosystem dependencies retain their separately reviewed policy.",
+        "Provide build-transitive validation after restore and before build/publish that compares resolved owned packages and selected native metadata to the accepted closure, emitting a hard mismatch error even if application direct overrides or suppressed NU1608/NU1605 warnings would otherwise restore. A13 integrates shared targets; A02 supplies independent runtime bootstrap compatibility checks.",
+        "Verify the complete closure from isolated staging on the declared Windows/Linux profiles, upload immutable dependency leaves before facades, journal each package outcome, then read back and restore every required destination package before exposing the catalog. Partial publication has no atomic rollback.",
+        "On 409 or retry/skip-duplicate, read the existing package and verify allowed signing identities, accepted payload entries/nuspec/dependencies/native hashes before resumption. Record upload and downloaded archive hashes separately; legitimate repository-signature envelope change is checked by a package-signature verifier, never by ignoring arbitrary differing entries. A payload or identity conflict stops this release and requires a new version.",
+        "Unlist/deprecate is visibility guidance: known-version restores and caches remain. Preserve a previously tested complete closure for deployment rollback; do not hot-unload or replace a native module in an existing process."
       ],
       "error_cancellation_resources_concurrency": [
         "Hash integrity is not publisher authentication; unknown builder or unexpected digest fails release.",
@@ -186,7 +191,10 @@
       ],
       "specific_acceptance": [
         "Both OS clean-image consumption and runtime-only execution; restored asset manifest matches actual loaded native hash.",
-        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations."
+        "License/transitive closure, tampered/missing/native ABI negatives and old/new coordinated package combinations.",
+        "Inspect owned-package nuspec exact [V] edges and test application direct-version override with NU1608 warnings both enabled and suppressed; the project closure hard-error still rejects the invalid package/native profile.",
+        "Exercise missing leaf/RID, partially published closure, matching existing ID/version, conflicting existing payload, allowed repository-signature-envelope renewal versus changed payload/nuspec/native entry, and unlisted known-version restore. A successful subset of uploads or skip-duplicate response never accepts a complete release.",
+        "Restore and execute the complete accepted closure from an independent source/cache on clean Windows/Linux no-Rust consumers; capture uploaded/downloaded archive identities, signature verification, native-file hashes, full per-package journal and previous-complete-closure rollback."
       ],
       "write_scopes": [
         "NativeWeave:src/Packaging.Release/",
