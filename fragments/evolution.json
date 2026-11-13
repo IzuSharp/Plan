@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D31",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "A22",
+    "A24"
+  ],
+  "design_inputs": [
+    {
+      "id": "R14",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R14/report.md",
+        "NativeWeave-Design:docs/research/topics/R14/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R14/coverage.json"
+      ]
+    },
+    {
+      "id": "R18",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R18/report.md",
+        "NativeWeave-Design:docs/research/topics/R18/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R18/coverage.json"
+      ]
+    },
+    {
+      "id": "R34",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R34/report.md",
+        "NativeWeave-Design:docs/research/topics/R34/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R34/coverage.json"
+      ]
+    },
+    {
+      "id": "D02",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/abi-v0.1.md"
+      ]
+    },
+    {
+      "id": "D10",
+      "outputs": [
+        "NativeWeave-Design:docs/platforms/build-package-release.md"
+      ]
+    },
+    {
+      "id": "D11",
+      "outputs": [
+        "NativeWeave-Design:docs/extension/engine-integration.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "A22": {
+      "title": "ABI/API升级与兼容性测试",
+      "boundary_and_ownership": "Upstream/package/ABI/behavior compatibility and patch upgrade verification.",
+      "native_reuse": "Actual upstream API/source maps, Cargo.lock/checksums and package/provenance tooling.",
+      "csharp_surface": "Maintainer compatibility manifest and version-matrix runner; no runtime auto-update service.",
+      "implementation_steps": [
+        "Compare old/new public/private seams, layout/capability/schema/semantic versions, selected features/MSRV and dependency/license changes.",
+        "Run old managed/new native and new managed/old native compatibility plus incompatible major/feature negatives.",
+        "Bind fork patch queue to exact upstream and differential tests with exit owner; prefer public replacement when available.",
+        "Record security cooldown exceptions and rollback immutable package set; baseline performance method from D13."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "A source tag or package version alone cannot prove compiled artifact identity.",
+        "Same ABI bytes with changed SQL/error/cancel semantics still requires compatibility decision."
+      ],
+      "specific_acceptance": [
+        "Deliberately incompatible layout/capability/semantic changes fail, compatible optional minor passes on both OS.",
+        "Manifest/provenance substitution, stale artifact and changed private seam negatives; reviewed update/rollback record."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Compatibility/",
+        "NativeWeave:tests/Verification.Compatibility/",
+        "Plan:ledger/evidence/A22/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A24": {
+      "title": "Engine接入脚手架及conformance入口",
+      "boundary_and_ownership": "Small Engine manifest/scaffold and repeatable conformance entrypoint, no fourth planning system.",
+      "native_reuse": "Reuse A09–A13 generation/build infrastructure and mature Engine-specific seam selection.",
+      "csharp_surface": "CLI/templates produce maintainer adapter package and typed static facade skeleton with clear ownership.",
+      "implementation_steps": [
+        "Generate only opted-in ABI/ownership/error/buffer/async/affinity pieces from a minimal Engine descriptor.",
+        "Include exact upstream/crate/patch/features/target provenance and source/test coverage obligations.",
+        "Run scaffold through A17 synchronous and A18 async profiles and show unchanged Core modules where no new common capability is needed.",
+        "Keep product application variation as metadata/managed methods; scaffolding is a maintainer action, never hidden consumer compilation."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Unknown required capability/layout or missing owner release fails scaffold validation.",
+        "Do not export private source layout or automatically create a global executor."
+      ],
+      "specific_acceptance": [
+        "Two heterogeneous real Engine scaffolds compile and pass respective conformance; generated imports/export inventory matches.",
+        "Independent package consumption and deliberate unsupported schema/feature negative; exact template source/hash."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Tooling.EngineScaffold/",
+        "NativeWeave:tests/Tooling.EngineScaffold/",
+        "Plan:ledger/evidence/A24/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn.",
+  "evolution_rules": [
+    "Four independent identities: source/crate, C ABI, C# API and domain semantics; record relation rather than merge versions.",
+    "Any changed accepted input invalidates dependent review by exact hash/revision snapshot; re-review affected slice, not every unrelated task.",
+    "Controlled fork requires upstream base/patch queue/license/security owner/exit condition and direct-native regression oracles.",
+    "New Engine uses existing schema/contracts and a scoped task/fragment amendment in the existing three graphs, no fourth workflow.",
+    "No automatic production dependency promotion; security exception records reason and exact update evidence."
+  ]
+}

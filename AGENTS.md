@@ -1,28 +1,12 @@
-> **Current phase:** research and detailed design only; see [CURRENT-PHASE.md](CURRENT-PHASE.md). Research experiments and current evidence belong in NativeWeave-Design. No product write or A/B Delivery execution is authorized.
+# NativeWeave Plan 工作规则
 
-# NativeWeave Plan工作规则
+NativeWeave 采用 Source-Driven Deep Native Integration。C# 是应用开发语言，提供强类型 Fluent、静态元数据/DTO 和业务 Handler；数据库驱动、查询/方言/ORM 关系执行及 Server 网络/协议/运行时必须复用成熟 Rust 引擎。Kestrel、Npgsql 等只作对照。普通应用不手写 Rust/FFI，不因新增 Entity/DTO/Handler 重编译 native。保持正常 dotnet build/run 与真实 Native AOT 发布，不构造 C# SQL AST/完整 LINQ Provider 或巨型 Core runtime。
 
-本仓库是NativeWeave研究、文档与执行计划权威；Design契约在IzuSharp/NativeWeave-Design，产品在IzuSharp/NativeWeave。ArcForges文档只参考格式，不能继承其内容规则。
-
-1. 先读README、对应独立packet及精确版本输入；用户本会话的明确要求优先。
-2. 三图不得合并成一条串行清单。研究/文档draft可以并行；产品任务必须有相关已接受契约和局部依赖。
-3. 不把planned_candidate提升为accepted，也不把未执行的代码/模型/AOT声明为通过。
-4. 只写自己的scope；图、registry、共享索引通过整合者小范围修改，不加全局单worker锁。
-5. 修改graph/packet后运行`python3 tools/validate_graphs.py`。packet字节变更须更新明确hash并使旧review失效；禁止改hash来掩盖内容与Review不符。
-6. 接受态必须绑定当前内容、实际证据、精确依赖与独立审查。命令日志/制品/源码状态分别记录，Windows与Linux证据不能互代。
-7. 研究和文档任务可以创建独立分支与Draft PR；不擅自更改许可证、仓库权限、保护规则，或发布/合并产品。
-8. 新engine使用独立fragment/任务/包；C#应用不得因为通用框架而无条件引入native runtime。
-
-本文件不要求为已获授权的研究、文档和可逆验证再向用户逐项确认。
-
-
-## Source-driven amendment (2026-11-12)
-
-NativeWeave独立于ArcForges，ArcForges只参考格式。C#是应用开发层，正式消费必须Native AOT。Database底层必须Rust，managed驱动只作源码/基准对照；Rust Server可选且需证据。优先源码驱动深度复用；普通新实体使用预编译native能力，不默认Cargo/CI。自然typed Fluent优先，不要求完整IQueryable/EF，不在C#重写SQL AST/方言。SG可选生成static metadata/DTO，不是唯一查询路径。Core只提供可组合ABI/lifetime/buffer/error/async，无巨型runtime。保留严格安全和生产验收，不授权大规模产品实现。
-
-读取source-driven-baseline.json、同ID新packet和Design ADR-0002。独立Review检查新hash、backend拒绝、fallible binder、无逐实体Cargo、Server body/retirement、三图和未完成验证。旧Review不接受新内容；不增加规划层。
-
-
-## 2026-11-12 Rust1.100连续执行授权
-
-当前稳定Rust/Cargo1.100研究与真实两OS测试见Design R01。Design PR5/Plan PR2可按用户明确例外经严格self-review和真实检查合并，独立审查未完成必须保留D32复审；不绕过GitHub门禁或伪造accepted契约。普通技术任务不再逐个询问。按图ready/continuable实际执行；没有accepted前置的Delivery保持候选，先执行已有R/D的真实源码/编译fixture。此段历史授权已由 CURRENT-PHASE.md 及最新用户指令收窄：只允许 Design 内的研究实验与详细设计，不允许正式产品实施。
+1. 当前只研究、设计和完善未来实施计划。用户已授权必要Design/Plan提交、PR及符合仓库规则的合并；不重复询问。NativeWeave产品不写入。
+2. 保留34R/32D/48Delivery和三图；`fragments/`仅细化既有任务。先读已存在成果和真实审查，再补缺口。
+3. 每项packet/graph有精确revision/hash；接受绑定实际来源、依赖和独立审查，不能只改status或补假证据。
+4. 技术设计可以在产品实现前接受；产品AOT/真实服务/长负载/发布义务单列。源码已读、上游测试已读、实际运行和产品验收严格区分。
+5. 只写自己的scope。独立Worktree并行；共享根构建manifest走A13整合小补丁，不设置全局锁。
+6. 修改当前图/packet/registry后运行结构、当前完成度和负例门禁；旧冻结检查在旧Commit执行，不能把旧proposed快照当永远禁止接受的规则。
+7. 保留失败记录、原始字节和独立Windows/Linux身份；二进制省略时明确其archive/内容hash及再现方式。
+8. 子代理可做真实独立技术审查，但同GitHub身份不能冒充另一个审批账号。不得绕过Required Checks或修改权限/许可证以使合并通过。

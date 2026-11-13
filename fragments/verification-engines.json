@@ -1,0 +1,313 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D26",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "A17",
+    "A18",
+    "A19",
+    "A20",
+    "A21",
+    "A23"
+  ],
+  "design_inputs": [
+    {
+      "id": "R15",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R15/report.md",
+        "NativeWeave-Design:docs/research/topics/R15/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R15/coverage.json"
+      ]
+    },
+    {
+      "id": "R16",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R16/report.md",
+        "NativeWeave-Design:docs/research/topics/R16/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R16/coverage.json"
+      ]
+    },
+    {
+      "id": "R17",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R17/report.md",
+        "NativeWeave-Design:docs/research/topics/R17/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R17/coverage.json"
+      ]
+    },
+    {
+      "id": "R18",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R18/report.md",
+        "NativeWeave-Design:docs/research/topics/R18/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R18/coverage.json"
+      ]
+    },
+    {
+      "id": "D11",
+      "outputs": [
+        "NativeWeave-Design:docs/extension/engine-integration.md"
+      ]
+    },
+    {
+      "id": "D12",
+      "outputs": [
+        "NativeWeave-Design:docs/verification/models-and-matrix.md"
+      ]
+    },
+    {
+      "id": "D13",
+      "outputs": [
+        "NativeWeave-Design:docs/performance/methodology.md"
+      ]
+    },
+    {
+      "id": "D21",
+      "outputs": [
+        "NativeWeave-Design:docs/extension/future-platforms.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "A17": {
+      "title": "真实同步Engine接入验证",
+      "boundary_and_ownership": "Real synchronous Engine conformance using miniz_oxide codec category, not a byte-sum mock.",
+      "native_reuse": "miniz_oxide native zlib compression and bounded decompression; .NET ZLibStream is compatibility/cost oracle.",
+      "csharp_surface": "Typed codec span/array/owned-buffer facade with explicit size limit.",
+      "implementation_steps": [
+        "Wrap real pinned native algorithm in minimal C exports and explicit owner release; opt out of executor/callback capabilities.",
+        "Use fallible checked admission and bounded decompressor; state honest OOM/unwind limits and partial-output drop behavior.",
+        "Consume through generated facade and independent NuGet ordinary/AOT application.",
+        "Record incremental Engine code/dependency/package costs and compare direct Rust behavior without numerical superiority claims."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Malformed or oversized/decompression-bomb inputs expose no partial owner; empty input handled explicitly.",
+        "Synchronous algorithm does not advertise cancellation after the noninterruptible native call starts."
+      ],
+      "specific_acceptance": [
+        "Direct Rust versus C# versus ZLibStream round-trip for varied sizes, malformed input and limit; creating allocator frees exactly once.",
+        "Windows/Linux AOT and no global Tokio startup; independent app change preserves native hash."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Engines.SyncProof/",
+        "NativeWeave:tests/Engines.SyncProof/",
+        "Plan:ledger/evidence/A17/",
+        "NativeWeave:native/engines/sync-proof/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A18": {
+      "title": "真实异步Engine接入验证",
+      "boundary_and_ownership": "Real asynchronous Engine conformance using HTTP service/streaming, independently of final domain product.",
+      "native_reuse": "Tokio/Hyper/Bytes mature I/O/protocol/task mechanisms; no second managed HTTP core.",
+      "csharp_surface": "Typed async request/stream API using A07 and owned chunks.",
+      "implementation_steps": [
+        "Select smallest real HTTP operation profile with direct Rust oracle and one statically compiled foreign Handler.",
+        "Exercise create/register/start, completion/take/result ownership and two-sided retirement against actual native async I/O.",
+        "Implement finite byte/item/operation limits and close/drain semantics using common contracts; runtime stays Engine-local.",
+        "Package independently and record incremental adapter cost versus A17 synchronous Engine."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Future completion is not Body or Bytes lifetime; no permit release before backing owner retirement.",
+        "Abort/reset/cancel and late managed delivery cannot free callback roots early or lose terminal result."
+      ],
+      "specific_acceptance": [
+        "Actual network request, slow body producer/consumer, reset/disconnect and host close under Windows/Linux AOT.",
+        "Retained buffer/queued callback counters reach quiescence; direct native result/error oracle."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Engines.AsyncProof/",
+        "NativeWeave:tests/Engines.AsyncProof/",
+        "Plan:ledger/evidence/A18/",
+        "NativeWeave:native/engines/async-proof/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A19": {
+      "title": "生命周期与异步可执行模型",
+      "boundary_and_ownership": "Executable abstract lifecycle/state models and counterexample recording.",
+      "native_reuse": "Use finite model checker, Loom/Kani where applicable and source-defined memory ordering; tool success scoped to model.",
+      "csharp_surface": "No product API; model inputs are explicit finite state/queue/fairness assumptions.",
+      "implementation_steps": [
+        "Model logical admission/AddRef rollback, create/register/start, terminal ownership, take-once and native+managed retirement.",
+        "Encode unsafe legacy schedules as negative controls; retain counterexample trace and map each corrected transition to code owner.",
+        "Specify liveness fairness and bounded capacity explicitly; distinguish absence of finite counterexample from unbounded proof.",
+        "Run models independently of unfinished implementation; bind later refinement tests to exact implementation source."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Timeout/state-space exhaustion is inconclusive, never passed.",
+        "A model without real weak-memory semantics cannot prove all Rust/CLR races absent."
+      ],
+      "specific_acceptance": [
+        "Expected old lost-wake counterexample reproduced; candidate model invariants and bounded liveness validated.",
+        "Windows/Linux model execution records, seeds/state counts/tool version; later A20 refines implementation races."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Models/",
+        "NativeWeave:tests/Verification.Models/",
+        "Plan:ledger/evidence/A19/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "model_check execution; no AOT claim from the model"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A20": {
+      "title": "ABI和资源跨语言性质与模糊测试",
+      "boundary_and_ownership": "Cross-language properties/fuzz/race/sanitizer verification of actual Core implementation.",
+      "native_reuse": "libFuzzer/property tooling/Miri/Loom/sanitizers only on supported components/targets; no blanket all-FFI tooling claim.",
+      "csharp_surface": "Test harnesses only, with actual compiled C/Rust/C# exports.",
+      "implementation_steps": [
+        "Generate valid/invalid descriptors and compare native/C# outcomes to independent mathematical/reference oracles.",
+        "Force every owner/callback/async/close interleaving with barriers; separate managed GC scheduling from native counters.",
+        "Run malformed boundary/crash negatives in isolated subprocesses with timeouts and saved seeds/minimized cases.",
+        "Declare exact sanitizer/model-supported subsets and carry unsupported full CLR FFI coverage through real target tests."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Fuzz timeout/crash/OOM is retained failure/inconclusive, never silently discarded.",
+        "Do not call arbitrary invalid raw pointer cases in a process whose survival is asserted."
+      ],
+      "specific_acceptance": [
+        "Full offsets/extents/UTF8/status/owner transfer properties, duplicate/late callback and shutdown race schedules.",
+        "No leaked outstanding owners after all acknowledged retirement; source/log/seed/tool hashes and independent failure triage."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.Interop/",
+        "NativeWeave:tests/Verification.Interop/",
+        "Plan:ledger/evidence/A20/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A21": {
+      "title": "三路线基准与资源观测工具",
+      "boundary_and_ownership": "External reproducible performance/load controller and resource observation schema.",
+      "native_reuse": "BDN/Criterion for labelled microbenchmarks, HdrHistogram or equivalent raw histogram support; OS/native/CLR counters.",
+      "csharp_surface": "Separate target executables: direct Rust, C# AOT+Rust and equivalent managed AOT comparator.",
+      "implementation_steps": [
+        "Implement scheduled-arrival open-loop workload with separate dispatch/admission/completion times and generator saturation detection.",
+        "Keep failures/timeouts/rejections in datasets; preserve raw histograms/overflow and independent process repetitions.",
+        "Record exact hardware/ISA/power/OS/features/locks/artifact hashes, warm/cold cache/durability/TLS/serialization settings.",
+        "Collect managed/native allocations, copied bytes, owner/permit counts, RSS/private working set/thread stacks and engineering cost.",
+        "Predeclare workload cells and noise-based regression analysis; override BDN host-native ISA when testing portable releases."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Coordinated omission, omitted timeouts or saturated load generator invalidate comparison cell.",
+        "Unavailable counters are unknown, not zero; queue byte limit does not imply RSS cap."
+      ],
+      "specific_acceptance": [
+        "Finite omission counterexample distinguishes 1ms service p99 from 100ms arrival latency; no double correction.",
+        "Harness validates result integrity/counter schema on both OS; actual domain performance belongs B23."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Benchmarks.Harness/",
+        "NativeWeave:tests/Benchmarks.Harness/",
+        "Plan:ledger/evidence/A21/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A23": {
+      "title": "线程亲和与特殊平台接入探针",
+      "boundary_and_ownership": "Optional affinity/device/platform probes, isolated from mandatory desktop Core.",
+      "native_reuse": "R32/R33 mature UI/GPU/event-loop/device APIs; native Engine preserves thread-affine ownership.",
+      "csharp_surface": "Typed dispatcher/capability/lifecycle interfaces for explicitly supported profile only.",
+      "implementation_steps": [
+        "Implement minimal affinity capability descriptor and owner-thread dispatch without adding a global GUI/GPU runtime.",
+        "Exercise main-thread access, queue close, device/window loss and deferred resource release/fence ordering in supported probe.",
+        "Define explicit unsupported-target behavior for mobile/static-link/WASM profiles and required toolchain/licensing prerequisites.",
+        "Document extension conformance changes and incremental Core impact; future platform code stays outside current mandatory release."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Send/Sync cannot be inferred from a pointer; caller wrong-thread use rejected before source-affine operation.",
+        "Timeout/device loss does not imply GPU completion or safe immediate native deallocation."
+      ],
+      "specific_acceptance": [
+        "Affinity access/retire race and unsupported capability negatives on actual available targets; no simulated success for unavailable device.",
+        "Windows/Linux cross-language capability/lease tests; device-specific certification stays explicit separate target evidence."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Verification.ExtensionProof/",
+        "NativeWeave:tests/Verification.ExtensionProof/",
+        "Plan:ledger/evidence/A23/",
+        "NativeWeave:native/engines/extension-proof/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

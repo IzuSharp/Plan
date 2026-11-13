@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D24",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "A06",
+    "A07",
+    "A08"
+  ],
+  "design_inputs": [
+    {
+      "id": "R08",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R08/report.md",
+        "NativeWeave-Design:docs/research/topics/R08/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R08/coverage.json"
+      ]
+    },
+    {
+      "id": "R09",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R09/report.md",
+        "NativeWeave-Design:docs/research/topics/R09/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R09/coverage.json"
+      ]
+    },
+    {
+      "id": "R12",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R12/report.md",
+        "NativeWeave-Design:docs/research/topics/R12/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R12/coverage.json"
+      ]
+    },
+    {
+      "id": "D05",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/callback-v0.1.md"
+      ]
+    },
+    {
+      "id": "D06",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/async-v0.1.md"
+      ]
+    },
+    {
+      "id": "D09",
+      "outputs": [
+        "NativeWeave-Design:docs/contracts/concurrency-v0.1.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "A06": {
+      "title": "Callback注册、撤销与排空",
+      "boundary_and_ownership": "Registration and revocation of statically compiled callbacks with explicit managed root lifetime.",
+      "native_reuse": "Existing native wake/event hooks; one optional bridge, no reflection/delegate dynamic export.",
+      "csharp_surface": "Opaque registration token; static UnmanagedCallersOnly trampoline dispatches through a validated cookie.",
+      "implementation_steps": [
+        "Implement registration state with active native invocations and queued/running managed deliveries counted separately.",
+        "Revocation closes admission then requests native quiescence; keep GCHandle/cookie until both native and managed counts retire.",
+        "Make the native callback O(1), nonblocking, exception-contained and safe for reentrancy; schedule business work outside native locks.",
+        "Handle registration failure, callback-before-return and final release through single owner-transfer rules."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "A pending ThreadPool item can outlive native callback return; native ack alone cannot free its cookie.",
+        "Closing dispatcher must account for accepted queued work; no unbounded callback mailbox."
+      ],
+      "specific_acceptance": [
+        "Forced callback/unregister/GC/queued-delivery races, duplicate wake and rejected registration leave correct counters.",
+        "Bad UCO signature compile/runtime negative isolated; no claim method-body catch repairs it."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Callbacks/",
+        "NativeWeave:tests/Interop.Callbacks/",
+        "Plan:ledger/evidence/A06/",
+        "NativeWeave:native/interop/callbacks/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A07": {
+      "title": "Task异步桥与取消状态机",
+      "boundary_and_ownership": "Operation state machine: completion/cancellation/result ownership/retirement are separate.",
+      "native_reuse": "Pinned Engine Future/executor semantics plus Core callbacks; no runtime-independent Future ABI.",
+      "csharp_surface": "Task-based async API; ValueTask only when lifetime-safe reuse is proven; create/register/start handshake.",
+      "implementation_steps": [
+        "Create operation with callback admission closed, register managed cancellation/root, then start; already-cancelled token safely requests cancellation before or during start.",
+        "Atomically select one terminal result; request_cancel never replaces committed success/error and take_result transfers its owner once.",
+        "Publish terminal notification through bounded mailbox/sequence protocol with no lost wake; acknowledge delivery and hold result lease through DTO materialization.",
+        "DisposeAsync rejects new work, requests native cleanup, waits native quiescence and managed delivery retirement, then unregisters roots/releases handles.",
+        "Document synchronous completion and every failed create/register/start/queue/take path with current resource owner."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Callback scheduling failure cannot lose an already committed terminal or free a still-live native operation.",
+        "CancellationTokenRegistration disposal/reentrancy must not deadlock under callback locks; caller timeout preserves live cleanup owners."
+      ],
+      "specific_acceptance": [
+        "Port finite model and discovered lost-wake counterexample into product regression; controlled scheduler covers each state transition.",
+        "Duplicate complete/take, precancel, mapping throw, callback queued during close and final GC on both AOT OS; live owner counts return to baseline."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Async/",
+        "NativeWeave:tests/Interop.Async/",
+        "Plan:ledger/evidence/A07/",
+        "NativeWeave:native/interop/async/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A08": {
+      "title": "可选执行器、容量与关闭",
+      "boundary_and_ownership": "Optional execution/admission component only when an Engine needs it; no mandatory shared Tokio process runtime.",
+      "native_reuse": "Tokio runtime/JoinSet/semaphore/cancellation semantics; each Engine owns its configured runtime.",
+      "csharp_surface": "Executor options/queue limits and lifecycle contract consumed explicitly by Engine.",
+      "implementation_steps": [
+        "Implement Engine-local runtime handle or injected accepted executor profile with explicit ownership and thread counts.",
+        "Bound queued metadata, admitted work, byte reservations and retirement backlog separately; reject impossible requests immediately.",
+        "Shutdown closes admission, wakes/removes waiters, requests cancellation, drains tracked tasks and acknowledges actual worker retirement.",
+        "Expose timeout as incomplete safe cleanup and diagnostics, not force-destruction of active callbacks/buffers."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Dropping a Tokio handle/Future does not prove spawn_blocking work or OS threads exited.",
+        "Cancellation paths return permits/reservations exactly once; no unbounded background retry task."
+      ],
+      "specific_acceptance": [
+        "Capacity zero/full/oversize, fairness and close-with-issued-permit races; actual join ack and retained-owner counters.",
+        "Synchronous Engine package runs without constructing this component."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Interop.Execution/",
+        "NativeWeave:tests/Interop.Execution/",
+        "Plan:ledger/evidence/A08/",
+        "NativeWeave:native/interop/execution/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

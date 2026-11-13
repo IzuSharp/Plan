@@ -1,0 +1,395 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D29",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "B15",
+    "B16",
+    "B17",
+    "B18",
+    "B19",
+    "B20"
+  ],
+  "design_inputs": [
+    {
+      "id": "R26",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R26/report.md",
+        "NativeWeave-Design:docs/research/topics/R26/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R26/coverage.json"
+      ]
+    },
+    {
+      "id": "R27",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R27/report.md",
+        "NativeWeave-Design:docs/research/topics/R27/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R27/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R27/source-driven-server.md",
+        "NativeWeave-Design:docs/research/topics/R27/native-slice-validation.md"
+      ]
+    },
+    {
+      "id": "R28",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R28/report.md",
+        "NativeWeave-Design:docs/research/topics/R28/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R28/coverage.json"
+      ]
+    },
+    {
+      "id": "R29",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R29/report.md",
+        "NativeWeave-Design:docs/research/topics/R29/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R29/coverage.json"
+      ]
+    },
+    {
+      "id": "R30",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R30/report.md",
+        "NativeWeave-Design:docs/research/topics/R30/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R30/coverage.json"
+      ]
+    },
+    {
+      "id": "D18",
+      "outputs": [
+        "NativeWeave-Design:docs/server/hosting-and-streaming.md"
+      ]
+    },
+    {
+      "id": "D19",
+      "outputs": [
+        "NativeWeave-Design:docs/server/protocols-and-observability.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "B15": {
+      "title": "C# Server Application、强类型 Handler 与静态注册",
+      "boundary_and_ownership": "C# application/Handler/DI/static serializer surface; B17 owns actual native host.",
+      "native_reuse": [
+        "Required Rust Server B17 provides all transport/protocol/runtime resources.",
+        "C# .NET static JSON metadata and existing Core binding generator provide the application surface."
+      ],
+      "csharp_surface": [
+        "NativeServerBuilder, NativeServer, typed route descriptors, WeaveRequest/Response, generated JsonTypeInfo registrations.",
+        "Application-to-native registration contains Handler IDs and immutable metadata; no per-route Cargo or Rust code generation.",
+        "One reusable registered native dispatch callback enqueues bounded managed work; business delegates never run synchronously under native locks."
+      ],
+      "implementation_steps": [
+        "Implement immutable validated builder/route/serializer configuration with duplicate/unsupported feature diagnostics.",
+        "Use the accepted Server operation table and Core loader to bind the native module; write no managed HTTP parser/listener.",
+        "Create one application/DI request scope after successful admission; invoke typed Handler on managed scheduler and complete native operation exactly once.",
+        "Provide owned async body APIs by consuming B16; release DTO/input/result owners on mapping failure and cancellation.",
+        "Implement ordinary local consumption and Native AOT package tests after B17 is available.",
+        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Reject unknown serializer/route/capability before serving.",
+        "Handler exception maps to bounded HTTP error only before headers commit; after commit close/reset with diagnostic.",
+        "Task completion does not release body backing bytes or GC roots before native retirement."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Two applications add different Handler/DTO types while loading byte-identical precompiled Rust binary.",
+        "Real HTTP1/HTTP2 native-host request on Windows/Linux AOT; exception, cancellation, disposed app and duplicate route negative cases."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Application/",
+        "NativeWeave:tests/Server.Application/",
+        "Plan:ledger/evidence/B15/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B16": {
+      "title": "Rust Body 与 C# 租约的有界流和预算",
+      "boundary_and_ownership": "Owned Body/Bytes budget and stream component; native/server/streaming is independent of host orchestration.",
+      "native_reuse": [
+        "http-body/Bytes/Tokio bounded channels and owner-backed buffers; no managed protocol AST/runtime."
+      ],
+      "csharp_surface": [
+        "RequestBudget, owned ReadBodyAsync/WriteBodyAsync, Data/Trailers/End result; one pending read and one pending write.",
+        "Native Body and retained allocation budget owners; configurable finite active/waiting/retiring request quotas."
+      ],
+      "implementation_steps": [
+        "Implement checked global/per-request byte coordinator with atomic grants or rollback-safe try-acquire; reject impossible single-object credit requests.",
+        "Acquire credit before allocation/pin/copy; transfer charge with owner and retain full backing allocation charge through clones/nonempty slices.",
+        "Reserve bounded copy overlap slack on both sides; cancellation removes metadata waiters and returns uncommitted reservations.",
+        "Implement native Body bridge and C# safe lease facade over existing Core buffer/async; optional pipes facade cannot alter ownership.",
+        "Test the streaming crate/facade independently on real native Body/protocol fixtures; end-to-end assembled application/soak belongs to B22/B23."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Response-head Future end, body EOF, backing allocation drop, callback retirement and OS join are different milestones.",
+        "Receiver close does not revoke previously issued permits; close cancels/empties outstanding byte waits explicitly.",
+        "ReferenceSmall uses4MiB/request/side,1MiB JSON and32KiB chunks; charge real capacity and reject impossible peaks rather than deadlock."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Retained Bytes slicing/drop, old permit across close, zero/huge lengths, copy overlap, cancellation at every ownership transition.",
+        "Bounded queued metadata and charged bytes under slow producer/consumer; no RSS guarantee from item count."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Streaming/",
+        "NativeWeave:native/server/streaming/",
+        "NativeWeave:tests/Server.Streaming/",
+        "Plan:ledger/evidence/B16/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B17": {
+      "title": "必需 Rust Server Host 与 Handler 边界",
+      "boundary_and_ownership": "Only production host: Rust Tokio/Hyper/Tower/Axum composition, Engine-local runtime and native network/protocol/connection/shutdown.",
+      "native_reuse": [
+        "Tokio1.54.1, Hyper1.12.0/hyper-util0.1.21, Tower0.5.3; selective Axum0.8.9 routing; rustls0.23.46.",
+        "One engine-owned native runtime; no Kestrel fallback, duplicate TLS or per-handler Rust compilation."
+      ],
+      "csharp_surface": [
+        "Size/version/capability Server table uses server_create/start, request_dispatch/read, response_begin/write/finish, request_abort, server_close.",
+        "Runtime descriptor registry maps C# Handler IDs/routes to one compiled native ForeignService.",
+        "Engine-local ClosePending retains module/runtime/callback/operation owners; actual thread join is a separate obligation."
+      ],
+      "implementation_steps": [
+        "Build native module and schema table under this task ownership; regenerate bindings through A10/A11.",
+        "Configure bounded listeners/connections/H2 streams/handshakes, routes and native TLS before admitting requests.",
+        "Wrap Service response with B16 body/byte/request ownership extending past Tower response-future permit release.",
+        "Dispatch managed callback via bounded engine queue, complete waiting native Future on C# response, and preserve exact terminal/retirement competition.",
+        "Implement admission stop, drain/abort, monotonic deadlines and quiescence without forced module unload.",
+        "Verify public trait seam compatibility and package native assets; request upstream extension/fork only for a concrete unexposed capability.",
+        "Reuse A02 negotiated Engine loader/bootstrap and lifetime; do not implement a second module loader or capability protocol.",
+        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Panic/handler exception, late response, rejected dispatch, body reset, failed certificate/config or occupied port unwind owned resources.",
+        "Do not interpret Hyper Body None as peer consumption or always-normal transport end.",
+        "TLS config reload validates a whole immutable new snapshot; old handshakes retain old config; private keys never enter traces."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Real TCP HTTP1/HTTP2 and TLS with C# Native AOT Handler, no database dependency needed.",
+        "Callback start-return/cancel/complete/take/retire races, unconsumed body, slow streams, budget exhaustion, invalid protocol/cert and bounded shutdown.",
+        "Measure native+FFI costs versus direct native and Kestrel only under equivalent features; no language-based superiority assertion.",
+        "Use a static C# test dispatcher owned by B17 tests for actual native-host AOT integration. B15 application assembly is not a B17 acceptance prerequisite; B15 subsequently verifies its application surface against B17."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Native/",
+        "NativeWeave:native/server/host/",
+        "NativeWeave:tests/Server.Native/",
+        "Plan:ledger/evidence/B17/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B18": {
+      "title": "原生 Tonic gRPC 与 C# 静态 Protobuf 映射",
+      "boundary_and_ownership": "Rust Tonic gRPC protocol with statically generated C# DTO codec/dispatch; optional package for consumers.",
+      "native_reuse": [
+        "Tonic0.14.9 public Codec/Encoder/Decoder, Grpc and Unary/ServerStreaming/ClientStreaming/StreamingService traits.",
+        "Reuse B17 HTTP2/TLS/runtime and B16 owned chunks; do not add grpc-dotnet Server transport."
+      ],
+      "csharp_surface": [
+        "Runtime /package.Service/Method descriptor with kind/Handler ID/caps/auth/deadline plus generated typed C# encode/decode delegates.",
+        "Native RawCodec carries complete Bytes messages; tonic::Request<Bytes> or Streaming<Bytes>; tonic::Response<Bytes> or bounded Stream<Result<Bytes,Status>>.",
+        "Only host_task_id B17 in C-PROTOCOL profile; HTTP2 and protocol features negotiated explicitly."
+      ],
+      "implementation_steps": [
+        "Implement one runtime method router and four public native service adapters; copy/release payload ownership through Core operations.",
+        "Use generated C# protobuf models/typed parsers; no runtime schema compiler or reflection-discovered services.",
+        "Keep Tonic framing/compression/trailers/statuses native; preserve framed length OutOfRange11 versus decompression ResourceExhausted8.",
+        "Implement strict small Rust deadline policy: one1–8-digit timeout+H/M/S/m/u/n, checked/capped monotonic budget starting at admission; invalid3/expired4 statuses.",
+        "Keep deadline and body/operation owner alive after response head; private Tonic GrpcTimeout is not callable and only wraps ResponseFuture.",
+        "Integrate all method kinds and conformance clients under Windows/Linux Native AOT.",
+        "Construct a fresh Decoder for each request and selected method kind. Unary/server-stream methods accept exactly one frame, including a zero-byte protobuf message; reject a second frame with InvalidArgument(3) before Handler invocation. Client/bidi streaming permits multiple frames within total quota."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Unknown method, empty/multiple unary messages, truncated/oversize/compression payload, DTO failure, duplicate/invalid timeout and metadata errors preserve protocol categories.",
+        "After trailers/headers commit do not send a second HTTP JSON response; cancel does not prove remote side-effect rollback.",
+        "C# serialization temporary memory and native retained message buffers are independently charged."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Unary/client/server/bidi real HTTP2+TLS tests, half-close, request deadline after response headers, cancellation, trailers and streaming quota.",
+        "Two independent C# services using the same native asset; AOT without assembly-root suppression.",
+        "Cardinality oracle: zero frames yields native Internal(13); one empty or nonempty protobuf frame succeeds; a second frame for unary/server-stream yields status3 and Handler count0; state resets between requests; client/bidi multi-frame remains legal with bounded total bytes/messages."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Protocols.Grpc/",
+        "NativeWeave:native/protocols/grpc/",
+        "NativeWeave:tests/Protocols.Grpc/",
+        "Plan:ledger/evidence/B18/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B19": {
+      "title": "原生 rmcp 与 C# 静态工具和 JSON 映射",
+      "boundary_and_ownership": "Rust rmcp protocol with runtime tool metadata and static C# handlers/JSON metadata; optional package for consumers.",
+      "native_reuse": [
+        "rmcp3.10.0 StreamableHttpService<ForeignMcp,LocalSessionManager> Tower service and native model/transport."
+      ],
+      "csharp_surface": [
+        "Native runtime tool/resource/prompt descriptors, one ForeignMcp ServerHandler; get_info/supported_protocol_versions/list_tools/get_tool/call_tool.",
+        "C# MapMcp(GeneratedTools.All,profile,JsonContext), typed application delegates and explicit auth checks."
+      ],
+      "implementation_steps": [
+        "Enable exact2026-07-28 no-legacy/no-event-store profile, JSON response, required protocol metadata, finite body/schema/string/depth limits.",
+        "Supply explicit Host/Origin allowlists with ports; Origin is not authentication and absence does not bypass auth.",
+        "Register runtime tools and exact get_tool schemas; schema-dependent SEP-2243 Mcp-Param-* checks do not equal general JSON Schema argument validation.",
+        "Map native-decoded arguments through bounded owned UTF8 buffers into typed static C# DTOs and back; charge double parse/encode temporaries and measure cost.",
+        "Keep native protocol/JSON-RPC/MCP errors distinct from tool execution error results and HTTP pre-parser failures.",
+        "No-event-store unfinished response disconnect cancels; persisted/replay/legacy profiles remain explicitly unsupported until separately specified and accepted."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Unsupported version/tool/schema, header/meta mismatch, malformed JSON, body limit, auth failure and cancellation fail explicitly.",
+        "Tool annotations are not authorization; expensive metadata generation happens before serving.",
+        "Arbitrary JSON Schema validator is an explicit future capability choice, not falsely supplied by get_tool; current typed DTO validation is required glue."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Exact modern request metadata and method/Host/Origin/body negative matrix plus generated C# AOT tools on both platforms.",
+        "GET/DELETE405 only for initial no-event-store profile; disconnect/EOF/cancel, malformed/truncated requests and no session/replay leaks."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Protocols.Mcp/",
+        "NativeWeave:native/protocols/mcp/",
+        "NativeWeave:tests/Protocols.Mcp/",
+        "Plan:ledger/evidence/B19/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B20": {
+      "title": "诊断关联、总期限与关闭协调",
+      "boundary_and_ownership": "Native and managed diagnostic context/deadline/shutdown coordination, reusing actual host/stream state.",
+      "native_reuse": [
+        "ActivitySource/Meter and optional bounded OpenTelemetry exporter; Rust tracing0.1.44 per-poll Instrumented/WithDispatch."
+      ],
+      "csharp_surface": [
+        "TraceContextV1 size32/trace-id offset8/parent-span offset24; value metadata only, not Activity/GCHandle/span guard across FFI.",
+        "ShutdownCoordinator monitors admission, response/body/retained bytes/permits/callback/runtime ownership and separate OS join."
+      ],
+      "implementation_steps": [
+        "Integrate generated context layout/golden validation and parent capture/restoration around actual native callbacks.",
+        "Instrument native futures with explicit owned dispatcher, never hold span.enter guard across await or seize global subscriber in a library.",
+        "Implement fixed-cardinality route/provider/category metrics and bounded attribute/event/queue bytes, with overflow drop counters.",
+        "Coordinate single monotonic request deadline and bounded close; expose ClosePending and continue retirement safely rather than free on timeout.",
+        "Flush optional exporters only after business owners close and within independent finite timeout; network export never blocks FFI callback or native lock."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "No listener avoids creating Activity/tags; sampling changes diagnostics only.",
+        "Unknown DB commit remains Unknown during request timeout/shutdown; trace correlation is never identity/auth.",
+        "Callback/retirement counts and process exit/OS join are distinct; stalled exporter cannot retain business resource ownership."
+      ],
+      "specific_acceptance": [
+        "Normal dotnet build/run from an independent NuGet consumer without Rust installed; publish and execute win-x64 and linux-x64 Native AOT.",
+        "No product implementation is authorized now; this is refinement of the existing 48 Delivery tasks.",
+        "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
+        "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
+        "Actual cross-language context golden/malformed fields and worker migration; repeat callbacks/cancel/dispose races.",
+        "Exporter saturation/disconnect/block/timeout and no-secret assertions; disabled/sampled/full diagnostics cost from matched workloads."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Server.Diagnostics/",
+        "NativeWeave:native/server/diagnostics/",
+        "NativeWeave:tests/Server.Diagnostics/",
+        "Plan:ledger/evidence/B20/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

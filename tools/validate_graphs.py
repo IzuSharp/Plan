@@ -29,6 +29,17 @@ PLACEHOLDERS = {'','unassigned','todo','tbd','placeholder','template','unknown'}
 NODE_FIELDS = {'id','title','phase','status','owner_role','start_dependencies','acceptance_dependencies','contract_inputs','research_refs','documentation_refs','outputs','write_scopes','resource_locks','prompt','acceptance_evidence','independent_reviewers','revision','author','packet_sha256','dependency_pins','conditional_dependencies','selection_inputs'}
 RUN_KINDS = {'experiment_run','native_aot_run','build_run','model_check','conformance_run'}
 EVIDENCE_KINDS = RUN_KINDS | {'source_read','official_documentation','design_analysis','static_review'}
+ARCHITECTURE_POLICY = {
+ 'database_engine':'Rust', 'orm_query_relations_engine':'Rust', 'server_engine':'Rust',
+ 'server_host_task':'B17', 'server_application_task':'B15', 'kestrel_role':'comparison_only',
+ 'ordinary_entity_requires_rust_rebuild':False, 'managed_sql_ast_or_dialect':False,
+ 'full_linq_compatibility_goal':False, 'mandatory_global_runtime':False,
+}
+FRAGMENT_MIRROR_FIELDS = {
+ 'title','boundary_and_ownership','native_reuse','csharp_surface','implementation_steps',
+ 'error_cancellation_resources_concurrency','specific_acceptance','write_scopes',
+ 'dependency_rationale','verification_matrix',
+}
 
 
 def canonical_digest(value):
@@ -309,7 +320,7 @@ class Validator:
      self.err('CONTRACT_PIN',nid);continue
     if (c.get('id'),c.get('version')) not in self.contracts:self.err('CONTRACT_MISSING',f'{nid}: {c}')
   for label,fields in [('start',('start_dependencies',)),('acceptance',('start_dependencies','acceptance_dependencies'))]:
-   for path in cycles(self.nodes,lambda v:[d for f in fields for d in self.nodes[v].get(f,[])]+[c['task_id'] for c in self.nodes[v].get('conditional_dependencies',[]) if label=='acceptance' or c.get('gate')=='start']):
+   for path in cycles(self.nodes,lambda v:[d for f in fields for d in self.nodes[v].get(f,[])]+[c['task_id'] for c in self.nodes[v].get('conditional_dependencies',[]) if label=='acceptance' or c.get('gate')=='start']+(self.active_release_components(self.nodes[v]) if label=='acceptance' else [])):
     self.err('DEPENDENCY_CYCLE',label+': '+' -> '.join(path))
   ckeys=set(self.contracts)
   for key,c in self.contracts.items():
@@ -322,10 +333,11 @@ class Validator:
   c=self.contracts.get(key)
   return bool(c and c.get('status')=='accepted' and key in self.checked_contracts)
 
- def contract_host_profiles(self,key):
-  """Host scope lives in the spec bytes already bound by contract acceptance."""
-  if not self.contract_accepted(key):return set()
-  contract=self.contracts[key];ref=contract.get('spec_path')
+ def declared_contract_host_profiles(self,key):
+  """Read the hashed declaration even while a complete design awaits review."""
+  contract=self.contracts.get(key)
+  if not contract:return set()
+  ref=contract.get('spec_path')
   if isinstance(ref,str) and ':' not in ref:ref='NativeWeave-Design:'+ref
   raw=self.require_file_hash(ref,contract.get('content_sha256'),'protocol-host-scope/'+key[0]+'@'+key[1])
   if raw is None:return set()
@@ -333,9 +345,124 @@ class Validator:
    blocks=re.findall(r'^```json nativeweave-protocol-host-profiles-v1\r?\n(.*?)^```[ \t]*\r?$',raw.decode('utf-8'),re.M|re.S)
    if len(blocks)!=1:return set()
    declaration=json.loads(blocks[0]);hosts=declaration.get('host_task_ids')
-   if set(declaration)!={'host_task_ids'} or not isinstance(hosts,list) or not hosts or any(not isinstance(h,str) or not re.fullmatch(r'B\d{2,}',h) for h in hosts) or len(hosts)!=len(set(hosts)):return set()
+   if not isinstance(declaration,dict) or not {'host_task_ids'}.issubset(declaration) or not set(declaration).issubset({'host_task_ids','profiles'}):return set()
+   if not isinstance(hosts,list) or not hosts or any(not isinstance(h,str) or not re.fullmatch(r'B\d{2,}',h) for h in hosts) or len(hosts)!=len(set(hosts)):return set()
+   if 'profiles' in declaration:
+    profiles=declaration['profiles'];supported={'grpc':'native-tonic','mcp':'native-rmcp'}
+    if not isinstance(profiles,dict) or not profiles or any(name not in supported or backend!=supported[name] for name,backend in profiles.items()):return set()
    return set(hosts)
   except (UnicodeError,ValueError,TypeError,AttributeError):return set()
+
+ def contract_host_profiles(self,key):
+  """Acceptance-sensitive callers still require the original full contract gate."""
+  if not self.contract_accepted(key):return set()
+  return self.declared_contract_host_profiles(key)
+
+ def architecture(self):
+  """The current mission fixes Rust engines; only concrete native composition varies."""
+  graph=self.graphs.get('delivery',{});policy=graph.get('architecture_policy')
+  if not isinstance(policy,dict):self.err('ARCHITECTURE_POLICY_REQUIRED','delivery');return
+  if policy.get('version')!=graph.get('revision'):self.err('ARCHITECTURE_POLICY_VERSION','delivery')
+  for field,expected in ARCHITECTURE_POLICY.items():
+   actual=policy.get(field)
+   if type(actual) is not type(expected) or actual!=expected:
+    self.err('ARCHITECTURE_POLICY',field)
+  phase_authorized=policy.get('delivery_execution_authorized')
+  if type(phase_authorized) is not bool:self.err('PHASE_AUTHORIZATION_POLICY','delivery')
+  for nid,n in self.nodes.items():
+   if n.get('required_selection_groups'):
+    self.err('LEGACY_HOST_SELECTION_GROUP',nid)
+   if any(h in n.get('selection_inputs',[]) for h in ('B04','B15','B17')):
+    self.err('LEGACY_HOST_SELECTION_INPUT',nid)
+   if any(c.get('condition',{}).get('task_id') in {'B04','B15','B17'} for c in n.get('conditional_dependencies',[])):
+    self.err('OPTIONAL_NATIVE_ENGINE_DEPENDENCY',nid)
+   if n.get('protocol_host_profiles') is not None:
+    self.err('LEGACY_HOST_PROFILE_MATRIX',nid)
+   if self.kind.get(nid)!='delivery':continue
+   authorization=n.get('implementation_authorization',{})
+   if not isinstance(authorization,dict):self.err('IMPLEMENTATION_AUTHORIZATION_SCHEMA',nid);authorization={}
+   if phase_authorized is False and (authorization.get('status')!='not_authorized' or authorization.get('approval_record') is not None):
+    self.err('CURRENT_PHASE_PRODUCT_AUTHORIZATION',nid)
+   if phase_authorized is False and n.get('status') in TERMINAL|{'in_progress','partially_verified'}:
+    self.err('CURRENT_PHASE_PRODUCT_EXECUTION',nid)
+   if nid.startswith('B'):
+    number=int(nid[1:]);expected='mandatory_rust_database' if number<=14 else 'mandatory_rust_server' if number<=20 else 'mandatory_rust_database_and_server'
+    if n.get('native_backend_policy')!=expected:self.err('NATIVE_BACKEND_POLICY',nid)
+  for nid,module in [('B04','Data.NativeHost'),('B15','Server.Application'),('B17','Server.Native')]:
+   n=self.nodes.get(nid,{})
+   if n.get('selection_required') is not False or n.get('selection_status')!='not_applicable':
+    self.err('REQUIRED_NATIVE_ROLE_OPTIONAL',nid)
+   if n.get('module')!=module:self.err('NATIVE_ROLE_MODULE',nid)
+  app=self.nodes.get('B15',{});host=self.nodes.get('B17',{})
+  if 'B17' not in app.get('acceptance_dependencies',[]):self.err('APPLICATION_NATIVE_HOST_ACCEPTANCE','B15')
+  if 'NativeWeave:src/Server.Application/' not in app.get('write_scopes',[]):self.err('APPLICATION_SCOPE','B15')
+  if 'NativeWeave:native/server/host/' not in host.get('write_scopes',[]):self.err('RUST_HOST_SCOPE','B17')
+  for nid,n in self.nodes.items():
+   if nid!='B17' and any(scope_contains(s,'NativeWeave:native/server/host/') for s in n.get('write_scopes',[])):
+    self.err('DUPLICATE_PRODUCTION_HOST',nid)
+  def ancestors(nid,seen=None):
+   seen=set() if seen is None else seen
+   for dep in self.nodes.get(nid,{}).get('start_dependencies',[])+self.nodes.get(nid,{}).get('acceptance_dependencies',[]):
+    if dep not in seen:seen.add(dep);ancestors(dep,seen)
+   return seen
+  for nid in ('B18','B19','B20'):
+   if 'B17' not in ancestors(nid):self.err('SERVER_HOST_DEPENDENCY',nid)
+  for nid in ('B21','B22','B23','B24'):
+   if not {'B04','B17'}.issubset(ancestors(nid)):self.err('INTEGRATION_NATIVE_ENGINES_REQUIRED',nid)
+  components=self.nodes.get('B24',{}).get('release_scope',{}).get('components',[])
+  for nid in ('B04','B15','B17'):
+   selected=[c for c in components if c.get('task_id')==nid]
+   if len(selected)!=1 or selected[0].get('when')!='always':self.err('RELEASE_NATIVE_ROLE_REQUIRED',nid)
+  protocol_keys=set()
+  for nid in ('B18','B19'):
+   pins=[c for c in self.nodes.get(nid,{}).get('contract_inputs',[]) if c.get('id')=='C-PROTOCOL-001']
+   if len(pins)!=1:self.err('PROTOCOL_CONTRACT_REQUIRED',nid)
+   protocol_keys.update((c['id'],c['version']) for c in pins)
+  for key in protocol_keys:
+   if self.declared_contract_host_profiles(key)!={'B17'}:
+    self.err('PROTOCOL_SPEC_RUST_HOST_ONLY',key[0]+'@'+key[1])
+
+ def fragments(self):
+  """Fragments mirror existing task detail; they cannot form a fourth graph."""
+  files=sorted((self.plan/'fragments').glob('*.json'));owners=set();covered=[]
+  for path in files:
+   f=self.read_json(path,'FRAGMENT_JSON')
+   if not isinstance(f,dict):continue
+   where=path.relative_to(self.plan).as_posix();did=f.get('documentation_task_id')
+   if not isinstance(did,str):self.err('FRAGMENT_OWNER',where);continue
+   owner=self.nodes.get(did,{})
+   if f.get('schema_version')!=VERSION:self.err('FRAGMENT_SCHEMA',where)
+   if self.kind.get(did)!='documentation' or did in owners:self.err('FRAGMENT_OWNER',where)
+   owners.add(did)
+   if f.get('revision')!=owner.get('revision'):self.err('FRAGMENT_REVISION',where)
+   if 'Plan:'+where not in owner.get('outputs',[]):self.err('FRAGMENT_OUTPUT',where)
+   if 'nodes' in f or 'edges' in f:self.err('FRAGMENT_SCHEDULING_GRAPH',where)
+   ids=f.get('delivery_task_ids');details=f.get('task_details')
+   if not isinstance(ids,list) or any(not isinstance(n,str) for n in ids) or not isinstance(details,dict):
+    self.err('FRAGMENT_TASKS',where);continue
+   if len(ids)!=len(set(ids)) or set(details)!=set(ids):self.err('FRAGMENT_TASKS',where)
+   covered.extend(ids)
+   for nid,detail in details.items():
+    if self.kind.get(nid)!='delivery' or not isinstance(detail,dict):self.err('FRAGMENT_TASK_REFERENCE',where+':'+nid);continue
+    if set(detail)!=FRAGMENT_MIRROR_FIELDS:self.err('FRAGMENT_FIELDS',where+':'+nid)
+    for field,value in detail.items():
+     if field not in self.nodes[nid] or value!=self.nodes[nid][field]:self.err('FRAGMENT_MIRROR',where+':'+nid+':'+field)
+   inputs=f.get('design_inputs')
+   if not isinstance(inputs,list):self.err('FRAGMENT_DESIGN_INPUTS',where);continue
+   source_ids=[]
+   for source in inputs:
+    if not isinstance(source,dict):self.err('FRAGMENT_DESIGN_INPUTS',where);continue
+    sid=source.get('id')
+    if not isinstance(sid,str):self.err('FRAGMENT_DESIGN_INPUTS',where);continue
+    source_ids.append(sid)
+    if sid not in self.nodes or self.kind.get(sid) not in {'research','documentation'} or source.get('outputs')!=self.nodes.get(sid,{}).get('outputs'):
+     self.err('FRAGMENT_SOURCE_MIRROR',where+':'+str(sid))
+   expected=set(owner.get('research_refs',[])+owner.get('documentation_refs',[]))
+   if len(source_ids)!=len(set(source_ids)) or set(source_ids)!=expected:self.err('FRAGMENT_SOURCE_COVERAGE',where)
+  expected_owners={f'D{i:02}' for i in range(22,32)}
+  if owners!=expected_owners or len(files)!=10:self.err('FRAGMENT_OWNER_COVERAGE','D22-D31')
+  delivery={n for n in self.nodes if self.kind[n]=='delivery'}
+  if set(covered)!=delivery or len(covered)!=len(set(covered)):self.err('FRAGMENT_DELIVERY_COVERAGE','48 existing tasks')
 
  def check_contract(self,key):
   if key in self.checked_contracts:return True
@@ -357,8 +484,13 @@ class Validator:
   if len(self.errors)==before:self.checked_contracts.add(key);return True
   return False
 
+ def active_release_components(self,n):
+  return [c['task_id'] for c in n.get('release_scope',{}).get('components',[])
+          if c.get('when')=='always' or (c.get('when')=='selected' and self.nodes.get(c.get('task_id'),{}).get('selection_status')=='selected')]
+
  def active_dependencies(self,n,gate):
   result=list(n.get(gate+'_dependencies',[]))
+  if gate=='acceptance':result.extend(self.active_release_components(n))
   for c in n.get('conditional_dependencies',[]):
    cond=c['condition']
    profile_active=not cond.get('protocol_profile_selected') or any(p['host_task_id']==cond['task_id'] and p['selection_status']=='selected' for p in n.get('protocol_host_profiles',[]))
@@ -397,8 +529,9 @@ class Validator:
  def task_subject(self,nid,n):
   deps=self.active_start_dependencies(n)+self.active_acceptance_dependencies(n)
   return {'kind':'task','id':nid,'revision':n.get('revision'),'content_sha256':node_digest(n),'source_commit':n.get('source_commit'),
-   'dependency_snapshot':{d:{'revision':self.nodes[d].get('revision'),'content_sha256':node_digest(self.nodes[d]),'source_commit':self.nodes[d].get('source_commit'),'acceptance_evidence_sha256':[e.get('sha256') for e in self.nodes[d].get('acceptance_evidence',[])]} for d in deps if d in self.nodes},
-   'selection_snapshot':{d:{'revision':self.nodes[d].get('revision'),'selection_status':self.nodes[d].get('selection_status'),'content_sha256':node_digest(self.nodes[d])} for d in n.get('selection_inputs',[]) if d in self.nodes}}
+   'dependency_snapshot':{d:{'revision':self.nodes[d].get('revision'),'content_sha256':node_digest(self.nodes[d]),'source_commit':self.nodes[d].get('source_commit'),'acceptance_evidence_sha256':[e.get('sha256') for e in self.nodes[d].get('acceptance_evidence',[])],'independent_review_sha256':[r.get('sha256') for r in self.nodes[d].get('independent_reviewers',[])]} for d in deps if d in self.nodes},
+   'selection_snapshot':{d:{'revision':self.nodes[d].get('revision'),'selection_status':self.nodes[d].get('selection_status'),'content_sha256':node_digest(self.nodes[d])} for d in n.get('selection_inputs',[]) if d in self.nodes},
+   'contract_snapshot':{pin['id']+'@'+pin['version']:{'spec_path':self.contracts.get((pin['id'],pin['version']),{}).get('spec_path'),'content_sha256':self.contracts.get((pin['id'],pin['version']),{}).get('content_sha256'),'evidence_sha256':[e.get('sha256') for e in self.contracts.get((pin['id'],pin['version']),{}).get('evidence',[])],'review_sha256':[r.get('sha256') for r in self.contracts.get((pin['id'],pin['version']),{}).get('reviews',[])]} for pin in n.get('contract_inputs',[])}}
 
  def check_release_scope(self,nid,n):
   scope=n.get('release_scope')
@@ -502,7 +635,7 @@ class Validator:
  def run(self):
   self.load()
   if not self.errors:
-   self.references();self.ownership()
+   self.references();self.ownership();self.architecture();self.fragments()
   if not self.errors:self.check_acceptance()
   if self.errors:
    ready={k:[] for k in ('research','documentation','delivery')};blocked={k:['validation errors'] for k in self.nodes};resources=[]

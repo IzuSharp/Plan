@@ -1,0 +1,406 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D27",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B05",
+    "B06",
+    "B07",
+    "B08"
+  ],
+  "design_inputs": [
+    {
+      "id": "R19",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R19/report.md",
+        "NativeWeave-Design:docs/research/topics/R19/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R19/coverage.json"
+      ]
+    },
+    {
+      "id": "R20",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R20/report.md",
+        "NativeWeave-Design:docs/research/topics/R20/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R20/coverage.json"
+      ]
+    },
+    {
+      "id": "R21",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R21/report.md",
+        "NativeWeave-Design:docs/research/topics/R21/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R21/coverage.json"
+      ]
+    },
+    {
+      "id": "R22",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R22/report.md",
+        "NativeWeave-Design:docs/research/topics/R22/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R22/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R22/native-slice-validation.md"
+      ]
+    },
+    {
+      "id": "D14",
+      "outputs": [
+        "NativeWeave-Design:docs/database/drivers.md"
+      ]
+    },
+    {
+      "id": "D15",
+      "outputs": [
+        "NativeWeave-Design:docs/database/transactions-and-pooling.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "B01": {
+      "title": "Data接口与动态metadata边界",
+      "boundary_and_ownership": "Sole owner of common logical metadata/table/column/projection IDs, scalar tags, limits, provider-neutral session/operation interfaces and outcome declarations in Data.Abstractions and native/database/interfaces. B09 owns query operation descriptors, B07 conversion implementations, B04 owning host. Do not define another metadata schema downstream.",
+      "native_reuse": "Describe the selected Rust Engine capabilities without implementing a managed provider, SQL parser, SQL AST, dialect or driver.",
+      "csharp_surface": "DataSource/Session contracts; immutable Table<TEntity>/Column<TEntity,TValue>/Projection<T>; finite capability and limit profile; static materializer contract. Public names remain subject to ordinary API review, while ownership and wire semantics are fixed.",
+      "implementation_steps": [
+        "Extract one canonical metadata schema from D14/D17: format version, content hash, table/column/projection stable IDs, names, codec, nullability, explicit keys and relation descriptors. ABI/package version remains separate from business metadata hash.",
+        "Declare one result-shape/row-lease interface consumed by B06/B12. Shape includes column count/order/IDs/aliases, type and nullability; missing nullable fields are not SQL NULL.",
+        "Specify physical Session single-command admission and cleanup control separately. Define independent outcome, protocol disposition and local lifetime states for B05; interfaces do not claim completion.",
+        "Generate or hand-author equivalent Rust/C# layout/golden fixtures from this one schema, with no whole Core metadata service. Reject duplicate IDs, unknown required codec/profile and checked length overflow."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Descriptor registration copies or retains an explicit owner before synchronous return; errors expose no partial registration or output owner.",
+        "No borrowed span, arbitrary CLR type or application pointer survives await. Optional missing fields require an explicit version/default policy; they cannot silently decode NULL."
+      ],
+      "specific_acceptance": [
+        "Cross-language metadata golden bytes and malformed inputs; wrong entity/value compile negatives; ABI/profile/version mismatch rejection before DB traffic.",
+        "Public abstractions assembly loads without native runtime initialization; real host consumption is verified downstream, without forcing a managed fallback."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Abstractions/",
+        "NativeWeave:tests/Data.Abstractions/",
+        "Plan:ledger/evidence/B01/",
+        "NativeWeave:native/database/interfaces/"
+      ],
+      "dependency_rationale": "No product task prerequisite: this is the one shared database seam, implementing accepted specifications. It must not depend on B09 or provider implementations.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B02": {
+      "title": "Rust PostgreSQL执行Adapter",
+      "boundary_and_ownership": "Own SQLx PostgreSQL provider in native/database/postgres and its narrow managed package; consume B01 seam, B07 binder and B05 transaction policy through B04, without implementing a second host/pool wrapper.",
+      "native_reuse": "SQLx PgConnection/PgPool/Arguments, wire protocol and native TLS. SeaQuery-generated SQL is bound using B07. Do not recreate PostgreSQL protocol or publish Npgsql as a product path.",
+      "csharp_surface": "Postgres-specific configuration/capability registration and structured provider details; the application still uses common Session/typed queries.",
+      "implementation_steps": [
+        "Create SQLx options from explicit configuration. Remote production default requires VerifyFull with trusted root and hostname; Prefer/Require are not verified TLS. Secret values never enter errors/manifest.",
+        "Implement real prepare/execute/stream over a fixed connection lease, parameter snapshots and structured SQLSTATE mapping, with bounded admission and statement cache policy.",
+        "Track ReadyForQuery synchronization and transaction status separately from the application result. Stream drop may need drain before reuse; enforce a cleanup deadline and retire a connection on failure.",
+        "Treat timeout/cancellation as a request. Do not invent a public SQLx cancel API from private cancel-key fields. Use explicit server statement_timeout/session policy where selected; cancellation cannot free an active task/connection.",
+        "Integrate B04 operation entrypoints; expose safe session-local provider hooks for B05, without sharing SQLx pointers across DLL boundaries."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "57014 statement timeout inside a transaction leaves it failed (25P02) until rollback; Task completion is not reuse permission.",
+        "After COMMIT dispatch without confirmation, report Unknown; connection close or successful cleanup rollback cannot prove original business rollback.",
+        "SQLx Execute limit=0 is not server fetch batching. Application row/byte budgets do not prove a whole-process RSS bound or instantaneous server cancellation."
+      ],
+      "specific_acceptance": [
+        "Use the real six PostgreSQL Design cases as regression oracles: timeout/rollback, early stream drop, codecs, response-loss durable COMMIT, conflict CTE snapshot and migration lock cleanup.",
+        "Add product TLS negative tests: wrong hostname, untrusted root, expired chain and explicit plaintext-development opt-in; Windows/Linux AOT remote PG with actual server identity.",
+        "Session reuse test must compare backend PID, not merely observe a subsequent query success. Broken/drain-timeout sessions are quarantined and pool permits eventually return."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Postgres/",
+        "NativeWeave:tests/Data.Postgres/",
+        "Plan:ledger/evidence/B02/",
+        "NativeWeave:native/database/postgres/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B03": {
+      "title": "Rust SQLite执行Adapter",
+      "boundary_and_ownership": "Own SQLite native provider, connection options, worker-specific hooks and adapter test fixtures; use the B04 host and shared transaction/stream/codec components.",
+      "native_reuse": "SQLx SQLite worker, SQLite prepared statements, progress hooks and transaction machinery. No unconditional Task.Run wrapper and no separate C# database execution engine.",
+      "csharp_surface": "Sqlite options for file path, WAL/FK, busy timeout and supported transaction begin mode; common strongly typed Session/query facade.",
+      "implementation_steps": [
+        "Pin libsqlite3-sys/SQLite build features and actual SQLite version in the native package. Configure FK/WAL/busy profile explicitly on every physical connection; validate in-memory pooling semantics.",
+        "Implement one active operation per physical connection and bounded native command admission. Account separately for queued item count, input bytes and driver allocations.",
+        "Use an operation-generation-scoped progress cancellation flag installed/removed on the worker. An old cancel request cannot affect a new tenant. Do not promise interruption at every native instruction.",
+        "Separate Future drop, queued rollback, worker connection destruction, shutdown ACK and OS-thread join evidence. Close awaits only facts the API can actually observe; do not label an unavailable JoinHandle as joined."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Synchronous bounded-channel send can block its caller; a Tokio timeout cannot preempt that code. Reserve capacity or use a controlled worker path and avoid blocking finalizer/reverse-callback threads.",
+        "busy/locked/progress-interrupt errors preserve provider detail and require transaction cleanup; per-connection FK/savepoint behavior is tested.",
+        "Huge cells may already be allocated inside SQLite/SQLx before boundary rejection; report observed allocation separately from the owned-batch budget."
+      ],
+      "specific_acceptance": [
+        "Reuse existing database-retirement six-case two-OS research as oracle definitions, then execute actual product paths for commit Future drop, rollback/pool reuse, progress cancellation, early stream drop and shutdown.",
+        "Windows/Linux AOT use file-backed concurrent connections plus documented in-memory cases; foreign-key failure/savepoint recovery and native migration checksum/failing-DDL tests.",
+        "Same-connection reuse uses a persistent physical-connection marker; a fresh connection succeeding is not the oracle."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Sqlite/",
+        "NativeWeave:tests/Data.Sqlite/",
+        "Plan:ledger/evidence/B03/",
+        "NativeWeave:native/database/sqlite/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B04": {
+      "title": "必需Rust Database Host与生命周期",
+      "boundary_and_ownership": "Own mandatory native database host, Engine-local runtime, physical lease admission, resource tree and managed facade bridge. B01 defines seams; B02/B03 implement providers; B05/B06/B07 implement transaction/stream/codec components. Never define provider interfaces in B04 that the providers need before B04 exists.",
+      "native_reuse": "Tokio runtime only within the async DB Engine, SQLx native pools, Core narrow owner/async primitives. Sync Engines elsewhere need not acquire this runtime.",
+      "csharp_surface": "DataSource.Open/Session acquisition and async execute facades; internal opaque SafeHandles and Operation<T>; no public Rust runtime or driver trait.",
+      "implementation_steps": [
+        "Bind create/start/request_cancel/typed take_result/try_retire/release with out owners null on failure and one successful transfer. Registration/start return and callback/control leases both participate in managed retirement.",
+        "Model DataSource closing and single-command Session admission explicitly. SafeHandle protects lifetime but does not authorize concurrent mutable Rust access.",
+        "Keep session/cursor/transaction/operation parent ownership until native cleanup finishes. A transferred cursor/batch owns an independent parent lease after operation retirement.",
+        "Expose bounded Engine-local runtime/pool configuration, shutdown deadline, diagnostics and reject-on-closing behavior; do not introduce a compulsory global Core executor.",
+        "Compose providers through B01 seam. Integrator connects workspace manifests; task worktrees must not each regenerate shared Cargo.lock or solution files.",
+        "Reuse A02 negotiated Engine loader/bootstrap and lifetime; do not implement a second module loader or capability protocol."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Request cancellation never releases input, native context, parent lease or cancellation registration while access is possible.",
+        "Close rejects new work but permits cleanup control; unconfirmed remote effect may remain Unknown after safe local retirement.",
+        "A child owner outliving public parent disposal remains safely alive or fails new admission; finalizer performs no blocking async join."
+      ],
+      "specific_acceptance": [
+        "Real two-provider cross-language AOT create/execute/transfer/retire paths with synchronous and asynchronous completion, already-cancelled tokens, duplicate completion, start failure and callback/control races.",
+        "Count native allocations, live parent leases, handles, callbacks and pending operations through fail injection; product integration uses actual B02/B03/B05/B06.",
+        "NuGet consumer runs without Cargo and without auto-building an entity-specific engine."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.NativeHost/",
+        "NativeWeave:tests/Data.NativeHost/",
+        "Plan:ledger/evidence/B04/",
+        "NativeWeave:native/database/host/"
+      ],
+      "dependency_rationale": "Keep the established Core prerequisites. Provider, transaction and streaming implementations are local acceptance gates, not a B04 start cycle: all consume the accepted B01 seam.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B05": {
+      "title": "Rust事务、池恢复与Unknown",
+      "boundary_and_ownership": "Own transaction lifecycle/outcome/recovery and connection disposition policy in native/database/transactions; provider hooks remain B01 interfaces. Keep response-loss uncertainty out of generic Core status definitions.",
+      "native_reuse": "SQLx transaction/savepoint/pool mechanics and native provider hooks. SeaORM TransactionTrait is only relevant to an explicit specialized profile, not mandatory for ordinary adapters.",
+      "csharp_surface": "Typed transaction scope, CommitAsync result distinguishing Committed/RolledBack/Unknown, recoverable correlation data and explicit retry advice; no automatic replay of arbitrary business delegates.",
+      "implementation_steps": [
+        "Implement distinct state dimensions: transaction Active/CommitDispatched/Finalizing/Closed; durable outcome; protocol Reusable/NeedsDrain/Retire; local active leases/callbacks/retirement.",
+        "Record COMMIT dispatch before awaiting its response. Known confirmation chooses committed outcome; cancellation/error after dispatch with no definitive evidence remains Unknown.",
+        "Perform rollback/drain/probe through cleanup admission on the original session; release the pool permit only when the connection is reusable or physically retired.",
+        "Implement explicit savepoints and isolation capabilities. SQLite Deferred/Immediate mode is not a simulated PostgreSQL isolation matrix.",
+        "Expose application idempotency recovery using stable operation ID, tenant/key and request hash. Conflicting INSERT/SELECT in one Read Committed CTE can miss the winner; use a separate recovery SELECT after conflict."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Drop queues rollback; it is not rollback confirmation. Subsequent cleanup, no-active-transaction response or connection close does not retroactively resolve an Unknown commit.",
+        "Old cancellation generation and reused session must be isolated; rollback/drain failure means retire, not return to next tenant.",
+        "Unknown can be durably recorded while local native/managed resources retire; keeping an undecidable business result does not require leaking the operation."
+      ],
+      "specific_acceptance": [
+        "Actual product response-loss proxy forwards COMMIT and drops all reply frames after server durable completion; separate connection proves effect and client returns Unknown without retry.",
+        "Same-session failed transaction rollback and reuse, dropped active transaction, savepoint recovery, acquire cancellation, pool close and stale cancel races on both providers.",
+        "Cross-language model/oracle maps actual code transitions to C-TX invariants; finite state exploration does not claim weak-memory or soak proof."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Transactions/",
+        "NativeWeave:tests/Data.Transactions/",
+        "Plan:ledger/evidence/B05/",
+        "NativeWeave:native/database/transactions/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B06": {
+      "title": "Rust有界结果批次与流",
+      "boundary_and_ownership": "Own native cursor and owned row-batch implementation plus C# stream adapter; B01 owns shape/lease contracts and B12 owns DTO construction. Do not put DTO mapping inside drivers.",
+      "native_reuse": "SQLx row streams/SQLite worker; native checked row codecs from B07. No unbounded fetch_all on the streaming path.",
+      "csharp_surface": "IAsyncEnumerable<T> adapter or explicit Cursor.FetchAsync/OwnedRowBatch, with one active fetch and one untransferred result, explicit large-value chunks.",
+      "implementation_steps": [
+        "Maintain row and byte budgets together, including descriptor/cell/payload checked sizes. Stop adding a row before it exceeds the batch budget; use explicit chunk support or LargeValueRequiresStreaming for a single oversized field.",
+        "Shape-check count/order/IDs/aliases/type before first nullable read, then expose borrowed typed views only under the owned batch lease.",
+        "Transfer each completed batch at most once. Consumer break, cancellation or mapper exception closes the cursor and retains cleanup owners until protocol drain/retirement.",
+        "Use bounded batch/operation counts and bytes. Document SQLx PG Execute limit=0 and internal buffering so owned-batch limits are not represented as entire-RSS limits."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Decoder/constructor failure releases the current batch, stops further fetches and cleans up cursor/session; do not free still-borrowed native bytes.",
+        "Slow consumers apply admission backpressure; close/cancel may require provider cleanup after the enumerable has stopped yielding.",
+        "All batch offset/length arithmetic is checked; malformed UTF8, unknown codec and NULL/nonnullable mismatch are structured failures."
+      ],
+      "specific_acceptance": [
+        "Empty/one/multibatch results, huge field, slow consumer, early break, mapping throw and duplicate take/dispose through real PG/SQLite product paths.",
+        "Assert bounded owned bytes and live owners separately from measured native driver/whole-process memory; downstream B22/B23 retain sustained RSS/workload gates.",
+        "Windows/Linux AOT typed enumeration and clean NuGet consumer; no Span or borrowed pointer survives await/dispose."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Streaming/",
+        "NativeWeave:tests/Data.Streaming/",
+        "Plan:ledger/evidence/B06/",
+        "NativeWeave:native/database/streaming/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B07": {
+      "title": "Rust fallible参数codec与边界值",
+      "boundary_and_ownership": "Sole owner of Rust logical-value to provider Arguments conversion and checked Rust/C# wire scalar conversion. B11 invokes this binder; do not duplicate it in query code or silently use a panic-prone convenience adapter.",
+      "native_reuse": "SeaQuery Value/SQLx Encode/Type and provider native codecs; propagate every Arguments::add Result. Use explicit finite capability profiles.",
+      "csharp_surface": "Static logical scalar/value readers/writers, typed null and explicit supported enum/JSON registration; no object[] or auto-stringify fallback.",
+      "implementation_steps": [
+        "Implement the D14 finite scalar table with explicit size/range/endianness and NULL rules. UUID uses RFC/network bytes; distinguish CLR Guid layout.",
+        "Choose checked decimal domain and timestamp precision policy. PG arbitrary numeric is wider than rust_decimal; reject unrepresentable values. Reject sub-microsecond precision where the contract promises lossless conversion rather than silently truncating.",
+        "Use explicit SQLite decimal-as-text and timestamp profile rather than relying on dynamic SQLite affinity for precision. Nonfinite floats follow explicit backend capability policy.",
+        "Validate utf8, lengths, unknown tags, unsigned narrowing, encoded argument count/bytes before send; cleanup any partially constructed argument owner on failure."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "A valid nullable slot containing SQL NULL differs from a missing column; shape preflight belongs to B06/B12.",
+        "No unwrap/panic on user values; caught panic is exceptional containment, not normal codec validation.",
+        "Cancellation can retire a pending operation only after input copies/leases are no longer used; argument buffer reuse is per execution."
+      ],
+      "specific_acceptance": [
+        "Every supported scalar positive/negative and boundary value against real both databases; compare static C# values, wire, SQLx native bind and returned values.",
+        "Run UUID endianness, huge PG numeric, typed NULL and nanosecond→microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
+        "Checked input failures occur before DB sends and preserve zero leaked argument/result owners."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Codecs/",
+        "NativeWeave:tests/Data.Codecs/",
+        "Plan:ledger/evidence/B07/",
+        "NativeWeave:native/database/codecs/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "B08": {
+      "title": "Rust迁移执行与版本ledger",
+      "boundary_and_ownership": "Own explicit deployment migration runner and ledger policy; never automatic destructive schema synchronization in ordinary DataSource startup. Keep administration pools/sessions separate from request transactions.",
+      "native_reuse": "SQLx Migrator/Migrate, native migration checksums, provider transactional DDL and ledger. Provider-specific locking is inspected, not assumed identical.",
+      "csharp_surface": "Explicit MigrationDefinition/Manifest and ApplyAsync administrative entrypoint with provider, ID, hash, from/to compatibility and transaction mode.",
+      "implementation_steps": [
+        "Build the migration manifest from trusted application/admin artifacts, not untrusted table-name strings. Stable same-ID/same-hash succeeds idempotently; changed hash rejects.",
+        "For PostgreSQL, execute on a dedicated admin connection. Migrator error paths can return before session advisory unlock; close the connection on every exit path, and prove lock disappearance.",
+        "For SQLite, SQLx lock/unlock is a no-op. Reject no_tx entries before admission, use Connection::begin_with(\"BEGIN IMMEDIATE\") to obtain a depth-tracked Transaction, and Migrator::run(&mut *tx). Explicitly commit success or rollback error, retaining cleanup failure and closing a damaged connection. Never raw query BEGIN: it bypasses SQLx depth and causes nested-BEGIN error. Serialize checksum/DDL/ledger under the writer lock.",
+        "Initial supported profile is transactional migrations. Statements incompatible with that transaction are explicitly rejected or require a separately specified recovery-phase profile; never label partially executed DDL atomic.",
+        "Persist exact migration/hash/provider/phase and define crash/resume behavior without treating a connection-close success as unknown business commit resolution."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Do not return an errored migration connection to a shared pool with an advisory lock held.",
+        "SQLite WAL does not serialize concurrent migrators by itself; test busy timeout and acquiring the writer lock before history reads.",
+        "Cancellation must complete native cleanup and release or close the administrative connection; no implicit schema repair on startup."
+      ],
+      "specific_acceptance": [
+        "Real PG session advisory lock remains after checksum error then disappears on dedicated close; test permission failure, cancellation, changed checksum and new-process resume.",
+        "Two independent SQLite migration runners contend: one complete ledger+DDL result, no duplicate or contradictory history; rollback failing DDL, repeat apply and mismatched checksum.",
+        "Preserve the independent three-case raw-BEGIN negative, tracked outer commit/rollback, and failed-second-migration all-batch rollback oracles. Cross-process contention, crash/recovery, Windows and the actual C# AOT wrapper remain product conformance."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Data.Migrations/",
+        "NativeWeave:tests/Data.Migrations/",
+        "Plan:ledger/evidence/B08/",
+        "NativeWeave:native/database/migrations/"
+      ],
+      "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}

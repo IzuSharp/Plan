@@ -3,14 +3,14 @@
   "graph_kind": "documentation",
   "created_at": "2026-11-12",
   "authority": "IzuSharp/Plan",
-  "graph_status": "source-driven-revision-proposed",
+  "graph_status": "research_design_acceptance_pending",
   "scope": "First-delivery research and documentation system; not accepted product architecture",
   "nodes": [
     {
       "id": "D01",
       "title": "工具链、AOT与平台规范",
       "phase": "A",
-      "status": "partially_evidenced",
+      "status": "review_ready",
       "owner_role": "documentation/D01",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -34,44 +34,29 @@
       "contract_outputs": [
         "C-PLATFORM-001"
       ],
-      "specific_scope": "稳定工具链/平台矩阵；有限Linux SQLite原型不是正式Windows/Linux支持，逐项核验当前特性状态。",
+      "specific_scope": "Stable toolchain and explicit OS/CPU/AOT profile, ordinary precompiled consumer and precise evidence boundaries.",
       "prompt": "documentation-tasks/D01.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R33"
       ],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R01": "0.2.1",
-        "R02": "0.2.0"
+        "R01": "0.3.0",
+        "R02": "0.3.0"
       },
-      "packet_sha256": "303e034ae62752e6f2af84e9087edfb8b18f2f990eba0ac9a55e81d9dab23295",
-      "source_driven_amendment": "稳定工具链/平台矩阵；有限Linux SQLite原型不是正式Windows/Linux支持，逐项核验当前特性状态。",
-      "rust1100_impact": "把新R01准确工具链/目标事实纳入；13Rust测试不是C#AOT或平台生产认证。",
-      "continuation_evidence": [
-        {
-          "design_commit": "c7e123a74405a92dc3de1ef450355b08d1c05ceb",
-          "path": "docs/platforms/support-and-aot.md",
-          "evidence_manifest": "verification/native-slices/original-pr1/manifest.json",
-          "status": "partial_execution_or_authored_draft",
-          "independent_review": false,
-          "historical_native_evidence_commit": "267364a440074a61e193cf33315f1b9d0fa8126b",
-          "historical_design_commit": "d4ad42df26ee9378817aa8ee94cd1853d66eb0ae",
-          "evidence_repository": "IzuSharp/NativeWeave-Design",
-          "migration_map": "verification/native-slices/migration-map.json",
-          "migration_results": "verification/native-slices/migration-results.json"
-        }
-      ]
+      "packet_sha256": "4716c2ef1fbf25f54f79867062cde84911b9ea35a703b4e945064ded388890f6",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D02",
       "title": "ABI及类型布局契约",
       "phase": "A",
-      "status": "partially_evidenced",
+      "status": "review_ready",
       "owner_role": "documentation/D02",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -94,42 +79,27 @@
       "contract_outputs": [
         "C-ABI-001"
       ],
-      "specific_scope": "私有native类型不跨ABI；direct/batch领域边界不改变Core布局/所有权，capability/version明确拒绝。",
+      "specific_scope": "Complete C ABI storage/layout/bootstrap/ownership metadata and version rules; source-driven fixed imports or optional table.",
       "prompt": "documentation-tasks/D02.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R03": "0.2.3",
-        "R04": "0.2.3"
+        "R03": "0.3.0",
+        "R04": "0.3.0"
       },
-      "packet_sha256": "3fe732506e81fdc2eda6c2135fd39e34e43605b6682a2de6782e0d51ada0000d",
-      "source_driven_amendment": "私有native类型不跨ABI；direct/batch领域边界不改变Core布局/所有权，capability/version明确拒绝。",
-      "rust1100_impact": "落实repr(C)、状态、大小/offset与borrow/owner，禁止custom/Rust ABI；从R03/R04可执行探针形成规范。",
-      "continuation_evidence": [
-        {
-          "design_commit": "c7e123a74405a92dc3de1ef450355b08d1c05ceb",
-          "path": "docs/contracts/abi-v0.1.md",
-          "evidence_manifest": "verification/native-slices/original-pr1/manifest.json",
-          "status": "partial_execution_or_authored_draft",
-          "independent_review": false,
-          "historical_native_evidence_commit": "267364a440074a61e193cf33315f1b9d0fa8126b",
-          "historical_design_commit": "d4ad42df26ee9378817aa8ee94cd1853d66eb0ae",
-          "evidence_repository": "IzuSharp/NativeWeave-Design",
-          "migration_map": "verification/native-slices/migration-map.json",
-          "migration_results": "verification/native-slices/migration-results.json"
-        }
-      ]
+      "packet_sha256": "b8df4ad64fedf755d5b935da6c0b3ea6e1952a042b3f2fd9d7b05f98b1c7daa5",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D03",
       "title": "绑定IR、生成器与分析器规范",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D03",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -154,28 +124,28 @@
       "contract_outputs": [
         "C-BINDING-001"
       ],
-      "specific_scope": "最小glue与校验，不在managed重写领域引擎；SG不得Cargo或假设能读取其他SG本轮输出。",
+      "specific_scope": "Single minimal binding inventory and real generator comparison, static C# imports/Rust exports/analyzers with no silent omission.",
       "prompt": "documentation-tasks/D03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R04": "0.2.3",
-        "R05": "0.2.0",
-        "R06": "0.2.0"
+        "R04": "0.3.0",
+        "R05": "0.3.0",
+        "R06": "0.3.0"
       },
-      "packet_sha256": "c42977b5d71b8c22040e75930a81b25f4296dab28eb162c9d471ff4c5c7237de",
-      "source_driven_amendment": "最小glue与校验，不在managed重写领域引擎；SG不得Cargo或假设能读取其他SG本轮输出。"
+      "packet_sha256": "dc6b520423015e476ff7fab34cb9a40d8b5af0a94a0ed32d0e2c33464fe7c676",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D04",
       "title": "所有权与资源生命周期契约",
       "phase": "A",
-      "status": "partially_evidenced",
+      "status": "review_ready",
       "owner_role": "documentation/D04",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -200,44 +170,28 @@
       "contract_outputs": [
         "C-LIFETIME-001"
       ],
-      "specific_scope": "C-LIFETIME-001 保持 0.1.0-draft；新实验补充 SafeHandle 物理保活不能替代逻辑准入的证据，不改变既有 Open/Closing/Released、private opaque pointer 或 native/managed retirement 协议。规范引用新的 paired source hashes，说明 Linux/native 探针的局限，保持正式接受待独立审查与对应真实平台证据。A03 应写出门内 AddRef、门外 FFI、finally release 与内部关闭能力。",
+      "specific_scope": "Logical admission plus physical leases, parent/child closure and creating-engine resource retirement.",
       "prompt": "documentation-tasks/D04.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.5",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R07": "0.2.5",
-        "R10": "0.2.3",
-        "R15": "0.2.0"
+        "R07": "0.3.0",
+        "R10": "0.3.0",
+        "R15": "0.3.0"
       },
-      "packet_sha256": "03776fcd32342106fce75e66ed01617943b08351cf20dbb22891e360e14bfcfe",
-      "source_driven_amendment": "保留lease，明确native可变builder单writer admission与SafeHandle的区别。",
-      "source_lifecycle_followup": {
-        "scope": "C-LIFETIME 既有协议的实验绑定",
-        "requirements": "C-LIFETIME-001 保持 0.1.0-draft；新实验补充 SafeHandle 物理保活不能替代逻辑准入的证据，不改变既有 Open/Closing/Released、private opaque pointer 或 native/managed retirement 协议。规范引用新的 paired source hashes，说明 Linux/native 探针的局限，保持正式接受待独立审查与对应真实平台证据。A03 应写出门内 AddRef、门外 FFI、finally release 与内部关闭能力。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      },
-      "continuation_evidence": [
-        {
-          "design_commit": "3767f3c932ebf95bd82f6ed1c9bafc9eec1c5b1e",
-          "path": "docs/research/topics/R07/logical-admission.md",
-          "evidence_repository": "IzuSharp/NativeWeave-Design",
-          "evidence_manifest": "verification/logical-admission/primary-results.json",
-          "run_id": "43373306474",
-          "scope": "synchronous logical admission only",
-          "independent_review": false
-        }
-      ]
+      "packet_sha256": "218dbfb98a786e4cae33db232226c0b6290551b8a3e737eadd97bfcc6e130139",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D05",
       "title": "Callback注册撤销与静默契约",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D05",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -262,33 +216,28 @@
       "contract_outputs": [
         "C-CALLBACK-001"
       ],
-      "specific_scope": "将 A07 的 registration_ready/start_settled、callback/control-call lease、回调外取消注册 DisposeAsync 与 cookie 最终回收条件对齐现有 callback 契约。B17 的 handler 注销与 body context 持有必须引用同一协议；不因 Task 或 head 完成就释放 managed root。任何契约行为变化另行版本/审查，本轮只细化候选任务。",
+      "specific_scope": "Safe static callback registration/revoke and native plus managed delivery retirement, without overwriting committed outcomes.",
       "prompt": "documentation-tasks/D05.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.5",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R07": "0.2.5",
-        "R08": "0.2.1",
-        "R15": "0.2.0"
+        "R08": "0.3.0",
+        "R07": "0.3.0",
+        "R15": "0.3.0"
       },
-      "packet_sha256": "07d9bf99541c7a25c160a9ba9a5d81d84b79657614120c37e209e03f536f2335",
-      "source_driven_amendment": "保留callback quiescence，ForeignHandler/body/context退休及注册代际，不以Task完成替代。",
-      "source_lifecycle_followup": {
-        "scope": "回调排空的任务落地",
-        "requirements": "将 A07 的 registration_ready/start_settled、callback/control-call lease、回调外取消注册 DisposeAsync 与 cookie 最终回收条件对齐现有 callback 契约。B17 的 handler 注销与 body context 持有必须引用同一协议；不因 Task 或 head 完成就释放 managed root。任何契约行为变化另行版本/审查，本轮只细化候选任务。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "457834db660037d3a23c4d6ac93b71a1d0cc1ac127fd61321033740255dfcede",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D06",
       "title": "异步完成与取消契约",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D06",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -313,33 +262,28 @@
       "contract_outputs": [
         "C-ASYNC-001"
       ],
-      "specific_scope": "将已有 C-ASYNC v0.1 的 create/start/take/retire、native terminal 唯一权和 managed setup/drain 屏障逐项映射 A07 的文件/方法/测试 oracle。预取消、start 同步完成、conversion 抛错、close 内部能力、bounded coordinator 和 deadline 不释放资源都必须可复放；原型与有限模型不自动接受协议。",
+      "specific_scope": "Create/register/start operation handshake, immutable terminal, take-once result transfer, cancellation and safe async cleanup.",
       "prompt": "documentation-tasks/D06.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.2",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R08": "0.2.1",
-        "R09": "0.2.2",
-        "R12": "0.2.1"
+        "R09": "0.3.0",
+        "R08": "0.3.0",
+        "R12": "0.3.0"
       },
-      "packet_sha256": "6402fb62326f898eaa2a4fbe54f4871352acaed967af501ac4348ddf87eba3df",
-      "source_driven_amendment": "保留create/start/take_result/retire，分开response-head/body和deadline/真实回收。",
-      "source_lifecycle_followup": {
-        "scope": "异步状态与 take-once 验收",
-        "requirements": "将已有 C-ASYNC v0.1 的 create/start/take/retire、native terminal 唯一权和 managed setup/drain 屏障逐项映射 A07 的文件/方法/测试 oracle。预取消、start 同步完成、conversion 抛错、close 内部能力、bounded coordinator 和 deadline 不释放资源都必须可复放；原型与有限模型不自动接受协议。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "80ed8b6f573d35c92c358bc69ff0f84a613d8dfa8373f1e84fa8e583bd19286e",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D07",
       "title": "Buffer、传输及内存契约",
       "phase": "A",
-      "status": "partially_evidenced",
+      "status": "review_ready",
       "owner_role": "documentation/D07",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -364,43 +308,28 @@
       "contract_outputs": [
         "C-BUFFER-001"
       ],
-      "specific_scope": "类型长度ownership与bounded批次，retained bytes不由protocol credit自动释放。",
+      "specific_scope": "Owner-aware buffers with checked extents/stride, borrow/pin/copy boundaries and retained allocation accounting.",
       "prompt": "documentation-tasks/D07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R03": "0.2.3",
-        "R10": "0.2.3",
-        "R29": "0.2.3"
+        "R10": "0.3.0",
+        "R03": "0.3.0",
+        "R29": "0.3.0"
       },
-      "packet_sha256": "76673ed53e4cdc337943fdbc0fa4198eb897feddda288577ae46909b4ac7ca41",
-      "source_driven_amendment": "类型长度ownership与bounded批次，retained bytes不由protocol credit自动释放。",
-      "rust1100_impact": "原始所有者/allocator释放和failed-grow安全；外层Vec不是whole-RSS预算。",
-      "continuation_evidence": [
-        {
-          "design_commit": "c7e123a74405a92dc3de1ef450355b08d1c05ceb",
-          "path": "docs/contracts/buffer-v0.1.md",
-          "evidence_manifest": "verification/native-slices/original-pr1/manifest.json",
-          "status": "partial_execution_or_authored_draft",
-          "independent_review": false,
-          "historical_native_evidence_commit": "267364a440074a61e193cf33315f1b9d0fa8126b",
-          "historical_design_commit": "d4ad42df26ee9378817aa8ee94cd1853d66eb0ae",
-          "evidence_repository": "IzuSharp/NativeWeave-Design",
-          "migration_map": "verification/native-slices/migration-map.json",
-          "migration_results": "verification/native-slices/migration-results.json"
-        }
-      ]
+      "packet_sha256": "0d5f8e4b1e8ad7b275ea2c3d4cf1738a3b1c8309438fe720be8c013f85272fbf",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D08",
       "title": "Error、panic与异常边界契约",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D08",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -423,27 +352,27 @@
       "contract_outputs": [
         "C-ERROR-001"
       ],
-      "specific_scope": "panic containment/poisoned builder，fallible binder/UnsupportedCapability；catch不恢复abort或silent no-op。",
+      "specific_scope": "One status/ErrorRecord capacity and panic/callback/fatal boundary authority, with exact failure output ownership.",
       "prompt": "documentation-tasks/D08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.1",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R11": "0.2.1",
-        "R34": "0.2.0"
+        "R11": "0.3.0",
+        "R34": "0.3.0"
       },
-      "packet_sha256": "d71cfc1b0abfcdc5044c33f99748f615d17054a53d8e7711731e33432086cda5",
-      "source_driven_amendment": "panic containment/poisoned builder，fallible binder/UnsupportedCapability；catch不恢复abort或silent no-op。"
+      "packet_sha256": "a3e07c8ee1465820922600f80f15727b43b90c32f1611d948ea4a9f1da836b02",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D09",
       "title": "并发、Runtime与关闭规范",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D09",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -468,33 +397,28 @@
       "contract_outputs": [
         "C-CONCURRENCY-001"
       ],
-      "specific_scope": "明确 channel close 不取消已有 permit、native shutdown ack 不普遍证明 OS thread join、异步 timeout 不抢占同步阻塞 send。A08/A07/B16/B20 按自己的 owner 和容量设计推进，无默认全局 Tokio，无 finalizer/callback 同步等待；精确区分拒绝准入、终态、quiet、retired 和 released。",
+      "specific_scope": "Engine-local optional runtime/admission queues, close/liveness/affinity and bounded waiting/retiring resources.",
       "prompt": "documentation-tasks/D09.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R09": "0.2.2",
-        "R12": "0.2.1",
-        "R29": "0.2.3"
+        "R12": "0.3.0",
+        "R09": "0.3.0",
+        "R29": "0.3.0"
       },
-      "packet_sha256": "2323ca8be12b6d7d68276ac4183975b673c9a856b9967ee9091a9785b629fe7e",
-      "source_driven_amendment": "无全局Tokio；Engine-local与worker-affine策略、线程/runtime/关闭所有权。",
-      "source_lifecycle_followup": {
-        "scope": "runtime 关闭事实与局部预算",
-        "requirements": "明确 channel close 不取消已有 permit、native shutdown ack 不普遍证明 OS thread join、异步 timeout 不抢占同步阻塞 send。A08/A07/B16/B20 按自己的 owner 和容量设计推进，无默认全局 Tokio，无 finalizer/callback 同步等待；精确区分拒绝准入、终态、quiet、retired 和 released。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "7ed426b61b6f947fce27d4d30004e93602a21ba28bf40d9bbbec8eccc6f3375b",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D10",
       "title": "构建打包、版本与来源规范",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D10",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -519,29 +443,28 @@
       "contract_outputs": [
         "C-BUILD-001"
       ],
-      "specific_scope": "维护者预编译native和NuGet消费，不默认每entity Cargo；pins/锁闭包/patch/差分/升级。",
+      "specific_scope": "Maintainer native builds, normal no-Rust consumer, exact asset/provenance/compatibility and immutable upgrade process.",
       "prompt": "documentation-tasks/D10.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R13": "0.2.3",
-        "R14": "0.2.1",
-        "R02": "0.2.0"
+        "R13": "0.3.0",
+        "R14": "0.3.0",
+        "R02": "0.3.0"
       },
-      "packet_sha256": "6e3496d00e270fcf0b95411a890cdfcff69777d25a3e82f8400ddd9d7228531a",
-      "source_driven_amendment": "维护者预编译native和NuGet消费，不默认每entity Cargo；pins/锁闭包/patch/差分/升级。",
-      "rust1100_impact": "C-BUILD新version；Cargo JSON/独立worktree缓存/锁文件/age与lint边界，普通消费仍不需要Rust。"
+      "packet_sha256": "477fc7f451987bb9a672e7d1078751dd66d3ab46fecd64a00f948e7ae75db4fb",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D11",
       "title": "Engine接入规范与双模块验证",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D11",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -565,30 +488,29 @@
       "contract_outputs": [
         "C-ENGINE-001"
       ],
-      "specific_scope": "完整source-driven梯度、小Core/领域Adapter，至少两个异质真实Engine验证，未来领域仅边界。",
+      "specific_scope": "Two heterogeneous real native Engines and minimum optional common capabilities; source-driven adapter/upstream/fork ladder.",
       "prompt": "documentation-tasks/D11.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R32"
       ],
-      "revision": "0.2.1",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R18": "0.2.1",
-        "R05": "0.2.0"
+        "R18": "0.3.0",
+        "R05": "0.3.0"
       },
-      "packet_sha256": "5e5aacc2ea0b08c0f1fd54cc90ba6c105f390d0fb54d58d33ed91ab0100b357c",
-      "source_driven_amendment": "完整source-driven梯度、小Core/领域Adapter，至少两个异质真实Engine验证，未来领域仅边界。",
-      "rust1100_impact": "C-ENGINE新version；DropGuard和map仅局部内部，不替换quiescence。"
+      "packet_sha256": "d3476621b0134aa3ea103a664837f883886ff3c0e1f304eecd3595fdb1f570e6",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D12",
       "title": "证明义务与真实验证规范",
       "phase": "A+B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D12",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -613,28 +535,28 @@
       "contract_outputs": [
         "C-VERIFY-001"
       ],
-      "specific_scope": "保留model/property/fuzz/race/AOT，区分恢复原型、author-side模型和独立Review。",
+      "specific_scope": "Finite model scope, property/fuzz/race/subprocess and actual Windows/Linux AOT verification; no model-to-product false promotion.",
       "prompt": "documentation-tasks/D12.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.0",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/interop_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R15": "0.2.0",
-        "R16": "0.2.0",
-        "R34": "0.2.0"
+        "R15": "0.3.0",
+        "R16": "0.3.0",
+        "R34": "0.3.0"
       },
-      "packet_sha256": "3e57878725efd36dc8639a9d8ac3fe85b39f1a264a2b0020a16f67ae0c230b9a",
-      "source_driven_amendment": "保留model/property/fuzz/race/AOT，区分恢复原型、author-side模型和独立Review。"
+      "packet_sha256": "b96b72fa0c0aea082b4cdabeafc650318e786cce3905559fc131daad0e061c4c",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D13",
       "title": "性能、内存与开发体验方法",
       "phase": "A+B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D13",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -658,29 +580,29 @@
       "contract_outputs": [
         "C-PERF-001"
       ],
-      "specific_scope": "native direct/batch/static fast path及原生/managed AOT完整成本；数值门槛有基线。",
+      "specific_scope": "Three-route complete workload, open-loop latency, memory ownership/cost and trustworthy statistics; no fabricated wins.",
       "prompt": "documentation-tasks/D13.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [
         "R31"
       ],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R17": "0.2.1",
-        "R10": "0.2.3"
+        "R17": "0.3.0",
+        "R10": "0.3.0"
       },
-      "packet_sha256": "91651423d0edca4f15f6143263de94308934d9da7fee30dad1ff1e1549c55e87",
-      "source_driven_amendment": "native direct/batch/static fast path及原生/managed AOT完整成本；数值门槛有基线。"
+      "packet_sha256": "bf702293bf23ec41feef6f7cf8d7316afef8c290b6cae43ffccacf0e10a12a30",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D14",
       "title": "数据库驱动能力与适配规范",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D14",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -705,28 +627,28 @@
       "contract_outputs": [
         "C-DB-001"
       ],
-      "specific_scope": "Rust DB mandatory，动态SeaQuery+SQLx与专用SeaORM比较；metadata/codec分开，typed batches/fallible binder。",
+      "specific_scope": "Mandatory Rust SQLx native PostgreSQL/SQLite providers with runtime metadata and precompiled Engine reuse; source-informed SeaORM optional profile.",
       "prompt": "documentation-tasks/D14.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/database_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R19": "0.2.0",
-        "R20": "0.2.0",
-        "R22": "0.2.3"
+        "R19": "0.3.0",
+        "R20": "0.3.0",
+        "R22": "0.3.0"
       },
-      "packet_sha256": "51b19f91c904aec81073dac436f6b7aea800b26365e0d82304e51e53a8f79f00",
-      "source_driven_amendment": "Rust DB mandatory，动态SeaQuery+SQLx与专用SeaORM比较；metadata/codec分开，typed batches/fallible binder。"
+      "packet_sha256": "73abc47a79d65d342e37613cbb6b15e550c24d081178b84c19fb28b7d5c9f9f8",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D15",
       "title": "连接池、事务与恢复契约",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D15",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -751,33 +673,28 @@
       "contract_outputs": [
         "C-TX-001"
       ],
-      "specific_scope": "绑定新 C-TX-001@0.2.1-draft 和 docs/database/sqlx-retirement-study.md。COMMIT 已 dispatch 后 ACK 未知保持 Unknown；Drop 排队 rollback 不能覆盖 durable effect。明确 SQLx SQLite worker 串行、pool permit 与操作代际取消、同步 bounded send 和无法证明 JoinHandle 的限制。SeaORM trait 仅在显式 SeaORM profile 需要，不能成为所有 Rust provider 的统一前置；新证据仍非 PG/AOT/产品接受。",
+      "specific_scope": "Outcome/protocol recovery/local retirement separation, COMMIT Unknown, actual PG/SQLite faults and migration transaction-depth/lock rules.",
       "prompt": "documentation-tasks/D15.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.1",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/database_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R19": "0.2.0",
-        "R20": "0.2.0",
-        "R21": "0.2.1"
+        "R21": "0.3.0",
+        "R19": "0.3.0",
+        "R20": "0.3.0"
       },
-      "packet_sha256": "dd2be20e5f016981a4c43a061cb0f9d9a1993783e97e058d18fb079afc28d2ea",
-      "source_driven_amendment": "保留Unknown/effect/protocol/local lifetime与fixed session lease；移除必需SeaORM trait/model编译前置。",
-      "source_lifecycle_followup": {
-        "scope": "C-TX 0.2.1-draft 与 profile 条件",
-        "requirements": "绑定新 C-TX-001@0.2.1-draft 和 docs/database/sqlx-retirement-study.md。COMMIT 已 dispatch 后 ACK 未知保持 Unknown；Drop 排队 rollback 不能覆盖 durable effect。明确 SQLx SQLite worker 串行、pool permit 与操作代际取消、同步 bounded send 和无法证明 JoinHandle 的限制。SeaORM trait 仅在显式 SeaORM profile 需要，不能成为所有 Rust provider 的统一前置；新证据仍非 PG/AOT/产品接受。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "abc7de1e4940f18ee7c54967ad33c5436e0268ad9bc7af62cbbe6ca290f2decd",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D16",
-      "title": "查询IR、SQL语义与ORM范围",
+      "title": "原生查询语义与 ORM 范围",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D16",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -802,34 +719,28 @@
       "contract_outputs": [
         "C-QUERY-001"
       ],
-      "specific_scope": "保持 C-QUERY-001@0.2.1-draft 的 Rust AST/方言权威、单 writer admission、Mutable/Sealed/Submitted/Closed/Poisoned、typed owner 与 fallible binder。把 backend 静默降级、空 CTE/assert、SQL3VL、预算与单 window 缺口映射到 B11 明确负例；普通 metadata 实体变化不触发 Cargo，不扩展为完整 LINQ/EF。",
+      "specific_scope": "Rust SeaQuery AST/dialect and fallible native binder; checked backend capability, SQL3VL/projection/relationship semantics, no managed SQL clone.",
       "prompt": "documentation-tasks/D16.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/database_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R24": "0.2.0",
-        "R25": "0.2.3",
-        "R22": "0.2.3"
+        "R24": "0.3.0",
+        "R25": "0.3.0",
+        "R22": "0.3.0"
       },
-      "packet_sha256": "30c1f6884c68963d6f44ef4a880540009a2086eea456cec961ba924eb111a08b",
-      "source_driven_amendment": "SQL语义typed Fluent直接复用SeaQuery；不要求全LINQ/C# null补偿；CTE/window/join及backend拒绝。",
-      "rust1100_impact": "修正SQL3VL nullable NOT比较的过宽禁令，区别C#补偿；保留NaN/自定义比较限制。",
-      "source_lifecycle_followup": {
-        "scope": "native 查询状态落实到 B11",
-        "requirements": "保持 C-QUERY-001@0.2.1-draft 的 Rust AST/方言权威、单 writer admission、Mutable/Sealed/Submitted/Closed/Poisoned、typed owner 与 fallible binder。把 backend 静默降级、空 CTE/assert、SQL3VL、预算与单 window 缺口映射到 B11 明确负例；普通 metadata 实体变化不触发 Cargo，不扩展为完整 LINQ/EF。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "89bb525869d6282f05782a68fa2ff90d2ff1fbbf554abde048251682c9e0d28c",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D17",
       "title": "AOT查询捕获、生成与安全动态API",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D17",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -854,33 +765,28 @@
       "contract_outputs": [
         "C-QUERYGEN-001"
       ],
-      "specific_scope": "把 Query<TEntity>/Column<TEntity,TValue>/alias owner、参数快照、静态 DTO 和安全动态 allowlist 写入 B13；手写 static metadata 与可选 SG 为同等路径。验收要有编译失败的错 entity/type 例与运行时跨 owner/Dispose 例；普通新 entity 使用同 native hash 并在无 Rust 的干净消费环境 AOT 执行。",
+      "specific_scope": "Static typed metadata and DTO mapping, optional generator plus ordinary runtime Fluent, immutable parameter snapshots, no per-entity Rust build.",
       "prompt": "documentation-tasks/D17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/database_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R23": "0.2.0",
-        "R06": "0.2.0",
-        "R25": "0.2.3"
+        "R23": "0.3.0",
+        "R06": "0.3.0",
+        "R25": "0.3.0"
       },
-      "packet_sha256": "13a0b6e39564366e50e6a73902fc86596a18de7f9b65b25791ebd013f59eae28",
-      "source_driven_amendment": "可选static descriptor/DTO增量生成，手写static同等路径；不默认schema-specific Rust或C#SQL Provider。",
-      "source_lifecycle_followup": {
-        "scope": "Fluent、metadata 与 AOT 消费",
-        "requirements": "把 Query<TEntity>/Column<TEntity,TValue>/alias owner、参数快照、静态 DTO 和安全动态 allowlist 写入 B13；手写 static metadata 与可选 SG 为同等路径。验收要有编译失败的错 entity/type 例与运行时跨 owner/Dispose 例；普通新 entity 使用同 native hash 并在无 Rust 的干净消费环境 AOT 执行。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "c742771f5afa28b12ff33f436862b422a9258932cb0651aaa5c155bad60ba017",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D18",
       "title": "Server生命周期与适配规范",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D18",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -905,33 +811,28 @@
       "contract_outputs": [
         "C-SERVER-001"
       ],
-      "specific_scope": "Kestrel 是研究比较基线，B15/B17 产品 host 均 undecided；不得从研究顺序推导默认产品选择。将 Service/head/body/retained allocation/queue reservation/managed retirement 的不同终点写清，引用新 source-lifecycle 输入。B16/B20/B21–B24 的 selected profile 快照至少含一个 host，可两个都选但不设隐含默认；正式 Windows/Linux AOT、网络与长期资源验收仍待完成。",
+      "specific_scope": "Required Rust Tokio/Hyper/Tower/Axum host with C# business Handler, actual Body/Bytes budgets and separate retirement endpoints; Kestrel comparator only.",
       "prompt": "documentation-tasks/D18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/server_extensions",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R26": "0.2.1",
-        "R27": "0.2.4",
-        "R29": "0.2.3"
+        "R26": "0.3.0",
+        "R27": "0.3.0",
+        "R29": "0.3.0"
       },
-      "packet_sha256": "e712e252590ff6df07c403870e6c9dd228bd884a6c1a642545ba65c5e2c2d7b6",
-      "source_driven_amendment": "原生Service/Body/connection+C#handler，ResponseFuture/body许可与H2retained bytes分开，Kestrel对照。",
-      "source_lifecycle_followup": {
-        "scope": "C-SERVER 0.2.1-draft 与未定 host",
-        "requirements": "Kestrel 是研究比较基线，B15/B17 产品 host 均 undecided；不得从研究顺序推导默认产品选择。将 Service/head/body/retained allocation/queue reservation/managed retirement 的不同终点写清，引用新 source-lifecycle 输入。B16/B20/B21–B24 的 selected profile 快照至少含一个 host，可两个都选但不设隐含默认；正式 Windows/Linux AOT、网络与长期资源验收仍待完成。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "8d2893825007cd1a39c75fc6e2c141f3f81712c69803fb63b0296b6489c86c10",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D19",
       "title": "协议、可观测性与安全规范",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D19",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -956,32 +857,28 @@
       "contract_outputs": [
         "C-PROTOCOL-001"
       ],
-      "specific_scope": "现有managed ASP.NET/gRPC/MCP接缝是Kestrel-specific；不得自动应用到Rust Server。在C-PROTOCOL规范正文内用唯一的json nativeweave-protocol-host-profiles-v1代码块声明host_task_ids（当前只允许B15）；它作为规范正文纳入原有content_sha256、证据及独立review，没有另一个approved字段。未来B17支持须先有真实API/adapter/transport能力及精确契约修订、重新接受。协议按host启用/排除矩阵写入B18/B19，双host可显式只支持Kestrel协议；无声明、错误host或过期hash都不能ready/接受。",
+      "specific_scope": "Rust Tonic/rmcp protocol seams, static C# DTO/Handler registration, native deadlines/validation/TLS/diagnostics; protocol host B17 only.",
       "prompt": "documentation-tasks/D19.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.1",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/server_extensions",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R28": "0.2.0",
-        "R30": "0.2.0",
-        "R34": "0.2.0"
+        "R28": "0.3.0",
+        "R30": "0.3.0",
+        "R34": "0.3.0"
       },
-      "packet_sha256": "9e8cab975d8c0bd724ded390cd0704e628daf01b3111a88bd64a7364c4f89b19",
-      "source_lifecycle_followup": {
-        "scope": "协议host范围与hash绑定",
-        "requirements": "现有managed ASP.NET/gRPC/MCP接缝是Kestrel-specific；不得自动应用到Rust Server。在C-PROTOCOL规范正文内用唯一的json nativeweave-protocol-host-profiles-v1代码块声明host_task_ids（当前只允许B15）；它作为规范正文纳入原有content_sha256、证据及独立review，没有另一个approved字段。未来B17支持须先有真实API/adapter/transport能力及精确契约修订、重新接受。协议按host启用/排除矩阵写入B18/B19，双host可显式只支持Kestrel协议；无声明、错误host或过期hash都不能ready/接受。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "3759b32617af5e633c2580fe3cce465d7be758a6d9209961e1c80047b3ff1ee6",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D20",
       "title": "生产级参考应用与验收设计",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D20",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1006,28 +903,28 @@
       "contract_outputs": [
         "C-REFERENCE-001"
       ],
-      "specific_scope": "Rust DB必需，同nativehash新增C#entity；保留幂等/outbox/Unknown/close，不默认逐schema SeaORM构建。",
+      "specific_scope": "Idempotent reference service over mandatory Rust DB/ORM/Server; durable Unknown reconciliation and actual future full-system fault/soak gates.",
       "prompt": "documentation-tasks/D20.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.2",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/database_research",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R17": "0.2.1",
-        "R21": "0.2.1",
-        "R31": "0.2.0"
+        "R31": "0.3.0",
+        "R17": "0.3.0",
+        "R21": "0.3.0"
       },
-      "packet_sha256": "ecdaf4a7b4b796728b9fd5bd35d8096edeb17fe1064d0a0f5bfc23b1afe45d24",
-      "source_driven_amendment": "Rust DB必需，同nativehash新增C#entity；保留幂等/outbox/Unknown/close，不默认逐schema SeaORM构建。"
+      "packet_sha256": "9cb39e759d6eb562514354981fd320cc8eade8370bb61fb9395e46429bfb0724",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D21",
       "title": "未来引擎和移动平台扩展边界",
       "phase": "future",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D21",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1052,27 +949,28 @@
       "contract_outputs": [
         "C-EXTENSION-001"
       ],
-      "specific_scope": "GUI/GPU主线程、device/window lifetime、iOS/Android支持证据、静态链接与生命周期限制；本轮不实施GUI",
+      "specific_scope": "Source-checked GPU/GPUI/NSH/mobile/affinity capability boundaries with explicit target limitations; no mandatory global runtime.",
       "prompt": "documentation-tasks/D21.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.1",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root/server_extensions",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R32": "0.2.0",
-        "R33": "0.2.0",
-        "R18": "0.2.1"
+        "R32": "0.3.0",
+        "R33": "0.3.0",
+        "R18": "0.3.0"
       },
-      "packet_sha256": "5b67b267dd8d889878988add0389fd62c66d2982e1e48d4c268cf15d5d782f07"
+      "packet_sha256": "19ee2bcbc719d9181ffab726e0aedcc827e873ede56eb255625b6706dae5849b",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D22",
       "title": "ABI、内存与资源开发任务编制",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D22",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1106,33 +1004,33 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "细化既有ABI/lifetime/error，领域native对象不泄漏到Core。",
+      "specific_scope": "A01–A05 concrete ABI/negotiation/ownership/buffer/error steps and independent scopes.",
       "prompt": "documentation-tasks/D22.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.5",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D02": "0.2.3",
-        "D04": "0.2.5",
-        "D07": "0.2.4",
-        "D08": "0.2.1",
-        "R03": "0.2.3",
-        "R07": "0.2.5",
-        "R10": "0.2.3",
-        "R11": "0.2.1"
+        "R03": "0.3.0",
+        "R07": "0.3.0",
+        "R10": "0.3.0",
+        "R11": "0.3.0",
+        "D02": "0.3.0",
+        "D04": "0.3.0",
+        "D07": "0.3.0",
+        "D08": "0.3.0"
       },
-      "packet_sha256": "2e564798a984c9fdd3c2d56493032ca69c79f16c03113d17a0d7e53740476eee",
-      "source_driven_amendment": "细化既有ABI/lifetime/error，领域native对象不泄漏到Core。"
+      "packet_sha256": "4afaf4e2552551e5ae1451a0febd549f8619a3fe7629fe4269978e7cb22d7258",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D23",
       "title": "生成器与分析器开发任务编制",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D23",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1158,29 +1056,29 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "细化薄绑定与metadata/DTO，不预设完整查询编译器。",
+      "specific_scope": "A09–A12 deterministic minimal binding schema, LibraryImport/Rust exports/analyzers; no domain SQL compiler.",
       "prompt": "documentation-tasks/D23.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R04": "0.2.3",
-        "R05": "0.2.0",
-        "R06": "0.2.0",
-        "D03": "0.2.3"
+        "R04": "0.3.0",
+        "R05": "0.3.0",
+        "R06": "0.3.0",
+        "D03": "0.3.0"
       },
-      "packet_sha256": "a5aff6c2281f288b1dc3df1da32d229667e6d8024d26314896c258605d2f0993",
-      "source_driven_amendment": "细化薄绑定与metadata/DTO，不预设完整查询编译器。"
+      "packet_sha256": "418ebca29491bdfdd45cb11df21e06865c06be9f416ed0e154f990fffd877a7a",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D24",
       "title": "Callback、async与Runtime任务编制",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D24",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1210,36 +1108,31 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "在已有 fragment 和 ID 内核对 A03 的逻辑准入与物理 AddRef、A07 的 create/register/start 握手、take-once 与 native+managed 双退休屏障。每个失败/竞争路径给资源 owner、释放点与可观测计数，规定有界协调器；不复制另一套 runtime，不把设计稿或 native probe 计作 Delivery 通过。",
+      "specific_scope": "A06–A08 callback/root retirement, async create-start/take-once/terminal and optional Engine-local execution.",
       "prompt": "documentation-tasks/D24.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.5",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D05": "0.2.5",
-        "D06": "0.2.2",
-        "D09": "0.2.4",
-        "R08": "0.2.1",
-        "R09": "0.2.2",
-        "R12": "0.2.1"
+        "R08": "0.3.0",
+        "R09": "0.3.0",
+        "R12": "0.3.0",
+        "D05": "0.3.0",
+        "D06": "0.3.0",
+        "D09": "0.3.0"
       },
-      "packet_sha256": "60f568fef4eaff2fa91259f0695e4a88286e6bb385347250673a811834d8d8d6",
-      "source_driven_amendment": "异步桥与body/retirement验证，不自动共享runtime。",
-      "source_lifecycle_followup": {
-        "scope": "A03/A07 与异步候选实现细节",
-        "requirements": "在已有 fragment 和 ID 内核对 A03 的逻辑准入与物理 AddRef、A07 的 create/register/start 握手、take-once 与 native+managed 双退休屏障。每个失败/竞争路径给资源 owner、释放点与可观测计数，规定有界协调器；不复制另一套 runtime，不把设计稿或 native probe 计作 Delivery 通过。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "d2dbe31fa7cbf248da2db485d657ae1de30e5111834688bdf5a24d5568702b09",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D25",
       "title": "构建、打包与独立发布任务编制",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D25",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1267,30 +1160,30 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "维护者build、clean no-Rust/RID-free消费及AOT发布完整矩阵。",
+      "specific_scope": "A13–A16 explicit maintainer builds and Windows/Linux independent package/no-Rust/AOT release matrices.",
       "prompt": "documentation-tasks/D25.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R13": "0.2.3",
-        "R14": "0.2.1",
-        "R02": "0.2.0",
-        "D01": "0.2.3",
-        "D10": "0.2.3"
+        "R13": "0.3.0",
+        "R14": "0.3.0",
+        "R02": "0.3.0",
+        "D01": "0.3.0",
+        "D10": "0.3.0"
       },
-      "packet_sha256": "60bed16560456dfcaca6cb886454b8042ae4f0c8d73d20e658c06d954a88fb22",
-      "source_driven_amendment": "维护者build、clean no-Rust/RID-free消费及AOT发布完整矩阵。"
+      "packet_sha256": "dad7b9ec2615257ae407b3d25c1b5e66113e9652b15a74e950718295dbe14069",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D26",
       "title": "Engine、证明、测试与基准任务编制",
       "phase": "A",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D26",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1324,33 +1217,33 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "异质Engine、差分/fuzz/race/成本，补silent-no-op与body许可负例。",
+      "specific_scope": "A17–A21/A23 real heterogeneous Engine/model/fuzz/performance/affinity implementation with honest supported scope.",
       "prompt": "documentation-tasks/D26.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R15": "0.2.0",
-        "R16": "0.2.0",
-        "R17": "0.2.1",
-        "R18": "0.2.1",
-        "D11": "0.2.1",
-        "D12": "0.2.0",
-        "D13": "0.2.3",
-        "D21": "0.2.1"
+        "R15": "0.3.0",
+        "R16": "0.3.0",
+        "R17": "0.3.0",
+        "R18": "0.3.0",
+        "D11": "0.3.0",
+        "D12": "0.3.0",
+        "D13": "0.3.0",
+        "D21": "0.3.0"
       },
-      "packet_sha256": "a92195c775d7aeb03724d5da083164c794bfe75b8a843f903abbd566da57c679",
-      "source_driven_amendment": "异质Engine、差分/fuzz/race/成本，补silent-no-op与body许可负例。"
+      "packet_sha256": "53fac0203216c63b5da3659c772630202d6f5665bd322de1a7334fa37e113141",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D27",
       "title": "Database完整实现任务编制",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D27",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1380,36 +1273,31 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "在既有 B01–B08 分解中将 C-TX0.2.1-draft 的 commit Unknown、Drop rollback 排队、pool return、worker shutdown ack 和 local retire 分开。B05 及 C-TX 消费者精确 pin 新版本；保留 B04 必需 Rust DB、干净无 Rust 消费和两OS AOT。关联六项 SQLite 实验覆盖与 PG ACK/CLR/soak 缺口，保持全部 candidate。",
+      "specific_scope": "B01–B08 actual SQLx native providers/pool/transaction/stream/codec/migrations; shared B01 seam and B04 host composition.",
       "prompt": "documentation-tasks/D27.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D14": "0.2.3",
-        "D15": "0.2.1",
-        "R19": "0.2.0",
-        "R20": "0.2.0",
-        "R21": "0.2.1",
-        "R22": "0.2.3"
+        "R19": "0.3.0",
+        "R20": "0.3.0",
+        "R21": "0.3.0",
+        "R22": "0.3.0",
+        "D14": "0.3.0",
+        "D15": "0.3.0"
       },
-      "packet_sha256": "3e0104b855ce37ee64130dd618e942fda4ec6b7d3e1bfe78c9eda78fc8bc5521",
-      "source_driven_amendment": "B01–B08 Rust驱动/host/池/事务/codec/流/迁移，B04必需而非可选。",
-      "source_lifecycle_followup": {
-        "scope": "B05 生命周期候选实现细节",
-        "requirements": "在既有 B01–B08 分解中将 C-TX0.2.1-draft 的 commit Unknown、Drop rollback 排队、pool return、worker shutdown ack 和 local retire 分开。B05 及 C-TX 消费者精确 pin 新版本；保留 B04 必需 Rust DB、干净无 Rust 消费和两OS AOT。关联六项 SQLite 实验覆盖与 PG ACK/CLR/soak 缺口，保持全部 candidate。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "4e665e9baa9fa9562f42c6032c831da9f0f8bd951695ea133fc7f922417a2eff",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D28",
-      "title": "ORM与LINQ AOT实现任务编制",
+      "title": "强类型 Fluent 与原生 ORM 实现任务编制",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D28",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1437,35 +1325,30 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "核对 B11 native builder 状态/能力拒绝/fallible binder 和 B13 typed Fluent/metadata/参数快照分工，DTO 仍由 B12，关系CRUD仍由 B14。每个普通实体增量测试 native hash 不变；SQL+参数+真实backend结果差分、编译负例、资源失败路径不可只写“安全高性能”。只更新实际依赖 pins，不创建新总计划。",
+      "specific_scope": "B09–B14 thin native query binding, optional metadata SG, SeaQuery/fallible codecs, DTO/Fluent/native relations.",
       "prompt": "documentation-tasks/D28.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D16": "0.2.4",
-        "D17": "0.2.4",
-        "R23": "0.2.0",
-        "R24": "0.2.0",
-        "R25": "0.2.3"
+        "R23": "0.3.0",
+        "R24": "0.3.0",
+        "R25": "0.3.0",
+        "D16": "0.3.0",
+        "D17": "0.3.0"
       },
-      "packet_sha256": "b9aae4804c6b99424d488bed41df982cddaa15471cd3c981b3e276e4d47ab121",
-      "source_driven_amendment": "B09–B14 metadata/可选SG/native builder/binder/DTO/Fluent/关系，删除全LINQ与重复C#SQL任务。",
-      "source_lifecycle_followup": {
-        "scope": "B11/B13 候选 API 与 oracle",
-        "requirements": "核对 B11 native builder 状态/能力拒绝/fallible binder 和 B13 typed Fluent/metadata/参数快照分工，DTO 仍由 B12，关系CRUD仍由 B14。每个普通实体增量测试 native hash 不变；SQL+参数+真实backend结果差分、编译负例、资源失败路径不可只写“安全高性能”。只更新实际依赖 pins，不创建新总计划。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "7a878f67173d248fe9682ccc8ccbe3907e6d7388efb3eaa5f4672fe503ebc6b3",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D29",
       "title": "Server与协议实现任务编制",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D29",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1497,37 +1380,32 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B15/B17 同为 undecided 候选。共享 B16/B18/B19/B20/B21 只等待 selected host 的条件 start 依赖；B22–B24 条件验收含 selected profiles。required_selection_groups 要求选择全部决定且至少一 host selected，both excluded/undecided 不能放行；两者 selected 时两套产品证据必须独立存在。B24 scope 中 B15/B17 when=selected，B04 when=always。",
+      "specific_scope": "B15–B20 complementary managed application plus mandatory Rust host, Body budgets, Tonic/rmcp and diagnostics.",
       "prompt": "documentation-tasks/D29.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D18": "0.2.4",
-        "D19": "0.2.1",
-        "R26": "0.2.1",
-        "R27": "0.2.4",
-        "R28": "0.2.0",
-        "R29": "0.2.3",
-        "R30": "0.2.0"
+        "R26": "0.3.0",
+        "R27": "0.3.0",
+        "R28": "0.3.0",
+        "R29": "0.3.0",
+        "R30": "0.3.0",
+        "D18": "0.3.0",
+        "D19": "0.3.0"
       },
-      "packet_sha256": "ebab7746bf79c4132b69af1bb7b99484a920d6d074fbff3503e8d51adc42423a",
-      "source_driven_amendment": "原生Server成熟接缝和body预算，Kestrel对照/可选协议保持局部依赖。",
-      "source_lifecycle_followup": {
-        "scope": "host selection 与共享流任务",
-        "requirements": "B15/B17 同为 undecided 候选。共享 B16/B18/B19/B20/B21 只等待 selected host 的条件 start 依赖；B22–B24 条件验收含 selected profiles。required_selection_groups 要求选择全部决定且至少一 host selected，both excluded/undecided 不能放行；两者 selected 时两套产品证据必须独立存在。B24 scope 中 B15/B17 when=selected，B04 when=always。",
-        "acceptance_effect": "none; research/design/candidate detail only"
-      }
+      "packet_sha256": "b374b0626c326ddbaec2d4016e4d690a69a7b3f71410a2f162f2bb0c6e2879f5",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D30",
       "title": "端到端、长期负载与领域发布任务编制",
       "phase": "B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D30",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1557,31 +1435,31 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "B21–B24必须包含B04；PG/SQLite故障、no-Rust consumer、Windows/Linux AOT及完整负载。",
+      "specific_scope": "B21–B24 real Rust DB/ORM/Server reference application, failure/Unknown/soak, performance and immutable package release.",
       "prompt": "documentation-tasks/D30.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.4",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D12": "0.2.0",
-        "D13": "0.2.3",
-        "D20": "0.2.2",
-        "R17": "0.2.1",
-        "R21": "0.2.1",
-        "R31": "0.2.0"
+        "R31": "0.3.0",
+        "R17": "0.3.0",
+        "R21": "0.3.0",
+        "D20": "0.3.0",
+        "D12": "0.3.0",
+        "D13": "0.3.0"
       },
-      "packet_sha256": "df0576418f420e305d53afa2ec2365a33c204eaa2202c402559c200fd186cd60",
-      "source_driven_amendment": "B21–B24必须包含B04；PG/SQLite故障、no-Rust consumer、Windows/Linux AOT及完整负载。"
+      "packet_sha256": "b2bf3eea5ed844a9c0fb6cb93a10ff005026f0a96d2e7a07b7705a8553f3480e",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D31",
       "title": "全局追溯、版本兼容与后续Engine任务规范",
       "phase": "A+B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D31",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1611,31 +1489,31 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "源码/内部seam/patch/ABI/行为追溯，在既有三图内维护。",
+      "specific_scope": "A22/A24 plus all consumers: exact source/patch/ABI/behavior/provenance traceability, compatibility and new Engine conformance.",
       "prompt": "documentation-tasks/D31.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.3",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "R14": "0.2.1",
-        "R18": "0.2.1",
-        "R34": "0.2.0",
-        "D02": "0.2.3",
-        "D10": "0.2.3",
-        "D11": "0.2.1"
+        "R14": "0.3.0",
+        "R18": "0.3.0",
+        "R34": "0.3.0",
+        "D02": "0.3.0",
+        "D10": "0.3.0",
+        "D11": "0.3.0"
       },
-      "packet_sha256": "93984b31daf6552764ef09a923fb81ad4193ccb55e59c35960b0c2dbe4caa9e2",
-      "source_driven_amendment": "源码/内部seam/patch/ABI/行为追溯，在既有三图内维护。"
+      "packet_sha256": "c26ab7a2ae7ae5ecaf7f9b06ccb19cbb71992141c4a6671dae295eae6188e1f0",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     },
     {
       "id": "D32",
       "title": "独立交叉Review与交付准备审查",
       "phase": "A+B",
-      "status": "draft_ready",
+      "status": "review_ready",
       "owner_role": "documentation/D32",
       "start_dependencies": [],
       "acceptance_dependencies": [
@@ -1721,56 +1599,55 @@
       ],
       "resource_locks": [],
       "contract_outputs": [],
-      "specific_scope": "独立检查精确新commit/packet/contract hash；PR2–4旧Review不接受本轮修改。",
+      "specific_scope": "Actual independent technical reviews, 66 R/D outcomes, 21 exact contracts, 114 packet/graph consistency and current phase authorization.",
       "prompt": "documentation-tasks/D32.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
       "reference_only_research_refs": [],
-      "revision": "0.2.5",
-      "author": "unassigned",
+      "revision": "0.3.0",
+      "author": "/root",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {
-        "D01": "0.2.3",
-        "D02": "0.2.3",
-        "D03": "0.2.3",
-        "D04": "0.2.5",
-        "D05": "0.2.5",
-        "D06": "0.2.2",
-        "D07": "0.2.4",
-        "D08": "0.2.1",
-        "D09": "0.2.4",
-        "D10": "0.2.3",
-        "D11": "0.2.1",
-        "D12": "0.2.0",
-        "D13": "0.2.3",
-        "D14": "0.2.3",
-        "D15": "0.2.1",
-        "D16": "0.2.4",
-        "D17": "0.2.4",
-        "D18": "0.2.4",
-        "D19": "0.2.1",
-        "D20": "0.2.2",
-        "D21": "0.2.1",
-        "D22": "0.2.5",
-        "D23": "0.2.3",
-        "D24": "0.2.5",
-        "D25": "0.2.3",
-        "D26": "0.2.3",
-        "D27": "0.2.4",
-        "D28": "0.2.4",
-        "D29": "0.2.4",
-        "D30": "0.2.4",
-        "D31": "0.2.3",
-        "R15": "0.2.0",
-        "R16": "0.2.0",
-        "R34": "0.2.0"
+        "R15": "0.3.0",
+        "R16": "0.3.0",
+        "R34": "0.3.0",
+        "D01": "0.3.0",
+        "D02": "0.3.0",
+        "D03": "0.3.0",
+        "D04": "0.3.0",
+        "D05": "0.3.0",
+        "D06": "0.3.0",
+        "D07": "0.3.0",
+        "D08": "0.3.0",
+        "D09": "0.3.0",
+        "D10": "0.3.0",
+        "D11": "0.3.0",
+        "D12": "0.3.0",
+        "D13": "0.3.0",
+        "D14": "0.3.0",
+        "D15": "0.3.0",
+        "D16": "0.3.0",
+        "D17": "0.3.0",
+        "D18": "0.3.0",
+        "D19": "0.3.0",
+        "D20": "0.3.0",
+        "D21": "0.3.0",
+        "D22": "0.3.0",
+        "D23": "0.3.0",
+        "D24": "0.3.0",
+        "D25": "0.3.0",
+        "D26": "0.3.0",
+        "D27": "0.3.0",
+        "D28": "0.3.0",
+        "D29": "0.3.0",
+        "D30": "0.3.0",
+        "D31": "0.3.0"
       },
-      "packet_sha256": "21f7be30a31d32ca8388f2bf46032851cbe83411167b168ccf0c25ad53ef9a52",
-      "source_driven_amendment": "独立检查精确新commit/packet/contract hash；PR2–4旧Review不接受本轮修改。",
-      "rust1100_impact": "用户允许PR5/PR2严格自审合并，但独立审查未发生；记录后续精确snapshot复审，不阻塞可执行独立研究，也不接受未完成产品。"
+      "packet_sha256": "889e9715f3da56714589806a5b9983064a6e54f315288f6c4b6ada6f82b36a71",
+      "completion_scope": "Reviewed implementation-guiding design, exact Rust/C# boundary, error/ownership/state rules, traceability and future acceptance; not product implementation."
     }
   ],
-  "revision": "0.2.1",
-  "amendment": "Existing task IDs and gates retained; no product implementation authorization."
+  "revision": "0.3.0",
+  "amendment": "Audited continuation of the existing 34R/32D/48Delivery, Rust-native mission and design/product acceptance separation."
 }

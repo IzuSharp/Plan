@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.0.0",
+  "documentation_task_id": "D23",
+  "revision": "0.3.0",
+  "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
+  "delivery_task_ids": [
+    "A09",
+    "A10",
+    "A11",
+    "A12"
+  ],
+  "design_inputs": [
+    {
+      "id": "R04",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R04/report.md",
+        "NativeWeave-Design:docs/research/topics/R04/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R04/coverage.json"
+      ]
+    },
+    {
+      "id": "R05",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R05/report.md",
+        "NativeWeave-Design:docs/research/topics/R05/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R05/coverage.json"
+      ]
+    },
+    {
+      "id": "R06",
+      "outputs": [
+        "NativeWeave-Design:docs/research/topics/R06/report.md",
+        "NativeWeave-Design:docs/research/topics/R06/evidence.json",
+        "NativeWeave-Design:docs/research/topics/R06/coverage.json"
+      ]
+    },
+    {
+      "id": "D03",
+      "outputs": [
+        "NativeWeave-Design:docs/generators/binding-pipeline.md"
+      ]
+    }
+  ],
+  "task_details": {
+    "A09": {
+      "title": "绑定契约IR与输入验证",
+      "boundary_and_ownership": "Minimal binding-description IR, distinct from SQL/HTTP/domain AST.",
+      "native_reuse": "Reuse metadata/schema tooling and R05 exporter inventories; no new domain compiler.",
+      "csharp_surface": "Immutable validated ABI/operation schema with deterministic identifiers and capabilities.",
+      "implementation_steps": [
+        "Specify fixed layouts, import/export names, calling convention, nullability, borrow end, output transfer, thread/reentrancy, error and optional async profile.",
+        "Validate unsupported shapes and duplicate symbols before code generation; version schema independently of Engine business metadata.",
+        "Emit canonical deterministic description hash and full symbol inventory for A10/A11/drift tests.",
+        "Keep source provenance, generating tool version and handwritten/static-descriptor parity."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Unsupported Rust tuples/generics cannot disappear silently from generated exports.",
+        "No network/Cargo/database query runs inside compiler generators."
+      ],
+      "specific_acceptance": [
+        "Same inputs produce identical IR across processes; malformed/unknown required fields fail with location-bearing diagnostics.",
+        "Export inventory negative catches csbindgen silent omission case observed by R05."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.Model/",
+        "NativeWeave:tests/Generators.Model/",
+        "Plan:ledger/evidence/A09/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A10": {
+      "title": "C# LibraryImport绑定发射",
+      "boundary_and_ownership": "C# static import/callback/owner facade emission; application mapping stays type-safe and AOT-compatible.",
+      "native_reuse": "Framework LibraryImport generator; compare csbindgen-generated raw imports where useful, never assume its DllImport output equals this profile.",
+      "csharp_surface": "LibraryImport partial methods, fixed structs and static UCO stubs behind public typed facade.",
+      "implementation_steps": [
+        "Consume A09 validated schema; emit exact managed representation, import calling conventions and private ownership wrappers.",
+        "Generate static callback dispatch and cleanup guards using A03–A07 contracts instead of duplicating lifecycle algorithms.",
+        "Use incremental semantic inputs with stable equality; never depend on another generator seeing generated source in the same pass.",
+        "Package analyzer/compiler-compatible generator separately from net11 runtime facade; keep handwritten-static path equivalent."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Reject nonblittable UCO/ref-like escaping and unsupported target features before runtime.",
+        "Generated code must compile warning-clean under trimming/AOT and not use Reflection.Emit or expression compilation."
+      ],
+      "specific_acceptance": [
+        "Snapshot plus actual compilation/AOT of empty/generic/public-surface edge cases, deterministic re-run/incremental edits.",
+        "Generated imports versus direct native and handcrafted static imports preserve errors/ownership; unsupported symbol negative fails."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.CSharp/",
+        "NativeWeave:tests/Generators.CSharp/",
+        "Plan:ledger/evidence/A10/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A11": {
+      "title": "Rust导出与ABI一致性检查",
+      "boundary_and_ownership": "Maintainer Rust C-export scaffolding and symbol inventory, not application-specific Rust codegen.",
+      "native_reuse": "csbindgen/cbindgen or source-informed static wrappers per D03 evidence; reuse repr(C)/native owner APIs.",
+      "csharp_surface": "No public application API; outputs used by native Engine maintainer build.",
+      "implementation_steps": [
+        "Generate or verify exports from the same A09 inventory with unsafe extern/no_mangle rules and exact error/output postconditions.",
+        "Wrap actual Engine public APIs; explicitly map unsupported types instead of exporting Rust layout.",
+        "Compare produced C header/import/export lists and linker symbols; fail missing or unexpected ABI exports.",
+        "Record generator/tool/adapter/upstream identities and make no Cargo invocation from C# entity changes."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "A generator warning with omitted export is a hard inventory failure.",
+        "catch_unwind does not justify continuing a poisoned Engine or freeing memory through a different allocator."
+      ],
+      "specific_acceptance": [
+        "C/Rust/C# signatures/layout parity, changed-source drift rejection and negative unsupported tuple/generic cases.",
+        "Build and execute exports on Windows MSVC and Linux GNU with final linked symbol inventories."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Generators.Rust/",
+        "NativeWeave:tests/Generators.Rust/",
+        "Plan:ledger/evidence/A11/",
+        "NativeWeave:native/interop/exports/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    },
+    "A12": {
+      "title": "ABI、生命周期与AOT分析器",
+      "boundary_and_ownership": "Static diagnostics for known ABI/AOT/ownership hazards; no assertion that analysis proves arbitrary unsafe code safe.",
+      "native_reuse": "Roslyn incremental analyzer/semantic model, framework AOT diagnostics; no runtime analysis service.",
+      "csharp_surface": "Actionable NW diagnostic IDs with source spans, severity, explanation and local fix where sound.",
+      "implementation_steps": [
+        "Implement D03 diagnostic set: unsupported wire types, invalid callback signatures, escaped borrow/ref-like values, missing required schema and conflicting export IDs.",
+        "Detect forbidden generator side effects/build hooks and unsupported dynamic reflection paths in owned surface where statically knowable.",
+        "Use compilation cancellation correctly and avoid retaining Compilation/Symbol graphs globally.",
+        "Document false-positive limits and narrow reviewed suppressions; unsupported uncertainty must not emit unsafe code."
+      ],
+      "error_cancellation_resources_concurrency": [
+        "Analyzer cancellation discards unpublished results and retains no user compilation objects.",
+        "Do not label absence of diagnostics as ownership/concurrency proof."
+      ],
+      "specific_acceptance": [
+        "Positive/negative source tests with exact diagnostic spans, incremental edits and cancellation; no tests that merely mirror implementation branches.",
+        "Real Native AOT compile verifies analyzer guidance does not hide framework warnings."
+      ],
+      "write_scopes": [
+        "NativeWeave:src/Analyzers/",
+        "NativeWeave:tests/Analyzers/",
+        "Plan:ledger/evidence/A12/"
+      ],
+      "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
+      "verification_matrix": {
+        "operating_systems": [
+          "Windows x64",
+          "Linux x64"
+        ],
+        "managed_modes": [
+          "ordinary dotnet build/run; for generators/analyzers this describes the produced consumer, not the compiler host",
+          "explicit-RID Native AOT publish and actual consumer execution on the required OS rows"
+        ],
+        "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
+        "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
+      }
+    }
+  },
+  "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
+  "phase_authorization": "No product writes or A/B execution authorized in this research/design turn."
+}
