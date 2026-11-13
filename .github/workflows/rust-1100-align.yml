@@ -1,0 +1,93 @@
+name: Align and verify Rust 1.100 Plan
+on:
+  push:
+    branches: [research/source-driven-integration-2026-11-12]
+    paths: [.github/workflows/rust-1100-align.yml]
+permissions:
+  contents: read
+jobs:
+  align:
+    if: github.repository == 'IzuSharp/Plan' && github.ref == 'refs/heads/research/source-driven-integration-2026-11-12'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          path: Plan
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/NativeWeave-Design
+          ref: 22053fd97d701ad771ef51bd3681441597b8d0da
+          persist-credentials: false
+          path: NativeWeave-Design
+      - name: Finalize exact release-scope pins and apply localized changes
+        working-directory: Plan
+        env:
+          NW_DESIGN_COMMIT: 22053fd97d701ad771ef51bd3681441597b8d0da
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tools/rust1100_align.py');s=p.read_text()
+          old="for k,g in graphs.items():g['revision']='0.2.1';dump(k+'-graph.json',g)"
+          new="""for n in nodes.values():
+              for component in (n.get('release_scope') or {}).get('components',[]):
+                  component['revision']=nodes[component['task_id']]['revision']
+          for k,g in graphs.items():g['revision']='0.2.1';dump(k+'-graph.json',g)"""
+          assert old in s;s=s.replace(old,new)
+          old="dump('source-driven-baseline.json',base)"
+          assert old in s;s=s.replace(old,"base.pop('task_revision',None)\n"+old)
+          p.write_text(s)
+          PY
+          python3 tools/rust1100_align.py
+      - name: Execute all structural, negative, source-byte and schema checks
+        working-directory: Plan
+        run: |
+          python3 tools/validate_graphs.py --output verification/graph-validation.json
+          python3 tools/mutation_checks.py
+          python3 tools/rust1100_checks.py
+          python3 -m pip install 'jsonschema==4.23.0'
+          python3 - <<'PY'
+          import hashlib,json,pathlib,jsonschema
+          schema=json.loads(pathlib.Path('schemas/graph-v1.schema.json').read_text())
+          jsonschema.Draft202012Validator.check_schema(schema)
+          rows=[]
+          for k in ('research','documentation','delivery'):
+              p=pathlib.Path(k+'-graph.json');g=json.loads(p.read_text())
+              errors=[e.message for e in jsonschema.Draft202012Validator(schema).iter_errors(g)]
+              assert not errors,(k,errors)
+              rows.append({'graph':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'errors':errors})
+          pathlib.Path('verification/schema-validation.json').write_text(json.dumps({'ok':True,'results':rows},indent=2)+'\n')
+          PY
+      - name: Commit only this paired Plan continuation
+        working-directory: Plan
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          allowed={'README.md','AGENTS.md','execution-policy.md','documentation-policy.md','acceptance-register.md','task-index.md','source-driven-baseline.json','research-graph.json','documentation-graph.json','delivery-graph.json','tools/validate_graphs.py','tools/rust1100_align.py'}
+          for line in subprocess.check_output(['git','status','--porcelain'],text=True).splitlines():
+              p=line[3:]
+              assert p in allowed or p.startswith(('tasks/','research-tasks/','documentation-tasks/','verification/','prompts/')),p
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md AGENTS.md execution-policy.md documentation-policy.md acceptance-register.md task-index.md source-driven-baseline.json '*-graph.json' tools/validate_graphs.py tools/rust1100_align.py tasks research-tasks documentation-tasks verification prompts
+          git diff --cached --check
+          git commit -m 'docs: synchronize Rust 1.100 task impacts and validated continuation gates'
+          git push origin HEAD:refs/heads/research/source-driven-integration-2026-11-12
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: rust-1100-plan-verified
+          path: |
+            Plan/*.json
+            Plan/*.md
+            Plan/tools/
+            Plan/tasks/
+            Plan/research-tasks/
+            Plan/documentation-tasks/
+            Plan/verification/
+          retention-days: 14
