@@ -3,14 +3,14 @@
   "graph_kind": "research",
   "created_at": "2026-11-12",
   "authority": "IzuSharp/Plan",
-  "graph_status": "bootstrap_draft",
+  "graph_status": "source-driven-revision-proposed",
   "scope": "First-delivery research and documentation system; not accepted product architecture",
   "nodes": [
     {
       "id": "R01",
       "title": "稳定工具链与现代语言机制",
       "phase": "A",
-      "status": "planned",
+      "status": "partially_evidenced",
       "owner_role": "research/R01",
       "start_dependencies": [],
       "acceptance_dependencies": [],
@@ -20,7 +20,8 @@
       "outputs": [
         "NativeWeave-Design:docs/research/topics/R01/report.md",
         "NativeWeave-Design:docs/research/topics/R01/evidence.json",
-        "NativeWeave-Design:docs/research/topics/R01/coverage.json"
+        "NativeWeave-Design:docs/research/topics/R01/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R01/rust-1.100.md"
       ],
       "write_scopes": [
         "NativeWeave-Design:docs/research/topics/R01/"
@@ -72,16 +73,18 @@
       "prompt": "research-tasks/R01.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
       "initial_seed_refs": [
-        "NativeWeave-Design:docs/research/toolchain/report.md"
+        "NativeWeave-Design:docs/research/toolchain/report.md",
+        "NativeWeave-Design:docs/research/topics/R01/rust-1.100.md"
       ],
-      "initial_seed_note": "核对初始证据：.NET11/C#15/Rust1.99.1；C#15 union内部object?可能装箱，不能等同零分配ABI union；不要把runtime async preview纳入稳定核心。",
-      "packet_sha256": "df0b83f6acb62605dec8b08b7fd52fd11a27c6fa8dabee698f3232b75c4095aa"
+      "initial_seed_note": "历史版本观察不是永久latest或稳定性结论。重新核验官方stable/preview与实际AOT支持，保留原日期和纠正关系。",
+      "packet_sha256": "9c6a1931e4375c71bc89ba7fcefb68fe71e1ca10dfc9b4cdfbd50e21b1b6d561",
+      "rust1100_impact": "Rust1.100真实release/compiler/Cargo及源码、两OS13项unit/13项command已记录；继续缺失.NET/编译器范围，不重复成功Rust probes。"
     },
     {
       "id": "R02",
@@ -144,12 +147,12 @@
       "prompt": "research-tasks/R02.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "9e03cc5de735f5cc0d01da7af711db03bdeaf42c83dd2b3210351153a1cc9926"
+      "packet_sha256": "ab822f4e477a6af973ac54b4cbbe1ecc80ae0a6e01d9510a6b3a7a306722af36"
     },
     {
       "id": "R03",
@@ -195,6 +198,7 @@
         "layout probes"
       ],
       "questions": [
+        "比较稳定C ABI与native直接/批量操作；Rust AST/Value/trait私有布局不跨ABI；布局、版本、所有权分别验证。",
         "整数宽度、bool/enum、结构体/union、UTF8切片和opaque handle如何编码；size/version字段如何演进；32/64位和调用约定的兼容边界",
         "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
       ],
@@ -214,12 +218,14 @@
       "prompt": "research-tasks/R03.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "598a52bb7f8b9025062f6853b31b0f432e5c4eafb88650e6cc9aee78e3b7a0cf"
+      "packet_sha256": "b2a1db0bd87da28a451702ccc34e1a9e3ad5f9b9b24d3ffd84fd568c62f69bbb",
+      "source_driven_amendment": "比较稳定C ABI与native直接/批量操作；Rust AST/Value/trait私有布局不跨ABI；布局、版本、所有权分别验证。",
+      "rust1100_impact": "extern custom不是P/Invoke；内部never/Allocator不改变固定C ABI。构建实际layout/错误/owned-buffer探针，不伪造C-ABI已接受。"
     },
     {
       "id": "R04",
@@ -264,6 +270,7 @@
         "native export and generated bindings"
       ],
       "questions": [
+        "验证LibraryImport/UCO/函数指针、native线程回调和AOT；薄绑定仍须保证GCHandle与异常边界。",
         "LibraryImport与DllImport何时适用；UnmanagedCallersOnly与delegate如何管理；SuppressGCTransition是否有安全且值得的使用面",
         "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
       ],
@@ -283,12 +290,14 @@
       "prompt": "research-tasks/R04.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "62eed201365702eb81b3f5e43b084d1b7665797bf18dc8e98b19d55e9b8008cf"
+      "packet_sha256": "639917e2e6ef3a401b4a924ecb3b958648959fd05ae1b46dc02128503c251089",
+      "source_driven_amendment": "验证LibraryImport/UCO/函数指针、native线程回调和AOT；薄绑定仍须保证GCHandle与异常边界。",
+      "rust1100_impact": "Rust1.100+C#静态LibraryImport的Windows/Linux真实AOT ABI切片；保持回调、borrowed length和SafeHandle寿命前置。"
     },
     {
       "id": "R05",
@@ -350,6 +359,7 @@
         "unsupported-type fixtures"
       ],
       "questions": [
+        "比较现成生成器和最小绑定输入；生成ABI glue不等于重写领域引擎；分开动态metadata与编译native能力。",
         "应复用现成生成器还是构建最小可验证IR；契约唯一权威放Rust声明、IDL还是受限描述；生命周期和线程语义如何进入生成链"
       ],
       "alternatives": [
@@ -367,12 +377,13 @@
       "prompt": "research-tasks/R05.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "d9ba7233f24feb089de793c0c7a2dca304532eca6dfeecbe3bf6967bca47fa88"
+      "packet_sha256": "2a45920826b1e96c87e737f06743e0e7c1960ab1b9f67b5674326f364d302304",
+      "source_driven_amendment": "比较现成生成器和最小绑定输入；生成ABI glue不等于重写领域引擎；分开动态metadata与编译native能力。"
     },
     {
       "id": "R06",
@@ -418,6 +429,7 @@
         "diagnostic tests"
       ],
       "questions": [
+        "可选static descriptor/DTO生成、增量稳定性和诊断；不以SG/完整LINQ捕获为唯一查询路线，不在SG调用Cargo。",
         "增量输入如何保持可缓存和确定性；如何诊断非法ABI类型、生命周期逃逸与未支持查询；生成代码怎样服务AOT",
         "核验.NET11 UCO非blittable签名限制和fail-fast路径；Direct P/Invoke不遵循DefaultDllImportSearchPaths如何影响诊断与loader测试"
       ],
@@ -437,12 +449,13 @@
       "prompt": "research-tasks/R06.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "5bab0ce41dc12e606e2272a961ddfa469bde7082cd8b3ea04799554f5cb257fc"
+      "packet_sha256": "7346f63ebd7a6099a335d0cecf5aeaac9aec4b97cecc1316b482fc2bae2b6805",
+      "source_driven_amendment": "可选static descriptor/DTO生成、增量稳定性和诊断；不以SG/完整LINQ捕获为唯一查询路线，不在SG调用Cargo。"
     },
     {
       "id": "R07",
@@ -493,6 +506,7 @@
         "GCHandle use"
       ],
       "questions": [
+        "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。",
         "借用/拥有/共享资源的身份如何表达；SafeHandle和generation handle table何时需要；父子销毁、转移所有权和终结器如何互不冲突"
       ],
       "alternatives": [
@@ -510,12 +524,14 @@
       "prompt": "research-tasks/R07.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "e983236fed611d62a949927a5d1a14a4189e4338ae5da884df984e7a813015f8"
+      "packet_sha256": "6dfbc1c8fa9efc4737e168fc9f232899ba9c929fc29668242c8f2c5e6a7852ec",
+      "source_driven_amendment": "可变native builder的单writer admission不同于SafeHandle物理寿命；验证cross-query owner/dispose/inflight lease。",
+      "rust1100_impact": "DropGuard仅简化同步局部rollback；Box/Arc map不用于已发布句柄，allocator owner不能早于所有lease释放。"
     },
     {
       "id": "R08",
@@ -561,6 +577,7 @@
         "cancellation callbacks"
       ],
       "questions": [
+        "ForeignHandler注册代际、注销及body/context退休；回调只进入有界dispatcher，不执行任意用户同步代码。",
         "注销返回是否保证静默；在回调中Dispose会不会死锁；如何让外来线程和迟到回调不访问已回收上下文"
       ],
       "alternatives": [
@@ -578,7 +595,7 @@
       "prompt": "research-tasks/R08.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -587,7 +604,8 @@
         "NativeWeave-Design:experiments/async-quiescence/model.py"
       ],
       "initial_seed_note": "初始有限模型：早free模型226状态发现UAF反例，quiescence+lease模型159状态无安全反例；需复核状态界限与假设，仅为研究seed。",
-      "packet_sha256": "690b702013f788e3c99144467a6c8157f313b1f5a5bdd398b87fad44c927d36a"
+      "packet_sha256": "f68e149b8f8cfb8f07d1fdd207022764fdefec5e289a3e804611e90b1d407bf1",
+      "source_driven_amendment": "ForeignHandler注册代际、注销及body/context退休；回调只进入有界dispatcher，不执行任意用户同步代码。"
     },
     {
       "id": "R09",
@@ -639,6 +657,7 @@
         "cancellation paths"
       ],
       "questions": [
+        "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。",
         "完成/失败/取消/超时/关闭怎样竞争；取消请求与原生停止是否分离；ValueTask复用和continuation调度是否值得"
       ],
       "alternatives": [
@@ -656,7 +675,7 @@
       "prompt": "research-tasks/R09.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -665,7 +684,9 @@
         "NativeWeave-Design:docs/research/toolchain/report.md"
       ],
       "initial_seed_note": "runtime async在初始官方证据中仍为preview；正式async桥不得依赖预览机制。另有experiments/async-quiescence/model.py有限状态实验，不能将顺序一致有限模型结论外推产品。",
-      "packet_sha256": "b695871a811c8d556edf74d8f75a2f2997bbb808286ae2abea49bd2db45d6afd"
+      "packet_sha256": "5d00e36d41799e73fd70ed85ababc7dd6bd4fc7bcee0c5df7e932ebe1cfe0e73",
+      "source_driven_amendment": "Future/Task完成桥、response-head/body分离，close deadline不是quiescence；保留迟到完成和取消竞争。",
+      "rust1100_impact": "DropGuard/Drop不会await；不删除create/start/take_result/retire或取消静默规则。"
     },
     {
       "id": "R10",
@@ -717,6 +738,7 @@
         "native buffer release"
       ],
       "questions": [
+        "Rust AST/value/batch与DTO复制成本；protocol credit不能释放managed仍持有的字节预算。",
         "同步Span借用与跨async Memory租约如何区分；零拷贝是否降低总成本；池化、批处理与大对象如何有界"
       ],
       "alternatives": [
@@ -734,12 +756,14 @@
       "prompt": "research-tasks/R10.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "db9f83593d9539269417f457a0a0dfc22919d674760942550da6ec37494023c4"
+      "packet_sha256": "05174e1d3c171042a3ed9071d8fad8b033807565ad46d0123f4421830117b977",
+      "source_driven_amendment": "Rust AST/value/batch与DTO复制成本；protocol credit不能释放managed仍持有的字节预算。",
+      "rust1100_impact": "稳定Allocator作用于自身分配，不控制SeaQuery嵌套String/Vec或整个RSS；grow成功旧pointer失效，错误保留。"
     },
     {
       "id": "R11",
@@ -807,12 +831,13 @@
       "prompt": "research-tasks/R11.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "4450ce8ebaea49e3040dcfec110453d2deca4958c633ef16269259d019e1fdd5"
+      "packet_sha256": "b73fd4ad87694ae121602f919ab8e459ba20e1b2472cf9ce4043319c382c8b74",
+      "rust1100_impact": "allocator方法和Drop不得unwind；catch_unwind不覆盖abort/OOM；never仅内部类型，不跨ABI。"
     },
     {
       "id": "R12",
@@ -881,12 +906,12 @@
       "prompt": "research-tasks/R12.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "5441c9b158bcb13b20ce5478ccea2c3dbdeafed8bd346aba16426093796d08ca"
+      "packet_sha256": "5cec1587c490f428db810af000e01a04c84b1da113d47e17a1836185f98e2d10"
     },
     {
       "id": "R13",
@@ -937,6 +962,7 @@
         "RID resolution"
       ],
       "questions": [
+        "维护者native构建与普通C#消费分离；无Cargo/CI的RID-free本地开发和显式RID AOT都必须验证。",
         "native产物怎样与托管生成依赖绑定；host/target工具链如何区分；静态动态链接、符号与loader path如何保证"
       ],
       "alternatives": [
@@ -954,12 +980,14 @@
       "prompt": "research-tasks/R13.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "6747dcd619b59f5cb793c65f3483ec08ade22eea831688718e765b7da594aa57"
+      "packet_sha256": "5ebae80b9c463b501de289657218862eeac14b09b4508a055fde83121a053900",
+      "source_driven_amendment": "维护者native构建与普通C#消费分离；无Cargo/CI的RID-free本地开发和显式RID AOT都必须验证。",
+      "rust1100_impact": "Rust/Cargo1.100，Cargo JSON compiler-artifact定位，worktree缓存与目标资产分开；保留clean no-Rust/AOT矩阵。"
     },
     {
       "id": "R14",
@@ -1011,6 +1039,7 @@
         "provenance verification"
       ],
       "questions": [
+        "固定commit/crate checksum/Cargo.lock/features/patch queue；稳定升级、安全修复和差分/性能回归，不自动升级生产。",
         "crate与Adapter NuGet如何独立版本；ABI兼容与API语义版本如何分离；许可证和传递native依赖怎样审计"
       ],
       "alternatives": [
@@ -1028,12 +1057,14 @@
       "prompt": "research-tasks/R14.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "e5cd148d2c75c3a3394d0a6f963babcaa3698a9cdb2c10c15de35093552dfdb0"
+      "packet_sha256": "bcfe42d9db46069c69b5091fc6570488b8d51d109ca0b5d00e89b299a3190252",
+      "source_driven_amendment": "固定commit/crate checksum/Cargo.lock/features/patch queue；稳定升级、安全修复和差分/性能回归，不自动升级生产。",
+      "rust1100_impact": "Cargo unused-dependencies有target/dev/feature边界；min-publish-age不审计已锁定/无timestamp依赖，7day是政策不是安全证明。"
     },
     {
       "id": "R15",
@@ -1084,6 +1115,7 @@
         "proof harness"
       ],
       "questions": [
+        "形式化适用边界，response-head permit早释反例；有限模型不是weak-memory、whole-RSS或运行证明。",
         "哪些状态机可用TLA+或Loom精确建模；Miri/Kani覆盖什么不能覆盖什么；抽象与真实FFI实现如何对应"
       ],
       "alternatives": [
@@ -1101,7 +1133,7 @@
       "prompt": "research-tasks/R15.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1110,7 +1142,8 @@
         "NativeWeave-Design:experiments/async-quiescence/model.py"
       ],
       "initial_seed_note": "复核初始quiescence有限模型，检查顺序一致、事件上界、无真实FFI与平台行为等限制；不是产品正确性证明。",
-      "packet_sha256": "2d77114e0c3461528cf9d250c7888ee4e470252b2fe5c96c3aeefb9953c21f4c"
+      "packet_sha256": "22a89d230fd6ed7e2e7f81ff6b7cfb6566abbe551ac49342a8835846c20ff676",
+      "source_driven_amendment": "形式化适用边界，response-head permit早释反例；有限模型不是weak-memory、whole-RSS或运行证明。"
     },
     {
       "id": "R16",
@@ -1161,6 +1194,7 @@
         "property strategies"
       ],
       "questions": [
+        "原生对照差分、SQLite silent no-op/值窄化panic、混合owner、巨大值、decoder异常和真实AOT负例。",
         "跨语言布局/生命周期/SQL转换如何构造测试oracle；哪些sanitizer目标支持；崩溃如何归档复现"
       ],
       "alternatives": [
@@ -1178,12 +1212,13 @@
       "prompt": "research-tasks/R16.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "7aab141de48823e6d3a3b142f63c42ea521b5212c97ed4976e30adc3e1c9173c"
+      "packet_sha256": "d85f124e8e9ab88980031f9fcf6d98f0a29885e44036af0051cf8ff893a5fd08",
+      "source_driven_amendment": "原生对照差分、SQLite silent no-op/值窄化panic、混合owner、巨大值、decoder异常和真实AOT负例。"
     },
     {
       "id": "R17",
@@ -1234,6 +1269,7 @@
         "benchmark harness"
       ],
       "questions": [
+        "直接builder/batch/static fast path与原生/managed AOT完整负载比较；度量FFI/alloc/copy/RSS和工程成本。",
         "如何公允比较纯C# AOT、混合、纯Rust；吞吐/尾延迟/GC/native alloc/线程/启动/包体/开发复杂度怎样一起评估"
       ],
       "alternatives": [
@@ -1251,12 +1287,14 @@
       "prompt": "research-tasks/R17.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "4e9c0ac680391b04e93a7fa828f3af8d1a48b806e4ac0304a45a60fda4c1339f"
+      "packet_sha256": "652e52487b409ae69e5629debf9de5ec66be7e9322986e33b8c4b0d07104130c",
+      "source_driven_amendment": "直接builder/batch/static fast path与原生/managed AOT完整负载比较；度量FFI/alloc/copy/RSS和工程成本。",
+      "rust1100_impact": "Box/Arc map指针相同只为当前实现观察；PGO和cache收益须完整负载，不发布target-cpu=native。"
     },
     {
       "id": "R18",
@@ -1307,6 +1345,7 @@
         "synchronous and async examples"
       ],
       "questions": [
+        "source-driven接入梯度：公开API、source-informed Adapter、上游扩展、受控Fork；动态metadata与native能力分开，小Core。",
         "最小engine描述包含哪些能力；如何避免巨大core runtime；两个真实不同模块怎样验证可扩展而非同构demo"
       ],
       "alternatives": [
@@ -1324,7 +1363,7 @@
       "prompt": "research-tasks/R18.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1333,7 +1372,9 @@
         "NativeWeave-Design:docs/research/toolchain/report.md"
       ],
       "initial_seed_note": "同步engine若选Zstd，必须纳入.NET11 System.IO.Compression.Zstandard基线，不预设Rust优势。",
-      "packet_sha256": "8dfdf204064aab258f9c4cc1c40018b66493b43a11e877cb3bd72ee9bf98f2b1"
+      "packet_sha256": "918cb22160fd69bd5b60e27e46b2a2ea5c21bc59bd659be48b0e6ad1a000695e",
+      "source_driven_amendment": "source-driven接入梯度：公开API、source-informed Adapter、上游扩展、受控Fork；动态metadata与native能力分开，小Core。",
+      "rust1100_impact": "最新stable机制只缩减必要glue，不新增全局allocator/Tokio；保留独立Engine源码/patch升级责任。"
     },
     {
       "id": "R19",
@@ -1379,7 +1420,7 @@
         "protocol tests"
       ],
       "questions": [
-        "Npgsql NativeAOT能力与限制是什么；SQLx跨FFI是否值得；参数/类型协商/取消请求/协议同步怎样处理"
+        "Rust SQLx PostgreSQL执行、取消/ReadyForQuery与Unknown提交恢复；managed驱动只作对照，不是产品后端。"
       ],
       "alternatives": [
         "Npgsql直接适配；SQLx native adapter；其他成熟驱动仅在有具体问题时加入"
@@ -1396,7 +1437,7 @@
       "prompt": "research-tasks/R19.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1405,7 +1446,8 @@
         "NativeWeave-Design:docs/research/domains/initial-findings.md"
       ],
       "initial_seed_note": "核查Npgsql动态JSON/tuple opt-in上的RequiresDynamicCode，不把全部驱动能力一并标为AOT安全。",
-      "packet_sha256": "ff0d0303b2b0a58d8d9b7e07b89eecc807af79dd62c3c057a2ff50a504f5e019"
+      "packet_sha256": "fe85be9306e54138be935fb67e1131e00678f037b58c603815fd8d550587f899",
+      "source_driven_amendment": "Rust SQLx PostgreSQL执行、取消/ReadyForQuery与Unknown提交恢复；managed驱动只作对照，不是产品后端。"
     },
     {
       "id": "R20",
@@ -1456,6 +1498,7 @@
         "rusqlite Connection"
       ],
       "questions": [
+        "Rust SQLx SQLite worker/队列/锁/progress取消，条数和bytes分开；公开接口不足可评估源码扩展，不伪造即时取消。",
         "嵌入式SQLite实际同步行为怎样影响async API；线程模式、WAL、锁与busy timeout如何表达；NativeAOT打包成本"
       ],
       "alternatives": [
@@ -1473,12 +1516,13 @@
       "prompt": "research-tasks/R20.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "8064d704f2e3b2e07e4d1fbf1922a97b01ce2a93ce4f4f4ff4bc151b6d8b853f"
+      "packet_sha256": "ce9d2d5b041880042ad40becff9dffb3f8fdc0a8bdb4152c26a30466fafa2650",
+      "source_driven_amendment": "Rust SQLx SQLite worker/队列/锁/progress取消，条数和bytes分开；公开接口不足可评估源码扩展，不伪造即时取消。"
     },
     {
       "id": "R21",
@@ -1529,6 +1573,7 @@
         "cancellation tests"
       ],
       "questions": [
+        "效果/协议/本地生命周期独立状态、SQLx池归还和cleanup；Drop排队rollback不等于服务端确认。",
         "取消/timeout后何时可以返池；事务commit应答丢失如何表示未知结果；重试与幂等归谁；隔离级别怎样透传"
       ],
       "alternatives": [
@@ -1546,7 +1591,7 @@
       "prompt": "research-tasks/R21.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1555,7 +1600,8 @@
         "NativeWeave-Design:docs/research/domains/initial-findings.md"
       ],
       "initial_seed_note": "SQLx v0.8.6事务Drop触发start_rollback；PG queue_simple_query不代表回滚已完成，必须追踪排空/返池。",
-      "packet_sha256": "1f7c1b4bb1baaf188e3da40b1286e20d334fac10d941f04f103f00b80ecf7ab4"
+      "packet_sha256": "87765c96ec058c0db8c517cd636cb2d27b85893d0b57447f8227eed67b2460b8",
+      "source_driven_amendment": "效果/协议/本地生命周期独立状态、SQLx池归还和cleanup；Drop排队rollback不等于服务端确认。"
     },
     {
       "id": "R22",
@@ -1607,6 +1653,7 @@
         "schema introspection"
       ],
       "questions": [
+        "native Value到SQLx Arguments必须fallible；unsigned窄化、编码错误、NULL/precision、SQLite text-decimal、大字段边界。",
         "数字精度/时区/UUID/JSON/NULL如何保持语义；流式结果如何释放；迁移与schema版本如何安全协调"
       ],
       "alternatives": [
@@ -1624,12 +1671,14 @@
       "prompt": "research-tasks/R22.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "4d1a2391ad586e528cc898985824bc3c3f27381685de53ffe3c5a8263b564b9a"
+      "packet_sha256": "dfa49a8033e25fec3d52a7fa6336a03ab6f3baf8a39e83b8a5449602dfa9ca33",
+      "source_driven_amendment": "native Value到SQLx Arguments必须fallible；unsigned窄化、编码错误、NULL/precision、SQLite text-decimal、大字段边界。",
+      "rust1100_impact": "现有SeaQuery/SQLx closure须用1.100真实编译；fallible Arguments::add/整数窄化，不能拿MSRV元数据当通过。"
     },
     {
       "id": "R23",
@@ -1671,6 +1720,21 @@
           "repository": "https://github.com/linq2db/linq2db",
           "read_state": "target_not_yet_read",
           "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-query",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-orm",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
         }
       ],
       "symbol_targets": [
@@ -1680,10 +1744,13 @@
         "source generator"
       ],
       "questions": [
-        "LINQ to Objects/IQueryable/Expression Trees分别承诺什么；哪些调用图可静态捕获；捕获闭包/泛型/组合查询怎样拒绝或改写"
+        "普通typed Fluent优先；比较direct native builder、batch和可选static metadata；不要求任意IQueryable/Expression.Compile或C#SQL引擎。"
       ],
       "alternatives": [
-        "受限LINQ generator；强类型Fluent DSL；显式命名查询；受控运行时解释"
+        "预编译SeaQuery动态native builder + SQLx",
+        "batch与可选static fast path",
+        "专用SeaORM静态Entity及native构建代价",
+        "managed外部对照；不重写完整C#SQL Provider"
       ],
       "failure_paths": [
         "跨assembly不可见；动态组合；局部函数；表达式副作用；Expression.Compile引入动态代码"
@@ -1697,7 +1764,7 @@
       "prompt": "research-tasks/R23.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
@@ -1706,7 +1773,8 @@
         "NativeWeave-Design:docs/research/domains/initial-findings.md"
       ],
       "initial_seed_note": "DapperAOT存在skip生成路径，引用包不是成功生成或真实AOT验证的证据。",
-      "packet_sha256": "fa138a96a5ee3e9cb94071783be1bd5070b0cd1057207af92848ad4082cec221"
+      "packet_sha256": "00bdf2ed48e8db84020ed875fd4bbeb874800ecfdce45a38c0b381a68b3103f9",
+      "source_driven_amendment": "普通typed Fluent优先；比较direct native builder、batch和可选static metadata；不要求任意IQueryable/Expression.Compile或C#SQL引擎。"
     },
     {
       "id": "R24",
@@ -1762,6 +1830,7 @@
         "query test suites"
       ],
       "questions": [
+        "SQL三值逻辑和backend能力；SQLite忽略row-lock/SELECT INTO/SEARCH CYCLE必须拒绝；CTE/window/join/aggregate差分。",
         "NULL三值逻辑、collation、排序、join、group、distinct和分页如何定义；参数化能防哪些不能防哪些注入"
       ],
       "alternatives": [
@@ -1779,18 +1848,19 @@
       "prompt": "research-tasks/R24.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "eb8ca392ff71d128ca7a373e4dcdacc261d2cb280389f02450c692cb9d2dede0"
+      "packet_sha256": "dce4a4c19491ab16c80f6adbcc34bfd128cada221f69090ba7743fe2d0ed7433",
+      "source_driven_amendment": "SQL三值逻辑和backend能力；SQLite忽略row-lock/SELECT INTO/SEARCH CYCLE必须拒绝；CTE/window/join/aggregate差分。"
     },
     {
       "id": "R25",
       "title": "ORM特性、跟踪与现成方案比较",
       "phase": "B",
-      "status": "planned",
+      "status": "partially_evidenced",
       "owner_role": "research/R25",
       "start_dependencies": [],
       "acceptance_dependencies": [],
@@ -1800,7 +1870,8 @@
       "outputs": [
         "NativeWeave-Design:docs/research/topics/R25/report.md",
         "NativeWeave-Design:docs/research/topics/R25/evidence.json",
-        "NativeWeave-Design:docs/research/topics/R25/coverage.json"
+        "NativeWeave-Design:docs/research/topics/R25/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R25/source-driven-seaquery.md"
       ],
       "write_scopes": [
         "NativeWeave-Design:docs/research/topics/R25/"
@@ -1831,6 +1902,16 @@
           "repository": "https://github.com/SeaQL/sea-orm",
           "read_state": "target_not_yet_read",
           "pin_required": true
+        },
+        {
+          "repository": "https://github.com/SeaQL/sea-query",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/transact-rs/sqlx",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
         }
       ],
       "symbol_targets": [
@@ -1841,10 +1922,13 @@
         "AOT tests"
       ],
       "questions": [
-        "强类型自然API需要多少ORM能力；哪些可复用哪些应显式不支持；变更跟踪/关系/并发token的成本和AOT边界"
+        "SeaQuery动态AST/identifier/value/CRUD/CTE/window与SeaORM静态Entity边界，比较SQLx执行；普通新实体不默认编译Rust。"
       ],
       "alternatives": [
-        "静态轻量mapper；DapperAOT；EF编译查询相关机制；linq2db；自建有限ORM"
+        "预编译SeaQuery动态native builder + SQLx",
+        "batch与可选static fast path",
+        "专用SeaORM静态Entity及native构建代价",
+        "managed外部对照；不重写完整C#SQL Provider"
       ],
       "failure_paths": [
         "隐式lazy load；N+1；全局缓存增长；未注册泛型；乐观并发冲突误吞"
@@ -1858,12 +1942,17 @@
       "prompt": "research-tasks/R25.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "22a35bfe736e0f07bfb21bc10115a6ea7dd20233489b07d9a7926f1c0436524f"
+      "packet_sha256": "b3137f6d3a9bfba3b580590468ff15670c10431fdc530a7fb92eeb4d2b511cda",
+      "source_driven_amendment": "SeaQuery动态AST/identifier/value/CRUD/CTE/window与SeaORM静态Entity边界，比较SQLx执行；普通新实体不默认编译Rust。",
+      "initial_seed_refs": [
+        "NativeWeave-Design:docs/research/topics/R25/source-driven-seaquery.md"
+      ],
+      "rust1100_impact": "结合SeaORM dynamic补充，对比普通动态metadata路线；不逐entity Cargo、不完整C#SQL Provider；Rust升级不自动换库。"
     },
     {
       "id": "R26",
@@ -1905,6 +1994,7 @@
         "WebApplication"
       ],
       "questions": [
+        "Kestrel现代Native AOT能力等价基线；保留独立无DB示例，源码可绑定不等于Server有实测收益。",
         "现有C# stack能完成哪些目标；handler如何静态生成；HTTP生命周期/内存池/connection limit怎样控制"
       ],
       "alternatives": [
@@ -1922,18 +2012,19 @@
       "prompt": "research-tasks/R26.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "655685a2f330da38f28fc79fb230840684fd0960037fb86b7df6fb52dafb8b8f"
+      "packet_sha256": "634d10cf6ec6487264e360fa2d42e7e71148670cf79c8abdf0e1f4ca8d5e4e95",
+      "source_driven_amendment": "Kestrel现代Native AOT能力等价基线；保留独立无DB示例，源码可绑定不等于Server有实测收益。"
     },
     {
       "id": "R27",
       "title": "Rust网络引擎与C# Handler边界",
       "phase": "B",
-      "status": "planned",
+      "status": "partially_evidenced",
       "owner_role": "research/R27",
       "start_dependencies": [],
       "acceptance_dependencies": [],
@@ -1943,7 +2034,8 @@
       "outputs": [
         "NativeWeave-Design:docs/research/topics/R27/report.md",
         "NativeWeave-Design:docs/research/topics/R27/evidence.json",
-        "NativeWeave-Design:docs/research/topics/R27/coverage.json"
+        "NativeWeave-Design:docs/research/topics/R27/coverage.json",
+        "NativeWeave-Design:docs/research/topics/R27/source-driven-server.md"
       ],
       "write_scopes": [
         "NativeWeave-Design:docs/research/topics/R27/"
@@ -1974,6 +2066,16 @@
           "repository": "https://github.com/Cysharp/YetAnotherHttpHandler",
           "read_state": "target_not_yet_read",
           "pin_required": true
+        },
+        {
+          "repository": "https://github.com/actix/actix-web",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
+        },
+        {
+          "repository": "https://github.com/cloudflare/pingora",
+          "read_state": "target_not_yet_read",
+          "pin_required": true
         }
       ],
       "symbol_targets": [
@@ -1984,6 +2086,7 @@
         "ffi callback"
       ],
       "questions": [
+        "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。",
         "把网络搬到Rust究竟减少还是增加分配/调度；HTTP模型怎样跨ABI；是否能避免重复TLS和两套executor"
       ],
       "alternatives": [
@@ -2001,16 +2104,19 @@
       "prompt": "research-tasks/R27.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.1",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
       "initial_seed_refs": [
-        "NativeWeave-Design:docs/research/domains/initial-findings.md"
+        "NativeWeave-Design:docs/research/domains/initial-findings.md",
+        "NativeWeave-Design:docs/research/topics/R27/source-driven-server.md"
       ],
       "initial_seed_note": "hyper C API标注unstable/no semver，不能直接继承为NativeWeave稳定ABI承诺。",
-      "packet_sha256": "62de63775d25bf11e444b934ecd97353faa97de288fba6f54e3ef3342ee07868"
+      "packet_sha256": "ca5e79adec11fb99221d53541179332e50e9fc48ee1f3f2a699660bcfbf22ac8",
+      "source_driven_amendment": "Hyper Service/Body、Tower/Axum、Actix worker affinity、Pingora代理接缝；C#是handler层，不重写网络核心。",
+      "rust1100_impact": "在1.100实际执行native Service/Body生命周期切片，避免仅有抽象模型；Rust Server仍需Kestrel比较。"
     },
     {
       "id": "R28",
@@ -2066,6 +2172,7 @@
         "TLS config"
       ],
       "questions": [
+        "所选gRPC/MCP/TLS的静态注册/DTO与错误；协议包选择不阻塞无关Server/DB工作。",
         "协议与transport怎样分层；gRPC代码生成和MCP序列化可否AOT；TLS证书与认证归谁；协议版本如何固定"
       ],
       "alternatives": [
@@ -2083,12 +2190,13 @@
       "prompt": "research-tasks/R28.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "66b0e922eed53c7d69cf7add9f9b303bacf20b64217f500d0b8a8110c0b11bdb"
+      "packet_sha256": "3bf07b4e3777487dbda0c68ae47d3108fdafc91a6661a654108068500c906747",
+      "source_driven_amendment": "所选gRPC/MCP/TLS的静态注册/DTO与错误；协议包选择不阻塞无关Server/DB工作。"
     },
     {
       "id": "R29",
@@ -2139,6 +2247,7 @@
         "graceful shutdown"
       ],
       "questions": [
+        "Tower ResponseFuture许可不覆盖body；Hyper H2credit不覆盖retained bytes；waiters/chunks/close预算分别验证。",
         "请求与响应双向背压怎样贯通FFI；容量预算由字节还是条目限制；关闭时新请求/已接受请求如何处理"
       ],
       "alternatives": [
@@ -2156,12 +2265,13 @@
       "prompt": "research-tasks/R29.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "9e5b592c768f4990071a5010c24b420050eccecb5e38b08cda78dc1d720a4cea"
+      "packet_sha256": "2d587654ec6556ca8143e6815ca99761d8b53657c75e943ba978a12baae15005",
+      "source_driven_amendment": "Tower ResponseFuture许可不覆盖body；Hyper H2credit不覆盖retained bytes；waiters/chunks/close预算分别验证。"
     },
     {
       "id": "R30",
@@ -2213,6 +2323,7 @@
         "native stack symbols"
       ],
       "questions": [
+        "跨语言诊断关联、bounded telemetry和credentials/参数脱敏，诊断队列不能破坏预算。",
         "如何跨FFI关联trace而不复制大量状态；采样/metrics cardinality如何有界；错误诊断如何保留native stack"
       ],
       "alternatives": [
@@ -2230,12 +2341,13 @@
       "prompt": "research-tasks/R30.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "ffa4dd8840a5e2f68a1a6c2eea01fa1e83b07f241410985274068db97170779d"
+      "packet_sha256": "ada8b0bfd24280b6ca831c958c137cb68ed955362e43da06e47fea5d612b3936",
+      "source_driven_amendment": "跨语言诊断关联、bounded telemetry和credentials/参数脱敏，诊断队列不能破坏预算。"
     },
     {
       "id": "R31",
@@ -2286,6 +2398,7 @@
         "crash recovery"
       ],
       "questions": [
+        "Rust DB+C#业务参考服务；保留原子幂等/outbox/Unknown；普通新实体复用nativehash与干净消费者验证。",
         "用何种最小通用业务同时暴露事务、流式、幂等和并发问题；如何比较3条技术路径同语义"
       ],
       "alternatives": [
@@ -2303,12 +2416,13 @@
       "prompt": "research-tasks/R31.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "ff6ebe45d69e7a3390fa6c029ac7cb4dc499e9807b7132cdb720d2b02fad086c"
+      "packet_sha256": "4e95841ee2120c56375d106e35038d7f9a6fb66d326c215b47cd4ab2eefb363a",
+      "source_driven_amendment": "Rust DB+C#业务参考服务；保留原子幂等/outbox/Unknown；普通新实体复用nativehash与干净消费者验证。"
     },
     {
       "id": "R32",
@@ -2381,12 +2495,12 @@
       "prompt": "research-tasks/R32.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "1a61a414b5bb07b3abbadcc44060869784c1ca154d20ef573e39f619ad2bcb2b"
+      "packet_sha256": "04872d0d8b7744747380c51819bd9c711ea7c7e6ed9b45e60e62e2fd30bfa63c"
     },
     {
       "id": "R33",
@@ -2454,12 +2568,12 @@
       "prompt": "research-tasks/R33.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "dbb132841acff825dd8691db3e5a3faf5498067b9ce408dcc2a3880963da31b8"
+      "packet_sha256": "0a1d07570192e44190eb2775ba756e91790250f23d07147b6a8e1c091aae6dc4"
     },
     {
       "id": "R34",
@@ -2533,12 +2647,14 @@
       "prompt": "research-tasks/R34.md",
       "acceptance_evidence": [],
       "independent_reviewers": [],
-      "revision": "0.1.1",
+      "revision": "0.2.0",
       "author": "unassigned",
       "conditional_dependencies": [],
       "selection_inputs": [],
       "dependency_pins": {},
-      "packet_sha256": "e19b997569ec8ce0235d703d32e6fe1fdc090ce188fe3dcf1867ff964fbee6de"
+      "packet_sha256": "3e3516ccede113240f78fb60a3a32fc4c9b598070223e0b3708a427fad9ca091"
     }
-  ]
+  ],
+  "revision": "0.2.1",
+  "amendment": "Existing task IDs and gates retained; no product implementation authorization."
 }

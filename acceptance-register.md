@@ -1,18 +1,7 @@
-# 初始验收登记
+# 当前接受状态与历史证据
 
-本批任务提示词/packet修订：**0.1.1**。首次启动请按 [README 的输入定位](README.md#首次启动输入定位) 解析两仓库完整 commit SHA，并核对任务图与正文 hash；契约仍为 `0.1.0-draft / proposed`，任务状态不变。
+精确任务状态/revision/hash以三图为准，契约以Design registry为准，配对输入见source-driven-baseline.json。不要继续把初始0.1.1提示词或全部0.1.0契约当当前状态；历史启动记录保留在Git。
 
-截至首次交付，状态如下；本登记是便于阅读的解释，权威任务状态在各图，契约状态在Design registry。不要独立在此复制每个task的动态状态。
+当前34R/32D/48候选Delivery ID不变。R01/R25/R27有部分证据，可继续研究而非被错误永久blocked；其余任务按图状态推进。契约仍proposed，文档合并不自动产生生产accepted。已有原始Linux/SQLite C#AOT实验和新增Windows/Linux Rust1.100 API实验分别保留，不能互相替代，也不代表完整产品验收。
 
-| 对象 | 实际状态 | 能说明什么 |
-| --- | --- | --- |
-| 34个Research任务 | planned | 问题、候选来源、证据标准和独占输出已定义，可并行查证 |
-| 32个Documentation任务 | draft_ready | Design规范与Plan fragment可以并行编制 |
-| 21个契约 | proposed，0.1.0-draft | 需求和职责已分配，尚未接受具体产品设计 |
-| 48个Delivery候选 | planned_candidate | 完整覆盖两阶段并提供候选接口/范围/验证；不能据此无审查实施 |
-| Python图校验 | 实际执行，结果见verification | 校验ID、依赖、版本、路径与本地证据门禁；不证明产品 |
-| 错误注入检查 | 实际执行，结果见verification | 指定错误会被拒绝且ready fail closed |
-| Windows/Linux产品AOT | 未执行 | 没有对应产品制品，不能声称通过 |
-| 独立Review | 仅限本次初始体系实际审查记录 | 不替代全部未来Design与产品最终验收 |
-
-进入accepted需要本地manifest完整性校验和独立实质审查。manifest自身可被人写出来；工具不认证身份或实际执行真伪，Review必须回到固定源码、原始日志、制品与可信执行环境。
+用户对Design PR5/Plan PR2允许严格自审合并的范围见execution-policy.md。独立复审仍待D32；不能虚构Review。正式产品终结态继续校验独立Review、真实AOT/平台/故障/资源证据。下一批实际fixture按已有R/D任务执行以补齐前置，不重复总规划。
