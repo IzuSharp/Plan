@@ -1,6 +1,6 @@
 # NativeWeave Task Index
 
-The existing three graphs contain 34 Research, 32 Documentation, and 48 future Delivery tasks. Revision 0.3.0; the graphs are authoritative for status/acceptance, and product implementation is currently unauthorized.
+The existing three graphs contain 34 Research, 32 Documentation, and 48 future Delivery tasks. Current graph revision 0.4.0; individual packet revisions are explicit. The graphs are authoritative for status/acceptance, and product implementation is currently unauthorized.
 
 ## research
 
