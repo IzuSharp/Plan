@@ -62,7 +62,7 @@
   ],
   "task_details": {
     "B01": {
-      "title": "Data接口与动态metadata边界",
+      "title": "Data Interfaces and Dynamic Metadata Boundaries",
       "boundary_and_ownership": "Sole owner of common logical metadata/table/column/projection IDs, scalar tags, limits, provider-neutral session/operation interfaces and outcome declarations in Data.Abstractions and native/database/interfaces. B09 owns query operation descriptors, B07 conversion implementations, B04 owning host. Do not define another metadata schema downstream.",
       "native_reuse": "Describe the selected Rust Engine capabilities without implementing a managed provider, SQL parser, SQL AST, dialect or driver.",
       "csharp_surface": "DataSource/Session contracts; immutable Table<TEntity>/Column<TEntity,TValue>/Projection<T>; finite capability and limit profile; static materializer contract. Public names remain subject to ordinary API review, while ownership and wire semantics are fixed.",
@@ -102,7 +102,7 @@
       }
     },
     "B02": {
-      "title": "Rust PostgreSQL执行Adapter",
+      "title": "Rust PostgreSQL Execution Adapter",
       "boundary_and_ownership": "Own SQLx PostgreSQL provider in native/database/postgres and its narrow managed package; consume B01 seam, B07 binder and B05 transaction policy through B04, without implementing a second host/pool wrapper.",
       "native_reuse": "SQLx PgConnection/PgPool/Arguments, wire protocol and native TLS. SeaQuery-generated SQL is bound using B07. Do not recreate PostgreSQL protocol or publish Npgsql as a product path.",
       "csharp_surface": "Postgres-specific configuration/capability registration and structured provider details; the application still uses common Session/typed queries.",
@@ -145,7 +145,7 @@
       }
     },
     "B03": {
-      "title": "Rust SQLite执行Adapter",
+      "title": "Rust SQLite Execution Adapter",
       "boundary_and_ownership": "Own SQLite native provider, connection options, worker-specific hooks and adapter test fixtures; use the B04 host and shared transaction/stream/codec components.",
       "native_reuse": "SQLx SQLite worker, SQLite prepared statements, progress hooks and transaction machinery. No unconditional Task.Run wrapper and no separate C# database execution engine.",
       "csharp_surface": "Sqlite options for file path, WAL/FK, busy timeout and supported transaction begin mode; common strongly typed Session/query facade.",
@@ -187,7 +187,7 @@
       }
     },
     "B04": {
-      "title": "必需Rust Database Host与生命周期",
+      "title": "Required Rust Database Host and Lifecycle",
       "boundary_and_ownership": "Own mandatory native database host, Engine-local runtime, physical lease admission, resource tree and managed facade bridge. B01 defines seams; B02/B03 implement providers; B05/B06/B07 implement transaction/stream/codec components. Never define provider interfaces in B04 that the providers need before B04 exists.",
       "native_reuse": "Tokio runtime only within the async DB Engine, SQLx native pools, Core narrow owner/async primitives. Sync Engines elsewhere need not acquire this runtime.",
       "csharp_surface": "DataSource.Open/Session acquisition and async execute facades; internal opaque SafeHandles and Operation<T>; no public Rust runtime or driver trait.",
@@ -231,7 +231,7 @@
       }
     },
     "B05": {
-      "title": "Rust事务、池恢复与Unknown",
+      "title": "Rust Transactions, Pool Recovery, and Unknown",
       "boundary_and_ownership": "Own transaction lifecycle/outcome/recovery and connection disposition policy in native/database/transactions; provider hooks remain B01 interfaces. Keep response-loss uncertainty out of generic Core status definitions.",
       "native_reuse": "SQLx transaction/savepoint/pool mechanics and native provider hooks. SeaORM TransactionTrait is only relevant to an explicit specialized profile, not mandatory for ordinary adapters.",
       "csharp_surface": "D15 DataTransaction scope with immutable Outcome/Cleanup snapshots and CommitAttempted. CommitAsync succeeds only for Committed; confirmed transaction failure is a DataException, Unknown is CommitOutcomeUnknownException, and explicit RollbackAsync failure is DataCleanupException. CloseAsync(deadline) may return Pending while DisposeAsync joins actual local safety; no automatic replay of business delegates.",
@@ -278,7 +278,7 @@
       }
     },
     "B06": {
-      "title": "Rust有界结果批次与流",
+      "title": "Rust Bounded Result Batches and Streams",
       "boundary_and_ownership": "Own native cursor and owned row-batch implementation plus C# stream adapter; B01 owns shape/lease contracts and B12 owns DTO construction. Do not put DTO mapping inside drivers.",
       "native_reuse": "SQLx row streams/SQLite worker; native checked row codecs from B07. No unbounded fetch_all on the streaming path.",
       "csharp_surface": "IAsyncEnumerable<T> adapter or explicit Cursor.FetchAsync/OwnedRowBatch, with one active fetch and one untransferred result, explicit large-value chunks.",
@@ -320,7 +320,7 @@
       }
     },
     "B07": {
-      "title": "Rust fallible参数codec与边界值",
+      "title": "Rust Fallible Parameter Codecs and Boundary Values",
       "boundary_and_ownership": "Sole owner of Rust logical-value to provider Arguments conversion and checked Rust/C# wire scalar conversion. B11 invokes this binder; do not duplicate it in query code or silently use a panic-prone convenience adapter.",
       "native_reuse": "SeaQuery Value/SQLx Encode/Type and provider native codecs; propagate every Arguments::add Result. Use explicit finite capability profiles.",
       "csharp_surface": "Static logical scalar/value readers/writers, typed null and explicit supported enum/JSON registration; no object[] or auto-stringify fallback.",
@@ -362,7 +362,7 @@
       }
     },
     "B08": {
-      "title": "Rust迁移执行与版本ledger",
+      "title": "Rust Migration Execution and Version Ledger",
       "boundary_and_ownership": "Own explicit deployment migration runner and ledger policy; never automatic destructive schema synchronization in ordinary DataSource startup. Keep administration pools/sessions separate from request transactions.",
       "native_reuse": "SQLx Migrator/Migrate, native migration checksums, provider transactional DDL and ledger. Provider-specific locking is inspected, not assumed identical.",
       "csharp_surface": "Explicit MigrationDefinition/Manifest and ApplyAsync administrative entrypoint with provider, ID, hash, from/to compatibility and transaction mode.",
