@@ -43,3 +43,7 @@ First check out the full Design SHA specified by the baseline. `--require-comple
 See [D32](ledger/reviews/D32.md), the [current phase](CURRENT-PHASE.md), and the [acceptance register](acceptance-register.md) for exact progress and independent review. Once the product phase is explicitly authorized in the future, A01, A19, A21, and B01 may be implemented in parallel first; the rest proceed according to actual local dependencies. Implementation still requires independent NuGet/clean no-Rust consumption, actual Windows/Linux AOT, real databases/networking, error/cancellation/resource behavior, and long-running-load/performance verification.
 
 Source selection does not depend on ArcForges business logic or architecture. Merging research does not automatically publish packages, change permissions/licenses, or bypass Required Checks. Independent subagent technical review is not approval by another GitHub account.
+
+## Public API implementation and documentation obligations
+
+The existing 48 Delivery packets now bind the complete C# public API specification, native operation mapping and versioned documentation standard in the pinned Design repository. Read [API execution requirements](api-execution-requirements.md) and [execution policy](execution-policy.md). Each module owns XML/API Reference/guides/examples together with implementation; A13/A22/A24 install the shared rules and A16/B24 verify package consumption and release composition. These refinements preserve the three graphs and do not authorize Delivery execution.
