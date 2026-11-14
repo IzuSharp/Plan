@@ -1,9 +1,9 @@
-# Research 政策
+# Research Policy
 
-34个既有研究ID按实际问题并行。恢复先查report/evidence/coverage和审查，不以planned推断没有成果，也不以目录存在推断完成。固定准确源码/测试版本与真正阅读范围；下载文件不等于阅读整库。Rust DB/ORM/Server使命不再作为反向架构开放问题。
+The 34 existing research IDs proceed in parallel according to actual questions. Recovery starts by checking reports/evidence/coverage and reviews; do not infer that no results exist from a planned status, or infer completion from the existence of a directory. Pin exact source/test versions and the scope actually read; downloading files is not reading an entire repository. The Rust DB/ORM/Server mission is no longer an open architectural question about reversing that direction.
 
-每项研究给技术结论、替代方案成本、正常/异常/边界语义、必要真实实验及适用范围。上游测试已读与已运行分别标注。使用真实成熟引擎，不以同构mock替代通用性证明。有限模型、byte-sum、CI时长不能成为生产性能/内存/弱内存正确性保证。
+Each research task provides technical conclusions, alternative costs, normal/failure/boundary semantics, necessary actual experiments, and applicability. Mark upstream tests read and tests executed separately. Use actual mature engines; structurally identical mocks cannot replace evidence of generality. Finite models, byte sums, and CI duration cannot become guarantees of production performance/memory/weak-memory correctness.
 
-已有成功实验复用；仅为具体未解风险/新修复运行增量回归。保留失败假设、实际输出、Commit和输入hash，Windows CRLF/LF差异必须解释而不能伪造成同字节。研究产生的产品验证义务落到现有A/B任务，能通过研究解决的问题现在解决。
+Reuse existing successful experiments; run incremental regressions only for a specific unresolved risk or a new fix. Preserve failed hypotheses, actual output, commits, and input hashes; explain Windows CRLF/LF differences rather than falsely presenting them as identical bytes. Assign product verification obligations arising from research to existing A/B tasks; resolve now any question that research can resolve.
 
-接受需实际独立技术审查且精确内容/依赖绑定；状态滞后在审查后纠正。产品实现未开始不阻止成熟研究接受。真实不可执行目标应给具体工具/平台/来源阻断及最小剩余动作，不能笼统后续研究。当前证据在Design，Plan记录任务与接受机制。
+Acceptance requires actual independent technical review and exact content/dependency bindings; correct stale status after review. The absence of product implementation does not prevent acceptance of mature research. For a target that truly cannot be executed, identify the specific tool/platform/source blocker and the minimum remaining action, rather than vaguely deferring it to later research. Current evidence lives in Design; Plan records tasks and acceptance mechanisms.

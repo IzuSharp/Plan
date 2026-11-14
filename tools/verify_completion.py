@@ -71,7 +71,7 @@ def verify(require_complete=False):
         for node in nodes:
             packet = P/node['prompt']
             assert digest(packet.read_bytes()) == node['packet_sha256'], node['id']
-            assert '任务修订 **'+node['revision']+'**' in packet.read_text(), node['id']
+            assert 'Task revision **'+node['revision']+'**' in packet.read_text(), node['id']
             if kind != 'delivery':
                 for output in node['outputs']:
                     assert checker.resolve(output).is_file(), (node['id'], output)

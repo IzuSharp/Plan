@@ -71,7 +71,7 @@
   ],
   "task_details": {
     "A01": {
-      "title": "ABI描述、布局探针和版本读取",
+      "title": "ABI Descriptions, Layout Probes, and Version Reads",
       "boundary_and_ownership": "One canonical fixed-layout C ABI description, independent of SQL/HTTP/GPU. Rust/C/C# records and status/storage widths must agree.",
       "native_reuse": "Rust repr(C), C fixed-width declarations, .NET Sequential structs/LibraryImport; no Rust native ABI.",
       "csharp_surface": "Internal blittable ABI records and engine-prefixed get_abi_v1 bootstrap; application code sees no raw pointers.",
@@ -111,7 +111,7 @@
       }
     },
     "A02": {
-      "title": "状态、能力及兼容性协商入口",
+      "title": "Status, Capability, and Compatibility Negotiation Entry Points",
       "boundary_and_ownership": "Engine-local loading, bootstrap and capabilities; no global service locator or universal function table.",
       "native_reuse": "OS native loader and D02 C ABI; optional function table only for an Engine that needs one.",
       "csharp_surface": "EngineModule/CapabilityProfile bootstrap with immutable supported-feature set.",
@@ -151,7 +151,7 @@
       }
     },
     "A03": {
-      "title": "同步句柄与资源lease",
+      "title": "Synchronous Handles and Resource Leases",
       "boundary_and_ownership": "Logical admission gate plus physical native resource lease; SafeHandle alone is not the admission policy.",
       "native_reuse": "Rust RAII owners/Arc as source semantics permit; creating module releases its own resources.",
       "csharp_surface": "Private SafeHandle owner; TryAcquire/lease and Dispose/DisposeAsync with explicit lifecycle.",
@@ -191,7 +191,7 @@
       }
     },
     "A04": {
-      "title": "拥有Buffer与异步租约",
+      "title": "Owned Buffers and Async Leases",
       "boundary_and_ownership": "Owned/borrowed byte regions and retained async leases; no allocator identity guessing.",
       "native_reuse": "Rust Vec/Bytes owners and source-verified destruction; D07 complete extent/stride contract.",
       "csharp_surface": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
@@ -232,7 +232,7 @@
       }
     },
     "A05": {
-      "title": "受控错误与panic转换边界",
+      "title": "Controlled Error and Panic Conversion Boundaries",
       "boundary_and_ownership": "Single status/ErrorRecord/panic containment authority for every adapter.",
       "native_reuse": "Rust catch_unwind only for unwind-mode panic and nonpanicking native cleanup; no invented process-fault recovery.",
       "csharp_surface": "Typed managed exception/result translation outside ABI callbacks; bounded native detail record.",

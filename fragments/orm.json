@@ -52,7 +52,7 @@
   ],
   "task_details": {
     "B09": {
-      "title": "最小查询绑定与metadata定义",
+      "title": "Minimal Query Bindings and Metadata Definitions",
       "boundary_and_ownership": "Own minimal query-operation ABI descriptors and query owner IDs under Query.Binding/native/database/binding. Import canonical metadata/value/result shapes from B01; do not publish another Table/Column schema or a serialized C# SQL AST.",
       "native_reuse": "Versioned calls target SeaQuery-native builder operations. Start with direct native operations; batching is an optional measured encoding optimization with identical semantics, not a prerequisite or second query language.",
       "csharp_surface": "Internal typed call descriptors and owner/alias tokens used by B10/B11/B13, with public application types from B01.",
@@ -92,7 +92,7 @@
       }
     },
     "B10": {
-      "title": "可选静态descriptor与DTO生成",
+      "title": "Optional Static Descriptor and DTO Generation",
       "boundary_and_ownership": "Own optional incremental generator, its diagnostic fixtures and generated-output golden files only. B01/B09 own input contracts; B12 owns runtime/static reader behavior. Do not require this generator for ordinary querying.",
       "native_reuse": "Roslyn incremental APIs only for static C# metadata/constructor emission; native SeaQuery/SQLx are unchanged application-independent assets.",
       "csharp_surface": "Opt-in model/projection declarations emit immutable descriptors and static materializers equivalent to handwritten forms; direct C# constructor access is AOT-visible.",
@@ -131,7 +131,7 @@
       }
     },
     "B11": {
-      "title": "Rust SeaQuery深度绑定与能力检查",
+      "title": "Rust SeaQuery Deep Binding and Capability Checks",
       "boundary_and_ownership": "Own actual SeaQuery AST/builder/capability checking and managed narrow binding adapter; call B07 for Arguments conversion. B09 owns operation declaration, B13 application Fluent composition.",
       "native_reuse": "SeaQuery Expr/Condition/Select/Insert/Update/Delete/Dialect and SQLx B07 binder. No C# SQL parser/emitter, no duplicated Rust SQL builder.",
       "csharp_surface": "Internal native query/plan owner and typed operation calls; public high-level Fluent surface is B13.",
@@ -174,7 +174,7 @@
       }
     },
     "B12": {
-      "title": "静态C# DTO物化与异常清理",
+      "title": "Static C# DTO Materialization and Exception Cleanup",
       "boundary_and_ownership": "Own static managed typed readers and DTO construction/runtime contract. Read B01 row-lease interface and B07 scalar conversion; B06 owns batch allocation/cursor implementation, B10 optional emitted constructor code.",
       "native_reuse": "Native provider/codec computes typed result values and shape; C# maps that finite representation directly to application DTOs. SeaORM dynamic projection is optional inside Rust and must obey identical shape checks.",
       "csharp_surface": "Static RowReader<T>/projection constructor interface, typed scalar access and lease scope; no identity map, reflection setter, arbitrary runtime generic instantiation or managed relation graph.",
@@ -213,7 +213,7 @@
       }
     },
     "B13": {
-      "title": "强类型runtime Fluent原生查询",
+      "title": "Strongly Typed Runtime Fluent Native Queries",
       "boundary_and_ownership": "Own natural application-facing typed Fluent calls/proxies under Query.Fluent; no persistent managed SQL tree. B11 owns builder, B09 operation descriptors, B12 DTO materialization.",
       "native_reuse": "Direct SeaQuery builder calls and shared runtime metadata; optional batching only if supported by B09 with measured benefit.",
       "csharp_surface": "Query<TEntity>, typed columns, scoped aliases/expressions, typed Select<TDto>, async execute/stream; handwritten and SG metadata are equivalent paths.",
@@ -253,7 +253,7 @@
       }
     },
     "B14": {
-      "title": "Rust显式关系CRUD与乐观并发",
+      "title": "Rust Explicit Relationship CRUD and Optimistic Concurrency",
       "boundary_and_ownership": "Own explicit native relation/CRUD/CAS policy and narrow C# changeset surface. No implicit lazy loading, identity map, tracking or aggregate save-graph semantics added silently.",
       "native_reuse": "SeaQuery joins/CRUD and SQLx transactional execution for the ordinary route. SeaORM LoaderTrait offers valuable native batching/grouping but has static ModelTrait/EntityTrait bounds and all() materialization; dynamic eager loading requires an explicit upstream/native adapter scope with bounded grouping, not a C# relation engine.",
       "csharp_surface": "Explicit typed relation projections, Change<T> with NotSet/Null/Value, tenant/key/version CAS, and transaction-scoped operation results.",

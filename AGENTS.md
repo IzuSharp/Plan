@@ -1,12 +1,12 @@
-# NativeWeave Plan 工作规则
+# NativeWeave Plan Working Rules
 
-NativeWeave 采用 Source-Driven Deep Native Integration。C# 是应用开发语言，提供强类型 Fluent、静态元数据/DTO 和业务 Handler；数据库驱动、查询/方言/ORM 关系执行及 Server 网络/协议/运行时必须复用成熟 Rust 引擎。Kestrel、Npgsql 等只作对照。普通应用不手写 Rust/FFI，不因新增 Entity/DTO/Handler 重编译 native。保持正常 dotnet build/run 与真实 Native AOT 发布，不构造 C# SQL AST/完整 LINQ Provider 或巨型 Core runtime。
+NativeWeave uses Source-Driven Deep Native Integration. C# is the application development language, providing strongly typed Fluent APIs, static metadata/DTOs, and business handlers; database drivers, query/dialect/ORM relational execution, and Server networking/protocols/runtimes must reuse mature Rust engines. Kestrel, Npgsql, and similar implementations serve only as comparison baselines. Ordinary applications do not require handwritten Rust/FFI or native recompilation when an Entity/DTO/Handler is added. Preserve normal dotnet build/run and actual Native AOT publishing; do not build a C# SQL AST, a full LINQ Provider, or a monolithic Core runtime.
 
-1. 当前只研究、设计和完善未来实施计划。用户已授权必要Design/Plan提交、PR及符合仓库规则的合并；不重复询问。NativeWeave产品不写入。
-2. 保留34R/32D/48Delivery和三图；`fragments/`仅细化既有任务。先读已存在成果和真实审查，再补缺口。
-3. 每项packet/graph有精确revision/hash；接受绑定实际来源、依赖和独立审查，不能只改status或补假证据。
-4. 技术设计可以在产品实现前接受；产品AOT/真实服务/长负载/发布义务单列。源码已读、上游测试已读、实际运行和产品验收严格区分。
-5. 只写自己的scope。独立Worktree并行；共享根构建manifest走A13整合小补丁，不设置全局锁。
-6. 修改当前图/packet/registry后运行结构、当前完成度和负例门禁；旧冻结检查在旧Commit执行，不能把旧proposed快照当永远禁止接受的规则。
-7. 保留失败记录、原始字节和独立Windows/Linux身份；二进制省略时明确其archive/内容hash及再现方式。
-8. 子代理可做真实独立技术审查，但同GitHub身份不能冒充另一个审批账号。不得绕过Required Checks或修改权限/许可证以使合并通过。
+1. The current scope is research, design, and refinement of future implementation plans only. The user has authorized the necessary Design/Plan commits, PRs, and merges that comply with repository rules; do not ask repeatedly. Do not write to the NativeWeave product repository.
+2. Preserve the 34 Research / 32 Documentation / 48 Delivery tasks and the three graphs; `fragments/` only elaborates existing tasks. Read existing results and actual reviews before filling gaps.
+3. Every packet/graph has an exact revision/hash; acceptance binds actual sources, dependencies, and independent review. Do not merely change status or add fabricated evidence.
+4. Technical designs may be accepted before product implementation; track product AOT/real-service/long-running-load/release obligations separately. Strictly distinguish source read, upstream tests read, actual execution, and product acceptance.
+5. Write only within your own scope. Work in parallel in independent worktrees; integrate shared root build manifests through small A13 integration patches, without a global lock.
+6. After changing current graphs/packets/registry, run structural, current-completion, and negative-case gates; run historical frozen checks at their original commits. Do not treat an old proposed snapshot as a rule permanently prohibiting acceptance.
+7. Preserve failure records, raw bytes, and separate Windows/Linux identities; when binaries are omitted, state their archive/content hashes and reproduction method explicitly.
+8. Subagents may perform actual independent technical review, but the same GitHub identity must not impersonate another approval account. Do not bypass Required Checks or change permissions/licenses to make a merge pass.

@@ -1,11 +1,11 @@
-# 当前验证器的保证与限制
+# Guarantees and Limitations of the Current Validator
 
-工具验证现有三图/114packet/21契约结构、路径范围、版本/字节hash、无环依赖和接受manifest绑定。它不能认证审查者真实身份或证明日志命令确实执行；真实源码/实验/独立审查另留证据。任何结构错误使ready/continuable fail closed。
+The tools validate the structure of the existing three graphs/114 packets/21 contracts, path scopes, versions/byte hashes, acyclic dependencies, and acceptance-manifest bindings. They cannot authenticate the actual reviewer identity or prove that logged commands were executed; separate evidence is retained for actual source/experiments/independent reviews. Any structural error causes ready/continuable to fail closed.
 
-accepted任务需要完整source Commit、当前node/packet digest、依赖revision/content/source/evidence快照、真实evidence和不同作者的独立review。accepted契约需要非空spec、精确version/content hash及独立review和受影响依赖。设计分析/evidence可以接受研究与规范；不能满足产品要求的actual native_aot_run等平台行。
+An accepted task requires a full source commit, current node/packet digests, dependency revision/content/source/evidence snapshots, actual evidence, and independent review by a different author. An accepted contract requires a nonempty specification, exact version/content hash, independent review, and affected dependencies. Design analysis/evidence may support acceptance of research and specifications; it cannot satisfy product-required platform rows such as actual native_aot_run.
 
-当前Rust使命作为结构政策验证：B04必需原生DB、B15只应用层、B17唯一原生Server、B18/B19 host=B17、Kestrel仅比较。B24发布scope有全部必需domain组件；当前没有B15/B17择一条件组。旧泛用条件选择schema只属于历史/未来其他明确可选能力，不可使已确定使命退回undecided。
+The current Rust mission is validated as structural policy: B04 requires a native DB, B15 is the application layer only, B17 is the sole native Server, B18/B19 host=B17, and Kestrel is only for comparison. B24's release scope includes all required domain components; there is currently no B15/B17 exclusive-choice group. The old generic conditional-selection schema belongs only to history/future explicitly optional capabilities; it must not return the established mission to undecided status.
 
-fragment是实现细节镜像而非新图；工具核对任务集合和关键实现字段。file ownership按仓库+规范化路径比较，根manifest整合锁只覆盖A13小文件集。References不自动成为执行依赖。
+A fragment mirrors implementation details rather than introducing a new graph; the tools verify task sets and key implementation fields. File ownership is compared by repository plus normalized path; the root manifest integration lock covers only A13's small file set. References do not automatically become execution dependencies.
 
-历史source-lifecycle/logical-admission检查在固定旧Commit对运行，保留当时未接受状态和旧host政策作为历史事实；当前完成检查独立验证新研究/规范/审查，不删除门禁，也不把旧状态断言强加到新版本。
+Historical source-lifecycle/logical-admission checks run against pinned pairs of old commits, preserving the unaccepted state and old Host policy of that time as historical facts; current completion checks independently validate new research/specifications/reviews, without deleting gates or imposing old-state assertions on new versions.
