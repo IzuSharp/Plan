@@ -21,6 +21,8 @@ D=P.parent/'NativeWeave-Design'
 REPORT_DIR=D/'docs/traceability/reviews/final-2026-11-13'
 REPORT_NAMES=('interop-review.json','database-review.json','platform-review.json',
               'server-review.json','integrity-review.json')
+CONTRACT_RECORD_DIR=D/'verification/design-acceptance/contracts'
+TASK_RECORD_DIR=P/'ledger/acceptance'
 
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def read(path):return json.loads(path.read_bytes())
@@ -119,7 +121,7 @@ def prepare_contracts(design_source):
         c['source_commit']=design_source
         subject={'kind':'contract','id':c['id'],'version':c['version'],'content_sha256':c['content_sha256']}
         c['evidence'],c['reviews']=create_records(check,'contract',c,subject,
-            {'NativeWeave-Design':design_source},D/'verification/design-acceptance/contracts',now)
+            {'NativeWeave-Design':design_source},CONTRACT_RECORD_DIR,now)
         c['reviewers']=[select_report('contract',c['id'])[1]['reviewer']]
     dump(D/'docs/contracts/registry.json',registry)
     index={'schema_version':'1.0.0','state':'prepared_not_accepted','recorded_at':now,
@@ -144,7 +146,7 @@ def prepare_tasks(design_source,plan_source):
         assert node_digest(original)==node_digest(n),(n['id'],'source task semantics changed')
         subject=check.task_subject(n['id'],n)
         n['acceptance_evidence'],n['independent_reviewers']=create_records(check,'task',n,subject,
-            {'Plan':plan_source,'NativeWeave-Design':design_source},P/'ledger/acceptance',now)
+            {'Plan':plan_source,'NativeWeave-Design':design_source},TASK_RECORD_DIR,now)
     for kind in ('research','documentation'):dump(P/(kind+'-graph.json'),check.graphs[kind])
     index={'schema_version':'1.0.0','state':'prepared_not_accepted','recorded_at':now,
            'plan_source_commit':plan_source,'design_source_commit':design_source,
@@ -224,11 +226,26 @@ def accept(kind,attestation_paths):
     print(json.dumps({'accepted_kind':kind,'count':len(values),'product_implementation_authorized':False}))
 
 def main():
+    global REPORT_DIR, REPORT_NAMES, CONTRACT_RECORD_DIR, TASK_RECORD_DIR
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action',choices=['prepare-contracts','prepare-tasks','verify-contracts','verify-tasks','accept-contracts','accept-tasks'])
     parser.add_argument('--design-source');parser.add_argument('--plan-source')
     parser.add_argument('--attestation',action='append',default=[])
+    parser.add_argument('--report-directory',help='Actual independent reports for a new refinement; default preserves the original completion workflow.')
+    parser.add_argument('--contract-record-directory',help='Fresh Design-relative record directory; historical records must not be overwritten.')
+    parser.add_argument('--task-record-directory',help='Fresh Plan-relative record directory; historical records must not be overwritten.')
     args=parser.parse_args()
+    if args.report_directory:
+        REPORT_DIR=Path(args.report_directory).resolve()
+        assert REPORT_DIR.is_relative_to(D.resolve()) or REPORT_DIR.is_relative_to(P.resolve())
+        REPORT_NAMES=tuple(p.name for p in sorted(REPORT_DIR.glob('*-review.json')))
+        assert REPORT_NAMES, 'No actual scoped review reports'
+    if args.contract_record_directory:
+        CONTRACT_RECORD_DIR=(D/args.contract_record_directory).resolve()
+        assert CONTRACT_RECORD_DIR.is_relative_to(D.resolve())
+    if args.task_record_directory:
+        TASK_RECORD_DIR=(P/args.task_record_directory).resolve()
+        assert TASK_RECORD_DIR.is_relative_to(P.resolve())
     if args.action=='prepare-contracts':
         assert args.design_source;prepare_contracts(args.design_source)
     elif args.action=='prepare-tasks':

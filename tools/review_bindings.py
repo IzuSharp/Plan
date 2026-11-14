@@ -38,6 +38,8 @@ def required_paths(checker, kind, value):
     if kind == 'contract':
         task = checker.nodes[value['documentation_task_id']]
         own = {'NativeWeave-Design:'+value['spec_path']}
+        # API refinements are normative contract inputs, not unbound navigation links.
+        own.update(value.get('api_specification_inputs', []))
         required = set(own)
         for dep in value['dependencies']:
             contract = checker.contracts[(dep['id'], dep['version'])]
