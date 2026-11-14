@@ -1,14 +1,14 @@
-# 既有任务的并行里程碑
+# Parallel Milestones for Existing Tasks
 
-当前里程碑是完成34R/32D及成熟48Delivery说明，不执行产品。研究实际顺序：核心ABI/所有权/async与平台；并行数据库和Rust服务器源码/实验；继而跨领域性能/打包/未来Engine/整体审查。此顺序只是现有任务执行排序，不是一张新图或全局串行锁。
+The current milestone is completion of the 34 Research / 32 Documentation tasks and mature instructions for the 48 Delivery tasks, without product execution. The actual research order is core ABI/ownership/async and platforms; database and Rust server source/experiments in parallel; then cross-domain performance/packaging/future Engines/overall review. This is only an execution ordering of existing tasks, not a new graph or a global serial lock.
 
-未来得到产品阶段授权后：
+After future authorization of the product phase:
 
-| 可并行工作 | 后续解锁 | 验收归属 |
+| Work that may proceed in parallel | Subsequent work unlocked | Acceptance ownership |
 | --- | --- | --- |
-| A01布局、A19模型、A21基准工具、B01共享Data seam | Core局部模块、原生provider和查询绑定 | 各组件真实代码/证据 |
-| A03–A12局部Interop/生成；B02/B03/B05/B06/B07/B09 | A17/A18真实Engine、B04 Host、B11/B12/B13 | 真实原生/AOT组合 |
-| B15 C#应用、B16流组件、B17 Rust Host | B18 Tonic、B19 rmcp、B20诊断 | 原生网络/协议/释放 |
-| A14/A15平台与A16包；B21完整参考服务 | B22故障/soak、B23性能、B24领域发布 | 独立NuGet、clean no-Rust、双OS、实际DB/网络与长期资源 |
+| A01 layout, A19 models, A21 benchmark tooling, B01 shared Data seam | Local Core modules, native providers, and query bindings | Actual code/evidence for each component |
+| A03–A12 local Interop/generation; B02/B03/B05/B06/B07/B09 | A17/A18 actual Engines, B04 Host, B11/B12/B13 | Actual native/AOT assembly |
+| B15 C# application, B16 streaming component, B17 Rust Host | B18 Tonic, B19 rmcp, B20 diagnostics | Native networking/protocols/release |
+| A14/A15 platforms and A16 packages; B21 complete reference service | B22 failure/soak, B23 performance, B24 domain release | Independent NuGet, clean no-Rust, both OSes, real DB/networking, and long-term resources |
 
-以delivery-graph.json精确边为准。A/B不是必须全阶段串行完成的墙；未使用某个可选Core能力的Engine不启动该runtime。GUI/GPU/mobile边界按D21，不把未来硬件/平台认证压到普通Windows/Linux开发前。
+The exact edges in delivery-graph.json are authoritative. A/B are not barriers requiring each entire phase to finish serially; an Engine that does not use an optional Core capability does not start that runtime. GUI/GPU/mobile boundaries follow D21; do not make future hardware/platform certification a prerequisite for ordinary Windows/Linux development.
