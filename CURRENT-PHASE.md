@@ -1,30 +1,36 @@
-# Current phase — complete research/design, prepare future implementation
+# Current phase — complete Public API refinement and exact acceptance
 
-The active user authorization covers the existing34 Research and32 Documentation tasks,
-source inspection, research experiments in NativeWeave-Design, detailed specifications,
-all48 future Delivery packets, verification, Design/Plan PRs and permitted merges.
-NativeWeave product repository remains untouched. Product PR1 is already closed/unmerged;
-there is no remaining product-repository mutation to perform in this phase.
+The active scope is the existing 34 Research, 32 Documentation and 48 future
+Delivery tasks: source inspection, isolated Design verification, detailed public
+API/native contracts, documentation standards, and the authorized Design/Plan
+PRs and compliant merges. NativeWeave product files and the 48 Delivery
+implementations remain outside this phase.
 
-Research/design acceptance means the current technical decision and implementation-guiding
-specification have sufficient actual evidence and independent review. It does not mean a
-product implementation, release, production soak or performance claim has passed. Future
-product evidence obligations are explicit in the existing A/B tasks and do not circularly
-block design acceptance. All Delivery nodes retain implementation_authorization:not_authorized.
+The 0.4.0 API obligations and contracts require actual independent technical
+review and exact binding attestations. Their current states are recorded in the
+graphs, Design registry and acceptance indices; candidate preparation alone does
+not establish acceptance. Earlier 34R/32D/21-contract Accepted records remain immutable historical
+facts, retained in `ledger/public-api-2026-11-14/prior-acceptance.json` and their
+original committed evidence. They do not accept new API bytes. No recovered
+script or prior successful run is counted as execution against changed inputs.
 
-Database/ORM and Server native layers are mandatory Rust. B15 is the C# application surface;
-B17 is the sole production host. Kestrel is a comparison executable only. Ordinary C# entities,
-DTOs and handlers consume precompiled native modules. No fourth task graph or new product
-implementation is created by this completion effort.
+Database/ORM and Server execution require mature Rust engines. B15 owns the C#
+application surface; B17 is the production Rust host. Kestrel is only a comparison
+path. Ordinary Entity, DTO and Handler additions use precompiled native modules,
+static C# metadata and normal dotnet build/run/publish without manual rd.xml or
+user Rust builds. The existing 48 tasks now carry exact API inputs, type-policy
+associations, document owners, module-specific guide/example scopes and concrete
+consumer/Native AOT acceptance duties.
 
-Use current exact graph/packet/registry/source identities. Old source-lifecycle/logical-admission
-and migration checkpoints remain immutable historical evidence and are verified at their
-original paired commits. New source or packet bytes require current review, not reused old approval.
+`public-api-acceptance-workflow.md` defines candidate freezing, actual independent
+review, fresh contract/task evidence, per-reviewer binding attestations and the
+single PR for each repository. Use original complete historical gates at their
+original immutable pair and current gates at the actual pinned API candidate.
+After review and CI, merge Design first, pin its returned merge SHA in the same
+Plan PR, refresh the exact task bindings and validate again before merging Plan.
 
-Final research/design acceptance is complete:34R,32D and21 contracts are accepted against
-exact committed inputs and real independent technical reviews plus executor-authored binding
-attestations. The Design baseline is merged commit08e3aaee73aad174620dcff18ed21b3b14c5e632;
-task input semantics are frozen at Plan c3947b378e0a251f8dfeaf7fd7d4acc636631974. The current
-acceptance indices, graphs and verify_completion.py --require-complete are authoritative.
-All114 packets and10 implementation fragments are reviewed future instructions. This completion
-does not change the product phase or the not_authorized status of any of the48 Delivery tasks.
+Design acceptance means implementation-guiding research and contracts have been
+reviewed. Product execution, release, real-service fault/load behavior and
+Windows/Linux package conformance retain their separately owned Delivery gates.
+All 48 Delivery nodes stay `planned_candidate` with
+`implementation_authorization.status: not_authorized` throughout this phase.

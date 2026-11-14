@@ -27,3 +27,9 @@ For a new version, update affected nodes/contracts and reviews against exact inp
 Formal product acceptance must cover task-specific normal/failure/cancellation/concurrency/release semantics, actual Windows/Linux AOT, independent NuGet, real DB/HTTP/TLS, and source/artifact identities. A16/B24 require a truly clean no-Rust consumption environment; removing tools from the current PATH is a mechanism verification performed during research and must not stand in for a machine on which Rust has never been installed.
 
 B22/B23 own complete failure/long-term-resource/performance evidence; performance success cannot replace a correctness failure. Comparison paths must have equivalent functionality/protocols/data/durability; Kestrel belongs only to comparison programs. Package publication also requires explicit future authorization; no packages are published in the current phase.
+
+## Public API and documentation acceptance
+
+The exact Design API specification and versioned C# public API/documentation standard are mandatory inputs for every relevant task. Read [API execution requirements](api-execution-requirements.md) and the packet's API inputs, surface responsibility and documentation owner. Implementing a symbol includes its XML, generated reference, guide/examples, compatibility review and actual consumer/AOT checks in the same task. Internal-only work keeps raw handles, ABI records and execution plumbing internal and records exact applicability; no task may claim an upstream capability as an implemented public API.
+
+A13 installs shared enforcement; A22 owns compatibility rules; A24 installs explicit adoption in new Engine scaffolds; each domain owner maintains its own documentation; A16/B24 own final package consumption and release composition. Ordinary Entity/DTO/Handler changes remain C# builds using precompiled native assets. These requirements add no fourth graph and do not authorize any of the 48 Delivery tasks.
