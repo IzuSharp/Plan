@@ -128,6 +128,7 @@ FINAL_REVIEW_ACCEPTANCE = {
 
 TRACEABILITY_DESIGN_INPUTS = [
  'tools/verify_public_api.py','tools/verify_contract_acceptance.py','tools/contract_acceptance_checks.py',
+ 'tools/local_host_raw_evidence.py','tools/verify_english_translation.py','AGENTS.md',
  '.gitattributes','.github/workflows/public-api-design.yml','.github/workflows/english-translation.yml']
 TRACEABILITY_PLAN_INPUTS = [
  'tools/prepare_acceptance.py','tools/refine_public_api.py','tools/render_packets.py',
@@ -135,7 +136,7 @@ TRACEABILITY_PLAN_INPUTS = [
  'tools/verify_public_api_history.py','tools/verify_public_api_plan.py','tools/binding_attestation_checks.py',
  'tools/mutation_checks.py','tools/host_selection_checks.py','schemas/graph-v1.schema.json',
  '.github/workflows/native-slices-final-check.yml','public-api-acceptance-workflow.md',
- 'api-execution-requirements.md','AGENTS.md']
+ 'api-execution-requirements.md','execution-policy.md','AGENTS.md']
 
 def design_inputs(domains):
     common = [
@@ -155,6 +156,7 @@ def design_inputs(domains):
         common.append('experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs')
     if 'server' in domains:
         common.append('experiments/public-api/abi/nativeweave_server_api_v1.h')
+        common.append('docs/server/body-retirement-protocol.md')
     paths = ['NativeWeave-Design:'+path for path in dict.fromkeys(common)]
     for path in paths:
         assert (D/path.split(':',1)[1]).is_file(), ('missing integrated API input',path)
@@ -250,7 +252,7 @@ def main():
       'D12': ['docs/api/documentation-system.md'],
       'D13': ['docs/api/foundation-coverage.json'],
       'D14': ['docs/api/database.md','docs/api/database-coverage.json'],
-      'D18': ['docs/api/server.md','docs/api/server-coverage.json'],
+      'D18': ['docs/api/server.md','docs/api/server-coverage.json','docs/server/body-retirement-protocol.md'],
       'D20': ['docs/api/getting-started.md','docs/api/guides.md'],
       'D31': ['docs/api/README.md','docs/api/public-api.json','docs/api/reference.md','docs/standards/csharp-public-api-and-documentation.md','templates/public-api/AGENTS.fragment.md','templates/public-api/adoption-checklist.md','templates/public-api/api-change-template.md','docs/decisions/ADR-0004-csharp-public-api-and-documentation.md'],
     }
@@ -268,6 +270,20 @@ def main():
     for n in graphs['documentation']['nodes']: n['revision'] = REVISION
     for n in graphs['delivery']['nodes']:
         identity = n['id']; n['revision'] = REVISION
+        if identity=='B06':
+            n['implementation_steps']=[x.replace('use explicit chunk support or LargeValueRequiresStreaming for a single oversized field.',
+                'v1 rejects a single oversized inline field with LargeValueRequiresStreaming. Incremental single-field streaming requires a separately designed future capability and is not a v1 fallback.') for x in n['implementation_steps']]
+        if identity=='B14':
+            n['implementation_steps']=[x.replace('Perform CAS update with version increment,',
+                'Apply the caller-supplied new version from Changes in the CAS update; never synthesize or increment it implicitly,') for x in n['implementation_steps']]
+        if identity=='B16':
+            old='close cancels/empties outstanding byte waits explicitly.'
+            new='close cancels outstanding queue/network waits; there are no payload-credit waiters. Issued payload owners retain their credits until last release.'
+            for key in ('error_cancellation_resources_concurrency','failure_paths'):
+                value=n.get(key)
+                if isinstance(value,list):n[key]=[x.replace(old,new) if isinstance(x,str) else x for x in value]
+                elif isinstance(value,str):n[key]=value.replace(old,new)
+            n['implementation_steps']=[x.replace('cancellation removes metadata waiters','cancellation removes queue-only metadata waiters') for x in n['implementation_steps']]
         domain = 'database' if identity.startswith('B') and int(identity[1:]) <= 14 else 'server' if identity.startswith('B') and int(identity[1:]) <= 20 else 'interop'
         domains = ['database','server','interop'] if identity in {'A13','A16','A21','A22','A24','B21','B22','B23','B24'} else [domain]
         n['api_design_inputs'] = design_inputs(domains)

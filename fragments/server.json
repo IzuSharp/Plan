@@ -60,7 +60,8 @@
       "outputs": [
         "NativeWeave-Design:docs/server/hosting-and-streaming.md",
         "NativeWeave-Design:docs/api/server.md",
-        "NativeWeave-Design:docs/api/server-coverage.json"
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ]
     },
     {
@@ -150,13 +151,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -164,13 +166,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Server.BodyParameterAttribute",
@@ -236,7 +239,7 @@
       "implementation_steps": [
         "Implement checked global/per-request byte coordinator with atomic grants or rollback-safe try-acquire; reject impossible single-object credit requests.",
         "Acquire credit before allocation/pin/copy; transfer charge with owner and retain full backing allocation charge through clones/nonempty slices.",
-        "Reserve bounded copy overlap slack on both sides; cancellation removes metadata waiters and returns uncommitted reservations.",
+        "Reserve bounded copy overlap slack on both sides; cancellation removes queue-only metadata waiters and returns uncommitted reservations.",
         "Implement native Body bridge and C# safe lease facade over existing Core buffer/async; optional pipes facade cannot alter ownership.",
         "Test the streaming crate/facade independently on real native Body/protocol fixtures; end-to-end assembled application/soak belongs to B22/B23.",
         "Public API refinement 0.4.0: Borrowed request/response Streams, owned chunks/SSE and retained-byte credits; exact advance/copy/dispose semantics and size limits.",
@@ -244,7 +247,7 @@
       ],
       "error_cancellation_resources_concurrency": [
         "Response-head Future end, body EOF, backing allocation drop, callback retirement and OS join are different milestones.",
-        "Receiver close does not revoke previously issued permits; close cancels/empties outstanding byte waits explicitly.",
+        "Receiver close does not revoke previously issued permits; close cancels outstanding queue/network waits; there are no payload-credit waiters. Issued payload owners retain their credits until last release.",
         "ReferenceSmall uses4MiB/request/side,1MiB JSON and32KiB chunks; charge real capacity and reject impossible peaks rather than deadlock."
       ],
       "specific_acceptance": [
@@ -300,13 +303,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -314,13 +318,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Interop.NativeBuffer",
@@ -426,13 +431,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -440,13 +446,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Server.BodyChunk",
@@ -569,13 +576,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -583,13 +591,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Server.Grpc.GrpcCallContext",
@@ -693,13 +702,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -707,13 +717,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Server.Mcp.McpCallContext",
@@ -811,13 +822,14 @@
         "NativeWeave-Design:docs/api/server-symbol-policies.json",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md"
       ],
       "api_design_input_sha256": {
         "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
         "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
         "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
-        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/public-api.json": "d3e989c4f8732f2514c66a2c1ecf038b460fc29e3581d0b36855612751e974e4",
         "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
         "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
         "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
@@ -825,13 +837,14 @@
         "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
         "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
         "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
-        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server.md": "188d8b24b8912e89dd1b36bb15c496d94727af2dbede638b0ff8b36bff3f6ea2",
         "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
         "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
         "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
-        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "1a6d4ab4b53d56d8a7d6cefdf1ab5af7106ed46f60dd828cfc11c4e0335612d6",
         "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
-        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+        "NativeWeave-Design:docs/server/body-retirement-protocol.md": "ef7c3f5a32a1d9b047d884edada7b2bafd409b36d79b798d8da273be1a4338cd"
       },
       "api_contract_types": [
         "NativeWeave.Server.RequestContext"
