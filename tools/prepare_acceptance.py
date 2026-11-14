@@ -13,7 +13,8 @@ import subprocess
 
 from validate_graphs import Validator, node_digest
 from review_bindings import (acceptance_index_subject, decision_for, required_paths,
-                             verify_acceptance_index, verify_scoped_review)
+                             verify_acceptance_index, verify_scoped_review,
+                             verify_binding_attestations)
 from verify_completion import input_manifest
 
 P=Path(__file__).resolve().parents[1]
@@ -39,7 +40,7 @@ def git_bytes(repo,commit,path):
     return subprocess.check_output(['git','show',commit+':'+path],cwd=repo)
 
 def checker():
-    value=Validator(P);value.load();value.references();value.architecture();value.fragments()
+    value=Validator(P);value.load();value.references();value.architecture();value.fragments();value.public_api()
     assert not value.errors,value.errors
     return value
 
@@ -69,6 +70,8 @@ def dependency_snapshot(check,contract):
 def create_records(check,kind,value,subject,sources,directory,recorded_at):
     report_path,report=select_report(kind,value['id'])
     own,required=verify_scoped_review(check,report,kind,value)
+    for suffix in ('inputs','evidence','review'):
+        assert not (directory/(value['id']+'.'+suffix+'.json')).exists(), ('Refusing to overwrite prior acceptance record',directory,value['id'])
     rows=[]
     for path in sorted(required):
         repository,relative=path.split(':',1)
@@ -131,14 +134,39 @@ def prepare_contracts(design_source):
     dump(D/'docs/contracts/acceptance-index.json',index)
     print(json.dumps({'prepared_contracts':len(index['subjects']),'accepted':0,'requires_independent_exact_binding':True}))
 
-def prepare_tasks(design_source,plan_source):
+def prepare_tasks(design_source,plan_source,rebind=False):
     check=checker()
+    prior_index=None
+    if rebind:
+        # Rebinding an unchanged accepted candidate to its merged Design commit
+        # is a new input attestation, never an automatic reuse of acceptance.
+        check,_,_=verify_prepared('task')
+        prior_index=read(P/'ledger/completion-acceptance.json')
+        assert prior_index['state']=='accepted_research_and_detailed_design'
+        assert prior_index['design_source_commit']!=design_source, 'No Design-source change to rebind.'
+        assert not TASK_RECORD_DIR.exists(), 'A merged-source binding needs an unused record directory.'
+        baseline=read(P/'source-driven-baseline.json')
+        assert baseline.get('api_refinement'), 'Merged-source rebinding is the explicit Public API refinement workflow.'
+        assert baseline['design_merge_commit']==design_source, 'Pin the actual merged Design commit before rebinding.'
+        assert baseline['contract_registry_sha256']==sha((D/'docs/contracts/registry.json').read_bytes())
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=D,text=True).strip()==design_source
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=P,text=True).strip()==plan_source
     assert (D/'docs/contracts/registry.json').read_bytes()==git_bytes(D,design_source,'docs/contracts/registry.json')
     assert all(c['status']=='accepted' for c in check.contracts.values())
     values=[n for n in check.nodes.values() if check.kind[n['id']] in {'research','documentation'}]
-    assert all(n['status']=='review_ready' for n in values)
+    assert all(n['status']==('accepted' if rebind else 'review_ready') for n in values)
+    if rebind:
+        # verify_prepared already compared every prior input to current bytes and
+        # its original commit. New source commits must contain those same bytes;
+        # create_records checks that before it creates each exact new snapshot.
+        for n in values:
+            assert node_digest(read_graph_node(plan_source,check.kind[n['id']],n['id']))==node_digest(n)
+            for path in required_paths(check,'task',n)[1]:
+                repository,relative=path.split(':',1)
+                commit=plan_source if repository=='Plan' else design_source
+                assert check.resolve(path).read_bytes()==git_bytes(P.parent/repository,commit,relative), ('Merged-source input changed',path)
+        dump(TASK_RECORD_DIR/'prior-acceptance-index.json',prior_index)
+        for n in values:n['status']='review_ready'
     for n in values:n['source_commit']=plan_source
     now=datetime.datetime.now(datetime.timezone.utc).isoformat()
     for n in ordered(values,lambda x:check.active_start_dependencies(x)+check.active_acceptance_dependencies(x)):
@@ -152,6 +180,19 @@ def prepare_tasks(design_source,plan_source):
            'plan_source_commit':plan_source,'design_source_commit':design_source,
            'product_implementation_authorized':False,'subjects':[index_subject('task',n) for n in values],
            'binding_attestations':[]}
+    if rebind:
+        index['source_rebinding']={
+          'prior_index':file_ref(TASK_RECORD_DIR/'prior-acceptance-index.json'),
+          'prior_design_source_commit':prior_index['design_source_commit'],
+          'scope':'Every prior reviewed input is byte-identical. New exact source/wrapper hashes require an attestation by the actual independent reviewer; no current acceptance is inherited.',
+          'technical_semantics_changed':False}
+        for name in ('research','documentation'):
+            check.graphs[name]['graph_status']='public_api_merged_source_binding_pending'
+            dump(P/(name+'-graph.json'),check.graphs[name])
+        baseline['completion_stage']='review_ready'
+        baseline['review_status']='public_api_merged_source_pending_new_exact_binding_attestation'
+        baseline['api_refinement']['state']='merged_source_binding_pending'
+        dump(P/'source-driven-baseline.json',baseline)
     dump(P/'ledger/completion-acceptance.json',index)
     print(json.dumps({'prepared_tasks':len(values),'accepted':0,'requires_independent_exact_binding':True}))
 
@@ -187,8 +228,13 @@ def verify_prepared(kind):
             assert report['reviewer']==wrapper['reviewer']
             verify_scoped_review(check,report,kind,value)
     index_path=D/'docs/contracts/acceptance-index.json' if kind=='contract' else P/'ledger/completion-acceptance.json'
-    verify_acceptance_index(check,read(index_path),kind,values,
+    index=read(index_path)
+    verify_acceptance_index(check,index,kind,values,
         {'prepared_not_accepted','accepted_research_and_detailed_design'})
+    if index['state']=='accepted_research_and_detailed_design':
+        verify_binding_attestations(check,index,kind,values)
+    else:
+        assert index['binding_attestations']==[], 'Prepared inputs cannot claim accepted bindings.'
     assert not check.errors,check.errors
     return check,registry,values
 
@@ -210,6 +256,7 @@ def accept(kind,attestation_paths):
         reviews=value['reviews'] if kind=='contract' else value['independent_reviewers']
         reviewers={read(check.resolve(r['manifest_path']))['reviewer'] for r in reviews}
         assert any(actor in reviewers and item==subject for actor,item in attestations),(kind,value['id'],'not independently attested')
+    verify_binding_attestations(check,{**index,'binding_attestations':refs},kind,values)
     for value in values:
         value['status']='accepted'
         if kind=='contract':value['specification_status']='accepted_research_and_detailed_design'
@@ -223,18 +270,35 @@ def accept(kind,attestation_paths):
             dump(P/(name+'-graph.json'),check.graphs[name])
     index.update(state='accepted_research_and_detailed_design',binding_attestations=refs)
     dump(index_path,index)
+    if kind=='task':
+        baseline=read(P/'source-driven-baseline.json')
+        if baseline.get('api_refinement'):
+            baseline['completion_stage']='accepted_design'
+            baseline['task_acceptance_input_commit']=index['plan_source_commit']
+            baseline['review_status']='public_api_inputs_accepted_with_actual_independent_reviews_and_exact_binding_attestations'
+            baseline['api_refinement']['state']='accepted_research_and_detailed_design'
+            dump(P/'source-driven-baseline.json',baseline)
     print(json.dumps({'accepted_kind':kind,'count':len(values),'product_implementation_authorized':False}))
 
 def main():
     global REPORT_DIR, REPORT_NAMES, CONTRACT_RECORD_DIR, TASK_RECORD_DIR
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action',choices=['prepare-contracts','prepare-tasks','verify-contracts','verify-tasks','accept-contracts','accept-tasks'])
+    parser.add_argument('action',choices=['prepare-contracts','prepare-tasks','rebind-tasks','verify-contracts','verify-tasks','accept-contracts','accept-tasks'])
     parser.add_argument('--design-source');parser.add_argument('--plan-source')
     parser.add_argument('--attestation',action='append',default=[])
     parser.add_argument('--report-directory',help='Actual independent reports for a new refinement; default preserves the original completion workflow.')
     parser.add_argument('--contract-record-directory',help='Fresh Design-relative record directory; historical records must not be overwritten.')
     parser.add_argument('--task-record-directory',help='Fresh Plan-relative record directory; historical records must not be overwritten.')
     args=parser.parse_args()
+    if args.action.startswith('prepare-') or args.action=='rebind-tasks':
+        if args.action=='prepare-contracts':
+            values=read(D/'docs/contracts/registry.json')['contracts']
+            if any(v['version']=='0.4.0' for v in values):
+                assert args.report_directory and args.contract_record_directory, 'Public API refinement requires a fresh actual-review directory and fresh contract-record directory.'
+        else:
+            values=read(P/'documentation-graph.json')['nodes']
+            if any(v['revision']=='0.4.0' for v in values):
+                assert args.report_directory and args.task_record_directory, 'Public API refinement requires a fresh actual-review directory and fresh task-record directory.'
     if args.report_directory:
         REPORT_DIR=Path(args.report_directory).resolve()
         assert REPORT_DIR.is_relative_to(D.resolve()) or REPORT_DIR.is_relative_to(P.resolve())
@@ -248,8 +312,8 @@ def main():
         assert TASK_RECORD_DIR.is_relative_to(P.resolve())
     if args.action=='prepare-contracts':
         assert args.design_source;prepare_contracts(args.design_source)
-    elif args.action=='prepare-tasks':
-        assert args.design_source and args.plan_source;prepare_tasks(args.design_source,args.plan_source)
+    elif args.action in {'prepare-tasks','rebind-tasks'}:
+        assert args.design_source and args.plan_source;prepare_tasks(args.design_source,args.plan_source,rebind=args.action=='rebind-tasks')
     elif args.action.startswith('verify-'):
         _,_,values=verify_prepared('contract' if args.action=='verify-contracts' else 'task')
         print(json.dumps({'verified_prepared':len(values),'acceptance_applied':False}))

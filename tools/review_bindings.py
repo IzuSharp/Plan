@@ -61,7 +61,10 @@ def verify_scoped_review(checker, report, kind, value):
     decision = decision_for(report, kind, identity)
     pins = review_pins(report)
     own, required = required_paths(checker, kind, value)
-    assert own <= set(pins), (identity, 'missing reviewed input paths', sorted(own-set(pins)))
+    current_api = ('api_specification_inputs' in value if kind == 'contract' else
+                   bool(checker.graphs[checker.kind[identity]].get('public_api_standard_version')))
+    review_required = required if current_api else own
+    assert review_required <= set(pins), (identity, 'missing reviewed input paths', sorted(review_required-set(pins)))
     for path in own | (required & set(pins)):
         assert checker.require_file_hash(path, pins[path], identity+'/actual-review-input') is not None, path
     if kind == 'contract':
@@ -69,6 +72,9 @@ def verify_scoped_review(checker, report, kind, value):
         assert decision['spec_path'] == value['spec_path']
         assert decision['content_sha256'] == value['content_sha256']
     else:
+        if current_api:
+            from validate_graphs import node_digest
+            assert decision.get('semantic_node_sha256') == node_digest(value), (identity, 'reviewed complete task semantics changed')
         if 'packet_sha256' in decision:
             assert decision['packet_sha256'] == value['packet_sha256']
         for key, expected in decision.get('semantic_node_projection', {}).items():
@@ -102,3 +108,38 @@ def verify_acceptance_index(checker, index, kind, values, allowed_states):
             assert sources['NativeWeave-Design'] == index['design_source_commit'], (value['id'], 'index Design source')
             if kind == 'task':
                 assert sources['Plan'] == index['plan_source_commit'], (value['id'], 'index Plan source')
+
+def verify_binding_attestations(checker, index, kind, values):
+    """Require exact attributable attestations before accepting or reusing acceptance."""
+    expected = {value['id']: acceptance_index_subject(kind, value) for value in values}
+    actors = {}
+    for value in values:
+        refs = value['reviews'] if kind == 'contract' else value['independent_reviewers']
+        actors[value['id']] = set()
+        for ref in refs:
+            raw = checker.require_file_hash(ref['manifest_path'], ref['sha256'], value['id']+'/attested-review')
+            assert raw is not None, (value['id'], 'missing exact review')
+            actor = json.loads(raw)['reviewer']
+            assert actor != value['author'], (value['id'], 'self attestation')
+            actors[value['id']].add(actor)
+    refs = index.get('binding_attestations')
+    assert isinstance(refs, list) and refs, 'Missing independent binding attestations'
+    seen_paths = set(); seen_subjects = set(); covered = set()
+    for ref in refs:
+        assert ref['path'] not in seen_paths, ('duplicate attestation', ref['path'])
+        seen_paths.add(ref['path'])
+        raw = checker.require_file_hash(ref['path'], ref['sha256'], 'binding-attestation')
+        assert raw is not None, ('stale binding attestation', ref['path'])
+        data = json.loads(raw)
+        assert data['verdict'] == 'accepted' and data['blocking_findings'] == [], ref['path']
+        actor = data['reviewer']; subjects = data['subjects']
+        assert isinstance(actor, str) and actor and isinstance(subjects, list) and subjects, ref['path']
+        for subject in subjects:
+            identity = subject['id']; key = (actor, subject['kind'], identity)
+            assert key not in seen_subjects, ('duplicate attested subject', key)
+            seen_subjects.add(key)
+            assert identity in expected and subject == expected[identity], ('inexact attested subject', identity)
+            assert actor in actors[identity], ('unattributable attestation', identity, actor)
+            covered.add(identity)
+    assert covered == set(expected), ('incomplete exact attestations', sorted(set(expected)-covered))
+    return len(covered)

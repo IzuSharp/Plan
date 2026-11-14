@@ -39,6 +39,11 @@
       "items": {
         "$ref": "#/$defs/node"
       }
+    },
+    "public_api_standard_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Version of the exact pinned C# API/documentation standard; distinct from API refinement revision."
     }
   },
   "$defs": {
@@ -456,6 +461,49 @@
             },
             "additionalProperties": false
           }
+        },
+        "api_design_inputs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^NativeWeave-Design:"
+          }
+        },
+        "api_design_input_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "api_contract_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "api_surface_responsibility": {
+          "type": "string",
+          "minLength": 1
+        },
+        "documentation_owner_role": {
+          "type": "string",
+          "pattern": "^delivery/[AB][0-9]{2}$"
+        },
+        "documentation_outputs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "api_refinement_author": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": true
@@ -517,7 +565,13 @@
                 "verification_requirements",
                 "selection_required",
                 "selection_status",
-                "implementation_authorization"
+                "implementation_authorization",
+                "api_design_inputs",
+                "api_design_input_sha256",
+                "api_contract_types",
+                "api_surface_responsibility",
+                "documentation_owner_role",
+                "documentation_outputs"
               ]
             }
           }

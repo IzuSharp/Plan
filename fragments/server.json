@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "documentation_task_id": "D29",
-  "revision": "0.3.0",
+  "revision": "0.4.0",
   "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
   "delivery_task_ids": [
     "B15",
@@ -27,7 +27,8 @@
         "NativeWeave-Design:docs/research/topics/R27/evidence.json",
         "NativeWeave-Design:docs/research/topics/R27/coverage.json",
         "NativeWeave-Design:docs/research/topics/R27/source-driven-server.md",
-        "NativeWeave-Design:docs/research/topics/R27/native-slice-validation.md"
+        "NativeWeave-Design:docs/research/topics/R27/native-slice-validation.md",
+        "NativeWeave-Design:docs/api/server-sources.json"
       ]
     },
     {
@@ -57,7 +58,9 @@
     {
       "id": "D18",
       "outputs": [
-        "NativeWeave-Design:docs/server/hosting-and-streaming.md"
+        "NativeWeave-Design:docs/server/hosting-and-streaming.md",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json"
       ]
     },
     {
@@ -76,9 +79,9 @@
         "C# .NET static JSON metadata and existing Core binding generator provide the application surface."
       ],
       "csharp_surface": [
-        "NativeServerBuilder, NativeServer, typed route descriptors, WeaveRequest/Response, generated JsonTypeInfo registrations.",
-        "Application-to-native registration contains Handler IDs and immutable metadata; no per-route Cargo or Rust code generation.",
-        "One reusable registered native dispatch callback enqueues bounded managed work; business delegates never run synchronously under native locks."
+        "NativeServer.CreateBuilder, NativeServerBuilder, NativeServerApplication, ServerRoutes/RouteGroupBuilder/ServerEndpointBuilder, RequestContext, ServerRequest/ServerResponse, ServerResult/Results and typed handler/filter/middleware/auth interfaces.",
+        "Source-generated endpoint registration and static JsonTypeInfo metadata avoid arbitrary Delegate binding, runtime expression compilation and per-handler Cargo builds.",
+        "One rooted native dispatch/control bridge schedules bounded managed work; business delegates do not execute synchronously under native locks."
       ],
       "implementation_steps": [
         "Implement immutable validated builder/route/serializer configuration with duplicate/unsupported feature diagnostics.",
@@ -86,7 +89,9 @@
         "Create one application/DI request scope after successful admission; invoke typed Handler on managed scheduler and complete native operation exactly once.",
         "Provide owned async body APIs by consuming B16; release DTO/input/result owners on mapping failure and cancellation.",
         "Implement ordinary local consumption and Native AOT package tests after B17 is available.",
-        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself."
+        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself.",
+        "Public API refinement 0.4.0: NativeServer/NativeServerBuilder/NativeServerApplication routing, RequestContext, typed handlers/results, middleware/filters/auth and static JSON.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Reject unknown serializer/route/capability before serving.",
@@ -99,12 +104,18 @@
         "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Two applications add different Handler/DTO types while loading byte-identical precompiled Rust binary.",
-        "Real HTTP1/HTTP2 native-host request on Windows/Linux AOT; exception, cancellation, disposed app and duplicate route negative cases."
+        "Real HTTP1/HTTP2 native-host request on Windows/Linux AOT; exception, cancellation, disposed app and duplicate route negative cases.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify finite typed handler/binder/JSON paths, starting/completed/disposable ordering and exception isolation, stream ownership at execution admission, final-status validation including bodyless responses, and deterministic trusted-forwarding rules.",
+        "Public API refinement 0.4.0: Before completion callbacks and disposal, automatically finish every successful incomplete HTTP response from MapRaw, generated void/Task, custom results and middleware short circuit. Cover untouched200 and preserved201; failure must not send a second final response."
       ],
       "write_scopes": [
         "NativeWeave:src/Server.Application/",
         "NativeWeave:tests/Server.Application/",
-        "Plan:ledger/evidence/B15/"
+        "Plan:ledger/evidence/B15/",
+        "NativeWeave:docs/guides/server-application.md",
+        "NativeWeave:samples/api/server-application/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -118,8 +129,99 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Server.BodyParameterAttribute",
+        "NativeWeave.Server.HeaderCollection",
+        "NativeWeave.Server.HeaderParameterAttribute",
+        "NativeWeave.Server.Hosting.NativeServerServiceCollectionExtensions",
+        "NativeWeave.Server.IServerAuthenticator",
+        "NativeWeave.Server.IServerAuthorizer",
+        "NativeWeave.Server.JsonRequestHandler",
+        "NativeWeave.Server.JsonResultHandler",
+        "NativeWeave.Server.NativeServer",
+        "NativeWeave.Server.NativeServerApplication",
+        "NativeWeave.Server.NativeServerBuilder",
+        "NativeWeave.Server.ParameterValues",
+        "NativeWeave.Server.QueryParameterAttribute",
+        "NativeWeave.Server.RequestBindingException",
+        "NativeWeave.Server.RequestContext",
+        "NativeWeave.Server.RequestHandler",
+        "NativeWeave.Server.ResponseHandler",
+        "NativeWeave.Server.Results",
+        "NativeWeave.Server.RouteGroupBuilder",
+        "NativeWeave.Server.RouteParameterAttribute",
+        "NativeWeave.Server.ServerBudgetOptions",
+        "NativeWeave.Server.ServerCapabilities",
+        "NativeWeave.Server.ServerCloseResult",
+        "NativeWeave.Server.ServerCloseStatus",
+        "NativeWeave.Server.ServerEndpointBuilder",
+        "NativeWeave.Server.ServerEndpointsAttribute",
+        "NativeWeave.Server.ServerEvent",
+        "NativeWeave.Server.ServerException",
+        "NativeWeave.Server.ServerFilter",
+        "NativeWeave.Server.ServerListenOptions",
+        "NativeWeave.Server.ServerMiddleware",
+        "NativeWeave.Server.ServerOptions",
+        "NativeWeave.Server.ServerProtocols",
+        "NativeWeave.Server.ServerRequest",
+        "NativeWeave.Server.ServerResponse",
+        "NativeWeave.Server.ServerResult",
+        "NativeWeave.Server.ServerRouteAttribute",
+        "NativeWeave.Server.ServerRoutes",
+        "NativeWeave.Server.ServerState",
+        "NativeWeave.Server.ServiceParameterAttribute",
+        "NativeWeave.Server.TrustedProxyOptions"
+      ],
+      "api_surface_responsibility": "NativeServer/NativeServerBuilder/NativeServerApplication routing, RequestContext, typed handlers/results, middleware/filters/auth and static JSON.",
+      "documentation_owner_role": "delivery/B15",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/server-application.md",
+        "NativeWeave:samples/api/server-application/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B16": {
       "title": "Bounded Streams and Budgets for Rust Body and C# Leases",
@@ -128,15 +230,17 @@
         "http-body/Bytes/Tokio bounded channels and owner-backed buffers; no managed protocol AST/runtime."
       ],
       "csharp_surface": [
-        "RequestBudget, owned ReadBodyAsync/WriteBodyAsync, Data/Trailers/End result; one pending read and one pending write.",
-        "Native Body and retained allocation budget owners; configurable finite active/waiting/retiring request quotas."
+        "ServerRequest.Body/ReadChunkAsync, BodyChunk, ServerResponse.Body/WriteAsync and Results.Stream/ServerSentEvents with ServerEvent expose the declared borrowed-stream and owned-chunk rules.",
+        "Native read/write operations, explicit reservation/credit ownership and finite request/retirement budgets implement bounded flow control; no raw body handle escapes."
       ],
       "implementation_steps": [
         "Implement checked global/per-request byte coordinator with atomic grants or rollback-safe try-acquire; reject impossible single-object credit requests.",
         "Acquire credit before allocation/pin/copy; transfer charge with owner and retain full backing allocation charge through clones/nonempty slices.",
         "Reserve bounded copy overlap slack on both sides; cancellation removes metadata waiters and returns uncommitted reservations.",
         "Implement native Body bridge and C# safe lease facade over existing Core buffer/async; optional pipes facade cannot alter ownership.",
-        "Test the streaming crate/facade independently on real native Body/protocol fixtures; end-to-end assembled application/soak belongs to B22/B23."
+        "Test the streaming crate/facade independently on real native Body/protocol fixtures; end-to-end assembled application/soak belongs to B22/B23.",
+        "Public API refinement 0.4.0: Borrowed request/response Streams, owned chunks/SSE and retained-byte credits; exact advance/copy/dispose semantics and size limits.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Response-head Future end, body EOF, backing allocation drop, callback retirement and OS join are different milestones.",
@@ -149,13 +253,19 @@
         "Use existing Core ABI/create-start/take-result/retire contracts; do not create another callback protocol or mandatory global runtime.",
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Retained Bytes slicing/drop, old permit across close, zero/huge lengths, copy overlap, cancellation at every ownership transition.",
-        "Bounded queued metadata and charged bytes under slow producer/consumer; no RSS guarantee from item count."
+        "Bounded queued metadata and charged bytes under slow producer/consumer; no RSS guarantee from item count.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify separate borrowed Stream versus owned BodyChunk lifetimes, native write reservation and managed credit rollback, bounded copy and retained-allocation release, exactly-once cleanup despite user callback/disposable failures, and cancellation distinct from retirement.",
+        "Public API refinement 0.4.0: Payload credit uses one atomic nonwaiting request/global backing-capacity grant; lack of credit returns resource_limit and rolls back every partial grant/queue reservation. Cover128x32KiB retained input chunks exhausting4MiB before a positive output write, cross-request global exhaustion for reads/writes, cancellation/untaken/never-started rollback and taken chunks outliving dispatch. Only bounded queue/socket/protocol backpressure may wait; no payload-credit retry loop."
       ],
       "write_scopes": [
         "NativeWeave:src/Server.Streaming/",
         "NativeWeave:native/server/streaming/",
         "NativeWeave:tests/Server.Streaming/",
-        "Plan:ledger/evidence/B16/"
+        "Plan:ledger/evidence/B16/",
+        "NativeWeave:docs/guides/server-streaming.md",
+        "NativeWeave:samples/api/server-streaming/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -169,8 +279,68 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Interop.NativeBuffer",
+        "NativeWeave.Server.BodyChunk",
+        "NativeWeave.Server.HeaderCollection",
+        "NativeWeave.Server.ParameterValues",
+        "NativeWeave.Server.Results",
+        "NativeWeave.Server.ServerBudgetOptions",
+        "NativeWeave.Server.ServerEvent",
+        "NativeWeave.Server.ServerRequest",
+        "NativeWeave.Server.ServerResponse",
+        "NativeWeave.Server.ServerResult"
+      ],
+      "api_surface_responsibility": "Borrowed request/response Streams, owned chunks/SSE and retained-byte credits; exact advance/copy/dispose semantics and size limits.",
+      "documentation_owner_role": "delivery/B16",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/server-streaming.md",
+        "NativeWeave:samples/api/server-streaming/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B17": {
       "title": "Required Rust Server Host and Handler Boundaries",
@@ -192,7 +362,9 @@
         "Implement admission stop, drain/abort, monotonic deadlines and quiescence without forced module unload.",
         "Verify public trait seam compatibility and package native assets; request upstream extension/fork only for a concrete unexposed capability.",
         "Reuse A02 negotiated Engine loader/bootstrap and lifetime; do not implement a second module loader or capability protocol.",
-        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself."
+        "Native callback delivers only a request/operation ticket. Managed scheduled work performs typed take_request outside the callback, then creates the application request scope; do not transfer request owners through the callback itself.",
+        "Public API refinement 0.4.0: Required Rust host implements exact startup/listener/TLS/HTTP1/2/shutdown/route/dispatch APIs; no Kestrel network implementation.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Panic/handler exception, late response, rejected dispatch, body reset, failed certificate/config or occupied port unwind owned resources.",
@@ -207,13 +379,19 @@
         "Real TCP HTTP1/HTTP2 and TLS with C# Native AOT Handler, no database dependency needed.",
         "Callback start-return/cancel/complete/take/retire races, unconsumed body, slow streams, budget exhaustion, invalid protocol/cert and bounded shutdown.",
         "Measure native+FFI costs versus direct native and Kestrel only under equivalent features; no language-based superiority assertion.",
-        "Use a static C# test dispatcher owned by B17 tests for actual native-host AOT integration. B15 application assembly is not a B17 acceptance prerequisite; B15 subsequently verifies its application surface against B17."
+        "Use a static C# test dispatcher owned by B17 tests for actual native-host AOT integration. B15 application assembly is not a B17 acceptance prerequisite; B15 subsequently verifies its application surface against B17.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify host fault notification, sticky request cancellation and native retirement using actual Rust networking. Preserve final versus informational response rules, correct HEAD/204/205/304 framing, and the native outer protocol admission gate.",
+        "Public API refinement 0.4.0: Verify nonwaiting request/global native payload admission under full retained inbound credit, with cleanup preserving counters until last owner release; queue and network waits remain bounded and cancellable."
       ],
       "write_scopes": [
         "NativeWeave:src/Server.Native/",
         "NativeWeave:native/server/host/",
         "NativeWeave:tests/Server.Native/",
-        "Plan:ledger/evidence/B17/"
+        "Plan:ledger/evidence/B17/",
+        "NativeWeave:docs/guides/server-native.md",
+        "NativeWeave:samples/api/server-native/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -227,8 +405,87 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Server.BodyChunk",
+        "NativeWeave.Server.Hosting.NativeServerServiceCollectionExtensions",
+        "NativeWeave.Server.IServerAuthenticator",
+        "NativeWeave.Server.IServerAuthorizer",
+        "NativeWeave.Server.NativeServer",
+        "NativeWeave.Server.NativeServerApplication",
+        "NativeWeave.Server.NativeServerBuilder",
+        "NativeWeave.Server.RequestBindingException",
+        "NativeWeave.Server.RequestContext",
+        "NativeWeave.Server.Results",
+        "NativeWeave.Server.RouteGroupBuilder",
+        "NativeWeave.Server.ServerBudgetOptions",
+        "NativeWeave.Server.ServerCapabilities",
+        "NativeWeave.Server.ServerCloseResult",
+        "NativeWeave.Server.ServerCloseStatus",
+        "NativeWeave.Server.ServerEndpointBuilder",
+        "NativeWeave.Server.ServerEvent",
+        "NativeWeave.Server.ServerException",
+        "NativeWeave.Server.ServerFilter",
+        "NativeWeave.Server.ServerListenOptions",
+        "NativeWeave.Server.ServerMiddleware",
+        "NativeWeave.Server.ServerOptions",
+        "NativeWeave.Server.ServerProtocols",
+        "NativeWeave.Server.ServerResponse",
+        "NativeWeave.Server.ServerResult",
+        "NativeWeave.Server.ServerRoutes",
+        "NativeWeave.Server.ServerState",
+        "NativeWeave.Server.ServerTlsOptions",
+        "NativeWeave.Server.TrustedProxyOptions"
+      ],
+      "api_surface_responsibility": "Required Rust host implements exact startup/listener/TLS/HTTP1/2/shutdown/route/dispatch APIs; no Kestrel network implementation.",
+      "documentation_owner_role": "delivery/B17",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/server-native.md",
+        "NativeWeave:samples/api/server-native/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B18": {
       "title": "Native Tonic gRPC and C# Static Protobuf Mapping",
@@ -238,9 +495,9 @@
         "Reuse B17 HTTP2/TLS/runtime and B16 owned chunks; do not add grpc-dotnet Server transport."
       ],
       "csharp_surface": [
-        "Runtime /package.Service/Method descriptor with kind/Handler ID/caps/auth/deadline plus generated typed C# encode/decode delegates.",
-        "Native RawCodec carries complete Bytes messages; tonic::Request<Bytes> or Streaming<Bytes>; tonic::Response<Bytes> or bounded Stream<Result<Bytes,Status>>.",
-        "Only host_task_id B17 in C-PROTOCOL profile; HTTP2 and protocol features negotiated explicitly."
+        "GrpcMarshaller<T>, GrpcMethod<TRequest,TResponse>, GrpcMethodOptions, GrpcCallContext, GrpcMetadata, GrpcException and IGeneratedGrpcService.",
+        "MapGrpc/MapGrpcUnary/MapGrpcServerStreaming/MapGrpcClientStreaming/MapGrpcDuplex preserve four cardinalities, typed callbacks, exact status/trailers/deadline rules and separate HTTP versus binary metadata.",
+        "Tonic RawCodec and one mandatory B17 HTTP2/TLS/runtime own transport and protocol execution; host_task_id remains B17."
       ],
       "implementation_steps": [
         "Implement one runtime method router and four public native service adapters; copy/release payload ownership through Core operations.",
@@ -249,7 +506,9 @@
         "Implement strict small Rust deadline policy: one1–8-digit timeout+H/M/S/m/u/n, checked/capped monotonic budget starting at admission; invalid3/expired4 statuses.",
         "Keep deadline and body/operation owner alive after response head; private Tonic GrpcTimeout is not callable and only wraps ResponseFuture.",
         "Integrate all method kinds and conformance clients under Windows/Linux Native AOT.",
-        "Construct a fresh Decoder for each request and selected method kind. Unary/server-stream methods accept exactly one frame, including a zero-byte protobuf message; reject a second frame with InvalidArgument(3) before Handler invocation. Client/bidi streaming permits multiple frames within total quota."
+        "Construct a fresh Decoder for each request and selected method kind. Unary/server-stream methods accept exactly one frame, including a zero-byte protobuf message; reject a second frame with InvalidArgument(3) before Handler invocation. Client/bidi streaming permits multiple frames within total quota.",
+        "Public API refinement 0.4.0: Optional static C# gRPC mapping exposes four cardinalities through Tonic on B17; status/trailers/deadline/flow-control semantics.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Unknown method, empty/multiple unary messages, truncated/oversize/compression payload, DTO failure, duplicate/invalid timeout and metadata errors preserve protocol categories.",
@@ -263,13 +522,19 @@
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Unary/client/server/bidi real HTTP2+TLS tests, half-close, request deadline after response headers, cancellation, trailers and streaming quota.",
         "Two independent C# services using the same native asset; AOT without assembly-root suppression.",
-        "Cardinality oracle: zero frames yields native Internal(13); one empty or nonempty protobuf frame succeeds; a second frame for unary/server-stream yields status3 and Handler count0; state resets between requests; client/bidi multi-frame remains legal with bounded total bytes/messages."
+        "Cardinality oracle: zero frames yields native Internal(13); one empty or nonempty protobuf frame succeeds; a second frame for unary/server-stream yields status3 and Handler count0; state resets between requests; client/bidi multi-frame remains legal with bounded total bytes/messages.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify all four cardinalities and message boundaries, whole-call deadlines, raw binary gRPC metadata independently from HTTP header text, trailer/status propagation and retention/retirement under cancellation on the same B17 host.",
+        "Public API refinement 0.4.0: Split comma-coalesced -bin HTTP wire fields boundedly in the Rust Adapter before per-segment Tonic decoding: test OWS, empty/invalid base64, duplicate order,200entries,bytes and decode-overlap caps. Reject every prohibited raw HTTP operation and inherited/endpoint ServerFilter on gRPC routes; authentication and authorization denial use framed gRPC16/7."
       ],
       "write_scopes": [
         "NativeWeave:src/Protocols.Grpc/",
         "NativeWeave:native/protocols/grpc/",
         "NativeWeave:tests/Protocols.Grpc/",
-        "Plan:ledger/evidence/B18/"
+        "Plan:ledger/evidence/B18/",
+        "NativeWeave:docs/guides/protocols-grpc.md",
+        "NativeWeave:samples/api/protocols-grpc/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -283,8 +548,70 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Server.Grpc.GrpcCallContext",
+        "NativeWeave.Server.Grpc.GrpcDecoder",
+        "NativeWeave.Server.Grpc.GrpcEncoder",
+        "NativeWeave.Server.Grpc.GrpcEndpointExtensions",
+        "NativeWeave.Server.Grpc.GrpcException",
+        "NativeWeave.Server.Grpc.GrpcMarshaller",
+        "NativeWeave.Server.Grpc.GrpcMetadata",
+        "NativeWeave.Server.Grpc.GrpcMethod",
+        "NativeWeave.Server.Grpc.GrpcMethodKind",
+        "NativeWeave.Server.Grpc.GrpcMethodOptions",
+        "NativeWeave.Server.Grpc.GrpcStatusCode",
+        "NativeWeave.Server.Grpc.IGeneratedGrpcService"
+      ],
+      "api_surface_responsibility": "Optional static C# gRPC mapping exposes four cardinalities through Tonic on B17; status/trailers/deadline/flow-control semantics.",
+      "documentation_owner_role": "delivery/B18",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/protocols-grpc.md",
+        "NativeWeave:samples/api/protocols-grpc/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B19": {
       "title": "Native rmcp and C# Static Tools and JSON Mapping",
@@ -293,8 +620,8 @@
         "rmcp3.10.0 StreamableHttpService<ForeignMcp,LocalSessionManager> Tower service and native model/transport."
       ],
       "csharp_surface": [
-        "Native runtime tool/resource/prompt descriptors, one ForeignMcp ServerHandler; get_info/supported_protocol_versions/list_tools/get_tool/call_tool.",
-        "C# MapMcp(GeneratedTools.All,profile,JsonContext), typed application delegates and explicit auth checks."
+        "McpRegistry.AddTool/AddResource/AddPrompt, McpCallContext, McpToolResult<T>, McpTextResource/McpPromptMessage and McpEndpointOptions; MapMcp(routes, pattern, registry, options) is the exact public entry point.",
+        "Static JsonTypeInfo and typed C# callbacks reuse one precompiled rmcp ForeignMcp/Tower service on B17. Pre-parse authentication and all automatic protocol methods obey the same bounded native gate and cancellation/retirement contract."
       ],
       "implementation_steps": [
         "Enable exact2026-07-28 no-legacy/no-event-store profile, JSON response, required protocol metadata, finite body/schema/string/depth limits.",
@@ -303,7 +630,9 @@
         "Map native-decoded arguments through bounded owned UTF8 buffers into typed static C# DTOs and back; charge double parse/encode temporaries and measure cost.",
         "Keep native protocol/JSON-RPC/MCP errors distinct from tool execution error results and HTTP pre-parser failures.",
         "No-event-store unfinished response disconnect cancels; persisted/replay/legacy profiles remain explicitly unsupported until separately specified and accepted.",
-        "Before public rmcp StreamableHttpService parses a body, apply D19/D07 native Tower preflight with budgeted wire buffer and serde Deserializer/DeserializeSeed/Visitor structural scan; reserve the source-justified worst live native/managed peak including SDK recollection/tree and DTO copies. No private expect_json call or handwritten parser; unproved profile bounds cannot be enabled."
+        "Before public rmcp StreamableHttpService parses a body, apply D19/D07 native Tower preflight with budgeted wire buffer and serde Deserializer/DeserializeSeed/Visitor structural scan; reserve the source-justified worst live native/managed peak including SDK recollection/tree and DTO copies. No private expect_json call or handwritten parser; unproved profile bounds cannot be enabled.",
+        "Public API refinement 0.4.0: Optional MCP tools/resources/prompts/transports and static JSON mapping through rmcp on B17, with explicit auth/session/cancellation limits.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Unsupported version/tool/schema, header/meta mismatch, malformed JSON, body limit, auth failure and cancellation fail explicitly.",
@@ -317,13 +646,19 @@
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Exact modern request metadata and method/Host/Origin/body negative matrix plus generated C# AOT tools on both platforms.",
         "GET/DELETE405 only for initial no-event-store profile; disconnect/EOF/cancel, malformed/truncated requests and no session/replay leaks.",
-        "Many tiny elements, deep nesting, long escaped strings and wire+tree+UTF8+DTO overlap must be rejected before SDK parse/Handler when 4MiB/request/side or global budget cannot fit; prove zero parse/Handler admission on failure and exactly-once lease release under cancel. The 1MiB wire cap is not a decoded-memory guarantee."
+        "Many tiny elements, deep nesting, long escaped strings and wire+tree+UTF8+DTO overlap must be rejected before SDK parse/Handler when 4MiB/request/side or global budget cannot fit; prove zero parse/Handler admission on failure and exactly-once lease release under cancel. The 1MiB wire cap is not a decoded-memory guarantee.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify nw_server_mcp_gate_resume_create and dispatch kinds 2/3 on the same request ticket, with one request_take/scope/completion and an explicit managed allow/deny continuation before rmcp parsing or automatic method dispatch. Apply the same authority/session policy to tools/resources/prompts and native lists; reject invalid Host/Origin/schema input before side effects and release cancelled gate ownership.",
+        "Public API refinement 0.4.0: MCP AwaitingGate has only the documented pre-parse HTTP denial exception. After Allow, rmcp owns protocol output and raw response/body/filter operations remain forbidden."
       ],
       "write_scopes": [
         "NativeWeave:src/Protocols.Mcp/",
         "NativeWeave:native/protocols/mcp/",
         "NativeWeave:tests/Protocols.Mcp/",
-        "Plan:ledger/evidence/B19/"
+        "Plan:ledger/evidence/B19/",
+        "NativeWeave:docs/guides/protocols-mcp.md",
+        "NativeWeave:samples/api/protocols-mcp/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -337,8 +672,67 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Server.Mcp.McpCallContext",
+        "NativeWeave.Server.Mcp.McpEndpointExtensions",
+        "NativeWeave.Server.Mcp.McpEndpointOptions",
+        "NativeWeave.Server.Mcp.McpPromptArgument",
+        "NativeWeave.Server.Mcp.McpPromptMessage",
+        "NativeWeave.Server.Mcp.McpProtocolVersion",
+        "NativeWeave.Server.Mcp.McpRegistry",
+        "NativeWeave.Server.Mcp.McpTextResource",
+        "NativeWeave.Server.Mcp.McpToolResult"
+      ],
+      "api_surface_responsibility": "Optional MCP tools/resources/prompts/transports and static JSON mapping through rmcp on B17, with explicit auth/session/cancellation limits.",
+      "documentation_owner_role": "delivery/B19",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/protocols-mcp.md",
+        "NativeWeave:samples/api/protocols-mcp/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B20": {
       "title": "Diagnostic Correlation, Overall Deadlines, and Shutdown Coordination",
@@ -356,7 +750,9 @@
         "Implement fixed-cardinality route/provider/category metrics and bounded attribute/event/queue bytes, with overflow drop counters.",
         "Coordinate single monotonic request deadline and bounded close; expose ClosePending and continue retirement safely rather than free on timeout.",
         "Flush optional exporters only after business owners close and within independent finite timeout; network export never blocks FFI callback or native lock.",
-        "Implement D19 explicit modes: Release/Debug install no listener/provider/global subscriber/exporter by default; optional application sink preset Warning/Error; IsEnabled/sampling before formatting; all correctness/retirement checks remain active."
+        "Implement D19 explicit modes: Release/Debug install no listener/provider/global subscriber/exporter by default; optional application sink preset Warning/Error; IsEnabled/sampling before formatting; all correctness/retirement checks remain active.",
+        "Public API refinement 0.4.0: ILogger/ActivitySource/Meter integration, correlation/overall deadlines, scoped service ownership and whole-stack shutdown.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "No listener avoids creating Activity/tags; sampling changes diagnostics only.",
@@ -370,13 +766,17 @@
         "No private upstream APIs exposed as stable ABI; pin Cargo/NuGet/features and reject incompatible native assets before callback registration.",
         "Actual cross-language context golden/malformed fields and worker migration; repeat callbacks/cancel/dispose races.",
         "Exporter saturation/disconnect/block/timeout and no-secret assertions; disabled/sampled/full diagnostics cost from matched workloads.",
-        "Check default Release and Debug activation independently, bounded opt-in local Debug diagnostics, disabled/sampled/full tracing and exporter-fault modes; validate no auto-export or global subscriber and no log-level-dependent resource correctness."
+        "Check default Release and Debug activation independently, bounded opt-in local Debug diagnostics, disabled/sampled/full tracing and exporter-fault modes; validate no auto-export or global subscriber and no log-level-dependent resource correctness.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Server.Diagnostics/",
         "NativeWeave:native/server/diagnostics/",
         "NativeWeave:tests/Server.Diagnostics/",
-        "Plan:ledger/evidence/B20/"
+        "Plan:ledger/evidence/B20/",
+        "NativeWeave:docs/guides/server-diagnostics.md",
+        "NativeWeave:samples/api/server-diagnostics/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -390,8 +790,59 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/server.md",
+        "NativeWeave-Design:docs/api/server-coverage.json",
+        "NativeWeave-Design:docs/api/server-sources.json",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/server.md": "d261181235baa436c7d480aa11121f57a02989f89e3a7334cd39f72520250bb1",
+        "NativeWeave-Design:docs/api/server-coverage.json": "e7227247075b8d2cc68c107ef3be8c1f5b61e1d63cedb923584ab3d9d90805c4",
+        "NativeWeave-Design:docs/api/server-sources.json": "f333f15c7f07b9994c37d265bb9a2e3ebdee981fab37f51edc0cad9fb5e18a68",
+        "NativeWeave-Design:docs/api/server-symbol-policies.json": "2cfa139c8c50bf711bf553722b2be06ea6ab5f8bcd04860a37ede0c41802c9eb",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Server.cs": "9dc6cdf033164c3ccf3ecf9b77d28b764d434d1dab9ac1fe9cdff22730f23b81",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/ServerExamples.cs": "dc97889bd7abaadaaf6567011bad462284f1cd8780a45e65ccdfe7acb249b07d",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681"
+      },
+      "api_contract_types": [
+        "NativeWeave.Server.RequestContext"
+      ],
+      "api_surface_responsibility": "ILogger/ActivitySource/Meter integration, correlation/overall deadlines, scoped service ownership and whole-stack shutdown.",
+      "documentation_owner_role": "delivery/B20",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/server-diagnostics.md",
+        "NativeWeave:samples/api/server-diagnostics/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     }
   },
   "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",

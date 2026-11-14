@@ -6,7 +6,7 @@ Version: 0.4.0. These are refinements of the existing 48 future Delivery tasks. 
 
 Read the immutable Design commit in `source-driven-baseline.json`, its `docs/api/README.md`, `docs/standards/csharp-public-api-and-documentation.md`, exact declaration/reference inventory, relevant domain specification/operation table, coverage/source manifest and accepted contracts. The declaration fixture is intentionally unimplemented; implement the specified behavior, never copy its throwing bodies as product code.
 
-Each Delivery node records `api_design_inputs`, `api_surface_responsibility`, `documentation_owner_role` and explicit API/documentation/consumer acceptance. Its task packet carries the same information. These fields refine the existing task; they are not a new task graph or a new global execution dependency. Internal-only tasks must keep implementation plumbing internal and document the actual boundary they own.
+Each Delivery node records `api_design_inputs`, matching `api_design_input_sha256`, related `api_contract_types`, `api_surface_responsibility`, `documentation_owner_role`, `documentation_outputs` and explicit API/documentation/consumer acceptance. Its task packet carries the same information. These fields refine the existing task; they are not a new task graph or a new global execution dependency. Internal-only tasks must keep implementation plumbing internal and document the actual boundary they own.
 
 Every public member needs a full implementation path from C# through managed adapter/C ABI/Rust adapter to an actual Engine operation. Ordinary C# Entity/DTO/Handler changes must reuse precompiled native modules. NativeWeave.Query is a public namespace in the Database facade assembly in v1; splitting it into a separate package must not introduce a Database/Query package cycle. Package names and transitive native capabilities follow the NuGet specification, not one package per task.
 
@@ -42,3 +42,15 @@ Not every task releases a package or exposes an API. Such tasks record precisely
 ## Versioned maintenance
 
 API changes update affected contract/document versions, node revisions, source/packet hashes and actual independent acceptance. Existing accepted records remain available at their original exact inputs. Current evidence cannot reuse an old translation approval for new API semantics. New projects copy or pin the Design adoption template into their own repository and install checks; no cross-repository AGENTS inheritance is assumed.
+
+The ten fragments mirror these exact API and documentation fields in addition to
+implementation details. Each task owns one module-specific guide and sample
+scope; XML comments remain with its already-owned source. A13 composes generated
+reference outputs from those assemblies. This preserves parallel module work and
+does not turn shared documentation into a global write lock. Related type-policy
+lists describe the relevant boundary; the task's stated surface responsibility
+and B01's canonical-declaration ownership decide which task defines a type.
+
+Current input/owner/type-policy checks run with `tools/verify_public_api_plan.py`.
+Actual review and fresh evidence follow `public-api-acceptance-workflow.md`;
+current semantic changes never reuse the older English-equivalence acceptance.

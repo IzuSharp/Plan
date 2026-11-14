@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "documentation_task_id": "D24",
-  "revision": "0.3.0",
+  "revision": "0.4.0",
   "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
   "delivery_task_ids": [
     "A06",
@@ -62,7 +62,9 @@
         "Implement registration state with active native invocations and queued/running managed deliveries counted separately.",
         "Revocation closes admission then requests native quiescence; keep GCHandle/cookie until both native and managed counts retire.",
         "Keep fixed terminal-notice bookkeeping bounded O(1). Ordinary notification validation/copy is bounded O(payload bytes) under declared byte/item limits, nonblocking and exception-contained; dispatch business handlers outside native locks. Explicit synchronous decision profiles follow D05 fail-closed and no-self-wait rules.",
-        "Handle registration failure, callback-before-return and final release through single owner-transfer rules."
+        "Handle registration failure, callback-before-return and final release through single owner-transfer rules.",
+        "Public API refinement 0.4.0: Internal static callback registration/revocation/draining; public C# handlers require no unmanaged function pointers or GCHandle management.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "A pending ThreadPool item can outlive native callback return; native ack alone cannot free its cookie.",
@@ -70,13 +72,17 @@
       ],
       "specific_acceptance": [
         "Forced callback/unregister/GC/queued-delivery races, duplicate wake and rejected registration leave correct counters.",
-        "Bad UCO signature compile/runtime negative isolated; no claim method-body catch repairs it."
+        "Bad UCO signature compile/runtime negative isolated; no claim method-body catch repairs it.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Interop.Callbacks/",
         "NativeWeave:tests/Interop.Callbacks/",
         "Plan:ledger/evidence/A06/",
-        "NativeWeave:native/interop/callbacks/"
+        "NativeWeave:native/interop/callbacks/",
+        "NativeWeave:docs/guides/interop-callbacks.md",
+        "NativeWeave:samples/api/interop-callbacks/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -90,8 +96,55 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/interop.md",
+        "NativeWeave-Design:docs/api/interop-coverage.json",
+        "NativeWeave-Design:docs/api/interop-sources.json",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/interop.md": "2b32e5c2dcdfe78dd0b39014949a88bf91d6b2d011f8d75117e00507ecae4b74",
+        "NativeWeave-Design:docs/api/interop-coverage.json": "e6e1de9c087158a179e73e74fd30d9b8c3c691e069cac25d3371d7743a8c0aa8",
+        "NativeWeave-Design:docs/api/interop-sources.json": "7660f18a73d08accbc0ce8743e764e0eb212393a8d0575e20bda431cd17395a1",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json": "ebd262a177629f6b140493ef2ea9d5405ea4b232a3ad05dea7c3efa716c4088c",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs": "aa806f2a24914363031dc0466adc446313e1e69b5464d6fb2f8c953114de0208",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs": "7b1ec450f8a61d21904084ee71ebff6bf179b2e165580511f7e37ca494e4b286"
+      },
+      "api_contract_types": [],
+      "api_surface_responsibility": "Internal static callback registration/revocation/draining; public C# handlers require no unmanaged function pointers or GCHandle management.",
+      "documentation_owner_role": "delivery/A06",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/interop-callbacks.md",
+        "NativeWeave:samples/api/interop-callbacks/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "A07": {
       "title": "Task Async Bridge and Cancellation State Machine",
@@ -103,7 +156,9 @@
         "Atomically select one terminal result; request_cancel never replaces committed success/error and take_result transfers its owner once.",
         "Publish terminal notification through bounded mailbox/sequence protocol with no lost wake; acknowledge delivery and hold result lease through DTO materialization.",
         "DisposeAsync rejects new work, requests native cleanup, waits native quiescence and managed delivery retirement, then unregisters roots/releases handles.",
-        "Document synchronous completion and every failed create/register/start/queue/take path with current resource owner."
+        "Document synchronous completion and every failed create/register/start/queue/take path with current resource owner.",
+        "Public API refinement 0.4.0: Internal Task bridge consumed by exact domain Async methods; cancellation, terminal result and native quiescence remain separate.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Callback scheduling failure cannot lose an already committed terminal or free a still-live native operation.",
@@ -111,13 +166,17 @@
       ],
       "specific_acceptance": [
         "Port finite model and discovered lost-wake counterexample into product regression; controlled scheduler covers each state transition.",
-        "Duplicate complete/take, precancel, mapping throw, callback queued during close and final GC on both AOT OS; live owner counts return to baseline."
+        "Duplicate complete/take, precancel, mapping throw, callback queued during close and final GC on both AOT OS; live owner counts return to baseline.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Interop.Async/",
         "NativeWeave:tests/Interop.Async/",
         "Plan:ledger/evidence/A07/",
-        "NativeWeave:native/interop/async/"
+        "NativeWeave:native/interop/async/",
+        "NativeWeave:docs/guides/interop-async.md",
+        "NativeWeave:samples/api/interop-async/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -131,8 +190,59 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/interop.md",
+        "NativeWeave-Design:docs/api/interop-coverage.json",
+        "NativeWeave-Design:docs/api/interop-sources.json",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/interop.md": "2b32e5c2dcdfe78dd0b39014949a88bf91d6b2d011f8d75117e00507ecae4b74",
+        "NativeWeave-Design:docs/api/interop-coverage.json": "e6e1de9c087158a179e73e74fd30d9b8c3c691e069cac25d3371d7743a8c0aa8",
+        "NativeWeave-Design:docs/api/interop-sources.json": "7660f18a73d08accbc0ce8743e764e0eb212393a8d0575e20bda431cd17395a1",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json": "ebd262a177629f6b140493ef2ea9d5405ea4b232a3ad05dea7c3efa716c4088c",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs": "aa806f2a24914363031dc0466adc446313e1e69b5464d6fb2f8c953114de0208",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs": "7b1ec450f8a61d21904084ee71ebff6bf179b2e165580511f7e37ca494e4b286"
+      },
+      "api_contract_types": [
+        "NativeWeave.Interop.EngineLoadException",
+        "NativeWeave.Interop.EngineLoadFailure",
+        "NativeWeave.Interop.NativeEngineException"
+      ],
+      "api_surface_responsibility": "Internal Task bridge consumed by exact domain Async methods; cancellation, terminal result and native quiescence remain separate.",
+      "documentation_owner_role": "delivery/A07",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/interop-async.md",
+        "NativeWeave:samples/api/interop-async/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "A08": {
       "title": "Optional Executors, Capacity, and Shutdown",
@@ -143,7 +253,9 @@
         "Implement Engine-local runtime handle or injected accepted executor profile with explicit ownership and thread counts.",
         "Bound queued metadata, admitted work, byte reservations and retirement backlog separately; reject impossible requests immediately.",
         "Shutdown closes admission, wakes/removes waiters, requests cancellation, drains tracked tasks and acknowledges actual worker retirement.",
-        "Expose timeout as incomplete safe cleanup and diagnostics, not force-destruction of active callbacks/buffers."
+        "Expose timeout as incomplete safe cleanup and diagnostics, not force-destruction of active callbacks/buffers.",
+        "Public API refinement 0.4.0: Internal Engine-local executor/admission/close primitives; no mandatory global runtime or generic public scheduler.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Dropping a Tokio handle/Future does not prove spawn_blocking work or OS threads exited.",
@@ -151,13 +263,17 @@
       ],
       "specific_acceptance": [
         "Capacity zero/full/oversize, fairness and close-with-issued-permit races; actual join ack and retained-owner counters.",
-        "Synchronous Engine package runs without constructing this component."
+        "Synchronous Engine package runs without constructing this component.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Interop.Execution/",
         "NativeWeave:tests/Interop.Execution/",
         "Plan:ledger/evidence/A08/",
-        "NativeWeave:native/interop/execution/"
+        "NativeWeave:native/interop/execution/",
+        "NativeWeave:docs/guides/interop-execution.md",
+        "NativeWeave:samples/api/interop-execution/"
       ],
       "dependency_rationale": "start pins only actually consumed completed modules; acceptance adds local assembled-runtime checks where required. Reference links alone never become a global barrier.",
       "verification_matrix": {
@@ -171,8 +287,55 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/interop.md",
+        "NativeWeave-Design:docs/api/interop-coverage.json",
+        "NativeWeave-Design:docs/api/interop-sources.json",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/interop.md": "2b32e5c2dcdfe78dd0b39014949a88bf91d6b2d011f8d75117e00507ecae4b74",
+        "NativeWeave-Design:docs/api/interop-coverage.json": "e6e1de9c087158a179e73e74fd30d9b8c3c691e069cac25d3371d7743a8c0aa8",
+        "NativeWeave-Design:docs/api/interop-sources.json": "7660f18a73d08accbc0ce8743e764e0eb212393a8d0575e20bda431cd17395a1",
+        "NativeWeave-Design:docs/api/interop-symbol-policies.json": "ebd262a177629f6b140493ef2ea9d5405ea4b232a3ad05dea7c3efa716c4088c",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Interop.cs": "aa806f2a24914363031dc0466adc446313e1e69b5464d6fb2f8c953114de0208",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/InteropExamples.cs": "7b1ec450f8a61d21904084ee71ebff6bf179b2e165580511f7e37ca494e4b286"
+      },
+      "api_contract_types": [],
+      "api_surface_responsibility": "Internal Engine-local executor/admission/close primitives; no mandatory global runtime or generic public scheduler.",
+      "documentation_owner_role": "delivery/A08",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/interop-execution.md",
+        "NativeWeave:samples/api/interop-execution/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     }
   },
   "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",

@@ -39,6 +39,8 @@ FRAGMENT_MIRROR_FIELDS = {
  'title','boundary_and_ownership','native_reuse','csharp_surface','implementation_steps',
  'error_cancellation_resources_concurrency','specific_acceptance','write_scopes',
  'dependency_rationale','verification_matrix',
+ 'api_design_inputs','api_design_input_sha256','api_contract_types',
+ 'api_surface_responsibility','documentation_owner_role','documentation_outputs',
 }
 
 
@@ -422,6 +424,35 @@ class Validator:
    if self.declared_contract_host_profiles(key)!={'B17'}:
     self.err('PROTOCOL_SPEC_RUST_HOST_ONLY',key[0]+'@'+key[1])
 
+ def public_api(self):
+  """Validate each existing Delivery's exact API input and documentation owner."""
+  standard=self.resolve('NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md')
+  match=re.search(r'^Version: (\d+\.\d+\.\d+)\.',standard.read_text(),re.MULTILINE) if standard.is_file() else None
+  for kind,g in self.graphs.items():
+   if not match or g.get('public_api_standard_version')!=match.group(1):self.err('API_STANDARD_VERSION',kind)
+  verified=set()
+  for nid,n in self.nodes.items():
+   if self.kind.get(nid)!='delivery':continue
+   paths=n.get('api_design_inputs');pins=n.get('api_design_input_sha256')
+   if not isinstance(paths,list) or not paths or len(paths)!=len(set(paths)) or not all(isinstance(p,str) and p.startswith('NativeWeave-Design:') for p in paths):
+    self.err('API_INPUTS_REQUIRED',nid);continue
+   if not isinstance(pins,dict) or set(pins)!=set(paths):
+    self.err('API_INPUT_PINS',nid);continue
+   for path in paths:
+    key=(path,pins[path])
+    if key not in verified:
+     self.require_file_hash(path,pins[path],nid+'/api-input');verified.add(key)
+   if not isinstance(n.get('api_surface_responsibility'),str) or not n['api_surface_responsibility'].strip():self.err('API_SURFACE_RESPONSIBILITY',nid)
+   if n.get('documentation_owner_role')!='delivery/'+nid:self.err('API_DOCUMENTATION_OWNER',nid)
+   if not isinstance(n.get('api_contract_types'),list):self.err('API_TYPE_POLICIES',nid)
+   outputs=n.get('documentation_outputs')
+   if not isinstance(outputs,list) or len(outputs)<2:self.err('API_DOCUMENTATION_OUTPUTS',nid)
+   else:
+    for path in outputs[:2]:
+     if not isinstance(path,str) or not any(scope_contains(scope,path) for scope in n.get('write_scopes',[])):self.err('API_DOCUMENTATION_NOT_OWNED',nid)
+   matrix=n.get('verification_matrix',{})
+   if not isinstance(matrix,dict) or not matrix.get('api_and_documentation'):self.err('API_VERIFICATION_REQUIRED',nid)
+
  def fragments(self):
   """Fragments mirror existing task detail; they cannot form a fourth graph."""
   files=sorted((self.plan/'fragments').glob('*.json'));owners=set();covered=[]
@@ -635,7 +666,7 @@ class Validator:
  def run(self):
   self.load()
   if not self.errors:
-   self.references();self.ownership();self.architecture();self.fragments()
+   self.references();self.ownership();self.architecture();self.fragments();self.public_api()
   if not self.errors:self.check_acceptance()
   if self.errors:
    ready={k:[] for k in ('research','documentation','delivery')};blocked={k:['validation errors'] for k in self.nodes};resources=[]

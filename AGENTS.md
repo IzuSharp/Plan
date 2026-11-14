@@ -21,3 +21,11 @@ Every existing Delivery task must follow the exact Design commit pinned in sourc
 4. The implementing task owns XML documentation, generated API Reference, guides, examples, compatibility and the required compilation/AOT/consumer checks. Record justified applicability for internal-only work; do not add unreviewed public scaffolding.
 5. Independently review API completeness, usability, correctness, allocation/copy cost, compatibility and documentation. Preserve historical accepted inputs and bind materially changed content to fresh review and hashes.
 6. New Engines and independent repositories must actually adopt the versioned standard and install its checks using the Design templates; AGENTS.md is not inherited across repositories. Product adoption is a future A13/A22/A24 obligation, not permission to write product code in this phase.
+
+For the Public API 0.4.0 refinement, follow `public-api-acceptance-workflow.md`.
+Preserve original acceptance bytes; current mandatory gates include
+`verify_public_api_history.py`, `verify_public_api_plan.py` and exact
+`prepare_acceptance.py`/`verify_completion.py` binding checks. API inputs are
+individually SHA-256 pinned in each Delivery node and the Design repository is
+commit-pinned. A changed input invalidates its current binding; no recovered
+script, historical translation review or design stub is new acceptance evidence.

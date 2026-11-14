@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "valid_synthetic_subjects": 2,
+  "negative_cases": [
+    {
+      "case": "missing_attestation",
+      "passed": true,
+      "rejection": "Missing independent binding attestations"
+    },
+    {
+      "case": "stale_attestation_hash",
+      "passed": true,
+      "rejection": "('stale binding attestation', 'Plan:fixture/attestation.json')"
+    },
+    {
+      "case": "foreign_reviewer_with_valid_hash",
+      "passed": true,
+      "rejection": "('unattributable attestation', 'FIXTURE-01', 'fixture/unrelated-reviewer')"
+    },
+    {
+      "case": "changed_evidence_with_valid_hash",
+      "passed": true,
+      "rejection": "('inexact attested subject', 'FIXTURE-01')"
+    },
+    {
+      "case": "missing_subject_with_valid_hash",
+      "passed": true,
+      "rejection": "('incomplete exact attestations', ['FIXTURE-02'])"
+    },
+    {
+      "case": "self_attestation",
+      "passed": true,
+      "rejection": "('FIXTURE-01', 'self attestation')"
+    },
+    {
+      "case": "duplicate_subject_with_valid_hash",
+      "passed": true,
+      "rejection": "('duplicate attested subject', ('fixture/independent-reviewer', 'contract', 'FIXTURE-01'))"
+    }
+  ],
+  "scope": "Isolated exact-attestation validation witnesses; no actual research, contract or product acceptance created.",
+  "product_implementation_authorized": false
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "documentation_task_id": "D27",
-  "revision": "0.3.0",
+  "revision": "0.4.0",
   "role": "Detailed implementation instructions for existing tasks; delivery-graph.json is the sole scheduling graph.",
   "delivery_task_ids": [
     "B01",
@@ -50,7 +50,9 @@
     {
       "id": "D14",
       "outputs": [
-        "NativeWeave-Design:docs/database/drivers.md"
+        "NativeWeave-Design:docs/database/drivers.md",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json"
       ]
     },
     {
@@ -65,12 +67,14 @@
       "title": "Data Interfaces and Dynamic Metadata Boundaries",
       "boundary_and_ownership": "Sole owner of common logical metadata/table/column/projection IDs, scalar tags, limits, provider-neutral session/operation interfaces and outcome declarations in Data.Abstractions and native/database/interfaces. B09 owns query operation descriptors, B07 conversion implementations, B04 owning host. Do not define another metadata schema downstream.",
       "native_reuse": "Describe the selected Rust Engine capabilities without implementing a managed provider, SQL parser, SQL AST, dialect or driver.",
-      "csharp_surface": "DataSource/Session contracts; immutable Table<TEntity>/Column<TEntity,TValue>/Projection<T>; finite capability and limit profile; static materializer contract. Public names remain subject to ordinary API review, while ownership and wire semantics are fixed.",
+      "csharp_surface": "Canonical NativeWeave.Data Table<TEntity>, Column<TEntity,TValue>, ValueCodec<T>, RowReader, RowWriter, RowMaterializer<T>, Projection<T>, EntityKey<TEntity>, Changes<TEntity>, ConcurrencyCheck<TEntity>, Relation<TParent,TChild>, SqlCommand and SqlParameters declarations; canonical Database source/session/result declarations are implemented by their owning B tasks. Exact names, signatures and semantics are fixed by Database.cs and database.md.",
       "implementation_steps": [
         "Extract one canonical metadata schema from D14/D17: format version, content hash, table/column/projection stable IDs, names, codec, nullability, explicit keys and relation descriptors. ABI/package version remains separate from business metadata hash.",
         "Declare one result-shape/row-lease interface consumed by B06/B12. Shape includes column count/order/IDs/aliases, type and nullability; missing nullable fields are not SQL NULL.",
         "Specify physical Session single-command admission and cleanup control separately. Define independent outcome, protocol disposition and local lifetime states for B05; interfaces do not claim completion.",
-        "Generate or hand-author equivalent Rust/C# layout/golden fixtures from this one schema, with no whole Core metadata service. Reject duplicate IDs, unknown required codec/profile and checked length overflow."
+        "Generate or hand-author equivalent Rust/C# layout/golden fixtures from this one schema, with no whole Core metadata service. Reject duplicate IDs, unknown required codec/profile and checked length overflow.",
+        "Public API refinement 0.4.0: Canonical NativeWeave.Data descriptors, codecs/parameters/rows/errors and Database source/session interfaces; other tasks implement shared declarations.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Descriptor registration copies or retains an explicit owner before synchronous return; errors expose no partial registration or output owner.",
@@ -78,13 +82,19 @@
       ],
       "specific_acceptance": [
         "Cross-language metadata golden bytes and malformed inputs; wrong entity/value compile negatives; ABI/profile/version mismatch rejection before DB traffic.",
-        "Public abstractions assembly loads without native runtime initialization; real host consumption is verified downstream, without forcing a managed fallback."
+        "Public abstractions assembly loads without native runtime initialization; real host consumption is verified downstream, without forcing a managed fallback.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify identical generated/manual table and column identities, exact CLR-name preservation and explicit store-name overrides; validate nullable/composite keys, configured codec identity and cross-entity type safety before native side effects.",
+        "Public API refinement 0.4.0: Own kind23 canonical relation descriptor and parent-key db-wire definitions; golden and malformed shape/null/codec-config cases must agree with B07 and B09 without parallel primitives."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Abstractions/",
         "NativeWeave:tests/Data.Abstractions/",
         "Plan:ledger/evidence/B01/",
-        "NativeWeave:native/database/interfaces/"
+        "NativeWeave:native/database/interfaces/",
+        "NativeWeave:docs/guides/data-abstractions.md",
+        "NativeWeave:samples/api/data-abstractions/"
       ],
       "dependency_rationale": "No product task prerequisite: this is the one shared database seam, implementing accepted specifications. It must not depend on B09 or provider implementations.",
       "verification_matrix": {
@@ -98,20 +108,99 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Data.Changes",
+        "NativeWeave.Data.Codecs",
+        "NativeWeave.Data.Column",
+        "NativeWeave.Data.ColumnOptions",
+        "NativeWeave.Data.ConcurrencyCheck",
+        "NativeWeave.Data.DatabaseCapabilityException",
+        "NativeWeave.Data.DatabaseErrorKind",
+        "NativeWeave.Data.DatabaseException",
+        "NativeWeave.Data.EntityKey",
+        "NativeWeave.Data.EntityWriter",
+        "NativeWeave.Data.Projection",
+        "NativeWeave.Data.Relation",
+        "NativeWeave.Data.ResultColumn",
+        "NativeWeave.Data.ResultField",
+        "NativeWeave.Data.RowMaterializer",
+        "NativeWeave.Data.RowReader",
+        "NativeWeave.Data.RowWriter",
+        "NativeWeave.Data.SqlCommand",
+        "NativeWeave.Data.SqlCommandKind",
+        "NativeWeave.Data.SqlParameters",
+        "NativeWeave.Data.Table",
+        "NativeWeave.Data.TableBuilder",
+        "NativeWeave.Data.ValueCodec",
+        "NativeWeave.Database.DataSourceBuilder",
+        "NativeWeave.Database.DatabaseCapabilities",
+        "NativeWeave.Database.DatabaseLimits",
+        "NativeWeave.Database.DatabaseProvider"
+      ],
+      "api_surface_responsibility": "Canonical NativeWeave.Data descriptors, codecs/parameters/rows/errors and Database source/session interfaces; other tasks implement shared declarations.",
+      "documentation_owner_role": "delivery/B01",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-abstractions.md",
+        "NativeWeave:samples/api/data-abstractions/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B02": {
       "title": "Rust PostgreSQL Execution Adapter",
       "boundary_and_ownership": "Own SQLx PostgreSQL provider in native/database/postgres and its narrow managed package; consume B01 seam, B07 binder and B05 transaction policy through B04, without implementing a second host/pool wrapper.",
       "native_reuse": "SQLx PgConnection/PgPool/Arguments, wire protocol and native TLS. SeaQuery-generated SQL is bound using B07. Do not recreate PostgreSQL protocol or publish Npgsql as a product path.",
-      "csharp_surface": "Postgres-specific configuration/capability registration and structured provider details; the application still uses common Session/typed queries.",
+      "csharp_surface": "NativeWeave.Database.PostgreSql.PostgreSqlDataSource.Create and Engine, PostgreSqlOptions and DataSourceBuilder.UsePostgreSql; common DataSession/query API, native SQLx PostgreSQL execution and explicit TLS/capability options.",
       "implementation_steps": [
         "Create SQLx options from explicit configuration. Remote production default requires VerifyFull with trusted root and hostname; Prefer/Require are not verified TLS. Secret values never enter errors/manifest.",
         "Implement real prepare/execute/stream over a fixed connection lease, parameter snapshots and structured SQLSTATE mapping, with bounded admission and statement cache policy.",
         "Track ReadyForQuery synchronization and transaction status separately from the application result. Stream drop may need drain before reuse; enforce a cleanup deadline and retire a connection on failure.",
         "Treat timeout/cancellation as a request. Do not invent a public SQLx cancel API from private cancel-key fields. Use explicit server statement_timeout/session policy where selected; cancellation cannot free an active task/connection.",
-        "Integrate B04 operation entrypoints; expose safe session-local provider hooks for B05, without sharing SQLx pointers across DLL boundaries."
+        "Integrate B04 operation entrypoints; expose safe session-local provider hooks for B05, without sharing SQLx pointers across DLL boundaries.",
+        "Public API refinement 0.4.0: PostgreSqlDataSource/UsePostgreSql behavior over SQLx PostgreSQL; parameter, error, pool/session and capability mapping use B01 definitions.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "57014 statement timeout inside a transaction leaves it failed (25P02) until rollback; Task completion is not reuse permission.",
@@ -121,13 +210,17 @@
       "specific_acceptance": [
         "Use the real six PostgreSQL Design cases as regression oracles: timeout/rollback, early stream drop, codecs, response-loss durable COMMIT, conflict CTE snapshot and migration lock cleanup.",
         "Add product TLS negative tests: wrong hostname, untrusted root, expired chain and explicit plaintext-development opt-in; Windows/Linux AOT remote PG with actual server identity.",
-        "Session reuse test must compare backend PID, not merely observe a subsequent query success. Broken/drain-timeout sessions are quarantined and pool permits eventually return."
+        "Session reuse test must compare backend PID, not merely observe a subsequent query success. Broken/drain-timeout sessions are quarantined and pool permits eventually return.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Postgres/",
         "NativeWeave:tests/Data.Postgres/",
         "Plan:ledger/evidence/B02/",
-        "NativeWeave:native/database/postgres/"
+        "NativeWeave:native/database/postgres/",
+        "NativeWeave:docs/guides/data-postgres.md",
+        "NativeWeave:samples/api/data-postgres/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "verification_matrix": {
@@ -141,19 +234,75 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Database.PostgreSql.PostgreSqlDataSource",
+        "NativeWeave.Database.PostgreSql.PostgreSqlDataSourceBuilderExtensions",
+        "NativeWeave.Database.PostgreSql.PostgreSqlOptions",
+        "NativeWeave.Database.PostgreSql.PostgreSqlTlsMode"
+      ],
+      "api_surface_responsibility": "PostgreSqlDataSource/UsePostgreSql behavior over SQLx PostgreSQL; parameter, error, pool/session and capability mapping use B01 definitions.",
+      "documentation_owner_role": "delivery/B02",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-postgres.md",
+        "NativeWeave:samples/api/data-postgres/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B03": {
       "title": "Rust SQLite Execution Adapter",
       "boundary_and_ownership": "Own SQLite native provider, connection options, worker-specific hooks and adapter test fixtures; use the B04 host and shared transaction/stream/codec components.",
       "native_reuse": "SQLx SQLite worker, SQLite prepared statements, progress hooks and transaction machinery. No unconditional Task.Run wrapper and no separate C# database execution engine.",
-      "csharp_surface": "Sqlite options for file path, WAL/FK, busy timeout and supported transaction begin mode; common strongly typed Session/query facade.",
+      "csharp_surface": "NativeWeave.Database.Sqlite.SqliteDataSource.Create and Engine, SqliteOptions and DataSourceBuilder.UseSqlite; file/WAL/FK/busy-timeout/begin-mode semantics use the common DataSession/query API.",
       "implementation_steps": [
         "Pin libsqlite3-sys/SQLite build features and actual SQLite version in the native package. Configure FK/WAL/busy profile explicitly on every physical connection; validate in-memory pooling semantics.",
         "Implement one active operation per physical connection and bounded native command admission. Account separately for queued item count, input bytes and driver allocations.",
         "Use an operation-generation-scoped progress cancellation flag installed/removed on the worker. An old cancel request cannot affect a new tenant. Do not promise interruption at every native instruction.",
-        "Separate Future drop, queued rollback, worker connection destruction, shutdown ACK and OS-thread join evidence. Close awaits only facts the API can actually observe; do not label an unavailable JoinHandle as joined."
+        "Separate Future drop, queued rollback, worker connection destruction, shutdown ACK and OS-thread join evidence. Close awaits only facts the API can actually observe; do not label an unavailable JoinHandle as joined.",
+        "Public API refinement 0.4.0: SqliteDataSource/UseSqlite behavior over SQLx SQLite; path/options/worker/NULL/dialect capability limits are explicit.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Synchronous bounded-channel send can block its caller; a Tokio timeout cannot preempt that code. Reserve capacity or use a controlled worker path and avoid blocking finalizer/reverse-callback threads.",
@@ -163,13 +312,17 @@
       "specific_acceptance": [
         "Reuse existing database-retirement six-case two-OS research as oracle definitions, then execute actual product paths for commit Future drop, rollback/pool reuse, progress cancellation, early stream drop and shutdown.",
         "Windows/Linux AOT use file-backed concurrent connections plus documented in-memory cases; foreign-key failure/savepoint recovery and native migration checksum/failing-DDL tests.",
-        "Same-connection reuse uses a persistent physical-connection marker; a fresh connection succeeding is not the oracle."
+        "Same-connection reuse uses a persistent physical-connection marker; a fresh connection succeeding is not the oracle.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Sqlite/",
         "NativeWeave:tests/Data.Sqlite/",
         "Plan:ledger/evidence/B03/",
-        "NativeWeave:native/database/sqlite/"
+        "NativeWeave:native/database/sqlite/",
+        "NativeWeave:docs/guides/data-sqlite.md",
+        "NativeWeave:samples/api/data-sqlite/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "verification_matrix": {
@@ -183,21 +336,80 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Database.Sqlite.SqliteBeginMode",
+        "NativeWeave.Database.Sqlite.SqliteDataSource",
+        "NativeWeave.Database.Sqlite.SqliteDataSourceBuilderExtensions",
+        "NativeWeave.Database.Sqlite.SqliteJournalMode",
+        "NativeWeave.Database.Sqlite.SqliteOpenMode",
+        "NativeWeave.Database.Sqlite.SqliteOptions",
+        "NativeWeave.Database.Sqlite.SqliteSynchronousMode"
+      ],
+      "api_surface_responsibility": "SqliteDataSource/UseSqlite behavior over SQLx SQLite; path/options/worker/NULL/dialect capability limits are explicit.",
+      "documentation_owner_role": "delivery/B03",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-sqlite.md",
+        "NativeWeave:samples/api/data-sqlite/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B04": {
       "title": "Required Rust Database Host and Lifecycle",
       "boundary_and_ownership": "Own mandatory native database host, Engine-local runtime, physical lease admission, resource tree and managed facade bridge. B01 defines seams; B02/B03 implement providers; B05/B06/B07 implement transaction/stream/codec components. Never define provider interfaces in B04 that the providers need before B04 exists.",
       "native_reuse": "Tokio runtime only within the async DB Engine, SQLx native pools, Core narrow owner/async primitives. Sync Engines elsewhere need not acquire this runtime.",
-      "csharp_surface": "DataSource.Open/Session acquisition and async execute facades; internal opaque SafeHandles and Operation<T>; no public Rust runtime or driver trait.",
+      "csharp_surface": "DataSourceBuilder.Build, DataSource.OpenSessionAsync and CloseAsync/Dispose/DisposeAsync, DataSession and AddNativeWeaveDatabase; independent provider factories, explicit ownership and no global initialization or public Rust runtime.",
       "implementation_steps": [
         "Bind create/start/request_cancel/typed take_result/try_retire/release with out owners null on failure and one successful transfer. Registration/start return and callback/control leases both participate in managed retirement.",
         "Model DataSource closing and single-command Session admission explicitly. SafeHandle protects lifetime but does not authorize concurrent mutable Rust access.",
         "Keep session/cursor/transaction/operation parent ownership until native cleanup finishes. A transferred cursor/batch owns an independent parent lease after operation retirement.",
         "Expose bounded Engine-local runtime/pool configuration, shutdown deadline, diagnostics and reject-on-closing behavior; do not introduce a compulsory global Core executor.",
         "Compose providers through B01 seam. Integrator connects workspace manifests; task worktrees must not each regenerate shared Cargo.lock or solution files.",
-        "Reuse A02 negotiated Engine loader/bootstrap and lifetime; do not implement a second module loader or capability protocol."
+        "Reuse A02 negotiated Engine loader/bootstrap and lifetime; do not implement a second module loader or capability protocol.",
+        "Public API refinement 0.4.0: DataSourceBuilder/DataSource/DataSession lifecycle, factories, optional AddNativeWeaveDatabase DI and independent provider assets.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Request cancellation never releases input, native context, parent lease or cancellation registration while access is possible.",
@@ -207,13 +419,17 @@
       "specific_acceptance": [
         "Real two-provider cross-language AOT create/execute/transfer/retire paths with synchronous and asynchronous completion, already-cancelled tokens, duplicate completion, start failure and callback/control races.",
         "Count native allocations, live parent leases, handles, callbacks and pending operations through fail injection; product integration uses actual B02/B03/B05/B06.",
-        "NuGet consumer runs without Cargo and without auto-building an entity-specific engine."
+        "NuGet consumer runs without Cargo and without auto-building an entity-specific engine.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.NativeHost/",
         "NativeWeave:tests/Data.NativeHost/",
         "Plan:ledger/evidence/B04/",
-        "NativeWeave:native/database/host/"
+        "NativeWeave:native/database/host/",
+        "NativeWeave:docs/guides/data-nativehost.md",
+        "NativeWeave:samples/api/data-nativehost/"
       ],
       "dependency_rationale": "Keep the established Core prerequisites. Provider, transaction and streaming implementations are local acceptance gates, not a B04 start cycle: all consume the accepted B01 seam.",
       "verification_matrix": {
@@ -227,14 +443,85 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "Microsoft.Extensions.DependencyInjection.NativeWeaveDatabaseServiceCollectionExtensions",
+        "NativeWeave.Data.SqlCommand",
+        "NativeWeave.Data.SqlCommandKind",
+        "NativeWeave.Data.SqlParameters",
+        "NativeWeave.Database.DataSession",
+        "NativeWeave.Database.DataSource",
+        "NativeWeave.Database.DataSourceBuilder",
+        "NativeWeave.Database.DatabaseCapabilities",
+        "NativeWeave.Database.DatabaseLimits",
+        "NativeWeave.Database.DatabaseProvider",
+        "NativeWeave.Database.PostgreSql.PostgreSqlDataSource",
+        "NativeWeave.Database.PostgreSql.PostgreSqlDataSourceBuilderExtensions",
+        "NativeWeave.Database.PostgreSql.PostgreSqlOptions",
+        "NativeWeave.Database.PostgreSql.PostgreSqlTlsMode",
+        "NativeWeave.Database.Sqlite.SqliteBeginMode",
+        "NativeWeave.Database.Sqlite.SqliteDataSource",
+        "NativeWeave.Database.Sqlite.SqliteDataSourceBuilderExtensions",
+        "NativeWeave.Database.Sqlite.SqliteJournalMode",
+        "NativeWeave.Database.Sqlite.SqliteOpenMode",
+        "NativeWeave.Database.Sqlite.SqliteOptions",
+        "NativeWeave.Database.Sqlite.SqliteSynchronousMode"
+      ],
+      "api_surface_responsibility": "DataSourceBuilder/DataSource/DataSession lifecycle, factories, optional AddNativeWeaveDatabase DI and independent provider assets.",
+      "documentation_owner_role": "delivery/B04",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-nativehost.md",
+        "NativeWeave:samples/api/data-nativehost/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B05": {
       "title": "Rust Transactions, Pool Recovery, and Unknown",
       "boundary_and_ownership": "Own transaction lifecycle/outcome/recovery and connection disposition policy in native/database/transactions; provider hooks remain B01 interfaces. Keep response-loss uncertainty out of generic Core status definitions.",
       "native_reuse": "SQLx transaction/savepoint/pool mechanics and native provider hooks. SeaORM TransactionTrait is only relevant to an explicit specialized profile, not mandatory for ordinary adapters.",
-      "csharp_surface": "D15 DataTransaction scope with immutable Outcome/Cleanup snapshots and CommitAttempted. CommitAsync succeeds only for Committed; confirmed transaction failure is a DataException, Unknown is CommitOutcomeUnknownException, and explicit RollbackAsync failure is DataCleanupException. CloseAsync(deadline) may return Pending while DisposeAsync joins actual local safety; no automatic replay of business delegates.",
+      "csharp_surface": "DataSession.BeginTransactionAsync, DataTransaction and Savepoint; TransactionOutcome/TransactionState/DatabaseCloseResult snapshots preserve Unknown and local cleanup separately. CommitAsync succeeds only for Committed; DatabaseException, CommitOutcomeUnknownException and DatabaseCleanupException retain their specified distinctions. DisposeAsync joins actual local safety; no business-delegate replay.",
       "implementation_steps": [
         "Implement exactly the D15 four independent dimensions: TxLifecycle Active/Failed/CommitInFlight/RollbackInFlight/Closed; TransactionOutcome InProgress/Committed/RolledBack/Unknown; ConnectionDisposition Usable/ProviderResetPending/Quarantined/Discarded; LocalLifetime Live/Closing/Quiescent/Reclaimed. Private internal states require an explicit mapping and may not weaken these public observations.",
         "The CommitAsync admission token can reject before the conservative provider-commit dispatch boundary. After entering CommitInFlight, use a separate finite commit deadline; request cancellation or loss of a trustworthy reply cannot replace Unknown with Cancelled or RolledBack. Reject Commit while Failed and distinguish trustworthy COMMIT confirmation from failed-transaction termination.",
@@ -242,7 +529,9 @@
         "For unconfirmed rollback without any COMMIT attempt, expose Closed/InProgress, CommitAttempted=false, Cleanup=RollbackUnconfirmed and quarantine. After a previous Unknown COMMIT, every later cleanup rollback or no-transaction response leaves Unknown unchanged. Preserve primary and cleanup errors separately.",
         "Implement explicit savepoint stack/generation and isolation capabilities on the same session. SQLite Deferred/Immediate is not a PostgreSQL isolation matrix; unsupported levels fail before begin. Ordinary commands cannot change transaction ownership through raw transaction-control SQL.",
         "CloseAsync closes public admission, requests or joins already-admitted transaction/cursor cleanup and may return Pending with LocalResourcesReleased=false. The Engine retains parents, callbacks, roots and budgets until safe retirement. DisposeAsync joins the same cleanup and cannot claim success while access remains possible; synchronous Dispose only transfers cleanup responsibility without blocking a finalizer.",
-        "Propagate recovery ID and D20 tenant/key/request-hash identity without creating an automatic business retry service. PG ReadCommitted conflict recovery uses a subsequent SELECT statement; one missing same-statement CTE result or cleanup completion never proves rollback. Persist uncertainty separately from releasable native owners."
+        "Propagate recovery ID and D20 tenant/key/request-hash identity without creating an automatic business retry service. PG ReadCommitted conflict recovery uses a subsequent SELECT statement; one missing same-statement CTE result or cleanup completion never proves rollback. Persist uncertainty separately from releasable native owners.",
+        "Public API refinement 0.4.0: DataTransaction/savepoint/commit-result/cleanup APIs preserve unknown remote outcome, poisoned session handling and bounded close.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Drop may queue rollback but does not confirm it. Commit dispatch, application result, transaction effect, protocol reuse and local retirement remain independently observable.",
@@ -254,13 +543,18 @@
         "Execute the real product response-loss proxy: forward COMMIT, observe server COMMIT plus idle ReadyForQuery, drop those replies, then prove durable effects through another connection while the client reports Unknown without blind retry.",
         "Verify pre-dispatch cancellation, post-dispatch request cancellation, failed-transaction commit rejection, rollback unconfirmed with CommitAttempted=false, Unknown followed by cleanup rollback, and bounded CloseAsync Pending followed by eventual DisposeAsync join against D15's exact state table.",
         "On both actual providers check same-session identity after failed-transaction rollback, dropped transaction, savepoint recovery, acquire cancellation, pool close and stale cancellation. Count live callbacks/roots/leases/permits until their actual retirement.",
-        "Map the implemented native and C# transitions to the four C-TX dimensions in an independent oracle; finite state exploration does not claim weak-memory, full fault-matrix or soak proof."
+        "Map the implemented native and C# transitions to the four C-TX dimensions in an independent oracle; finite state exploration does not claim weak-memory, full fault-matrix or soak proof.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Verify COMMIT admission and Unknown independently from local release, savepoint LIFO and caller-owned transaction preservation, including cancellation after remote commit admission and cleanup quarantine."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Transactions/",
         "NativeWeave:tests/Data.Transactions/",
         "Plan:ledger/evidence/B05/",
-        "NativeWeave:native/database/transactions/"
+        "NativeWeave:native/database/transactions/",
+        "NativeWeave:docs/guides/data-transactions.md",
+        "NativeWeave:samples/api/data-transactions/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "verification_matrix": {
@@ -274,19 +568,82 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Database.CleanupStatus",
+        "NativeWeave.Database.CommitOutcomeUnknownException",
+        "NativeWeave.Database.ConnectionDisposition",
+        "NativeWeave.Database.DataSession",
+        "NativeWeave.Database.DataTransaction",
+        "NativeWeave.Database.DatabaseCleanupException",
+        "NativeWeave.Database.DatabaseCloseResult",
+        "NativeWeave.Database.Savepoint",
+        "NativeWeave.Database.TransactionOptions",
+        "NativeWeave.Database.TransactionOutcome",
+        "NativeWeave.Database.TransactionState"
+      ],
+      "api_surface_responsibility": "DataTransaction/savepoint/commit-result/cleanup APIs preserve unknown remote outcome, poisoned session handling and bounded close.",
+      "documentation_owner_role": "delivery/B05",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-transactions.md",
+        "NativeWeave:samples/api/data-transactions/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B06": {
       "title": "Rust Bounded Result Batches and Streams",
       "boundary_and_ownership": "Own native cursor and owned row-batch implementation plus C# stream adapter; B01 owns shape/lease contracts and B12 owns DTO construction. Do not put DTO mapping inside drivers.",
       "native_reuse": "SQLx row streams/SQLite worker; native checked row codecs from B07. No unbounded fetch_all on the streaming path.",
-      "csharp_surface": "IAsyncEnumerable<T> adapter or explicit Cursor.FetchAsync/OwnedRowBatch, with one active fetch and one untransferred result, explicit large-value chunks.",
+      "csharp_surface": "DataSession.QueryAsync/StreamAsync/ScalarAsync, Query<TEntity> and QuerySelection<T> terminal/cardinality methods and IAsyncEnumerable<T>; bounded owned rows, one active fetch and exact early-disposal/cancellation cleanup. Native cursor handles remain internal.",
       "implementation_steps": [
         "Maintain row and byte budgets together, including descriptor/cell/payload checked sizes. Stop adding a row before it exceeds the batch budget; use explicit chunk support or LargeValueRequiresStreaming for a single oversized field.",
         "Shape-check count/order/IDs/aliases/type before first nullable read, then expose borrowed typed views only under the owned batch lease.",
         "Transfer each completed batch at most once. Consumer break, cancellation or mapper exception closes the cursor and retains cleanup owners until protocol drain/retirement.",
-        "Use bounded batch/operation counts and bytes. Document SQLx PG Execute limit=0 and internal buffering so owned-batch limits are not represented as entire-RSS limits."
+        "Use bounded batch/operation counts and bytes. Document SQLx PG Execute limit=0 and internal buffering so owned-batch limits are not represented as entire-RSS limits.",
+        "Public API refinement 0.4.0: Typed QueryAsync/streaming/batches, cardinality methods and early-disposal behavior with bounded native row leases.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Decoder/constructor failure releases the current batch, stops further fetches and cleans up cursor/session; do not free still-borrowed native bytes.",
@@ -296,13 +653,17 @@
       "specific_acceptance": [
         "Empty/one/multibatch results, huge field, slow consumer, early break, mapping throw and duplicate take/dispose through real PG/SQLite product paths.",
         "Assert bounded owned bytes and live owners separately from measured native driver/whole-process memory; downstream B22/B23 retain sustained RSS/workload gates.",
-        "Windows/Linux AOT typed enumeration and clean NuGet consumer; no Span or borrowed pointer survives await/dispose."
+        "Windows/Linux AOT typed enumeration and clean NuGet consumer; no Span or borrowed pointer survives await/dispose.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Streaming/",
         "NativeWeave:tests/Data.Streaming/",
         "Plan:ledger/evidence/B06/",
-        "NativeWeave:native/database/streaming/"
+        "NativeWeave:native/database/streaming/",
+        "NativeWeave:docs/guides/data-streaming.md",
+        "NativeWeave:samples/api/data-streaming/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "verification_matrix": {
@@ -316,19 +677,80 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Data.EntityWriter",
+        "NativeWeave.Data.Projection",
+        "NativeWeave.Data.ResultColumn",
+        "NativeWeave.Data.ResultField",
+        "NativeWeave.Data.RowMaterializer",
+        "NativeWeave.Data.RowReader",
+        "NativeWeave.Data.RowWriter",
+        "NativeWeave.Database.DataSession",
+        "NativeWeave.Query.QuerySelection"
+      ],
+      "api_surface_responsibility": "Typed QueryAsync/streaming/batches, cardinality methods and early-disposal behavior with bounded native row leases.",
+      "documentation_owner_role": "delivery/B06",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-streaming.md",
+        "NativeWeave:samples/api/data-streaming/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B07": {
       "title": "Rust Fallible Parameter Codecs and Boundary Values",
       "boundary_and_ownership": "Sole owner of Rust logical-value to provider Arguments conversion and checked Rust/C# wire scalar conversion. B11 invokes this binder; do not duplicate it in query code or silently use a panic-prone convenience adapter.",
       "native_reuse": "SeaQuery Value/SQLx Encode/Type and provider native codecs; propagate every Arguments::add Result. Use explicit finite capability profiles.",
-      "csharp_surface": "Static logical scalar/value readers/writers, typed null and explicit supported enum/JSON registration; no object[] or auto-stringify fallback.",
+      "csharp_surface": "ValueCodec<T>, Codecs and static RowReader/RowWriter accessors implement the canonical B01 declarations, exact db-wire scalar registry and fallible conversions; configured nullable/enum/JSON codecs are statically reachable. No object[] or auto-stringify fallback.",
       "implementation_steps": [
         "Implement the D14 finite scalar table with explicit size/range/endianness and NULL rules. UUID uses RFC/network bytes; distinguish CLR Guid layout.",
         "Choose checked decimal domain and timestamp precision policy. PG arbitrary numeric is wider than rust_decimal; reject unrepresentable values. Reject sub-microsecond precision where the contract promises lossless conversion rather than silently truncating.",
         "Use explicit SQLite decimal-as-text and timestamp profile rather than relying on dynamic SQLite affinity for precision. Nonfinite floats follow explicit backend capability policy.",
-        "Validate utf8, lengths, unknown tags, unsigned narrowing, encoded argument count/bytes before send; cleanup any partially constructed argument owner on failure."
+        "Validate utf8, lengths, unknown tags, unsigned narrowing, encoded argument count/bytes before send; cleanup any partially constructed argument owner on failure.",
+        "Public API refinement 0.4.0: ValueCodec<T>/Codecs/parameter encoding and fallible native conversions; canonical definitions stay with B01, no parallel binder model.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "A valid nullable slot containing SQL NULL differs from a missing column; shape preflight belongs to B06/B12.",
@@ -338,13 +760,19 @@
       "specific_acceptance": [
         "Every supported scalar positive/negative and boundary value against real both databases; compare static C# values, wire, SQLx native bind and returned values.",
         "Run UUID endianness, huge PG numeric, typed NULL and nanosecond→microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
-        "Checked input failures occur before DB sends and preserve zero leaked argument/result owners."
+        "Checked input failures occur before DB sends and preserve zero leaked argument/result owners.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
+        "Public API refinement 0.4.0: Run golden and malformed db-wire scalar/profile/null-bit vectors, canonical metadata/parameter IDs, configured decimal/enum/JSON codecs and fallible native argument conversion with no lossy default coercion.",
+        "Public API refinement 0.4.0: Validate kind23 and parent-key canonical bytes including ordered composite components, nullable child-key flags and exact configured codec/collation compatibility; reject malformed or lossy conversion before native effects."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Codecs/",
         "NativeWeave:tests/Data.Codecs/",
         "Plan:ledger/evidence/B07/",
-        "NativeWeave:native/database/codecs/"
+        "NativeWeave:native/database/codecs/",
+        "NativeWeave:docs/guides/data-codecs.md",
+        "NativeWeave:samples/api/data-codecs/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work. The graph requires a DAG over start+acceptance: do not add a reverse accepted-status dependency to B04 or from B07 to its provider consumers. Native/component acceptance uses the real pinned upstream backend or a small ABI test fixture; the complete host AOT/NuGet composition is a downstream B04/B21/B24 gate with these exact component commits.",
       "verification_matrix": {
@@ -358,20 +786,83 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Data.Codecs",
+        "NativeWeave.Data.DatabaseCapabilityException",
+        "NativeWeave.Data.DatabaseErrorKind",
+        "NativeWeave.Data.DatabaseException",
+        "NativeWeave.Data.Relation",
+        "NativeWeave.Data.SqlCommand",
+        "NativeWeave.Data.SqlCommandKind",
+        "NativeWeave.Data.SqlParameters",
+        "NativeWeave.Data.ValueCodec",
+        "NativeWeave.Interop.NativeBuffer",
+        "NativeWeave.Query.SqlNullabilityExtensions"
+      ],
+      "api_surface_responsibility": "ValueCodec<T>/Codecs/parameter encoding and fallible native conversions; canonical definitions stay with B01, no parallel binder model.",
+      "documentation_owner_role": "delivery/B07",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-codecs.md",
+        "NativeWeave:samples/api/data-codecs/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     },
     "B08": {
       "title": "Rust Migration Execution and Version Ledger",
       "boundary_and_ownership": "Own explicit deployment migration runner and ledger policy; never automatic destructive schema synchronization in ordinary DataSource startup. Keep administration pools/sessions separate from request transactions.",
       "native_reuse": "SQLx Migrator/Migrate, native migration checksums, provider transactional DDL and ledger. Provider-specific locking is inspected, not assumed identical.",
-      "csharp_surface": "Explicit MigrationDefinition/Manifest and ApplyAsync administrative entrypoint with provider, ID, hash, from/to compatibility and transaction mode.",
+      "csharp_surface": "Migration, MigrationBundle, MigrationOptions, MigrationStatus, MigrationReport, SchemaColumn, SchemaTable and DatabaseAdministration.MigrateAsync/GetMigrationStatusAsync/ValidateMigrationsAsync/GetTablesAsync; explicit SQL scripts, checksums, ordered native ledger and provider transaction/locking limits.",
       "implementation_steps": [
         "Build the migration manifest from trusted application/admin artifacts, not untrusted table-name strings. Stable same-ID/same-hash succeeds idempotently; changed hash rejects.",
         "For PostgreSQL, execute on a dedicated admin connection. Migrator error paths can return before session advisory unlock; close the connection on every exit path, and prove lock disappearance.",
         "For SQLite, SQLx lock/unlock is a no-op. Reject no_tx entries before admission, use Connection::begin_with(\"BEGIN IMMEDIATE\") to obtain a depth-tracked Transaction, and Migrator::run(&mut *tx). Explicitly commit success or rollback error, retaining cleanup failure and closing a damaged connection. Never raw query BEGIN: it bypasses SQLx depth and causes nested-BEGIN error. Serialize checksum/DDL/ledger under the writer lock.",
         "Initial supported profile is transactional migrations. Statements incompatible with that transaction are explicitly rejected or require a separately specified recovery-phase profile; never label partially executed DDL atomic.",
-        "Persist exact migration/hash/provider/phase and define crash/resume behavior without treating a connection-close success as unknown business commit resolution."
+        "Persist exact migration/hash/provider/phase and define crash/resume behavior without treating a connection-close success as unknown business commit resolution.",
+        "Public API refinement 0.4.0: Migration/MigrationBundle, MigrationOptions and DatabaseAdministration migration/schema APIs; ordered checksummed ledger, lock/transaction limits and explicit scripts.",
+        "Public API refinement 0.4.0: Use api_design_inputs and api_design_input_sha256 from the exact pinned Design commit; implement the declared member/type policies and native operation mapping. Update task-owned XML, generated API Reference contribution, guide and minimal/advanced consumer source together. For internal-only scopes document applicability and expose no accidental public plumbing."
       ],
       "error_cancellation_resources_concurrency": [
         "Do not return an errored migration connection to a shared pool with an advisory lock held.",
@@ -381,13 +872,17 @@
       "specific_acceptance": [
         "Real PG session advisory lock remains after checksum error then disappears on dedicated close; test permission failure, cancellation, changed checksum and new-process resume.",
         "Two independent SQLite migration runners contend: one complete ledger+DDL result, no duplicate or contradictory history; rollback failing DDL, repeat apply and mismatched checksum.",
-        "Preserve the independent three-case raw-BEGIN negative, tracked outer commit/rollback, and failed-second-migration all-batch rollback oracles. Cross-process contention, crash/recovery, Windows and the actual C# AOT wrapper remain product conformance."
+        "Preserve the independent three-case raw-BEGIN negative, tracked outer commit/rollback, and failed-second-migration all-batch rollback oracles. Cross-process contention, crash/recovery, Windows and the actual C# AOT wrapper remain product conformance.",
+        "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
+        "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
       ],
       "write_scopes": [
         "NativeWeave:src/Data.Migrations/",
         "NativeWeave:tests/Data.Migrations/",
         "Plan:ledger/evidence/B08/",
-        "NativeWeave:native/database/migrations/"
+        "NativeWeave:native/database/migrations/",
+        "NativeWeave:docs/guides/data-migrations.md",
+        "NativeWeave:samples/api/data-migrations/"
       ],
       "dependency_rationale": "Preserve local implementation prerequisites; run composition acceptance with actual providers without blocking unrelated implementation work.",
       "verification_matrix": {
@@ -401,8 +896,67 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed."
-      }
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
+        "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
+      },
+      "api_design_inputs": [
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md",
+        "NativeWeave-Design:docs/api/README.md",
+        "NativeWeave-Design:docs/api/documentation-system.md",
+        "NativeWeave-Design:docs/api/public-api.json",
+        "NativeWeave-Design:docs/api/reference.md",
+        "NativeWeave-Design:docs/api/foundation-sources.json",
+        "NativeWeave-Design:docs/api/foundation-coverage.json",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md",
+        "NativeWeave-Design:docs/api/getting-started.md",
+        "NativeWeave-Design:docs/api/guides.md",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h",
+        "NativeWeave-Design:docs/api/database.md",
+        "NativeWeave-Design:docs/api/database-coverage.json",
+        "NativeWeave-Design:docs/api/database-sources.json",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs"
+      ],
+      "api_design_input_sha256": {
+        "NativeWeave-Design:docs/standards/csharp-public-api-and-documentation.md": "78f2aab2212fbbc49267e7827231a3f64cf9b840206d0acdc33768417e2dbcac",
+        "NativeWeave-Design:docs/api/README.md": "e9b8a59dcade380d52239f4177e144ab1e16f3353c58038d861741ee4ab55301",
+        "NativeWeave-Design:docs/api/documentation-system.md": "49fa32115777c296c361016f99f6921ad3ce1b0087e4dbd39185c107e0c8c03e",
+        "NativeWeave-Design:docs/api/public-api.json": "9267d48739b899ed6d56b4a27f58eba3d437902d98af7b87e2dfb62ea9e64a78",
+        "NativeWeave-Design:docs/api/reference.md": "4bf3d37cbc423eacf9a308fe420b7564b4f92548fb3d164c65f53e16c9348b48",
+        "NativeWeave-Design:docs/api/foundation-sources.json": "2efd7e1a05f7cbb35681a438e8a6700973592d58bb9141f5e3ee49012d9bb321",
+        "NativeWeave-Design:docs/api/foundation-coverage.json": "6d10e4adda289591246ce9d5e5e6395cf5f1c869cda55c33f44a9fbc4db9cc45",
+        "NativeWeave-Design:docs/api/nuget-and-consumption.md": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9",
+        "NativeWeave-Design:docs/api/getting-started.md": "1a78365da1422d12f793beef06e13e3a543902c2d7ccd84c79cf01bf322affe2",
+        "NativeWeave-Design:docs/api/guides.md": "40645d16ab0fb88b33fb90847a2beef79d73354293f4c210373f17cda92c5ecf",
+        "NativeWeave-Design:experiments/public-api/abi/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+        "NativeWeave-Design:docs/api/database.md": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea",
+        "NativeWeave-Design:docs/api/database-coverage.json": "c8b6af8f50e04d2ac286024a936c8183896999aa7b8434f9c3c870e9cd9b565e",
+        "NativeWeave-Design:docs/api/database-sources.json": "173f89299550e6927b64a4091030730e3e4224af1a258729c27b0176926b6188",
+        "NativeWeave-Design:docs/api/database-symbol-policies.json": "a21d78f1c603f7a34c2e0b976075b03d26832a63fd4a7a559f17c9f0d5d7beb7",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Design/Database.cs": "904816521ba65abe182859d12f5e461fd778ea64e409e8d50f4c4ca390998369",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseExamples.cs": "c329f9d0404ad9c6d6884dd8e265e2af2d69253766975595f17297153b133a16",
+        "NativeWeave-Design:experiments/public-api/NativeWeave.Api.Consumers/DatabaseAdvancedExamples.cs": "f71eeaf8b7541d76fe5d7b9f9a27f3ced72eba96411519d8c680e70805c27182"
+      },
+      "api_contract_types": [
+        "NativeWeave.Database.DatabaseAdministration",
+        "NativeWeave.Database.Migration",
+        "NativeWeave.Database.MigrationBundle",
+        "NativeWeave.Database.MigrationOptions",
+        "NativeWeave.Database.MigrationReport",
+        "NativeWeave.Database.MigrationStatus",
+        "NativeWeave.Database.MigrationTransactionMode",
+        "NativeWeave.Database.SchemaColumn",
+        "NativeWeave.Database.SchemaTable"
+      ],
+      "api_surface_responsibility": "Migration/MigrationBundle, MigrationOptions and DatabaseAdministration migration/schema APIs; ordered checksummed ledger, lock/transaction limits and explicit scripts.",
+      "documentation_owner_role": "delivery/B08",
+      "documentation_outputs": [
+        "NativeWeave:docs/guides/data-migrations.md",
+        "NativeWeave:samples/api/data-migrations/",
+        "XML comments in the task-owned source modules; A13 composes generated API Reference from those assemblies without manual edits to another task's source."
+      ]
     }
   },
   "worktree_policy": "One branch/worktree per task, exact owned scopes; root solution/Cargo workspace registration is an A13 integration patch under the small workspace-manifest lock. No global worker lock.",
