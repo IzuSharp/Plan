@@ -75,14 +75,20 @@ identities. Restore the mapped remote tree and retain the original receipt SHA;
 do not rewrite evidence as if it ran at the remote commit identity.
 
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (Draft).
-Current remote checkpoint `b6728f7bcde1a79f90797a517efb2f54fc5190dc` has exactly tree
-`57cff5a6e7b0480c6f3183bb50d19dd809affec1` of local
-`415de77cba51fd5001b43db253dd846bf8f11683`. The preceding complete source build
-passed, but full CI formatting found a B09 checker-only dictionary layout issue.
-The final commit only splits those entries onto separate lines; all non-whitespace
-source bytes are identical. The folder check and compiled42-signature API/reference
-check pass again. [Original CI log and follow-up](ci-final-format/result.json)
-preserve both results. Normal CI on this final tree remains the merge gate.
+Current remote checkpoint `25692f957adbf49430b26de8f6b2ece92418e058` has exactly tree
+`155c26f13aa8cfb9ec3af68914e6cd879303f458` of local
+`30c726aab64ab418d40364c8aa5ad9229d68dd78`. Normal CI on this final tree passed: https://github.com/IzuSharp/NativeWeave/actions/runs/43840288797.
+The complete combined build passed. Subsequent CI found two verification issues:
+a checker dictionary layout and a SQLite cancellation test's timing assumption.
+[Formatter follow-up](ci-final-format/result.json) proves unchanged non-whitespace
+bytes and a passing compiled API check. The
+[SQLite follow-up](../../B03/linux-ci-cancellation-repair/independent-review/review-final.json)
+accepts a test/docs-only correction with unchanged production inputs. It establishes
+both stopped-EOF and actual in-worker Interrupted paths, plus a 5,000-row fresh
+operation after stale cancellation. All 11 focused commands, actual JIT/AOT
+provider cases and independent source/log/artifact audits passed. Its original
+receipt is accompanied by an explicit metadata erratum; original bytes remain
+untouched. All failed CI evidence is retained.
 
 Plan PR: https://github.com/IzuSharp/Plan/pull/14 (Draft). Continue these same PRs.
 The prior remote Plan checkpoint `19f65b29b49d126c9e6a43a07a4818f039fcbbf3` passed
