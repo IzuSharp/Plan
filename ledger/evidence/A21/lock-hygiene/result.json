@@ -1,0 +1,127 @@
+{
+  "task": "A21",
+  "scope": "Build-only split-lock verification; attempt-003 runtime evidence remains immutable",
+  "results": [
+    {
+      "name": "Managed-normal",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Managed/Managed.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0,
+      "seconds": 1.2700030690002677,
+      "log_sha256": "ca7139f728b88276bb02e91de8193ff6aaece1b7ec9d5fb2357c9bd65140dd92"
+    },
+    {
+      "name": "Managed-aot",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Managed/Managed.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true"
+      ],
+      "exit": 0,
+      "seconds": 1.0897339729999658,
+      "log_sha256": "64168ec651bb94b7ad36f4b8f3f6e1d7a5821fbf5bd6fb325211abd2128a4dbd"
+    },
+    {
+      "name": "Managed-normal-after-aot",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Managed/Managed.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0,
+      "seconds": 1.0211739679998573,
+      "log_sha256": "852f7f070032d52bd40961ed8fec918090c7b8a15857e472110bc596db4100ad"
+    },
+    {
+      "name": "Native-normal",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Native/Native.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0,
+      "seconds": 1.045912698000393,
+      "log_sha256": "43c3f06bd01d1fc0b9397a9d21165839da3e0da10eaa10590040912ab2387a76"
+    },
+    {
+      "name": "Native-aot",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Native/Native.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true"
+      ],
+      "exit": 0,
+      "seconds": 1.1308820000003834,
+      "log_sha256": "550357d4f6c629c8cc770030e802d4664030d703981b414d401cff0644051b9a"
+    },
+    {
+      "name": "Native-normal-after-aot",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/samples/api/benchmarks-harness/Native/Native.csproj",
+        "--locked-mode",
+        "--disable-parallel",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A21-linux/NativeWeave/artifacts/A21/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0,
+      "seconds": 1.331290844999785,
+      "log_sha256": "1958d0bc5101791c53c9fb75e08810d91f8c1d7c4df3e2e408f4898552189959"
+    }
+  ],
+  "before": {
+    "samples/api/benchmarks-harness/Managed/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "samples/api/benchmarks-harness/Managed/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "samples/api/benchmarks-harness/Native/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "samples/api/benchmarks-harness/Native/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030"
+  },
+  "after": {
+    "samples/api/benchmarks-harness/Managed/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "samples/api/benchmarks-harness/Managed/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "samples/api/benchmarks-harness/Native/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "samples/api/benchmarks-harness/Native/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030"
+  },
+  "locks_unchanged": true
+}

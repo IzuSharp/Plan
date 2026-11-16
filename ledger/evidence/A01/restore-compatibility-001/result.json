@@ -1,0 +1,130 @@
+{
+  "task": "A01",
+  "scope": "Focused dependency-lock restoration after actual ordinary NU1004 integration failure; no runtime or ABI change.",
+  "passed": true,
+  "source_commit": "1412604137cc8294d1ffc0c3a7e99f697ec0a431",
+  "previous_full_execution": "attempt-005/result.json at502089df15b7da200aac6675d3aade2c4a7f1778",
+  "native_aot_reexecuted": false,
+  "negative_control": "negative-ordinary-restore.json",
+  "commands": [
+    {
+      "name": "normal-before-tests",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "2d17f0bc67487bf6c710dfa2f74ba9ddf7d2b84347e3d220f160a9cb13363889",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "normal-before-sample",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "3b124cbe125e6c432fbc08406c1ec84631146de3554acb822af3c46dbdc1cc6a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "linux-aot-tests",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "c712123b93b866127b7f438e44412040481bbf296459d907120d065842ded311",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "linux-aot-sample",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "64bf768c9f101d0a8a5490cedd9683416bf36f330baa3c9e8d2e33e124b575a9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "normal-after-tests",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "26f89ed8d32bc0f87a96bef279dbefe1df48609574b748d3565db61e1b3e5cfa",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "normal-after-sample",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-005/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ea9ad29fded87518b81befa372e7f6cd46c926d0a6ecb822e5caf1b3a662b356",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "stable_lock_sha256": {
+    "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "tests/Interop.Abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "tests/Interop.Abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "samples/api/interop-abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "samples/api/interop-abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c"
+  },
+  "source_sha256": {
+    "src/Interop.Abi/Interop.Abi.csproj": "61e05d370fc808047b494f69b36dd48ca4fb8453f5574e018a711a5767025bfe",
+    "tests/Interop.Abi/Interop.Abi.Tests.csproj": "eb2bd7fbe8a16926ee98e6ecf4d6cacfd134e17ef781b444178cdfc0f8bcc00c",
+    "samples/api/interop-abi/Interop.Abi.Sample.csproj": "d1fe8d066ced384b7f067361d665375188d9b5d614fb95fa3dab942fabdd4d0a",
+    "tests/Interop.Abi/verify.py": "44a930d8473444c96586d5bbd5671e5e0005a47ce3e6fe8280f8587c861c8061",
+    "docs/guides/interop-abi.md": "aecd8e6893df13f39d9ac633e90970717a77ae80cd0b0dc35603dbc2d016b35e"
+  },
+  "restore_policy": "Locked normal and linux-x64 PublishAot restores using only the previously configured local Microsoft SDK feed; vulnerability-data refresh unavailable offline.",
+  "worktree_clean_after_validation": true
+}

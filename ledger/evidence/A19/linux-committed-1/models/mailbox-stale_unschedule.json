@@ -1,0 +1,216 @@
+{
+  "bounds": {
+    "coordinators": 1,
+    "notifications": 3,
+    "operations": 1,
+    "reserved_slots": 1
+  },
+  "counterexamples": {
+    "lost_wake_dirty_without_runnable_slot": {
+      "initial": {
+        "coalesced": false,
+        "dirty": true,
+        "generation": 1,
+        "observed": 0,
+        "scheduled": true,
+        "snapshot": false,
+        "woke_during_drain": false,
+        "worker": "idle"
+      },
+      "steps": [
+        {
+          "action": "coordinator.dispatch_reserved_slot",
+          "owner": "A08",
+          "state": {
+            "coalesced": false,
+            "dirty": true,
+            "generation": 1,
+            "observed": 0,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "drain"
+          }
+        },
+        {
+          "action": "coordinator.consume_current_state",
+          "owner": "A08",
+          "state": {
+            "coalesced": false,
+            "dirty": false,
+            "generation": 1,
+            "observed": 1,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "check"
+          }
+        },
+        {
+          "action": "coordinator.read_dirty_before_unschedule",
+          "owner": "A08",
+          "state": {
+            "coalesced": false,
+            "dirty": false,
+            "generation": 1,
+            "observed": 1,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "stale"
+          }
+        },
+        {
+          "action": "producer.publish_dirty_and_schedule_reserved_slot",
+          "owner": "A08",
+          "state": {
+            "coalesced": true,
+            "dirty": true,
+            "generation": 2,
+            "observed": 1,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": true,
+            "worker": "stale"
+          }
+        },
+        {
+          "action": "coordinator.unschedule_from_stale_snapshot",
+          "owner": "A08",
+          "state": {
+            "coalesced": true,
+            "dirty": true,
+            "generation": 2,
+            "observed": 1,
+            "scheduled": false,
+            "snapshot": false,
+            "woke_during_drain": true,
+            "worker": "idle"
+          }
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 0.000196,
+  "exhaustive_safety_search": false,
+  "expected_violation": "lost_wake_dirty_without_runnable_slot",
+  "goal_states": 0,
+  "limit_reached": null,
+  "limits": {
+    "max_states": 200000,
+    "timeout_seconds": 30.0
+  },
+  "milestone_witnesses": {
+    "notifications_coalesce_in_one_reserved_slot": {
+      "initial": {
+        "coalesced": false,
+        "dirty": true,
+        "generation": 1,
+        "observed": 0,
+        "scheduled": true,
+        "snapshot": false,
+        "woke_during_drain": false,
+        "worker": "idle"
+      },
+      "steps": [
+        {
+          "action": "producer.publish_dirty_and_schedule_reserved_slot",
+          "owner": "A08",
+          "state": {
+            "coalesced": true,
+            "dirty": true,
+            "generation": 2,
+            "observed": 0,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "idle"
+          }
+        }
+      ]
+    },
+    "wake_between_drain_and_unschedule": {
+      "initial": {
+        "coalesced": false,
+        "dirty": true,
+        "generation": 1,
+        "observed": 0,
+        "scheduled": true,
+        "snapshot": false,
+        "woke_during_drain": false,
+        "worker": "idle"
+      },
+      "steps": [
+        {
+          "action": "coordinator.dispatch_reserved_slot",
+          "owner": "A08",
+          "state": {
+            "coalesced": false,
+            "dirty": true,
+            "generation": 1,
+            "observed": 0,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "drain"
+          }
+        },
+        {
+          "action": "coordinator.consume_current_state",
+          "owner": "A08",
+          "state": {
+            "coalesced": false,
+            "dirty": false,
+            "generation": 1,
+            "observed": 1,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": false,
+            "worker": "check"
+          }
+        },
+        {
+          "action": "producer.publish_dirty_and_schedule_reserved_slot",
+          "owner": "A08",
+          "state": {
+            "coalesced": true,
+            "dirty": true,
+            "generation": 2,
+            "observed": 1,
+            "scheduled": true,
+            "snapshot": false,
+            "woke_during_drain": true,
+            "worker": "check"
+          }
+        }
+      ]
+    }
+  },
+  "missing_milestones": [
+    "all_three_notifications_observed"
+  ],
+  "model": "mailbox/stale_unschedule",
+  "oracle_met": true,
+  "progress": {
+    "assumptions": [
+      "Each atomic action is sequentially consistent; one lock protects dirty and scheduled in the candidate.",
+      "A notification means resample idempotent status, not discard an ordered data-bearing event.",
+      "The one reserved slot is queued or executing at most once; no notification allocates another slot.",
+      "The producer emits exactly the finite notification bound and the coordinator eventually runs.",
+      "No new notification or unrelated periodic scanner is assumed to rescue an already lost wake."
+    ],
+    "status": "not_checked"
+  },
+  "required_milestones": [
+    "wake_between_drain_and_unschedule",
+    "notifications_coalesce_in_one_reserved_slot",
+    "all_three_notifications_observed"
+  ],
+  "search": "deterministic breadth-first; first violation retained",
+  "seed": null,
+  "seed_reason": "Exhaustive deterministic exploration; no PRNG is used.",
+  "states_discovered": 28,
+  "states_expanded": 18,
+  "status": "violated",
+  "transitions_examined": 30
+}

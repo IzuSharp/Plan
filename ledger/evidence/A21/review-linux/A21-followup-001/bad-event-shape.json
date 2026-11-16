@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "route": "direct-rust",
+  "repetition": 0,
+  "valid": false,
+  "invalid_reasons": [
+    "integrity: Target event must be an object"
+  ],
+  "workload_kind": "harness-smoke",
+  "hello": {
+    "kind": "hello",
+    "route": "direct-rust",
+    "dynamic_code_supported": false
+  },
+  "records": [
+    {
+      "id": 0,
+      "scheduled_ns": 4803155191116,
+      "dispatch_ns": 4803156124471,
+      "admission_ns": null,
+      "completion_ns": 4803161289139,
+      "status": "cancelled",
+      "deadline_ns": 4803175191116,
+      "attempts": 1,
+      "request_wire_bytes": 7,
+      "response_wire_bytes": 0
+    },
+    {
+      "id": 1,
+      "scheduled_ns": 4803160191116,
+      "dispatch_ns": null,
+      "admission_ns": null,
+      "completion_ns": 4803161281487,
+      "status": "cancelled",
+      "deadline_ns": 4803180191116,
+      "attempts": 0,
+      "request_wire_bytes": 0,
+      "response_wire_bytes": 0
+    }
+  ],
+  "outcome_counts": {
+    "cancelled": 2
+  },
+  "offered": 2,
+  "admitted": 0,
+  "completed": 0,
+  "successful": 0,
+  "measurement_window_ns": {
+    "start": 4803155191116,
+    "end": 4803161289139,
+    "elapsed": 6098023
+  },
+  "rates_per_second": {
+    "offered": 200.0,
+    "admitted": 0.0,
+    "completed": 0.0
+  },
+  "histograms": {
+    "arrival_all_outcomes": {
+      "resolution_ns": 1000,
+      "maximum_ns": 1000000000,
+      "bucket_convention": "inclusive lower bound, exclusive lower+resolution",
+      "correction": "none; scheduled arrivals observed directly",
+      "count": 2,
+      "bins": {
+        "1090000": 1,
+        "6098000": 1
+      },
+      "overflow_count": 0,
+      "overflow_ns": [],
+      "percentiles_from_exact_samples_ns": {
+        "p50": 1090371,
+        "p90": null,
+        "p95": null,
+        "p99": null,
+        "p99.9": null
+      }
+    },
+    "arrival_success": {
+      "resolution_ns": 1000,
+      "maximum_ns": 1000000000,
+      "bucket_convention": "inclusive lower bound, exclusive lower+resolution",
+      "correction": "none; scheduled arrivals observed directly",
+      "count": 0,
+      "bins": {},
+      "overflow_count": 0,
+      "overflow_ns": [],
+      "percentiles_from_exact_samples_ns": {
+        "p50": null,
+        "p90": null,
+        "p95": null,
+        "p99": null,
+        "p99.9": null
+      }
+    },
+    "dispatch_delay": {
+      "resolution_ns": 1000,
+      "maximum_ns": 1000000000,
+      "bucket_convention": "inclusive lower bound, exclusive lower+resolution",
+      "correction": "none; scheduled arrivals observed directly",
+      "count": 1,
+      "bins": {
+        "933000": 1
+      },
+      "overflow_count": 0,
+      "overflow_ns": [],
+      "percentiles_from_exact_samples_ns": {
+        "p50": null,
+        "p90": null,
+        "p95": null,
+        "p99": null,
+        "p99.9": null
+      }
+    },
+    "admission_observer_delay": {
+      "resolution_ns": 1000,
+      "maximum_ns": 1000000000,
+      "bucket_convention": "inclusive lower bound, exclusive lower+resolution",
+      "correction": "none; scheduled arrivals observed directly",
+      "count": 0,
+      "bins": {},
+      "overflow_count": 0,
+      "overflow_ns": [],
+      "percentiles_from_exact_samples_ns": {
+        "p50": null,
+        "p90": null,
+        "p95": null,
+        "p99": null,
+        "p99.9": null
+      }
+    },
+    "service_observer": {
+      "resolution_ns": 1000,
+      "maximum_ns": 1000000000,
+      "bucket_convention": "inclusive lower bound, exclusive lower+resolution",
+      "correction": "none; scheduled arrivals observed directly",
+      "count": 0,
+      "bins": {},
+      "overflow_count": 0,
+      "overflow_ns": [],
+      "percentiles_from_exact_samples_ns": {
+        "p50": null,
+        "p90": null,
+        "p95": null,
+        "p99": null,
+        "p99.9": null
+      }
+    }
+  },
+  "late_events": [],
+  "raw_events": {
+    "path": "bad-event-shape.events.jsonl",
+    "sha256": "51ed3df2a1f1d3989d35e1c27b61caf18c2494664737d13b93f38d6d99599388",
+    "encoding": "JSONL records with exact base64 wire bytes"
+  },
+  "last_target_counters": null,
+  "resource_samples": [
+    {
+      "time_ns": 4803135250125,
+      "counters": {
+        "rss_bytes": {
+          "value": 18583552,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmRSS"
+        },
+        "peak_rss_bytes": {
+          "value": 18583552,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmHWM"
+        },
+        "private_working_set_bytes": {
+          "value": 13803520,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux smaps_rollup Private_Clean + Private_Dirty"
+        },
+        "threads": {
+          "value": 1,
+          "unit": "count",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status Threads"
+        },
+        "main_thread_stack_bytes": {
+          "value": 139264,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmStk"
+        },
+        "all_thread_stacks_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        },
+        "mapped_code_bytes": {
+          "value": 21794816,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmExe"
+        },
+        "kernel_socket_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        },
+        "child_process_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        }
+      }
+    },
+    {
+      "time_ns": 4803156257471,
+      "counters": {
+        "rss_bytes": {
+          "value": 18587648,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmRSS"
+        },
+        "peak_rss_bytes": {
+          "value": 18587648,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmHWM"
+        },
+        "private_working_set_bytes": {
+          "value": 13807616,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux smaps_rollup Private_Clean + Private_Dirty"
+        },
+        "threads": {
+          "value": 1,
+          "unit": "count",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status Threads"
+        },
+        "main_thread_stack_bytes": {
+          "value": 139264,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmStk"
+        },
+        "all_thread_stacks_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        },
+        "mapped_code_bytes": {
+          "value": 21794816,
+          "unit": "bytes",
+          "availability": "measured",
+          "method": "Linux /proc/pid/status VmExe"
+        },
+        "kernel_socket_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        },
+        "child_process_bytes": {
+          "value": null,
+          "unit": "bytes",
+          "availability": "unknown",
+          "method": "No portable observation is available"
+        }
+      }
+    }
+  ],
+  "cleanup": "process_exited; not a resource-retirement proof",
+  "stderr": "",
+  "exit_code": 0,
+  "clock_scope": "one controller monotonic clock; admission event observed over IPC",
+  "target_artifacts": {},
+  "instrumentation": "independent protocol mutation only"
+}

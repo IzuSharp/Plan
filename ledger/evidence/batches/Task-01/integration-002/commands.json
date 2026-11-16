@@ -1,0 +1,53 @@
+[
+  {
+    "step": "cargo-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 0.14056121399971744
+  },
+  {
+    "step": "cargo-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--offline",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0,
+    "seconds": 1.2387282950003282
+  },
+  {
+    "step": "cargo-tests",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "exit": 0,
+    "seconds": 7.351191137000569
+  },
+  {
+    "step": "native-bootstrap",
+    "command": [
+      "python",
+      "eng/build.py",
+      "native"
+    ],
+    "exit": 0,
+    "seconds": 2.5950928510001177
+  }
+]

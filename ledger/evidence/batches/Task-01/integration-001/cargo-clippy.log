@@ -1,0 +1,47 @@
+warning: missing `[lints]` to inherit `[workspace.lints]`
+  --> native/database/interfaces/Cargo.toml
+   = note: `cargo::missing_lints_inheritance` is set to `warn` by default
+help: to inherit `workspace.lints, add:
+   |
+11 ~ sha2 = "=0.10.9"
+12 + [lints]
+13 + workspace = true
+   |
+help: to clarify your intent to not inherit, add:
+   |
+11 ~ sha2 = "=0.10.9"
+12 + [lints]
+   |
+warning: `nativeweave-data-contracts` (manifest) generated 1 warning
+   Compiling version_check v0.9.5
+    Checking typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.154
+    Checking itoa v1.0.19
+    Checking memchr v2.8.3
+    Checking cfg-if v1.0.5
+    Checking cpufeatures v0.2.17
+    Checking nativeweave-hello v0.1.0 (/workspace/scratch/0898a75257bc/.worktree/Task-01-linux/NativeWeave/native/hello-world)
+    Checking nativeweave-interop-abi v0.1.0 (/workspace/scratch/0898a75257bc/.worktree/Task-01-linux/NativeWeave/native/interop/abi)
+error: unsafe block missing a safety comment
+  --> native/interop/abi/src/lib.rs:93:13
+   |
+93 |             unsafe { write_abi_v1(1, 32, core::ptr::null_mut(), 0, 0) },
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.100.0/index.html#undocumented_unsafe_blocks
+   = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: unsafe block missing a safety comment
+   --> native/interop/abi/src/lib.rs:104:13
+    |
+104 |             unsafe {
+    |             ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.100.0/index.html#undocumented_unsafe_blocks
+
+error: could not compile `nativeweave-interop-abi` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

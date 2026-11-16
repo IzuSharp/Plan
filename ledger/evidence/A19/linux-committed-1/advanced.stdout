@@ -1,0 +1,90 @@
+{
+  "negative_control": "mailbox/stale_unschedule",
+  "expected_violation": "lost_wake_dirty_without_runnable_slot",
+  "counterexample": {
+    "initial": {
+      "generation": 1,
+      "observed": 0,
+      "dirty": true,
+      "scheduled": true,
+      "worker": "idle",
+      "snapshot": false,
+      "woke_during_drain": false,
+      "coalesced": false
+    },
+    "steps": [
+      {
+        "action": "coordinator.dispatch_reserved_slot",
+        "owner": "A08",
+        "state": {
+          "generation": 1,
+          "observed": 0,
+          "dirty": true,
+          "scheduled": true,
+          "worker": "drain",
+          "snapshot": false,
+          "woke_during_drain": false,
+          "coalesced": false
+        }
+      },
+      {
+        "action": "coordinator.consume_current_state",
+        "owner": "A08",
+        "state": {
+          "generation": 1,
+          "observed": 1,
+          "dirty": false,
+          "scheduled": true,
+          "worker": "check",
+          "snapshot": false,
+          "woke_during_drain": false,
+          "coalesced": false
+        }
+      },
+      {
+        "action": "coordinator.read_dirty_before_unschedule",
+        "owner": "A08",
+        "state": {
+          "generation": 1,
+          "observed": 1,
+          "dirty": false,
+          "scheduled": true,
+          "worker": "stale",
+          "snapshot": false,
+          "woke_during_drain": false,
+          "coalesced": false
+        }
+      },
+      {
+        "action": "producer.publish_dirty_and_schedule_reserved_slot",
+        "owner": "A08",
+        "state": {
+          "generation": 2,
+          "observed": 1,
+          "dirty": true,
+          "scheduled": true,
+          "worker": "stale",
+          "snapshot": false,
+          "woke_during_drain": true,
+          "coalesced": true
+        }
+      },
+      {
+        "action": "coordinator.unschedule_from_stale_snapshot",
+        "owner": "A08",
+        "state": {
+          "generation": 2,
+          "observed": 1,
+          "dirty": true,
+          "scheduled": false,
+          "worker": "idle",
+          "snapshot": false,
+          "woke_during_drain": true,
+          "coalesced": true
+        }
+      }
+    ]
+  },
+  "resource_limited_candidate_status": "inconclusive",
+  "scope": "The unsafe control is deliberately wrong; it is not the product implementation."
+}

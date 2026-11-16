@@ -1,0 +1,102 @@
+{
+  "reviewer": "/root/a19",
+  "review_type": "Independent supplemental review of task-owned Linux dependency lock integration fixes",
+  "platform": "linux-x64",
+  "reviewed_at_utc": "2026-11-16T05:17:51.873863+00:00",
+  "method": "Read the exact committed diff, independently compare final files with Git blobs and evidence hashes, compare project XML after removing only the two lock selectors, compare verifier text with the precisely expected changes, verify original accepted AOT lock bytes at their new paths, and verify the recorded focused restore logs. Product source was not modified by the reviewer.",
+  "independent_command": "python3 /workspace/scratch/d5dd057ef8a6/reviews/split_lock_review_audit.py",
+  "independent_command_exit_code": 0,
+  "independent_audit_script": {
+    "path": "split_lock_review_audit.py",
+    "sha256": "28c5df4d8b279114ffd8f57824f1f9de375915b0858d5ff14fefcd8ef2a1eb50"
+  },
+  "open_findings": [],
+  "conclusion": "accepted_linux_x64_build_only_delta",
+  "limitations": [
+    "The supplemental review does not claim another full runtime, benchmark, or Native AOT execution after the build-only delta. Prior immutable acceptance evidence remains bound to its actual source commit.",
+    "Restores used the configured local SDK package feed and disabled audit refresh. This does not claim a fresh online vulnerability audit.",
+    "Only the requested Linux x64 path was verified; other platform acceptance is not implied."
+  ],
+  "task": "A01",
+  "base_commit": "47ca79fec337729499cc9ea7bd54892afafa5f11",
+  "reviewed_commit": "1412604137cc8294d1ffc0c3a7e99f697ec0a431",
+  "source_sha256": {
+    "docs/guides/interop-abi.md": "aecd8e6893df13f39d9ac633e90970717a77ae80cd0b0dc35603dbc2d016b35e",
+    "samples/api/interop-abi/Interop.Abi.Sample.csproj": "d1fe8d066ced384b7f067361d665375188d9b5d614fb95fa3dab942fabdd4d0a",
+    "samples/api/interop-abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "samples/api/interop-abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "src/Interop.Abi/Interop.Abi.csproj": "61e05d370fc808047b494f69b36dd48ca4fb8453f5574e018a711a5767025bfe",
+    "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "tests/Interop.Abi/Interop.Abi.Tests.csproj": "eb2bd7fbe8a16926ee98e6ecf4d6cacfd134e17ef781b444178cdfc0f8bcc00c",
+    "tests/Interop.Abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "tests/Interop.Abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "tests/Interop.Abi/verify.py": "44a930d8473444c96586d5bbd5671e5e0005a47ce3e6fe8280f8587c861c8061"
+  },
+  "audit_artifact": {
+    "path": "A01-split-lock-audit.json",
+    "sha256": "21f2c05df59aff2a79e12d588d06bc3bb3ec001b856246c78a1e123116f297c9"
+  },
+  "aot_lock_relocations": [
+    {
+      "original_path": "src/Interop.Abi/packages.lock.json",
+      "final_path": "src/Interop.Abi/packages.linux-x64.aot.lock.json",
+      "exact_tested_aot_sha256": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "ordinary_sha256": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "xml_only_adds_ordered_absolute_lock_selection": true
+    },
+    {
+      "original_path": "tests/Interop.Abi/packages.lock.json",
+      "final_path": "tests/Interop.Abi/packages.linux-x64.aot.lock.json",
+      "exact_tested_aot_sha256": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+      "ordinary_sha256": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+      "xml_only_adds_ordered_absolute_lock_selection": true
+    },
+    {
+      "original_path": "samples/api/interop-abi/packages.lock.json",
+      "final_path": "samples/api/interop-abi/packages.linux-x64.aot.lock.json",
+      "exact_tested_aot_sha256": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+      "ordinary_sha256": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+      "xml_only_adds_ordered_absolute_lock_selection": true
+    }
+  ],
+  "evidence_sha256": {
+    "artifacts/A01/restore-compatibility-001/normal-before-tests.stdout": "2d17f0bc67487bf6c710dfa2f74ba9ddf7d2b84347e3d220f160a9cb13363889",
+    "artifacts/A01/restore-compatibility-001/normal-before-tests.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/restore-compatibility-001/normal-before-sample.stdout": "3b124cbe125e6c432fbc08406c1ec84631146de3554acb822af3c46dbdc1cc6a",
+    "artifacts/A01/restore-compatibility-001/normal-before-sample.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/restore-compatibility-001/linux-aot-tests.stdout": "c712123b93b866127b7f438e44412040481bbf296459d907120d065842ded311",
+    "artifacts/A01/restore-compatibility-001/linux-aot-tests.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/restore-compatibility-001/linux-aot-sample.stdout": "64bf768c9f101d0a8a5490cedd9683416bf36f330baa3c9e8d2e33e124b575a9",
+    "artifacts/A01/restore-compatibility-001/linux-aot-sample.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/restore-compatibility-001/normal-after-tests.stdout": "26f89ed8d32bc0f87a96bef279dbefe1df48609574b748d3565db61e1b3e5cfa",
+    "artifacts/A01/restore-compatibility-001/normal-after-tests.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/restore-compatibility-001/normal-after-sample.stdout": "ea9ad29fded87518b81befa372e7f6cd46c926d0a6ecb822e5caf1b3a662b356",
+    "artifacts/A01/restore-compatibility-001/normal-after-sample.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/A01/attempt-005/result.json": "422a85838780dbf71c787bfd348c4a34ad5964ac568467b82706444847da4a49",
+    "artifacts/A01/restore-compatibility-001/result.json": "c950b8e249abd85b3ddbbcfe4f3e0a33b7dac897b657ab462bee6c443ae2da3f",
+    "artifacts/A01/restore-compatibility-001/commands.json": "b4b14f508ee701d0d8a9c17fb81dda072ab699ba0dd6ce111092d2529f2bb2c6",
+    "artifacts/A01/restore-compatibility-001/negative-ordinary-restore.json": "4007a2ab64fc9ec376c9f84b511b30cef870f871f5af74c37a9fcfbeb2485966",
+    "artifacts/A01/restore-compatibility-001/negative-ordinary-restore.stdout": "3d43e0e03b9fcb296e2a4d6d3cdde8379e6b236e7643d1d0f1c90ea9ada5b727",
+    "artifacts/A01/restore-compatibility-001/negative-ordinary-restore.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "primary_review": "Complements A01-review.json, which accepts the ABI/schema/layout/runtime implementation through 47ca79f. This document reviews only the following dependency-lock integration change.",
+  "previous_full_execution": {
+    "source_commit": "502089df15b7da200aac6675d3aade2c4a7f1778",
+    "evidence": "artifacts/A01/attempt-005/result.json"
+  },
+  "checks": [
+    "The diff contains exactly eleven paths: three task project files, three ordinary locks, three new Linux AOT locks, the verifier and the guide. Runtime, ABI, generated declarations, schema, native bootstrap and signature tests are unchanged.",
+    "All eleven changed source and lock hashes match both the exact final Git commit and the clean worktree.",
+    "All three Linux AOT lock files are byte-identical to their old accepted attempt-005 AOT-profile packages.lock.json files. Ordinary locks preserve the ILLink and project dependency entries while removing only the AOT-only dependency/profile.",
+    "The three project XML changes add only ordered plural RuntimeIdentifiers then singular RuntimeIdentifier selectors, both guarded by PublishAot with absolute MSBuildProjectDirectory paths. Other project semantics remain unchanged.",
+    "The verifier requires --locked-mode for ordinary and AOT restore and includes every dependency lock in its pre/post source stability guard. Only generated api-reference output remains excluded from that guard. No unrelated verifier change was introduced.",
+    "The six successful recorded restores cover tests and sample in ordinary mode, Linux AOT mode, then ordinary mode again; their project graph includes the library. All commands use --locked-mode and all twelve stdout/stderr hashes match. Six lock hashes equal final committed bytes.",
+    "The original ordinary restore failure is retained with exit 1, source commit 47ca79f and NU1004 output. The focused passing commands resolve that actual integration issue. No subsequent full-AOT execution is claimed."
+  ],
+  "resolved_integration_issue": {
+    "id": "A01-LOCK-INTEGRATION",
+    "status": "resolved",
+    "description": "Ordinary locked restore failed NU1004 when the prior AOT run populated the ordinary lock. Separate exact AOT lock files and enforce locked restores without changing runtime source."
+  }
+}

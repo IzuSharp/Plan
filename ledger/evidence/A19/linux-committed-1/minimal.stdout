@@ -1,0 +1,19 @@
+{
+  "model": "mailbox/candidate",
+  "status": "passed",
+  "states": 35,
+  "progress": {
+    "status": "passed",
+    "assumptions": [
+      "Each atomic action is sequentially consistent; one lock protects dirty and scheduled in the candidate.",
+      "A notification means resample idempotent status, not discard an ordered data-bearing event.",
+      "The one reserved slot is queued or executing at most once; no notification allocates another slot.",
+      "The producer emits exactly the finite notification bound and the coordinator eventually runs.",
+      "No new notification or unrelated periodic scanner is assumed to rescue an already lost wake."
+    ],
+    "states_reaching_goal": 35,
+    "maximum_progress_steps": 11,
+    "initial_maximum_progress_steps": 11
+  },
+  "scope": "Bounded sequentially consistent model, not actual runtime proof."
+}

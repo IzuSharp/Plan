@@ -1,0 +1,156 @@
+{
+  "final_commit": "b34f819d9d0c4032635d292dff7b51872cde7a69",
+  "final_worktree_status": "",
+  "tested_commit_recorded_by_run4": "eaeb04d8b4bf1d7a45ddc6d0f47190e9bc11313a",
+  "run4_source_identity_sha256": "db326c84e249b09383f14f26ffb5749a1014196019c72119a8ba5cf3d98fdc85",
+  "original_evidence_not_rewritten": true,
+  "runtime_csharp_rust_and_schema_unchanged_after_run4": true,
+  "unchanged_recorded_files": [
+    "native/database/interfaces/Cargo.lock",
+    "native/database/interfaces/Cargo.toml",
+    "native/database/interfaces/generate_schema.py",
+    "native/database/interfaces/schema-v1.json",
+    "native/database/interfaces/src/bin/verify-fixtures.rs",
+    "native/database/interfaces/src/lib.rs",
+    "native/database/interfaces/src/schema.rs",
+    "native/database/interfaces/src/wire.rs",
+    "samples/api/data-abstractions/DataAbstractions.csproj",
+    "samples/api/data-abstractions/Program.cs",
+    "samples/api/data-abstractions/packages.lock.json",
+    "src/Data.Abstractions/Codecs.cs",
+    "src/Data.Abstractions/DbWire.cs",
+    "src/Data.Abstractions/Errors.cs",
+    "src/Data.Abstractions/Metadata.cs",
+    "src/Data.Abstractions/Rows.cs",
+    "src/Data.Abstractions/SqlCommand.cs",
+    "src/Data.Abstractions/Values.cs",
+    "src/Data.Abstractions/WireSchema.g.cs",
+    "src/Data.Abstractions/api-reference.md",
+    "src/Data.Abstractions/public-api.expected.json",
+    "tests/Data.Abstractions/ApiCheck/ApiCheck.csproj",
+    "tests/Data.Abstractions/ApiCheck/Program.cs",
+    "tests/Data.Abstractions/ApiCheck/packages.lock.json",
+    "tests/Data.Abstractions/Program.cs",
+    "tests/Data.Abstractions/negative/cases.json",
+    "tests/Data.Abstractions/negative/row-across-await.cs.txt",
+    "tests/Data.Abstractions/negative/value-entity.cs.txt",
+    "tests/Data.Abstractions/negative/wrong-entity.cs.txt",
+    "tests/Data.Abstractions/negative/wrong-value.cs.txt"
+  ],
+  "post_run_changes": [
+    {
+      "path": "docs/guides/data-abstractions.md",
+      "run4_sha256": "958f1d21fd1423cb8edb4f73638cd8e44ba19b05e4bef973ea8a783a49c6f259",
+      "final_sha256": "9fb2ee1925bf7dd12acd5172d7b875bc25c54084a94e5cfd713b0e6348c4860d",
+      "explanation": "Post-run lock-path configuration/documentation or --locked-mode verification only; targeted ordinary and AOT locked restores passed."
+    },
+    {
+      "path": "src/Data.Abstractions/NativeWeave.Data.csproj",
+      "run4_sha256": "6bde08b5d2419cb3ae388c9a4bd91627cbc236ab11a75daaed50f3f5f09d0df1",
+      "final_sha256": "b42311c24776276d16486a67be11fcadc02590eb1d7c1a03e860027f1b17c9d4",
+      "explanation": "Post-run lock-path configuration/documentation or --locked-mode verification only; targeted ordinary and AOT locked restores passed."
+    },
+    {
+      "path": "src/Data.Abstractions/packages.lock.json",
+      "run4_sha256": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "final_sha256": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "tested_aot_bytes_preserved_as": "src/Data.Abstractions/packages.linux-x64.aot.lock.json",
+      "explanation": "The ordinary pre-AOT lock is restored; the exact tested AOT lock bytes are retained under the selected Linux AOT lock path."
+    },
+    {
+      "path": "tests/Data.Abstractions/NativeWeave.Data.Tests.csproj",
+      "run4_sha256": "f897ced77e9537aeb7a7c547fdacabf7af0da3439ac53d16a218056c6ab34de4",
+      "final_sha256": "10e2f339601e41aa6d880c159f913e0bbc1ba3bd152b324748cb5a4b996073ee",
+      "explanation": "Post-run lock-path configuration/documentation or --locked-mode verification only; targeted ordinary and AOT locked restores passed."
+    },
+    {
+      "path": "tests/Data.Abstractions/packages.lock.json",
+      "run4_sha256": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+      "final_sha256": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "tested_aot_bytes_preserved_as": "tests/Data.Abstractions/packages.linux-x64.aot.lock.json",
+      "explanation": "The ordinary pre-AOT lock is restored; the exact tested AOT lock bytes are retained under the selected Linux AOT lock path."
+    },
+    {
+      "path": "tests/Data.Abstractions/verify.py",
+      "run4_sha256": "74192fe931ee287a3ebff0102b49675e22375e649038dd79312f4820bbbd0d57",
+      "final_sha256": "4023e1c0825e860f1b36129d8242048cd08a95509e608cf852b8f7c5c4255250",
+      "explanation": "Post-run lock-path configuration/documentation or --locked-mode verification only; targeted ordinary and AOT locked restores passed."
+    }
+  ],
+  "targeted_locked_restore_commands": [
+    {
+      "name": "aot",
+      "argv": [
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+        "restore",
+        "tests/Data.Abstractions/NativeWeave.Data.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "artifacts/B01/run-4/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true"
+      ],
+      "exit_code": 0,
+      "log": "split-lock-aot.log"
+    },
+    {
+      "name": "ordinary",
+      "argv": [
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+        "restore",
+        "tests/Data.Abstractions/NativeWeave.Data.Tests.csproj",
+        "--locked-mode",
+        "--configfile",
+        "artifacts/B01/run-4/NuGet.offline.config",
+        "-p:NuGetAudit=false",
+        "--disable-build-servers"
+      ],
+      "exit_code": 0,
+      "log": "split-lock-ordinary.log"
+    }
+  ],
+  "final_owned_files": {
+    "docs/guides/data-abstractions.md": "9fb2ee1925bf7dd12acd5172d7b875bc25c54084a94e5cfd713b0e6348c4860d",
+    "native/database/interfaces/Cargo.lock": "93c36f0be8bdf1eaac8718d3d40547a3b52dae2b97a0d7c565466f6a0991593d",
+    "native/database/interfaces/Cargo.toml": "2c8164a9c11d58d0f6c119e3885883d8452393e73e6c848e34ac78ea26ebdf77",
+    "native/database/interfaces/generate_schema.py": "53cc704965b5507794004c2d5f90e5114101e6fdcfa5dc928b7ba37a945aa984",
+    "native/database/interfaces/schema-v1.json": "bceffb32345990f545a0a0bf04798cbc4dc6c58c0a612da1d03e8fd984eef2ad",
+    "native/database/interfaces/src/bin/verify-fixtures.rs": "46e003034ce4dd315bf97223d3adadf5b0e5ebf57e54179169b62b28458af91b",
+    "native/database/interfaces/src/lib.rs": "c23899ff6b53bd494ccc4f156895a9ab913192fb0c02256a3620b8f4f61c13cf",
+    "native/database/interfaces/src/schema.rs": "cdced65be9bc90ad0aa4dfb034ceca00430f89173cb8d38640b2fd7b7c337b5e",
+    "native/database/interfaces/src/wire.rs": "3d5d5e4d2e90b35ac68fa3bd3c243ffa6510950bfe02ea864e646f8ad1e514b1",
+    "samples/api/data-abstractions/DataAbstractions.csproj": "bab496f94a4df045622310a82b3b70516d53f2a49cc9843ff7de854ad8aad51a",
+    "samples/api/data-abstractions/Program.cs": "0338f1df8254b7113bcb97126576b71a6b84c30ed967c1e9563b070905328fed",
+    "samples/api/data-abstractions/packages.lock.json": "310b023e199a46fa0dbea12d5c15c95ab6c2e7d1c3a936491003e2c745352477",
+    "src/Data.Abstractions/Codecs.cs": "0127c34f2deefc5043ba40b29cb14f197d2fee10a1ffa65a20695e3d4f117fe1",
+    "src/Data.Abstractions/DbWire.cs": "8e456e6f075e4aedf099b11471bd427506b03d0c373d6e3d137f5a52b297bef9",
+    "src/Data.Abstractions/Errors.cs": "f65218b787cdcf6a2b8ef1f4067e2a5e5e88fe68144c1dcc0f9ec63f0a04d743",
+    "src/Data.Abstractions/Metadata.cs": "add4380c7f4ba8b0e57bac56de4c12e79b318ee3d378d18e8d61c5a8c824161e",
+    "src/Data.Abstractions/NativeWeave.Data.csproj": "b42311c24776276d16486a67be11fcadc02590eb1d7c1a03e860027f1b17c9d4",
+    "src/Data.Abstractions/Rows.cs": "eed02fc4bb0eb009bc11ef13392338227b1317d041a7e2fa8da64193d99325d9",
+    "src/Data.Abstractions/SqlCommand.cs": "11491756bd0c530c6d9a699dbd6b0745e7e8974a23b0f756f5d615de66b3d2d1",
+    "src/Data.Abstractions/Values.cs": "714de22cf56637e58b62eb0301f4d8216f96c04a098bb29e47246186f2b4a2fd",
+    "src/Data.Abstractions/WireSchema.g.cs": "d7aee2e4638c0ab7d559b7fd30398892224607295710daf086e4938bfe61a612",
+    "src/Data.Abstractions/api-reference.md": "d2416943f50c488d8f17753200bbfe5f3423d703741cf27de5307fea73062fd6",
+    "src/Data.Abstractions/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "src/Data.Abstractions/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "src/Data.Abstractions/public-api.expected.json": "4515fff619f6628d24f5494e1b5339a89d08cb91bb3ad3f88492dbfc76b4fc88",
+    "tests/Data.Abstractions/ApiCheck/ApiCheck.csproj": "f2d56357c548b66f8e839a7ec1054e66cbfac06c737ca9c3fdc0ad961189d034",
+    "tests/Data.Abstractions/ApiCheck/Program.cs": "8bce48dd6c7db83cb58b8e66810c2e01ff8be050bb26ff68c36ac1a74767d589",
+    "tests/Data.Abstractions/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "tests/Data.Abstractions/NativeWeave.Data.Tests.csproj": "10e2f339601e41aa6d880c159f913e0bbc1ba3bd152b324748cb5a4b996073ee",
+    "tests/Data.Abstractions/Program.cs": "6e189ae1f2a4a0d8288a5bd0d06895df3c7698a52acbc51b04b8476b918a5f3f",
+    "tests/Data.Abstractions/negative/cases.json": "980ff4af68ad8a4ce423e45b2fda58033d0e9a73dfb790ee73ff420656621e68",
+    "tests/Data.Abstractions/negative/row-across-await.cs.txt": "2b2a17f090bf94d7d1d291bc6c1b4f59f1dcb1016bac02587cf58aa372278a1b",
+    "tests/Data.Abstractions/negative/value-entity.cs.txt": "604e9b05a1a9e5fbf72fc4aa21a29e59dc225c21896aeb3320da16a395c40510",
+    "tests/Data.Abstractions/negative/wrong-entity.cs.txt": "f9af462181545c395bc944351285942bb1d300d0bf2b859a01cb0cfb39c4ff01",
+    "tests/Data.Abstractions/negative/wrong-value.cs.txt": "c6fcd0b70a46db499c670b6de5a5acc67d16ad5210431a3beacdf95f1200de43",
+    "tests/Data.Abstractions/packages.linux-x64.aot.lock.json": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+    "tests/Data.Abstractions/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+    "tests/Data.Abstractions/verify.py": "4023e1c0825e860f1b36129d8242048cd08a95509e608cf852b8f7c5c4255250"
+  },
+  "supplement_scope": "Exact original run-4 product execution is retained. The final source adds only a split AOT lock path and locked-mode verification; both restore configurations were exercised without changing tested dependency content."
+}
