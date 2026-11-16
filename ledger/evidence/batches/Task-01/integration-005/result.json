@@ -1,0 +1,66 @@
+{
+  "task": "Task-01",
+  "platform": "linux-x64",
+  "scope": "Final shared Release build and whole-solution format gate after reviewed whitespace-only B01 cherry-pick; no repeated module/runtime acceptance.",
+  "source_commit": "39d3dc3bde90304cf8baf6d59bbfa75959cc8ed5",
+  "source_tree": "814094f77140c01068ac82514709c4dc208360cf",
+  "base_local_commit": "c3ea6daea4299561f62b70d6ffaf494ebee781d5",
+  "cherry_picked": "4feadc6f8360392b7d8226426bdbd9aaa7bf5a54",
+  "commands": [
+    {
+      "name": "solution-release-build",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+        "build",
+        "NativeWeave.slnx",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--disable-build-servers",
+        "-m:1",
+        "-p:UseSharedCompilation=false"
+      ],
+      "cwd": "/workspace/scratch/0898a75257bc/.worktree/Task-01-linux/NativeWeave",
+      "started_utc": "2026-11-16T05:29:03.202580+00:00",
+      "ended_utc": "2026-11-16T05:29:25.382751+00:00",
+      "elapsed_seconds": 22.180176,
+      "timeout_seconds": 180,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout_sha256": "32f8fd71c31f38b3745ba787a4092e49b84adaa6ae797a04b15856d2c6d139dc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "solution-format",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+        "format",
+        "NativeWeave.slnx",
+        "--verify-no-changes",
+        "--no-restore"
+      ],
+      "cwd": "/workspace/scratch/0898a75257bc/.worktree/Task-01-linux/NativeWeave",
+      "started_utc": "2026-11-16T05:29:25.382995+00:00",
+      "ended_utc": "2026-11-16T05:30:26.409180+00:00",
+      "elapsed_seconds": 61.026196,
+      "timeout_seconds": 180,
+      "timed_out": false,
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "7fdef55c2f874e9689f40039da1a212093248a882ccc10251865630d688fdfbf"
+    }
+  ],
+  "environment_overrides": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+    "MSBUILDUSESERVER": "0",
+    "DOTNET_PROCESSOR_COUNT": "2",
+    "UseSharedCompilation": "false"
+  },
+  "ordinary_restore": "Reused root integration-004 offline locked restore; not rerun.",
+  "clean_final_status": true,
+  "passed": false,
+  "format_status": "environment-blocked",
+  "format_failure": "Roslyn build host could not create a local named-pipe socket: System.Net.Sockets.SocketException (13), Permission denied; process exited134. No formatting diagnostics were reached.",
+  "checkpoint_publication": "Authorized by root after observing the local IPC blocker; task-branch progress only. Existing CI must execute the unchanged formatter and required package gates. No local format success, final acceptance or merge is claimed."
+}

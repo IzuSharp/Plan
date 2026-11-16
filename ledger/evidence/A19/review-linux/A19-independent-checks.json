@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "review_subject": "d78d6ddb81afdb01efc0e2dbe056e7b441f26487",
+  "review_script_sha256": "47c8bfabc23134a4572dda51e5d13fc79d599a4b37d39fb3ccfec449adb3cabf",
+  "source_manifest_sha256": "041a434487c3a28e4e8918caa4aaa7d0c4f85a7e5085e5b660dc0c085a21c569",
+  "run_manifest_sha256": "7d1d8d657848a95199fc66e7ccf2547bf7b6a8630efce678546e74e2fffd417c",
+  "committed_source_files_verified": 17,
+  "raw_artifacts_verified": 26,
+  "locked_design_files_verified": 24,
+  "negative_counterexamples_replayed_and_tamper_checked": [
+    {
+      "model": "admission/split_gate",
+      "violation": "business_admission_after_close",
+      "steps": 5,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "admission/missing_rollback",
+      "violation": "lease_leak_on_exception",
+      "steps": 2,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "retirement/omit_setup",
+      "violation": "reclaimed_before_start_return",
+      "steps": 15,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "retirement/omit_native",
+      "violation": "reclaimed_without_native_quiet",
+      "steps": 14,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "retirement/omit_registration",
+      "violation": "cleanup_success_without_managed_registration_drain",
+      "steps": 3,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "retirement/omit_control",
+      "violation": "reclaimed_with_control_call_in_flight",
+      "steps": 9,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "results/cancel_overwrites_terminal",
+      "violation": "cancellation_request_overwrites_native_terminal",
+      "steps": 7,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "results/second_take_transfers_owner",
+      "violation": "multiple_result_ownership_transfers",
+      "steps": 6,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "results/release_transferred_result",
+      "violation": "operation_release_invalidates_transferred_result",
+      "steps": 8,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "dispatcher/omit_handler_drain",
+      "violation": "dispose_success_with_active_handler",
+      "steps": 7,
+      "tampered_owner_rejected": true
+    },
+    {
+      "model": "mailbox/stale_unschedule",
+      "violation": "lost_wake_dirty_without_runnable_slot",
+      "steps": 5,
+      "tampered_owner_rejected": true
+    }
+  ],
+  "candidate_nonvacuity_witnesses_replayed": 36,
+  "independent_progress_oracle": {
+    "graphs_and_goal_sets": 4096,
+    "results": {
+      "passed": 1626,
+      "violated": 572,
+      "inconclusive": 1898
+    },
+    "classification_mismatches": 0
+  },
+  "independent_mailbox_dfs": {
+    "states": 35,
+    "transitions": 44,
+    "goals": 3,
+    "unsafe_variant_reproduced": "lost_wake_dirty_without_runnable_slot"
+  },
+  "author_candidate_counts_verified_by_artifact_identity_not_full_rerun": [
+    {
+      "model": "admission/candidate",
+      "states_discovered": 157,
+      "states_expanded": 157,
+      "transitions_examined": 284,
+      "goal_states": 44,
+      "status": "passed"
+    },
+    {
+      "model": "retirement/candidate",
+      "states_discovered": 5169,
+      "states_expanded": 5169,
+      "transitions_examined": 17479,
+      "goal_states": 90,
+      "status": "passed"
+    },
+    {
+      "model": "results/candidate",
+      "states_discovered": 802,
+      "states_expanded": 802,
+      "transitions_examined": 1635,
+      "goal_states": 184,
+      "status": "passed"
+    },
+    {
+      "model": "dispatcher/candidate",
+      "states_discovered": 269,
+      "states_expanded": 269,
+      "transitions_examined": 467,
+      "goal_states": 38,
+      "status": "passed"
+    },
+    {
+      "model": "mailbox/candidate",
+      "states_discovered": 35,
+      "states_expanded": 35,
+      "transitions_examined": 44,
+      "goal_states": 3,
+      "status": "passed"
+    }
+  ],
+  "full_author_suite_rerun": false
+}

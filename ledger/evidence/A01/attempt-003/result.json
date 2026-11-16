@@ -1,0 +1,585 @@
+{
+  "task": "A01",
+  "platform": "linux-x64",
+  "passed": true,
+  "native_aot_executed": true,
+  "test_engine_only": true,
+  "commands": [
+    {
+      "name": "source-commit",
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e7f3afdd6211086bd6b0d5b7fe13daaee676f16c3596598312438f0ca002bcae",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rustc-version",
+      "command": [
+        "rustc",
+        "--version",
+        "--verbose"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "dotnet-info",
+      "command": [
+        "dotnet",
+        "--info"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "60b4217a567afe09c50b3fdc9773b0039b1cee9483b0eaecebc24903662ab67d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "cc-version",
+      "command": [
+        "cc",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "78fc11ae2c3ff7c235eb18ed90989d18f6cc864fb27027f839368cd0888deebc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sdk-version",
+      "command": [
+        "dotnet",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "generation",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "native/interop/abi/generate.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "a4fc1a4d427b54317948b83679753e3c7896f7dae8e8b764da28a5036cc1296b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rust-library",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-Dwarnings",
+        "-C",
+        "target-cpu=x86-64-v2",
+        "--crate-name",
+        "nativeweave_interop_abi",
+        "--crate-type",
+        "rlib",
+        "-C",
+        "opt-level=3",
+        "native/interop/abi/src/lib.rs",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnativeweave_interop_abi.rlib"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rust-tests-build",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-Dwarnings",
+        "-C",
+        "target-cpu=x86-64-v2",
+        "--test",
+        "native/interop/abi/src/lib.rs",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/rust-tests"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rust-tests",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/rust-tests",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "1518909ad120b080fe0e528fae5e19c521dd3a02c9f294364ef11ad398b3f556",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "test-engine-build",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-Dwarnings",
+        "-C",
+        "target-cpu=x86-64-v2",
+        "--extern",
+        "nativeweave_interop_abi=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnativeweave_interop_abi.rlib",
+        "--crate-type",
+        "cdylib",
+        "-C",
+        "opt-level=3",
+        "tests/Interop.Abi/native/fixture.rs",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "symbol-inventory",
+      "command": [
+        "nm",
+        "-D",
+        "--defined-only",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "a156f73fc483b3fb6de6e5bc2e0e50288103f3c10f995fb677fa466db3ce39b2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "c-layout-build",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "native/interop/abi/include",
+        "tests/Interop.Abi/native/layout.c",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/layout-c"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "c-layout",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/layout-c"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "0a36663d3647d0c4a9ee3228c89538c110f441b68683e3fe864043cabeace0c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rust-layout-build",
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-Dwarnings",
+        "-C",
+        "target-cpu=x86-64-v2",
+        "--extern",
+        "nativeweave_interop_abi=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnativeweave_interop_abi.rlib",
+        "tests/Interop.Abi/native/layout.rs",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/layout-rust"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rust-layout",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/layout-rust"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "0a36663d3647d0c4a9ee3228c89538c110f441b68683e3fe864043cabeace0c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "c-signatures-build",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "native/interop/abi/include",
+        "tests/Interop.Abi/native/bootstrap.c",
+        "-L",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native",
+        "-lnw_abi_conformance",
+        "-Wl,-rpath,$ORIGIN",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/bootstrap-c"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "c-signatures",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/bootstrap-c"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "4bc87ceea9789c3a5a637fa1b9194d6e3018ffbaf4587c11fa62a863e1e250f0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mutation-offset-build",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-offset",
+        "tests/Interop.Abi/native/layout.c",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-offset/layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mutation-offset-layout",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-offset/layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "3f982f1ce04f0a8d11c7e8d850bfceb86bceb613707970b51a4353d1c453221f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mutation-width-build",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-width",
+        "tests/Interop.Abi/native/layout.c",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-width/layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mutation-width-layout",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/mutation-width/layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e46925f4d890f97d051b3ab4ae51d0877f77dd545364f1d9213e55d656761dfb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "abd33f8b229b6098ec738569b7ba25279c6cfbd8dd8f75decbbdfffaeb87380f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-build",
+      "command": [
+        "dotnet",
+        "build",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ac7b10b3fdbe44aaa6c623dc8cf08e24d8a001b6d95ecb7a7b10d65c5ab7dc3c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "2fed748648bf461e7b28adb9bf4f7f5356612fbe4dfa68038d1b545c9d750952",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-build",
+      "command": [
+        "dotnet",
+        "build",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ca7a701f89090e47abb7e60ce575790fd18e11e61248aae3fbb79238404cc410",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "managed-layout",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/tests/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Tests.dll",
+        "--layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "0a36663d3647d0c4a9ee3228c89538c110f441b68683e3fe864043cabeace0c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "managed-tests",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/tests/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Tests.dll"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "1faa308867b16999a250abe61272afafbe521de7a7e9d2322cc1c07aa6e0a6a1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "managed-api-surface",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/tests/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Tests.dll",
+        "--surface",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/src/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.dll"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e708132be0b5b8d8335878d27f5b77f408fd6d3f048103291a9e686251142761",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-minimal",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/samples/api/interop-abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Sample.dll"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "cdcd11470bf5c7d7de28053466c614b5f463100e4090224542272f98ff063d0e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-advanced",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/samples/api/interop-abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Sample.dll",
+        "--advanced"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "d714cb227ee1adbc3b58bd914668f0dd190efec3691095d1e5cdfdf602c3f2ce",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-aot-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "86ab6a32f5a0fed477313245b13ed246e568853637a90346b060c7605e402ea7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-aot-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "tests/Interop.Abi/Interop.Abi.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/aot-tests"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "d14c4bda1851e1f43f2369afd7024b2b0bc786fe775277c0caa36461ca6f0798",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-aot-execute",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/aot-tests/NativeWeave.Interop.Abi.Tests",
+        "--require-aot",
+        "--advanced"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "ff8068515abfcdfe78154c879a368835e000d86e86c286e439bcb119e70c6f44",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "aot-layout",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/aot-tests/NativeWeave.Interop.Abi.Tests",
+        "--layout"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "0a36663d3647d0c4a9ee3228c89538c110f441b68683e3fe864043cabeace0c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-aot-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/NuGet.offline.config",
+        "-p:NuGetAudit=false"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "9d97fb404ecac3cc4eb8053d2dbe7abc5d7fa843f8bfdd7c2691117a5918353f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-aot-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "samples/api/interop-abi/Interop.Abi.Sample.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:A01NativeFixture=/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/native/libnw_abi_conformance.so",
+        "-o",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/aot-sample"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "608d5d4aebea4fbeea767675f3bbc851ea437c6d1c36a801253c20642eafe5ca",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sample-aot-execute",
+      "command": [
+        "/workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/artifacts/A01/attempt-003/aot-sample/NativeWeave.Interop.Abi.Sample",
+        "--require-aot",
+        "--advanced"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "d714cb227ee1adbc3b58bd914668f0dd190efec3691095d1e5cdfdf602c3f2ce",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "restore_mode": "local Microsoft SDK package feed only; vulnerability data refresh unavailable offline",
+  "source_commit": "137fd7f1e36d5295e77d26ff3ef33ef8b26150e4",
+  "toolchain": {
+    "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)\nbinary: rustc\ncommit-hash: 0ef1bc386059596dada8fb65b50425aab2ea637a\ncommit-date: 2026-11-09\nhost: x86_64-unknown-linux-gnu\nrelease: 1.100.0\nLLVM version: 23.1.5\n",
+    "dotnet": ".NET SDK:\n Version:           11.0.100\n Commit:            297acf930f\n Workload version:  11.0.100-manifests.08e30c08\n MSBuild version:   18.12.2-1.26529.118+297acf930\n\nRuntime Environment:\n OS Name:     debian\n OS Version:  13\n OS Platform: Linux\n RID:         linux-x64\n Base Path:   /workspace/scratch/58d2a6adf1c3/dotnet-sdk/sdk/11.0.100\n\n.NET workloads installed:\nThere are no installed workloads to display.\nConfigured to use workload sets when installing new manifests.\nNo workload sets are installed. Run \"dotnet workload restore\" to install a workload set.\n\nHost:\n  Version:      11.0.0\n  Architecture: x64\n  Commit:       297acf930f\n\n.NET SDKs installed:\n  11.0.100 [/workspace/scratch/58d2a6adf1c3/dotnet-sdk/sdk]\n\n.NET runtimes installed:\n  Microsoft.AspNetCore.App 11.0.0 [/workspace/scratch/58d2a6adf1c3/dotnet-sdk/shared/Microsoft.AspNetCore.App]\n  Microsoft.NETCore.App 11.0.0 [/workspace/scratch/58d2a6adf1c3/dotnet-sdk/shared/Microsoft.NETCore.App]\n\nOther architectures found:\n  None\n\nEnvironment variables:\n  DOTNET_CLI_TELEMETRY_OPTOUT              [1]\n  DOTNET_CLI_USE_MSBUILD_SERVER            [0]\n\nglobal.json file:\n  /workspace/scratch/0898a75257bc/.worktree/Task-01-A01-linux/NativeWeave/global.json\n\nLearn more:\n  https://aka.ms/dotnet/info\n\nDownload .NET:\n  https://aka.ms/dotnet/download\n",
+    "cc": "cc (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "kernel": "6.18.57",
+    "machine": "x86_64",
+    "native_isa": "x86-64-v2",
+    "features": [],
+    "cargo_dependencies": []
+  },
+  "native_exports": [
+    "nw_abi_conformance_get_abi_v1"
+  ],
+  "mutation_controls": [
+    {
+      "mutation": "offset",
+      "detected": true
+    },
+    {
+      "mutation": "width",
+      "detected": true
+    }
+  ],
+  "source_sha256": {
+    "native/interop/abi/Cargo.toml": "947906645eb5931e86ba8a29db9abca0691fc16356bc5a3eeec84f1e6e5088b7",
+    "native/interop/abi/abi-v1.json": "62171763fb2d1b1a8350d2f381a85910c0368515923706923d29f4ff69681dab",
+    "native/interop/abi/generate.py": "217f1eb3f7fafc5d596cb2496234a581003c4948c9f6221a0e20bbcea6415567",
+    "native/interop/abi/include/nativeweave_abi_v1.h": "cdc447b69184faa76cdec8154adfed3a55aa76c86193cab7f3ada836a86bfa12",
+    "native/interop/abi/src/generated.rs": "7812805f6b4b2ca5dce2f34de21e3ffc624560148cb5a52bfde5e93cba85b362",
+    "native/interop/abi/src/lib.rs": "a9e8ac02ef5b33a628894732acdd77460c1c26ffb07ad0f6893b8cf553606ee5",
+    "src/Interop.Abi/AbiBootstrap.cs": "f5e1e82ad1274038e07503b3de8f4473bb9c60f15e6770e75800f4d93d8b2168",
+    "src/Interop.Abi/Interop.Abi.csproj": "bbded82c2ba968a5588df54431660a93c9c4b5ffe6918a3b01c6358f48f5e870",
+    "src/Interop.Abi/WireRecords.g.cs": "84aae291861e1d22d8927e24106626a23a07f38d4d62fb4e70ab5f721981e6e2",
+    "src/Interop.Abi/api-reference.md": "47885ccb3c770bafab849ee914941be6413870b7b2bd9fabe3bbea350a893479",
+    "src/Interop.Abi/packages.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "tests/Interop.Abi/Interop.Abi.Tests.csproj": "dfab6e900c460906387eca2823fd9da0489c0a4c0ca86d1bb6a1dbda5c52144f",
+    "tests/Interop.Abi/LayoutProbe.g.cs": "ed15775d3969304c8b28601420af1316b028b3b5ff97f5bf8c997f58e8c665f1",
+    "tests/Interop.Abi/Program.cs": "6edd6fcd893c3c44c731fbd10cbeb408642391f9141d7e37172095fda840f3d3",
+    "tests/Interop.Abi/expected-linux-x64.json": "84f6d724d98e568d8bd0e571d5705853ff3c650ee848a4df79c65fe2067cfb04",
+    "tests/Interop.Abi/native/bootstrap.c": "2049b16b63656f2cc9bd2a7a8a021bce7b91e4fdab8f229d46643c3aeb9bea29",
+    "tests/Interop.Abi/native/fixture.rs": "2704a0485eed4ec460aed277dd8ee444c3f57b4a6fe2578878f801b888f682df",
+    "tests/Interop.Abi/native/layout.c": "c3492ef33f08c2d9f37017aab02b8333b08677ec9b98444626791318447fe024",
+    "tests/Interop.Abi/native/layout.rs": "466e7be3dd63fc2394feba38b899cd7f313fb16aa8f7e8c03e129b5d679b1d19",
+    "tests/Interop.Abi/packages.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "tests/Interop.Abi/verify.py": "be7480e96fac51b262760c1f9702f5ff72473152960961a7999f125d3b5962cf",
+    "samples/api/interop-abi/Interop.Abi.Sample.csproj": "fe46303895a8659935313554e9702a01b91a949e117032da3b76afe75b1d4993",
+    "samples/api/interop-abi/Program.cs": "126cec96696a779f322d8951fa01ca8d5de9ead1dd2fd55532bacf91b94dff87",
+    "samples/api/interop-abi/README.md": "4bfc43b0cdd11b7eb7b1304e0be863c4c243f693f11d2f28bce01394a798a123",
+    "samples/api/interop-abi/packages.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+    "rust-toolchain.toml": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff",
+    "Directory.Build.props": "381d2e02b9a3c5b65aa986aa972894d28cad8cbfa93d2895ddb0e3e7330e854f",
+    "Directory.Build.targets": "3d51d1a0291125c65188bf56c3b32b60b8fd156cef331f19304b0ce5c530240f",
+    "Cargo.lock": "10fd600ce07074a0f2ce8e60edbcafedddf33a3bc23beeee66606f0b5fa04161",
+    "docs/guides/interop-abi.md": "9ab29105832bac7c9b04e2885a7f12b67a18c564518bd8fce8baca80854a0131"
+  },
+  "source_snapshot_sha256": "1715887b513f540e672378672494fcda897f022229dc24e139218ea24175f9d8",
+  "artifact_sha256": {
+    "artifacts/A01/attempt-003/native/libnw_abi_conformance.so": "0e9157455c8fcd7f756970bf29f15b16095d2a2707f9f9ce2bd3a152c31f5f2a",
+    "artifacts/A01/attempt-003/native/libnativeweave_interop_abi.rlib": "1a10ada00e2726bf15acb1851cabca861c9be0e2bb06d3e4732204eedd30b8a8",
+    "src/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.dll": "33431f3862346121dbb170611630752d04c6dd66729aaa9f3b2423bcf39b6e52",
+    "src/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.xml": "5840e9bf12c699b580dc2a4716f05affc4c05b2fe96d0985d81b4b2c50a2bedc",
+    "tests/Interop.Abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Tests.dll": "71d01774d19bcb806078ea11b017f88622b1972f96834197d47030be44027c47",
+    "samples/api/interop-abi/bin/Release/net11.0/NativeWeave.Interop.Abi.Sample.dll": "fb5852d7e3bd6ed7d3a1c067c3bd60dfdf0ee259174dd7a0c6388991ae6cff50",
+    "artifacts/A01/attempt-003/aot-tests/NativeWeave.Interop.Abi.Tests": "fe3e4b16fa971cf792968fd82c19951a1aec4133a75d56645b93ad222d1d2d01",
+    "artifacts/A01/attempt-003/aot-sample/NativeWeave.Interop.Abi.Sample": "2d4f43f3912c6bb6dd9dad3285fec4c481cf875e7439daaf09cd36355652114f"
+  }
+}

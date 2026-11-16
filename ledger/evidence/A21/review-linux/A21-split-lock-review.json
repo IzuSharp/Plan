@@ -1,0 +1,86 @@
+{
+  "reviewer": "/root/a19",
+  "review_type": "Independent supplemental review of task-owned Linux dependency lock integration fixes",
+  "platform": "linux-x64",
+  "reviewed_at_utc": "2026-11-16T05:17:51.873863+00:00",
+  "method": "Read the exact committed diff, independently compare final files with Git blobs and evidence hashes, compare project XML after removing only the two lock selectors, compare verifier text with the precisely expected changes, verify original accepted AOT lock bytes at their new paths, and verify the recorded focused restore logs. Product source was not modified by the reviewer.",
+  "independent_command": "python3 /workspace/scratch/d5dd057ef8a6/reviews/split_lock_review_audit.py",
+  "independent_command_exit_code": 0,
+  "independent_audit_script": {
+    "path": "split_lock_review_audit.py",
+    "sha256": "28c5df4d8b279114ffd8f57824f1f9de375915b0858d5ff14fefcd8ef2a1eb50"
+  },
+  "open_findings": [],
+  "conclusion": "accepted_linux_x64_build_only_delta",
+  "limitations": [
+    "The supplemental review does not claim another full runtime, benchmark, or Native AOT execution after the build-only delta. Prior immutable acceptance evidence remains bound to its actual source commit.",
+    "Restores used the configured local SDK package feed and disabled audit refresh. This does not claim a fresh online vulnerability audit.",
+    "Only the requested Linux x64 path was verified; other platform acceptance is not implied."
+  ],
+  "task": "A21",
+  "base_commit": "c64a62c9cba651478b69472f7be333f971431e38",
+  "reviewed_commit": "1918c9a10929bf64e4066463d32fcac9eabf2499",
+  "source_sha256": {
+    "docs/guides/benchmarks-harness.md": "8dbcd662ac12098117c5fbdcd1db6d7d28d6a35250d26030781b13382bbf1602",
+    "samples/api/benchmarks-harness/Managed/Managed.csproj": "5d68ed2f29caf2a63abc5841f5042ed46014082f1c98e98bdabec27be4aba4ce",
+    "samples/api/benchmarks-harness/Managed/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "samples/api/benchmarks-harness/Managed/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "samples/api/benchmarks-harness/Native/Native.csproj": "22e2f60ec34658c7fb347bc0246658d1431aa31cde1dd908f0cffcadd227bb16",
+    "samples/api/benchmarks-harness/Native/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "samples/api/benchmarks-harness/Native/packages.lock.json": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+    "tests/Benchmarks.Harness/verify.py": "1dbb9fefbd255b78865cfdd55db6cec45f0f153b1a10b3fb00badc8d1107999e"
+  },
+  "audit_artifact": {
+    "path": "A21-split-lock-audit.json",
+    "sha256": "232a63b83e2c340d051fbcf363c1d08a8b63af6cad4b2ea004f57f1f6aa5d1a2"
+  },
+  "aot_lock_relocations": [
+    {
+      "original_path": "samples/api/benchmarks-harness/Managed/packages.lock.json",
+      "final_path": "samples/api/benchmarks-harness/Managed/packages.linux-x64.aot.lock.json",
+      "exact_tested_aot_sha256": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "ordinary_sha256": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+      "xml_only_adds_ordered_absolute_lock_selection": true
+    },
+    {
+      "original_path": "samples/api/benchmarks-harness/Native/packages.lock.json",
+      "final_path": "samples/api/benchmarks-harness/Native/packages.linux-x64.aot.lock.json",
+      "exact_tested_aot_sha256": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "ordinary_sha256": "2b4fc2d214aad255c1b679e90d9a0e0f00fc5b83b2c1d1c285f7728509b9bf7e",
+      "xml_only_adds_ordered_absolute_lock_selection": true
+    }
+  ],
+  "evidence_sha256": {
+    "artifacts/A21/lock-hygiene/Managed-normal.log": "ca7139f728b88276bb02e91de8193ff6aaece1b7ec9d5fb2357c9bd65140dd92",
+    "artifacts/A21/lock-hygiene/Managed-aot.log": "64168ec651bb94b7ad36f4b8f3f6e1d7a5821fbf5bd6fb325211abd2128a4dbd",
+    "artifacts/A21/lock-hygiene/Managed-normal-after-aot.log": "852f7f070032d52bd40961ed8fec918090c7b8a15857e472110bc596db4100ad",
+    "artifacts/A21/lock-hygiene/Native-normal.log": "43c3f06bd01d1fc0b9397a9d21165839da3e0da10eaa10590040912ab2387a76",
+    "artifacts/A21/lock-hygiene/Native-aot.log": "550357d4f6c629c8cc770030e802d4664030d703981b414d401cff0644051b9a",
+    "artifacts/A21/lock-hygiene/Native-normal-after-aot.log": "1958d0bc5101791c53c9fb75e08810d91f8c1d7c4df3e2e408f4898552189959",
+    "artifacts/A21/lock-hygiene/result.json": "3b81648b74c99a2d67f85f17efd031cc0209632a3eec9b64c3f5de1c2704da93",
+    "artifacts/A21/lock-hygiene-initial/Managed-normal.log": "560c0014cd571f0cb0c3d5f639efe154cefd0df4263950727dd3fd5726c6025b",
+    "artifacts/A21/lock-hygiene-initial/Managed-aot.log": "113bbe2d2f24b4e0279ad4feb98db5712f4021477da2aaff8e12ad0a51b0c1a3",
+    "artifacts/A21/lock-hygiene-initial/result.json": "107eb6b8a2ae156dd76a25f23044cae63a512e2be4bd4c641843b5a30971c484",
+    "artifacts/A21/attempt-003/result.json": "4b2278d0766b2ddb0bd96bdb893bec35d69a3d2d18c70cd945d61862eb8c09d9",
+    "artifacts/A21/final-source-binding.json": "5d801b76f466f6c15675766562ba45fc5843b0f6d60281ca7ad1ee72d585d79b"
+  },
+  "primary_review": "The existing A21 review by /root/a01 remains the primary runtime/controller and task acceptance review. This document only reviews the subsequent split-lock integration delta.",
+  "previous_full_execution": {
+    "source_commit": "c64a62c9cba651478b69472f7be333f971431e38",
+    "evidence": "artifacts/A21/attempt-003/result.json"
+  },
+  "checks": [
+    "The diff contains exactly eight paths: two project files, two ordinary locks, two new Linux AOT locks, the verifier and the guide. Runtime/controller/fixture/target source is unchanged.",
+    "All 16 final source binding hashes match both committed bytes and the clean working tree. All 14 original attempt-003 source hashes match its recorded commit.",
+    "Both Linux AOT lock files are byte-identical to the old accepted AOT-profile packages.lock.json files. The ordinary locks retain the exact original net11.0 ILLink dependency entry and omit only the AOT-only dependency/profile.",
+    "The two project XML changes add only ordered plural RuntimeIdentifiers then singular RuntimeIdentifier selectors. Both require PublishAot and use absolute MSBuildProjectDirectory paths; singular build RID correctly takes precedence. All other project semantics are unchanged.",
+    "The verifier adds --locked-mode to the existing AOT restore and records all four ordinary/AOT locks; its remaining code is byte-identical. The guide describes the actual committed split-lock behavior.",
+    "The final six commands cover Managed normal to AOT to normal and Native normal to AOT to normal. Every command used --locked-mode and exited zero; all six log SHA-256 values match. Four before/after lock hashes are unchanged and equal the final committed files.",
+    "The first focused attempt is retained honestly: ordinary restore passed and the singular-only selector caused the AOT NU1004 failure. Both retained log hashes match; the final plural/singular fix and six passing checks resolve the failure."
+  ],
+  "resolved_integration_issue": {
+    "id": "A21-LOCK-INTEGRATION",
+    "status": "resolved",
+    "description": "Separate ordinary and AOT dependency closure while honoring both CLI restore and build RID properties; preserve accepted AOT bytes and make restores locked."
+  }
+}

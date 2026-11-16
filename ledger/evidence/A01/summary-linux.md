@@ -1,6 +1,6 @@
 # A01 Linux x64 summary
 
-Status: implementation and Linux component verification complete; independent review accepted. Raw evidence publication to Plan is blocked by automatic tool review, so this summary does not claim the raw archive is remotely present.
+Status: implementation and Linux component verification complete; independent review accepted. The scoped raw logs/results and hash records are included in this final evidence tree. Full source/configuration/binary copies remain omitted as listed by the batch archive policy.
 
 ABI records, generated layout/signature contracts, stateless version/bootstrap fixture and managed/Rust conformance. Accepted runtime evidence is attempt-005; later safety-comment and split-lock changes have separate reviews.
 
@@ -18,4 +18,4 @@ ABI records, generated layout/signature contracts, stateless version/bootstrap f
 
 47 full-run commands;682 assertions each JIT/AOT; C/Rust/C# layout/signature and negative controls;6 supplemental locked restores. Final integrated CI passed at https://github.com/IzuSharp/NativeWeave/actions/runs/43811091217 .
 
-The local raw evidence, original failure records, source bindings and independent review outputs remain under `ledger/evidence/A01/` in the batch Plan worktree. See the [batch handoff](../batches/Task-01/handoff-linux.md) and [raw evidence receipt](../batches/Task-01/raw-evidence-receipt-linux.json) for the explicit publication block and aggregate hash identity. No task reimplementation is required.
+The raw evidence, original failure records, source bindings and independent review outputs are retained under `ledger/evidence/A01/` in this final Plan tree. See the [batch handoff](../batches/Task-01/handoff-linux.md) and [raw evidence receipt](../batches/Task-01/raw-evidence-receipt-linux.json) for the publication history, explicit source/configuration/binary omission policy and aggregate hash identity. No task reimplementation is required.

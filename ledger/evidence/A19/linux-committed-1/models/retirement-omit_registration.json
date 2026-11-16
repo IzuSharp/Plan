@@ -1,0 +1,176 @@
+{
+  "bounds": {
+    "cancellation_invocations": 1,
+    "native_terminal_callbacks": 1,
+    "operations": 1,
+    "ordinary_control_calls": 1,
+    "reserved_cleanup_slots": 1
+  },
+  "counterexamples": {
+    "cleanup_success_without_managed_registration_drain": {
+      "initial": {
+        "accepted": false,
+        "budget": false,
+        "callback": 0,
+        "cancel": 0,
+        "cancel_requested": false,
+        "close_wait_canceled": false,
+        "closing": false,
+        "control": 0,
+        "cookie": false,
+        "free_count": 0,
+        "invalid_access": false,
+        "owner": false,
+        "quarantined": false,
+        "reclaimed": false,
+        "registration": "unassigned",
+        "retired": false,
+        "setup": "unadmitted",
+        "start": "not_called",
+        "synchronous_cancel": false,
+        "synchronous_notice": false,
+        "task": false,
+        "work": false
+      },
+      "steps": [
+        {
+          "action": "owner.close_admission_and_request_stop",
+          "owner": "A07",
+          "state": {
+            "accepted": false,
+            "budget": false,
+            "callback": 0,
+            "cancel": 0,
+            "cancel_requested": false,
+            "close_wait_canceled": false,
+            "closing": true,
+            "control": 0,
+            "cookie": false,
+            "free_count": 0,
+            "invalid_access": false,
+            "owner": false,
+            "quarantined": false,
+            "reclaimed": false,
+            "registration": "unassigned",
+            "retired": false,
+            "setup": "unadmitted",
+            "start": "not_called",
+            "synchronous_cancel": false,
+            "synchronous_notice": false,
+            "task": false,
+            "work": false
+          }
+        },
+        {
+          "action": "setup.pre_admission_cancel_or_closed",
+          "owner": "A07",
+          "state": {
+            "accepted": false,
+            "budget": false,
+            "callback": 0,
+            "cancel": 0,
+            "cancel_requested": false,
+            "close_wait_canceled": false,
+            "closing": true,
+            "control": 0,
+            "cookie": false,
+            "free_count": 0,
+            "invalid_access": false,
+            "owner": false,
+            "quarantined": false,
+            "reclaimed": false,
+            "registration": "none",
+            "retired": false,
+            "setup": "settled",
+            "start": "skipped",
+            "synchronous_cancel": false,
+            "synchronous_notice": false,
+            "task": true,
+            "work": false
+          }
+        },
+        {
+          "action": "cleanup.reclaim_owners_and_complete_cleanup_promise",
+          "owner": "A07",
+          "state": {
+            "accepted": false,
+            "budget": false,
+            "callback": 0,
+            "cancel": 0,
+            "cancel_requested": false,
+            "close_wait_canceled": false,
+            "closing": true,
+            "control": 0,
+            "cookie": false,
+            "free_count": 0,
+            "invalid_access": false,
+            "owner": false,
+            "quarantined": false,
+            "reclaimed": true,
+            "registration": "none",
+            "retired": false,
+            "setup": "settled",
+            "start": "skipped",
+            "synchronous_cancel": false,
+            "synchronous_notice": false,
+            "task": true,
+            "work": false
+          }
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 0.000247,
+  "exhaustive_safety_search": false,
+  "expected_violation": "cleanup_success_without_managed_registration_drain",
+  "goal_states": 0,
+  "limit_reached": null,
+  "limits": {
+    "max_states": 200000,
+    "timeout_seconds": 30.0
+  },
+  "milestone_witnesses": {},
+  "missing_milestones": [
+    "accepted_operation_reclaimed",
+    "cancellation_inside_registration",
+    "cleanup_continues_after_close_wait_cancellation",
+    "external_drain_waits_for_cancel_delegate",
+    "indeterminate_registration_isolated_with_owners",
+    "native_quiet_does_not_imply_managed_drain",
+    "never_started_cleanup_finishes",
+    "rejected_start_cleanup_finishes",
+    "task_visible_while_start_frame_is_live",
+    "terminal_notice_before_start_returns"
+  ],
+  "model": "retirement/omit_registration",
+  "oracle_met": true,
+  "progress": {
+    "assumptions": [
+      "Atomic sequentially consistent protocol actions; no weak-memory/GC/FFI execution.",
+      "Every accepted finite native work item and admitted callback/control/start frame eventually exits.",
+      "External cancellation disposal and the reserved coordinator eventually run; no permanent executor loss.",
+      "Registration/start ambiguity reaches retained quarantine, never fabricated cleanup success.",
+      "Idle stuttering is excluded; fairness permits each finite enabled actor to make progress."
+    ],
+    "status": "not_checked"
+  },
+  "required_milestones": [
+    "terminal_notice_before_start_returns",
+    "cancellation_inside_registration",
+    "never_started_cleanup_finishes",
+    "rejected_start_cleanup_finishes",
+    "accepted_operation_reclaimed",
+    "cleanup_continues_after_close_wait_cancellation",
+    "indeterminate_registration_isolated_with_owners",
+    "task_visible_while_start_frame_is_live",
+    "native_quiet_does_not_imply_managed_drain",
+    "external_drain_waits_for_cancel_delegate"
+  ],
+  "search": "deterministic breadth-first; first violation retained",
+  "seed": null,
+  "seed_reason": "Exhaustive deterministic exploration; no PRNG is used.",
+  "states_discovered": 18,
+  "states_expanded": 10,
+  "status": "violated",
+  "transitions_examined": 23
+}

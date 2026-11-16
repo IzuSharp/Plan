@@ -1,0 +1,666 @@
+{
+  "bounds": {
+    "callers": 2,
+    "dispose_requests": 2,
+    "maximum_references": 3,
+    "owners": 1
+  },
+  "counterexamples": {
+    "business_admission_after_close": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "call0.read_open_without_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "checked",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call0.addref_after_separate_check",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "call1.read_open_without_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "checked"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "owner.close_and_drop_reference",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "checked"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call1.addref_after_separate_check",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": true,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              true
+            ],
+            "phases": [
+              "leased",
+              "leased"
+            ],
+            "references": 2
+          }
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 0.00106,
+  "exhaustive_safety_search": false,
+  "expected_violation": "business_admission_after_close",
+  "goal_states": 3,
+  "limit_reached": null,
+  "limits": {
+    "max_states": 200000,
+    "timeout_seconds": 30.0
+  },
+  "milestone_witnesses": {
+    "acquired_reference_compensated_on_exception": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "call0.read_open_without_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "checked",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call0.addref_after_separate_check",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "call0.managed_exception_finally",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": true,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "failed",
+              "new"
+            ],
+            "references": 1
+          }
+        }
+      ]
+    },
+    "new_call_rejected_after_close": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "owner.close_and_drop_reference",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "new",
+              "new"
+            ],
+            "references": 0
+          }
+        },
+        {
+          "action": "call0.reject_closed",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "denied",
+              "new"
+            ],
+            "references": 0
+          }
+        }
+      ]
+    },
+    "old_call_finishes_after_close": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "call0.read_open_without_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "checked",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call0.addref_after_separate_check",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "call0.ffi_access_under_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "in_call",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "owner.close_and_drop_reference",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "in_call",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call0.ffi_return_and_finally_release",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": true,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "done",
+              "new"
+            ],
+            "references": 0
+          }
+        }
+      ]
+    },
+    "repeated_dispose_is_idempotent": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "owner.close_and_drop_reference",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "new",
+              "new"
+            ],
+            "references": 0
+          }
+        },
+        {
+          "action": "owner.dispose_again_noop",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": true,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "new",
+              "new"
+            ],
+            "references": 0
+          }
+        }
+      ]
+    },
+    "usable_result_then_exactly_one_release": {
+      "initial": {
+        "addref_rejected": false,
+        "admitted_after_close": false,
+        "closing": false,
+        "completed_after_close": false,
+        "disposed_twice": false,
+        "exception_rolled_back": false,
+        "frees": 0,
+        "leases": [
+          false,
+          false
+        ],
+        "phases": [
+          "new",
+          "new"
+        ],
+        "references": 1
+      },
+      "steps": [
+        {
+          "action": "call0.read_open_without_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "checked",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "call0.addref_after_separate_check",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "leased",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "call0.ffi_access_under_lease",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              true,
+              false
+            ],
+            "phases": [
+              "in_call",
+              "new"
+            ],
+            "references": 2
+          }
+        },
+        {
+          "action": "call0.ffi_return_and_finally_release",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": false,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 0,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "done",
+              "new"
+            ],
+            "references": 1
+          }
+        },
+        {
+          "action": "owner.close_and_drop_reference",
+          "owner": "A03",
+          "state": {
+            "addref_rejected": false,
+            "admitted_after_close": false,
+            "closing": true,
+            "completed_after_close": false,
+            "disposed_twice": false,
+            "exception_rolled_back": false,
+            "frees": 1,
+            "leases": [
+              false,
+              false
+            ],
+            "phases": [
+              "done",
+              "new"
+            ],
+            "references": 0
+          }
+        }
+      ]
+    }
+  },
+  "missing_milestones": [
+    "addref_failure_transfers_no_reference"
+  ],
+  "model": "admission/split_gate",
+  "oracle_met": true,
+  "progress": {
+    "assumptions": [
+      "Open check and AddRef form one short atomic gate in the candidate.",
+      "Each admitted finite call or injected failure eventually returns; finally runs.",
+      "Dispose and each modeled caller eventually receive execution; idle stuttering is excluded.",
+      "Sequentially consistent reference-count abstraction; not actual SafeHandle/GC verification."
+    ],
+    "status": "not_checked"
+  },
+  "required_milestones": [
+    "old_call_finishes_after_close",
+    "acquired_reference_compensated_on_exception",
+    "addref_failure_transfers_no_reference",
+    "new_call_rejected_after_close",
+    "usable_result_then_exactly_one_release",
+    "repeated_dispose_is_idempotent"
+  ],
+  "search": "deterministic breadth-first; first violation retained",
+  "seed": null,
+  "seed_reason": "Exhaustive deterministic exploration; no PRNG is used.",
+  "states_discovered": 99,
+  "states_expanded": 63,
+  "status": "violated",
+  "transitions_examined": 164
+}

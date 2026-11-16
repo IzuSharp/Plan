@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "task": "A21",
+  "reviewer": "Task-01 A01 independent agent",
+  "reviewed_at_utc": "2026-11-16T04:58:27.691956+00:00",
+  "status": "changes_requested",
+  "implementation_commit": "6c2f635a7a2c03865bfaa4574544d45dd4495cc4",
+  "locked_design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "evidence": "artifacts/A21/attempt-002",
+  "scope": "Read-only review against A21 and pinned D13/D01; protocol-only independent negative fixtures are not Native AOT/native-engine acceptance.",
+  "commands": [
+    {
+      "argv": [
+        "python",
+        "/workspace/scratch/d5dd057ef8a6/reviews/a21_independent_checks.py"
+      ],
+      "exit_code": 0,
+      "stdout": "A21-independent-checks.json",
+      "stdout_sha256": "801ee0249bcbf128616002bbe44136189ff6de7e63a4fdbc5b069ea9e9a54ec9",
+      "script_sha256": "76405889db1be83694d885c0ded712542dfc780c447ffff89caed4621605a5b8",
+      "target_fixture_sha256": "17c8e679e92ae54f77dc9c3d8eb2cdbbdee787a483d677e43dd4fe854473c0d2"
+    }
+  ],
+  "initial_provenance": {
+    "source_commit": "6c2f635a7a2c03865bfaa4574544d45dd4495cc4",
+    "source_sha256": {
+      "docs/guides/benchmarks-harness.md": "1714936808ae62943967db239ce2a5e50445baf9954e54842fcd545026fe9051",
+      "samples/api/benchmarks-harness/Managed/Managed.csproj": "8e93a601220258a2790a8d0880fdc4305b7997d178b3d066920101b4447f1370",
+      "samples/api/benchmarks-harness/Managed/packages.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "samples/api/benchmarks-harness/Native/Native.csproj": "2c7da79466afd8a6094eacd0917537585ee0001f85437a2d2f40ca522e79b966",
+      "samples/api/benchmarks-harness/Native/packages.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "samples/api/benchmarks-harness/Target.cs": "4cdb679db631f441eeab54906ca25dfad9d04e06141774cb54df65aded93aed9",
+      "samples/api/benchmarks-harness/native/main.rs": "413a85220ff50f673becf4c62686a9e7d1d81bb04362f2f4343619b607fc0005",
+      "samples/api/benchmarks-harness/native/operation.rs": "c33d103c3301f4c427d1a62528eb2ef7f1af05fae8d47541ca9caab48f7e61d0",
+      "src/Benchmarks.Harness/nativeweave_bench.py": "a8adb893472be21b0d1cc9ab79aacc7ee352058daa7d0858d13994e2022e79c8",
+      "tests/Benchmarks.Harness/AssemblyInventory/AssemblyInventory.csproj": "c978813609c077b4b2e19e6e48f925f5c51d7eea7c46cd63195690a672774a41",
+      "tests/Benchmarks.Harness/AssemblyInventory/Program.cs": "540437e642b84558c20777f2a178b58fb5998bba18fa65c138aa18c98745fc72",
+      "tests/Benchmarks.Harness/AssemblyInventory/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Benchmarks.Harness/test_harness.py": "662039df6c7de044748d496edb68969bdeadea937fa9b88a36a00427ca49f4bd",
+      "tests/Benchmarks.Harness/verify.py": "346eebd0a515bf3f4799a008b0094b3f31eb4302071cdd7867aa81b4c44afd53"
+    },
+    "source_files_verified": 14,
+    "artifact_files_verified": 42,
+    "all_six_cells_valid": true,
+    "recorded_requests": 600,
+    "result_sha256": "34748dad0168283eda912656a81cfac0c840c14aad4c989063e2f972643e363e"
+  },
+  "focused_reproduction": {
+    "protocol_fixture_only": true,
+    "bad_event_shape": {
+      "exception_type": "AttributeError",
+      "message": "'list' object has no attribute 'get'",
+      "output_preserved": false
+    },
+    "per_operation_counter_retention": {
+      "valid": true,
+      "record_fields": [
+        [
+          "id",
+          "scheduled_ns",
+          "dispatch_ns",
+          "admission_ns",
+          "completion_ns",
+          "status",
+          "deadline_ns",
+          "attempts",
+          "request_wire_bytes",
+          "response_wire_bytes",
+          "value"
+        ],
+        [
+          "id",
+          "scheduled_ns",
+          "dispatch_ns",
+          "admission_ns",
+          "completion_ns",
+          "status",
+          "deadline_ns",
+          "attempts",
+          "request_wire_bytes",
+          "response_wire_bytes",
+          "value"
+        ]
+      ],
+      "raw_events_present": false,
+      "last_value": 2,
+      "expected_distinct_counter_values": [
+        1,
+        2
+      ],
+      "raw_cell_path": "A21-mutation-varying-counters.json"
+    },
+    "late_completion_throughput": {
+      "valid": true,
+      "status": "timeout",
+      "counted_completions": 1,
+      "recorded_completed_rate": 50.0,
+      "actual_last_completion_elapsed_ns": 81130598,
+      "completed_rate_if_same_observed_end_as_numerator": 12.32580585687289,
+      "raw_cell_path": "A21-mutation-late.json"
+    }
+  },
+  "positive_findings": [
+    "The controller schedules arrival times from a declared period independently of target responses, uses one observer monotonic clock, labels observed admission rather than subtracting unrelated process clocks, and starts deadlines at scheduled arrivals.",
+    "Capacity exhaustion, missed deadlines and dispatch lag invalidate the offered-rate cell. Timeouts are not overwritten by late events. Unknown counters are null and carry methods; schema omission/unknown-as-zero tests exist.",
+    "The omission control reports the required synthetic service p99=1ms versus scheduled-arrival p99=100ms, histogram correction is rejected, exact raw latency samples are retained in rows, and histogram overflow is retained.",
+    "Two fresh randomized process repetitions per route, actual direct native and managed JIT/AOT fixture execution, empty compiled public API inventories, fixed x86-64-v2 and honest harness-only performance limits are present. The reviewed evidence source/artifact hashes match the committed bytes."
+  ],
+  "findings": [
+    {
+      "id": "A21-REV-001",
+      "severity": "high",
+      "area": "integrity failure preservation",
+      "location": "src/Benchmarks.Harness/nativeweave_bench.py: RunState.event, read_events and run_plan failure handling",
+      "requirement": "A21 integrity/counter validation and D13 section7 preserve failure datasets and traces.",
+      "observed": "A target JSON array [] raises AttributeError because event.get is called without object validation. The reader does not catch this exception; run_cell exits without writing result.json and run_plan does not catch AttributeError. The independent fixture reproduced output_preserved=false.",
+      "requested": "Validate event and counter object shape before access; preserve the invalid raw event, known rows and last counters as an invalid cell without discarding the run."
+    },
+    {
+      "id": "A21-REV-002",
+      "severity": "medium",
+      "area": "per-operation observation retention",
+      "location": "src/Benchmarks.Harness/nativeweave_bench.py: RunState.event and run_cell output",
+      "requirement": "A21 step4 and D13 section5 retain managed/native allocation, copy, owner and resource observations and raw samples.",
+      "observed": "Completion counters are validated then overwritten in last_target_counters; neither normal request rows nor raw event history retains them. Distinct measured allocation observations1 and2 leave only2, so per-operation costs cannot be reconstructed.",
+      "requested": "Retain each completion observation or an equivalent lossless raw event dataset with observer timestamps, including failures and late events."
+    },
+    {
+      "id": "A21-REV-003",
+      "severity": "medium",
+      "area": "completed throughput time window",
+      "location": "src/Benchmarks.Harness/nativeweave_bench.py: run_cell elapsed and rates_per_second",
+      "requirement": "D13 section3 offered/admitted/completed throughput must use consistent timestamps and retain timeouts.",
+      "observed": "A completion observed81.130598ms after scheduled arrival, after a20ms timeout, is counted in completed but divided by the effective20ms timeout window. The cell reports50/s although the matching observed endpoint implies12.325806/s. The timeout classification is correctly retained; the throughput denominator is wrong.",
+      "requested": "Use an observed measurement endpoint consistent with counted admission/completion events or explicitly separate in-window and late counts. Keep effective deadline and actual observation time distinct."
+    },
+    {
+      "id": "A21-REV-004",
+      "severity": "medium",
+      "area": "exact linker provenance",
+      "location": "tests/Benchmarks.Harness/verify.py toolchain and linker metadata",
+      "requirement": "D01 sections1/4 and D13 section2 require exact compiler/linker identities.",
+      "observed": "The recorded linker is GCC14, which is the explicitly selected driver. AOT logs show -fuse-ld=bfd but no ld binary version/hash is recorded; Rust link args are absent.",
+      "requested": "Record Rust actual emitted link arguments and selected linker path/hash/version, and distinguish GCC driver from GNU BFD linker for AOT."
+    }
+  ],
+  "author_response": "Batch author confirmed all four findings and is implementing narrow fixes; a fresh immutable run and independent follow-up are pending.",
+  "limitations": [
+    "No domain performance result or Windows acceptance requested.",
+    "No complete author fixture pipeline rerun by reviewer; focused protocol mutation checks reproduced the defects."
+  ]
+}
