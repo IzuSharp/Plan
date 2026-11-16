@@ -56,7 +56,7 @@ repair runs. [Retention inventory](evidence-retention-linux.json) and the
 Full B04 owning-host composition and pristine package consumption remain their
 explicit downstream gates. There are no fake public host types, managed SQL engine,
 new consumer Cargo dependency or new release package. Other platforms remain
-unexecuted, global/all-platform acceptance is false, and implementation plus Linux component acceptance are complete. Batch PR/CI/publication closeout remains pending.
+unexecuted, global/all-platform acceptance is false, and implementation plus Linux component acceptance are complete. Both main PRs, exact-merge CI and existing preview publication/consumption are complete; see the closeout below.
 
 ## Worktrees, commits and recovery
 
@@ -74,7 +74,7 @@ Git Data publication preserves identical Git trees but creates different commit
 identities. Restore the mapped remote tree and retain the original receipt SHA;
 do not rewrite evidence as if it ran at the remote commit identity.
 
-Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (Draft).
+Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (merged as `22b467667bcf44aa8b22e964937446b225e87e61`).
 Current remote checkpoint `25692f957adbf49430b26de8f6b2ece92418e058` has exactly tree
 `155c26f13aa8cfb9ec3af68914e6cd879303f458` of local
 `30c726aab64ab418d40364c8aa5ad9229d68dd78`. Normal CI on this final tree passed: https://github.com/IzuSharp/NativeWeave/actions/runs/43840288797.
@@ -90,16 +90,17 @@ provider cases and independent source/log/artifact audits passed. Its original
 receipt is accompanied by an explicit metadata erratum; original bytes remain
 untouched. All failed CI evidence is retained.
 
-Plan PR: https://github.com/IzuSharp/Plan/pull/14 (Draft). Continue these same PRs.
-The prior remote Plan checkpoint `19f65b29b49d126c9e6a43a07a4818f039fcbbf3` passed
-https://github.com/IzuSharp/Plan/actions/runs/43831719009.
-This checkpoint retains all nine final Linux component reviews, raw evidence and the final combined build.
+Plan PR: https://github.com/IzuSharp/Plan/pull/14 (merged as `70240541870b0ac4da5380eb861b741f82778902`).
+Final remote checkpoint `c21eb2d200a80357a31b3f58e4ef17a860edba71` preserves tree
+`4eea2ad5a8dc40afe05b4c7e16523220ca2569d7` of local `6e30d516b954d421ff74926561d61ce61e2acca1`.
+Its PR check passed: https://github.com/IzuSharp/Plan/actions/runs/43842379622.
+All nine final Linux reviews, raw evidence, remote source checkpoints and the combined build remain retained.
 
 Use `ROOT/task02-toolchain/env.sh`: SDK 11.0.100, Rust 1.100.0, PostgreSQL 18.0 and
 pinned SQLx. Local offline NuGet configuration does not change repository audit
 policy. Temporary PostgreSQL and tests must run within one executor invocation.
 Full managed formatting remains the normal CI gate; local folder-only whitespace
-checks are not represented as equivalent. The final normal CI result is a remaining merge gate.
+checks are not represented as equivalent. The final normal implementation CI and both exact-merge CI runs passed.
 
 ## Final combined verification
 
@@ -112,11 +113,42 @@ compose the modules; the separate actual provider and JIT/AOT receipts remain
 their acceptance evidence. Local restore uses the documented offline source only;
 normal CI retains its existing full formatter and audit policy.
 
+## Merge and publication closeout
+
+Both main PRs merged through normal repository controls after their checks and independent technical reviews. Exact main-commit results:
+
+| Repository / workflow | Actual result |
+| --- | --- |
+| NativeWeave CI | [43843000416](https://github.com/IzuSharp/NativeWeave/actions/runs/43843000416), passed on `22b467667bcf44aa8b22e964937446b225e87e61` |
+| Plan paired integrity | [43843703239](https://github.com/IzuSharp/Plan/actions/runs/43843703239), passed on `70240541870b0ac4da5380eb861b741f82778902` |
+| Existing automatic preview | [43843000388](https://github.com/IzuSharp/NativeWeave/actions/runs/43843000388), passed; `NativeWeave.HelloWorld` version `0.1.0-preview.6.1` |
+
+The retained final publication status is `published-and-consumed`. The existing
+publisher verifies the registry signature and unsigned payload equality, then
+actually executes both HelloWorld and InteropTests in JIT and Native AOT modes.
+Candidate/upload and signed registry ZIP hashes are recorded separately. The
+artifact audit hashes the downloaded candidate, native bytes and selected raw
+records/logs against the exact merge identity. Independent provenance and final
+closeout reviews are retained with the evidence.
+
+The registry consumer retains `pristineMachine=false`, isolated cache, an
+outside-source-tree location and the Rust invocation trap. The candidate container
+separately records Rust absent from PATH before building; its receipt also preserves
+`pristineMachine=false`. This existing HelloWorld preview does not claim publication
+of new Task-02 component packages or other-platform acceptance. No manual release,
+version bump or post-merge product repair was needed.
+
+See [post-merge-linux.json](post-merge-linux.json) for merge/run/artifact identities,
+original publisher/consumer fields, checksums and scope. The
+[retained evidence](post-merge-linux/) includes original GitHub observations,
+publisher log, raw consumer logs and the read-only consistency audit. Binary ZIPs
+are identified by digest and existing artifact/registry location; they are not
+added as compiled binaries to Plan.
+
 ## Next step
 
-Publish this final Plan checkpoint and update both existing PRs with all nine
-accepted Linux tasks and actual checks. Mark them ready and merge normally after
-required checks/review. Verify the exact main merge CI and existing automatic
-HelloWorld-only preview publication plus actual registry JIT/AOT consumption.
-Record that final closeout once, without repeating completed component tests or
-starting another task package.
+Linux Task-02 implementation, component acceptance and normal merge/publication
+closeout are complete. Deliver this final evidence-only record through its normal
+PR checks/merge and confirm that PR's exact main CI; record those self-referential
+results in its PR body, without another ledger commit. Then stop. Do not start
+another task package. Other platforms remain deferred and global acceptance false.
