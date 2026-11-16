@@ -18,15 +18,15 @@ historical source bindings and accepted research graphs.
 
 | Task | Linux state | Owner / evidence |
 | --- | --- | --- |
-| A02 | Implemented and verified; independent review pending | Negotiation worker; [packet](../../A02/linux-task02/) |
+| A02 | Component accepted after independent review | [Packet](../../A02/linux-task02/), [review](../../A02/review-linux.json) |
 | A05 | Component accepted after independent review | Main executor; [run](../../A05/linux-run-001/result.json), [review](../../A05/linux-independent-review/review.json) |
-| A09 | Implementing | Main executor |
+| A09 | Formal verification passed; independent review running | Main executor; [37-command run](../../A09/linux-run-001/result.json) |
 | B05 | Component verified; actual B02/B03 composition and independent review pending | Transactions worker; [run](../../B05/linux-component-001/result.json) |
 | B07 | Component accepted; review precision finding fixed | Codecs worker; [full run](../../B07/linux-run-001/summary.json), [fix](../../B07/linux-review-fix-001/summary.json), [review](../../B07/review-linux.json) |
-| B09 | Ready, queued | Main executor |
-| B02 | Implementing | Negotiation worker; B01/B07 available |
-| B03 | Implementing | Transactions worker; B01/B07 available |
-| B06 | Implementing; final acceptance awaits B02/B03 | Codecs worker; B01/B07 available |
+| B09 | Implementing | Negotiation worker |
+| B02 | Final formal verification and independent review | Negotiation worker; real PostgreSQL oracles and JIT/AOT passed; handoff accounting correction being bound |
+| B03 | Final formal verification; last-parent retirement finding under review | Transactions worker; actual SQLite oracles and managed API ready |
+| B06 | Actual provider composition running | Codecs worker; SQLite rows passed, PostgreSQL handoff finding corrected |
 
 A02 passed 108 commands, exact 84 public API/XML symbols, 26 isolated JIT and 26
 actual NativeAOT scenarios (428 assertions per mode), and test-only NuGet consumers
@@ -46,6 +46,13 @@ rationale. Provider options/native adapters and ABI fixtures may be accepted her
 no fake host types or Design-stub execution may stand in for product execution.
 Other platforms remain unexecuted, and global/all-platform acceptance is false.
 
+A09 passed 37 clean-head commands against 64 unchanged source inputs, including
+actual export-omission rejection, deterministic model generation, native JIT/AOT
+calls and consumers. Original failed preparation logs are retained. The secret
+scanner public-hash false positives have an exact-rule/path/value allowlist; an
+independent review confirmed four positive credential canaries still fail. The
+normal CI gate remains unchanged. See the batch security evidence directories.
+
 ## Recovery and commits
 
 ROOT is `/workspace/scratch/0898a75257bc`. Batch worktrees are
@@ -61,9 +68,9 @@ are not copied to Plan; artifacts are identified by content hashes and verifier
 commands retained in NativeWeave. Evidence text is preserved verbatim.
 
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (Draft).
-Remote checkpoint `2916b9a7817399cabbdbf81d4fe5dca45d9c2afd` has the exact tree
-`4bf46a6478963ab0e9774d17154357fcd0953417` of local
-`f20707d7f687985a164a04e0da4373b97bdc60be`. Git Data API publication preserves exact
+Remote checkpoint `36720abdcc5f59f089860403b06692e14fb1b281` has the exact tree
+`ecf1b79afe4da5c1888a418abc17db78a998d24e` of local
+`8f1edab87d7526d2d2545c695877622b20731a3b`. Git Data API publication preserves exact
 file bytes but produces a different commit identity; source-evidence mappings are
 explicit, never relabeled.
 
@@ -79,9 +86,9 @@ checks do not claim equivalent full formatting.
 
 ## Next step
 
-Continue A09/B09 and the three provider/stream workers immediately. Review A02,
-finish real-provider B05/B06 acceptance inside this batch, integrate and run the
-scoped regression. Publish checkpoints and update both PRs, then normal required
+Finish B09, A09 independent review, provider reviews, and real-provider B05/B06
+acceptance inside this batch. Resolve the SQLite last-parent retirement review
+finding, integrate the remaining modules and run the scoped combined regression. Publish checkpoints and update both PRs, then normal required
 checks/review/merge. Verify exact merge CI and the existing HelloWorld-only automatic
 preview publication/consumption. Do not declare this batch complete before that
 closeout, and do not add repeated commits merely to record each check poll.

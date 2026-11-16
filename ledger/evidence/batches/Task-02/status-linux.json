@@ -25,10 +25,10 @@
   "tasks": [
     {
       "id": "A02",
-      "state": "verified_pending_independent_review",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-A02-linux",
       "worktree": ".worktree/Task-02-A02-linux/NativeWeave",
-      "owner": "negotiation worker; root review pending",
+      "owner": "main executor independent review",
       "source_checkpoint": "672494e0671fc5c9b5d5f40f753ddbb7e96abcb2"
     },
     {
@@ -41,10 +41,11 @@
     },
     {
       "id": "A09",
-      "state": "implementing",
+      "state": "verified_pending_independent_review",
       "branch": "task/Task-02-A09-linux",
       "worktree": ".worktree/Task-02-A09-linux/NativeWeave",
-      "owner": "main executor"
+      "owner": "main executor; transactions worker review",
+      "source_checkpoint": "5c77f38b0c960bae8f1fc3128114133d7295d590"
     },
     {
       "id": "B05",
@@ -64,28 +65,30 @@
     },
     {
       "id": "B09",
-      "state": "ready_queued",
+      "state": "implementing",
       "branch": "task/Task-02-B09-linux",
       "worktree": ".worktree/Task-02-B09-linux/NativeWeave",
-      "owner": "main executor"
-    },
-    {
-      "id": "B02",
-      "state": "implementing",
-      "branch": "task/Task-02-B02-linux",
-      "worktree": ".worktree/Task-02-B02-linux/NativeWeave",
       "owner": "negotiation worker"
     },
     {
+      "id": "B02",
+      "state": "formal_verification_and_independent_review",
+      "branch": "task/Task-02-B02-linux",
+      "worktree": ".worktree/Task-02-B02-linux/NativeWeave",
+      "owner": "negotiation worker; main executor review",
+      "source_checkpoint": "0f63ddd2ec323181781432c009955250ac06c898"
+    },
+    {
       "id": "B03",
-      "state": "implementing",
+      "state": "review_finding_under_resolution",
       "branch": "task/Task-02-B03-linux",
       "worktree": ".worktree/Task-02-B03-linux/NativeWeave",
-      "owner": "transactions worker"
+      "owner": "transactions worker; main executor review",
+      "source_checkpoint": "e7fa3989fda3ccd829bb62af462357335bda2fba"
     },
     {
       "id": "B06",
-      "state": "implementing_waiting_provider_acceptance",
+      "state": "real_provider_composition_in_progress",
       "branch": "task/Task-02-B06-linux",
       "worktree": ".worktree/Task-02-B06-linux/NativeWeave",
       "owner": "codecs worker"
@@ -105,12 +108,40 @@
     "46404e3182fc66b0bd0f83979d053da25ecca051",
     "32e736c14f0e6925d0dd691a81b40a4c8ee136d7",
     "7bebe4082ea240053f4559d0e23abdaadd1cebec",
-    "f20707d7f687985a164a04e0da4373b97bdc60be"
+    "f20707d7f687985a164a04e0da4373b97bdc60be",
+    "0c7ce7c85d1d49fb57cdedbd98f64a467067caa3",
+    "c3df52683ad90a3a5be60ce1fc1415ee58054277",
+    "23882ab0c5d1e7bfe99d23db91fd9eca35421374",
+    "cb71d8af23bf756e9e75e22222e0a0539d5878e0",
+    "f0d454504223435fe49086e5721f5b9a04070ce0",
+    "7d800fb9e29a26639ab12918e95429dc64c15160",
+    "5c0f3e7fe66887ea2119cd36315a1cdd377ae8be",
+    "e8b9f8339db9fdcae354f1abbfe1a905517a6655",
+    "651526253e123f8260a5fa61b13a38074a2df4b9",
+    "dc362cd496843a8669d30380276ecfc10c31c668",
+    "8f1edab87d7526d2d2545c695877622b20731a3b",
+    "1a2f86071d19e7c8f1a83b7b2355daf8dde63453",
+    "e46c96a5239c9381b73aa47b01749882cac22cf8",
+    "a4ad39bf67f3b1a5feeb9f6b1a8d99098a2cfc9f",
+    "cfd3f086b3231e48c5f66984f28ef1c82dd717eb"
   ],
-  "next": "Implement A09/B09 and parallel B02/B03/B06, review A02/B05, then run real-provider B05/B06 composition and batch integration. Preserve accepted A05/B07 evidence.",
+  "next": "Finish B09, actual-provider B06 and B05 acceptance, resolve SQLite last-parent retirement review, complete independent reviews and final combined builds; then normal PR checks/merge and existing preview closeout.",
   "implementation_checkpoint": {
-    "local": "f20707d7f687985a164a04e0da4373b97bdc60be",
-    "remote": "2916b9a7817399cabbdbf81d4fe5dca45d9c2afd",
-    "tree": "4bf46a6478963ab0e9774d17154357fcd0953417"
-  }
+    "local": "8f1edab87d7526d2d2545c695877622b20731a3b",
+    "remote": "36720abdcc5f59f089860403b06692e14fb1b281",
+    "tree": "ecf1b79afe4da5c1888a418abc17db78a998d24e"
+  },
+  "local_implementation_head": "cfd3f086b3231e48c5f66984f28ef1c82dd717eb",
+  "known_findings": [
+    {
+      "id": "B02-STREAM-HANDOFF",
+      "state": "fixed_reverifying",
+      "detail": "The bounded capacity-one channel can overlap one row delivery handoff; truthful retained counter bound is two. B06 first failure preserved."
+    },
+    {
+      "id": "B03-LAST-PARENT",
+      "state": "under_review",
+      "detail": "Check transaction retirement after public parent Session is dropped; local retirement must not precede required last physical lease acknowledgement."
+    }
+  ]
 }
