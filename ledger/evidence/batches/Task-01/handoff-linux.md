@@ -2,7 +2,7 @@
 
 ## Result and scope
 
-**A01, A19, A21 and B01 are complete for their Linux x64 scope, independently reviewed and integrated.** The final implementation CI passed. This checkpoint includes the sanitized raw execution results, event streams, logs, source identities, review outcomes and batch recovery records. The published raw-evidence checkpoint `cd992c6f965e6b00c198b45229d97b9a2fc935f8` passed the existing Plan `paired-integrity` check. Task-01 Linux delivery is complete and is handed off for normal PR review.
+**A01, A19, A21 and B01 are complete for their Linux x64 scope, independently reviewed and integrated.** The final implementation CI passed. This checkpoint includes the sanitized raw execution results, event streams, logs, source identities, review outcomes and batch recovery records. The published raw-evidence checkpoint `cd992c6f965e6b00c198b45229d97b9a2fc935f8` passed the existing Plan `paired-integrity` check. Both Task-01 PRs are now merged, their post-merge CI passed, and the existing automatic preview completed with verified registry consumption. Linux Task-01 delivery is closed; see the post-merge record below.
 
 PLATFORM=`linux`, RID=`linux-x64`. All four tasks have empty start/acceptance dependencies and were developed in separate worktrees. No package-external task or new platform/CI matrix was implemented. Other platforms remain unexecuted; global acceptance remains false.
 
@@ -52,7 +52,7 @@ Two automatic tool-review rejections are retained as historical events. A smalle
 
 [Evidence publication policy](evidence-publication-policy.json) enumerates omitted full implementation/probe source, build configuration, duplicate schema and binary payloads. Original execution/review manifests remain byte-identical and may name those omitted local files; their names/hashes do not imply remote availability. [Raw evidence receipt](raw-evidence-receipt-linux.json) and [per-file hash index](raw-evidence-index-linux.json) bind the retained records. Detailed author handoffs retain their original checkpoint context; this batch handoff and task summaries provide the final integration state.
 
-Git-data API publication is used because ordinary HTTPS push lacks credentials. Every published tree is checked against its corresponding local committed snapshot; local and remote commit IDs are recorded separately. No merge, version bump or package publication was performed.
+Git-data API publication is used because ordinary HTTPS push lacks credentials. Every published tree is checked against its corresponding local committed snapshot; local and remote commit IDs are recorded separately. The earlier evidence checkpoint performed no merge, version bump or package publication. The subsequent original PR merges and automatic preview are recorded below; this final follow-up does not trigger a manual release or change versions.
 
 ## Recovery and PRs
 
@@ -73,8 +73,24 @@ Plan PR: https://github.com/IzuSharp/Plan/pull/12
 
 [Status](status-linux.json) lists owners, all integrated commits, author/remote checkpoints and final checks. [Publication mappings](publication-checkpoints.json) retain exact tree correspondences. [Verification summary](verification-summary-linux.json) records actual scope and results.
 
+## Post-merge CI and automatic preview
+
+| Repository / flow | Exact source | Observed result |
+| --- | --- | --- |
+| NativeWeave PR #12 | Merge `10915d26b13a5ffd0b1abbe06d5934dfb0f2d771` | Merged; [post-merge CI 43816618645](https://github.com/IzuSharp/NativeWeave/actions/runs/43816618645) passed |
+| Plan PR #12 | Merge `09871edda0cf9db4caa6517176d8cdc086291fa0` | Merged; [post-merge CI 43816635305](https://github.com/IzuSharp/Plan/actions/runs/43816635305) passed |
+| Existing automatic Release | NativeWeave merge above; run 5, attempt 1 | [Release 43816618640](https://github.com/IzuSharp/NativeWeave/actions/runs/43816618640) passed; `NativeWeave.HelloWorld 0.1.0-preview.5.1` published and consumed |
+
+[Post-merge evidence](post-merge-linux.json) preserves exact merge/run identities, candidate and publication artifact hashes, and the observed publication/consumer receipt fields. The publication record is `published-and-consumed`: NuGet signature validation passed, unsigned payload entries equal the tested candidate, and registry bytes were consumed successfully through JIT and Native AOT. The registry package SHA-256 is `31e9a7714f203c7d37c7c2fe7d6f4922e6a9c677f328ce305dcb736c1daacf01`.
+
+The existing publisher distributes the experimental HelloWorld Linux x64 package. This follow-up does not extend packaging to additional modules or claim downstream A16/B24/global release acceptance. The registry consumer receipt records an isolated cache and a Rust invocation trap; its `pristineMachine=false` value is retained. The separately successful CI clean-container check is not relabelled as that registry-consumer run. Dependency review is intentionally PR-event-only and was skipped on the main push runs; all executed jobs passed.
+
+No post-merge code failure required a fix. No component suite or historical acceptance was rerun manually, no manual release was triggered, and no version was edited.
+
 ## Completed handoff and next step
 
-The sanitized evidence is published and its Plan check passed. All four Linux components are complete, with no pending integration commit or external Task-01 blocker. Both existing PR descriptions identify the completed Linux scope and published evidence. Plan PR readiness follows its successful current-head check; review and merge remain under the existing repository process.
+A01, A19, A21 and B01 are complete for Linux x64, the two original PRs are merged, and their CI and automatic preview follow-up succeeded. There is no remaining component integration, release failure or external Task-01 blocker.
 
-No further Task-01 implementation or component acceptance work is scheduled. Resume from the linked PRs only if a new check or review finding requires action within this scope. Stop after Task-01; do not start Task-02.
+The final record-only update uses `task/Task-01-closeout-linux` in `ROOT/.worktree/Task-01-closeout-linux/Plan`; all original batch and component worktrees remain preserved. Its PR must complete normal checks, merge and post-merge CI. That PR description records its own final outcomes, avoiding another ledger commit solely to record the preceding documentation commit's check.
+
+After that final record publication, stop. Do not repeat completed implementation or historical acceptance, expand the package, or start Task-02.
