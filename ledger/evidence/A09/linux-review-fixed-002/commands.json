@@ -1,0 +1,597 @@
+[
+  {
+    "label": "design-commit",
+    "command": [
+      "git",
+      "-C",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-linux/NativeWeave-Design",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "seconds": 0.002,
+    "stdout_sha256": "6a9721967a785d46bafa781b8d5348b293598030fe24cf6b519fa5434304238c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "dotnet",
+    "command": [
+      "dotnet",
+      "--version"
+    ],
+    "returncode": 0,
+    "seconds": 0.024,
+    "stdout_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "rustc",
+    "command": [
+      "rustc",
+      "-Vv"
+    ],
+    "returncode": 0,
+    "seconds": 0.046,
+    "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "cargo",
+    "command": [
+      "cargo",
+      "--version"
+    ],
+    "returncode": 0,
+    "seconds": 0.032,
+    "stdout_sha256": "d62bac2223cd9bd1a54c0ccd82d4084b7d1d60044855e2f6a1b49f4f77e6f41c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "cc",
+    "command": [
+      "cc",
+      "--version"
+    ],
+    "returncode": 0,
+    "seconds": 0.002,
+    "stdout_sha256": "78fc11ae2c3ff7c235eb18ed90989d18f6cc864fb27027f839368cd0888deebc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "managed-whitespace",
+    "command": [
+      "dotnet",
+      "format",
+      "whitespace",
+      ".",
+      "--folder",
+      "--verify-no-changes",
+      "--include",
+      "samples/api/generators-model/Program.cs",
+      "src/Generators.Model/BindingDescription.cs",
+      "src/Generators.Model/BindingReader.cs",
+      "src/Generators.Model/SourceInventory.cs",
+      "tests/Generators.Model/ApiCheck/Program.cs",
+      "tests/Generators.Model/Program.cs",
+      "--verbosity",
+      "quiet"
+    ],
+    "returncode": 0,
+    "seconds": 1.665,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "inventory-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "src/Generators.Model/native-inventory/Cargo.toml",
+      "--",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.063,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "inventory-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--manifest-path",
+      "src/Generators.Model/native-inventory/Cargo.toml",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.18,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "a41051563a4cb5fc1b1bcdd9aa0ba28ca80f7736d629d90cc138218756e8e3a9"
+  },
+  {
+    "label": "inventory-build",
+    "command": [
+      "cargo",
+      "build",
+      "--manifest-path",
+      "src/Generators.Model/native-inventory/Cargo.toml",
+      "--locked",
+      "--offline"
+    ],
+    "returncode": 0,
+    "seconds": 0.079,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "02db5a66fa0c60ca8618bd08aac556eac4f3ec863e8630a0d353dba6a0f6e126"
+  },
+  {
+    "label": "raw-extractor-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "tests/Generators.Model/raw-extractor/Cargo.toml",
+      "--",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.062,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "raw-extractor-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--manifest-path",
+      "tests/Generators.Model/raw-extractor/Cargo.toml",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.079,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "736e2582f563605dd272e5fb977840b0c0767377d27b6940c440caf75eec7157"
+  },
+  {
+    "label": "raw-extractor-build",
+    "command": [
+      "cargo",
+      "build",
+      "--manifest-path",
+      "tests/Generators.Model/raw-extractor/Cargo.toml",
+      "--locked",
+      "--offline"
+    ],
+    "returncode": 0,
+    "seconds": 0.13,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "736e2582f563605dd272e5fb977840b0c0767377d27b6940c440caf75eec7157"
+  },
+  {
+    "label": "native-abi-dependency",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "-p",
+      "nativeweave-interop-abi"
+    ],
+    "returncode": 0,
+    "seconds": 0.081,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "a13905646e2aed93ec6ea9ed6ac91490a4e01f91af0215c3965279a910612149"
+  },
+  {
+    "label": "native-fixture",
+    "command": [
+      "rustc",
+      "--edition",
+      "2024",
+      "--crate-name",
+      "nativeweave_model_fixture",
+      "--crate-type",
+      "cdylib",
+      "tests/Generators.Model/native/fixture.rs",
+      "--extern",
+      "nativeweave_interop_abi=target/debug/libnativeweave_interop_abi.rlib",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/libnativeweave_model_fixture.so"
+    ],
+    "returncode": 0,
+    "seconds": 0.132,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "native-linked-symbols",
+    "command": [
+      "nm",
+      "-D",
+      "--defined-only",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/libnativeweave_model_fixture.so"
+    ],
+    "returncode": 0,
+    "seconds": 0.004,
+    "stdout_sha256": "f50aed2937a2d665d1532c5c965331bed9254e149845702534a9bbae0321d4cc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "valid-parsed",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/src/Generators.Model/native-inventory/target/debug/nativeweave-binding-inventory",
+      "tests/Generators.Model/native/fixture.rs",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/valid-inventory.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.002,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "valid-raw",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/raw-extractor/target/debug/nativeweave-model-extraction-probe",
+      "tests/Generators.Model/native/fixture.rs",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/valid.g.cs"
+    ],
+    "returncode": 0,
+    "seconds": 0.003,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "unsupported-parsed",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/src/Generators.Model/native-inventory/target/debug/nativeweave-binding-inventory",
+      "tests/Generators.Model/fixtures/unsupported.rs",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/unsupported-inventory.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.002,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "unsupported-raw",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/raw-extractor/target/debug/nativeweave-model-extraction-probe",
+      "tests/Generators.Model/fixtures/unsupported.rs",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/unsupported.g.cs"
+    ],
+    "returncode": 0,
+    "seconds": 0.002,
+    "stdout_sha256": "fa800471f7c36097914127eb206f27d5aec7ce09b6dd58e6c394d4509eeaa21d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "tests-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Generators.Model/NativeWeave.Generators.Model.Tests.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 1.303,
+    "stdout_sha256": "fe59ccd05f9a3f12be9db42141c2f43ba3da3e5e913b39a75bcc7a2622a8949a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "tests-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Generators.Model/NativeWeave.Generators.Model.Tests.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 9.437,
+    "stdout_sha256": "e943fc3a86d2ee317160998e6a0a5287d9c763df2536a7a5bc09acc55e1ffdbc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/generators-model/Generators.Model.Sample.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 1.326,
+    "stdout_sha256": "a4643ac395548099212fc79574947b50b4ec1232684b8bb60ad152d16a2e0909",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-build",
+    "command": [
+      "dotnet",
+      "build",
+      "samples/api/generators-model/Generators.Model.Sample.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 5.51,
+    "stdout_sha256": "4b7b39ca87b6485381d7b738044f9962a479e065b821644e86643173cf9c6b1d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "api-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Generators.Model/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 0.771,
+    "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "api-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Generators.Model/ApiCheck/ApiCheck.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 1.985,
+    "stdout_sha256": "485fc458790ed67375ca00c767be13c2c1b04e57d17bce09d8f62000255548a2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "compiled-api-xml",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/ApiCheck/bin/Release/net11.0/NativeWeave.Generators.Model.ApiCheck.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/src/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/src/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.xml",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/src/Generators.Model/api-reference.md"
+    ],
+    "returncode": 0,
+    "seconds": 0.038,
+    "stdout_sha256": "f0c147aedc59e305dfdc3b65f93d5ffd485ad59916b18c853b708f2b314395e1",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "jit-native-and-negatives",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.Tests.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/valid-inventory.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/linked.txt",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/libnativeweave_model_fixture.so",
+      "--omission",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/unsupported-inventory.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.143,
+    "stdout_sha256": "77656855c93d163ff792826bbbd9fa7a81339574f33a8c6e40c886073271d803",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-jit",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/samples/api/generators-model/bin/Release/net11.0/NativeWeave.Generators.Model.Sample.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "3305e80ee1db60b37f13c05382af99b1cd50d1d41fb7bb736f7534556cf11f75"
+    ],
+    "returncode": 0,
+    "seconds": 0.071,
+    "stdout_sha256": "3516a1ab1b0db6f6886195423713569574cb8c6c9c6dd170ca1c897840887301",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "determinism-1",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.Tests.dll",
+      "--emit",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/canonical-1.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.083,
+    "stdout_sha256": "78dacbe53f1f6a518ce954b524fb166c512b338bf65b320c53b93aabdeaabebf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "determinism-2",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.Tests.dll",
+      "--emit",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/canonical-2.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.097,
+    "stdout_sha256": "78dacbe53f1f6a518ce954b524fb166c512b338bf65b320c53b93aabdeaabebf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "determinism-order",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/bin/Release/net11.0/NativeWeave.Generators.Model.Tests.dll",
+      "--emit",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/reordered.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/canonical-reordered.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.097,
+    "stdout_sha256": "78dacbe53f1f6a518ce954b524fb166c512b338bf65b320c53b93aabdeaabebf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "tests-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Generators.Model/NativeWeave.Generators.Model.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 1.465,
+    "stdout_sha256": "750479eebd9865f76579bc36e4cbd6114b259ac3fb4d611aef3d2c137c990772",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "tests-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "tests/Generators.Model/NativeWeave.Generators.Model.Tests.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/tests-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 13.526,
+    "stdout_sha256": "3bfcfd6d0bab6ecaf11c37af2d70d44a55b9a116ba657af75490c3a880cd8946",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "tests-aot-execute",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/tests-aot/NativeWeave.Generators.Model.Tests",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/valid-inventory.json",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/linked.txt",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/libnativeweave_model_fixture.so",
+      "--omission",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/unsupported-inventory.json",
+      "--require-aot"
+    ],
+    "returncode": 0,
+    "seconds": 0.023,
+    "stdout_sha256": "28ff1065cdfaa4e5aa1fef3519b1845f3fcdba7ef8fe84869610dfa73a9ee064",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/generators-model/Generators.Model.Sample.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 1.301,
+    "stdout_sha256": "5830504db3f1a7fa78965d0c1774bd30eb9b96abd1601d3d593b83c15748ce46",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "samples/api/generators-model/Generators.Model.Sample.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/sample-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "returncode": 0,
+    "seconds": 9.183,
+    "stdout_sha256": "fe809f685cd13786d056bd4a5ba418b181ef0d4476cb12db3e23c468fcfcb71d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-execute",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/sample-aot/NativeWeave.Generators.Model.Sample",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/tests/Generators.Model/fixtures/model.json",
+      "3305e80ee1db60b37f13c05382af99b1cd50d1d41fb7bb736f7534556cf11f75"
+    ],
+    "returncode": 0,
+    "seconds": 0.012,
+    "stdout_sha256": "3516a1ab1b0db6f6886195423713569574cb8c6c9c6dd170ca1c897840887301",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

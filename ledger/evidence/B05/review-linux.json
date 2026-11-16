@@ -1,0 +1,57 @@
+{
+  "platform": "linux-x64",
+  "status": "accepted_component",
+  "reviewer": "main executor, independent of original component implementation worker",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "scope_limits": [
+    "Linux x64 component acceptance only",
+    "Complete B04 host and pristine package composition remain their explicit downstream gates",
+    "No Windows or all-platform acceptance"
+  ],
+  "task": "B05",
+  "source_commit": "d7dd382870e101a7302aacf2f80d9d2119b12cdf",
+  "unchanged_shared_manifest_commit": "7c279861a6ff41535a5016d3b95c0dd0e52123c6",
+  "original_source_dirty_preserved": true,
+  "review_scope": [
+    "Complete native coordinator, state model and provider driver contract",
+    "Managed DataTransaction/Savepoint and transport, exact API/XML/reference and examples",
+    "Four lifecycle/outcome/disposition/local-lifetime dimensions and separate cleanup/primary error ownership",
+    "Pre-dispatch admission, post-dispatch finite deadline, immutable Unknown and late completion",
+    "Savepoint stack/generation, caller-owned transaction preservation and local release receipts",
+    "Actual B02/B03 acceptance composition and independent review of provider retirement corrections"
+  ],
+  "verification": {
+    "component_commands": 30,
+    "rust_state_cases": 13,
+    "public_symbols": 79,
+    "managed_assertions_each_mode": 29,
+    "component_source_files": 58,
+    "actual_pg_groups_each_mode": 11,
+    "actual_sqlite_groups_each_mode": 14,
+    "audit": "../batches/Task-02/provider-stream-evidence-audit-linux.json"
+  },
+  "acceptance_dependencies": {
+    "B02": {
+      "status": "linux_component_accepted",
+      "source_commit": "bb51918a6e6585e1705218e324af314a30084a1c",
+      "evidence": "../B02/linux-review-parent-fixed/jit-report.json",
+      "review": "../B02/review-linux.json"
+    },
+    "B03": {
+      "status": "linux_component_accepted",
+      "source_commit": "c1d249b0d7b5fcec0403c864c64ff0e22652461e",
+      "evidence": "../B03/linux-final/attempt-003/result.json",
+      "review": "../B03/review-linux.json"
+    }
+  },
+  "real_response_loss_oracle": "B02 forwards actual COMMIT, observes server CommandComplete(COMMIT) and ReadyForQuery(Idle), discards both, then an independent connection proves one durable row while the B05 snapshot remains Unknown after local retirement.",
+  "findings": [
+    "B02 and B03 last-parent retirement defects found during composition were fixed and independently checked before this acceptance."
+  ],
+  "evidence": [
+    "linux-component-001/result.json",
+    "../B02/review-linux.json",
+    "../B03/review-linux.json"
+  ],
+  "unresolved_findings": []
+}

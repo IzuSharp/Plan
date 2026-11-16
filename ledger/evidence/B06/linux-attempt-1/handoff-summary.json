@@ -1,0 +1,74 @@
+{
+  "task": "B06",
+  "platform": "linux-x64",
+  "implementation_commits": [
+    "3d6824a",
+    "cc54abb"
+  ],
+  "verified_checkout": "b62ffd2",
+  "provider_commits": {
+    "B02": "bb51918a6e6585e1705218e324af314a30084a1c",
+    "B03": "22e077e141c26d5fc0597bfa040534966668da05"
+  },
+  "status": "passed",
+  "commands": 24,
+  "source_manifest_sha256": "ead58025d227621715cd36a74ce6036c74478d8255e93f297984fb25141ae9cd",
+  "source_clean_and_unchanged": true,
+  "native_lifecycle_groups": 6,
+  "providers": {
+    "PostgreSQL": "18.0 actual server_version_num=180000",
+    "SQLite": "3.51.3 actual sqlite_version() checked"
+  },
+  "jit": {
+    "assertions": 598,
+    "recorded_cases": 58,
+    "additional_shape_preflight_negatives": 6,
+    "dynamic_code_supported": true
+  },
+  "native_aot": {
+    "assertions": 598,
+    "recorded_cases": 58,
+    "additional_shape_preflight_negatives": 6,
+    "dynamic_code_supported": false
+  },
+  "measured_maxima": {
+    "provider_retained_rows_including_handoff": 2,
+    "B06_conservative_native_reserved_bytes": 2084,
+    "native_wire_bytes": 252,
+    "managed_transport_copy_bytes": 252
+  },
+  "successful_terminal_checks": [
+    "Native cursor reservations and transferred-batch owners zero after release",
+    "Managed active calls/native copies/wrappers zero",
+    "Provider native retirement and session physical lease release observed",
+    "Same session SELECT42 reuse probe succeeds when marked usable",
+    "SQLite worker acknowledgement true; OS thread join remains false"
+  ],
+  "api_and_documentation": "Compiled internal adapter exports zero public types; XML assembly and generated reference checked; actual-provider component sample runs on both providers.",
+  "resolved_review_findings": [
+    "Linked CTS parent registrations now released on failed cleanup, before cleanup task publication; actual-provider failed-join wrapper observation passed",
+    "Dropping partial native fetch poisons resumption; close retains same provider join until receipt",
+    "PG capacity1 includes receiver handoff: truthful observed bound2, original <=1 failure retained",
+    "SQLite producer now reserves channel capacity before pulling; original peak3 failure retained and final peak2 verified"
+  ],
+  "retained_failed_attempts": {
+    "development-1": "Initial <=1 PostgreSQL retained-row assertion disproved at early-break; source and log retained, B02 documentation corrected to2 with ownership proof",
+    "development-2": "SQLite slow-consumer observed3 before B03 reserve-before-fetch fix; source and log retained"
+  },
+  "evidence_to_copy": [
+    "*.log",
+    "*.json",
+    "jit/results.json",
+    "aot-results/results.json"
+  ],
+  "exclude_from_plan_evidence": [
+    "postgres-data/",
+    "aot/"
+  ],
+  "scope_limits": [
+    "No B04 host/public facade or distributed B06 package created",
+    "No pristine consumer or Windows acceptance claimed",
+    "Budget counters exclude provider internals/allocator overhead; process RSS and CLR allocations are separate observations, not hard bounds",
+    "Offline NuGet audit disabled only for isolated locked local restore commands; repository audit policy unchanged"
+  ]
+}

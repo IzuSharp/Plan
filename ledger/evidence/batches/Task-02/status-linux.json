@@ -41,19 +41,21 @@
     },
     {
       "id": "A09",
-      "state": "verified_pending_independent_review",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-A09-linux",
       "worktree": ".worktree/Task-02-A09-linux/NativeWeave",
-      "owner": "main executor; transactions worker review",
-      "source_checkpoint": "5c77f38b0c960bae8f1fc3128114133d7295d590"
+      "owner": "main executor; transactions worker independent review",
+      "source_checkpoint": "b459fdedb0a71be564a0dbb16355d0baa429d80c",
+      "review": "../../A09/linux-independent-review/final-review.json"
     },
     {
       "id": "B05",
-      "state": "component_verified_waiting_providers_and_review",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-B05-linux",
       "worktree": ".worktree/Task-02-B05-linux/NativeWeave",
-      "owner": "transactions worker",
-      "source_checkpoint": "7c279861a6ff41535a5016d3b95c0dd0e52123c6"
+      "owner": "transactions worker; main executor independent review",
+      "source_checkpoint": "7c279861a6ff41535a5016d3b95c0dd0e52123c6",
+      "review": "../../B05/review-linux.json"
     },
     {
       "id": "B07",
@@ -65,33 +67,40 @@
     },
     {
       "id": "B09",
-      "state": "implementing",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-B09-linux",
       "worktree": ".worktree/Task-02-B09-linux/NativeWeave",
-      "owner": "negotiation worker"
+      "owner": "negotiation worker; codecs worker native review; transactions worker managed review",
+      "source_checkpoint": "5bfaaa2e15726321be8b06a21557f3f62cb389e9",
+      "review": "../../B09/independent-native/review-final.json",
+      "managed_review": "../../B09/independent-managed/final-review.json"
     },
     {
       "id": "B02",
-      "state": "formal_verification_and_independent_review",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-B02-linux",
       "worktree": ".worktree/Task-02-B02-linux/NativeWeave",
-      "owner": "negotiation worker; main executor review",
-      "source_checkpoint": "0f63ddd2ec323181781432c009955250ac06c898"
+      "owner": "negotiation worker; main executor original review; negotiation worker repair review",
+      "source_checkpoint": "8f10686e6b1e602255123301f48a140098189572",
+      "review": "../../B02/review-linux.json"
     },
     {
       "id": "B03",
-      "state": "review_finding_under_resolution",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-B03-linux",
       "worktree": ".worktree/Task-02-B03-linux/NativeWeave",
-      "owner": "transactions worker; main executor review",
-      "source_checkpoint": "e7fa3989fda3ccd829bb62af462357335bda2fba"
+      "owner": "transactions worker; main executor independent review",
+      "source_checkpoint": "c1d249b0d7b5fcec0403c864c64ff0e22652461e",
+      "review": "../../B03/review-linux.json"
     },
     {
       "id": "B06",
-      "state": "real_provider_composition_in_progress",
+      "state": "linux_component_accepted",
       "branch": "task/Task-02-B06-linux",
       "worktree": ".worktree/Task-02-B06-linux/NativeWeave",
-      "owner": "codecs worker"
+      "owner": "codecs worker; main executor independent review",
+      "source_checkpoint": "b62ffd25edffda60a6e6fceeb7aa8e13e854cdc7",
+      "review": "../../B06/review-linux.json"
     }
   ],
   "pending_integration": {},
@@ -123,25 +132,87 @@
     "1a2f86071d19e7c8f1a83b7b2355daf8dde63453",
     "e46c96a5239c9381b73aa47b01749882cac22cf8",
     "a4ad39bf67f3b1a5feeb9f6b1a8d99098a2cfc9f",
-    "cfd3f086b3231e48c5f66984f28ef1c82dd717eb"
+    "cfd3f086b3231e48c5f66984f28ef1c82dd717eb",
+    "0404c2eaae213fe96932d666d20e4e5e9c147325",
+    "2b58eb27d40df76324c3d7b591a515a37e584b58",
+    "e832369318b0073430fa9bf948d4c0f839166053",
+    "1e5b5855ddaa35b6e7fe82e14ddd20167cd602eb",
+    "96835f66929716e6e59b7b22b774495679290124",
+    "1ce7ed3b32a5ead738c328b3806a3043d627face",
+    "bfe3a1a5f26eba2ee16bc34d4a857ee0c9014209",
+    "474504cd1fa29e80d5b200756cb17f03f3542d69",
+    "8e95b93907c396bb9a37cec154f6a7707521b538",
+    "e5d9e156d5ad29042d4a87207e07930a8d4e62dd",
+    "b07906ed1f6ef935b19795efb650302b91ac505a",
+    "67f85a923aa15672c335daf65f9a4354d7b007d5",
+    "8a6c891dd4490d81a6589816507093bdcf72e492",
+    "66f1f9ac83040f8f2e2db414d1165b1c078f747d",
+    "c62362de14799af88e85ca22977b9b4cce060d3d",
+    "415de77cba51fd5001b43db253dd846bf8f11683"
   ],
-  "next": "Finish B09, actual-provider B06 and B05 acceptance, resolve SQLite last-parent retirement review, complete independent reviews and final combined builds; then normal PR checks/merge and existing preview closeout.",
+  "next": "Publish final Plan evidence, complete normal PR checks/review and merge both existing PRs; verify exact merge CI and existing HelloWorld preview publication/consumption, then one final closeout record.",
   "implementation_checkpoint": {
-    "local": "8f1edab87d7526d2d2545c695877622b20731a3b",
-    "remote": "36720abdcc5f59f089860403b06692e14fb1b281",
-    "tree": "ecf1b79afe4da5c1888a418abc17db78a998d24e"
+    "local": "415de77cba51fd5001b43db253dd846bf8f11683",
+    "remote": "b6728f7bcde1a79f90797a517efb2f54fc5190dc",
+    "tree": "57cff5a6e7b0480c6f3183bb50d19dd809affec1"
   },
-  "local_implementation_head": "cfd3f086b3231e48c5f66984f28ef1c82dd717eb",
+  "local_implementation_head": "415de77cba51fd5001b43db253dd846bf8f11683",
   "known_findings": [
     {
+      "id": "A09-R1-R6",
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
       "id": "B02-STREAM-HANDOFF",
-      "state": "fixed_reverifying",
-      "detail": "The bounded capacity-one channel can overlap one row delivery handoff; truthful retained counter bound is two. B06 first failure preserved."
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B02-LAST-PARENT",
+      "state": "fixed_verified_and_reviewed"
     },
     {
       "id": "B03-LAST-PARENT",
-      "state": "under_review",
-      "detail": "Check transaction retirement after public parent Session is dropped; local retirement must not precede required last physical lease acknowledgement."
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B03-ROW-HANDOFF",
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B03-ACQUIRE-DEADLINE",
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B06-LINKED-CTS",
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B06-PARTIAL-FETCH",
+      "state": "fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B09-native-review",
+      "state": "12_findings_fixed_verified_and_reviewed"
+    },
+    {
+      "id": "B09-M1",
+      "state": "logical_admission_fix_independently_reproduced_and_verified"
     }
-  ]
+  ],
+  "latest_remote_checks": {
+    "NativeWeave": {
+      "head": "b6728f7bcde1a79f90797a517efb2f54fc5190dc",
+      "conclusion": "pending_normal_ci"
+    },
+    "Plan": {
+      "head": "19f65b29b49d126c9e6a43a07a4818f039fcbbf3",
+      "run": 43831719009,
+      "conclusion": "success"
+    }
+  },
+  "batch_complete": false,
+  "remote_source_checkpoints": "remote-source-checkpoints-linux.json",
+  "linux_implementation_and_acceptance_complete": true,
+  "integration_verification": "integration-final-linux/result.json",
+  "formatting_followup": "ci-final-format/result.json"
 }

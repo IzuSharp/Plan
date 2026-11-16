@@ -1,0 +1,45 @@
+{
+  "baseCommit": "e7fa3989fda3ccd829bb62af462357335bda2fba",
+  "commands": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "-p",
+        "nativeweave-data-sqlite"
+      ],
+      "exit": 0,
+      "logs": {
+        "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "focused-regressions",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "nativeweave-data-sqlite",
+        "--locked",
+        "--offline",
+        "--test",
+        "provider",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 101,
+      "logs": {
+        "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "4391848a15dcb1b7e4bec44eebc8aede37bebeec24fad84dba4e769f51bbced0"
+      }
+    }
+  ],
+  "sourceHashes": {
+    "native/database/sqlite/src/session.rs": "26bc5f0e7f000cce6f475317941350c81a8ef6ba4159af4e87f70b21d8b63950",
+    "native/database/sqlite/src/transaction.rs": "dc315dff34ff790ce440f0144fdaf5a7f2ffe40ed2213d59645000b5eb2c3426",
+    "native/database/sqlite/tests/provider.rs": "9c647972723d0729ff9d3ac0dd161fc1fe8285155534a4f5cd684bccecd0bd61",
+    "native/database/sqlite/tests/support/scenarios.rs": "399d76139bf61176beb529ff8d3462db3244fd472e3beba23b086d58c00609e7"
+  }
+}

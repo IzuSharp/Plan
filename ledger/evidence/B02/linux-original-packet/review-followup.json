@@ -1,0 +1,10 @@
+{
+  "status": "independent-review-finding-open",
+  "finding": "B02 TransactionDriver.retire reads parent Session owners count before B05 drops the driver. Concurrent independent parent Drop after that read can leave last-driver Drop only requesting async close before B05 publishes released.",
+  "candidate_commit": "0f63ddd2ec323181781432c009955250ac06c898",
+  "owner": "Task-02 root integrator",
+  "accepted_by_author": true,
+  "planned_fix": "Consume/release the driver parent-session lease first, then observe weak/closing receipt and join required retirement. Do not retain the TOCTOU precheck as proof.",
+  "candidate_evidence_remains_valid_for_recorded_finite_cases": true,
+  "acceptance": "pending root fix and independent affected-path verification"
+}

@@ -3,92 +3,114 @@
 ## Scope and baselines
 
 The current user authorizes all nine Task-02 items, implementation, tests, docs,
-commits, remote checkpoints, PR review/normal merge and existing automatic preview
-closeout on Linux x64. Historical research-only text does not revoke that concrete
-authorization. Do not start Task-03 or add other platforms/release packages.
+commits, remote checkpoints, normal PR review/merge and the existing automatic
+preview closeout on Linux x64. Historical research-only text does not revoke that
+specific authorization. Do not start Task-03 or add platforms/release packages.
 
-A01/B01 are reused from [Task-01](../Task-01/handoff-linux.md), without reimplementation
-or repeated historical acceptance. NativeWeave baseline is
+A01/B01 are reused from [Task-01](../Task-01/handoff-linux.md), without repeated
+implementation or historical acceptance. NativeWeave baseline is
 `10915d26b13a5ffd0b1abbe06d5934dfb0f2d771`; Plan baseline is
-`5536d6d02cb7b99cd2100d6e73d701d676547ce2`. Read-only Design is exactly
-`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`. This Linux ledger overlays unchanged
-historical source bindings and accepted research graphs.
+`5536d6d02cb7b99cd2100d6e73d701d676547ce2`. Read-only Design remains exactly
+`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`. This platform ledger overlays unchanged
+historical research/design bindings; it does not relabel those as product runs.
 
 ## Current task status
 
-| Task | Linux state | Owner / evidence |
+| Task | Linux state | Verification and independent review |
 | --- | --- | --- |
-| A02 | Component accepted after independent review | [Packet](../../A02/linux-task02/), [review](../../A02/review-linux.json) |
-| A05 | Component accepted after independent review | Main executor; [run](../../A05/linux-run-001/result.json), [review](../../A05/linux-independent-review/review.json) |
-| A09 | Formal verification passed; independent review running | Main executor; [37-command run](../../A09/linux-run-001/result.json) |
-| B05 | Component verified; actual B02/B03 composition and independent review pending | Transactions worker; [run](../../B05/linux-component-001/result.json) |
-| B07 | Component accepted; review precision finding fixed | Codecs worker; [full run](../../B07/linux-run-001/summary.json), [fix](../../B07/linux-review-fix-001/summary.json), [review](../../B07/review-linux.json) |
-| B09 | Implementing | Negotiation worker |
-| B02 | Final formal verification and independent review | Negotiation worker; real PostgreSQL oracles and JIT/AOT passed; handoff accounting correction being bound |
-| B03 | Final formal verification; last-parent retirement finding under review | Transactions worker; actual SQLite oracles and managed API ready |
-| B06 | Actual provider composition running | Codecs worker; SQLite rows passed, PostgreSQL handoff finding corrected |
+| A02 | Component accepted | 108 commands; 84 exact API/XML symbols; 26 isolated cases and 428 assertions in each JIT/AOT mode; [review](../../A02/review-linux.json) |
+| A05 | Component accepted | 39 commands; 26 exact symbols; JIT 69/AOT 70 assertions and 23 independent probes; [review](../../A05/linux-independent-review/review.json) |
+| A09 | Component accepted | Final 37 commands; JIT 220/AOT 221 assertions; 14 independent probes; all six findings resolved; [review](../../A09/linux-independent-review/final-review.json) |
+| B05 | Component and actual-provider acceptance complete | 30 component commands, 79 symbols, 29 managed assertions per mode; final B02/B03 composition and retirement corrections accepted; [review](../../B05/review-linux.json) |
+| B07 | Component accepted | 22 full gates plus 9 focused repair commands; 120 actual-provider codec vectors and 4189 malformed rejections per fixture mode; [review](../../B07/review-linux.json) |
+| B09 | Component accepted | 31 commands; 16 native groups; 42 exact Cdecl declarations; JIT 66/AOT 67 assertions; [native review](../../B09/independent-native/review-final.json), [managed review](../../B09/independent-managed/final-review.json) |
+| B02 | Component accepted | Final 27 commands; 11 actual PostgreSQL groups and 22 managed assertions per JIT/AOT mode; [review](../../B02/review-linux.json) |
+| B03 | Component accepted | Final 33 commands; 14 actual SQLite groups and 36 managed assertions per JIT/AOT mode; 29 symbols; [review](../../B03/review-linux.json) |
+| B06 | Component and actual-provider acceptance complete | 24 commands; 598 assertions and 58 recorded cases in each JIT/AOT mode across both providers; [review](../../B06/review-linux.json) |
 
-A02 passed 108 commands, exact 84 public API/XML symbols, 26 isolated JIT and 26
-actual NativeAOT scenarios (428 assertions per mode), and test-only NuGet consumers
-with zero Rust calls. The consumer is explicitly not a pristine-machine claim.
-A05 passed 39 commands and independent 23-probe review, with exact source, raw-log
-and artifact hashes. B07 passed 22 full-run gates, then 9 focused review-fix commands,
-7 native tests, actual PostgreSQL 18.0/SQLite 3.51.3 codec roundtrips for 120 vectors
-per JIT/AOT mode, and 4,189 malformed-input rejections per fixture mode. The focused
-run records its unchanged managed binary reuse. B05 passed 30 component commands,
-13 Rust lifecycle tests and 29 managed assertions in each JIT/AOT mode; it remains
-pending real providers. B05's previously uncommitted root manifest/lock bytes are
-now committed unchanged in its source checkpoint; the original dirty-tree fact is
-preserved in its evidence.
+B05/B06 acceptance dependencies are closed inside this batch using its actual
+PostgreSQL 18.0 and SQLite 3.51.3 adapters. B02's framed response-loss proxy observes
+server COMMIT plus idle ReadyForQuery, discards the replies, and another connection
+proves a durable row while the client remains Unknown after local retirement.
+Both providers consume the transaction parent lease before deciding whether to
+join the final physical lease. SQLite's actual worker acknowledgement is observed;
+an OS thread JoinHandle join is not claimed.
 
-Full B04 owning-host composition remains its downstream gate per the packets' DAG
-rationale. Provider options/native adapters and ABI fixtures may be accepted here;
-no fake host types or Design-stub execution may stand in for product execution.
-Other platforms remain unexecuted, and global/all-platform acceptance is false.
+B06 records a maximum of two retained provider rows including receiver handoff,
+2084 conservative reserved native bytes, and 252 native-wire/managed-copy bytes.
+Successful cleanup reaches zero live cursor reservations, batch owners, managed
+calls and copies; same-session reuse is checked. These owned budgets are separate
+from recorded process RSS and CLR allocation measurements. B06's actual run binds
+B03 `22e077e`; the later `c1d249b` only rejects zero/unrepresentable acquisition
+deadlines before I/O, with its own final provider receipt. The valid five-second
+B06 path is unchanged. Exact source/stream/artifact audits are in
+[provider-stream-evidence-audit-linux.json](provider-stream-evidence-audit-linux.json).
 
-A09 passed 37 clean-head commands against 64 unchanged source inputs, including
-actual export-omission rejection, deterministic model generation, native JIT/AOT
-calls and consumers. Original failed preparation logs are retained. The secret
-scanner public-hash false positives have an exact-rule/path/value allowlist; an
-independent review confirmed four positive credential canaries still fail. The
-normal CI gate remains unchanged. See the batch security evidence directories.
+The retained history includes original false assumptions and failing regressions,
+not only successful reruns. B05's original dirty shared Cargo-manifest fact remains
+in its receipt; the exact same bytes are subsequently committed in `7c279861`.
+A09's original formal pass was superseded by independent findings and two verified
+repair runs. [Retention inventory](evidence-retention-linux.json) and the
+[A09/B03 retention mapping](retention-a09-b03/inventory.json) locate original bytes.
 
-## Recovery and commits
+Full B04 owning-host composition and pristine package consumption remain their
+explicit downstream gates. There are no fake public host types, managed SQL engine,
+new consumer Cargo dependency or new release package. Other platforms remain
+unexecuted, global/all-platform acceptance is false, and implementation plus Linux component acceptance are complete. Batch PR/CI/publication closeout remains pending.
+
+## Worktrees, commits and recovery
 
 ROOT is `/workspace/scratch/0898a75257bc`. Batch worktrees are
-`ROOT/.worktree/Task-02-linux/{NativeWeave,Plan}` on `task/Task-02-linux`; the sibling
-`NativeWeave-Design` is detached at the pinned commit. Every task has its own
-`ROOT/.worktree/Task-02-<ID>-linux/NativeWeave` and `task/Task-02-<ID>-linux` branch.
-B02/B03/B06 started from integrated `f20707d7f687985a164a04e0da4373b97bdc60be`.
-The root alone integrates shared solution/Cargo/build entries. See
-[status-linux.json](status-linux.json) for exact task checkpoints and integration
-commits, and [retention inventory](evidence-retention-linux.json) for raw evidence
-hashes. Compiled binaries, caches, temporary database clusters and private TLS keys
-are not copied to Plan; artifacts are identified by content hashes and verifier
-commands retained in NativeWeave. Evidence text is preserved verbatim.
+`ROOT/.worktree/Task-02-linux/{NativeWeave,Plan}`, both on `task/Task-02-linux`.
+Each task uses `ROOT/.worktree/Task-02-<ID>-linux/NativeWeave` and its own
+`task/Task-02-<ID>-linux` branch. The sibling Design worktree is pinned and read-only.
+Only the main executor integrates the shared solution, Cargo and build entries.
+
+[status-linux.json](status-linux.json) records owners, source checkpoints, integrated
+commits and completed B09 integration. All nine subtask branches now have remote source
+checkpoints; see [remote-source-checkpoints-linux.json](remote-source-checkpoints-linux.json).
+All nine contain their final source trees; the earlier B09 checkpoint remains mapped as history.
+Git Data publication preserves identical Git trees but creates different commit
+identities. Restore the mapped remote tree and retain the original receipt SHA;
+do not rewrite evidence as if it ran at the remote commit identity.
 
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (Draft).
-Remote checkpoint `36720abdcc5f59f089860403b06692e14fb1b281` has the exact tree
-`ecf1b79afe4da5c1888a418abc17db78a998d24e` of local
-`8f1edab87d7526d2d2545c695877622b20731a3b`. Git Data API publication preserves exact
-file bytes but produces a different commit identity; source-evidence mappings are
-explicit, never relabeled.
+Current remote checkpoint `b6728f7bcde1a79f90797a517efb2f54fc5190dc` has exactly tree
+`57cff5a6e7b0480c6f3183bb50d19dd809affec1` of local
+`415de77cba51fd5001b43db253dd846bf8f11683`. The preceding complete source build
+passed, but full CI formatting found a B09 checker-only dictionary layout issue.
+The final commit only splits those entries onto separate lines; all non-whitespace
+source bytes are identical. The folder check and compiled42-signature API/reference
+check pass again. [Original CI log and follow-up](ci-final-format/result.json)
+preserve both results. Normal CI on this final tree remains the merge gate.
 
-Plan PR: https://github.com/IzuSharp/Plan/pull/14 (Draft). Continue the same PRs.
+Plan PR: https://github.com/IzuSharp/Plan/pull/14 (Draft). Continue these same PRs.
+The prior remote Plan checkpoint `19f65b29b49d126c9e6a43a07a4818f039fcbbf3` passed
+https://github.com/IzuSharp/Plan/actions/runs/43831719009.
+This checkpoint retains all nine final Linux component reviews, raw evidence and the final combined build.
 
-SDK 11.0.100, Rust 1.100.0, PostgreSQL 18.0 and pinned SQLx are restored.
-Use `ROOT/task02-toolchain/env.sh`; local-only offline NuGet configuration does not
-change repository/CI audit policy. Start temporary TCP PostgreSQL and tests within
-one verifier invocation: background processes do not remain accessible across
-executor invocations. Full solution formatting remains a normal CI gate because
-this local runtime denies formatter-host Unix sockets; local folder whitespace
-checks do not claim equivalent full formatting.
+Use `ROOT/task02-toolchain/env.sh`: SDK 11.0.100, Rust 1.100.0, PostgreSQL 18.0 and
+pinned SQLx. Local offline NuGet configuration does not change repository audit
+policy. Temporary PostgreSQL and tests must run within one executor invocation.
+Full managed formatting remains the normal CI gate; local folder-only whitespace
+checks are not represented as equivalent. The final normal CI result is a remaining merge gate.
+
+## Final combined verification
+
+All six commands passed on the clean, unchanged final integration tree: workspace
+Rust formatting, Clippy with warnings denied, Release workspace tests, existing
+native-asset build, locked solution restore, and Release build of all 50 projects.
+The managed build completed with zero warnings/errors. See the original
+[combined receipt and logs](integration-final-linux/result.json). These checks
+compose the modules; the separate actual provider and JIT/AOT receipts remain
+their acceptance evidence. Local restore uses the documented offline source only;
+normal CI retains its existing full formatter and audit policy.
 
 ## Next step
 
-Finish B09, A09 independent review, provider reviews, and real-provider B05/B06
-acceptance inside this batch. Resolve the SQLite last-parent retirement review
-finding, integrate the remaining modules and run the scoped combined regression. Publish checkpoints and update both PRs, then normal required
-checks/review/merge. Verify exact merge CI and the existing HelloWorld-only automatic
-preview publication/consumption. Do not declare this batch complete before that
-closeout, and do not add repeated commits merely to record each check poll.
+Publish this final Plan checkpoint and update both existing PRs with all nine
+accepted Linux tasks and actual checks. Mark them ready and merge normally after
+required checks/review. Verify the exact main merge CI and existing automatic
+HelloWorld-only preview publication plus actual registry JIT/AOT consumption.
+Record that final closeout once, without repeating completed component tests or
+starting another task package.

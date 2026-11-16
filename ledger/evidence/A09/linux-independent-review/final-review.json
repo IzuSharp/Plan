@@ -1,0 +1,143 @@
+{
+  "task": "A09",
+  "platform": "linux-x64",
+  "reviewer": "/root/environment_review",
+  "author": "/root",
+  "independent": true,
+  "status": "accepted-for-scoped-linux-component",
+  "reviewedCommit": "b459fdedb0a71be564a0dbb16355d0baa429d80c",
+  "formalReceipt": "/workspace/scratch/0898a75257bc/.worktree/Task-02-A09-linux/NativeWeave/artifacts/A09/review-fixed-002/result.json",
+  "formalReceiptSha256": "0d2db86a36da31e3c4ec180323b1dac014e34e297f2f449aaf3d252fcd5193ec",
+  "formalChecks": {
+    "commands": 37,
+    "sources": 64,
+    "rawLogs": 74,
+    "artifacts": 8,
+    "allAuditedHashesMatch": true,
+    "sourceDirty": false,
+    "jitAssertions": 220,
+    "nativeAotAssertions": 221,
+    "actualNativeAotDynamicCode": false,
+    "nativeCallsPerRuntime": 81,
+    "canonicalProcesses": 3,
+    "compiledPublicTypes": 0,
+    "compiledPublicMembers": 0,
+    "exactPinnedA02MetadataSymbols": 30
+  },
+  "independentProbes": {
+    "count": 14,
+    "allPassed": true,
+    "receipt": "final-probes/result.json",
+    "receiptSha256": "f6c29a10a6f8c89b5c5d91cbe484228fc76521473ec3b1820173468dac1fa7b6",
+    "binaryHashesMatchFormalReceipt": true
+  },
+  "sourceDiffReviewed": [
+    "eceff371f4893f5637e3f86ac732813bdc45a672",
+    "b459fdedb0a71be564a0dbb16355d0baa429d80c"
+  ],
+  "findings": [
+    {
+      "id": "A09-R1",
+      "severity": "blocking",
+      "issue": "Callback close/drain exports only checked for existence, not the notification-owner retirement authority.",
+      "probe": "callback-unrelated-close-drain",
+      "expected": "NWASYNC001 at callback contract",
+      "observed": "accepted with unrelated ABI/bootstrap and extent exports",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "eceff371f4893f5637e3f86ac732813bdc45a672"
+    },
+    {
+      "id": "A09-R2",
+      "severity": "blocking",
+      "issue": "Owner clone checks for an output owner but no source borrow; create-only export can masquerade as clone.",
+      "probe": "clone-without-source-owner",
+      "expected": "NWOWN001",
+      "observed": "accepted",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "eceff371f4893f5637e3f86ac732813bdc45a672"
+    },
+    {
+      "id": "A09-R3",
+      "severity": "blocking",
+      "issue": "Async lifetime validation excludes inout pointers, allowing mutable call-scoped memory to escape acceptance without copy or retirement lifetime.",
+      "probe": "async-call-only-inout",
+      "expected": "NWASYNC001",
+      "observed": "accepted while equivalent in pointer correctly rejected",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "eceff371f4893f5637e3f86ac732813bdc45a672"
+    },
+    {
+      "id": "A09-R4",
+      "severity": "blocking",
+      "issue": "Owner labels are not bound to physical pointer targets and output slot shape.",
+      "probes": [
+        "operation-owner-physical-type-mismatch",
+        "owner-transfer-missing-output-indirection"
+      ],
+      "expected": "NWOWN001",
+      "observed": "both accepted",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "eceff371f4893f5637e3f86ac732813bdc45a672"
+    },
+    {
+      "id": "A09-R5",
+      "severity": "blocking",
+      "contract": "Design docs/contracts/async-v0.1.md sections3and6",
+      "issue": "D06 create/start/cancel/take/retire status functions are not distinguished from nonfallible void cleanup. A void start cannot establish accepted-versus-rejected responsibility as required by the explicit profile.",
+      "probe": "d06-start-void-no-acceptance-status",
+      "observed": "accepted",
+      "required": "The known D06 profile requires u32 status on nonrelease steps; release remains the exact no-fail owner cleanup.",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "b459fdedb0a71be564a0dbb16355d0baa429d80c"
+    },
+    {
+      "id": "A09-R6",
+      "severity": "blocking",
+      "contract": "Design docs/contracts/callback-v0.1.md section3 and async-v0.1.md sections3and8",
+      "issue": "Notification profile permits owned outputs and payload lifetime beyond the callback despite the pinned borrowed-notification/typed-take rule.",
+      "probes": [
+        "notification-callback-transfers-owned-result",
+        "notification-payload-borrow-past-callback"
+      ],
+      "observed": "accepted",
+      "required": "D05 notification payloads stay within callback lifetime; owned result transfer occurs through the declared later typed-take path.",
+      "resolution": "Resolved and independently rechecked on b459fdedb0a71be564a0dbb16355d0baa429d80c.",
+      "fixCommit": "b459fdedb0a71be564a0dbb16355d0baa429d80c"
+    }
+  ],
+  "openFindings": [],
+  "verifiedAreas": [
+    "Bounded UTF-8 JSON/depth/item limits and duplicate/unknown/missing fields",
+    "Canonical immutable bytes, ordinal identity ordering and semantic hashes",
+    "Physical ABI scalar/layout checks and pointer bounds",
+    "Owner release/module/parent graph and optional clone",
+    "Operation separate steps and async lifetime semantics",
+    "Callback cookie/reentrancy and D05 retirement authority",
+    "syn parser inventory, actual csbindgen1.9.8 tuple omission, linked symbol equality",
+    "Zero public API applicability and exact A02 metadata inventory separation",
+    "Locked ordinary/AOT restores, actual runtime assertions and receipt/source/hash consistency",
+    "Maintainer-only implementation: no compiler-host Cargo/network/database effects"
+  ],
+  "apiMapAudit": {
+    "path": "api-map-audit.json",
+    "sha256": "9f636c8d1ce6eabfecb65f7c7aa0201fec6307e63d47a7bc781f071d6b1e16f1",
+    "all30SignaturesExactlyMatchPinnedDesign": true
+  },
+  "scopeAndLimitations": [
+    "Linux x64 only; no claim of Windows or distributed package/generator execution",
+    "This component validates descriptions; A10/A11 generated wrapper/native implementations remain downstream",
+    "Actual native fixture exercises A01 layout and extent calls; ownership/callback/operation checks here are build-model validation, not a runtime implementation",
+    "This review did not rerun the complete 37-command suite; it independently audited receipts and ran targeted adversarial inputs",
+    "Independent technical review does not impersonate a GitHub repository reviewer or waive protected-branch requirements",
+    "The Rust parser operates on explicitly supplied source files; final linked-symbol equality remains mandatory for exports introduced outside that parser input. This review does not replace that final gate.",
+    "Public A02 metadata declarations are reused; A09 has no independently distributed consumer-facing generator or compiler plugin.",
+    "Native/managed retirement execution is not claimed for this immutable build model; lifetime/profile validation is checked here, runtime protocols remain their owning tasks."
+  ],
+  "history": {
+    "initialReview": "review.json",
+    "firstFixReview": "review-followup.json",
+    "originalCounterexamples": "independent-probes.json and independent-owner-shape-probes.json",
+    "profileCounterexamples": "additional-profile-probes/result.json",
+    "allPriorFailuresPreserved": true
+  }
+}
