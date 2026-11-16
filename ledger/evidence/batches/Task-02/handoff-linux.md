@@ -1,62 +1,87 @@
 # Task-02 Linux x64 handoff
 
-## Authorized scope and baseline
+## Scope and baselines
 
-The current user instruction authorizes implementation, scoped verification, commits,
-publication, normal PR review/merge and existing post-merge CI/preview closeout for
-**A02, A05, A09, B05, B07, B09, B02, B03 and B06 on Linux x64**. It supersedes
-historical research-only authorization text for this batch. It does not authorize
-the next batch, other platform execution, a new release scope or protection bypass.
+The current user authorizes all nine Task-02 items, implementation, tests, docs,
+commits, remote checkpoints, PR review/normal merge and existing automatic preview
+closeout on Linux x64. Historical research-only text does not revoke that concrete
+authorization. Do not start Task-03 or add other platforms/release packages.
 
-Existing A01/B01 Linux completion is reused from [Task-01](../Task-01/handoff-linux.md).
-NativeWeave starts at `10915d26b13a5ffd0b1abbe06d5934dfb0f2d771`; Plan starts at
-`5536d6d02cb7b99cd2100d6e73d701d676547ce2`. The read-only Design pin is
-`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`. There were no existing Task-02 worktrees,
-branches, PRs or evidence at recovery. Accepted research graphs and bindings remain
-historical inputs; this batch record is the platform-scoped execution overlay.
+A01/B01 are reused from [Task-01](../Task-01/handoff-linux.md), without reimplementation
+or repeated historical acceptance. NativeWeave baseline is
+`10915d26b13a5ffd0b1abbe06d5934dfb0f2d771`; Plan baseline is
+`5536d6d02cb7b99cd2100d6e73d701d676547ce2`. Read-only Design is exactly
+`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`. This Linux ledger overlays unchanged
+historical source bindings and accepted research graphs.
 
-## Current task state
+## Current task status
 
-| Task | State | Owner | Start dependencies | Additional acceptance dependencies |
-| --- | --- | --- | --- | --- |
-| A02 | Implementing | negotiation worker | A01 complete | None |
-| A05 | Implementing | main executor | A01 complete | None |
-| A09 | Ready, queued | main executor | A01 complete | None |
-| B05 | Implementing | transactions worker | B01 complete | B02, B03 |
-| B07 | Implementing | codecs worker | B01 complete | None |
-| B09 | Ready, queued | main executor | B01 complete | None |
-| B02 | Waiting for B07 | Unassigned | B01 complete; B07 pending | None |
-| B03 | Waiting for B07 | Unassigned | B01 complete; B07 pending | None |
-| B06 | Waiting for B07 | Unassigned | B01 complete; B07 pending | B02, B03 |
+| Task | Linux state | Owner / evidence |
+| --- | --- | --- |
+| A02 | Implemented and verified; independent review pending | Negotiation worker; [packet](../../A02/linux-task02/) |
+| A05 | Component accepted after independent review | Main executor; [run](../../A05/linux-run-001/result.json), [review](../../A05/linux-independent-review/review.json) |
+| A09 | Implementing | Main executor |
+| B05 | Component verified; actual B02/B03 composition and independent review pending | Transactions worker; [run](../../B05/linux-component-001/result.json) |
+| B07 | Component accepted; review precision finding fixed | Codecs worker; [full run](../../B07/linux-run-001/summary.json), [fix](../../B07/linux-review-fix-001/summary.json), [review](../../B07/review-linux.json) |
+| B09 | Ready, queued | Main executor |
+| B02 | Implementing | Negotiation worker; B01/B07 available |
+| B03 | Implementing | Transactions worker; B01/B07 available |
+| B06 | Implementing; final acceptance awaits B02/B03 | Codecs worker; B01/B07 available |
 
-Three subordinate workers can run concurrently. Newly available slots take the
-next ready task. B07 has priority because it unlocks B02/B03/B06. B05 can proceed
-independently but final acceptance remains pending actual providers. Complete B04
-Host composition is downstream, not an extra prerequisite or a completion claim.
+A02 passed 108 commands, exact 84 public API/XML symbols, 26 isolated JIT and 26
+actual NativeAOT scenarios (428 assertions per mode), and test-only NuGet consumers
+with zero Rust calls. The consumer is explicitly not a pristine-machine claim.
+A05 passed 39 commands and independent 23-probe review, with exact source, raw-log
+and artifact hashes. B07 passed 22 full-run gates, then 9 focused review-fix commands,
+7 native tests, actual PostgreSQL 18.0/SQLite 3.51.3 codec roundtrips for 120 vectors
+per JIT/AOT mode, and 4,189 malformed-input rejections per fixture mode. The focused
+run records its unchanged managed binary reuse. B05 passed 30 component commands,
+13 Rust lifecycle tests and 29 managed assertions in each JIT/AOT mode; it remains
+pending real providers. B05's previously uncommitted root manifest/lock bytes are
+now committed unchanged in its source checkpoint; the original dirty-tree fact is
+preserved in its evidence.
 
-## Worktrees and recovery
+Full B04 owning-host composition remains its downstream gate per the packets' DAG
+rationale. Provider options/native adapters and ABI fixtures may be accepted here;
+no fake host types or Design-stub execution may stand in for product execution.
+Other platforms remain unexecuted, and global/all-platform acceptance is false.
+
+## Recovery and commits
 
 ROOT is `/workspace/scratch/0898a75257bc`. Batch worktrees are
 `ROOT/.worktree/Task-02-linux/{NativeWeave,Plan}` on `task/Task-02-linux`; the sibling
-`NativeWeave-Design` is detached at the locked commit. Initial task worktrees are
-`ROOT/.worktree/Task-02-<ID>-linux/NativeWeave` with branches
-`task/Task-02-<ID>-linux` for A02/A05/A09/B05/B07/B09. Provider/streaming worktrees
-will start from the integrated B07 dependency. Root integrates shared solution,
-Cargo and project-reference changes serially and records component commits here.
+`NativeWeave-Design` is detached at the pinned commit. Every task has its own
+`ROOT/.worktree/Task-02-<ID>-linux/NativeWeave` and `task/Task-02-<ID>-linux` branch.
+B02/B03/B06 started from integrated `f20707d7f687985a164a04e0da4373b97bdc60be`.
+The root alone integrates shared solution/Cargo/build entries. See
+[status-linux.json](status-linux.json) for exact task checkpoints and integration
+commits, and [retention inventory](evidence-retention-linux.json) for raw evidence
+hashes. Compiled binaries, caches, temporary database clusters and private TLS keys
+are not copied to Plan; artifacts are identified by content hashes and verifier
+commands retained in NativeWeave. Evidence text is preserved verbatim.
 
-No Task-02 implementation or validation has yet been accepted. Retained Rust1.100.0
-and .NET11 SDK packages are available. The previous .NET SDK path is absent;
-restoring SDK11.0.100, PostgreSQL18.0 and the pinned SQLx dependency closure is in
-progress. No Task-01 acceptance is rerun to repair that environment.
+Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/13 (Draft).
+Remote checkpoint `2916b9a7817399cabbdbf81d4fe5dca45d9c2afd` has the exact tree
+`4bf46a6478963ab0e9774d17154357fcd0953417` of local
+`f20707d7f687985a164a04e0da4373b97bdc60be`. Git Data API publication preserves exact
+file bytes but produces a different commit identity; source-evidence mappings are
+explicit, never relabeled.
 
-## PRs and next step
+Plan PR: https://github.com/IzuSharp/Plan/pull/14 (Draft). Continue the same PRs.
 
-Implementation PR: not created yet; first task-owned implementation checkpoint pending.
+SDK 11.0.100, Rust 1.100.0, PostgreSQL 18.0 and pinned SQLx are restored.
+Use `ROOT/task02-toolchain/env.sh`; local-only offline NuGet configuration does not
+change repository/CI audit policy. Start temporary TCP PostgreSQL and tests within
+one verifier invocation: background processes do not remain accessible across
+executor invocations. Full solution formatting remains a normal CI gate because
+this local runtime denies formatter-host Unix sockets; local folder whitespace
+checks do not claim equivalent full formatting.
 
-Plan PR: initial handoff publication pending.
+## Next step
 
-Next: finish current implementations and environment recovery, publish each
-handoffable checkpoint, then start newly unlocked tasks. Record actual run logs,
-source identities and independent review before any completion claim. Follow both
-PRs through normal merge, exact merge CI and the existing HelloWorld-only automatic
-preview process; do not publish new module packages or start Task-03.
+Continue A09/B09 and the three provider/stream workers immediately. Review A02,
+finish real-provider B05/B06 acceptance inside this batch, integrate and run the
+scoped regression. Publish checkpoints and update both PRs, then normal required
+checks/review/merge. Verify exact merge CI and the existing HelloWorld-only automatic
+preview publication/consumption. Do not declare this batch complete before that
+closeout, and do not add repeated commits merely to record each check poll.
