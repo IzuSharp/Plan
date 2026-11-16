@@ -1,0 +1,53 @@
+{
+  "reviewer": "/root/b07_codecs",
+  "createdUtc": "2026-11-16T09:52:37.748994+00:00",
+  "decision": "accepted-for-scoped-artifact-consistency-use",
+  "openFindings": [],
+  "scope": "Read-only source review and validation of retained synthetic reader receipts. No product acceptance, actual release result, publisher authenticity, workflow provenance, or registry signature verification claim.",
+  "method": {
+    "sourceReviewed": true,
+    "retainedEvidenceReadAndHashed": true,
+    "reviewerRanProductChecks": false,
+    "reviewerRanSyntheticCases": false,
+    "authorToolingInventoryFilesVerified": 6
+  },
+  "finding": {
+    "id": "R1",
+    "problem": "Python dict equality treats JSON false as equal to numeric 0, permitting embedded and external manifest type differences.",
+    "resolution": "Sorted-key JSON serialization comparison preserves parsed value types while ignoring whitespace and object key order.",
+    "status": "resolved",
+    "retainedRegression": "Original script falsely passes external sourceDirty=false and embedded sourceDirty=0; revised script fails exactly Embedded and external manifests match."
+  },
+  "observations": [
+    "ZIP members are read in memory without extraction; selected evidence is written to fixed output filenames within a newly created directory. No unsafe output path was found in the reviewed flow.",
+    "Candidate/upload hashes are distinguished from signed registry package hashes. Signature and registry execution statements remain explicitly publisher-attested.",
+    "The existing pristineMachine=false scope is retained.",
+    "All six author-run synthetic reader cases have expected outcomes in the retained receipt; the exact finding has before-and-after evidence."
+  ],
+  "sourceEvidence": [
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/audit-release-artifacts.py",
+      "sha256": "32cf4a3724950eba8ed8a679ac52d2788e5dfec66a967c26555788a23d0119d6"
+    },
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/artifact-audit-tooling-inventory.json",
+      "sha256": "51808650a066af9cad823aea76caa1a7bb725dc1e1d9b74dd98bd44531b1376f"
+    },
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/artifact-audit-review-001/resolution.json",
+      "sha256": "1b9a6df82b02abeb261c825567fae14748ec9f92d018ec275c8ff40d56eb67e9"
+    },
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/artifact-audit-selfcheck.json",
+      "sha256": "2255bd36e76fbadfc744b1a9f65028b5d74e396eb0ec7744d6f170786fb23865"
+    },
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/artifact-audit-review-001/reproduced-before/audit.json",
+      "sha256": "53afa400215367a6cd9673a2d7c7a83fd4e1fefcd52f324fa5ef75db5ba7474a"
+    },
+    {
+      "originalPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/Task02-Closeout/artifact-audit-selfcheck-data-review-fixed-001/embedded-number-versus-external-boolean/audit/audit.json",
+      "sha256": "47cb1759813727e8fe747cf6c0aa77fa0c0b17eeef6c5f8ad0378778ef6f9b85"
+    }
+  ]
+}
