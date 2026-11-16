@@ -126,16 +126,11 @@
     "tree": "814094f77140c01068ac82514709c4dc208360cf",
     "review": "ledger/evidence/batches/Task-01/review-linux/Task-01-integration-review.json",
     "verification": "Current-head GitHub CI43811091217 passed all required jobs, including full formatting, build/package/API checks, actual NativeAOT consumers and a fresh Linux SDK container without Rust. Local final solution build passed; local full formatter was IPC-blocked and is not misreported as a local pass.",
-    "required_checks_pending": [
-      "Final evidence head: existing Plan paired-integrity; mark Plan PR ready only after it passes"
-    ],
-    "a13_completion_claim": false
+    "required_checks_pending": [],
+    "a13_completion_claim": false,
+    "required_checks_pending_scope": "The integrated implementation and published raw-evidence checkpoints only. The conditional closeout_gate below resolves later documentation-head checks."
   },
-  "remaining_work": [
-    "Publish this exact sanitized evidence checkpoint under the user follow-up instruction",
-    "Verify existing current-head Plan CI and mark the existing Plan PR ready for review",
-    "Stop at Task-01; no module reimplementation or next package"
-  ],
+  "remaining_work": [],
   "external_blockers": [],
   "publication_constraint": "Implementation/probe source copies, build configurations and binary artifacts remain omitted from Plan. Historical automatic-review rejections are retained in evidence-publication-policy.json; the user subsequently instructed continuation of the precise reduced scope.",
   "implementation_ci": {
@@ -144,7 +139,7 @@
     "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/43811091217",
     "conclusion": "success"
   },
-  "delivery_state": "final_evidence_checkpoint_requires_current_head_plan_ci_before_ready",
+  "delivery_state": "completed_linux_scope",
   "authorization_followup": "After the precise reduced archive scope, destination and automatic-review rejection were explained, the user explicitly instructed the executor to continue. Publication resumes with the same sanitized log/result/hash archive, not the rejected source/configuration payload.",
   "plan_summary_ci": {
     "commit": "88ce0f18a780445b04e56dd52c74c8d2d3756f7b",
@@ -152,5 +147,30 @@
     "url": "https://github.com/IzuSharp/Plan/actions/runs/43812171263",
     "conclusion": "success",
     "scope": "Previous nine-document summary checkpoint; not substituted for the final evidence-head check"
+  },
+  "plan_evidence_ci": {
+    "commit": "cd992c6f965e6b00c198b45229d97b9a2fc935f8",
+    "tree": "43ff9a7ae65ef5ace3a9c50e0020ee5a43963ee2",
+    "run_id": 43813848789,
+    "url": "https://github.com/IzuSharp/Plan/actions/runs/43813848789",
+    "job": "paired-integrity",
+    "job_id": 133121286040,
+    "conclusion": "success",
+    "scope": "Published sanitized raw-evidence checkpoint; existing provenance and graph gates passed without native experiment reruns."
+  },
+  "next_step": "Apply closeout_gate to the live PR heads and readiness state. Once satisfied, leave both PRs for normal review and merge under the existing repository process; stop at Task-01.",
+  "current_pr_checks": "The linked PRs expose checks for their current heads. The pinned evidence CI above is not a substitute for a check on a later documentation-only closeout commit.",
+  "remaining_work_scope": "Component implementation, integration, Linux acceptance and evidence publication only; documentation-head CI and PR readiness are resolved by closeout_gate.",
+  "closeout_gate": {
+    "kind": "conditional_live_pr_state",
+    "plan_repository": "IzuSharp/Plan",
+    "branch": "task/Task-01-linux",
+    "plan_pr": 12,
+    "required_check": "paired-integrity",
+    "required_conclusion": "success",
+    "required_plan_pr_state": "open_non_draft_or_merged_under_existing_rules",
+    "recovery": "Read the current Plan PR head and its paired-integrity result. If that check is pending or failed, finish only the necessary Task-01 closeout; if it passed and the PR is still Draft, mark the existing PR ready for review. Confirm both existing PR descriptions identify the published evidence. If all conditions are already satisfied, report completion and stop.",
+    "result_location": "Current PR checks and metadata; the PR description links the final documentation-head check. Do not create another ledger commit solely to record a check on the preceding ledger commit.",
+    "component_reexecution_required": false
   }
 }

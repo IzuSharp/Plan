@@ -2,7 +2,7 @@
 
 ## Result and scope
 
-**A01, A19, A21 and B01 are complete for their Linux x64 scope, independently reviewed and integrated.** The final implementation CI passed. This checkpoint includes the sanitized raw execution results, event streams, logs, source identities, review outcomes and batch recovery records. The existing Plan CI must pass on this final evidence head before Plan PR readiness; the earlier summary-only check is not a substitute.
+**A01, A19, A21 and B01 are complete for their Linux x64 scope, independently reviewed and integrated.** The final implementation CI passed. This checkpoint includes the sanitized raw execution results, event streams, logs, source identities, review outcomes and batch recovery records. The published raw-evidence checkpoint `cd992c6f965e6b00c198b45229d97b9a2fc935f8` passed the existing Plan `paired-integrity` check. Task-01 Linux delivery is complete and is handed off for normal PR review.
 
 PLATFORM=`linux`, RID=`linux-x64`. All four tasks have empty start/acceptance dependencies and were developed in separate worktrees. No package-external task or new platform/CI matrix was implemented. Other platforms remain unexecuted; global acceptance remains false.
 
@@ -42,11 +42,13 @@ Pinned SDKs: .NET11.0.100 and Rust1.100.0. Actual compiler-driver/linker identit
 
 The shared solution has14 unique projects/assemblies. All22 B01 accepted lock entries and activated Linux features are preserved. Hello World's exact native asset remains dependency-free. Shared integration was serial and minimal. Completed component suites were not repeated merely because the batch was still in progress.
 
-The previous nine-document Plan summary at `88ce0f18a780445b04e56dd52c74c8d2d3756f7b` passed [CI43812171263](https://github.com/IzuSharp/Plan/actions/runs/43812171263). The final raw-evidence head requires its own existing paired-integrity check. No unrelated historical native experiment is manually rerun.
+The previous nine-document Plan summary at `88ce0f18a780445b04e56dd52c74c8d2d3756f7b` passed [CI43812171263](https://github.com/IzuSharp/Plan/actions/runs/43812171263). The published raw-evidence checkpoint `cd992c6f965e6b00c198b45229d97b9a2fc935f8` passed [Plan CI 43813848789](https://github.com/IzuSharp/Plan/actions/runs/43813848789), including the existing provenance and graph gates. Its tree `43ff9a7ae65ef5ace3a9c50e0020ee5a43963ee2` exactly matches local checkpoint `3b589fc4e15f78ca98bc3891b29fadf3e7eafe37`, verified by Git fetch. No historical native experiment or completed component suite was rerun during this closeout.
+
+The remaining changes in this closeout are batch handoff/status/publication metadata only. The Plan PR description records the final check on that documentation commit; the linked PR checks remain authoritative for their current heads. The stored evidence run is not a substitute for a check on a different head.
 
 ## Archive availability and publication history
 
-Two automatic tool-review rejections are retained as historical events. A smaller nine-document summary was published successfully. Following the user's explicit continuation instruction, this final tree adds only the already-described sanitized logs/results/metadata/hash archive.
+Two automatic tool-review rejections are retained as historical events. A smaller nine-document summary was published successfully. Following the user's explicit continuation instruction, the already-described sanitized logs/results/metadata/hash archive was published successfully in `cd992c6f965e6b00c198b45229d97b9a2fc935f8`. The publication blocker is resolved; the two rejections remain historical records.
 
 [Evidence publication policy](evidence-publication-policy.json) enumerates omitted full implementation/probe source, build configuration, duplicate schema and binary payloads. Original execution/review manifests remain byte-identical and may name those omitted local files; their names/hashes do not imply remote availability. [Raw evidence receipt](raw-evidence-receipt-linux.json) and [per-file hash index](raw-evidence-index-linux.json) bind the retained records. Detailed author handoffs retain their original checkpoint context; this batch handoff and task summaries provide the final integration state.
 
@@ -71,6 +73,8 @@ Plan PR: https://github.com/IzuSharp/Plan/pull/12
 
 [Status](status-linux.json) lists owners, all integrated commits, author/remote checkpoints and final checks. [Publication mappings](publication-checkpoints.json) retain exact tree correspondences. [Verification summary](verification-summary-linux.json) records actual scope and results.
 
-## Final handoff action
+## Completed handoff and next step
 
-Publish this exact evidence checkpoint, verify its existing Plan CI, update both PR descriptions and mark Plan ready for normal review when the check succeeds. All Linux component implementation/acceptance work is finished; no component restart or next package is required. Stop after Task-01.
+The sanitized evidence is published and its Plan check passed. All four Linux components are complete, with no pending integration commit or external Task-01 blocker. Both existing PR descriptions identify the completed Linux scope and published evidence. Plan PR readiness follows its successful current-head check; review and merge remain under the existing repository process.
+
+No further Task-01 implementation or component acceptance work is scheduled. Resume from the linked PRs only if a new check or review finding requires action within this scope. Stop after Task-01; do not start Task-02.
