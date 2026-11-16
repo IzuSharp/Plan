@@ -128,7 +128,7 @@
     "verification": "Current-head GitHub CI43811091217 passed all required jobs, including full formatting, build/package/API checks, actual NativeAOT consumers and a fresh Linux SDK container without Rust. Local final solution build passed; local full formatter was IPC-blocked and is not misreported as a local pass.",
     "required_checks_pending": [],
     "a13_completion_claim": false,
-    "required_checks_pending_scope": "The integrated implementation and published raw-evidence checkpoints only. The conditional closeout_gate below resolves later documentation-head checks."
+    "required_checks_pending_scope": "Original implementation/evidence and post-merge delivery checkpoints; all have passed. Final ledger-only PR checks are recorded in that PR."
   },
   "remaining_work": [],
   "external_blockers": [],
@@ -139,7 +139,7 @@
     "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/43811091217",
     "conclusion": "success"
   },
-  "delivery_state": "completed_linux_scope",
+  "delivery_state": "merged_linux_scope_preview_verified",
   "authorization_followup": "After the precise reduced archive scope, destination and automatic-review rejection were explained, the user explicitly instructed the executor to continue. Publication resumes with the same sanitized log/result/hash archive, not the rejected source/configuration payload.",
   "plan_summary_ci": {
     "commit": "88ce0f18a780445b04e56dd52c74c8d2d3756f7b",
@@ -158,19 +158,47 @@
     "conclusion": "success",
     "scope": "Published sanitized raw-evidence checkpoint; existing provenance and graph gates passed without native experiment reruns."
   },
-  "next_step": "Apply closeout_gate to the live PR heads and readiness state. Once satisfied, leave both PRs for normal review and merge under the existing repository process; stop at Task-01.",
-  "current_pr_checks": "The linked PRs expose checks for their current heads. The pinned evidence CI above is not a substitute for a check on a later documentation-only closeout commit.",
-  "remaining_work_scope": "Component implementation, integration, Linux acceptance and evidence publication only; documentation-head CI and PR readiness are resolved by closeout_gate.",
+  "next_step": "Linux Task-01 is closed after both original PR merges, successful post-merge CI and verified automatic preview publication. Finish only the final ledger PR checks/merge and its post-merge CI, then stop; do not start Task-02.",
+  "current_pr_checks": "Both original Task-01 PRs are merged. post-merge-linux.json binds their actual merge commits, post-merge CI and preview receipt. The final record-only PR description retains its own checks and merge result.",
+  "remaining_work_scope": "No component implementation, integration, Linux acceptance, evidence publication or original post-merge release work remains. The final record-only PR follows the normal repository process.",
   "closeout_gate": {
-    "kind": "conditional_live_pr_state",
-    "plan_repository": "IzuSharp/Plan",
-    "branch": "task/Task-01-linux",
-    "plan_pr": 12,
-    "required_check": "paired-integrity",
-    "required_conclusion": "success",
-    "required_plan_pr_state": "open_non_draft_or_merged_under_existing_rules",
-    "recovery": "Read the current Plan PR head and its paired-integrity result. If that check is pending or failed, finish only the necessary Task-01 closeout; if it passed and the PR is still Draft, mark the existing PR ready for review. Confirm both existing PR descriptions identify the published evidence. If all conditions are already satisfied, report completion and stop.",
-    "result_location": "Current PR checks and metadata; the PR description links the final documentation-head check. Do not create another ledger commit solely to record a check on the preceding ledger commit.",
-    "component_reexecution_required": false
+    "kind": "satisfied_original_task_delivery",
+    "implementation_pr_merged": true,
+    "plan_pr_merged": true,
+    "post_merge_ci": "success_in_both_repositories",
+    "automatic_preview": "published-and-consumed",
+    "evidence": "ledger/evidence/batches/Task-01/post-merge-linux.json",
+    "component_reexecution_required": false,
+    "record_publication": "Complete the final ledger-only PR through normal checks, merge and post-merge CI. Its durable PR description records these final outcomes without another ledger commit solely to name its own check."
+  },
+  "post_merge_evidence": "ledger/evidence/batches/Task-01/post-merge-linux.json",
+  "post_merge": {
+    "implementation_merge_commit": "10915d26b13a5ffd0b1abbe06d5934dfb0f2d771",
+    "plan_merge_commit": "09871edda0cf9db4caa6517176d8cdc086291fa0",
+    "implementation_ci": {
+      "run_id": 43816618645,
+      "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/43816618645",
+      "event": "push",
+      "head_sha": "10915d26b13a5ffd0b1abbe06d5934dfb0f2d771",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "plan_ci": {
+      "run_id": 43816635305,
+      "url": "https://github.com/IzuSharp/Plan/actions/runs/43816635305",
+      "event": "push",
+      "head_sha": "09871edda0cf9db4caa6517176d8cdc086291fa0",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "preview_run": "https://github.com/IzuSharp/NativeWeave/actions/runs/43816618640",
+    "preview_status": "published-and-consumed",
+    "package_id": "NativeWeave.HelloWorld",
+    "package_version": "0.1.0-preview.5.1"
+  },
+  "final_record_worktree": {
+    "branch": "task/Task-01-closeout-linux",
+    "worktree": "ROOT/.worktree/Task-01-closeout-linux/Plan",
+    "original_batch_worktrees": "preserved_unchanged"
   }
 }
