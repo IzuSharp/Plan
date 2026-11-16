@@ -1,0 +1,7 @@
+{
+  "candidate": "c5bbd96be936e159de67ed5c08d10f889d87f3b9",
+  "status": "superseded_by_independent_review_finding",
+  "finding": "DatabaseOwner uses physical SafeHandle.IsClosed without a distinct logical Closing admission state; disposal while an existing DangerousAddRef is held permits new source calls.",
+  "independent_reproduction": "Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-pre-fix-*.json",
+  "action": "Add atomic logical Closing before base SafeHandle disposal; check before and after access retention; verify source Borrow/metadata registration rejection with an existing lease."
+}

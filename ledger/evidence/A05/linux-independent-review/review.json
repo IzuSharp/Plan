@@ -1,0 +1,101 @@
+{
+  "reviewer": "/root/environment_review",
+  "author": "/root",
+  "task": "A05",
+  "platform": "linux-x64",
+  "reviewed_commit": "f743b16b139b1e88000f057f714876565b2f500d",
+  "status": "accepted_linux_x64_task_scope",
+  "source_sha256": {
+    "native/interop/errors/src/lib.rs": "dc8f2f3d3dd40f715e2f4d93497304826414ba903c5a8a929a8b1bd8d64a8b3c",
+    "native/interop/errors/src/tests.rs": "6443f0af590ec2f6fd2b77cb3b526c85062416d42d5273ac3bea469757d8dfc0",
+    "src/Interop.Errors/NativeEngineException.cs": "f011a216f31858cf2d655594dacabca13abe8edd329fc5835da26c6d3751f519",
+    "src/Interop.Errors/NativeError.cs": "8e30dc71b3060e673ec4bc425b8938dc23f5f706c749bbe7fcd187da5a6c24e7",
+    "tests/Interop.Errors/verify.py": "633f276bf0f0c451521c65d262be29b3797ac01debcef64fee1067318a3c517e",
+    "tests/Interop.Errors/Program.cs": "14c695e9caf7e90d25f76738aa28aaa2c3a8e0733c8042b563e6f3fc26a846bc",
+    "tests/Interop.Errors/native/src/lib.rs": "04c4e8ecc01aec3fa2d8c6d156547b80fa741a2826f4b3514ea8685b49354106",
+    "tests/Interop.Errors/native/src/panic_probe.rs": "098f421d6b1a6e4b49c4660c0bfee41761c8bea2bf89cd3c3a53f54e9ed0a2cc"
+  },
+  "independent_probes": {
+    "cases": 23,
+    "result": {
+      "passed": true,
+      "independent_cases": 23,
+      "guard_page_short_header": true,
+      "trusted_cleanup_counted": true
+    },
+    "inputs_sha256": {
+      "Cargo.toml": "6d40343fc9a9232503bc43525ade9f1980f4c07e2f13e70220d4f34b746cfe28",
+      "Cargo.lock": "2a84cf560e891819851a6d0134e2b7ec91a66c7b27d9f282db69af5e1b28148c",
+      "src/main.rs": "885312146fe4ada7ef91501c8f21e1f4585bb01b9734411dbbae5f0b729aa661"
+    },
+    "stdout_sha256": "f913e4553b106e7035d242c730729517da3aca22de7e21bc488020d7fc103428",
+    "stderr_sha256": "2b25b5084791ab2f7006b2f5601fe801a9aa4a4f7d36ad4d7f889f65b30bc01e",
+    "scope": [
+      "Actual protected guard-page short-header read/no-write",
+      "Every ordinary/unknown/status-normalization poison class",
+      "Owned detail survives source mutation",
+      "Trusted cleanup remains admitted and counted after poison"
+    ]
+  },
+  "findings": [
+    {
+      "id": "A05-REV-B05-001",
+      "severity": "material-build-evidence",
+      "issue": "Ordinary/AOT restore used shared mutable lock selection and unlocked restore; verifier lacked source-byte stability binding. Existing successful run therefore did not establish clean final source acceptance.",
+      "status": "resolved-verified",
+      "fix": "f743b16 adds separate ordinary/AOT locks, locked restores and before/after source equality.",
+      "verification": "All ordinary/AOT restores used locked mode; successful clean-head run retained source SHA256 unchanged and those bytes match committed Git for all recorded inputs."
+    },
+    {
+      "id": "A05-AUTHOR-002",
+      "severity": "material-recovery",
+      "issue": "Author found fatal-probe source under ignored src/bin; an executable output is not recoverable source.",
+      "status": "fixed-source-reviewed",
+      "fix": "f743b16 tracks tests/Interop.Errors/native/src/panic_probe.rs and exact Cargo bin path."
+    }
+  ],
+  "prior_evidence_audit": {
+    "run": "run-20261116T073857Z",
+    "command_results": 39,
+    "raw_stream_hashes_checked": 78,
+    "artifact_hashes_checked": 6,
+    "mismatches": 0,
+    "acceptance": "excluded because original source/lock drift; retained as development evidence"
+  },
+  "code_conclusions": [
+    "Complete24-byte capacity algorithm preserves original status and tails, including zero/no-detail cases.",
+    "Per-engine admission/poison atomicity and separately permitted trusted cleanup align D08.",
+    "Unknown caught payloads are forgotten and counted; unknown reachable bytes and host limits are documented honestly.",
+    "Managed callback bridge latches failure and cleanup notification without changing original native terminal outcome.",
+    "Managed native/pre-native diagnostics have exact nullable metadata and no native owner retention.",
+    "No declared recovery from abort, double panic, panicking hook, invalid UCO, or illegal FFI unwind."
+  ],
+  "limitations": [
+    "Linux x64 only",
+    "Independent review is technical review, not a fabricated second GitHub approval identity",
+    "No A06/A07 assembled async coordinator or product package release acceptance"
+  ],
+  "accepted_run": {
+    "path": "/workspace/scratch/0898a75257bc/.worktree/Task-02-A05-linux/NativeWeave/artifacts/interop-errors/run-20261116T074215Z/result.json",
+    "sha256": "26fc43e2310d0c602e1f9b3d2aa8caf59af1d87921e76683f21509232df5f089",
+    "command_results": 39,
+    "raw_stream_hashes_checked": 78,
+    "source_and_committed_git_bytes_checked": 47,
+    "artifact_hashes_checked": 6,
+    "mismatches": 0,
+    "source_unchanged_after_run": true,
+    "source_dirty": false,
+    "negative_child_exits": {
+      "panic-drop": 101,
+      "panic-double": -6,
+      "panic-hook": -6,
+      "panic-ffi": -6,
+      "panic-abort": -6,
+      "invalid-uco-jit": -6,
+      "invalid-uco-aot-run": -6
+    },
+    "actual_native_aot": "PASS A05 70 assertions; real native boundary; callback roots released.",
+    "compiled_api_xml": "{\"status\":\"passed\",\"compiled_symbols\":26,\"exact_pinned_signatures\":26,\"xml_complete\":true,\"generated_reference\":true}"
+  },
+  "unresolved_material_findings": []
+}

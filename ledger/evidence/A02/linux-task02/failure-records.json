@@ -1,0 +1,21 @@
+{
+  "formal_run_failures": [],
+  "development_observations": [
+    {
+      "id": "A02-DEV-01",
+      "observation": "Default MSBuild/compiler server startup was slow; the build eventually completed. Project-mode dotnet format stalled and was interrupted (130).",
+      "resolution": "Ordinary build flags disable optional MSBuild/compiler servers. The supported dotnet format whitespace --folder mode completed and its verify-no-changes check passed in the formal run. Repository CI remains unchanged."
+    },
+    {
+      "id": "A02-DEV-02",
+      "observation": "dotnet run forwarded an unsupported CLI flag to the API checker, selecting the wrong SDK argument; this execution failed.",
+      "resolution": "The verifier builds the maintainer checker and invokes its DLL explicitly with exact arguments."
+    },
+    {
+      "id": "A02-DEV-03",
+      "observation": "Roslyn compiled metadata does not retain the record-struct classification; the first exact declaration comparison failed for three record types.",
+      "resolution": "The checker confirms that source-sensitive keyword from actual owned record declarations and still compares every emitted member against the independent exact Design inventory. The formal84-symbol check passed."
+    }
+  ],
+  "scope_note": "Development observations summarize actual tool outputs; raw streams are preserved for every formal run command. They are not retrospectively represented as formal successful runs."
+}

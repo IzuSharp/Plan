@@ -1,0 +1,461 @@
+[
+  {
+    "label": "rust-toolchain",
+    "command": [
+      "rustc",
+      "--version",
+      "--verbose"
+    ],
+    "exit_code": 0,
+    "seconds": 0.113,
+    "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "dotnet-toolchain",
+    "command": [
+      "dotnet",
+      "--info"
+    ],
+    "exit_code": 0,
+    "seconds": 0.03,
+    "stdout_sha256": "bf316ba69a52acffde2c02a236d7684073f589b0cecebf35efec987ba2dd7bee",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "native-features",
+    "command": [
+      "cargo",
+      "tree",
+      "-p",
+      "nativeweave-data-postgres",
+      "-e",
+      "features",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "seconds": 0.342,
+    "stdout_sha256": "a1e4a703e14fc96831e3adebbebaa82af6e1a91236abc75d293a0b1e0d9c8f9e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "native-metadata",
+    "command": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--no-deps",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "seconds": 0.056,
+    "stdout_sha256": "86d9dc9479ae81527ca01d21e385b7130bd384d7f017267a133af35d125f3860",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "pg-init-valid",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/initdb",
+      "-D",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/pg-valid",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "exit_code": 0,
+    "seconds": 0.947,
+    "stdout_sha256": "c0bf88128893f63c0227faf7769f147782b192f924b92e6b72ee4848fb7a2dc0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "pg-init-expired",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/initdb",
+      "-D",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/pg-expired",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "exit_code": 0,
+    "seconds": 0.932,
+    "stdout_sha256": "ff0590c41219564cda9cc485d1111f6b87e9e29cad6f482176775890eb29e636",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "pg-init-plain",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/initdb",
+      "-D",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/pg-plain",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "exit_code": 0,
+    "seconds": 0.89,
+    "stdout_sha256": "22aed0e03ca7c771b08ae1c447838f89c7ce977b23fc0fcd31c362478d7cc009",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "rust-oracles",
+    "command": [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "tests/Data.Postgres/native/Cargo.toml",
+      "--locked",
+      "--offline",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "seconds": 7.42,
+    "stdout_sha256": "11a2050e60dba12720a7b5285af353c0e1ea7376cc64dd984d7df563b5037a4b",
+    "stderr_sha256": "971e42d06e1360421466151052712ce1a9fdb7c87e73251d0ef61679adce1632"
+  },
+  {
+    "label": "component-release",
+    "command": [
+      "cargo",
+      "build",
+      "-p",
+      "nativeweave-data-postgres",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "seconds": 5.893,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "92b2873f2a1ea5dde4f7e7abb1005e7e7190377fbc4fda429b1ce1a02ea0dfac"
+  },
+  {
+    "label": "component-link-command",
+    "command": [
+      "cargo",
+      "rustc",
+      "-p",
+      "nativeweave-data-postgres",
+      "--release",
+      "--locked",
+      "--offline",
+      "--",
+      "--print=link-args"
+    ],
+    "exit_code": 0,
+    "seconds": 5.396,
+    "stdout_sha256": "7a33bbef6495123b0eb374d92c28ed8f3484c0f21177ca29a772915a6fd4c50c",
+    "stderr_sha256": "eaa43b80867daa54e32c3458f9a150480024e18bb6e07e3113a7b8eb1c3371a4"
+  },
+  {
+    "label": "fixture-release",
+    "command": [
+      "cargo",
+      "build",
+      "--manifest-path",
+      "tests/Data.Postgres/native/Cargo.toml",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "seconds": 8.102,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "c8d1192d097fb3125f0c1926819ad0caf763269a6472a7588674c4d9a8f30642"
+  },
+  {
+    "label": "test-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 2.411,
+    "stdout_sha256": "2112aa4d5cd020e45234892525b3df78f0c6898bbe23f660eccb6366483d0c76",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "test-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 10.486,
+    "stdout_sha256": "2783ba73d0f5d4a0d64cbced21d7e8fb16de1f9e1a3441a1a08d8cb2d547b436",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "api-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Postgres/ApiCheck/ApiCheck.csproj",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 1.171,
+    "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "api-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Postgres/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 2.756,
+    "stdout_sha256": "05252d2f602a81753cf0806d72c16bb7d12d92caf0830006b39c1e8e13571927",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/data-postgres/PostgresExample.csproj",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 1.467,
+    "stdout_sha256": "9fc0479949ba9bdd0332732140a6d4f7ad9cf1668d3fc56328909c0f424bdc23",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-build",
+    "command": [
+      "dotnet",
+      "build",
+      "samples/api/data-postgres/PostgresExample.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 2.792,
+    "stdout_sha256": "374ede4614ccd1f6dd5b1cd6daa7bb0987d58efe3595ba943bd61082f034a451",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "exact-api-xml-reference",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/tests/Data.Postgres/ApiCheck/bin/Release/net11.0/ApiCheck.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/dotnet-sdk",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/src/Data.Postgres/bin/Release/net11.0/NativeWeave.Database.PostgreSql.dll"
+    ],
+    "exit_code": 0,
+    "seconds": 0.256,
+    "stdout_sha256": "bc1b992a4eda0660776ba39b305d6c1cd4d26605e8c0e4cf6ed4cde4a29c63d8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "managed-jit",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/tests/Data.Postgres/bin/Release/net11.0/NativeWeave.Database.PostgreSql.Tests.dll"
+    ],
+    "exit_code": 0,
+    "seconds": 3.265,
+    "stdout_sha256": "9d85a0bf84b4738d60897aa9b73fd9d5e6b4f9ee3115b5d058e822011334a5af",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-jit",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/samples/api/data-postgres/bin/Release/net11.0/PostgresExample.dll"
+    ],
+    "exit_code": 0,
+    "seconds": 0.119,
+    "stdout_sha256": "4e3a1c978574b81dd69c1e1cb5f343554505305a83c094137f4ae07cc5077fa3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "test-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 2.253,
+    "stdout_sha256": "bd0b0684c32a490f0f70b1540b92adf4fbd9e32043a338b02bf01c8104c71587",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "aot-linker-selection",
+    "command": [
+      "dotnet",
+      "msbuild",
+      "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj",
+      "-nologo",
+      "-t:ResolveReferences,SetupOSSpecificProps",
+      "-p:Configuration=Release",
+      "-p:RuntimeIdentifier=linux-x64",
+      "-p:PublishAot=true",
+      "-getProperty:CppCompilerAndLinker,CppLinker,LinkerFlavor",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 8.087,
+    "stdout_sha256": "f10c0a55e496bdaa23515f321fefcffe3833b4725f89558d6a2cc7b6bcae1cb4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "test-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/test-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 6.497,
+    "stdout_sha256": "7100d65f75b615332f14ed234c8fc2f3ed63f23115f3091f66f0092236e00d7c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "test-aot-run",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/test-aot/NativeWeave.Database.PostgreSql.Tests",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "seconds": 3.024,
+    "stdout_sha256": "9e08d14812104641dca0d8e813c8cd4a84d1012f841c08f09c5671a9fb42f7a9",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/data-postgres/PostgresExample.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 1.6,
+    "stdout_sha256": "fdbab98ebb7686de4653293fcb1e4fb020eda33f38feac5a6c0d344b11f3cc6e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "samples/api/data-postgres/PostgresExample.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/sample-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/target/release/libnativeweave_data_postgres.so"
+    ],
+    "exit_code": 0,
+    "seconds": 6.212,
+    "stdout_sha256": "b8bfd3968805c0147fdeedb59531f4b1b53c383170fd8b0cd3f8fe63a733745d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "sample-aot-run",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B02-linux/NativeWeave/artifacts/B02/review-parent-fixed/sample-aot/PostgresExample"
+    ],
+    "exit_code": 0,
+    "seconds": 0.014,
+    "stdout_sha256": "4e3a1c978574b81dd69c1e1cb5f343554505305a83c094137f4ae07cc5077fa3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

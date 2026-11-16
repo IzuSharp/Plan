@@ -1,0 +1,37 @@
+{
+  "task": "B07",
+  "platform": "linux-x64",
+  "reviewer": "main executor, independent of codec implementation worker",
+  "status": "accepted_component",
+  "source_commit": "956d38d1658d48b9ed77c1b5b0ec0e9889cfd314",
+  "source_manifest_sha256": "47438b3c48f6a153c025301639c06a30188e4fb475e9a40ac231604b680133c9",
+  "summary_sha256": "7127cedf7bcf49189aaf23965d503aef7b72d777c883e6cd7ce434cfa1506800",
+  "checked_source_files": 32,
+  "checked_focused_commands": 9,
+  "findings": [
+    {
+      "id": "B07-REVIEW-01",
+      "issue": "chrono leap instants could normalize before wire serialization",
+      "resolution": "Reject nanos >= 1000000000 before timestamp_micros; direct and SeaQuery UTC/fixed-offset regression cases pass",
+      "reproduction": "linux-review-fix-001/reproduction.json",
+      "fixed_commit": "956d38d1658d48b9ed77c1b5b0ec0e9889cfd314"
+    }
+  ],
+  "review_scope": [
+    "Production Rust parameter and scalar codecs",
+    "Managed internal snapshot and canonical B01 reuse",
+    "SQLx Arguments::add error propagation and rollback behavior",
+    "Exact range, width, NULL, UUID, decimal, time precision and malformed wire paths",
+    "Full-run command/artifact hashes and focused final source/log binding",
+    "Documentation, zero-public-API inventory and JIT/AOT actual provider roundtrips"
+  ],
+  "evidence": [
+    "linux-run-001/summary.json",
+    "linux-review-fix-001/summary.json"
+  ],
+  "limitations": [
+    "Linux x64 component acceptance only",
+    "Full B04 host and pristine downstream packaging are not claimed",
+    "Focused review run explicitly reuses unchanged managed compilation artifacts"
+  ]
+}

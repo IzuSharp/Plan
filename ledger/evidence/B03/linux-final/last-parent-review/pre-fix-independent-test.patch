@@ -1,0 +1,96 @@
+--- a/native/database/sqlite/tests/provider.rs
++++ b/native/database/sqlite/tests/provider.rs
+@@ -10,9 +10,17 @@
+             .duration_since(std::time::UNIX_EPOCH)?
+             .as_nanos()
+     ));
+-    for case in 1..=scenarios::CASES {
++    for case in 1..scenarios::CASES {
+         scenarios::run(case, &root).await?;
+     }
+     std::fs::remove_dir_all(root)?;
+     Ok(())
+ }
++
++#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
++async fn last_parent_retirement_joins_actual_worker() -> scenarios::TestResult {
++    let root = std::env::temp_dir().join(format!("nativeweave-b03-last-parent-{}-{}", std::process::id(), std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_nanos()));
++    scenarios::run(scenarios::CASES, &root).await?;
++    std::fs::remove_dir_all(root)?;
++    Ok(())
++}
+--- a/native/database/sqlite/tests/support/scenarios.rs
++++ b/native/database/sqlite/tests/support/scenarios.rs
+@@ -27,7 +27,7 @@
+ };
+ 
+ pub type TestResult<T = ()> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
+-pub const CASES: u32 = 12;
++pub const CASES: u32 = 13;
+ const WAIT: Duration = Duration::from_secs(15);
+ 
+ fn limits() -> Limits {
+@@ -137,6 +137,7 @@
+         10 => concurrency(&file).await?,
+         11 => migrations(&file).await?,
+         12 => read_only(&file).await?,
++        13 => last_parent(&file).await?,
+         _ => return Err("unknown B03 scenario".into()),
+     }
+     println!("PASS B03 native scenario {case}");
+@@ -785,3 +786,55 @@
+     assert_eq!(scalar(&s, "SELECT count(*) FROM readonly_probe").await?, 1);
+     close(s, pool).await
+ }
++
++async fn last_parent(file: &Path) -> TestResult {
++    struct CloseGate {
++        entered: Option<tokio::sync::oneshot::Sender<()>>,
++        release: std::sync::mpsc::Receiver<()>,
++    }
++    impl Drop for CloseGate {
++        fn drop(&mut self) {
++            if let Some(entered) = self.entered.take() {
++                let _ = entered.send(());
++                // TEST ONLY: SQLx drops this callback capture while destroying the
++                // actual ConnectionState, before its worker shutdown ACK is sent.
++                let _ = self.release.recv();
++            }
++        }
++    }
++    let pool = pool(file, &Options::default(), limits()).await?;
++    let mut connection = pool.acquire().await?;
++    let (entered_tx, entered_rx) = tokio::sync::oneshot::channel();
++    let (release_tx, release_rx) = std::sync::mpsc::channel();
++    let gate = CloseGate { entered: Some(entered_tx), release: release_rx };
++    connection.lock_handle().await?.set_commit_hook(move || { std::hint::black_box(&gate); true });
++    let s = Session::start(connection, Options::default(), Admission::new(limits())?, &tokio::runtime::Handle::current())?;
++    execute(&s, "CREATE TABLE final_parent(id INTEGER)").await?;
++    let tx = transaction(&s, TransactionOptions::default()).await?;
++    tx_execute(&tx, &s, "INSERT INTO final_parent VALUES (1)").await?;
++    let observer = s.observer();
++    drop(s);
++    let committing = tx.clone();
++    let joining = tokio::spawn(async move {
++        committing.commit(&AdmissionToken::default()).await?;
++        Ok::<_, TransactionError>(committing.join().await)
++    });
++    tokio::time::timeout(WAIT, entered_rx).await??;
++    let premature = tx.snapshot().local_resources_released;
++    let ack = observer.snapshot().worker_shutdown_acknowledged;
++    let size = pool.size();
++    println!("B03 last-parent barrier: local_released={premature}, worker_ack={ack}, physical_pool_size={size}");
++    release_tx.send(())?;
++    let final_state = tokio::time::timeout(WAIT, joining).await???;
++    let worker = tokio::time::timeout(WAIT, observer.join()).await??;
++    assert!(!premature, "transaction released its last parent lease before actual worker closure");
++    assert!(!ack && size == 1, "the test must observe the retained physical worker");
++    assert!(worker.worker_shutdown_acknowledged && worker.physical_lease_released);
++    assert_eq!(pool.size(), 0);
++    assert!(final_state.local_resources_released);
++    assert_eq!(final_state.outcome, TransactionOutcome::Committed);
++    assert_eq!(final_state.resources.physical_lease, 0);
++    assert!(!worker.os_thread_joined);
++    pool.close().await;
++    Ok(())
++}

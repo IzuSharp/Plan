@@ -1,0 +1,61 @@
+{
+  "platform": "linux-x64",
+  "status": "accepted_component",
+  "reviewer": "main executor, independent of original component implementation worker",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "scope_limits": [
+    "Linux x64 component acceptance only",
+    "Complete B04 host and pristine package composition remain their explicit downstream gates",
+    "No Windows or all-platform acceptance"
+  ],
+  "task": "B03",
+  "source_commit": "c1d249b0d7b5fcec0403c864c64ff0e22652461e",
+  "review_scope": [
+    "Typed configuration and canonical option encoding, bounded admission and SQLx connection actor",
+    "Transaction cleanup/last-parent ownership, progress cancellation generation and pool return",
+    "Reserve-before-fetch row stream ownership and handoff peak accounting",
+    "Actual SQLite worker acknowledgement without claiming an OS thread JoinHandle receipt",
+    "Exact API/XML, generated reference, JIT/AOT provider consumers and retained source/log/artifact hashes"
+  ],
+  "findings": [
+    {
+      "id": "B03-LAST-PARENT",
+      "resolution": "Consume the driver Session lease before the owner/close observation and await the real worker receipt; deterministic destructor barrier verifies that released remains false before acknowledgement.",
+      "fixed_commit": "22e077e141c26d5fc0597bfa040534966668da05"
+    },
+    {
+      "id": "B03-ROW-HANDOFF",
+      "resolution": "Reserve existing channel capacity before SQLx next; RAII row accounting covers send/drop races. Four actual 10000-row trials observe peak two.",
+      "fixed_commit": "22e077e141c26d5fc0597bfa040534966668da05"
+    },
+    {
+      "id": "B03-ACQUIRE-DEADLINE",
+      "resolution": "Reject zero and unrepresentable Duration values before SQLx deadline construction and file I/O; old Duration::MAX panic retained.",
+      "fixed_commit": "c1d249b0d7b5fcec0403c864c64ff0e22652461e"
+    }
+  ],
+  "verification": {
+    "commands": 33,
+    "provider_groups_per_mode": 14,
+    "managed_assertions_per_mode": 36,
+    "public_symbols": 29,
+    "source_files": 102,
+    "receipt_sha256": "217be433ea7e7e94021cf756ab33afbbdd240224feb5cab280cdf691d63da74f",
+    "audit": "../batches/Task-02/provider-stream-evidence-audit-linux.json"
+  },
+  "evidence": [
+    "linux-final/attempt-003/result.json"
+  ],
+  "unresolved_findings": [],
+  "final_verified_checkpoint": "c9d5400f8371d3501696caf126c6b4496ea7e5d2",
+  "ci_followup": {
+    "scope": "Test/docs-only deterministic cancellation verification; all native/C# product inputs unchanged",
+    "evidence": "linux-ci-cancellation-repair/formal-001/result.json",
+    "mandatory_receipt_erratum": "linux-ci-cancellation-repair/formal-001/receipt-erratum.json",
+    "independent_review": "linux-ci-cancellation-repair/independent-review/review-final.json",
+    "commands": 11,
+    "release_case_groups": 12,
+    "actual_jit_and_aot_case_groups_each": 14,
+    "managed_assertions_each": 36
+  }
+}

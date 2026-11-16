@@ -1,0 +1,338 @@
+[
+  {
+    "name": "toolchain-dotnet",
+    "command": [
+      "dotnet",
+      "--info"
+    ],
+    "exit_code": 0,
+    "seconds": 0.032,
+    "log": "toolchain-dotnet.log",
+    "sha256": "2ba29f45d2938999586cdfbb6666dbdb4fb7aec5e720c9aea053ebf5e55fd9ee"
+  },
+  {
+    "name": "toolchain-rust",
+    "command": [
+      "rustc",
+      "-vV"
+    ],
+    "exit_code": 0,
+    "seconds": 0.039,
+    "log": "toolchain-rust.log",
+    "sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6"
+  },
+  {
+    "name": "native-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "-p",
+      "nativeweave-data-codecs",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.121,
+    "log": "native-format.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "native-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "-p",
+      "nativeweave-data-codecs",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "seconds": 1.038,
+    "log": "native-clippy.log",
+    "sha256": "5ea37629aa771851636d6a96901c6824f2590faeb9966a85cc51f556ef51d78f"
+  },
+  {
+    "name": "native-tests",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "nativeweave-data-codecs",
+      "--test",
+      "fallibility"
+    ],
+    "exit_code": 0,
+    "seconds": 1.27,
+    "log": "native-tests.log",
+    "sha256": "9bdd6597e6ffa8b3d96ebe27f02d50532a0b1b144257445815d13666be814c0c"
+  },
+  {
+    "name": "consumer-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Codecs/NativeWeave.Data.Codecs.Tests.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 1.21,
+    "log": "consumer-restore.log",
+    "sha256": "5d45074e13328b155af6a136b75651fb25a19fa502342737efbf43a74962bc63"
+  },
+  {
+    "name": "consumer-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Codecs/NativeWeave.Data.Codecs.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 6.957,
+    "log": "consumer-build.log",
+    "sha256": "b73f733a1891987dc7a4aa2f3369331fa82014ca3b58be565006d96c86d4a6e6"
+  },
+  {
+    "name": "api-check-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Codecs/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 0.984,
+    "log": "api-check-restore.log",
+    "sha256": "5fcfc383ef9ce7d93f9fa1b575b418a471fedf1ce19af96ae0177203766cfaf1"
+  },
+  {
+    "name": "api-check-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Codecs/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 1.972,
+    "log": "api-check-build.log",
+    "sha256": "3bc726eee22700f06220b9f6af79c1c3eaa5823d884557b81d9f3ac9e304f87f"
+  },
+  {
+    "name": "sample-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/data-codecs/DataCodecs.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 1.02,
+    "log": "sample-restore.log",
+    "sha256": "862892493b28c1f05ce5090c7257391a8405093e18553642ffa18ae777392557"
+  },
+  {
+    "name": "sample-build",
+    "command": [
+      "dotnet",
+      "build",
+      "samples/api/data-codecs/DataCodecs.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 2.524,
+    "log": "sample-build.log",
+    "sha256": "3c809221b19ba878675ce2bb29c17a04a2e2403a36892f00c88602faaa26c0d3"
+  },
+  {
+    "name": "jit-encode",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/tests/Data.Codecs/bin/Release/net11.0/NativeWeave.Data.Codecs.Tests.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/jit"
+    ],
+    "exit_code": 0,
+    "seconds": 0.128,
+    "log": "jit-encode.log",
+    "sha256": "818092d135f9dd3a7b5c874b8f2e3c75b9b8c613b00bbb5251325eaec0756b82"
+  },
+  {
+    "name": "aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "tests/Data.Codecs/NativeWeave.Data.Codecs.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:RestoreLockedMode=true",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot"
+    ],
+    "exit_code": 0,
+    "seconds": 12.903,
+    "log": "aot-publish.log",
+    "sha256": "1224fbfa562c484732c0032878a07c1663abcc2faeffbecbe56b5326347e90b0"
+  },
+  {
+    "name": "aot-encode",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot/NativeWeave.Data.Codecs.Tests",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot-vectors",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "seconds": 0.008,
+    "log": "aot-encode.log",
+    "sha256": "82f9676ddca523ef3895178eddea8aa2a333e447b49da1d749838a03adfd1d15"
+  },
+  {
+    "name": "compiled-api-reference",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/tests/Data.Codecs/ApiCheck/bin/Release/net11.0/NativeWeave.Data.Codecs.ApiCheck.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/src/Data.Codecs/bin/Release/net11.0/NativeWeave.Data.Codecs.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/src/Data.Codecs/bin/Release/net11.0/NativeWeave.Data.Codecs.xml",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/src/Data.Codecs/api-reference.md"
+    ],
+    "exit_code": 0,
+    "seconds": 0.037,
+    "log": "compiled-api-reference.log",
+    "sha256": "f0c147aedc59e305dfdc3b65f93d5ffd485ad59916b18c853b708f2b314395e1"
+  },
+  {
+    "name": "sample-execution",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/samples/api/data-codecs/bin/Release/net11.0/NativeWeave.Data.Codecs.Sample.dll"
+    ],
+    "exit_code": 0,
+    "seconds": 0.056,
+    "log": "sample-execution.log",
+    "sha256": "c6bcbc0a77bec0bc5267ac7bb2d85c167a393ed97c4aa4efdfaa1f99b49c0016"
+  },
+  {
+    "name": "postgres-init",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/initdb",
+      "-D",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/postgres-data",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "exit_code": 0,
+    "seconds": 0.859,
+    "log": "postgres-init.log",
+    "sha256": "b1dc55f721921af610bcb05e0ce6d2d7acd2338378e5c93e0c21e62a4b4d083e"
+  },
+  {
+    "name": "native-component-build",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "-p",
+      "nativeweave-data-codecs",
+      "--example",
+      "codec-roundtrip"
+    ],
+    "exit_code": 0,
+    "seconds": 1.135,
+    "log": "native-component-build.log",
+    "sha256": "cad0826b2ecceae3d380018afc5193b9f7069c7cfe058de8403a6b585ce6140c"
+  },
+  {
+    "name": "jit-providers",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/target/debug/examples/codec-roundtrip",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/jit"
+    ],
+    "exit_code": 0,
+    "seconds": 0.042,
+    "log": "jit-providers.log",
+    "sha256": "94c76286fbe11ea7ae5fa4748fecff0ce5cf70f8e0b4fa5d5b83c62d2fecdff4"
+  },
+  {
+    "name": "aot-providers",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/target/debug/examples/codec-roundtrip",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot-vectors"
+    ],
+    "exit_code": 0,
+    "seconds": 0.045,
+    "log": "aot-providers.log",
+    "sha256": "94c76286fbe11ea7ae5fa4748fecff0ce5cf70f8e0b4fa5d5b83c62d2fecdff4"
+  },
+  {
+    "name": "jit-returned-values",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/tests/Data.Codecs/bin/Release/net11.0/NativeWeave.Data.Codecs.Tests.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/jit"
+    ],
+    "exit_code": 0,
+    "seconds": 0.138,
+    "log": "jit-returned-values.log",
+    "sha256": "e5d709c0f8478423d29ead0db5aea4288791cc877bcfc8acb7bc29abea2a7a14"
+  },
+  {
+    "name": "aot-returned-values",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot/NativeWeave.Data.Codecs.Tests",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B07-linux/NativeWeave/artifacts/B07/run-1/aot-vectors",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "seconds": 0.008,
+    "log": "aot-returned-values.log",
+    "sha256": "2ad13148b21e2745f777448c91b615476a2eb43ca8b85ce7c28ff19d32538fe3"
+  }
+]

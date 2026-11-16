@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "scope": "sample project restore lock only; successful runtime evidence retained from attempt-001",
+  "commands": [
+    {
+      "name": "create-lock",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-negotiation/Interop.Negotiation.Sample.csproj",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "locked-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "samples/api/interop-negotiation/Interop.Negotiation.Sample.csproj",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "--locked-mode"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "lock_sha256": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4"
+}

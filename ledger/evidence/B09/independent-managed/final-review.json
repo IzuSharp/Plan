@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "task": "B09",
+  "reviewer": "/root/environment_review",
+  "author": "/root/plan_requirements",
+  "scope": "Independent managed ownership, callback/late-cancellation, exact ABI and documentation review",
+  "platform": "linux-x64",
+  "decision": "accepted_for_component_scope",
+  "candidate": "5bfaaa2e15726321be8b06a21557f3f62cb389e9",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "open_findings": [],
+  "resolved_findings": [
+    {
+      "id": "M1",
+      "title": "Disposed native owner admitted new business calls while an earlier SafeHandle lease remained",
+      "failing_candidate": "c5bbd96be936e159de67ed5c08d10f889d87f3b9",
+      "fixed_candidate": "5bfaaa2e15726321be8b06a21557f3f62cb389e9",
+      "independent_probe_unchanged": true,
+      "resolution": "Separate logical Closing state checked before and after physical retention; prior lease stays valid and new borrow/model creation reject."
+    }
+  ],
+  "evidence": {
+    "final-review.md": {
+      "relative_path": "final-review.md",
+      "sha256": "b8f08e853cbd94ff1839e2bea9a3467c1ad766a7d706df30ede28263441bbb9f"
+    },
+    "receipt-audit.json": {
+      "relative_path": "receipt-audit.json",
+      "sha256": "c33a904d41510be43cbcd6b8c8f0a677fc85f778053049341a05f8cf625c4678"
+    },
+    "audit.py": {
+      "relative_path": "audit.py",
+      "sha256": "73d546c093f457f509cc161c192becb967241cfef1bea4e9cb7cc0119fb2ffd5"
+    },
+    "ownership-pre-fix-inputs.json": {
+      "relative_path": "ownership-pre-fix-inputs.json",
+      "sha256": "6eea95a2ced811de517c3fefd7349325212a7af92982bafd52c6ba5f4f188a14"
+    },
+    "ownership-pre-fix-result.json": {
+      "relative_path": "ownership-pre-fix-result.json",
+      "sha256": "4ad8df11ddc9f724152c685b61000f25c309d2b9e417604f9c9d7d7f27f69ee9"
+    },
+    "ownership-fixed-inputs.json": {
+      "relative_path": "ownership-fixed-inputs.json",
+      "sha256": "1cefd2b3c9469f39f21ccd87676e3620d0476a28b87c9a0f83d84db3c43e8f0b"
+    },
+    "ownership-fixed-result.json": {
+      "relative_path": "ownership-fixed-result.json",
+      "sha256": "676d1c9cafac7be965b10d313216b4b165ca8d53094acf7dec9303e1702b41ce"
+    },
+    "ownership-probe/Program.cs": {
+      "relative_path": "ownership-probe/Program.cs",
+      "sha256": "80eb8e04176c09bc2b158d911558d902757af4a9b5f23994f3b266b79a5e2c6e"
+    },
+    "ownership-probe/ManagedOwnershipProbe.csproj": {
+      "relative_path": "ownership-probe/ManagedOwnershipProbe.csproj",
+      "sha256": "736ac13ffe77baa0e16f650c6ec2575c0e0c9ad406b59147647ca7e55d02b201"
+    },
+    "ownership-probe/packages.lock.json": {
+      "relative_path": "ownership-probe/packages.lock.json",
+      "sha256": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5"
+    }
+  },
+  "author_formal_receipt": {
+    "original_path": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B09-linux/NativeWeave/artifacts/B09/attempt-002/status.json",
+    "sha256": "fe7e75fdc6ed3e990885aa4d2d69ffab0e8463ecdcf3caa892ec18667a673741",
+    "commands": 31,
+    "source_inputs": 90,
+    "jit_assertions": 66,
+    "aot_assertions": 67,
+    "cases_per_mode": 10
+  },
+  "reexecuted_accepted_tasks": false,
+  "product_tree_writes": false,
+  "plan_writes": false,
+  "limitations": [
+    "Linux x64 component only",
+    "B04 operation coordinator and B11 provider SQL execution remain outside this internal binding task",
+    "No pristine NuGet, full host, Windows or performance acceptance claim",
+    "Focused deterministic owner-boundary probe and code review, not exhaustive concurrency-model proof"
+  ]
+}

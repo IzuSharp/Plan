@@ -1,0 +1,55 @@
+{
+  "platform": "linux-x64",
+  "status": "accepted_component",
+  "reviewer": "main executor, independent of original component implementation worker",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "scope_limits": [
+    "Linux x64 component acceptance only",
+    "Complete B04 host and pristine package composition remain their explicit downstream gates",
+    "No Windows or all-platform acceptance"
+  ],
+  "task": "B02",
+  "source_commit": "bb51918a6e6585e1705218e324af314a30084a1c",
+  "format_only_followup": "8f10686e6b1e602255123301f48a140098189572",
+  "review_scope": [
+    "Production SQLx configuration, admission, session, row-stream and transaction adapter",
+    "TLS defaults and identity failures, cancellation generations, protocol drain and physical retirement",
+    "Exact managed profile/options, API/XML/generated reference and JIT/NativeAOT fixture consumers",
+    "Actual framed COMMIT response-loss proxy plus independent durable-row observation",
+    "Source/lock inputs, every raw command stream and final artifact hashes"
+  ],
+  "findings": [
+    {
+      "id": "B02-HANDOFF",
+      "resolution": "Capacity-one producer/channel retention plus one receiver handoff is at most two; documentation and measured counters corrected. Original B06 failure retained.",
+      "evidence": "../B06/linux-development-1/"
+    },
+    {
+      "id": "B02-LAST-PARENT",
+      "resolution": "Driver consumes its Session parent before last-owner observation and joins actual retirement; operations reject after retirement.",
+      "fixed_commit": "bb51918a6e6585e1705218e324af314a30084a1c",
+      "old_code_reproduction": "linux-review-parent-reproduction/",
+      "fixed_execution": "linux-review-parent-fixed/",
+      "independent_review_of_root_authored_repair": "review-parent-independent.json"
+    }
+  ],
+  "verification": {
+    "commands": 27,
+    "provider_groups_per_mode": 11,
+    "managed_assertions_per_mode": 22,
+    "modes": [
+      "actual Rust provider",
+      "JIT",
+      "Linux x64 NativeAOT"
+    ],
+    "source_files": 101,
+    "audit": "../batches/Task-02/provider-stream-evidence-audit-linux.json"
+  },
+  "evidence": [
+    "linux-review-parent-fixed/summary.json",
+    "linux-review-parent-fixed/native-report.json",
+    "linux-review-parent-fixed/jit-report.json",
+    "linux-review-parent-fixed/test-aot-report.json"
+  ],
+  "unresolved_findings": []
+}

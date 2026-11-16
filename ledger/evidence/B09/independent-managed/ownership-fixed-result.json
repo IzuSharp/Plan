@@ -1,0 +1,60 @@
+{
+  "inputsSha256": "1cefd2b3c9469f39f21ccd87676e3620d0476a28b87c9a0f83d84db3c43e8f0b",
+  "commands": [
+    {
+      "name": "restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-probe/ManagedOwnershipProbe.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "returncode": 0,
+      "stdoutPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-restore.stdout",
+      "stdoutSha256": "e9fba3f4b04c38f1a8e73c31e7d6807e53a58fc89f1fc7a0b478a50f71c4a441",
+      "stderrPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-restore.stderr",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "build",
+      "command": [
+        "dotnet",
+        "build",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-probe/ManagedOwnershipProbe.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "returncode": 0,
+      "stdoutPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-build.stdout",
+      "stdoutSha256": "8e8ce1c1fab446e2585808fbd2ce18749837dc6cee20e953db27af095d380f42",
+      "stderrPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-build.stderr",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "execute",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-probe/bin/Release/net11.0/NativeWeave.Query.Binding.Tests.dll",
+        "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-probe/inputs/libnativeweave_query_binding_fixture.so"
+      ],
+      "returncode": 0,
+      "stdoutPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-execute.stdout",
+      "stdoutSha256": "134ba51ab26be51feeb287e61b0737f602ee3992bf5eb43cd0a27e60f0224dde",
+      "stderrPath": "/workspace/scratch/0898a75257bc/.worktree/Task-02-B03-linux/NativeWeave/artifacts/B09-managed-review/ownership-fixed-execute.stderr",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceUnchanged": true,
+  "expectedBehavior": "Dispose closes new business admission while the already acquired physical lease remains valid.",
+  "passed": true
+}

@@ -1,0 +1,52 @@
+{
+  "inputsSha256": "6eea95a2ced811de517c3fefd7349325212a7af92982bafd52c6ba5f4f188a14",
+  "commands": [
+    {
+      "name": "restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "artifacts/B09-managed-review/ownership-probe/ManagedOwnershipProbe.csproj",
+        "--use-lock-file",
+        "--configfile",
+        "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+        "-p:NuGetAudit=false",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "returncode": 0,
+      "stdoutSha256": "224032f6651f33b0dd6f4fe83c1ec7cb2d809f0be3ca445b06cf4abaa2c0ab85",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "build",
+      "command": [
+        "dotnet",
+        "build",
+        "artifacts/B09-managed-review/ownership-probe/ManagedOwnershipProbe.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "returncode": 0,
+      "stdoutSha256": "a9423f6bd15b8988cb7d680e51590eae3b21617b437e806472814955cd47ae96",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "execute",
+      "command": [
+        "dotnet",
+        "artifacts/B09-managed-review/ownership-probe/bin/Release/net11.0/NativeWeave.Query.Binding.Tests.dll",
+        "artifacts/B09-managed-review/ownership-probe/inputs/libnativeweave_query_binding_fixture.so"
+      ],
+      "returncode": 1,
+      "stdoutSha256": "3c2dd8a0d9066b0d961f1bc6826622a3dc63b4371b7d240226eec0bd0dd4bb2e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "expectedBehavior": "Dispose closes new business admission while the already acquired physical lease remains valid."
+}

@@ -1,0 +1,389 @@
+[
+  {
+    "name": "toolchain-dotnet",
+    "command": [
+      "dotnet",
+      "--info"
+    ],
+    "exit_code": 0,
+    "seconds": 0.036,
+    "log": "toolchain-dotnet.log",
+    "sha256": "177a71f95885de81319e2672acfc45be9e8d87424127ea67214a7261ec7224a6"
+  },
+  {
+    "name": "toolchain-rust",
+    "command": [
+      "rustc",
+      "-vV"
+    ],
+    "exit_code": 0,
+    "seconds": 0.036,
+    "log": "toolchain-rust.log",
+    "sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6"
+  },
+  {
+    "name": "native-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "-p",
+      "nativeweave-data-streaming",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08,
+    "log": "native-format.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "native-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "-p",
+      "nativeweave-data-streaming",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "seconds": 0.197,
+    "log": "native-clippy.log",
+    "sha256": "22e0df986057b9ba5be07526ac5fb348862a3dedef42108383cc3e088acbb889"
+  },
+  {
+    "name": "native-tests",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "nativeweave-data-streaming",
+      "--test",
+      "bounded",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "seconds": 0.274,
+    "log": "native-tests.log",
+    "sha256": "57253dd3bcd1d985226958cc77e444276b5cdbd670f3af0883b461464fe6e5ab"
+  },
+  {
+    "name": "fixture-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "tests/Data.Streaming/native/Cargo.toml",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.065,
+    "log": "fixture-format.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "fixture-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--manifest-path",
+      "tests/Data.Streaming/native/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "seconds": 1.309,
+    "log": "fixture-clippy.log",
+    "sha256": "062b7cb3e931bae0a045c6715b557b0d593fbb1bf546c0dcca3a764c010cbab3"
+  },
+  {
+    "name": "fixture-build",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--manifest-path",
+      "tests/Data.Streaming/native/Cargo.toml"
+    ],
+    "exit_code": 0,
+    "seconds": 4.524,
+    "log": "fixture-build.log",
+    "sha256": "d72ad936a5d5bfab0a926d77bf382b216d4cb68f7f2b94d1f7131abe16b7f671"
+  },
+  {
+    "name": "fixture-features",
+    "command": [
+      "cargo",
+      "tree",
+      "--locked",
+      "--manifest-path",
+      "tests/Data.Streaming/native/Cargo.toml",
+      "-e",
+      "features"
+    ],
+    "exit_code": 0,
+    "seconds": 0.111,
+    "log": "fixture-features.log",
+    "sha256": "86e8b9101d5bdb7983584a801f84570c07582590c27f68888fc23669e7e20d23"
+  },
+  {
+    "name": "consumer-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Streaming/NativeWeave.Data.Streaming.Tests.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 2.036,
+    "log": "consumer-restore.log",
+    "sha256": "24801627deb3ab032590da015f6fc097b610f0188f32127aa851938aeb013157"
+  },
+  {
+    "name": "consumer-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Streaming/NativeWeave.Data.Streaming.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 13.368,
+    "log": "consumer-build.log",
+    "sha256": "9a0b8ce2a4947eab88f4e77d9bc862151738d81a762710adc76315f31f0bea39"
+  },
+  {
+    "name": "api-check-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Data.Streaming/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 1.135,
+    "log": "api-check-restore.log",
+    "sha256": "31aa442ca783843451ac1b379e3a91979bb23823656c3a88ca358dd7e73536da"
+  },
+  {
+    "name": "api-check-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Data.Streaming/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 2.159,
+    "log": "api-check-build.log",
+    "sha256": "9ec6e02b76488db2685a95afd418d08be0e3eaec5e1623f25e885ba30074c8b0"
+  },
+  {
+    "name": "sample-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "samples/api/data-streaming/DataStreaming.csproj",
+      "--locked-mode",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 1.175,
+    "log": "sample-restore.log",
+    "sha256": "d674cbc61c3ebb6e9f3ea495425c442a0154eae32492a4693eb77766cf3310c8"
+  },
+  {
+    "name": "sample-build",
+    "command": [
+      "dotnet",
+      "build",
+      "samples/api/data-streaming/DataStreaming.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "exit_code": 0,
+    "seconds": 3.364,
+    "log": "sample-build.log",
+    "sha256": "9c260bdff273f5f8d05345c277bb31fc67dfc752395210636d8e65a0e35f9cfb"
+  },
+  {
+    "name": "managed-format",
+    "command": [
+      "dotnet",
+      "format",
+      "whitespace",
+      ".",
+      "--folder",
+      "--include",
+      "src/Data.Streaming/StreamTransport.cs",
+      "src/Data.Streaming/TypedStream.cs",
+      "tests/Data.Streaming/ApiCheck/Program.cs",
+      "tests/Data.Streaming/NativeFixtureTransport.cs",
+      "tests/Data.Streaming/Program.cs",
+      "samples/api/data-streaming/Program.cs",
+      "--verify-no-changes",
+      "--verbosity",
+      "quiet"
+    ],
+    "exit_code": 0,
+    "seconds": 1.538,
+    "log": "managed-format.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "compiled-api-reference",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/tests/Data.Streaming/ApiCheck/bin/Release/net11.0/NativeWeave.Data.Streaming.ApiCheck.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/src/Data.Streaming/bin/Release/net11.0/NativeWeave.Data.Streaming.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/src/Data.Streaming/bin/Release/net11.0/NativeWeave.Data.Streaming.xml",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/src/Data.Streaming/api-reference.md"
+    ],
+    "exit_code": 0,
+    "seconds": 0.045,
+    "log": "compiled-api-reference.log",
+    "sha256": "f0c147aedc59e305dfdc3b65f93d5ffd485ad59916b18c853b708f2b314395e1"
+  },
+  {
+    "name": "aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "tests/Data.Streaming/NativeWeave.Data.Streaming.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:RestoreLockedMode=true",
+      "--configfile",
+      "/workspace/scratch/0898a75257bc/task02-toolchain/NuGet.Offline.Config",
+      "-p:NuGetAudit=false",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-o",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/artifacts/B06/attempt-1/aot"
+    ],
+    "exit_code": 0,
+    "seconds": 14.977,
+    "log": "aot-publish.log",
+    "sha256": "eac975fa4110a0f4ff324f641c7133b2faae3e88fa50ce5ba61f786acf673221"
+  },
+  {
+    "name": "postgres-version",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/postgres",
+      "--version"
+    ],
+    "exit_code": 0,
+    "seconds": 0.009,
+    "log": "postgres-version.log",
+    "sha256": "909de18f93a76dee62f191207d7caca9edc9f32ae5181e66be744c1a17a8c4d0"
+  },
+  {
+    "name": "postgres-init",
+    "command": [
+      "/workspace/scratch/0898a75257bc/task02-toolchain/postgres18/bin/initdb",
+      "-D",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/artifacts/B06/attempt-1/postgres-data",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "exit_code": 0,
+    "seconds": 0.918,
+    "log": "postgres-init.log",
+    "sha256": "5b002c5dc79d792c400eb594120ae428a6c9b87ddfec6dcc0cc51e65071e2f20"
+  },
+  {
+    "name": "jit-providers",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/tests/Data.Streaming/bin/Release/net11.0/NativeWeave.Data.Streaming.Tests.dll",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/artifacts/B06/attempt-1/jit"
+    ],
+    "exit_code": 0,
+    "seconds": 1.479,
+    "log": "jit-providers.log",
+    "sha256": "d71b044304a8d29375f1b245b66d4bfcb7d2153683c7df433ee97f9317ed2a89"
+  },
+  {
+    "name": "aot-providers",
+    "command": [
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/artifacts/B06/attempt-1/aot/NativeWeave.Data.Streaming.Tests",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/artifacts/B06/attempt-1/aot-results",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "seconds": 1.079,
+    "log": "aot-providers.log",
+    "sha256": "de7ea46fc9c4ab10d72e50c14bfb813bdbb4d3cba6d943adbde11b94fbdc6e39"
+  },
+  {
+    "name": "sample-sqlite",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/samples/api/data-streaming/bin/Release/net11.0/NativeWeave.Data.Streaming.Sample.dll",
+      "sqlite"
+    ],
+    "exit_code": 0,
+    "seconds": 0.091,
+    "log": "sample-sqlite.log",
+    "sha256": "ad01006ddaa81749336eacef411c0594d61a39ee1196f7ebcf22bee48f1488fd"
+  },
+  {
+    "name": "sample-postgresql",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/0898a75257bc/.worktree/Task-02-B06-linux/NativeWeave/samples/api/data-streaming/bin/Release/net11.0/NativeWeave.Data.Streaming.Sample.dll",
+      "postgresql"
+    ],
+    "exit_code": 0,
+    "seconds": 0.088,
+    "log": "sample-postgresql.log",
+    "sha256": "1d6aeae80c14e3f2c62a8c5b53b78d708034ae7dfe0d107aa360e5986c9e550e"
+  }
+]
