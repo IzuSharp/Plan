@@ -1,0 +1,109 @@
+{
+  "task": "A20",
+  "platform": "linux-x64",
+  "state": "accepted_linux_component",
+  "source_commit": "daf855c01b87ede2af4fd323f30caf3a519934ad",
+  "actual_execution_source_commit": "998b56ad23192c9182aca3258d4238e110d7e74c",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "formal_receipt_sha256": "be2741d76d66f7c0c97248801fe837d3547b2cbfd9ac883ee365187e64714094",
+  "documentation_attestation_sha256": "1b2c6d90d6c0dc264bb873814c5ba5d060a558d48516f91f426b265c4bcd9707",
+  "source_commits": [
+    "5ba1254",
+    "998b56a",
+    "daf855c"
+  ],
+  "commands": 48,
+  "jit_assertions": 8925,
+  "aot_assertions": 8925,
+  "finite_orders_each": 72,
+  "fuzz_units": 20000,
+  "fuzz_seed": 20201117,
+  "fuzz_coverage": {
+    "edges": 105,
+    "features": 185,
+    "initial_cases": 19,
+    "final_cases": 82
+  },
+  "layouts": {
+    "records": 5,
+    "values": 31
+  },
+  "api_exported_symbols": 0,
+  "sanitizer": {
+    "instrumented": [
+      "C serialized-input decoder",
+      "C independent oracles",
+      "C fatal child driver"
+    ],
+    "uninstrumented": [
+      "stable Rust libraries",
+      "CLR",
+      "Native AOT runtime"
+    ],
+    "address": true,
+    "undefined_behavior": true,
+    "leaks": false,
+    "environment": {
+      "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1",
+      "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+    }
+  },
+  "source_unchanged_in_execution": true,
+  "final_source_delta": [
+    {
+      "path": "tests/Verification.Interop/coverage.json",
+      "before": "0c1c1c6917c4c754efe4f10a004f7a8a07e206967b7c8678fd830a2bad21ae2e",
+      "after": "2e25875ac352aa3c79055853fa6f155eec77b9847fb5f60b71042dd90cbe4375"
+    }
+  ],
+  "native_owner_and_managed_retirement": "Zero acknowledged native operations/callback owners/buffer owners/backings/retained input/invalid releases; each operation verifies cancellation registration drain, callback/control quiet and managed root release separately. Quarantined children intentionally retain roots until process exit and do not claim retirement.",
+  "negative_controls": {
+    "managed_jit_and_aot": {
+      "quarantine_exit": 43,
+      "stale_cookie_exit": 42
+    },
+    "numeric_oracle": {
+      "original_and_minimized_defect_exit": 77,
+      "minimization_exit": 0,
+      "correct_oracle_replay_exit": 0,
+      "original_bytes": 61,
+      "minimized_bytes": 61,
+      "reason": "Already minimal for the declared 61-byte extent decoder; bounded minimizer retained the input."
+    },
+    "native_fatal": {
+      "invalid_pointer_exit": 1,
+      "specific_diagnostic": "AddressSanitizer SEGV",
+      "wrong_creator_release_exit": 1,
+      "specific_release_diagnostic": "AddressSanitizer attempting double-free"
+    }
+  },
+  "retained_failures": [
+    {
+      "path": "artifacts/a20-preparation/failure-01.txt",
+      "classification": "Harness retry-interval argument exceeded accepted coordinator bound; fixed before formal source."
+    },
+    {
+      "path": "artifacts/a20-preparation/fuzz.stderr",
+      "classification": "20,000 inputs executed but LSan shutdown failed under ptrace; unsupported LSan run remains failure, never sanitizer pass."
+    },
+    {
+      "path": "artifacts/a20-formal-01/result.json",
+      "classification": "Stale-cookie reuse not observed within bound, exit78 inconclusive. Corrected same-actor allocation/free scheduling; no product source changed."
+    }
+  ],
+  "limits": [
+    "Windows",
+    "all weak-memory schedules",
+    "unbounded liveness",
+    "full FFI sanitizer coverage",
+    "whole-product acceptance",
+    "pristine package consumption",
+    "performance or memory improvement",
+    "llvm-symbolizer unavailable; raw ASan diagnostics/addresses retained, no fully symbolized native stack claim"
+  ],
+  "independent_review": "review-linux.json",
+  "independent_review_sha256": "d96e175e2980b2a28b7637d593d01ac06548b16922bb432d00376a68ca9768eb",
+  "raw_evidence_root": "ROOT/.worktree/Task-04-A20-linux/NativeWeave/artifacts",
+  "raw_formal_directory": "a20-formal-02",
+  "publication": "Internal maintainer harness; no independent distributable package."
+}

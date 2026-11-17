@@ -29,16 +29,16 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
 | A16 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
 | A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
-| A18 | in_progress | callbacks | Actual network JIT/AOT and package preparation passed; bind final locks, source hashes and independent review. |
-| A20 | in_progress | root | Finish clean committed property/fuzz/JIT/AOT profile and independent review; original worker content-filter interruption preserved as execution incident, not acceptance. |
+| A18 | in_progress | callbacks | Close concrete managed retirement-observer capacity and issued-permit/Body-drop queued-frame accounting findings; retain prior execution and validate changed scope. |
+| A20 | accepted_linux_component | root | Reuse accepted Linux cross-language properties, bounded races, supported sanitizer profile and isolated controls; no historical rerun. |
 | A23 | accepted_linux_component | sync_engine | Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit. |
 | A24 | pending_assembled_acceptance | root | A17 generated scaffold JIT/AOT passed; run heterogeneous A18 scaffold when accepted, then final independent review. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). A06, A07, A08, A17 and A23 Linux component acceptance and independent review are recorded
+tracked in [status-linux.json](status-linux.json). A06, A07, A08, A17, A20 and A23 Linux component acceptance and independent review are recorded
 in their original evidence directories. A07 may be consumed immediately; do not wait
 for whole-batch closeout or repeat these completed component checks. A14/A16 assembled Linux acceptance is also recorded from actual checkpoint4 CI.
-A18/A20 and the second A24 profile remain in progress.
+A18 and the second A24 profile remain in progress.
 
 ## Workspaces and integration
 
@@ -64,7 +64,7 @@ bytes separately when necessary; never rewrite a failed record as success.
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
 Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
 
-Next: Finish A18/A20 independent evidence and A24's heterogeneous A18 generated
+Next: Finish the two concrete A18 review corrections and independent evidence and A24's heterogeneous A18 generated
 package consumer. A08 is reviewed and integrated. A14/A16 Ubuntu, emulated CPU,
 fresh no-Rust SDK and compiler-free runtime transfer all passed in checkpoint4.
 Continue paired PRs and normal post-merge checks; do not repeat completed component
