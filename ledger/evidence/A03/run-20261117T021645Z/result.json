@@ -1,0 +1,277 @@
+{
+  "task": "A03",
+  "platform": "linux-x64",
+  "passed": false,
+  "commands": [
+    {
+      "label": "commit",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout_sha256": "98c05c5208cd576705db6ff4f2f0de8a733293ffb951db798fc34bf6371b0868",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "status",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout_sha256": "48344525907b204983c62b09e9dd09315ba032d286aa388ef4f3507b2fba0753",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "dotnet",
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "rustc",
+      "argv": [
+        "rustc",
+        "-vV"
+      ],
+      "exit": 0,
+      "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "cargo",
+      "argv": [
+        "cargo",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "d62bac2223cd9bd1a54c0ccd82d4084b7d1d60044855e2f6a1b49f4f77e6f41c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "clang",
+      "argv": [
+        "clang",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e80c33362f6037dd89d8720245da1c30054e4b3a16e8d7d13212c42719ef5881",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-files",
+      "argv": [
+        "git",
+        "ls-files",
+        "--cached",
+        "--others",
+        "--exclude-standard",
+        "--",
+        "src/Interop.Lifetime",
+        "tests/Interop.Lifetime",
+        "native/interop/lifetime",
+        "samples/api/interop-lifetime",
+        "docs/guides/interop-lifetime.md",
+        "src/NativeWeave.Core",
+        "src/Interop.Abi",
+        "native/interop/abi",
+        "native/interop/errors",
+        "Directory.Build.props",
+        "global.json",
+        "rust-toolchain.toml",
+        "Cargo.toml",
+        "Cargo.lock"
+      ],
+      "exit": 0,
+      "stdout_sha256": "48b44243fff68c1f3b4e10e0c6dbe501827d1b726b10a0c6fe26497c0b3ba005",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-format",
+      "argv": [
+        "cargo",
+        "fmt",
+        "-p",
+        "nativeweave-interop-lifetime",
+        "--",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-tests",
+      "argv": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nativeweave-interop-lifetime"
+      ],
+      "exit": 0,
+      "stdout_sha256": "0e2adf751b480ffe522b502684f9f062bf1ba234e88c870235d1a7a8d85656ee",
+      "stderr_sha256": "1f167ccbad9311c1cbf1a7773e26ec3b712a3ddd33d1b62c85d07d36a22ac58b"
+    },
+    {
+      "label": "native-build",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nativeweave-interop-lifetime"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "90c8a1a69c0155761cff4bfe0e61bbee007961d2b96729d2127c2e0c291489dd"
+    },
+    {
+      "label": "native-clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nativeweave-interop-lifetime",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "8c233a54790c4800d3dd585436af679aa838da259bfdb129412e2d51cdb75cdc"
+    },
+    {
+      "label": "tests-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Lifetime/Interop.Lifetime.Tests.csproj",
+        "--locked-mode",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "5274ac0e9f30f8af894d11ca6843cbe57013c568c72bfd95a45f2b2c15199482",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tests-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "tests/Interop.Lifetime/Interop.Lifetime.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e0f9f95ef67dcaa11890f5bdb6ca870f5e4291bc5080dbd2a77d6aab68f3413b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tests-jit",
+      "argv": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-03-A03-linux/NativeWeave/tests/Interop.Lifetime/bin/Release/net11.0/NativeWeave.Interop.Lifetime.Tests.dll"
+      ],
+      "exit": 0,
+      "stdout_sha256": "f254aa305bc2994c7d0bddf39b1942e610ed3a2274e3a5b02b761d44248e5b3f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tests-aot-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "tests/Interop.Lifetime/Interop.Lifetime.Tests.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 1,
+      "stdout_sha256": "69382b80bed54e177388d934c2d857e62a2e30ecc30309dd370e1e779f3c755d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "artifacts": {
+    "native": {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-03-A03-linux/NativeWeave/target/release/libnativeweave_interop_lifetime.so",
+      "sha256": "35cb8dc93b8c1279f155a236b37a30b819d7ed75a6cf6fc85ecfa173a0780ff1"
+    }
+  },
+  "scope": "actual synchronous component; no assembled engine or Windows acceptance",
+  "controlled_bounds": {
+    "threads": 3,
+    "calls": 2,
+    "forced_phase_switches": 8,
+    "exhaustive": false
+  },
+  "commit": "c547d01fce51098e36d86a1b86266c33308fcc10",
+  "dirty": true,
+  "source_sha256": {
+    "Cargo.lock": "ecc6e490977a8ae503206b256c522fd891173d0cd36f0b4488f5b3c0c34c0754",
+    "Cargo.toml": "82c5f01790c07bd4ddc05dec9aca15ad6629ad04c16ddbae740bee7a48ba67b2",
+    "Directory.Build.props": "381d2e02b9a3c5b65aa986aa972894d28cad8cbfa93d2895ddb0e3e7330e854f",
+    "docs/guides/interop-lifetime.md": "9f2d7b363967fdb54b588a4f77a077198fc856c599358b562ba26428a1c1d148",
+    "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+    "native/interop/abi/Cargo.toml": "947906645eb5931e86ba8a29db9abca0691fc16356bc5a3eeec84f1e6e5088b7",
+    "native/interop/abi/abi-v1.json": "62171763fb2d1b1a8350d2f381a85910c0368515923706923d29f4ff69681dab",
+    "native/interop/abi/generate.py": "bb3b7d453be0bd437459954590dc80a4034374d103c1e30fbe0d5bde6f92bfa4",
+    "native/interop/abi/include/nativeweave_abi_v1.h": "3a575f132b23789c103114fa29a1815a685fb6260e5d406c4be386e130fbe9d7",
+    "native/interop/abi/src/generated.rs": "7812805f6b4b2ca5dce2f34de21e3ffc624560148cb5a52bfde5e93cba85b362",
+    "native/interop/abi/src/lib.rs": "12326e69772b4f4233383deec705afb6e4a5e7b4b9cce0619035527423d8fa24",
+    "native/interop/errors/Cargo.toml": "de94930f0bf270ae60eb47b05d2b802a041263656ec705228983f28e45aa1dea",
+    "native/interop/errors/src/lib.rs": "dc8f2f3d3dd40f715e2f4d93497304826414ba903c5a8a929a8b1bd8d64a8b3c",
+    "native/interop/errors/src/tests.rs": "6443f0af590ec2f6fd2b77cb3b526c85062416d42d5273ac3bea469757d8dfc0",
+    "native/interop/lifetime/Cargo.toml": "23b3649d5bc0f122d2bbd86694307eaf6e36b6fc5287a35d1695fcaf3068ad4a",
+    "native/interop/lifetime/src/lib.rs": "2f4929e1a29118d98ae8b98b8fa5e60cc522c773cf919ca122c1f3c9c0a5f279",
+    "rust-toolchain.toml": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff",
+    "samples/api/interop-lifetime/Interop.Lifetime.Sample.csproj": "e2f46609dd3580cdf469abffa50b1448d028d57950a69ff62f04dea0b2d2ea32",
+    "samples/api/interop-lifetime/Program.cs": "6648eb57c56d8ab732fa84ea2b7f8df7a13ee449755c699d639f60704c04c6cd",
+    "samples/api/interop-lifetime/README.md": "48fd38d516b90ef2a8dcc82f301430896fd10dc275d57eb6d033d48dc4291187",
+    "samples/api/interop-lifetime/packages.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+    "src/Interop.Abi/AbiBootstrap.cs": "f5e1e82ad1274038e07503b3de8f4473bb9c60f15e6770e75800f4d93d8b2168",
+    "src/Interop.Abi/Interop.Abi.csproj": "0869250062a6c049fe62eade15756523103ea63af2ac14f5709fd2a304bb09c8",
+    "src/Interop.Abi/WireRecords.g.cs": "84aae291861e1d22d8927e24106626a23a07f38d4d62fb4e70ab5f721981e6e2",
+    "src/Interop.Abi/api-reference.md": "47885ccb3c770bafab849ee914941be6413870b7b2bd9fabe3bbea350a893479",
+    "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "src/Interop.Lifetime/NativeResourceOwner.cs": "9066233a0e71d837d95c4dc2278cb42641bcade4a4e27f95e634c261681b6817",
+    "src/Interop.Lifetime/api-reference.md": "45ae622e325d52779104d7bdf736da452bfa14a7e8c32edbe8fefcfa4f91787b",
+    "src/Interop.Lifetime/design-inputs.json": "7bacc5465d4bfa968138649bf3b190f927db7496f8bdb4bbdafd91ad0b2916f0",
+    "src/Interop.Lifetime/public-api.expected.json": "450839c5232d6dfab11f12e1b09cb9b09609b231a3ba2cabbc8e54b4c795ebc5",
+    "src/NativeWeave.Core/NativeWeave.Core.csproj": "eb2592e458834f57798d0166d4d825e83cc5bdd263e16967b546ea62bdf228ca",
+    "src/NativeWeave.Core/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "src/NativeWeave.Core/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "tests/Interop.Lifetime/ApiCheck/ApiCheck.csproj": "cce3a0fbb1d8e955b793d10e011de7640ac1ace539d4f8ee05a42eb739724de8",
+    "tests/Interop.Lifetime/ApiCheck/Program.cs": "853682c8271e3f01fefa1f8ff89b6c9c92c2572004e3262212ace8ac3a381eaa",
+    "tests/Interop.Lifetime/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "tests/Interop.Lifetime/Fixture.cs": "cbb80bf04088df3cfa83328de7c1717975329b5623ab1992ab031eea109b0ae6",
+    "tests/Interop.Lifetime/Interop.Lifetime.Tests.csproj": "eb8443a49d1d3117bd501b395ec2f33e2d7ee1a016e1fdcde70fac00db1cdba0",
+    "tests/Interop.Lifetime/Program.cs": "7ffa7a4ca09a5b99b04ab750ef98af05212b4f16884d3517f96a7d018d507c4d",
+    "tests/Interop.Lifetime/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+    "tests/Interop.Lifetime/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+    "tests/Interop.Lifetime/verify.py": "eae6ec6a4a34a11e3d443a6a947b02a0469b05119e1d48c4f335806e9849f8fc"
+  },
+  "tests_jit": "Synchronous lease measured managed allocation bytes=0 calls=1024\nA03 PASS assertions=97 owners=0 releases=19 parent_states=0 parent_releases=18 calls=1101\nSchedules: open-check/close, logical-token/close, AddRef/close, pointer-read/close, close-before-acquire, owner-drop/last-release, GC/in-flight; bounds <=3 threads, <=2 calls, <=8 forced phase switches per schedule; finite coverage, not exhaustive interleavings."
+}

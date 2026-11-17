@@ -25,16 +25,45 @@ actual later host/dependency-closure acceptance stays with its named downstream 
 
 | Task | Linux state | Owner | Next step |
 | --- | --- | --- | --- |
-| A03 | In progress: inputs/environment | Lifetime worker | Implement logical admission and physical leases |
-| A04 | Ready, queued within worker limit | Lifetime worker | Owned buffers and asynchronous retained leases |
-| A10 | In progress | Bindings worker | Static imports, callback guards and metadata emission |
-| A11 | Ready, queued within worker limit | Bindings worker | Exports and final linked inventory checks |
-| A12 | In progress | Analyzers worker | Stable diagnostics and compiler-host/consumer tests |
-| A13 | In progress | Main executor | Maintainer build/provenance and shared registration |
-| A22 | Ready, queued within worker limit | Main executor | Compatibility and immutable closure validation |
+| A03 | Component passed; independent review closing | Lifetime worker / main reviewer | Final review and batch integration checks |
+| A04 | Component passed; independent review closing | Lifetime worker / main reviewer | Final review and batch integration checks |
+| A10 | Implementation and independent review fixes | Bindings worker | Correct nullable/retained ownership and names; formal package/AOT checks |
+| A11 | Formal run completed; independent review fixes | Bindings worker | Correct accepted identifiers and negative assertion helper; revalidate |
+| A12 | Component passed; review pending | Analyzers worker / main reviewer | Independent review and actual A10 metadata composition |
+| A13 | In progress | Main executor | Maintainer build/provenance, compiled reference/DocFX and shared registrations |
+| A22 | In progress | Analyzers worker | Compatibility matrix and immutable signed closure validation |
 
-No Task-03 component is accepted at this initial checkpoint. Actual test results,
-source identities and independent findings will be linked here as they become available.
+A03, A04 and A12 are integrated into the batch checkpoint. Their exact source trees
+are also saved on their named remote task branches. Original local test commit IDs
+remain in the unmodified receipts; [status](status-linux.json) maps remote checkpoint
+commits separately. No complete Task-03 or all-platform acceptance is claimed.
+
+## Actual evidence and open review
+
+- [A03 formal receipt](../../A03/run-20261117T021812Z/result.json): JIT 97 / AOT 98 assertions,
+  controlled acquire/close schedules, finalizer/in-flight checks, zero live resources,
+  and allocation-free warmed synchronous calls. The earlier failed lock restore is retained.
+  A later narrow clarification makes finalizer-context ownership explicit; it does not
+  claim a full rerun of the earlier receipt. A04's later run compiles that clarified owner.
+- [A04 formal receipt](../../A04/run-20261117T022403Z/result.json): JIT 9,635 / AOT 9,636 assertions,
+  4,778 descriptor comparisons, retained backing charges, pending async write/cancellation,
+  exact API/XML and real JIT/AOT samples. Final resource/backing/capacity counters are zero.
+- [A12 formal receipt](../../A12/formal-1/result.json): 24 commands, 45 scenarios and 152
+  assertions, deterministic rerun, local package installation, real native JIT/AOT and
+  framework IL2026/IL3050 negative consumers. Preparation failures remain available.
+- Independent A10/A11 probes identified real generator edge cases and a unit-test helper
+  that could catch its own failure sentinel. Authors are fixing both implementation and
+  tests. The earlier positive actual runs remain evidence, but affected negative assertion
+  counts are not final acceptance. Final review must bind corrected source and new receipts.
+- A13 has actual cold/incremental/parallel native, stale/failed/cancelled build probes and
+  compiled Core XML/API-to-DocFX output. These are development runs pending final clean
+  source, remaining integration and independent review. A22 is validating actual historical
+  HelloWorld repository signatures and clearly labelled old/current Core component fixtures.
+
+Raw retained logs and SHA inventories live in the original task evidence directories.
+Compiled binaries are omitted from git; receipts retain their hashes and exact source,
+commands, pins and reproduction paths. This is component evidence, not pristine-machine,
+all-platform, released-Core or later Host acceptance.
 
 ## Worktrees and integration
 
@@ -47,18 +76,20 @@ The existing Cargo workspace is at repository root; A13 integrates that actual p
 instead of creating a conflicting `native/Cargo.toml` workspace.
 
 [Status](status-linux.json) tracks owners, commits, evidence and integration.
-The fixed .NET SDK 11.0.100 is recovered; Rust 1.100.0 and native prerequisites are
-being restored into `ROOT/task03-toolchain` without changing repository pins.
+Use `source ROOT/task03-toolchain/env.sh`: .NET SDK 11.0.100, Rust 1.100.0 and
+Clang 19.1.7 are restored and version-verified. See the task receipts above for actual runs.
+HTTPS fetch is available; direct push has no credentials. The Git data API saves
+remote checkpoints with exact tree equality; source receipts retain their actual
+local commit identity and the status file maps it to the remote checkpoint.
 
-Implementation PR: not created yet (no implementation checkpoint).
+Implementation Draft PR: https://github.com/IzuSharp/NativeWeave/pull/14.
 
-Plan PR: pending initial handoff publication.
+Plan Draft PR: https://github.com/IzuSharp/Plan/pull/16.
 
 ## Next step
 
 Complete the seven owned components, their documentation and actual Linux verification.
 Integrate and independently review each completed component while other ready work
-continues. Publish initial Draft PRs as soon as concrete checkpoints exist, then update
-those same PRs. After required checks/review pass, merge normally, confirm exact-merge
+continues. Continue updating the existing paired Draft PRs and remote task checkpoints. After required checks/review pass, merge normally, confirm exact-merge
 CI and the existing automatic preview/consumption, record necessary closeout and stop.
 Do not start another task package or extend the release/platform scope.

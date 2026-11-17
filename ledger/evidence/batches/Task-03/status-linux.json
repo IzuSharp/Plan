@@ -19,32 +19,40 @@
     "A05": "linux_complete_reused",
     "A09": "linux_complete_reused"
   },
-  "implementation_pr": null,
-  "plan_pr": null,
+  "implementation_pr": "https://github.com/IzuSharp/NativeWeave/pull/14",
+  "plan_pr": "https://github.com/IzuSharp/Plan/pull/16",
   "global_acceptance": false,
   "batch_complete": false,
   "tasks": [
     {
       "id": "A03",
-      "state": "in_progress",
+      "state": "component_passed_review_pending",
       "owner": "lifetime worker",
       "branch": "task/Task-03-A03-linux",
       "worktree": ".worktree/Task-03-A03-linux/NativeWeave",
-      "source_checkpoint": null,
-      "evidence": "../../A03/"
+      "source_checkpoint": "be25bd029316d4eaa2a539c0b5248c6c4ebbb441",
+      "evidence": "../../A03/",
+      "remote_checkpoint": "1d7815c4397e67f57b2f24f789d2a4cc4de66de4",
+      "tree": "a2294bc05eae3529e9780cadc7c291dee5b5f10c",
+      "integrated": true,
+      "formal_receipt": "../../A03/run-20261117T021812Z/result.json"
     },
     {
       "id": "A04",
-      "state": "ready_queued",
+      "state": "component_passed_review_pending",
       "owner": "lifetime worker",
       "branch": "task/Task-03-A04-linux",
       "worktree": ".worktree/Task-03-A04-linux/NativeWeave",
-      "source_checkpoint": null,
-      "evidence": "../../A04/"
+      "source_checkpoint": "cb09fda244fd76ecf37bdb5686ed5283ece09be9",
+      "evidence": "../../A04/",
+      "remote_checkpoint": "13612c6196b3634f958ed8c36e130ad7e67e3c2a",
+      "tree": "50faf1b14ba8797587c5b2a7ce83ae04238db541",
+      "integrated": true,
+      "formal_receipt": "../../A04/run-20261117T022403Z/result.json"
     },
     {
       "id": "A10",
-      "state": "in_progress",
+      "state": "implementation_and_review_fixes_in_progress",
       "owner": "bindings worker",
       "branch": "task/Task-03-A10-linux",
       "worktree": ".worktree/Task-03-A10-linux/NativeWeave",
@@ -53,21 +61,26 @@
     },
     {
       "id": "A11",
-      "state": "ready_queued",
+      "state": "review_fixes_in_progress",
       "owner": "bindings worker",
       "branch": "task/Task-03-A11-linux",
       "worktree": ".worktree/Task-03-A11-linux/NativeWeave",
-      "source_checkpoint": null,
-      "evidence": "../../A11/"
+      "source_checkpoint": "65e9d8ee6f640be8be5c5777d0827c813a12d30f",
+      "evidence": "../../A11/",
+      "integrated": false
     },
     {
       "id": "A12",
-      "state": "in_progress",
+      "state": "component_passed_review_pending",
       "owner": "analyzers worker",
       "branch": "task/Task-03-A12-linux",
       "worktree": ".worktree/Task-03-A12-linux/NativeWeave",
-      "source_checkpoint": null,
-      "evidence": "../../A12/"
+      "source_checkpoint": "41d427154a4b5c3ee4df4e1522362c373a732082",
+      "evidence": "../../A12/",
+      "remote_checkpoint": "d811d3bc5e210ea4df242606cf2e1105a07ba379",
+      "tree": "96bf60c1a98e0c3ac49cb9b399b46c7199ff94fc",
+      "integrated": true,
+      "formal_receipt": "../../A12/formal-1/result.json"
     },
     {
       "id": "A13",
@@ -80,15 +93,46 @@
     },
     {
       "id": "A22",
-      "state": "ready_queued",
-      "owner": "main executor",
+      "state": "in_progress",
+      "owner": "analyzers worker",
       "branch": "task/Task-03-A22-linux",
       "worktree": ".worktree/Task-03-A22-linux/NativeWeave",
       "source_checkpoint": null,
       "evidence": "../../A22/"
     }
   ],
-  "integrated": [],
-  "pending_integration": {},
-  "next": "Implement and verify ready tasks in separate worktrees, integrate shared build registrations serially, retain actual evidence and obtain independent reviews; complete normal paired PR merge and existing preview closeout."
+  "integrated": [
+    "A03",
+    "A04",
+    "A12"
+  ],
+  "pending_integration": {
+    "A10": "author fixes and formal validation",
+    "A11": "independent identifier and negative-assertion findings",
+    "A13": "maintainer build/docs plus shared registrations",
+    "A22": "compatibility/signature closure validation"
+  },
+  "next": "Implement and verify ready tasks in separate worktrees, integrate shared build registrations serially, retain actual evidence and obtain independent reviews; complete normal paired PR merge and existing preview closeout.",
+  "publication_method": "Git data API; exact local/remote trees are checked, commit identities are recorded separately.",
+  "initial_checkpoints": {
+    "NativeWeave": {
+      "local": "8c4f6a7dc43bcaa55587bc7e67a48d02b3847789",
+      "remote": "145ce7be84c18123e01014da58646a4be0468977",
+      "tree": "c9b343106c00403f0bc198664afd8dc4b81ae57c"
+    },
+    "Plan": {
+      "local": "67110c8c7013acb5e82287ef7d62c1141db31929",
+      "remote": "5f6c92c4cb85dcd8d5130c4f05de9be8e67972f4",
+      "tree": "c743401144a84ac88118c8f169700cf452876a1b"
+    }
+  },
+  "implementation_checkpoint": {
+    "local_head": "10ab96d6d07d3db7d80ccee16352914e140a985a",
+    "remote": "e5dde71446259f132b9b0a56e02c20c35e9eb60f",
+    "tree": "57d898ed42f2cf16818e8bf9c40436fbdbfc278c"
+  },
+  "review_findings": {
+    "A03": "Resolved: ordinary call root does not guarantee independent finalizer ordering; finalizer context is owned by the private SafeHandle/native owner.",
+    "A10_A11": "Independent actual probes found unsupported identifier/name cases, nullable owner and retirement-borrow handling, helper collision, and negative-assertion false positive. Fixes and revalidation are pending; previous affected assertion counts are not final acceptance."
+  }
 }
