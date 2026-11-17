@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "batch": "Task-03",
+  "platform": "linux-x64",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "components_complete": true,
+  "global_acceptance": false,
+  "evidence_storage": {
+    "kind": "private_git_bundle",
+    "archive_id": "nativeweave-task03-linux-original-evidence",
+    "plan_source_commit": "e89ff8de234f0aa6c7484c86ebca138c44660579",
+    "plan_source_tree": "290b8054535033e5aeced2139dd8c8748ddb0816",
+    "retention_status": "saved_private_original_archive",
+    "archive_filename": "NativeWeave-Task03-Linux-Evidence-e89ff8d.zip",
+    "archive_sha256": "fcf97f601a557ac50ef55a2e04ff758c4302623362b2145f2633a4fbacf82f30",
+    "manifest_filename": "manifest.json",
+    "manifest_sha256": "27736c7b9d980f68736be7e06c9dc484d1dd8d90fa88db7b419cc986490a7ade",
+    "path_semantics": "Each archive_path is a Plan repository path at plan_source_commit, restored from the private original-evidence Git bundle. It is not a claim that the file is present in the public PR tree.",
+    "public_contents": "Only bounded outcomes and exact source/receipt/review identities. Original raw records are immutable in the retained source commit.",
+    "archive_bytes": 1019096,
+    "bundle_filename": "NativeWeave-Task03-Plan-unpushed.bundle",
+    "bundle_sha256": "adf8b9ddea33c86a650309b6d349ee036deb1b647fcd91536394c1bb58737a2b",
+    "bundle_prerequisite_commit": "7bd04e898344cadc1ae4b331202b4908449f4446",
+    "restore_instructions": "RESTORE.txt in the archive; fetch the preserved task/Task-03-linux ref into a separate recovery branch and verify the original commit/tree before reading archive_path entries."
+  },
+  "tasks": [
+    {
+      "id": "A03",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "be25bd029316d4eaa2a539c0b5248c6c4ebbb441",
+      "remote_checkpoint": "1d7815c4397e67f57b2f24f789d2a4cc4de66de4",
+      "source_tree": "a2294bc05eae3529e9780cadc7c291dee5b5f10c",
+      "outcome": "JIT 97 and AOT 98 assertions; controlled acquire/close, rollback, finalizer/in-flight retirement and allocation-free warmed calls.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A03/run-20261117T021812Z/result.json",
+          "sha256": "1a15a991f8c4b01e1471773879f65295ce83b56d81b89d656a20de7d12e5bc22",
+          "source_commit": "aee28eb62028b63b8f6611f572c6bf17317ecc4a",
+          "passed": true,
+          "source_dirty": true
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A03/independent-review/review.json",
+        "sha256": "2ac263c7a4cce2c15deaca737428f2ee44fcff47c77c9cb45d1f569f9c19bf6b",
+        "source_commit": "35ee04af5242b2382170c322e83388407cad903e",
+        "outcome": "accepted"
+      },
+      "evidence_boundary": "Original formal source was dirty only for the pending lock registration; its receipt remains unchanged. Later committed lock registration and finalizer wording are covered by the archived identity audit and independent review, not relabelled as a full rerun."
+    },
+    {
+      "id": "A04",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "cb09fda244fd76ecf37bdb5686ed5283ece09be9",
+      "remote_checkpoint": "13612c6196b3634f958ed8c36e130ad7e67e3c2a",
+      "source_tree": "50faf1b14ba8797587c5b2a7ce83ae04238db541",
+      "outcome": "JIT 9,635 and AOT 9,636 assertions; 4,778 extent descriptors, retained backing/capacity, stream cancellation/failure and exact 23-symbol API.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A04/run-20261117T022403Z/result.json",
+          "sha256": "5a0d71a7ed3775919abb4a60abbc05979777c89cd885b6124e30ddbad8b49bee",
+          "source_commit": "cb09fda244fd76ecf37bdb5686ed5283ece09be9",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A03/independent-review/review.json",
+        "sha256": "2ac263c7a4cce2c15deaca737428f2ee44fcff47c77c9cb45d1f569f9c19bf6b",
+        "source_commit": "35ee04af5242b2382170c322e83388407cad903e",
+        "outcome": "accepted"
+      },
+      "evidence_boundary": "A03/A04 share one independent review. The later CI repair changes whitespace in two fixture/test files only and requires the separate closeout token-equivalence review."
+    },
+    {
+      "id": "A10",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "39cf84fd6f2b1e605609a6bc428737f0a2189c37",
+      "remote_checkpoint": "e820a428e5bf08c42b64a024ee467c8b1fb35343",
+      "source_tree": "40807b869a6aa91f2d76e5d580854ac000347541",
+      "outcome": "38 commands; 40 tool/incremental/API assertions; consumer and sample JIT 72/AOT 73; independent local NuGet plus actual A12 metadata composition.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A10/final-linux/result.json",
+          "sha256": "56fcdb861d98b105708b55cea0d45d9cc1f0333b3e6611fdb424673e02118430",
+          "source_commit": "39cf84fd6f2b1e605609a6bc428737f0a2189c37",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A10/independent-review/A10-review.json",
+        "sha256": "100825204c9c439e4dfbe2cc169de172188b3ba060e55774b980818fbbc0e511",
+        "source_commit": "39cf84fd6f2b1e605609a6bc428737f0a2189c37",
+        "outcome": "accepted for declared Linux x64 A10 component scope"
+      },
+      "evidence_boundary": "Component contract and local-package consumption only; no full later Host acceptance is claimed."
+    },
+    {
+      "id": "A11",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "e9fd5a3fb4470ea891a55f7009ccfdf4a46c5b26",
+      "remote_checkpoint": "b1532c787505e65a42e1a8609106c890f10fc35f",
+      "source_tree": "eaa3fb97f4569261ddef95ccafebb5704bf06af2",
+      "outcome": "36 commands; 20 emitter assertions; actual C/Rust layout/export/signature checks, JIT 42/AOT 43, incompatible compiler negatives.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A11/final-linux-review-fix/result.json",
+          "sha256": "ebb234275fece7df052f078eec1fa24abedf8cd805a84b0637b4e4e86f0858af",
+          "source_commit": "e9fd5a3fb4470ea891a55f7009ccfdf4a46c5b26",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A10/independent-review/A11-review.json",
+        "sha256": "7c02cfb1d5664964afa017c8dd43b7a42d50e94fc132f343ebbc8575d5230fe3",
+        "source_commit": "e9fd5a3fb4470ea891a55f7009ccfdf4a46c5b26",
+        "outcome": "accepted for declared Linux x64 A11 component scope"
+      },
+      "evidence_boundary": "A10/A11 retain shared review probes without copying them. Actual incompatible compiler negatives are retained separately from emitter assertions."
+    },
+    {
+      "id": "A12",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "2ccee5d285a5e8efa7ef6a2b4566d7a5f336562d",
+      "remote_checkpoint": "91a6548ceaae51c25aafa7b293a75cbd90e97185",
+      "source_tree": "69aa9669179396df62ae0eb7ede837d22e60e858",
+      "outcome": "Original independent local-package JIT/AOT and framework IL2026/IL3050 negatives; follow-up 48 cases/157 assertions and actual metadata before/after checks.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A12/formal-1/result.json",
+          "sha256": "77b30aef73398d75261e1605596a2fe2d58f9c0ef91d1d210634bc26f17d8ed1",
+          "source_commit": "41d427154a4b5c3ee4df4e1522362c373a732082",
+          "passed": true,
+          "source_dirty": false
+        },
+        {
+          "archive_path": "ledger/evidence/A12/review-fix-1/result.json",
+          "sha256": "6cc8290487b190ba93fdf00f43cda8b108e13f7a6ff59e0e3c3057ae5260ad28",
+          "source_commit": "2ccee5d285a5e8efa7ef6a2b4566d7a5f336562d",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A12/independent-review/review.json",
+        "sha256": "f7fab7ff782a04573acd8ec71e06d422c97ba46613240889e8ca12ec1ed56c2e",
+        "source_commit": "2ccee5d285a5e8efa7ef6a2b4566d7a5f336562d",
+        "outcome": "accepted"
+      },
+      "evidence_boundary": "The original full receipt and follow-up receipt have different source commits; retain both and do not claim a full rerun on the follow-up source."
+    },
+    {
+      "id": "A13",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "34f947f4565a430937a5bd7124db551ae281c188",
+      "remote_checkpoint": "43a91742730239f6afd51f194c105c7028c7fcb8",
+      "source_tree": "cc8bdaf95d5712cef89993eff3cdf56509c95f9c",
+      "outcome": "Cold/incremental/parallel/stale/compiler/cancellation/dependency/native-substitution checks; JIT/AOT sample; compiled API/XML, pinned DocFX and explicit MSBuild checks.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A13/final-linux-build/result.json",
+          "sha256": "264c691f1644395392a5be59ebd562adad8dd8f6fdfd4ffe71ca5f807774726e",
+          "source_commit": "5916573281c8b4da89642467f33327bae4d09c74",
+          "passed": true,
+          "source_dirty": false
+        },
+        {
+          "archive_path": "ledger/evidence/A13/final-linux-docs/result.json",
+          "sha256": "ec3011351a5f494709235679ef91b6b867b150eeec01a1628f72cadc000f4575",
+          "source_commit": "5916573281c8b4da89642467f33327bae4d09c74",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A13/independent-review/review.json",
+        "sha256": "1caaf2d136e39b90a15534ce1d5a34aecda06d4babb14c0e6b3532918361f8e8",
+        "source_commit": "34f947f4565a430937a5bd7124db551ae281c188",
+        "outcome": "accepted for declared Linux A13 build/documentation component scope"
+      },
+      "evidence_boundary": "Full build/docs suites bind 5916573. Later DocFX-only 6735aed and MSBuild-only 34f947f use targeted checks and the cited independent review."
+    },
+    {
+      "id": "A22",
+      "state": "linux_component_accepted",
+      "integrated": true,
+      "source_checkpoint": "09094228c1b2a24dbbfdd68ab4f76b46012f56fa",
+      "remote_checkpoint": "d074f1ffa9486217f903a837c46e20e2598e8429",
+      "source_tree": "80e93e34c697474ecd9e30c1fb9537f568643a17",
+      "outcome": "92 commands; 20 JIT/AOT matrix rows, 27 policy cases, 15 signature cases and 6 exact package-closure cases; managed source/binary/default/nullability compatibility and full rollback.",
+      "receipts": [
+        {
+          "archive_path": "ledger/evidence/A22/formal-1/result.json",
+          "sha256": "9229189e2d92d528f0ad6dd4a6be2aca604739a1cfc22da287fa4122253f078e",
+          "source_commit": "09094228c1b2a24dbbfdd68ab4f76b46012f56fa",
+          "passed": true,
+          "source_dirty": false
+        }
+      ],
+      "independent_review": {
+        "archive_path": "ledger/evidence/A22/independent-review/review.json",
+        "sha256": "4ebf902bce8261ae1bc29648a19a9cbf3af4e9df4b209f55e26d182a6cc448b0",
+        "source_commit": "09094228c1b2a24dbbfdd68ab4f76b46012f56fa",
+        "outcome": "accepted-linux-component"
+      },
+      "evidence_boundary": "Old/current Core rows are accepted-component fixtures, distinct from actual released HelloWorld previews 5.1 and 6.1. The updated A13 API tool supplement verifies identical snapshots without rerunning the whole matrix."
+    }
+  ],
+  "resume_policy": {
+    "reuse_accepted_components": true,
+    "rerun_historical_acceptance": false,
+    "next_task_package_authorized": false,
+    "missing_archive_action": "Recover the exact private archive by filename and SHA-256 before consulting raw evidence. Report an access blockage; do not reinterpret absent public raw files as pending implementation."
+  }
+}
