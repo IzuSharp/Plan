@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "task": "A24",
+  "reviewer": "/root/sync_engine",
+  "author": "/root",
+  "reviewed_utc": "2026-11-17T06:01:52.341646+00:00",
+  "reviewed_commit": "5db518a6963d5d8776717dd3b4a7b5ddb593a608",
+  "status": "review_findings_resolved_synchronous_profile_verified_pending_A18",
+  "platform": "linux-x64",
+  "review_kind": "Independent read-only source, actual retained output and artifact hash review. No new runtime or prior A17 acceptance execution.",
+  "source_manifest": {
+    "src/Tooling.EngineScaffold/scaffold.py": "dc1522e0b1f8bc6d2e91b41f95730820c1978cb3ab4302c351059f73695a0d1c",
+    "src/Tooling.EngineScaffold/templates/eng/verify.py": "fc1abca6e59d7fd43a554cd4187ce4ef7f653c2cd6f6a3aac2d2905f5798a8cf",
+    "src/Tooling.EngineScaffold/templates/.github/workflows/conformance.yml": "fcc3638ada84d26c6837803dfbead3f564c52e950673dd2a8c36163d1aa0d5ff",
+    "src/Tooling.EngineScaffold/templates/AGENTS.md": "58a05cdb23cc0dc79b66019777e979ea00174f047d316e5e3f8a81b28ca6c7f9",
+    "src/Tooling.EngineScaffold/api-applicability.json": "f4854501cce04a4802c06adecf44c89ea79da65dddcd0b423c3bec65fb0dd74b",
+    "src/Tooling.EngineScaffold/design-inputs.json": "1150852fd2a2daa896055bdd44671fcadb5749b63a1d9ac64849ac3f18bd087b",
+    "tests/Tooling.EngineScaffold/prepare_sync.py": "e9b61e1e95c2f4ea26b6419f0aaf7f4ec1dfe0112e3fc10fbd4a16589d081004",
+    "tests/Tooling.EngineScaffold/verify.py": "a74a488d4849371f69289befe5fbafba8f64608ec3b41e52548b11ef140a737e",
+    "tests/Tooling.EngineScaffold/test_descriptor.py": "1aad24a5ffe41fe06eebb2e2161b5aee4c00bc8d16d88b8fb909468630bcda9a",
+    "tests/Tooling.EngineScaffold/test_output_record.py": "7661605826710c94693c5e8dcbc9f86d4c11b497dcc7e96c8a174c9ba05aba5c",
+    "docs/guides/tooling-enginescaffold.md": "b97763c772a90ed5e23ed9e78ca28b9ff02f0b0f946f0ff995e431232d3b0ccd",
+    "samples/api/tooling-enginescaffold/README.md": "de0f2e29db627280d545a16a919934abfac484aaff4ea344293bd08aeed492b2"
+  },
+  "executed_profile_source": "f84abcf45615c7ac10b7722b1525a106bd4afeac",
+  "execution_to_review_delta": "04b9363 changes only the guide after f84abcf execution; generation/runtime/tool inputs unchanged.",
+  "artifact_verification": {
+    "source_files": 38,
+    "sdk_tool_files": 8,
+    "binding_generator_files": 34,
+    "template_entries": 4,
+    "shared_core_and_native_files": 66,
+    "command_output_files": 24,
+    "package_files": 2,
+    "consumer_source_files": 6,
+    "mismatches": [],
+    "outer_receipt_sha256": "8f8d4f947661f9d3139097aa0867db1437ff4b5eb1f3bf15121e460cb547acaa",
+    "generated_manifest_sha256": "384cca81840cf33c9e9938d103fa63eb7dd20389c651dd6038a9f787b879415e",
+    "package_receipt_sha256": "9cd12b2d528ff270b8a5959a926ddb5cff36ecc09fb181743ce7d5a4b743cb6e",
+    "native_sha256": "af6d5bb169a9a46b94355965c132caeb28cad865361dfb62b72bd908b9dbbb88",
+    "aot_executable_sha256": "7d777dd71de5e3c329afa251ba9681871ecea5025e004bce07220e8f9dd96642",
+    "api_symbols": 11,
+    "jit_assertions": 139,
+    "aot_assertions": 139,
+    "native_live": 0,
+    "native_capacity": 0,
+    "native_active": 0,
+    "releases": 102
+  },
+  "positive_findings": [
+    "Pinned SDK commit source validation and generated workflow checkout agree; reviewed package artifact is explicit workflow input.",
+    "A02 generated immutable descriptor is actually inspected by consumer module initializer; threading and every declared capability are required before typed facade use.",
+    "A16 SDK record is checked for exact engine/package/version/RID/source path/hash and resolves both nested ordinary build and flat publish locations.",
+    "A09/A10/A11 exact inventories/adapter/generator outputs are retained; synchronous profile has no callback/async runtime.",
+    "Core source unchanged during scaffold conformance; actual creator ownership and post-native-wrapper-failure guard are copied unchanged from accepted A17.",
+    "Generated facade package contains only reviewed Linux native asset, exact Core dependency, packaging task/XML/targets/closure and typed facade. Outside-tree consumer has separate JIT/AOT locks and native hash unchanged after managed DTO edit.",
+    "Generated manifest remains accepted=false and pristine_machine=false; actual results are not mislabeled as two-engine or pristine acceptance."
+  ],
+  "findings": [
+    {
+      "id": "A24-R5",
+      "severity": "P2",
+      "file": "src/Tooling.EngineScaffold/scaffold.py",
+      "location": "template_sha256 population using templates.rglob(\"*\") near end of generate",
+      "finding": "Exact template provenance includes untracked interpreter cache instead of only installed source templates. Actual receipt contains eng/__pycache__/verify.cpython-312.pyc, produced by importing the template in test_output_record.py.",
+      "impact": "Identical tracked source can produce different source manifests depending on import history and interpreter/path metadata; a clean checkout cannot reproduce this extra recorded template source. Runtime generated files and passed consumers are unaffected.",
+      "requested_fix": "Enumerate the three installed template paths (the existing copy list) or tracked template source files. Retain historical receipt; metadata correction requires only targeted manifest evidence, not repeating A17 runtime acceptance.",
+      "evidence": {
+        "unexpected_template": "eng/__pycache__/verify.cpython-312.pyc",
+        "sha256": "2d5bee19acd524949ce1c934451482195232676d1b93f80bc4a34c7fc896fd17"
+      },
+      "status": "resolved by 5db518a6963d5d8776717dd3b4a7b5ddb593a608"
+    }
+  ],
+  "scope_clarifications": [
+    {
+      "id": "A24-S1",
+      "file": "docs/guides/tooling-enginescaffold.md",
+      "description": "The actual A10 generated ownership helper references internal Core NativeResourceOwner. The A17 profile succeeds with its existing NativeWeave.Engines.SyncProof IVT. A new arbitrary assembly name requires an integrator friend prerequisite; document maintainer-approved assembly scope and avoid implying independent third-party assembly consumption is already established. No new public SPI or Core capability is requested by this review.",
+      "status": "documented by 5db518a6963d5d8776717dd3b4a7b5ddb593a608"
+    }
+  ],
+  "limitations": [
+    "Second heterogeneous A18 profile remains pending and is required before final A24 acceptance.",
+    "No new network, adversarial, invalid-memory, security or unrelated acceptance tests were performed.",
+    "Installed workflow source reviewed; no claim that a newly generated repository workflow has executed remotely.",
+    "Core friend prerequisite is inherited from A10; unchanged Core receipt proves these reviewed profiles only."
+  ],
+  "followup": {
+    "commit": "5db518a6963d5d8776717dd3b4a7b5ddb593a608",
+    "reviewed_utc": "2026-11-17T06:06:32.812868+00:00",
+    "resolved": [
+      "A24-R5",
+      "A24-S1"
+    ],
+    "scope": "Read-only fix/source and generation metadata validation; no repeated runtime acceptance.",
+    "new_manifest_sha256": "348cc7beeee577b45809248686df10ab2d3aac118a7d4e300933521d6b31c176",
+    "generated_file_count": 38,
+    "installed_files_identical_to_passed_profile": true,
+    "installed_template_count": 3,
+    "all_generation_log_hashes_match": true,
+    "corrected_source_sha256": {
+      "src/Tooling.EngineScaffold/scaffold.py": "dc1522e0b1f8bc6d2e91b41f95730820c1978cb3ab4302c351059f73695a0d1c",
+      "docs/guides/tooling-enginescaffold.md": "b97763c772a90ed5e23ed9e78ca28b9ff02f0b0f946f0ff995e431232d3b0ccd"
+    },
+    "reused_acceptance": "sync-conformance-01 JIT139/AOT139/API11; every installed file byte unchanged"
+  }
+}

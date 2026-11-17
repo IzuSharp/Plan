@@ -1,0 +1,270 @@
+{
+  "task": "A18",
+  "platform": "linux-x64",
+  "status": "accepted_linux_component",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "branch": "task/Task-04-A18-linux",
+  "worktree": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-04-A18-linux/NativeWeave",
+  "source_commit": "3913978e77eac63c45492c06b336be55b7563a20",
+  "source_dirty": false,
+  "source_stable": true,
+  "source_inputs": 132,
+  "source_commits": [
+    "913d88f166312d6dc7a906534191586561668e10",
+    "bf51b0fd6396ca7f0f0b2f86d596d73a792c6b06",
+    "f6eb11614423a2e4bc01a5855cd41d2ff7daaf32",
+    "3913978e77eac63c45492c06b336be55b7563a20"
+  ],
+  "shared_registration_commit": "08638ae",
+  "scope": "Real bounded native Hyper/Tokio HTTP1 service, statically compiled managed Handler, actual Core A06/A07 lifecycle, independent Bytes/live-stream ownership and typed generated boundary. No final Server API or common public runtime added.",
+  "execution": {
+    "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-04-A18-linux/NativeWeave/artifacts/task04/A18/formal-02/result.json",
+    "sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3",
+    "commands": 54,
+    "all_expected_exits_met": true,
+    "native_tests": 4,
+    "direct_routes": [
+      7,
+      99
+    ],
+    "component_jit_checks": 127,
+    "component_aot_checks": 127,
+    "package_jit_checks": 123,
+    "package_aot_checks": 123,
+    "native_network_cancel_gc_iterations_per_consumer": 12,
+    "normal_rows_final_live_resources": 0,
+    "compiled_api_symbols": 36,
+    "exact_native_exports": 22,
+    "samples": "Minimal/advanced public consumers passed JIT and actual Native AOT",
+    "negative_consumers": [
+      "CS8625 null handler",
+      "CS9244 escaping scoped bytes"
+    ],
+    "application_only_change": "Changed managed Handler rebuilt and ran; exact native SHA unchanged and Rust traps never fired."
+  },
+  "independent_review": {
+    "path": "/workspace/scratch/58d2a6adf1c3/task04-reviews/A18-independent-review.json",
+    "sha256": "d781347c69d6e31b2d057fb1d04369b2210b8dce130032ec35d4d7c6c2aa7a7b",
+    "reviewer": "/root/sync_engine",
+    "status": "passed_independent_source_and_evidence_review",
+    "open_findings": []
+  },
+  "artifacts": {
+    "native": {
+      "sha256": "6f13123926be2a039b27bdb478b53b9b87039711f39a8e930a7c843669336e22",
+      "bytes": 1285904
+    },
+    "direct_rust": {
+      "sha256": "29e51d41fefb74e072e51fbe63a21c591df1c31af1a72010de87a9d90bdc2b66",
+      "bytes": 1271336
+    },
+    "tests_jit": {
+      "sha256": "0c5253ac24a3d8eb8855e44812fc0d032a5e4e05cc57e063225f097ca5aff24f",
+      "bytes": 47104
+    },
+    "tests_aot": {
+      "sha256": "440f963f2d61b255598bbc3e466b2ca3634274b87966888cdaa630f2122bb41f",
+      "bytes": 3135640
+    },
+    "sample_jit": {
+      "sha256": "9276b8146050852c5a47dab00bef7059f9b14fa21055b6ee0cc92deeefdf4c33",
+      "bytes": 12800
+    },
+    "sample_aot": {
+      "sha256": "aed71f6014b423e90b5044e1bc44b5170695e8fe74898a7f464c52976b4a15a8",
+      "bytes": 2487448
+    }
+  },
+  "package_sha256": {
+    "NativeWeave.Core.0.1.0-proof.1.nupkg": "3c52c48c8d885940229bba03a67e876d6b051f8b119380b80310a5b5baa30c72",
+    "NativeWeave.Engines.AsyncProof.0.1.0-proof.1.nupkg": "c3b25951b08340bdd53dcd7a63bbb269d28c4deeb2b7cd9848e3cf54b8e561ee"
+  },
+  "package_executable_sha256": "9a9e90e678617de18faead838bdabe8625ad8f63c2b03c50e7325c73e300b9d1",
+  "a24_inputs": {
+    "directory": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-04-A18-linux/NativeWeave/artifacts/task04/A18/formal-02",
+    "parsed_inventory": "parsed.json",
+    "linked_symbols": "linked.txt",
+    "independent_closure": "package-closure.json",
+    "packages": "packages/",
+    "full_consumer_sources": "independent-consumer/",
+    "native_asset": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-04-A18-linux/NativeWeave/target/release/libnativeweave_engine_asyncproof.so",
+    "binding": "native/engines/async-proof/binding.json",
+    "upstream": "native/engines/async-proof/upstream.json",
+    "descriptor": {
+      "engine_id": "nativeweave.engines.asyncproof",
+      "abi": "1.0",
+      "bootstrap": "nw_asyncproof_get_abi_v1",
+      "capability_bits": {
+        "http.loopback.stream.v1": 0
+      },
+      "threading": "EngineLocalAsync",
+      "cpu_baseline": "x86-64",
+      "error_domain": "0x48545450",
+      "callback_profile": "Actual shared Core A06/A07 UCO tables; no module-owned synthetic callback export."
+    }
+  },
+  "resolved_regressions": [
+    {
+      "id": "A18-R1",
+      "status": "resolved",
+      "resolution": "FinishClose awaits CallbackRegistration.Completion after Retirement and operation cleanup.",
+      "before_exit": -6,
+      "before_source_sha256": "f418e72a27b84b1648349a43bfc73c0f329cac6b72dce83e4b84c26453a3ead3",
+      "before_log_sha256": "3e980fcf6c92baef9910eb6e275744c56304065c6a0f6278f1029bfae8e6688b",
+      "before_result_sha256": "1eb6fc6be4242302715fc8a59176581cec2fa676767945e2cc8d14fadd6147af",
+      "command": [
+        "dotnet",
+        "tests/Engines.AsyncProof/bin/Release/net11.0/NativeWeave.Engines.AsyncProof.Tests.dll",
+        "--notification-fault"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    },
+    {
+      "id": "A18-R2",
+      "status": "resolved",
+      "resolution": "A05 cleanup catches resumed unknown payload without running its Drop; worker_failed remains sticky and release refuses the quarantined host.",
+      "before_exit": 101,
+      "before_source_sha256": "25fb203c6679e81af89f31d2df611b0cdde3249c7144fe7aab980d2b2f2b3247",
+      "before_log_sha256": "acfff5e2a3f78c9fed46bf5ce4c77419eeb121ac0579501090e0619d83501c8e",
+      "before_result_sha256": "cf5690056d504dc393bee26a0dd9f3488ca753406389efbd372ca3cb87bc421c",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "nativeweave-engine-asyncproof",
+        "worker_panic_payload_retained_without_foreign_unwind",
+        "--",
+        "--nocapture"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    },
+    {
+      "id": "A18-R3",
+      "status": "resolved",
+      "resolution": "State.get holds the same control gate as close while rejecting or registering Incoming; no Body is registered behind the drain snapshot.",
+      "before_exit": 101,
+      "before_source_sha256": "07ca1910575375a539fa65ea5171e6ccd816e5674c763ed45e702f3057ea0f8b",
+      "before_log_sha256": "b808faf0a3a3a1dbef3ce6461b00f4eab15c9d471142a4f70ee4183a6f02817f",
+      "before_result_sha256": "eef7154c9549df22d247a5501531f467db308eee75c959a0bf349e7563ad0ac6",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "nativeweave-engine-asyncproof",
+        "actual_headers_close_publication_race",
+        "--",
+        "--nocapture"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    },
+    {
+      "id": "A18-R4",
+      "status": "resolved",
+      "resolution": "A reservation is charged before A07 setup/start, retained through the observer and awaited by the shared operations-drained close promise.",
+      "before_exit": -6,
+      "before_source_sha256": "5845b46b276b5e00bf87d9655434ee8f033763f6324934be037a98f45f86aee3",
+      "before_log_sha256": "65d435b8c6b091406827dbde60cca587a13b3ceeb4351df48bd00e2251de645e",
+      "before_result_sha256": "d080eec911be23ad00058ca530046794f1fdf480f827d0c3d49fc9dce10bc4e4",
+      "command": [
+        "dotnet",
+        "tests/Engines.AsyncProof/bin/Release/net11.0/NativeWeave.Engines.AsyncProof.Tests.dll",
+        "--observer-budget"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    },
+    {
+      "id": "A18-R5",
+      "status": "resolved",
+      "resolution": "QueuedFrame owns the queue charge and returns it on dequeue or receiver/channel destruction; backing Bytes and stream quotas remain independent.",
+      "before_exit": 101,
+      "before_source_sha256": "1dedf732c5f22123916a89b2e819d8ccf9830e28f340619e7ef8ccf64429e515",
+      "before_log_sha256": "64134809d1b0d0e81e8ee5abf26c6a4c1e67deb9487677da77f322a9492c87e4",
+      "before_result_sha256": "8d56c3c01f41ec3367bf5a8fb03c8b60acb7ad5787b0dc9eff2acd23354e95a4",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "nativeweave-engine-asyncproof",
+        "issued_frame_permit_after_body_drop_refunds_queue",
+        "--",
+        "--nocapture"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    },
+    {
+      "id": "A18-R6",
+      "status": "resolved",
+      "resolution": "The one-per-host CancelAsync task is awaited as part of cleanup; blocked or failing registrations cannot block initial Dispose/CloseAsync and failure is reported after drain.",
+      "before_exit": -6,
+      "before_source_sha256": "494356b4e124f6d74f9612e620697ef9c72ffa4b3958e814231c83613a9666aa",
+      "before_log_sha256": "9ce282cc4a7de03b1ea9661869a72f31b55a3399c805f74a4a19a85886fb402c",
+      "before_result_sha256": "7608e315d323240ef186aeffdbd4384c5931c431b07fedc54cda2b261af9e556",
+      "command": [
+        "dotnet",
+        "tests/Engines.AsyncProof/bin/Release/net11.0/NativeWeave.Engines.AsyncProof.Tests.dll",
+        "--nonblocking-cancel"
+      ],
+      "fixed_evidence_sha256": "04d139227729d621b20dda15d9898c410d575dfb9cee76393b0012c8cdc6f9b3"
+    }
+  ],
+  "before_evidence_directory": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-04-A18-linux/NativeWeave/artifacts/task04/A18/review-before",
+  "before_commands_sha256": "6b1e782c376803527a6efba6a03e76383205a7f586cd5e13b10f827edde90de0",
+  "incremental_cost": {
+    "accepted_a17_receipt_sha256": "8d469166617d0d1fbdb7a713a3978087e627f7fc00080abcdfa0badfe99fb6dc",
+    "accepted_a17_source_commit": "cba55de035cb46170b2f1861536eb078c6b3c383",
+    "native_bytes": {
+      "a17": 471176,
+      "a18": 1285904
+    },
+    "native_bytes_delta": 814728,
+    "package_bytes": {
+      "NativeWeave.Core.0.1.0-proof.1.nupkg": 54081,
+      "NativeWeave.Engines.AsyncProof.0.1.0-proof.1.nupkg": 554103
+    },
+    "handwritten_native_lines": 1780,
+    "handwritten_managed_lines": 485,
+    "generated_managed_lines": 853,
+    "scope": "Static artifact/code/dependency costs against the frozen accepted A17 result. Different engine behavior; no comparable runtime benchmark implied.",
+    "no_performance_superiority_or_whole_rss_claim": true
+  },
+  "limitations": [
+    "Linux x64 only; Windows remains deferred.",
+    "Bounded HTTP/1 loopback proof, not final NativeWeave.Server, HTTP2/TLS, production soak or public package release.",
+    "Finite accounting and diagnostic counters are not a whole-process RSS bound or performance superiority claim.",
+    "The no-Rust consumer uses actual invocation traps and an isolated NuGet cache on this environment, not a pristine machine.",
+    "Unknown worker panic payload size is unbounded/unknown and deliberately retained; native panic quarantine is not claimed as normal cleanup.",
+    "A17 accepted component verification was reused for static incremental-cost comparison and was not rerun.",
+    "A24 second-profile scaffold acceptance and final merged CI/release verification are separate parent-owned tasks."
+  ],
+  "prior_evidence": {
+    "preparation_source": "913d88f166312d6dc7a906534191586561668e10",
+    "preparation_receipt_sha256": "c40eab2e0001a4c4d6c877dc74b12f83fbecd65bb1b7c7d52d49e191a0d80faa",
+    "lock_attestation_receipt_sha256": "29eefdd8a7e9d585d2ea29fe51d08c88b1ba2dd5df6b934c34e588e429c95a44",
+    "status": "Preserved unchanged as prior preparation/composite history; final clean formal-02 supersedes it after R4/R5/R6 behavioral fixes."
+  },
+  "parent_owned_next_steps": [
+    "Reuse accepted A18 component in accepted A24 pair; finish final batch integration checks, normal merges and existing postmerge CI/release."
+  ],
+  "state": "accepted_linux_component",
+  "raw_receipt": {
+    "recovery_path": "ROOT/.worktree/Task-04-A18-linux/NativeWeave/artifacts/task04/A18/acceptance-linux.json",
+    "sha256": "ef0827c014dba2e06895ec7ad221161fc8359de88ee452135a73a2d1da3f396b"
+  },
+  "integrated_commits": [
+    "a314f56",
+    "ea71e7f",
+    "4030862",
+    "6953d3f",
+    "9dae713",
+    "0eaeb91"
+  ]
+}
