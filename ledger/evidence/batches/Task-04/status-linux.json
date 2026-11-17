@@ -49,7 +49,7 @@
       ]
     },
     "A07": {
-      "state": "in_progress",
+      "state": "accepted_linux_component",
       "owner": "callbacks",
       "branch": "task/Task-04-A07-linux",
       "worktree": "ROOT/.worktree/Task-04-A07-linux/NativeWeave",
@@ -59,16 +59,25 @@
       ],
       "acceptance_dependencies": [],
       "packet_sha256": "a4c3f59152d8884e426145635750f50c585c4a1e6312f9c94129890edda29f8f",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "7e26605",
+        "d476974"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Complete Task state machine and actual cancellation/take/retire tests; root shared registration and locked graph ready."
+      "verification": [
+        "../../A07/acceptance-linux.json",
+        "../../A07/review-linux.md"
+      ],
+      "next_step": "Reuse accepted Task bridge immediately in A08/A18/A20 and final A14 composition.",
+      "source_commits": [
+        "9db03cf55f2d494993da36ccccf3e255740299df"
+      ]
     },
     "A08": {
-      "state": "waiting_dependency",
-      "owner": "queued",
-      "branch": null,
-      "worktree": null,
+      "state": "in_progress",
+      "owner": "packaging",
+      "branch": "task/Task-04-A08-linux",
+      "worktree": "ROOT/.worktree/Task-04-A08-linux/NativeWeave",
       "start_dependencies": [
         "A07"
       ],
@@ -77,7 +86,7 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start when A07 is ready."
+      "next_step": "Implement and verify scoped component from integrated A07 d476974."
     },
     "A14": {
       "state": "pending_assembled_acceptance",
@@ -155,7 +164,7 @@
       ]
     },
     "A17": {
-      "state": "pending_review",
+      "state": "accepted_linux_component",
       "owner": "sync_engine",
       "branch": "task/Task-04-A17-linux",
       "worktree": "ROOT/.worktree/Task-04-A17-linux/NativeWeave",
@@ -176,19 +185,20 @@
       ],
       "pending_commits": [],
       "verification": [
-        "Native actual miniz differential/boundary tests; 144 source JIT/AOT assertions; 139 independent package JIT/AOT assertions and exact negative compilation passed preparation."
+        "../../A17/acceptance-linux.json",
+        "../../A17/review-linux.json"
       ],
-      "next_step": "Finish clean-source evidence and root review; preserve exact generated/native/package identities.",
+      "next_step": "Reuse accepted real synchronous engine for A24 generated package conformance.",
       "source_commits": [
         "d732d1966b71f391a2483a34887a0d0a078d2850",
         "cba55de"
       ]
     },
     "A18": {
-      "state": "waiting_dependency",
-      "owner": "queued",
-      "branch": null,
-      "worktree": null,
+      "state": "in_progress",
+      "owner": "callbacks",
+      "branch": "task/Task-04-A18-linux",
+      "worktree": "ROOT/.worktree/Task-04-A18-linux/NativeWeave",
       "start_dependencies": [
         "A02",
         "A07",
@@ -200,11 +210,11 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start when A07 is ready."
+      "next_step": "Implement and verify scoped component from integrated A07 d476974."
     },
     "A20": {
-      "state": "waiting_dependency",
-      "owner": "queued",
+      "state": "ready_queued_capacity",
+      "owner": "sync_engine_next",
       "branch": null,
       "worktree": null,
       "start_dependencies": [
@@ -219,11 +229,11 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start when A07 is ready."
+      "next_step": "Start immediately after A23 checkpoint; all dependencies satisfied, three worker slots occupied."
     },
     "A23": {
       "state": "in_progress",
-      "owner": "root",
+      "owner": "sync_engine",
       "branch": "task/Task-04-A23-linux",
       "worktree": "ROOT/.worktree/Task-04-A23-linux/NativeWeave",
       "start_dependencies": [
@@ -259,7 +269,8 @@
       ],
       "pending_commits": [],
       "verification": [
-        "Six descriptor methods passed preparation; not real Engine acceptance."
+        "Six descriptor methods passed preparation; not real Engine acceptance.",
+        "Independent R1-R4 findings fixed in495a826; 11 targeted descriptor/output-record methods passed. Actual two-engine generated acceptance remains pending."
       ],
       "next_step": "Resolve independent scaffold review findings and run actual A17/A18 generated package consumers.",
       "source_commits": [
@@ -269,9 +280,27 @@
     }
   },
   "remote_checkpoint": {
-    "implementation_commit": "e8de5abca5f42b4e0ca48cf1102f565e52260ae3",
-    "implementation_local_equivalent": "639781716cbdd257375f300a34e1b60d4a7761b8",
-    "tree": "f83bf6bfb497d3989924a1edb65dcd3b1eaadf87",
-    "note": "Further integrated source is committed locally; next authenticated GitData checkpoint pending."
+    "implementation_commit": "dcf714e86184edc05053eecf701c7362f5128a2d",
+    "implementation_local_equivalent": "16f17c8947fa0a69bb4bc0f0f2472088e1990d2a",
+    "tree": "54c5af8a4e3d7a931428e5f4167a6e7f583b30f5",
+    "plan_commit": "e6839ce365d40599c84da5f8d166242e8fa65ba8",
+    "plan_local_equivalent": "3634b741b220c8427606bc67632258e64aa1839f",
+    "note": "Exact remote/local trees verified. A07 and subsequent review fixes are committed for next checkpoint."
+  },
+  "ci": {
+    "implementation": {
+      "run": "https://github.com/IzuSharp/NativeWeave/actions/runs/44023247328",
+      "state": "failure",
+      "findings": [
+        "Root Cargo input hashes in existing A13 HelloWorld profile require refresh after member/lock integration.",
+        "Secret scan matches exact public locked Design file digests in new provenance files; narrow path+value exceptions follow existing policy, full scan stays enabled."
+      ],
+      "repair_commit": "8ddb7e3",
+      "repair_scope": "Profile source pins and exact public digest matches only; local pinned gitleaks full-history rescan passes."
+    },
+    "plan": {
+      "run": "https://github.com/IzuSharp/Plan/actions/runs/44023281043",
+      "state": "success"
+    }
   }
 }

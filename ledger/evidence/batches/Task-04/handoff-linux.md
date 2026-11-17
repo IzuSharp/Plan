@@ -23,21 +23,22 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 | Task | Linux state | Owner | Next step |
 | --- | --- | --- | --- |
 | A06 | accepted_linux_component | callbacks | Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance. |
-| A07 | in_progress | callbacks | Complete Task state machine and actual cancellation/take/retire tests; root shared registration and locked graph ready. |
-| A08 | waiting_dependency | queued | Start when A07 is ready. |
+| A07 | accepted_linux_component | callbacks | Reuse accepted Task bridge immediately in A08/A18/A20 and final A14 composition. |
+| A08 | in_progress | packaging | Implement and verify scoped component from integrated A07 d476974. |
 | A14 | pending_assembled_acceptance | packaging | Run complete A07 composition on Ubuntu baseline and transfer to runtime-only environment. |
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
 | A16 | pending_assembled_acceptance | packaging | Finish exact closure/publication cases and independent review; await A14 Ubuntu and SDK/runtime containers. |
-| A17 | pending_review | sync_engine | Finish clean-source evidence and root review; preserve exact generated/native/package identities. |
-| A18 | waiting_dependency | queued | Start when A07 is ready. |
-| A20 | waiting_dependency | queued | Start when A07 is ready. |
-| A23 | in_progress | root | Implement actual Linux owner-thread/callback/lease probe; no display/device certification. |
+| A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
+| A18 | in_progress | callbacks | Implement and verify scoped component from integrated A07 d476974. |
+| A20 | ready_queued_capacity | sync_engine_next | Start immediately after A23 checkpoint; all dependencies satisfied, three worker slots occupied. |
+| A23 | in_progress | sync_engine | Implement actual Linux owner-thread/callback/lease probe; no display/device certification. |
 | A24 | pending_assembled_acceptance | root | Resolve independent scaffold review findings and run actual A17/A18 generated package consumers. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). A06 Linux component acceptance and independent review are recorded in
-[its evidence](../../A06/acceptance-linux.json); assembled packaging and the remaining
-components are still in progress. Accepted A06 can be consumed immediately.
+tracked in [status-linux.json](status-linux.json). A06, A07 and A17 Linux component acceptance and independent review are recorded
+in their original evidence directories. A07 may be consumed immediately; do not wait
+for whole-batch closeout or repeat these completed component checks. Assembled
+packaging and the remaining components are still in progress.
 
 ## Workspaces and integration
 
@@ -63,7 +64,7 @@ bytes separately when necessary; never rewrite a failed record as success.
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
 Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
 
-Next: finish A07 and A23 while A17 completes review and A14/A16/A24 prepare
-assembly. Immediately dispatch A08/A18/A20 when A07 is ready. Complete package
+Next: A08 and A18 are active after accepted A07; A23 is active and its worker takes
+ready A20 next. A24 now consumes accepted A17 while waiting for A18. Complete package
 and scaffold assembly, independent reviews, both PRs and normal post-merge checks.
 Stop after Task-04; no Task-05/Task-06 execution is authorized by this record.
