@@ -1,84 +1,87 @@
-# Task-04 Linux x64 handoff
+# Task-04 Linux x64 final handoff
 
-## Scope and recovered inputs
+## Completion
 
-Task-04 covers A06, A07, A08, A14, A15, A16, A17, A18, A20, A23 and A24.
-The current user explicitly authorizes all Linux-applicable work and normal paired
-PR/merge/CI/automatic-preview closeout. A15 is deferred; A23 is Linux-only.
-No other task package is authorized by this handoff. Global historical design and
-delivery graphs remain unchanged; this platform record is not global acceptance.
+All ten Linux-applicable tasks are implemented, independently reviewed and accepted.
+Both original batch PRs merged normally. Their actual merge CI and the existing
+automatic preview publication and registry-consumer workflow succeeded. A15 remains
+deferred. This is Linux acceptance; `global_acceptance` remains false.
+
+| Task | Delivered scope | Actual verification |
+| --- | --- | --- |
+| [A06](../../A06/acceptance-linux.json) | Callback registration, revocation and drain | Native 5; JIT 6,332 / AOT 6,333 |
+| [A07](../../A07/acceptance-linux.json) | Task bridge, cancellation and retirement | Native 4; JIT 355 / AOT 356 |
+| [A08](../../A08/acceptance-linux.json) | Optional bounded executor and joined shutdown | Native 18; JIT 489 / AOT 490; 47 balanced owners |
+| [A14](../../A14/acceptance-linux.json) | Linux native/AOT package closure | Six JIT/AOT consumers; observed emulated minimum CPU; runtime-only transfer |
+| A15 | Windows native/AOT packaging | Deferred: outside this Linux run |
+| [A16](../../A16/acceptance-linux.json) | Independent packaging and provenance | Fresh no-Rust SDK; 17 build cases; offline application edits; runtime-only transfer |
+| [A17](../../A17/acceptance-linux.json) | Real synchronous miniz engine | Native 18; component JIT/AOT 147 each; package 139 each; API/XML 11 |
+| [A18](../../A18/acceptance-linux.json) | Real Hyper/Tokio asynchronous HTTP engine | Native 4; component JIT/AOT 127 each; package 123 each; API/XML 36 |
+| [A20](../../A20/acceptance-linux.json) | Cross-language properties and fuzzing | JIT/AOT 8,925 each; 72 bounded orders; 20,000 fuzz units |
+| [A23](../../A23/acceptance-linux.json) | Linux thread-affinity integration | JIT/AOT 238 each; 15 owner-thread destructors |
+| [A24](../../A24/acceptance-linux.json) | Heterogeneous generated Engine packages | Sync JIT/AOT 139 each / API 11; async 123 each / API 36; 66 common inputs unchanged |
+
+Counts are assertions/cases within the named profiles, not an aggregate performance
+measure. Normal acknowledged retirement is balanced; deliberately quarantined
+negative children retain uncertain owners as documented. C ASan/UBSan cover the
+declared A20 subset. Unbounded schedules, whole-process RSS and performance superiority
+are not claimed. A23 unavailable GUI/GPU/mobile/static/WASM profiles remain separate.
+
+## Merges, CI and publication
+
+- Implementation [PR15](https://github.com/IzuSharp/NativeWeave/pull/15): `aa16521d609c0749d7c199f70eedad833b0d24c8`.
+- Plan [PR18](https://github.com/IzuSharp/Plan/pull/18): `e62cfd630681fad87a59976239247597602befc4`.
+- Actual implementation merge [CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44035502220): success.
+- Actual Plan merge [CI](https://github.com/IzuSharp/Plan/actions/runs/44036030778): success.
+- Automatic [Release](https://github.com/IzuSharp/NativeWeave/actions/runs/44035502241): success; [NativeWeave.HelloWorld 0.1.0-preview.8.1](https://www.nuget.org/packages/NativeWeave.HelloWorld/0.1.0-preview.8.1) is `published-and-consumed`.
+
+The release verified the NuGet.org repository signature, equality of unsigned payload
+entries with the retained candidate, and actual HelloWorld/InteropTests JIT and Native
+AOT consumers from registry bytes. Publication still covers the existing HelloWorld
+package. Task proof packages retain their separately recorded local consumption scope.
+
+A14/A16 also passed actual Ubuntu 24.04/glibc 2.39 composition, QEMU Nehalem minimum-CPU
+execution, the pinned Ubuntu 26.04 SDK container without Rust, offline Entity/DTO/Handler
+edits preserving native hashes, and an Ubuntu 24.04 runtime-only container without SDK
+or native compilers. The CPU result is emulated evidence, not physical certification.
+
+[ci-final-linux.json](ci-final-linux.json) and [publication-linux.json](publication-linux.json)
+bind the exact actual runs, source trees, artifacts, receipts and package hashes. The
+earlier PR and checkpoint evidence remains distinct from postmerge execution.
+
+## Workspaces and recovery
+
+ROOT is the existing checkout parent. Batch branches remain `task/Task-04-linux` in
+both repositories, with worktrees at `ROOT/.worktree/Task-04-linux/NativeWeave` and
+`ROOT/.worktree/Task-04-linux/Plan`. The ten prescribed `task/Task-04-<ID>-linux` component
+branches are preserved; [source-recovery-linux.json](source-recovery-linux.json) binds
+each original execution commit to a remotely fetchable identical source tree. GitData
+transport commit metadata differs and is never relabeled as a fresh execution.
 
 Implementation baseline: `5ca367a2fa53e0a756b4c5bcb506113d5c1371a1`.
 Plan baseline: `dcf74c700a14fa1983defe2aaef1ca043b9dbc3d`.
 Read-only Design: `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`.
+Toolchains: SDK 11.0.100 / C# 15 / Rust 1.100.0.
 
-A02/A05/A09 are reused from [Task-02](../Task-02/handoff-linux.md).
-A03/A04/A10/A11/A13/A22 are reused from [Task-03](../Task-03/handoff-linux.md).
-All required package-external Linux prerequisites have accepted component evidence.
-Do not repeat their implementation or historical acceptance. The initial remote
-branch/PR and local worktree checks found no existing Task-04 work to recover.
+A02/A05/A09 are reused from [Task-02](../Task-02/handoff-linux.md);
+A03/A04/A10/A11/A13/A22 from [Task-03](../Task-03/handoff-linux.md). No completed component
+implementation or historical acceptance needs to be repeated for this handoff. Shared
+solution/Cargo/friend registrations and fingerprints were integrated serially and
+independently reviewed; all 246 task-owned files match their accepted source commits.
 
-## Current task state
+## Retained evidence and final record
 
-| Task | Linux state | Owner | Next step |
-| --- | --- | --- | --- |
-| A06 | accepted_linux_component | callbacks | Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance. |
-| A07 | accepted_linux_component | callbacks | Reuse accepted Task bridge immediately in A08/A18/A20 and final A14 composition. |
-| A08 | accepted_linux_component | packaging | Reuse accepted executor; no repeated component acceptance. |
-| A14 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
-| A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
-| A16 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
-| A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
-| A18 | accepted_linux_component | callbacks | Reuse accepted actual Hyper/Tokio HTTP component; no repeat of component acceptance. |
-| A20 | accepted_linux_component | root | Reuse accepted Linux cross-language properties, bounded races, supported sanitizer profile and isolated controls; no historical rerun. |
-| A23 | accepted_linux_component | sync_engine | Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit. |
-| A24 | accepted_linux_assembled | packaging | Reuse accepted heterogeneous A17/A18 generated-package pair; final merged CI/release remains batch closeout. |
+[status-linux.json](status-linux.json) records all eleven task states, dependencies,
+owners, branches, integrated commits and evidence references.
+[raw-evidence-index-linux.json](raw-evidence-index-linux.json) identifies two retained
+archives with per-file SHA-256 manifests, logs, failures, corpus, packages and runtime
+bytes. Every accepted A18/A24 binary reference is retained. Three overwritten historical
+preparation-only A18 binaries are explicitly listed as missing in the raw inventory;
+their original receipts/logs remain and current bytes are not substituted.
 
-Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). A06, A07, A08, A17, A20 and A23 Linux component acceptance and independent review are recorded
-in their original evidence directories. A07 may be consumed immediately; do not wait
-for whole-batch closeout or repeat these completed component checks. A14/A16 assembled Linux acceptance is also recorded from actual checkpoint4 CI.
-A18 real HTTP and the heterogeneous A24 generated-package pair are now independently
-reviewed and accepted. All ten Linux-applicable components are accepted; batch delivery
-remains open until final integration checks, normal merges and automatic preview closeout.
+This evidence-only closeout follows the existing Plan PR/check/merge workflow. Its own
+PR and merge checks must be observed before the operator reports final completion;
+their GitHub records avoid another commit solely to restate check results.
 
-## Workspaces and integration
-
-Reuse the existing checkout parent as ROOT. Batch branches in both repositories
-are `task/Task-04-linux`; batch worktrees are
-`ROOT/.worktree/Task-04-linux/{NativeWeave,Plan}`. Each component uses its listed
-isolated `task/Task-04-<ID>-linux` branch/worktree. The sibling Design worktree is
-read-only at the exact pinned commit. Root integrates shared solution, Cargo and
-build registrations serially as minimal A13 patches; component work remains parallel.
-
-Use SDK 11.0.100 / C# 15 / Rust 1.100.0 and the existing local toolchain/cache.
-The local host is Debian 13, so it cannot establish the declared Ubuntu 24.04
-baseline by assertion. A14/A16 target-baseline and pristine no-Rust checks passed the existing Ubuntu
-CI/container flow with scoped additions and no new matrix; see ci-checkpoint4-linux.json.
-
-## Evidence and delivery
-
-Keep exact raw execution receipts, failures and artifact identities. Public Plan
-records should be bounded summaries and source/hash/recovery indices without raw
-source/log/certificate dumps or unrelated machine details. Retain complete raw
-bytes separately when necessary; never rewrite a failed record as success.
-
-Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (ready; final checks running).
-Plan PR: https://github.com/IzuSharp/Plan/pull/18 (final acceptance checkpoint; final checks pending).
-
-Next: The bounded shared-registration review passed at Native source29fa773
-(remote11bb5a39, identical tree). Submit the final Plan acceptance checkpoint,
-require final-head checks, merge normally and verify exact merged CI
-and the existing automatic preview/registry consumers. Component acceptance is complete;
-do not repeat it. Stop after Task-04; no Task-05/Task-06 execution is authorized here.
-
-## Recovery and retained bytes
-
-All ten accepted component source trees are preserved on their prescribed remote
-branches. [source-recovery-linux.json](source-recovery-linux.json) maps original
-execution commits to remotely fetchable, byte-identical tree snapshots. Transport
-commit metadata differs and is not presented as fresh execution evidence.
-
-[raw-evidence-index-linux.json](raw-evidence-index-linux.json) identifies the
-retained raw logs, failures, corpus and runtime/package bytes by archive SHA-256.
-Final A18/A24 and merge/publication evidence is retained during delivery closeout.
+No remaining Task-04 Linux implementation or acceptance action is assigned. Other
+platform work stays deferred, and this handoff does not start another task package.
