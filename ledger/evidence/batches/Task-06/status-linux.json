@@ -7,7 +7,7 @@
     {
       "id": "B15",
       "platform": "linux-x64",
-      "status": "in_progress",
+      "status": "accepted_component_linux",
       "owner": "root",
       "start_dependencies": [
         "A02",
@@ -28,10 +28,10 @@
       ],
       "pending_commits": [],
       "verification": [
-        "39 managed component assertions; actual generated JSON dispatch",
-        "278 exact pinned public symbols, XML/reference and seven generator negative consumers pass; actual B17 application acceptance active"
+        "Immutable actual Linux JIT/NativeAOT, exact API/ABI and independent source review passed",
+        "{\"aot_assertions\": 85, \"commands\": 14, \"exact_public_symbols\": 278, \"independent_package_jit_aot_http1_http2\": true, \"jit_assertions\": 85, \"no_consumer_rust\": true, \"source_and_log_hash_mismatches\": 0}"
       ],
-      "evidence": "ledger/evidence/B15/",
+      "evidence": "ledger/evidence/B15/review-linux.json",
       "global_acceptance": false
     },
     {
@@ -63,7 +63,7 @@
     {
       "id": "B17",
       "platform": "linux-x64",
-      "status": "awaiting_acceptance",
+      "status": "accepted_component_linux",
       "owner": "server_track",
       "start_dependencies": [
         "A07",
@@ -82,17 +82,17 @@
       ],
       "pending_commits": [],
       "verification": [
-        "Actual network JIT and NativeAOT: 69 assertions / 37 dispatches each, HTTP1/HTTP2/TLS/SSE and retirement",
-        "Strict Clippy and zero-warning managed builds pass; final ABI/fault/cost receipt active"
+        "Immutable actual Linux JIT/NativeAOT, exact API/ABI and independent source review passed",
+        "{\"aot_assertions\": 85, \"commands\": 19, \"dispatches_each_mode\": 43, \"exact_exports\": 48, \"field_offsets\": 103, \"jit_assertions\": 85, \"native_tests\": 8, \"records\": 8, \"source_log_artifact_hash_mismatches\": 0}"
       ],
-      "evidence": "ledger/evidence/B17/",
+      "evidence": "ledger/evidence/B17/review-linux.json",
       "global_acceptance": false
     },
     {
       "id": "B18",
       "platform": "linux-x64",
-      "status": "waiting_for_batch_dependency",
-      "owner": "root (queued)",
+      "status": "in_progress",
+      "owner": "root managed application; server_track native Tonic helper",
       "start_dependencies": [
         "B15",
         "B17"
@@ -102,15 +102,17 @@
       "worktree": "ROOT/.worktree/Task-06-B18-linux/NativeWeave",
       "integrated_commits": [],
       "pending_commits": [],
-      "verification": [],
+      "verification": [
+        "71 exact API declarations/XML/reference passed; actual native nine-test ownership/policy checkpoint and four service adapters composed; independent protocol matrix active"
+      ],
       "evidence": "ledger/evidence/B18/",
       "global_acceptance": false
     },
     {
       "id": "B19",
       "platform": "linux-x64",
-      "status": "waiting_for_batch_dependency",
-      "owner": "root (queued)",
+      "status": "in_progress",
+      "owner": "query_track",
       "start_dependencies": [
         "B15",
         "B17"
@@ -120,27 +122,39 @@
       "worktree": "ROOT/.worktree/Task-06-B19-linux/NativeWeave",
       "integrated_commits": [],
       "pending_commits": [],
-      "verification": [],
+      "verification": [
+        "65 exact API symbols passed; first actual transport37 assertions and zero close owners; final cancellation/bounds/AOT/package work active"
+      ],
       "evidence": "ledger/evidence/B19/",
       "global_acceptance": false
     },
     {
       "id": "B20",
       "platform": "linux-x64",
-      "status": "ready_queued",
-      "owner": "server_track (queued)",
+      "status": "accepted_component_linux",
+      "owner": "server_track",
       "start_dependencies": [
         "B17"
       ],
       "acceptance_dependencies": [],
       "branch": "task/Task-06-B20-linux",
       "worktree": "ROOT/.worktree/Task-06-B20-linux/NativeWeave",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "13827d7",
+        "d263c50",
+        "ac5542d",
+        "0657eb8",
+        "71fb8bc",
+        "0b2c804",
+        "6b0a961",
+        "d2d4727",
+        "68465e3"
+      ],
       "pending_commits": [],
       "verification": [
-        "B17 implementation integrated; starts after its immutable verification checkpoint"
+        "{\"actual_native_host_tests\": 1, \"aot_assertions\": 110, \"commands\": 33, \"exact_native_exports\": 48, \"exact_public_context_symbols\": 10, \"immutable_source_hashes_verified\": 180, \"independent_nuget_jit_aot\": true, \"jit_assertions\": 110, \"matched_cost_modes_per_runtime\": 4, \"native_unit_tests\": 5, \"no_consumer_rust\": true, \"source_log_artifact_hash_mismatches\": 0}"
       ],
-      "evidence": "ledger/evidence/B20/",
+      "evidence": "ledger/evidence/B20/review-linux.json",
       "global_acceptance": false
     }
   ],

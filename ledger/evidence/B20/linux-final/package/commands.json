@@ -1,0 +1,116 @@
+[
+  {
+    "label": "source",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "log_sha256": "2583644c7db9000d46e1e8521ed2088ef9becfb4b7c0b9e55bb552dc893c84de"
+  },
+  {
+    "label": "product-build",
+    "command": [
+      "dotnet",
+      "build",
+      "src/Server.Application/NativeWeave.Server.csproj",
+      "-c",
+      "Release",
+      "-p:RestoreLockedMode=true",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "6679711b68b12f6e0c5f93e952592d4fe170dad8bbec4e31b61d85f286592c9f"
+  },
+  {
+    "label": "sdk-task-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "-c",
+      "Release",
+      "-p:RestoreLockedMode=true",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "dcaa9509172ba9e406069d488552cb7d5092d2e0e9ff6b69578b6a7814763f5d"
+  },
+  {
+    "label": "consumer-build",
+    "command": [
+      "dotnet",
+      "build",
+      "Consumer.csproj",
+      "-c",
+      "Release",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "45f6f43841cd9ea513df71712af46a686c6c586ef6f7bf290c36efec8113e8b1"
+  },
+  {
+    "label": "consumer-jit-disabled",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package/consumer/bin/Release/net11.0/Consumer.dll"
+    ],
+    "exit_code": 0,
+    "log_sha256": "54b3d127dd5972de999d73102fc34b25c71f687b26fb2a1c1ec7da14afcda80e"
+  },
+  {
+    "label": "consumer-jit-local",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package/consumer/bin/Release/net11.0/Consumer.dll",
+      "--local"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e36546d7324ea0ecc5fa2b7bc76d4248623da5d8bd8525c6d3dc29ca1008f93a"
+  },
+  {
+    "label": "consumer-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-o",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package/consumer/publish",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "dbccd9b39f88f228b37d2a7abbce514894407b5c2cb56705c41876e5c1824ba4"
+  },
+  {
+    "label": "consumer-aot-disabled",
+    "command": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package/consumer/publish/Consumer"
+    ],
+    "exit_code": 0,
+    "log_sha256": "54b3d127dd5972de999d73102fc34b25c71f687b26fb2a1c1ec7da14afcda80e"
+  },
+  {
+    "label": "consumer-aot-local",
+    "command": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package/consumer/publish/Consumer",
+      "--local"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e36546d7324ea0ecc5fa2b7bc76d4248623da5d8bd8525c6d3dc29ca1008f93a"
+  }
+]

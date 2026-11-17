@@ -1,0 +1,644 @@
+{
+  "task": "B20",
+  "platform": "linux-x64",
+  "global_acceptance": false,
+  "status": "passed",
+  "commands": [
+    {
+      "label": "source",
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0038784739990660455,
+      "log_sha256": "2583644c7db9000d46e1e8521ed2088ef9becfb4b7c0b9e55bb552dc893c84de"
+    },
+    {
+      "label": "clean-source",
+      "command": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "seconds": 0.015701233001891524,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "design",
+      "command": [
+        "git",
+        "-C",
+        "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0036282920009398367,
+      "log_sha256": "6a9721967a785d46bafa781b8d5348b293598030fe24cf6b519fa5434304238c"
+    },
+    {
+      "label": "dotnet-version",
+      "command": [
+        "dotnet",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06399952200081316,
+      "log_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+    },
+    {
+      "label": "rust-version",
+      "command": [
+        "rustc",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06416200799867511,
+      "log_sha256": "56625f11cb9e645f8e638a6bcdf0565a20a8724585b537b8548886789b9f77be"
+    },
+    {
+      "label": "native-features",
+      "command": [
+        "cargo",
+        "tree",
+        "-p",
+        "nativeweave-server",
+        "--locked",
+        "-e",
+        "features"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11434159000054933,
+      "log_sha256": "c1fda5529a6c084e64e20963c97949957e0196c974e4f75c73e9d5dfda14fd0b"
+    },
+    {
+      "label": "pinned-native-wire",
+      "command": [
+        "python3",
+        "tests/Server.Native/generate.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06423979000101099,
+      "log_sha256": "94182829d6e103deab324a54f91dde9af589746fe4c4ef4ae5771ca82e1aa30a"
+    },
+    {
+      "label": "exact-native-layout",
+      "command": [
+        "python3",
+        "tests/Server.Native/layout.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.26590457299971604,
+      "log_sha256": "6d697ff45c81f75f3414f298157303c14e842b86d0e10eb97aa800e025260b48"
+    },
+    {
+      "label": "native-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "nativeweave-server-diagnostics",
+        "-p",
+        "nativeweave-server",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 1.069532393001282,
+      "log_sha256": "c161e9d2d911376a3d8dc1aaa55cd658c7592fa315d18ac9187aa26963062104"
+    },
+    {
+      "label": "native-debug",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "nativeweave-server-diagnostics",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6186888650008768,
+      "log_sha256": "1b0d587e2ff272846adb5c7ccb1a0fb6044cab3a2b24626e83fe35f2c3d3ea23"
+    },
+    {
+      "label": "native-release",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "nativeweave-server-diagnostics",
+        "--release",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 8.232468598998821,
+      "log_sha256": "df3b999b0f40dc7f2c7a5d81e1e121dfcc75af15b1480b70a35a01ad9ff82a5d"
+    },
+    {
+      "label": "native-actual-host",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "nativeweave-server",
+        "--lib",
+        "diagnostics",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 2.327436442999897,
+      "log_sha256": "07eb0e24b2a723514843e3e463fec0b407062647a1787fc3d0b515d2c84163db"
+    },
+    {
+      "label": "native-build",
+      "command": [
+        "cargo",
+        "build",
+        "-p",
+        "nativeweave-server",
+        "--release",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11445500799891306,
+      "log_sha256": "3997fc6790b8063b86c119e91f87ac7395ac6cf26135da637dcb229006bc32dc"
+    },
+    {
+      "label": "managed-debug-build",
+      "command": [
+        "dotnet",
+        "build",
+        "tests/Server.Diagnostics/Server.Diagnostics.Tests.csproj",
+        "-c",
+        "Debug",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "-p:RestoreLockedMode=true",
+        "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so"
+      ],
+      "exit_code": 0,
+      "seconds": 20.399343795001187,
+      "log_sha256": "1b74f7ae289dcd5742869b8175c85dee97d3ed024331030adf51d4a1fbea7987"
+    },
+    {
+      "label": "debug-default",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Debug/net11.0/NativeWeave.Server.Diagnostics.Tests.dll",
+        "--defaults"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3681069810008921,
+      "log_sha256": "5d60fd7dcad30ded6848ed86c3858e15d6af3121bf962aec2f41bdf8526565b4"
+    },
+    {
+      "label": "managed-release-build",
+      "command": [
+        "dotnet",
+        "build",
+        "tests/Server.Diagnostics/Server.Diagnostics.Tests.csproj",
+        "-c",
+        "Release",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "-p:RestoreLockedMode=true",
+        "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so"
+      ],
+      "exit_code": 0,
+      "seconds": 11.289885146001325,
+      "log_sha256": "536233b8aa64b3ccf1a063f139df4cd8e633827466f7d30cec71e235152b3d7d"
+    },
+    {
+      "label": "actual-jit",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Release/net11.0/NativeWeave.Server.Diagnostics.Tests.dll"
+      ],
+      "exit_code": 0,
+      "seconds": 3.6876412429992342,
+      "log_sha256": "c937bdc8c473a7981b5d2e0dc30d099ea3b3006c2cdddd05df13ecb85b31a987"
+    },
+    {
+      "label": "api-build",
+      "command": [
+        "dotnet",
+        "build",
+        "tests/Server.Diagnostics/ApiCheck/ApiCheck.csproj",
+        "-c",
+        "Release",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "-p:RestoreLockedMode=true",
+        "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so"
+      ],
+      "exit_code": 0,
+      "seconds": 2.8724891479978396,
+      "log_sha256": "8daa000b943c1028f3eb800a90723750048262ba6d50f772222a3502e17642d8"
+    },
+    {
+      "label": "api-public-xml",
+      "command": [
+        "dotnet",
+        "tests/Server.Diagnostics/ApiCheck/bin/Release/net11.0/NativeWeave.Server.Diagnostics.ApiCheck.dll",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave",
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk",
+        "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design"
+      ],
+      "exit_code": 0,
+      "seconds": 0.26463978000174393,
+      "log_sha256": "fb4d3d828ab94142f67b7f7a655053be4d9e07e6b47ef7c0ad7ae20daf49312d"
+    },
+    {
+      "label": "sample-debug-build",
+      "command": [
+        "dotnet",
+        "build",
+        "samples/api/server-diagnostics/server-diagnostics.csproj",
+        "-c",
+        "Debug",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "-p:RestoreLockedMode=true",
+        "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so"
+      ],
+      "exit_code": 0,
+      "seconds": 4.189436052998644,
+      "log_sha256": "93e7b5098aebfb1c44a49e1224e1118a410a4cedbf11d4664fc7d41227691816"
+    },
+    {
+      "label": "sample-debug-disabled",
+      "command": [
+        "dotnet",
+        "samples/api/server-diagnostics/bin/Debug/net11.0/server-diagnostics.dll"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2649639249975735,
+      "log_sha256": "54b3d127dd5972de999d73102fc34b25c71f687b26fb2a1c1ec7da14afcda80e"
+    },
+    {
+      "label": "sample-debug-explicit-local",
+      "command": [
+        "dotnet",
+        "samples/api/server-diagnostics/bin/Debug/net11.0/server-diagnostics.dll",
+        "--local"
+      ],
+      "exit_code": 0,
+      "seconds": 0.26597895299710217,
+      "log_sha256": "e36546d7324ea0ecc5fa2b7bc76d4248623da5d8bd8525c6d3dc29ca1008f93a"
+    },
+    {
+      "label": "cost-jit-disabled",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Release/net11.0/NativeWeave.Server.Diagnostics.Tests.dll",
+        "--cost",
+        "disabled"
+      ],
+      "exit_code": 0,
+      "seconds": 1.5256049939998775,
+      "log_sha256": "46cef982afd631482cac13b41cf6f38c780ccde117f0ab8816c1eadb51ea25ef"
+    },
+    {
+      "label": "cost-jit-sampled",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Release/net11.0/NativeWeave.Server.Diagnostics.Tests.dll",
+        "--cost",
+        "sampled"
+      ],
+      "exit_code": 0,
+      "seconds": 1.475819331000821,
+      "log_sha256": "014399dcaea91a8f6342bf475bc534778c806388a2602f51705677ba47290080"
+    },
+    {
+      "label": "cost-jit-full",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Release/net11.0/NativeWeave.Server.Diagnostics.Tests.dll",
+        "--cost",
+        "full"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4701857679974637,
+      "log_sha256": "14c5df1bb512e0cd3032f12781c5d36b4163c44ae441dcdc1f514e744c3f01ff"
+    },
+    {
+      "label": "cost-jit-exporter-fault",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/tests/Server.Diagnostics/bin/Release/net11.0/NativeWeave.Server.Diagnostics.Tests.dll",
+        "--cost",
+        "exporter-fault"
+      ],
+      "exit_code": 0,
+      "seconds": 1.6756009840028128,
+      "log_sha256": "0387682cffc396e3e59ae7a228dd6c067bf70d719bd571915c3f4ba50b923e46"
+    },
+    {
+      "label": "publish-aot",
+      "command": [
+        "dotnet",
+        "publish",
+        "tests/Server.Diagnostics/Server.Diagnostics.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1",
+        "-p:RestoreLockedMode=true",
+        "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so",
+        "-o",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot"
+      ],
+      "exit_code": 0,
+      "seconds": 20.53605076000167,
+      "log_sha256": "52a77ef3d3d79952e00255dddf434a873b637ca551bfeacc20e655f9f7cb9b6e"
+    },
+    {
+      "label": "actual-aot",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot/NativeWeave.Server.Diagnostics.Tests"
+      ],
+      "exit_code": 0,
+      "seconds": 3.088257389001228,
+      "log_sha256": "f811fe7d051362d9a2e7a80ae73cb3e0f2024931b27caff0103ea7da99fd8ba3"
+    },
+    {
+      "label": "cost-aot-disabled",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot/NativeWeave.Server.Diagnostics.Tests",
+        "--cost",
+        "disabled"
+      ],
+      "exit_code": 0,
+      "seconds": 1.1875929179986997,
+      "log_sha256": "474a1558ac6083f0575d753db538b3a6ee7a57be25049e20b5db91cf3802188e"
+    },
+    {
+      "label": "cost-aot-sampled",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot/NativeWeave.Server.Diagnostics.Tests",
+        "--cost",
+        "sampled"
+      ],
+      "exit_code": 0,
+      "seconds": 1.2227920679979434,
+      "log_sha256": "b530a1d58864ca318e6d6b4f5802582577b8046fecc6c94737a8e0ecbd285bf6"
+    },
+    {
+      "label": "cost-aot-full",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot/NativeWeave.Server.Diagnostics.Tests",
+        "--cost",
+        "full"
+      ],
+      "exit_code": 0,
+      "seconds": 1.1876767319990904,
+      "log_sha256": "b332d6936462a343d7d6cd6da82cfc7021e7ee08958dfdcdfb3e39dbfda9d09c"
+    },
+    {
+      "label": "cost-aot-exporter-fault",
+      "command": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/aot/NativeWeave.Server.Diagnostics.Tests",
+        "--cost",
+        "exporter-fault"
+      ],
+      "exit_code": 0,
+      "seconds": 1.1709839809991536,
+      "log_sha256": "dee252c1b56b162c03a10bd2a1f1112375aff43ab9b53a6b7e1a0dfb9a8fb552"
+    },
+    {
+      "label": "independent-package",
+      "command": [
+        "python3",
+        "tests/Server.Diagnostics/package_probe.py",
+        "--output",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/package",
+        "--native",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B20-linux/NativeWeave/artifacts/task06/B20/final/input/libnativeweave_server.so"
+      ],
+      "exit_code": 0,
+      "seconds": 42.10400108699832,
+      "log_sha256": "3ea3ed746a5ae832d939cf757c3289ae30d912eec8de68fbe740ba887380a6ba"
+    }
+  ],
+  "source_commit": "58b0cd1ca70e483fe7711099152f5745a9bd7f8b",
+  "source_sha256": {
+    "Cargo.lock": "022406ba974ef89a5a4e0b6993c3d7da9feae3ab5d448a8c326bdaec49be1350",
+    "Cargo.toml": "5ae21ffc0a4a005d90076efec09ddefa7990ff2bf728b66977d1810eceb7d824",
+    "Directory.Build.props": "381d2e02b9a3c5b65aa986aa972894d28cad8cbfa93d2895ddb0e3e7330e854f",
+    "Directory.Build.targets": "eb7f0b66e004cc6685ef3ff4a16da4186a7533dbd9611e760d31ece823fd8fda",
+    "NuGet.Config": "cb93c65e28718aa9075fce221e9f9cea9e72d3fe1b30462383448a591f5b3aa1",
+    "docs/guides/server-diagnostics.md": "2225b9c44c0b33e2abdc921b628039f98a08a9c8fe6ccde8a8d467a8fa1b7cc5",
+    "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+    "native/interop/abi/Cargo.toml": "947906645eb5931e86ba8a29db9abca0691fc16356bc5a3eeec84f1e6e5088b7",
+    "native/interop/abi/abi-v1.json": "62171763fb2d1b1a8350d2f381a85910c0368515923706923d29f4ff69681dab",
+    "native/interop/abi/generate.py": "bb3b7d453be0bd437459954590dc80a4034374d103c1e30fbe0d5bde6f92bfa4",
+    "native/interop/abi/include/nativeweave_abi_v1.h": "3a575f132b23789c103114fa29a1815a685fb6260e5d406c4be386e130fbe9d7",
+    "native/interop/abi/src/generated.rs": "7812805f6b4b2ca5dce2f34de21e3ffc624560148cb5a52bfde5e93cba85b362",
+    "native/interop/abi/src/lib.rs": "12326e69772b4f4233383deec705afb6e4a5e7b4b9cce0619035527423d8fa24",
+    "native/interop/async/Cargo.toml": "f89e62b0c11e9f4da7d2ae50fccb996fc10a9a9691d4a4d19d6d9b6f2624972a",
+    "native/interop/async/src/fixture.rs": "e636dc0c405ca4668e2d8d12d19deaa859c34d2cb2a26f5e44166b7d09cb355b",
+    "native/interop/async/src/lib.rs": "b7bcf841027060bd3f21165ed9c2cbe4a8813335f36c7caf9c8590dbc3083254",
+    "native/interop/async/src/tests.rs": "b40614be646f0268bd713d4050ea0a5cb676429b61f13e677bd5121abe478167",
+    "native/interop/callbacks/Cargo.toml": "3032eb594310526f1cb094d91ebbef4973058e6862cdf94e21d4da4c425f77c4",
+    "native/interop/callbacks/src/fixture.rs": "4e9b8a6d7dacb71e94869eb57376c493603eab87b1e808033b2a4972807a5bdf",
+    "native/interop/callbacks/src/lib.rs": "145d76e8409cecd936ceccec8ad15e5df9e0feae60236d4ff96720d0bc63f3cd",
+    "native/interop/callbacks/src/tests.rs": "8d9b791f5d11c993e54e997a437a285b185e6dc37d0b331b111d4e2bc461668f",
+    "native/interop/errors/Cargo.toml": "de94930f0bf270ae60eb47b05d2b802a041263656ec705228983f28e45aa1dea",
+    "native/interop/errors/src/lib.rs": "dc8f2f3d3dd40f715e2f4d93497304826414ba903c5a8a929a8b1bd8d64a8b3c",
+    "native/interop/errors/src/tests.rs": "6443f0af590ec2f6fd2b77cb3b526c85062416d42d5273ac3bea469757d8dfc0",
+    "native/interop/execution/Cargo.toml": "07f9f3b39caab709fea237ccb629a0a357b5e0e05f869e3e6b005fa22574ae6c",
+    "native/interop/execution/src/fixture.rs": "7d837bac14020561c68b1b3060bcf27a78af6799c196cb63fa375829c1b4ac21",
+    "native/interop/execution/src/lib.rs": "c2dcead07367bc67b8810a16148824ed2ad01da30ade5ceba76ac87e10e4d5c3",
+    "native/interop/execution/src/tests.rs": "60b490a048119a0f597346cf8325c51a4d3b690fe8b356e401fed760d0342aed",
+    "native/interop/exports/Cargo.toml": "b4eeacffe068146601a126f55c408cbdd56af2d79588537a52515f003e5e555a",
+    "native/interop/exports/binding.json": "e25bfaf32a90bd48e02f1f749bf334932f994a04b9f4739d359ef9d9d536cf83",
+    "native/interop/exports/src/lib.rs": "402727b3eb306214fe9f7a586a55727b3b4757c0b93f3d2e4ffa01d9b0483d9c",
+    "native/interop/lifetime/Cargo.toml": "23b3649d5bc0f122d2bbd86694307eaf6e36b6fc5287a35d1695fcaf3068ad4a",
+    "native/interop/lifetime/src/lib.rs": "2f4929e1a29118d98ae8b98b8fa5e60cc522c773cf919ca122c1f3c9c0a5f279",
+    "native/interop/memory/Cargo.toml": "9daff78d2bc11c784c0ba59527f4ab4094a7b05df0792074c3eee7cbc37d5744",
+    "native/interop/memory/src/lib.rs": "eede745357ab9bddc1ce9b43ab2586f4a6724f7881a4e18f29a1dc97f45de204",
+    "native/interop/negotiation/README.md": "d45a58ac76e699c6c4b189761b8f6fb1a0edd46bb1703ac965e2bdd9ce8e17fa",
+    "native/interop/negotiation/fixtures/bootstrap.rs": "7e04ff0188f00b80c97251e5c711f1fda6cdfbc5957a23def50822f304fc02ae",
+    "native/server/diagnostics/Cargo.toml": "9f68b58d9a7e33f8f0bc30c7fb19b744eb35a25373e4263ecc6b778093513c60",
+    "native/server/diagnostics/src/lib.rs": "9fcf4ddc9a833b31f54899b9f49f8dec0de65d09be33f51a8aa34ba9eded2533",
+    "native/server/diagnostics/src/tests.rs": "d469ba5d64f7d335448d981e921dd1b6013a66cb57fd0cddaa4a2bf0cc36cba5",
+    "native/server/host/Cargo.toml": "bfcf9b2a68a9bb429dd2078c5686b51d573e3e00ebaf5bd7956f6c09c96d2340",
+    "native/server/host/examples/direct.rs": "f1511cd14227a861339ff51e987a65f753a7743847f3fa5e94e43010c337b45e",
+    "native/server/host/generated/exports.manifest.json": "25ae78e64798f86c17f03a890795cd889dfa8c113ff866ab330aa450534dde72",
+    "native/server/host/generated/layout_assertions.rs": "ce68a6e75df1bbd7ff9301bc9b01bc40f4499479958878d06477888162c99aaa",
+    "native/server/host/generated/nativeweave.generated.h": "b53a8a401d2cdc0aac0b387f94a4573e14227ea7e6604295473db7639ef75327",
+    "native/server/host/generated/pinned_layout_assertions.rs": "dc47fbd2ca23eecb3c1754aa996a962a3cd5fe944995fbe93ba97166ac8a90c7",
+    "native/server/host/include/nativeweave_api_v1.h": "6d79a3d030ec429e4706f6012d4e9f876ddc35307d4b4c814fc18d5100b4c6e2",
+    "native/server/host/include/nativeweave_server_api_v1.h": "f7316b35bfb8cce5cb4fded82a0907e602626c4e9e54ff18d99fe242f2b4b681",
+    "native/server/host/src/config.rs": "92cff7d7302ae241d30ee84e25e19a39af0e704ffc7f14c42a4070dcd239f376",
+    "native/server/host/src/engine.rs": "c775e15153fdb74008cf9fe65940522420a63d923b81f3824ba93024f6299d3e",
+    "native/server/host/src/exports.rs": "db58ea20420c104894c5556e02671a8c45bcce72510a03d6c860405e09c760e6",
+    "native/server/host/src/lib.rs": "7c66a49059a0b619bbac51dc5f0dfe56eaf91453de6f0975e37802cad706b8ba",
+    "native/server/host/src/metadata.rs": "4cc8ed991558a9376c144e50ec59b2b85f99d19d6d4f967b3649eaa491ff651e",
+    "native/server/host/src/tests.rs": "d895d76977e71a3a5dff33e0575d7603b7baeb05f57d366c8e746356ac632644",
+    "native/server/host/src/wire.rs": "76f6014095eae799bad649ae8305fed25f5a21d6d5b3399dbc24dc4286673f6b",
+    "native/server/streaming/Cargo.toml": "133df076f9e71b7b034e36591b95291c04239630e69ae0e45c52aa86cbf003b2",
+    "native/server/streaming/src/fixture.rs": "45daa99a711b297c4034f4bd1cf6ce7258d865e38f8eff0293387111af2670cf",
+    "native/server/streaming/src/lib.rs": "d06b771227c384276f521f6e8920c4997272b41c35da147c09d4d72a969c0b2c",
+    "native/server/streaming/src/tests.rs": "0cc785451f41a837327cde43ae14ef28ed701336bedc1cc11bb7e6ce1e95a1e0",
+    "rust-toolchain.toml": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff",
+    "samples/api/server-diagnostics/Program.cs": "65b29c33814812de4fbb28b840358da5722751660eac0cfa45021c652273ab8a",
+    "samples/api/server-diagnostics/README.md": "586406b5f293454918185a9743c6bd64ea104e25a1710c584eb13adfab309017",
+    "samples/api/server-diagnostics/packages.lock.json": "d37c7624d34bf3f2541a2cbfea6b4a7501ace88d580e095547cca3d6333b6316",
+    "samples/api/server-diagnostics/server-diagnostics.csproj": "262fa23d9c8914c19e472a68a224b6b3cb5cd310186b175957f557c02adf2627",
+    "src/Interop.Abi/AbiBootstrap.cs": "f5e1e82ad1274038e07503b3de8f4473bb9c60f15e6770e75800f4d93d8b2168",
+    "src/Interop.Abi/Interop.Abi.csproj": "750479d97ffeb73ec80ed0d74832de48e4bc093ac0d775adfe9db9b2396927be",
+    "src/Interop.Abi/WireRecords.g.cs": "84aae291861e1d22d8927e24106626a23a07f38d4d62fb4e70ab5f721981e6e2",
+    "src/Interop.Abi/api-reference.md": "47885ccb3c770bafab849ee914941be6413870b7b2bd9fabe3bbea350a893479",
+    "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "src/Interop.Async/AsyncOperation.cs": "625d15f17b11a9548886b019148720a2c0b6b1b054edfa18243173f20e77abb8",
+    "src/Interop.Async/api-reference.md": "36f1235933bf0606c2cfbb2eddf1a0dd427b073911a3029408ac46ea186b7d05",
+    "src/Interop.Async/design-inputs.json": "8ec9cc29d14732efb7ec3c86dac5cb8c645d34e15dcf99ddbd0a0198748ee95c",
+    "src/Interop.Async/public-api.expected.json": "075bff0d724cbbddc49fb58d0b1ca3333dd2ed962d9797596491ca10eba84e56",
+    "src/Interop.Callbacks/CallbackCoordinator.cs": "92cf43c5933c7be627640c2387f37b1bedcfdd8353c946232fa22ca47e1ddc27",
+    "src/Interop.Callbacks/CallbackRegistration.cs": "a63b93bb24b7e440f3cdcfb5e37dadaff0771832f04cbda18fab5bfc16c0d9e4",
+    "src/Interop.Callbacks/api-reference.md": "60d91a11e92a317c4f0bfd46239a45146288ab46d21964fc4e1800c6d96b99d1",
+    "src/Interop.Callbacks/design-inputs.json": "f91b4fd0b50d864bd7735eb97276ca57d5c1fe1ab820b6c6e44325c6531b898d",
+    "src/Interop.Callbacks/public-api.expected.json": "954f08516b993282955e121dc72e9296ab1de99dff565cef564f57418bc6bb1e",
+    "src/Interop.Errors/NativeEngineException.cs": "f011a216f31858cf2d655594dacabca13abe8edd329fc5835da26c6d3751f519",
+    "src/Interop.Errors/NativeError.cs": "8e30dc71b3060e673ec4bc425b8938dc23f5f706c749bbe7fcd187da5a6c24e7",
+    "src/Interop.Errors/api-reference.md": "9cac0b26ff5e6d1ec0d6577061755df5ceb3f02b6fef0315263b52a38b7f0990",
+    "src/Interop.Errors/public-api.expected.json": "5f131a466c7c006bab0ce32f82f61983d2adb5890a180efe23586da0c885e1de",
+    "src/Interop.Execution/ExecutorLifetime.cs": "42e59c06caf598f27c9ec31b8e24a86985f82a9df79a2310694bd04fe80504c4",
+    "src/Interop.Execution/api-reference.md": "725a66099f2b8512e786550a13ebe46fa4c859f52a2624c2ac804cd3a57044ee",
+    "src/Interop.Execution/design-inputs.json": "08e26f0cb40d551cfc27232ec7c41a802e42a0699208bf043a7ecf4296173d0f",
+    "src/Interop.Execution/public-api.expected.json": "b391c0e8b3617157b6ab175369034738eeba26a668edc1eaa9a0727c69c478ca",
+    "src/Interop.Lifetime/NativeResourceOwner.cs": "7af13cf6ebd0da4e30c8a99401315e2c6a45f5ab442d7ee9140e3dcf31510da7",
+    "src/Interop.Lifetime/api-reference.md": "45ae622e325d52779104d7bdf736da452bfa14a7e8c32edbe8fefcfa4f91787b",
+    "src/Interop.Lifetime/design-inputs.json": "7bacc5465d4bfa968138649bf3b190f927db7496f8bdb4bbdafd91ad0b2916f0",
+    "src/Interop.Lifetime/public-api.expected.json": "450839c5232d6dfab11f12e1b09cb9b09609b231a3ba2cabbc8e54b4c795ebc5",
+    "src/Interop.Memory/ExtentValidator.cs": "76a0d1d5451c2e8b1039370f59700b8fd3815f5c7db8c2ae0e40fcb7315ef70d",
+    "src/Interop.Memory/NativeBuffer.cs": "a069514fe92c81a3d0930dcc927e68fbd95ef53dd0b21402d927a0177969cb23",
+    "src/Interop.Memory/NativeBufferFactory.cs": "67e9b916863d08971828dc8d92fda6a7463f3529a2103f17395aaa8a244e98fd",
+    "src/Interop.Memory/api-reference.md": "a20a09e31a26caf2a82135b23767b704ddff513a2d5d511cb0333ef9caaeb5fa",
+    "src/Interop.Memory/design-inputs.json": "e574c21ee3f24484674ebf1ff758b27d1dfae8cb6aed6bf6d025ee15e055c54a",
+    "src/Interop.Memory/public-api.expected.json": "2e0d9c031768f1e043ae51de4f1ff8b11ff3c886108270b104ab00a666007b2f",
+    "src/Interop.Negotiation/AssetLocation.cs": "29507dca8b02502a888a0efbc0379a8ce6ef991fcd84a7dc1e0f05885fcca96e",
+    "src/Interop.Negotiation/EngineMetadata.cs": "04d9ae411be692d103cc1dc34ad888bcc3014f3ebc7308e1053a8a13897e5da6",
+    "src/Interop.Negotiation/EngineModuleLoader.cs": "61056860ba77902861298892deac00651388ca9513d914d42706cc6141a90d8d",
+    "src/Interop.Negotiation/EnginePackage.cs": "2698378a68f4b967f82551cb56d768a176e378ea8cb5ac84961883bb374c58e0",
+    "src/Interop.Negotiation/MetadataValidation.cs": "c9972f2ad4f7ca3c9a9b00001f53194550bd9ae595a591aec720617c61926a2b",
+    "src/Interop.Negotiation/api-reference.md": "32ee8b8fa913469c5516f8d786882c432616fd59ca73c6b3171fbf5cedb66623",
+    "src/Interop.Negotiation/design-inputs.json": "115c99d48ba142abf369dc96631abd41629afc2ebc3aa0266505a9f261891ea4",
+    "src/Interop.Negotiation/public-api.expected.json": "4a00c03792638abd426d48c51226cae234d5da08dbbfdd6228ac29a70478067d",
+    "src/NativeWeave.Core/NativeWeave.Core.csproj": "e86825d15b6ecee928c384c3ede1148c5dc64a283988b078e32401d009cd8625",
+    "src/NativeWeave.Core/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "src/NativeWeave.Core/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "src/Packaging.Linux/api-reference.md": "3a713f5bf69d6a210bb7d1fe3d5a54c0bd8ab4f2ae47d37df45a137d2919b244",
+    "src/Packaging.Linux/design-inputs.json": "aedc6211bca2538f6b339c77ec67f90bdefddcf4b3d576b95101933e1db46f60",
+    "src/Packaging.Linux/linux_profile.py": "60aa114ba3c36055bc5778b37b57ce5b438fe03a485465f259e442e9dfbbd26e",
+    "src/Packaging.Linux/packages.py": "82b70ff2b7defcfed3322f04dc516a22888efa76f5385b58acd21bc9095a2dd2",
+    "src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj": "e9d0d27d99086c060d1ad766b495039157422dc1a2e4fa91d46b5002f70eb8c0",
+    "src/Packaging.Release/BuildTasks/PackageClosure.cs": "74db56973f28020085b77fd084b3af83e68802728f6e84897efc6b7cc6653c0c",
+    "src/Packaging.Release/BuildTasks/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "src/Packaging.Release/api-applicability.json": "0ffc4f47fc64e1a7ffae120d3da30e388bd332ec93f89a12f2bb1a13162daae9",
+    "src/Packaging.Release/api-reference.md": "fc60fb2e8c8c4869c933d1505bd48f1557f91a8842209b1fd8849219b034cbaf",
+    "src/Packaging.Release/buildTransitive/NativeWeave.Packaging.targets": "23fdb5958aba7c93bc67dbcc0bdca5b8ef0616b74c1f40660dd85d1cfd3caa1b",
+    "src/Packaging.Release/design-inputs.json": "afe67035fe4942661768a1aa95a33bb5b70265fadd20c68539828dcb3c4a91b5",
+    "src/Packaging.Release/prepare.py": "6819de7201cefade71eec7827258a2ca3448f0a125b75dae775d0ebe81b19758",
+    "src/Packaging.Release/release.py": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+    "src/Server.Application/Application.cs": "3742f4ec5706826f403aabf9a77d16dfde6b574e110ed83b7c8a3bd87f20da31",
+    "src/Server.Application/Configuration.cs": "71554a4b84f8129d28c5ede2f71056a51cf1459cd23edcef851a1e30be9e132d",
+    "src/Server.Application/Contracts.cs": "d7a6ae950d6f4aa4f2bcc77cffc561ef111087c51ab1506a45b5dbfc8a6ba0f9",
+    "src/Server.Application/Generator/AnalyzerReleases.Shipped.md": "99f59e656cea53b64f5268283721d96e17b6be52c2ceb94f791bc690b6e20663",
+    "src/Server.Application/Generator/AnalyzerReleases.Unshipped.md": "a0474f286f584796fe09d630ebc23265ec5f2e01b32f7d65a1970336d76402d5",
+    "src/Server.Application/Generator/EndpointGenerator.cs": "dc33ce17e67a8ffea5f3feb468ed19855363d4fd271693b78f54a4c6994dd661",
+    "src/Server.Application/Generator/NativeWeave.Server.Generator.csproj": "5aa1531357a4f54c3d956bdcc2cc2293ad40c623f37dd5387cb1a92aa6d8b99e",
+    "src/Server.Application/Generator/buildTransitive/NativeWeave.Server.Generator.targets": "a02d759c34f2346d9c7a3757537265c074cbc2853d20190599c69039afda93a4",
+    "src/Server.Application/Generator/packages.lock.json": "28c220ab80802828730b1e956d9918311e40f7fb67da3b872f613e91dca662b9",
+    "src/Server.Application/HostBridge.cs": "1010cb8da2547f606a692b6fb5c5f77df522a526e7fa4c97689dfcd180005f3f",
+    "src/Server.Application/Hosting/NativeServerServiceCollectionExtensions.cs": "11db7d7219c2ba7ec2d60d15c22848a4d6969954d5251166c12f09db90fcc358",
+    "src/Server.Application/Hosting/NativeWeave.Server.Hosting.csproj": "f2357090a621104e1902e61e804613d6297dbf041bf022581ddb2fcb0dcff8e7",
+    "src/Server.Application/Hosting/packages.lock.json": "d37c7624d34bf3f2541a2cbfea6b4a7501ace88d580e095547cca3d6333b6316",
+    "src/Server.Application/Metadata.cs": "2c466c09976704c68c091442c1d60c646dea1c279b54d6794d8c73f7f6132b4f",
+    "src/Server.Application/NativeWeave.Server.csproj": "7092f01457737097953a31e2515284b1a49c97f1703cad9b9421464fc8c799f7",
+    "src/Server.Application/Request.cs": "9999f63b052f6c4b4535da887adf28dbc18db47ce36335a6bc0f00ff7616f2a3",
+    "src/Server.Application/Response.cs": "d65e466a11ad8ae5ed2045cb02b597668790d2d72ccc921b2db39e77da4e0f3b",
+    "src/Server.Application/Results.cs": "620fbd138f5b359d6d828f958e82bbdf786404f32af5182f69c4db0ca1186c40",
+    "src/Server.Application/Routing.cs": "89f9a26951f3ac78ad613c1a33b442581792a13a6a9c26ed0a2d88e46972d0e7",
+    "src/Server.Application/api-reference.md": "9f784a6bacf8bdea2bbe9dbd1fc0f0c5157735087fccf8abcd3173dfbdb1b1e5",
+    "src/Server.Application/packages.linux-x64.aot.lock.json": "40424f0759d3d868fce35a8cc40b2a241bb338959db5088f1c9a43b0ecd1a622",
+    "src/Server.Application/packages.lock.json": "511017110d2c59f27555d37bff59e0dc355f4315e4f2cdaed8b2a7a5ee0385c9",
+    "src/Server.Application/public-api.expected.json": "71ec8e08d6252aefd571bfa55791aa252d64f3b30d66d069416d1c1c62cab056",
+    "src/Server.Diagnostics/BoundedDiagnostics.cs": "5533e84ee4c73ace34cadbe462b538f2923af8e35bf15ebae53b66f03970dddd",
+    "src/Server.Diagnostics/Integration.cs": "b082393c62969c14ecbf56fa92d7c7558596208653ddf6262dad732d918b3a7c",
+    "src/Server.Diagnostics/ServerDiagnostics.cs": "e458efb4df6f625229179c67a14eeafc0a80d97afa5c70a8649fa6c2536eddb9",
+    "src/Server.Diagnostics/TraceContext.cs": "506e8638d92587c3010b9b80338172ae8bf8e922ec303ba15ad3870654c0decb",
+    "src/Server.Diagnostics/api-reference.md": "b4f49821f0a3a1d9ecded8b735a26a2d7f5f17fc1eb7cbf276619f5e36cee5f9",
+    "src/Server.Native/NativeCodec.cs": "f86eee77bf68edac7241491bc1febc8ea1ed1e88ce1e00439e33ad15563009ff",
+    "src/Server.Native/NativeHost.cs": "b146b692fdbf8c2a1eafae293de0fe3283f1d2b5b698344d5efec907aabcf9d5",
+    "src/Server.Native/NativeRequest.cs": "9bfc66d18655ff8671fae4eead08fb545b055006d564ca21e0d6c342d2821efa",
+    "src/Server.Native/Wire.g.cs": "9a12e0282380a75300080d779582d42209cd11705e7943b3b427eb6f02049388",
+    "src/Server.Native/api-reference.md": "16e6086862373882e7daad05c7717fae7b9fd70a65dbdbd18523222acc1a0a08",
+    "src/Server.Streaming/BodyChunk.cs": "ece797b54cd02690a31a4e8b2ffafba78eab8ad79cb804ff13597cb49a00380f",
+    "src/Server.Streaming/ServerBodyTransport.cs": "2a639535a23450f8bf32d14b78765bdcf51e5f986d148a975636234c1418a45e",
+    "src/Server.Streaming/ServerStreams.cs": "0c91b57754c2d6709f8d6e94da499377b8afec499c028a10f91b383ebf35f9a5",
+    "src/Server.Streaming/api-reference.md": "cf6d5635c15f00d9d65c6cc05506fd62cdc0e208a37b62bd274c3689aec9722e",
+    "src/Server.Streaming/design-inputs.json": "287b02dbfd5020b928dc9721f7c66ce4ee7188b9136edc774069eaa9d96c921c",
+    "src/Server.Streaming/public-api.expected.json": "db23ff734ee6457bd7d0b6a58068ecdf0eacff6fa0631de49fc1a8fe9ce52644",
+    "tests/Server.Diagnostics/ApiCheck/ApiCheck.csproj": "f128f254329c55589a44fdfc8f723164627b2661a5d472c221e22a84516baddb",
+    "tests/Server.Diagnostics/ApiCheck/Program.cs": "a7aac3348d0522dd46f625e6be98a8bacc7400d01827128578e947a1b48bebab",
+    "tests/Server.Diagnostics/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "tests/Server.Diagnostics/Costs.cs": "31d195657f7dd870b5febf8e0d3fc05d2884bcd60c0d814e6ae4ba8078a51c74",
+    "tests/Server.Diagnostics/Program.cs": "07d23a0b00b338ddcc4d59f03cceee47fb1aed33b7e59844b0efcebdb81d3066",
+    "tests/Server.Diagnostics/Server.Diagnostics.Tests.csproj": "47c09c9ff7982edad4ba930be45bf393f66072f693f36ed42cd2f3797614b816",
+    "tests/Server.Diagnostics/native_host.rs": "6b11d4a1eaf199e6c6d0eee8c1f556ecb8a1d8c45ac37552000069f78063a925",
+    "tests/Server.Diagnostics/package_probe.py": "7e0bf460e9548d6f54023b830c792ddd6ec263d6e86130218cf671003b1f5e5a",
+    "tests/Server.Diagnostics/packages.linux-x64.aot.lock.json": "3c4eaba4ccfe5c2e7d2a2c67ab01e49b58df051a2ea40f81a0cadf8455a6084f",
+    "tests/Server.Diagnostics/packages.lock.json": "d37c7624d34bf3f2541a2cbfea6b4a7501ace88d580e095547cca3d6333b6316",
+    "tests/Server.Diagnostics/trace-golden.txt": "bc3bdf5fe92d60fbf1a2b13c3e750da69887d2bb3512f87b9fd627f801c7129c",
+    "tests/Server.Diagnostics/verify.py": "86b188e40fa68559d843894f2fd9289914a4bc222d64a502a4c7bb24fa9287fa",
+    "tests/Server.Native/Bindings/CSharp/Bindings.g.cs": "b56105dc46f270b10c580241732e8981efcdd61fced62fc2f39b2d2807bbacfc",
+    "tests/Server.Native/Bindings/CSharp/Bindings.nwmetadata": "fc986d76aa2ca7b4776ac6dc932b456801964278790405f4963380ea773a1d41",
+    "tests/Server.Native/Bindings/adapter-projection.rs": "e6fb6e1ed3f3367ba2ec740cc97cd11fa836d8488a419050aec6b0ae7387d70d",
+    "tests/Server.Native/Bindings/binding.json": "4e3b4073cd66c799a7383f106dd591d200e91ae0d1c63aeb31d8d5a24a65b57d",
+    "tests/Server.Native/Bindings/coverage.json": "2df7212fc35a0280093d62a2e2363666ec7458baee0da8e65051f419a50d02b6",
+    "tests/Server.Native/Bindings/exact-layout.json": "afeddad354a1694e6bf46a22385f7105805625d42b2d808bf10edbba2fbb3f8f",
+    "tests/Server.Native/Bindings/linked-symbols.txt": "e1152f138682eb5b371494be8922e94358f59d3de0c0ad76f115d59c181e6954",
+    "tests/Server.Native/Bindings/parsed-inventory.json": "2aa8f4fb2a46fce27d893f2986d5f4f3619c82beed4f9a5a1efda357f50c0418"
+  },
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "native_sha256": "f02d083ada89a464d105da51457758c5272c03ccab5bf86ca723b9b48b303cec",
+  "jit_assertions": 110,
+  "aot_assertions": 110,
+  "source_clean": true,
+  "native_unit_tests": 5,
+  "native_actual_host_tests": 1,
+  "exact_native_exports": 48,
+  "public_context_symbols": 10,
+  "default_release_debug": true,
+  "exporter_bounds": {
+    "entries": 2048,
+    "bytes": 524288,
+    "per_item_bytes": 1024,
+    "flush_milliseconds": 250
+  },
+  "aot_executable_sha256": "e45181225b4ac731e067b4baf81417c9867dbcc5552b70681417132bd611f713",
+  "jit_executable_sha256": "99552c2271a39639d9f374dd330b41c831832846460be860f74a1bb9c41c4bc0",
+  "package_summary_sha256": "a3945a54a5f9d54cfa7e0dca4f22f68651fcf801c0593d16566018e73c7e3b5d",
+  "costs_sha256": "0e2cb8cafe9274f1f7ab4a627e281a710f499dee006aac3454d6bfb98bd984fe"
+}

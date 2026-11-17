@@ -11,7 +11,8 @@
     "Managed BodyChunk owner, ToArray temporary managed credits, shared read-mode gate and async-only borrowed streams",
     "Native operations and Core owner/callback retention, separation of caller completion and retirement",
     "PreparedWrite create-time copy retains queue and allocation grants; unstarted drop releases both; commit transfers the original Bytes owner without another copy",
-    "Source and artifact SHA256 validation against actual clean execution source"
+    "Source and artifact SHA256 validation against actual clean execution source",
+    "Formatter backing credit through last slice; payload-free flush queue barrier with cancellation and retained budget"
   ],
   "verification": {
     "commands": 23,
@@ -35,5 +36,13 @@
     "linux-run-001/result.json",
     "linux-run-001/prepared-write.txt"
   ],
-  "global_acceptance": false
+  "global_acceptance": false,
+  "additive_focused_checks": {
+    "formatter_retained_backing": 1,
+    "payload_free_flush_and_cancellation": 2,
+    "evidence": [
+      "../B17/linux-final/B16-formatter.txt",
+      "../B17/linux-final/B16-flush.txt"
+    ]
+  }
 }
