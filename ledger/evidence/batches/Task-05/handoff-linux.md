@@ -19,7 +19,7 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 | B08 | ready_queued | root (queued) | B01, B05 | B02, B03, B04 |
 | B10 | ready_queued | root (queued) | B09 | B12, B13 |
 | B11 | in_progress | query_track | B09, B07 | B02, B03, B04 |
-| B12 | ready_queued | root (queued) | B07, B09 | B06, B04, B02, B03 |
+| B12 | in_progress | query_track | B07, B09 | B06, B04, B02, B03 |
 | B13 | waiting_for_batch_dependency | root (queued) | B09, B11 | B04, B06, B12 |
 | B14 | waiting_for_batch_dependency | root (queued) | B05, B11, B12 | B02, B03, B04, B06 |
 
@@ -32,7 +32,8 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 - Batch branches: `task/Task-05-linux` in NativeWeave and Plan.
 - Batch worktrees: `ROOT/.worktree/Task-05-linux/NativeWeave` and `ROOT/.worktree/Task-05-linux/Plan`.
 - Per-task branches/worktrees and integrated/pending commits: [status-linux.json](status-linux.json).
-- Implementation PR: pending first source checkpoint. Plan PR: pending creation.
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/17 (Draft).
+- Plan PR: https://github.com/IzuSharp/Plan/pull/20 (Draft).
 
 ## Verification and next action
 
@@ -42,3 +43,9 @@ queue other ready tasks against available agent slots, and compose shared manife
 serially. Preserve every component checkpoint and actual failure/result before final
 acceptance. Final PR checks, merge CI and existing preview publication/consumption are
 not yet run for this batch. Windows and other platforms are outside this run.
+
+## Integrated checkpoint
+
+B04 native runtime/source/session/operation/query composition and the typed C# facade are integrated. Native and managed builds pass; actual two-provider lifecycle and JIT/AOT acceptance remain active. B11 advanced SeaQuery tests pass all nine groups with real SQLite and locally built PostgreSQL18.0, with no skipped provider row. Its canonical C# ABI oracle driver compiles and publishes to Linux NativeAOT; execution awaits the corresponding Host binary and is not yet accepted. B12 is active in its own worktree, reusing B01 static row decoding and B06 stream cleanup. B08 and B10 remain ready in the concurrency queue; B13/B14 start at their actual component dependency checkpoints.
+
+The PostgreSQL18.0 source archive was verified against its official SHA256 (`0d5b903b1e5fe361bca7aa9507519933773eb34266b1357c4e7780fdee6d6078`) and built locally. TCP loopback is available; Unix-domain socket creation is restricted, so fixtures disable Unix sockets explicitly. No repository toolchain or NuGet audit policy was weakened. Local source and remote transport commit identities are retained separately; transport uploads verify exact tree equality.
