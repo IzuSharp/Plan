@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/review_ci_fix",
+  "reviewed_at_utc": "2026-11-17T03:25:11.124225+00:00",
+  "scope": "Independent narrow review of the Task-03 Linux CI formatting repair only; no component acceptance rerun.",
+  "repository": "IzuSharp/NativeWeave",
+  "pr": 14,
+  "reviewed_local_base": "ff81a7140d9105f35d5cc445ec1833c1c3cb215e",
+  "base_remote_equivalent": "787fb095b33850e06a8ae0e4a5812e5a381c43be",
+  "failure_run": 44006785218,
+  "failure_diagnosis": "1052 WHITESPACE diagnostics in the two Interop.Memory fixture/test files; no build or security failure before that gate.",
+  "decision": "accept_formatting_only_patch",
+  "changed_paths": [
+    "tests/Interop.Memory/Fixture.cs",
+    "tests/Interop.Memory/Program.cs"
+  ],
+  "source_blobs": {
+    "tests/Interop.Memory/Fixture.cs": {
+      "before": "6741a47b144a6556fcf793d72fa14b62cbd4c9f4",
+      "after": "211b17f8f52780013a3558b15af8c07536919450"
+    },
+    "tests/Interop.Memory/Program.cs": {
+      "before": "d1b09766ae489bd2e63587b60e0640f55a8cd67f",
+      "after": "49c41b038956c1f7e28cbeabd56b15392311c37c"
+    }
+  },
+  "verification": {
+    "method": "Pinned SDK 11.0.100 Roslyn CSharpSyntaxTree token kind/text/value equality, exact non-whitespace trivia equality, SyntaxFactory.AreEquivalent and zero parse errors before/after. Full diff inspected and git diff --check passed.",
+    "token_counts": {
+      "Fixture.cs": 562,
+      "Program.cs": 3959
+    },
+    "result_file": "closeout-review/review/token-equivalence.json",
+    "success": true
+  },
+  "findings": [],
+  "unchanged_boundaries": [
+    "No product/public API or ABI change.",
+    "String and character literal text/value, interpolated content, identifiers, operators, comments and directives are unchanged.",
+    "No workflow, build gate, security exception, dependency, toolchain or test assertion was changed.",
+    "Existing component acceptance receipts remain tied to their original source; this narrow follow-up proves only source formatting equivalence."
+  ],
+  "remaining_conditions": [
+    "Normal Plan integrity/merge and exact implementation-merge CI/release/registry-consumption closeout."
+  ],
+  "local_environment_limit": "Solution-mode formatter build-host named pipes are denied in this tool sandbox. Parent used supported folder-mode whitespace formatter; this review does not claim the local full solution gate passed.",
+  "historical_acceptance_rerun": false,
+  "evidence_sha256": {
+    "token-equivalence.json": "e5a6e1c0b1b395dc77596c4300cc6702e061c0470221f5f6a5d1a6adb2f178fd",
+    "formatting-only.patch": "2dd9f598a13be633c98445135462393b07d1e29640d8c9772e5ac99a8d76f069",
+    "token-equivalence/Program.cs": "050ebc2e8c5aae2a5ba2099df457c7039c70dc2c5620d8eda4ec4a87b5fb41fa",
+    "token-equivalence/TokenEquivalence.csproj": "3344aa53205dc0116e735e0f44f9817fc4fb45b25a681372ce48c64b083b9c78"
+  },
+  "retention": {
+    "raw_review_archive": "closeout-review/review/",
+    "reproducible_probe": "closeout-review/review/token-equivalence/",
+    "scope": "Paths are inside the private original-evidence archive; no raw probe source or logs are added to public Git."
+  },
+  "normal_pr_ci": {
+    "run_id": 44010305466,
+    "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44010305466",
+    "head": "b0494bbc1b42ca7bb6620bae57594b3ec53276a7",
+    "conclusion": "success",
+    "source_package_api_aot_passed": true,
+    "rust_free_sdk_container_passed": true,
+    "generated_source_dependency_drift_check_passed": true,
+    "all_security_jobs_passed": true
+  }
+}
