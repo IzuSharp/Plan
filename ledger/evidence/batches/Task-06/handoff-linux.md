@@ -2,67 +2,64 @@
 
 ## Scope and current state
 
-The user explicitly authorized implementation, required tests, documentation, branches,
-commits, pushes, PRs, normal checked merges and existing postmerge preview closeout for
-Task-06 on Linux x64. This platform record supplements the historical research graph;
-it does not rewrite accepted research or claim global product acceptance.
+All six Linux x64 components are accepted and integrated. Final normal PR checks, merges, exact merge CI and the existing automatic preview publication/consumption remain the delivery steps. No other-platform acceptance is claimed.
 
-All external Linux dependencies are reused from the accepted
-[Task-01](../Task-01/handoff-linux.md), [Task-02](../Task-02/handoff-linux.md),
-[Task-03](../Task-03/handoff-linux.md) and [Task-04](../Task-04/handoff-linux.md)
-records. No historical component acceptance is rerun. No Task-06 implementation or
-PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
+The user explicitly authorized implementation, tests, documentation, worktrees, commits, pushes, PRs, normal checked merges and postmerge closeout for Task-05 and Task-06. Historical research-only statuses do not revoke that authorization. Design remains read-only at `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`; toolchains are .NET SDK11.0.100, C#15 and Rust1.100.0. External A02/A07/A10/A11 Linux dependency evidence is reused.
 
-| Task | State | Owner | Start dependencies | Acceptance dependencies |
-| --- | --- | --- | --- | --- |
-| B15 | accepted_component_linux | root | A02, A07, A10 | B17 |
-| B16 | accepted_component_linux | server_track | A07 | None |
-| B17 | accepted_component_linux | server_track | A07, A10, A11, B16, A02 | None |
-| B18 | accepted_component_linux | root native/composition review; server_track managed review; database_host package proof | B15, B17 | None |
-| B19 | in_progress | query_track | B15, B17 | None |
-| B20 | accepted_component_linux | server_track | B17 | None |
+Task-05 and Task-06 were developed in parallel without adding a database prerequisite to Server. Task-05 is complete: implementation PR17 merged as `275aa5e0f9eba70c637d1a32fb399108635137ce`, Plan PR20 as `667ed2720eda44c31da787d1126961c79a76f90e`; exact merge CI and existing preview `0.1.0-preview.9.1` publication/registry JIT+AOT consumption passed. Their main branches are integrated into this batch.
 
-## Exact baseline and recovery
+| Task | Linux state | Owner/review | Start dependencies | Acceptance dependencies | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| B15 | accepted_component_linux | root | A02, A07, A10 | B17, satisfied | [B15](../../B15/review-linux.json) |
+| B16 | accepted_component_linux | server_track | A07 | None | [B16](../../B16/review-linux.json) |
+| B17 | accepted_component_linux | server_track | A02, A07, A10, A11, B16 | None | [B17](../../B17/review-linux.json) |
+| B18 | accepted_component_linux | root/native composition; server_track/managed review; database_host/package proof | B15, B17 | None | [B18](../../B18/review-linux.json) |
+| B19 | accepted_component_linux | query_track/product; database_host/compiler; server_track/independent review; root/composition | B15, B17 | None | [B19](../../B19/review-linux.json) |
+| B20 | accepted_component_linux | server_track | B17 | None | [B20](../../B20/review-linux.json) |
 
-- Implementation: `aa16521d609c0749d7c199f70eedad833b0d24c8`; verified remote main.
-- Plan: `43b98b17b17ed291e42c821ee162e138eb8987df`; verified remote main.
-- Read-only Design: `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`.
-- Toolchains: .NET SDK 11.0.100, C# 15, Rust 1.100.0.
-- Batch branches: `task/Task-06-linux` in NativeWeave and Plan.
-- Batch worktrees: `ROOT/.worktree/Task-06-linux/NativeWeave` and `ROOT/.worktree/Task-06-linux/Plan`.
-- Per-task branches/worktrees and integrated/pending commits: [status-linux.json](status-linux.json).
-- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16 (Draft).
-- Plan PR: https://github.com/IzuSharp/Plan/pull/21 (Draft).
+## Branches, worktrees and recovery
 
-## Verification and next action
+- Both batch branches: `task/Task-06-linux`.
+- Worktrees: `ROOT/.worktree/Task-06-linux/NativeWeave` and `ROOT/.worktree/Task-06-linux/Plan`.
+- Per-task branches/worktrees, owners and integrated commits: [status-linux.json](status-linux.json).
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16.
+- Plan PR: https://github.com/IzuSharp/Plan/pull/21.
+- Implementation local head: `24e760e0083a9a05828ff56c8a3ff88cd43407f3`.
+- Remote transport head: `849ec7b6c52e98108991dfd78098031393b2a047`.
+- Verified equal Git tree: `245de26bad38ab62547d422eeb83267e7520ca92`.
 
-Recovery established exact repository identities and dependency records; it is not new
-product execution evidence. Implement the ready assigned tasks in isolated worktrees,
-queue other ready tasks against available agent slots, and compose shared manifests
-serially. Preserve every component checkpoint and actual failure/result before final
-acceptance. Final PR checks, merge CI and existing preview publication/consumption are
-not yet run for this batch. Windows and other platforms are outside this run.
+All owned component changes are integrated; no pending agent implementation or acceptance work remains. Local execution and GitData transport commits retain distinct identities with explicit equal-tree mappings. Recover from these existing remote batch branches and PRs, not a new implementation from main.
 
-## Integrated checkpoint
+## Accepted verification
 
-B15 and B17 are independently accepted Linux components. B15 passed 85 actual assertions in each of JIT and NativeAOT, 278 exact API/XML/reference checks, and independent NuGet consumers with transitive generation, optional Hosting, HTTP/1 and HTTP/2. All Rust invocation traps remained unused and an ordinary DTO edit preserved the native asset. B17 passed 19 formal stages, eight native regressions, 85 assertions and 43 dispatches in each managed mode, and 48 exact exports / eight records / 103 field offsets. Component receipts and independent reviews are in `ledger/evidence/B15/` and `ledger/evidence/B17/`.
+| Component | Actual Linux evidence |
+| --- | --- |
+| B15 |85 assertions each JIT/AOT;278 exact API/XML/reference symbols; independent NuGet with transitive generation, optional Hosting, HTTP1/HTTP2 and ordinary DTO edits without Rust |
+| B16 |16 native tests;81 JIT/82 AOT assertions; zero owners/credits; focused formatter-owner and payload-free flush checks |
+| B17 |19 formal stages; eight native tests;85 assertions/43 dispatches each runtime;48 exports, eight records,103 offsets |
+| B18 |17 formal commands;308 JIT/309 AOT assertions;332 managed retirements each;71 API symbols/five compile-negative cases;25-command independent five-package proof, two Protobuf services, four cardinalities over HTTP2/TLS and managed-only edits with unchanged native |
+| B19 |21 formal commands;291 JIT/291 AOT assertions;180 managed retirements each;65 API symbols/five static compile fixtures; nine native preparse rejections with SDK=0/Handler=0 plus a positive case;22-command independent five-package proof |
+| B20 |33 formal stages;110 assertions each runtime; five native unit tests/one actual Host test;48 exports/10 context symbols; four matched cost modes each runtime; independent NuGet JIT/AOT without Rust |
 
-B16 remains accepted. Its additive formatter-owner and payload-free flush checks are preserved beside B17's final logs. B20 is independently accepted:33 formal stages,110 actual assertions in each runtime, five native unit tests and one actual Host test,48 exact exports and10 public context symbols, four matched cost modes per runtime and independent NuGet JIT/AOT consumers without Rust. Its immutable source/log/artifact hashes were independently checked; see `ledger/evidence/B20/review-linux.json`. B18 is now accepted; B19 remains active on the same request scope and native runtime.
+All API/XML, guide/sample, ownership and error/lifecycle requirements belong to the component evidence linked above. Matched cost results are retained without an unconditional performance advantage claim. Previously accepted component/package matrices are reused, not rerun as new evidence.
 
-Remote Build CI identified stale exact Cargo input hashes in the existing HelloWorld build profile after workspace composition; those hashes were refreshed without weakening its input gate. Exact public design digests and a documented recovery identifier were classified in secret scanning; local pinned Gitleaks full-history scan passed. New remote checkpoints and final checks remain required.
+B19's compiler passes65 assertions and80 in each runtime, covering private/base/generic/external metadata and actual public registration. Its independent consumer blocks repository imports and traps Rust. A private-only edit in an external DTO project preserves reference DLL bytes, regenerates the proof and changes node admission4640 to8736, then passes actual JIT/AOT HTTP1+HTTP2 using unchanged native bytes. Root rehashed137 formal source inputs,190 native build inputs,16 additional packaging inputs,24 compiler source files and101 compiler artifacts, plus every command log and package: zero mismatches.
 
-B18 is independently accepted:17 formal commands;308 JIT /309 NativeAOT assertions with332 separately observed A07 retirements in each mode;71 exact API/XML/reference declarations and five compile-negative fixtures;48 exports, eight records and103 offsets. The independent25-command NuGet proof executes two static Protobuf services and all four cardinalities over clear HTTP2/TLS, then changes ordinary proto/DTO/Handler code and executes JIT/AOT with unchanged native bytes and no Rust invocation. Separate native/component/package source identities and the original package provenance correction are preserved under `ledger/evidence/B18/`.
+The [sealed independent B19 review](../../B19/linux-final/independent/final-review.md) closes complete CLR inline-storage under-reservation and private-name startup expansion. The original long-name graph now rejects before expansion with8,016 allocated bytes in JIT and30,056 in AOT, and a189-character bounded diagnostic. The correction preserves exact registered schema/ABI semantics, pre-admits field/identity metadata and output boxing, regenerates private-field proofs without Rust, and observes actual retirement. The managed close-tail fix retains the original total deadline. Original failed and superseded evidence remains separate.
 
-B19's final04 exposed a managed close-tail race. The shared bounded join correction is integrated as `a91ebf4`; a deterministic HTTP1/HTTP2 regression fails on the previous implementation and passes with the correction. Independent review also reproduced a missing inline-value DTO width term; B19 remains unaccepted until its pre-SDK allocation admission is corrected and verified. The preliminary combined Server asset is not final acceptance. The immutable independent finding and actual public-Host reproducers are preserved at `ledger/evidence/B19/independent-review-open/`; the close-tail negative/fixed logs are at `ledger/evidence/B19/managed-close-tail/`. B19 implementation, static layout metadata and independent review proceed in isolated worktrees. The accepted B18 managed review separately identifies its author/reviewer roles at `ledger/evidence/B18/linux-final/independent-managed-review.md`.
+## Composition and integration corrections
 
-The Task-05 implementation was normally merged into main as `275aa5e0f9eba70c637d1a32fb399108635137ce`. Task-06 integrates that main with local merge `3ce32dd`; all seven shared resolutions retain both modules. Full static Server binding generation was refreshed as `e265fa6` after formatting changed native inventory provenance. This integration is not another prerequisite or rerun of Task-05 acceptance. Task-05 Plan PR20 is also normally merged as `667ed2720eda44c31da787d1126961c79a76f90e`; its records are integrated here by `0d60163`. Task-05 implementation CI and existing preview `0.1.0-preview.9.1` signature/registry JIT/AOT consumption are verified.
+Selected final protocol rows use native SHA256 `f446c1263e67a7f9a38b3be3e3fdf22f48b0ac2dd15cd46bd4cecea1e6331b21` (8,162,736 bytes,48 exports). The original composed build is source `7ce4f482a1d9935cddfdd0026b9120e6c72350f5`. A fresh full Server build at `874001186635d1f58ecc2d1ad2aae736b9a9421d` reproduced identical bytes; its only native-input difference is the test isolation patch below.
 
-The B19 compiler preservation checkpoint is integrated and pushed (local `d6c796d`, remote `1f1a1bfb75f18a1b5ff09e6666d435ecc3e3d257`, equal tree `ee0ec9fe7bbef588cb25ef886d4078e1b079dde2`). The frozen partial witness passed34 JIT and34 NativeAOT assertions, including private/base/external/closed generic fields; original failed nested-type naming and corrected AOT logs remain at `ledger/evidence/B19/field-preservation-stage/`. This is not B19 admission acceptance: the bounded reflection prewalk, final-compilation field-count proof and independent final admission tests are still active. New compiler witness projects are in the shared solution; the first ordinary locked restore correctly rejected AOT-overwritten witness locks, and the separate ordinary/Linux AOT graphs are corrected in `84cd47f`; the complete125-project solution locked restore now passes. Both the original rejection and corrected restore logs are preserved.
+- [Host/diagnostics/gRPC composition](composition-stage/review-scope.json): B17 JIT85/43 dispatches, B20 JIT110, B18 JIT308/AOT308. Formal B18 AOT309 includes one CLI assertion not requested by this runner; the runner independently checks dynamic=False.
+- [Final MCP composition](composition-mcp-final/review-scope.json):291 JIT/291 AOT and180 retirements each;405 source hashes and all immutable log/executable inputs verified. Later commits add only a regression script and proof documentation.
+- The shared solution, Cargo workspace and static binding inventories were integrated serially. Full125-project locked restore passed after separate ordinary and Linux AOT compiler-witness lock graphs; the original failure is retained.
+- [Counter test isolation](integration-counter-fix/review.json): remote CI exposed independently scheduled SQLite/PostgreSQL cases sharing process-global counters. Ten test-only lines isolate five cases while retaining within-case contention and every cleanup assertion. All eight actual provider tests pass with test-threads=8. Independent review confirms no production change, skipped assertion or counter reset.
 
-The composed Server native asset is frozen at source `7ce4f482a1d9935cddfdd0026b9120e6c72350f5` (SHA256 `f446c1263e67a7f9a38b3be3e3fdf22f48b0ac2dd15cd46bd4cecea1e6331b21`,8162736 bytes,48 exports). Actual current Host/diagnostics and gRPC JIT/NativeAOT composition passed against exactly those bytes; source/log/executable inputs were independently rehashed. See `composition-stage/review-scope.json`. B19 uses this same asset for its pending managed/helper acceptance.
+The compiler-only B19 witness's earlier native asset is explicitly a build input; actual final product/package rows use the composed binary above. Managed/native/package source and asset identities remain separate and explicit.
 
-Task-05 Plan merge CI also passed at https://github.com/IzuSharp/Plan/actions/runs/44079742886; Task-05 is complete without another record-only commit.
+## Delivery checks and next action
 
-Next: finish B19, combine module verification, finalize the existing PRs, and complete normal checked merges and the existing postmerge preview/consumer workflow. No Windows or other-platform acceptance is claimed. Local execution commits and GitData transport commits retain separate identities with identical verified Git trees.
+Final implementation PR CI is running at https://github.com/IzuSharp/NativeWeave/actions/runs/44086853306 on remote head `849ec7b6c52e98108991dfd78098031393b2a047`. Complete existing required checks and normal merges without bypassing protection. Confirm exact merge CI and the normal automatic preview publication, repository signature and downloaded registry package JIT/AOT consumption.
 
-Independent B19 review also identified `B19-PREWALK-IDENTITY-BYTES`: a legal62-type shallow static graph retains4,209,940 bytes of private type-name UTF16 payload, beyond the4MiB startup grant. The public registration probe accepted that graph at correction checkpoint `ec8d750`; it is not an application-constructor allocation. Exact product inputs, logs, reviewer notes and19 rehashed primary runtime sources are indexed in `ledger/evidence/B19/identity-review-open/`. The narrow correction pre-admits known private literal lookup bytes, preserves direct typeof lookup, and avoids formatting rejected unadmitted identities. Final corrected actual-product and package receipts remain required.
+The existing public release scope remains HelloWorld only; this task does not newly publish Server/Database packages or add platforms/CI matrices. Then finalize the Plan record, normally merge PR21 and confirm its merge CI. No next task package or unrelated acceptance rerun is authorized by completion.
