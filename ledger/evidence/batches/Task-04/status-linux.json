@@ -86,7 +86,7 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Implement and verify scoped component from integrated A07 d476974."
+      "next_step": "Native executor tests pass preparation; complete managed A07 composition JIT/AOT and independent review."
     },
     "A14": {
       "state": "pending_assembled_acceptance",
@@ -105,17 +105,21 @@
       "integrated_commits": [
         "9b1daf8",
         "79ebf0c",
-        "be289b6"
+        "be289b6",
+        "8cdcae3",
+        "4f7eeef"
       ],
       "pending_commits": [],
       "verification": [
         "Independent component package JIT/AOT preparation passed on Debian; no Ubuntu/pristine claim."
       ],
-      "next_step": "Run complete A07 composition on Ubuntu baseline and transfer to runtime-only environment.",
+      "next_step": "Run 1a247c5 scoped existing Ubuntu row: full closure, observed emulated v2 CPU and compiler-free runtime transfer.",
       "source_commits": [
         "99cd8c5",
         "a883e38",
-        "c15a021"
+        "c15a021",
+        "bedec5d",
+        "ef54bfd"
       ]
     },
     "A15": {
@@ -152,15 +156,20 @@
       ],
       "packet_sha256": "bfb792ba217f4aad1747ea0e5ac382ce7e29197a989fd984bcabafd3fca53f0e",
       "integrated_commits": [
-        "f5549fa"
+        "f5549fa",
+        "16f17c8",
+        "3a3c518",
+        "1440ca1"
       ],
       "pending_commits": [],
       "verification": [
         "Real independent package JIT/AOT, offline app edits and 12 closure/record negatives passed preparation; immutable coordinator and clean receipts in progress."
       ],
-      "next_step": "Finish exact closure/publication cases and independent review; await A14 Ubuntu and SDK/runtime containers.",
+      "next_step": "Read independent rollback review closure and await fresh SDK/no-Rust plus baseline runtime CI results.",
       "source_commits": [
-        "4f9597698b4db410c6276576913018f1590ecf1d"
+        "4f95976",
+        "befc5e1",
+        "a6f7fb5"
       ]
     },
     "A17": {
@@ -210,13 +219,13 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Implement and verify scoped component from integrated A07 d476974."
+      "next_step": "Native real Hyper server/client/streaming compiles; complete typed managed handler, actual network races and package conformance."
     },
     "A20": {
-      "state": "ready_queued_capacity",
-      "owner": "sync_engine_next",
-      "branch": null,
-      "worktree": null,
+      "state": "in_progress",
+      "owner": "sync_engine",
+      "branch": "task/Task-04-A20-linux",
+      "worktree": "ROOT/.worktree/Task-04-A20-linux/NativeWeave",
       "start_dependencies": [
         "A03",
         "A04",
@@ -229,10 +238,10 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start immediately after A23 checkpoint; all dependencies satisfied, three worker slots occupied."
+      "next_step": "Implement bounded actual cross-language properties, schedules and valid-memory fuzzing against accepted components."
     },
     "A23": {
-      "state": "in_progress",
+      "state": "accepted_linux_component",
       "owner": "sync_engine",
       "branch": "task/Task-04-A23-linux",
       "worktree": "ROOT/.worktree/Task-04-A23-linux/NativeWeave",
@@ -243,10 +252,22 @@
       ],
       "acceptance_dependencies": [],
       "packet_sha256": "4dda23ab39492c5ab9a8d4889ce88a69212c04d50045aa6af6b5f05df02e1b75",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "27a6f7a",
+        "1c11b35",
+        "cd38ab3"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Implement actual Linux owner-thread/callback/lease probe; no display/device certification."
+      "verification": [
+        "../../A23/acceptance-linux.json",
+        "../../A23/review-linux.json"
+      ],
+      "next_step": "Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit.",
+      "source_commits": [
+        "ac7d185",
+        "d0cfa5f",
+        "b7953a4"
+      ]
     },
     "A24": {
       "state": "pending_assembled_acceptance",
@@ -265,41 +286,43 @@
       "packet_sha256": "9b9fcaf5d1546538eaca03b6a3826b069ba4a6e5200df84820bc86daa17fefa3",
       "integrated_commits": [
         "83a2647",
-        "f4e36c8"
+        "f4e36c8",
+        "4df7841",
+        "3d883e3",
+        "0a83819"
       ],
       "pending_commits": [],
       "verification": [
         "Six descriptor methods passed preparation; not real Engine acceptance.",
-        "Independent R1-R4 findings fixed in495a826; 11 targeted descriptor/output-record methods passed. Actual two-engine generated acceptance remains pending."
+        "Independent R1-R4 findings fixed in495a826; 11 targeted descriptor/output-record methods passed. Actual two-engine generated acceptance remains pending.",
+        "../../A24/sync-scaffold-linux.json"
       ],
-      "next_step": "Resolve independent scaffold review findings and run actual A17/A18 generated package consumers.",
+      "next_step": "A17 generated scaffold JIT/AOT passed; run heterogeneous A18 scaffold when accepted, then final independent review.",
       "source_commits": [
         "4adda7c",
-        "bcfb96d"
+        "bcfb96d",
+        "495a826",
+        "eb40576",
+        "f84abcf"
       ]
     }
   },
   "remote_checkpoint": {
-    "implementation_commit": "dcf714e86184edc05053eecf701c7362f5128a2d",
-    "implementation_local_equivalent": "16f17c8947fa0a69bb4bc0f0f2472088e1990d2a",
-    "tree": "54c5af8a4e3d7a931428e5f4167a6e7f583b30f5",
-    "plan_commit": "e6839ce365d40599c84da5f8d166242e8fa65ba8",
-    "plan_local_equivalent": "3634b741b220c8427606bc67632258e64aa1839f",
-    "note": "Exact remote/local trees verified. A07 and subsequent review fixes are committed for next checkpoint."
+    "implementation_commit": "7e25605e8214e2a58dbe88e546b56926b21c39b7",
+    "implementation_local_equivalent": "cea44aee75782a11924b717083c6607765eaa88b",
+    "tree": "9fedb43ef573d6e1a1c64246f6007b1bc8d5fe53",
+    "plan_commit": "34e0c41a1ce00bd642def6723df0cccf5ee8a2ea",
+    "plan_local_equivalent": "653c92f744552da46e22713cbabff2c1c55287e5",
+    "note": "Exact remote/local trees verified. A23 and real A17 scaffold plus scoped final Linux CI are committed for next checkpoint."
   },
   "ci": {
     "implementation": {
-      "run": "https://github.com/IzuSharp/NativeWeave/actions/runs/44023247328",
-      "state": "failure",
-      "findings": [
-        "Root Cargo input hashes in existing A13 HelloWorld profile require refresh after member/lock integration.",
-        "Secret scan matches exact public locked Design file digests in new provenance files; narrow path+value exceptions follow existing policy, full scan stays enabled."
-      ],
-      "repair_commit": "8ddb7e3",
-      "repair_scope": "Profile source pins and exact public digest matches only; local pinned gitleaks full-history rescan passes."
+      "run": "https://github.com/IzuSharp/NativeWeave/actions/runs/44025050449",
+      "state": "success",
+      "scope": "Checkpoint3 existing CI; new final package/CPU/container rows are added in 1a247c5 and await execution."
     },
     "plan": {
-      "run": "https://github.com/IzuSharp/Plan/actions/runs/44023281043",
+      "run": "https://github.com/IzuSharp/Plan/actions/runs/44025085135",
       "state": "success"
     }
   }

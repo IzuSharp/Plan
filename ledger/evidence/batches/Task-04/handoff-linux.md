@@ -24,18 +24,18 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 | --- | --- | --- | --- |
 | A06 | accepted_linux_component | callbacks | Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance. |
 | A07 | accepted_linux_component | callbacks | Reuse accepted Task bridge immediately in A08/A18/A20 and final A14 composition. |
-| A08 | in_progress | packaging | Implement and verify scoped component from integrated A07 d476974. |
-| A14 | pending_assembled_acceptance | packaging | Run complete A07 composition on Ubuntu baseline and transfer to runtime-only environment. |
+| A08 | in_progress | packaging | Native executor tests pass preparation; complete managed A07 composition JIT/AOT and independent review. |
+| A14 | pending_assembled_acceptance | packaging | Run 1a247c5 scoped existing Ubuntu row: full closure, observed emulated v2 CPU and compiler-free runtime transfer. |
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
-| A16 | pending_assembled_acceptance | packaging | Finish exact closure/publication cases and independent review; await A14 Ubuntu and SDK/runtime containers. |
+| A16 | pending_assembled_acceptance | packaging | Read independent rollback review closure and await fresh SDK/no-Rust plus baseline runtime CI results. |
 | A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
-| A18 | in_progress | callbacks | Implement and verify scoped component from integrated A07 d476974. |
-| A20 | ready_queued_capacity | sync_engine_next | Start immediately after A23 checkpoint; all dependencies satisfied, three worker slots occupied. |
-| A23 | in_progress | sync_engine | Implement actual Linux owner-thread/callback/lease probe; no display/device certification. |
-| A24 | pending_assembled_acceptance | root | Resolve independent scaffold review findings and run actual A17/A18 generated package consumers. |
+| A18 | in_progress | callbacks | Native real Hyper server/client/streaming compiles; complete typed managed handler, actual network races and package conformance. |
+| A20 | in_progress | sync_engine | Implement bounded actual cross-language properties, schedules and valid-memory fuzzing against accepted components. |
+| A23 | accepted_linux_component | sync_engine | Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit. |
+| A24 | pending_assembled_acceptance | root | A17 generated scaffold JIT/AOT passed; run heterogeneous A18 scaffold when accepted, then final independent review. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). A06, A07 and A17 Linux component acceptance and independent review are recorded
+tracked in [status-linux.json](status-linux.json). A06, A07, A17 and A23 Linux component acceptance and independent review are recorded
 in their original evidence directories. A07 may be consumed immediately; do not wait
 for whole-batch closeout or repeat these completed component checks. Assembled
 packaging and the remaining components are still in progress.
@@ -64,7 +64,8 @@ bytes separately when necessary; never rewrite a failed record as success.
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
 Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
 
-Next: A08 and A18 are active after accepted A07; A23 is active and its worker takes
-ready A20 next. A24 now consumes accepted A17 while waiting for A18. Complete package
-and scaffold assembly, independent reviews, both PRs and normal post-merge checks.
+Next: A08, A18 and A20 are active. A24 has completed the real generated A17
+package JIT/AOT row and waits for A18. The existing Linux CI row now adds A14
+Ubuntu/CPU composition and A16 pristine SDK plus compiler-free baseline runtime
+transfer. Finish independent reviews, paired PRs and normal post-merge checks.
 Stop after Task-04; no Task-05/Task-06 execution is authorized by this record.
