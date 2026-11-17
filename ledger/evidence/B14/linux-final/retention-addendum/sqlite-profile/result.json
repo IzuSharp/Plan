@@ -1,0 +1,70 @@
+{
+  "task": "B14",
+  "platform": "linux-x64",
+  "commit": "3d83fb057a3831aaee2f77a88ece3e1c01bee0aa",
+  "scope": "Test-only conditional provider pattern for SQLite-only strict Clippy; production bytes equal the full Debug/Release native receipt.",
+  "production_receipt": "../final/result.json",
+  "production_receipt_sha256": "b091a603cab3c0c0884f018c24ef3402d29bd368082940f94d0fda6f0b803958",
+  "test_sha256": "38b8405f6172c19b351e7b2916de27d55c88fc6a6289cda83d50d8f3d44366a2",
+  "commands": [
+    {
+      "label": "format",
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2024",
+        "--check",
+        "native/database/host/src/tests.rs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.032,
+      "log": "format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "sqlite-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-database-host",
+        "--no-default-features",
+        "--features",
+        "sqlite",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 0.176,
+      "log": "sqlite-clippy.log",
+      "sha256": "fecede7c2157efe2f16c8c8b9dce94b0fb4dd384dca8207046c8bf7636eb0ffe"
+    },
+    {
+      "label": "actual-sqlite-cursor",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-database-host",
+        "--no-default-features",
+        "--features",
+        "sqlite",
+        "relation_retention",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "seconds": 12.037,
+      "log": "actual-sqlite-cursor.log",
+      "sha256": "813ad2b5ac14983bc4ff479d760bce153f39766323459ab9f5d2dc22fd0fd86d"
+    }
+  ],
+  "status": "passed",
+  "finished_utc": "2026-11-17T11:08:22.631854+00:00"
+}

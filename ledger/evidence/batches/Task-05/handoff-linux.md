@@ -21,7 +21,7 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 | B11 | accepted_component_linux | query_track | B09, B07 | B02, B03, B04 |
 | B12 | accepted_component_linux | query_track | B07, B09 | B06, B04, B02, B03 |
 | B13 | accepted_component_linux | query_track | B09, B11 | B04, B06, B12 |
-| B14 | in_progress | database_host | B05, B11, B12 | B02, B03, B04, B06 |
+| B14 | accepted_component_linux | database_host | B05, B11, B12 | B02, B03, B04, B06 |
 
 ## Exact baseline and recovery
 
@@ -49,12 +49,16 @@ B13 is accepted:1062 JIT /1063 NativeAOT assertions,420 managed retirements per 
 
 B10 is accepted after B12/B13:32 formal commands, eight generated/manual x original/edited x JIT/NativeAOT execution rows, two entities and ordinary mapped DTO changes with unchanged native SHA256.13 API signatures,15 negative diagnostic fixtures, seven parity assertions and static incremental generation passed. Original JIT artifact hashes were recorded before edited builds; each original AOT binary remains hash-verified.
 
+B14 is accepted:1673 JIT /1678 NativeAOT assertions,570/572 separately observed managed retirements and all six native counters zero on SQLite and PostgreSQL18.81 exact API symbols, six compile-negative fixtures and the independent10-package consumer passed in both runtimes/providers without Rust. Independent review found and corrected the exact relation/projection cursor retention gap; a separately identified actual SQLite ABI regression passed Debug/Release, both provider builds and SQLite-only strict Clippy. The baseline matrix is retained under its original source and asset identities.
+
 Each accepted component has an independent review and SHA-indexed receipts under its existing `ledger/evidence/Bxx/` directory. Those are Linux component results, not all-platform acceptance or completed batch delivery.
 
 ## Active work and next action
 
-B14 is integrated and undergoing final acceptance. Its actual JIT matrix passed1502 assertions with520 separate managed retirement witnesses and no final native owners. Shared compound-session admission covers operations attempted while bulk input awaits; its final AOT, exact API and package checks continue.
+All seven Linux components are accepted and integrated. The batch remains open for final composition, PR checks, checked merges and the existing postmerge publication/consumption workflow.
 
-Next: finish B14 and the batch composition gate, update the existing implementation/Plan PRs, complete normal checked merges, then verify merge CI and the existing preview publication/consumption workflow. Windows and other platforms are outside this run. Task-06 proceeds independently.
+The shared solution builds with zero warnings/errors. Its two Database Host profiles are now staged by the existing maintainer build, and the existing Linux CI job supplies a pinned local PostgreSQL18 service for the actual provider tests. The local full solution formatter is blocked by the execution environment's denied Unix-domain socket used by Roslyn's build host; this is not recorded as a successful formatter run. The unchanged required GitHub CI formatter remains the final gate. No check or protection is bypassed.
+
+Next: finish the batch composition gate, update the existing implementation/Plan PRs, complete normal checked merges, then verify merge CI and the existing preview publication/consumption workflow. Windows and other platforms are outside this run. Task-06 proceeds independently.
 
 Local source and remote transport commits retain separate identities with verified identical Git trees. Use this table and per-task reviews for recovery; do not repeat accepted historical component matrices.
