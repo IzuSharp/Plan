@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "batch": "Task-04",
+  "platform": "linux-x64",
+  "batch_complete": false,
+  "global_acceptance": false,
+  "authorization": "Current user Task-04 prompt authorizes all listed Linux implementation, tests, documentation, commits, paired PRs, normal merges and existing preview closeout. Historical research-only graph status is preserved.",
+  "implementation_baseline": "5ca367a2fa53e0a756b4c5bcb506113d5c1371a1",
+  "plan_baseline": "dcf74c700a14fa1983defe2aaef1ca043b9dbc3d",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "prerequisites": {
+    "A02": "../Task-02/handoff-linux.md",
+    "A03": "../Task-03/handoff-linux.md",
+    "A04": "../Task-03/handoff-linux.md",
+    "A05": "../Task-02/handoff-linux.md",
+    "A09": "../Task-02/handoff-linux.md",
+    "A10": "../Task-03/handoff-linux.md",
+    "A11": "../Task-03/handoff-linux.md",
+    "A13": "../Task-03/handoff-linux.md",
+    "A22": "../Task-03/handoff-linux.md"
+  },
+  "implementation_pr": null,
+  "plan_pr": null,
+  "tasks": {
+    "A06": {
+      "state": "in_progress",
+      "owner": "callbacks",
+      "branch": "task/Task-04-A06-linux",
+      "worktree": "ROOT/.worktree/Task-04-A06-linux/NativeWeave",
+      "start_dependencies": [
+        "A03",
+        "A05"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "af2c16f0f328455af1fd353069372daac03de9269b60cfe58a4ef06762392a82",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Implement callback registration and two-sided drain."
+    },
+    "A07": {
+      "state": "waiting_dependency",
+      "owner": "callbacks",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A04",
+        "A06"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "a4c3f59152d8884e426145635750f50c585c4a1e6312f9c94129890edda29f8f",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Start immediately after A06 component integration."
+    },
+    "A08": {
+      "state": "waiting_dependency",
+      "owner": "queued",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A07"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "51ff20a3fce6327a6bb42d8b2c47206b59e0efee04642f500963c7cb4c12ee35",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Start when A07 is ready."
+    },
+    "A14": {
+      "state": "in_progress",
+      "owner": "packaging",
+      "branch": "task/Task-04-A14-linux",
+      "worktree": "ROOT/.worktree/Task-04-A14-linux/NativeWeave",
+      "start_dependencies": [
+        "A13",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [
+        "A07"
+      ],
+      "packet_sha256": "92535af31e906a3c31198fd8e3aade684a3540d5ccafdd597bd5458aa4b0ca8a",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Prepare Linux packaging; final acceptance waits for A07 and Ubuntu target run."
+    },
+    "A15": {
+      "state": "deferred_other_platform",
+      "owner": "none",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A13",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [
+        "A07"
+      ],
+      "packet_sha256": "3399ab0f8fe5431cd5789b51b178dad026be02c28180c50b21bd738b26802f35",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Windows is explicitly deferred by the user."
+    },
+    "A16": {
+      "state": "independent_preparation",
+      "owner": "packaging",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A13"
+      ],
+      "acceptance_dependencies": [
+        "A14",
+        "A15",
+        "A22"
+      ],
+      "packet_sha256": "bfb792ba217f4aad1747ea0e5ac382ce7e29197a989fd984bcabafd3fca53f0e",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Reuse A22 and implement closure; Linux acceptance waits for A14."
+    },
+    "A17": {
+      "state": "in_progress",
+      "owner": "sync_engine",
+      "branch": "task/Task-04-A17-linux",
+      "worktree": "ROOT/.worktree/Task-04-A17-linux/NativeWeave",
+      "start_dependencies": [
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "6c5c530dcb8f7bbb46258a448762ca058046b32a853585b7f17abdad0eb8f53b",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Implement actual miniz_oxide codec integration."
+    },
+    "A18": {
+      "state": "waiting_dependency",
+      "owner": "queued",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A02",
+        "A07",
+        "A10",
+        "A11"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "2c68a9a05510ecd5e491d490cec9b0cfa6bc2e5dc5a8750013a38006de227906",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Start when A07 is ready."
+    },
+    "A20": {
+      "state": "waiting_dependency",
+      "owner": "queued",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "6ae861c5055c2c4e3be3cee8ecd3c5813aa6576058cfa284a74528a38924954c",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Start when A07 is ready."
+    },
+    "A23": {
+      "state": "waiting_dependency",
+      "owner": "queued",
+      "branch": null,
+      "worktree": null,
+      "start_dependencies": [
+        "A02",
+        "A03",
+        "A06"
+      ],
+      "acceptance_dependencies": [],
+      "packet_sha256": "4dda23ab39492c5ab9a8d4889ce88a69212c04d50045aa6af6b5f05df02e1b75",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Start Linux affinity scope when A06 is ready."
+    },
+    "A24": {
+      "state": "in_progress",
+      "owner": "root",
+      "branch": "task/Task-04-A24-linux",
+      "worktree": "ROOT/.worktree/Task-04-A24-linux/NativeWeave",
+      "start_dependencies": [
+        "A02",
+        "A09",
+        "A13"
+      ],
+      "acceptance_dependencies": [
+        "A17",
+        "A18"
+      ],
+      "packet_sha256": "9b9fcaf5d1546538eaca03b6a3826b069ba4a6e5200df84820bc86daa17fefa3",
+      "integrated_commits": [],
+      "pending_commits": [],
+      "verification": [],
+      "next_step": "Prepare descriptor/scaffold; final conformance waits for A17/A18."
+    }
+  }
+}
