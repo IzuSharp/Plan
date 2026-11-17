@@ -17,10 +17,10 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 | --- | --- | --- | --- | --- |
 | B15 | in_progress | root | A02, A07, A10 | B17 |
 | B16 | accepted_component_linux | server_track | A07 | None |
-| B17 | in_progress | server_track | A07, A10, A11, B16, A02 | None |
+| B17 | awaiting_acceptance | server_track | A07, A10, A11, B16, A02 | None |
 | B18 | waiting_for_batch_dependency | root (queued) | B15, B17 | None |
 | B19 | waiting_for_batch_dependency | root (queued) | B15, B17 | None |
-| B20 | waiting_for_batch_dependency | root (queued) | B17 | None |
+| B20 | ready_queued | server_track (queued) | B17 | None |
 
 ## Exact baseline and recovery
 
@@ -45,8 +45,12 @@ not yet run for this batch. Windows and other platforms are outside this run.
 
 ## Integrated checkpoint
 
-B16 Linux component acceptance is recorded in [its independent review](../../B16/review-linux.json): 16 native tests, 81 JIT and 82 actual NativeAOT assertions, five public XML/reference symbols, and zero final operation/buffer/credit owners. The additive prepared-write integration preserves create-time input copying and unstarted rollback; its two targeted tests are retained without repeating unrelated historical acceptance.
+**B15** — 39 managed component assertions; actual generated JSON dispatch; 278 exact pinned public symbols, XML/reference and seven generator negative consumers pass; actual B17 application acceptance active. Evidence: `ledger/evidence/B15/`.
 
-B15 is implemented through application lifecycle/typed routing/results and optional Generic Host integration; 35 managed component assertions pass. Generated registration, complete API/reference checks and real B17 acceptance remain in progress. B17 is active on its own worktree, implementing the exact pinned ABI and native TCP HTTP/TLS Host. B18/B19 wait for B15+B17; B20 waits for B17. No database completion is required.
+**B16** — 16 native tests; JIT81 and NativeAOT82; owner/credit counters zero; Two prepared-write and one formatter Bytes-owner focused tests; root reviewed ownership proof. Evidence: `ledger/evidence/B16/review-linux.json`.
 
-Local source commits are integrated into the batch branch; remote GitData transport commits preserve exact trees and retain distinct identities. Native source and evidence uploads continue on the existing PRs.
+**B17** — Actual network JIT and NativeAOT: 69 assertions / 37 dispatches each, HTTP1/HTTP2/TLS/SSE and retirement; Strict Clippy and zero-warning managed builds pass; final ABI/fault/cost receipt active. Evidence: `ledger/evidence/B17/`.
+
+**B20** — B17 implementation integrated; starts after its immutable verification checkpoint. Evidence: `ledger/evidence/B20/`.
+
+Local source and remote transport commits retain separate identities with verified identical Git trees. The four existing Draft PRs are updated in place. Per-task final immutable source/log/hash reviews and package composition remain necessary before marking the whole batch accepted; Windows and other platforms remain outside this run.

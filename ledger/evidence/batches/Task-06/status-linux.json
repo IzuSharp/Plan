@@ -21,11 +21,15 @@
       "worktree": "ROOT/.worktree/Task-06-B15-linux/NativeWeave",
       "integrated_commits": [
         "6959004",
-        "eb96989"
+        "eb96989",
+        "ad97129",
+        "1de75c0",
+        "afbcefd"
       ],
       "pending_commits": [],
       "verification": [
-        "35 managed component assertions passed; real Host acceptance pending"
+        "39 managed component assertions; actual generated JSON dispatch",
+        "278 exact pinned public symbols, XML/reference and seven generator negative consumers pass; actual B17 application acceptance active"
       ],
       "evidence": "ledger/evidence/B15/",
       "global_acceptance": false
@@ -45,12 +49,13 @@
         "0e2ae88",
         "3b3c414",
         "6ec8e44",
-        "0a10b81"
+        "0a10b81",
+        "4bbb397"
       ],
       "pending_commits": [],
       "verification": [
-        "16 native tests; JIT81 and actual NativeAOT82 assertions; ownership counters zero",
-        "Two focused prepared-write rollback/ownership tests; independent review passed"
+        "16 native tests; JIT81 and NativeAOT82; owner/credit counters zero",
+        "Two prepared-write and one formatter Bytes-owner focused tests; root reviewed ownership proof"
       ],
       "evidence": "ledger/evidence/B16/review-linux.json",
       "global_acceptance": false
@@ -58,7 +63,7 @@
     {
       "id": "B17",
       "platform": "linux-x64",
-      "status": "in_progress",
+      "status": "awaiting_acceptance",
       "owner": "server_track",
       "start_dependencies": [
         "A07",
@@ -70,9 +75,16 @@
       "acceptance_dependencies": [],
       "branch": "task/Task-06-B17-linux",
       "worktree": "ROOT/.worktree/Task-06-B17-linux/NativeWeave",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "8879637",
+        "dd20c85",
+        "e6bff79"
+      ],
       "pending_commits": [],
-      "verification": [],
+      "verification": [
+        "Actual network JIT and NativeAOT: 69 assertions / 37 dispatches each, HTTP1/HTTP2/TLS/SSE and retirement",
+        "Strict Clippy and zero-warning managed builds pass; final ABI/fault/cost receipt active"
+      ],
       "evidence": "ledger/evidence/B17/",
       "global_acceptance": false
     },
@@ -115,8 +127,8 @@
     {
       "id": "B20",
       "platform": "linux-x64",
-      "status": "waiting_for_batch_dependency",
-      "owner": "root (queued)",
+      "status": "ready_queued",
+      "owner": "server_track (queued)",
       "start_dependencies": [
         "B17"
       ],
@@ -125,7 +137,9 @@
       "worktree": "ROOT/.worktree/Task-06-B20-linux/NativeWeave",
       "integrated_commits": [],
       "pending_commits": [],
-      "verification": [],
+      "verification": [
+        "B17 implementation integrated; starts after its immutable verification checkpoint"
+      ],
       "evidence": "ledger/evidence/B20/",
       "global_acceptance": false
     }
