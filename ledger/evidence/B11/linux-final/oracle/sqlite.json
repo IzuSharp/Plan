@@ -1,0 +1,280 @@
+[
+  {
+    "label": "filter-order",
+    "ordered_arguments": [
+      "0100000000000000"
+    ],
+    "rows": [
+      "0100000000000000|416c696365",
+      "0200000000000000|4f275265696c6c7920f09fa680"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\", \"Parents\".\"Name\" AS \"Name\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ? ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "membership",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "rows": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" IN (?, ?) ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "membership",
+    "ordered_arguments": [],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE TRUE ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "membership",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "rows": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" BETWEEN ? AND ? ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "nullable-left-join",
+    "ordered_arguments": [],
+    "rows": [
+      "0000000000000000|null|00",
+      "0100000000000000|0a00000000000000|01",
+      "0200000000000000|null|00"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\", \"c\".\"Id\" AS \"child\", \"c\".\"_nw_match\" IS NOT NULL AS \"matched\" FROM \"Parents\" LEFT JOIN (SELECT \"ParentId\", \"Id\", 1 AS \"_nw_match\" FROM \"Children\") AS \"c\" ON \"Parents\".\"Id\" = \"c\".\"ParentId\" ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "aggregate",
+    "ordered_arguments": [],
+    "rows": [
+      "0300000000000000|0300000000000000"
+    ],
+    "sql": "SELECT COUNT(*) AS \"count\", SUM(\"Parents\".\"Id\") AS \"sum\" FROM \"Parents\""
+  },
+  {
+    "label": "window-snapshot",
+    "ordered_arguments": [],
+    "rows": [
+      "0000000000000000|0100000000000000",
+      "0100000000000000|0200000000000000",
+      "0200000000000000|0300000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\", (ROW_NUMBER() OVER (  ORDER BY \"Parents\".\"Id\" ASC NULLS LAST )) AS \"rank\" FROM \"Parents\" ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "set-operation",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0000000000000000"
+    ],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ? UNION SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?"
+  },
+  {
+    "label": "set-operation",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0000000000000000"
+    ],
+    "rows": [
+      "0100000000000000",
+      "0200000000000000",
+      "0000000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ? UNION ALL SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?"
+  },
+  {
+    "label": "set-operation",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0000000000000000"
+    ],
+    "rows": [],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ? INTERSECT SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?"
+  },
+  {
+    "label": "set-operation",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0000000000000000"
+    ],
+    "rows": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ? EXCEPT SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?"
+  },
+  {
+    "label": "subquery",
+    "ordered_arguments": [
+      "0100000000000000"
+    ],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE EXISTS(SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?) ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "subquery",
+    "ordered_arguments": [
+      "0100000000000000"
+    ],
+    "rows": [
+      "0100000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" IN (SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ?) ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "cte-snapshot",
+    "ordered_arguments": [
+      "0100000000000000"
+    ],
+    "rows": [
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "WITH \"SelectedParents\" (\"Id\") AS (SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" >= ?) SELECT \"SelectedParents\".\"Id\" AS \"Id\" FROM \"SelectedParents\" ORDER BY \"SelectedParents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "recursive-cte",
+    "ordered_arguments": [
+      "0000000000000000",
+      "0100000000000000",
+      "0300000000000000"
+    ],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0200000000000000",
+      "0300000000000000"
+    ],
+    "sql": "WITH RECURSIVE \"Numbers\" (\"Id\") AS (SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Id\" = ? UNION ALL SELECT \"Numbers\".\"Id\" + ? AS \"Id\" FROM \"Numbers\" WHERE \"Numbers\".\"Id\" < ?) SELECT \"Numbers\".\"Id\" AS \"Id\" FROM \"Numbers\" ORDER BY \"Numbers\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "window-aggregate-cast",
+    "ordered_arguments": [],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0300000000000000"
+    ],
+    "sql": "SELECT (SUM(\"Parents\".\"Id\") OVER (  ORDER BY \"Parents\".\"Id\" ASC NULLS LAST ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW )) AS \"sum\" FROM \"Parents\" ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "window-aggregate-cast",
+    "ordered_arguments": [],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0300000000000000"
+    ],
+    "sql": "SELECT (SUM(\"Parents\".\"Id\") OVER (  ORDER BY \"Parents\".\"Id\" ASC NULLS LAST ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW )) AS \"sum\" FROM \"Parents\" ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "255265696c6c7925"
+    ],
+    "rows": [
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "416c6925"
+    ],
+    "rows": [
+      "0100000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "25f09fa680"
+    ],
+    "rows": [
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "4f25"
+    ],
+    "rows": [
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "255c2525"
+    ],
+    "rows": [],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "255c5f25"
+    ],
+    "rows": [],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "text-escaped-values",
+    "ordered_arguments": [
+      "25273b44524f5025"
+    ],
+    "rows": [],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" WHERE \"Parents\".\"Name\" LIKE ? ESCAPE '\\' ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "case",
+    "ordered_arguments": [
+      "0100000000000000",
+      "0100000000000000",
+      "0000000000000000"
+    ],
+    "rows": [
+      "0000000000000000",
+      "0000000000000000",
+      "0100000000000000"
+    ],
+    "sql": "SELECT (CASE WHEN (\"Parents\".\"Id\" > ?) THEN ? ELSE ? END) AS \"case\" FROM \"Parents\" ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  },
+  {
+    "label": "group-having",
+    "ordered_arguments": [
+      "0000000000000000"
+    ],
+    "rows": [
+      "0000000000000000",
+      "0100000000000000",
+      "0200000000000000"
+    ],
+    "sql": "SELECT \"Parents\".\"Id\" AS \"Id\" FROM \"Parents\" GROUP BY \"Parents\".\"Id\" HAVING COUNT(*) > ? ORDER BY \"Parents\".\"Id\" ASC NULLS LAST"
+  }
+]

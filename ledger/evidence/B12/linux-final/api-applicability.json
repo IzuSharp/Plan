@@ -1,0 +1,23 @@
+{
+  "task": "B12",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "assembly": "NativeWeave.Database",
+  "implementation_kind": "source-composed internal static projection builder plus acceptance of existing B01/B06 runtime contracts",
+  "new_public_types": [],
+  "reused_public_types": [
+    "NativeWeave.Data.Projection<T>",
+    "NativeWeave.Data.RowMaterializer<T>",
+    "NativeWeave.Data.EntityWriter<T>",
+    "NativeWeave.Data.RowReader",
+    "NativeWeave.Data.RowWriter",
+    "NativeWeave.Data.ResultColumn<T>",
+    "NativeWeave.Data.ResultField"
+  ],
+  "composed_public_facade_owner": "B13: NativeWeave.Query.ProjectionBuilder<T> and QuerySelection<T>",
+  "native_exports": [],
+  "new_package": false,
+  "reason": "B01 already supplies the exact public CLR contracts and codecs; B06 owns the single batch/cursor cleanup implementation. B12 adds the internal projection-token builder in the Database assembly, preventing a package cycle and a duplicate row/materializer abstraction. B13 consumes the builder and exposes the exact Fluent facade signatures.",
+  "consumer": "samples/api/data-materialization; tests/Data.Materialization/consumer",
+  "reference": "src/Data.Materialization/api-reference.md",
+  "scope": "Linux x64 only; generated materializer parity joins B10 in this task batch"
+}

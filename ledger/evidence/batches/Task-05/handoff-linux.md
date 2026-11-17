@@ -16,12 +16,12 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 | Task | State | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
 | B04 | accepted_component_linux | database_host | B01, B07, A03, A04, A05, A07, A10, A11, A02 | B02, B03, B05, B06 |
-| B08 | in_progress | database_host | B01, B05 | B02, B03, B04 |
-| B10 | in_progress | root | B09 | B12, B13 |
-| B11 | awaiting_acceptance | query_track | B09, B07 | B02, B03, B04 |
-| B12 | awaiting_acceptance | query_track | B07, B09 | B06, B04, B02, B03 |
-| B13 | in_progress | query_track | B09, B11 | B04, B06, B12 |
-| B14 | ready_queued | database_host (queued) | B05, B11, B12 | B02, B03, B04, B06 |
+| B08 | accepted_component_linux | database_host | B01, B05 | B02, B03, B04 |
+| B10 | accepted_component_linux | root | B09 | B12, B13 |
+| B11 | accepted_component_linux | query_track | B09, B07 | B02, B03, B04 |
+| B12 | accepted_component_linux | query_track | B07, B09 | B06, B04, B02, B03 |
+| B13 | accepted_component_linux | query_track | B09, B11 | B04, B06, B12 |
+| B14 | in_progress | database_host | B05, B11, B12 | B02, B03, B04, B06 |
 
 ## Exact baseline and recovery
 
@@ -35,33 +35,26 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 - Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/17 (Draft).
 - Plan PR: https://github.com/IzuSharp/Plan/pull/20 (Draft).
 
-## Verification and next action
+## Accepted Linux components
 
-Recovery established exact repository identities and dependency records; it is not new
-product execution evidence. Implement the ready assigned tasks in isolated worktrees,
-queue other ready tasks against available agent slots, and compose shared manifests
-serially. Preserve every component checkpoint and actual failure/result before final
-acceptance. Final PR checks, merge CI and existing preview publication/consumption are
-not yet run for this batch. Windows and other platforms are outside this run.
+B04 remains accepted from its existing independent source and package review:484 JIT /486 NativeAOT assertions,175/176 separately observed managed retirements, six native counters zero,112 exact public signatures and11 exact package consumers.
 
-## Integrated checkpoint
+B08 is accepted:205 JIT /207 NativeAOT assertions,62/63 managed retirements, both native providers and all seven native tests, actual independent-process contention/SIGKILL/replay/idempotency,155 exact assembly signatures including93 owned signatures, rich primary-error plus failed-cleanup preservation. Independent review also fixed and focused-tested the separate PostgreSQL connect deadline and aggregate migration UTF8 encoding preflight. The original provider/process matrix is retained without claiming it ran on the later narrow fixes.
 
-**B04** — Actual SQLite/PostgreSQL18 Host JIT132 and NativeAOT132 assertions; all six native owner counters zero; 112 exact pinned public signatures with XML/reference checked; final expanded/package evidence active. Evidence: `ledger/evidence/B04/`.
+B11 is accepted:12 native tests and52 actual cases for each runtime;180 JIT /181 NativeAOT assertions,254 native retirement receipts and234 buffer releases in each mode. Direct SQL/result oracles cover SQLite and PostgreSQL18.
 
-**B08** — Worktree created at d283584; independent migration implementation started. Evidence: `ledger/evidence/B08/`.
+B12 is accepted:996 JIT /997 NativeAOT assertions,342 managed retirements per mode,22 cases per provider, six native counters zero and independent exact NuGet consumers in both modes with Rust invocation traps unused.
 
-**B10** — Seven generated/manual metadata and typed DTO parity assertions pass; compiler diagnostic/incremental gate active. Evidence: `ledger/evidence/B10/`.
+B13 is accepted:1062 JIT /1063 NativeAOT assertions,420 managed retirements per mode,219 exact API/XML/reference symbols,13 negative compile fixtures and independent exact NuGet consumers in both modes. Costs count all15 inspected direct ABI calls; no performance advantage is inferred.
 
-**B11** — 11 native tests against real SQLite/PostgreSQL18; direct SQL and result oracles pass; Independent imported-plan budget and nested recursive-reference findings fixed; managed actual Host receipt active. Evidence: `ledger/evidence/B11/`.
+B10 is accepted after B12/B13:32 formal commands, eight generated/manual x original/edited x JIT/NativeAOT execution rows, two entities and ordinary mapped DTO changes with unchanged native SHA256.13 API signatures,15 negative diagnostic fixtures, seven parity assertions and static incremental generation passed. Original JIT artifact hashes were recorded before edited builds; each original AOT binary remains hash-verified.
 
-**B12** — Real SQLite/PostgreSQL18 JIT231 and NativeAOT232 assertions; 18 cases per provider and all six native counters zero; Generated-path parity and final package/source evidence active. Evidence: `ledger/evidence/B12/`.
+Each accepted component has an independent review and SHA-indexed receipts under its existing `ledger/evidence/Bxx/` directory. Those are Linux component results, not all-platform acceptance or completed batch delivery.
 
-**B13** — Isolated Fluent implementation worktree based on ce38ff4. Evidence: `ledger/evidence/B13/`.
+## Active work and next action
 
-**B14** — B11/B12 implementation inputs are integrated; queued after B08 against available agent slot. Evidence: `ledger/evidence/B14/`.
+B14 is integrated and undergoing final acceptance. Its actual JIT matrix passed1502 assertions with520 separate managed retirement witnesses and no final native owners. Shared compound-session admission covers operations attempted while bulk input awaits; its final AOT, exact API and package checks continue.
 
-Local source and remote transport commits retain separate identities with verified identical Git trees. The four existing Draft PRs are updated in place. Per-task final immutable source/log/hash reviews and package composition remain necessary before marking the whole batch accepted; Windows and other platforms remain outside this run.
+Next: finish B14 and the batch composition gate, update the existing implementation/Plan PRs, complete normal checked merges, then verify merge CI and the existing preview publication/consumption workflow. Windows and other platforms are outside this run. Task-06 proceeds independently.
 
-## B04 accepted Linux component
-
-[Independent source and evidence review](../../B04/review-linux.json) accepted the exact B04 candidate: 484 JIT and486 NativeAOT assertions, zero final native owners,112 pinned public signatures and an11-package exact no-Rust consumer matrix. All52 recorded source/artifact hashes match the immutable candidate. The remaining six Task-05 items and batch merge/release closeout continue.
+Local source and remote transport commits retain separate identities with verified identical Git trees. Use this table and per-task reviews for recovery; do not repeat accepted historical component matrices.
