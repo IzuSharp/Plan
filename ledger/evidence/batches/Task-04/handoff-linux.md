@@ -24,21 +24,21 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 | --- | --- | --- | --- |
 | A06 | accepted_linux_component | callbacks | Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance. |
 | A07 | accepted_linux_component | callbacks | Reuse accepted Task bridge immediately in A08/A18/A20 and final A14 composition. |
-| A08 | in_progress | packaging | Native executor tests pass preparation; complete managed A07 composition JIT/AOT and independent review. |
-| A14 | pending_assembled_acceptance | packaging | Run 1a247c5 scoped existing Ubuntu row: full closure, observed emulated v2 CPU and compiler-free runtime transfer. |
+| A08 | accepted_linux_component | packaging | Reuse accepted executor; no repeated component acceptance. |
+| A14 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
-| A16 | pending_assembled_acceptance | packaging | Read independent rollback review closure and await fresh SDK/no-Rust plus baseline runtime CI results. |
+| A16 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
 | A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
-| A18 | in_progress | callbacks | Native real Hyper server/client/streaming compiles; complete typed managed handler, actual network races and package conformance. |
-| A20 | in_progress | sync_engine | Implement bounded actual cross-language properties, schedules and valid-memory fuzzing against accepted components. |
+| A18 | in_progress | callbacks | Actual network JIT/AOT and package preparation passed; bind final locks, source hashes and independent review. |
+| A20 | in_progress | root | Finish clean committed property/fuzz/JIT/AOT profile and independent review; original worker content-filter interruption preserved as execution incident, not acceptance. |
 | A23 | accepted_linux_component | sync_engine | Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit. |
 | A24 | pending_assembled_acceptance | root | A17 generated scaffold JIT/AOT passed; run heterogeneous A18 scaffold when accepted, then final independent review. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). A06, A07, A17 and A23 Linux component acceptance and independent review are recorded
+tracked in [status-linux.json](status-linux.json). A06, A07, A08, A17 and A23 Linux component acceptance and independent review are recorded
 in their original evidence directories. A07 may be consumed immediately; do not wait
-for whole-batch closeout or repeat these completed component checks. Assembled
-packaging and the remaining components are still in progress.
+for whole-batch closeout or repeat these completed component checks. A14/A16 assembled Linux acceptance is also recorded from actual checkpoint4 CI.
+A18/A20 and the second A24 profile remain in progress.
 
 ## Workspaces and integration
 
@@ -51,8 +51,8 @@ build registrations serially as minimal A13 patches; component work remains para
 
 Use SDK 11.0.100 / C# 15 / Rust 1.100.0 and the existing local toolchain/cache.
 The local host is Debian 13, so it cannot establish the declared Ubuntu 24.04
-baseline by assertion. A14/A16 target-baseline and pristine no-Rust checks will
-use the existing Ubuntu CI/container flow with scoped additions, no new matrix.
+baseline by assertion. A14/A16 target-baseline and pristine no-Rust checks passed the existing Ubuntu
+CI/container flow with scoped additions and no new matrix; see ci-checkpoint4-linux.json.
 
 ## Evidence and delivery
 
@@ -64,8 +64,8 @@ bytes separately when necessary; never rewrite a failed record as success.
 Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
 Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
 
-Next: A08, A18 and A20 are active. A24 has completed the real generated A17
-package JIT/AOT row and waits for A18. The existing Linux CI row now adds A14
-Ubuntu/CPU composition and A16 pristine SDK plus compiler-free baseline runtime
-transfer. Finish independent reviews, paired PRs and normal post-merge checks.
-Stop after Task-04; no Task-05/Task-06 execution is authorized by this record.
+Next: Finish A18/A20 independent evidence and A24's heterogeneous A18 generated
+package consumer. A08 is reviewed and integrated. A14/A16 Ubuntu, emulated CPU,
+fresh no-Rust SDK and compiler-free runtime transfer all passed in checkpoint4.
+Continue paired PRs and normal post-merge checks; do not repeat completed component
+acceptance. Stop after Task-04; no Task-05/Task-06 execution is authorized here.
