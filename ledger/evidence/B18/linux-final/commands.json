@@ -1,0 +1,254 @@
+[
+  {
+    "label": "source",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "seconds": 0.004,
+    "log": "logs/source.log",
+    "log_sha256": "9f8a283839c116e98ffa1bd99b5868d90a5e24202bf6e55b0cc2e339a9dfcbe5"
+  },
+  {
+    "label": "clean-source",
+    "command": [
+      "git",
+      "status",
+      "--porcelain",
+      "--untracked-files=all"
+    ],
+    "exit_code": 0,
+    "seconds": 0.032,
+    "log": "logs/clean-source.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "design",
+    "command": [
+      "git",
+      "-C",
+      "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "seconds": 0.004,
+    "log": "logs/design.log",
+    "log_sha256": "6a9721967a785d46bafa781b8d5348b293598030fe24cf6b519fa5434304238c"
+  },
+  {
+    "label": "dotnet-version",
+    "command": [
+      "dotnet",
+      "--version"
+    ],
+    "exit_code": 0,
+    "seconds": 0.032,
+    "log": "logs/dotnet-version.log",
+    "log_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+  },
+  {
+    "label": "rust-version",
+    "command": [
+      "rustc",
+      "--version"
+    ],
+    "exit_code": 0,
+    "seconds": 0.032,
+    "log": "logs/rust-version.log",
+    "log_sha256": "56625f11cb9e645f8e638a6bcdf0565a20a8724585b537b8548886789b9f77be"
+  },
+  {
+    "label": "pinned-native-wire",
+    "command": [
+      "python3",
+      "tests/Server.Native/generate.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.115,
+    "log": "logs/pinned-native-wire.log",
+    "log_sha256": "94182829d6e103deab324a54f91dde9af589746fe4c4ef4ae5771ca82e1aa30a"
+  },
+  {
+    "label": "exact-native-layout",
+    "command": [
+      "python3",
+      "tests/Server.Native/layout.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.215,
+    "log": "logs/exact-native-layout.log",
+    "log_sha256": "6d697ff45c81f75f3414f298157303c14e842b86d0e10eb97aa800e025260b48"
+  },
+  {
+    "label": "native-exports",
+    "command": [
+      "nm",
+      "-D",
+      "--defined-only",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/native/libnativeweave_server.so"
+    ],
+    "exit_code": 0,
+    "seconds": 0.004,
+    "log": "logs/native-exports.log",
+    "log_sha256": "6f9e3340f115a808bbee5460214cccab59c4a060ce54f4318f097895ff6822ba"
+  },
+  {
+    "label": "managed-jit-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/NativeWeave.Server.Grpc.Tests.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 10.068,
+    "log": "logs/managed-jit-restore.log",
+    "log_sha256": "46d92ec1063bd70ac442434fcc59fbbab13f00f033481796fcbfeeceb46b0582"
+  },
+  {
+    "label": "managed-jit-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/NativeWeave.Server.Grpc.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/native/libnativeweave_server.so",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 15.394,
+    "log": "logs/managed-jit-build.log",
+    "log_sha256": "054eb49a3afc57e9e4438022f7813f8911d4d416e42bc5640506f10686a2d1ad"
+  },
+  {
+    "label": "actual-jit",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/jit/NativeWeave.Server.Grpc.Tests.dll"
+    ],
+    "exit_code": 0,
+    "seconds": 1.473,
+    "log": "logs/actual-jit.log",
+    "log_sha256": "8d1a94cdc2243c05a906d9b43be7ab9eab8d55a87a7226324b5e652cb87b21c5"
+  },
+  {
+    "label": "api-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 0.969,
+    "log": "logs/api-restore.log",
+    "log_sha256": "5d8c267961befab57deefb86a2e8a75d8c1a410a2c560c389909bfbcd9d6dc55"
+  },
+  {
+    "label": "api-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 2.732,
+    "log": "logs/api-build.log",
+    "log_sha256": "ca21c5eead788aab1b9833503e82bc698e5df39c55e66d4017a25378683df215"
+  },
+  {
+    "label": "public-api-xml",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/ApiCheck/bin/Release/net11.0/NativeWeave.Protocols.Grpc.ApiCheck.dll",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave",
+      "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design",
+      "/workspace/scratch/58d2a6adf1c3/dotnet-sdk"
+    ],
+    "exit_code": 0,
+    "seconds": 0.872,
+    "log": "logs/public-api-xml.log",
+    "log_sha256": "b136272eac8cf512d2541dc42bb56366ed6b6e0e61bf49dd9bf3163541dc3573"
+  },
+  {
+    "label": "managed-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/NativeWeave.Server.Grpc.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 1.532,
+    "log": "logs/managed-aot-restore.log",
+    "log_sha256": "8ea4a3617125a302a85475feb56db6787e1dceb401f7725e4377b299b8fb58a0"
+  },
+  {
+    "label": "managed-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/tests/Protocols.Grpc/NativeWeave.Server.Grpc.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/aot",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/native/libnativeweave_server.so",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "seconds": 26.302,
+    "log": "logs/managed-aot-publish.log",
+    "log_sha256": "f77d13d4c348944d345544eb6074680e8cd52c88ced282f9482c20a702feab9b"
+  },
+  {
+    "label": "actual-aot",
+    "command": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B18-docs-linux/NativeWeave/artifacts/B18-docs/formal-final/aot/NativeWeave.Server.Grpc.Tests",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "seconds": 1.51,
+    "log": "logs/actual-aot.log",
+    "log_sha256": "a257447668efe03ed367d566022c8801604aedc2bd17c194e65bb2082a7e13bb"
+  }
+]

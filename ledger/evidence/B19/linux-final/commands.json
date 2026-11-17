@@ -1,0 +1,313 @@
+[
+  {
+    "label": "source",
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "log": "logs/source.log",
+    "sha256": "ed9d0d5544fc7ddb36bb887b5b3701f6edbe5f0e3f5847c80a1358fd7d1e35ac"
+  },
+  {
+    "label": "worktree",
+    "argv": [
+      "git",
+      "status",
+      "--porcelain",
+      "--untracked-files=no"
+    ],
+    "exit_code": 0,
+    "log": "logs/worktree.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "design",
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "log": "logs/design.log",
+    "sha256": "6a9721967a785d46bafa781b8d5348b293598030fe24cf6b519fa5434304238c"
+  },
+  {
+    "label": "dotnet-version",
+    "argv": [
+      "dotnet",
+      "--version"
+    ],
+    "exit_code": 0,
+    "log": "logs/dotnet-version.log",
+    "sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+  },
+  {
+    "label": "rustc-version",
+    "argv": [
+      "rustc",
+      "-Vv"
+    ],
+    "exit_code": 0,
+    "log": "logs/rustc-version.log",
+    "sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6"
+  },
+  {
+    "label": "native-build",
+    "argv": [
+      "cargo",
+      "build",
+      "-p",
+      "nativeweave-server",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-build.log",
+    "sha256": "2b34696728dc82b03cbf6311d7e3a6a41658bbde097834c3010a78bc82842c1a"
+  },
+  {
+    "label": "native-features",
+    "argv": [
+      "cargo",
+      "tree",
+      "-p",
+      "nativeweave-protocol-mcp",
+      "-e",
+      "features",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-features.log",
+    "sha256": "ec60f287c8410e1a209f04bee6297d13216f744be698e5c93fc680e755379247"
+  },
+  {
+    "label": "native-format",
+    "argv": [
+      "cargo",
+      "fmt",
+      "-p",
+      "nativeweave-protocol-mcp",
+      "-p",
+      "nativeweave-server",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-format.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "native-clippy",
+    "argv": [
+      "cargo",
+      "clippy",
+      "-p",
+      "nativeweave-protocol-mcp",
+      "-p",
+      "nativeweave-server",
+      "--all-targets",
+      "--locked",
+      "--offline",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-clippy.log",
+    "sha256": "732186322402325172940531d8d6d7cfac85dc902585b2bef6715ad6839dacfd"
+  },
+  {
+    "label": "native-layout-sdk-peak",
+    "argv": [
+      "cargo",
+      "test",
+      "-p",
+      "nativeweave-protocol-mcp",
+      "--locked",
+      "--offline",
+      "--",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-layout-sdk-peak.log",
+    "sha256": "d2882469be66dfefb918c3ad2a8d3c3b026b74023a09e1dca269178b32f37a82"
+  },
+  {
+    "label": "native-preparse-ownership",
+    "argv": [
+      "cargo",
+      "test",
+      "-p",
+      "nativeweave-server",
+      "engine::mcp::tests::actual_host_denial_and_full_peak_failures_never_enter_public_sdk_or_handler",
+      "--locked",
+      "--offline",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "log": "logs/native-preparse-ownership.log",
+    "sha256": "37bd49f9489d6edbea3edf39874ee42f757f4430c6b130eb4abf86eeb8dffd6f"
+  },
+  {
+    "label": "restore-jit",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/Protocols.Mcp.Tests.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/restore-jit.log",
+    "sha256": "8130466d5f302c093fe7b8be73b62ff616a1ddaff77689bb80c74f626efa6187"
+  },
+  {
+    "label": "build-jit",
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/Protocols.Mcp.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/input/libnativeweave_server.so",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/build-jit.log",
+    "sha256": "3377ebc42249ae28c93ddfcb0cb5ec15fe7223cd815e6c9c5ef6a4a5d998f506"
+  },
+  {
+    "label": "actual-jit",
+    "argv": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/bin/Release/net11.0/NativeWeave.Server.Mcp.Tests.dll"
+    ],
+    "exit_code": 0,
+    "log": "logs/actual-jit.log",
+    "sha256": "be1083640bedc5036852245be19c838712296682a3ff5a41fc66fcf6dc9021ad"
+  },
+  {
+    "label": "api-restore",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/api-restore.log",
+    "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+  },
+  {
+    "label": "api-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/api-build.log",
+    "sha256": "21530b19851bf3f297abf2bc25a2528d3f206a46bfb1c801394a0bf86f5fd963"
+  },
+  {
+    "label": "api-exact",
+    "argv": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/ApiCheck/bin/Release/net11.0/NativeWeave.Server.Mcp.ApiCheck.dll",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave",
+      "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design",
+      "/workspace/scratch/58d2a6adf1c3/dotnet-sdk"
+    ],
+    "exit_code": 0,
+    "log": "logs/api-exact.log",
+    "sha256": "c671f602759142ba9b39a3acfe69e0ae30f0d60366bd5af7a2d50f69ea477a30"
+  },
+  {
+    "label": "restore-aot",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/Protocols.Mcp.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/restore-aot.log",
+    "sha256": "07add37c6992ca029e39f88d784dc700855dbfde613b09c5808ecaf34b946e2f"
+  },
+  {
+    "label": "publish-aot",
+    "argv": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/Protocols.Mcp.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/input/libnativeweave_server.so",
+      "-o",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/aot",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log": "logs/publish-aot.log",
+    "sha256": "f9ad96b58290284fa51fa2c7f7570aee0291e95c95838d023f88500824323880"
+  },
+  {
+    "label": "actual-aot",
+    "argv": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/aot/NativeWeave.Server.Mcp.Tests"
+    ],
+    "exit_code": 0,
+    "log": "logs/actual-aot.log",
+    "sha256": "ee7b7b0ec04cd8e49bd429eaf331acb6ce2c5042af893256aede51b360a71a29"
+  },
+  {
+    "label": "package-consumer",
+    "argv": [
+      "python3",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/tests/Protocols.Mcp/package_probe.py",
+      "--output",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/package",
+      "--native",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B19-linux/NativeWeave/artifacts/B19/final05/input/libnativeweave_server.so"
+    ],
+    "exit_code": 0,
+    "log": "logs/package-consumer.log",
+    "sha256": "e1ac75115ed5631b1c0376ebd0e7585a012607346fbd72f46536baa2fd787104"
+  }
+]
