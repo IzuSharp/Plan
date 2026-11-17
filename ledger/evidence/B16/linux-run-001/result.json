@@ -1,0 +1,455 @@
+{
+  "task": "B16",
+  "platform": "linux-x64",
+  "passed": true,
+  "commands": [
+    {
+      "label": "commit",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout_sha256": "f62e1c40c1148aa35c6c088e6e69bac9445a97cdabafdf76501deb33fd42068b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "status",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "dotnet",
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "rustc",
+      "argv": [
+        "rustc",
+        "-vV"
+      ],
+      "exit": 0,
+      "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "cargo",
+      "argv": [
+        "cargo",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "d62bac2223cd9bd1a54c0ccd82d4084b7d1d60044855e2f6a1b49f4f77e6f41c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "clang",
+      "argv": [
+        "clang",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e80c33362f6037dd89d8720245da1c30054e4b3a16e8d7d13212c42719ef5881",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-files",
+      "argv": [
+        "git",
+        "ls-files",
+        "--cached",
+        "--others",
+        "--exclude-standard",
+        "--",
+        "src/Server.Streaming",
+        "native/server/streaming",
+        "tests/Server.Streaming",
+        "samples/api/server-streaming",
+        "docs/guides/server-streaming.md",
+        "src/NativeWeave.Core",
+        "src/Interop.Abi",
+        "src/Interop.Lifetime",
+        "src/Interop.Async",
+        "src/Interop.Callbacks",
+        "src/Interop.Errors",
+        "src/Interop.Negotiation",
+        "native/interop/abi",
+        "native/interop/async",
+        "native/interop/errors",
+        "Cargo.toml",
+        "Cargo.lock",
+        "Directory.Build.props",
+        "Directory.Build.targets",
+        "global.json",
+        "rust-toolchain.toml"
+      ],
+      "exit": 0,
+      "stdout_sha256": "09296dad1c0025247a1fef989b57eefbbe49aea65107932d4ef46bd5843a9f29",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-format",
+      "argv": [
+        "cargo",
+        "fmt",
+        "-p",
+        "nativeweave-server-streaming",
+        "--",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-server-streaming",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "2b34696728dc82b03cbf6311d7e3a6a41658bbde097834c3010a78bc82842c1a"
+    },
+    {
+      "label": "native-tests",
+      "argv": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-server-streaming"
+      ],
+      "exit": 0,
+      "stdout_sha256": "d44118a5dfbe550ce5d9c7f817f8d2313c1a7bd652bea8e31f83858c1b1b88ad",
+      "stderr_sha256": "83cf51006ac8c4b630f1b22e7bd7a3d143a7e170e9139135f860a73649a3db0d"
+    },
+    {
+      "label": "native-default",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-server-streaming"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "7a7bb64a28cdda9b91e6e27f41be455104d929b5d7ad6dd5beca75fc5a47f1f4"
+    },
+    {
+      "label": "default-exports",
+      "argv": [
+        "nm",
+        "-D",
+        "--defined-only",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/target/release/libnativeweave_server_streaming.so"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-fixture",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "nativeweave-server-streaming",
+        "--features",
+        "conformance"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "90c8a1a69c0155761cff4bfe0e61bbee007961d2b96729d2127c2e0c291489dd"
+    },
+    {
+      "label": "managed-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "tests/Server.Streaming/Server.Streaming.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=false",
+        "--ignore-failed-sources",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "b0f4cbd0c58364c978db56161d5fb51fd102daf51ef6206918d4074de110ebd7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "managed-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "tests/Server.Streaming/Server.Streaming.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "7d7299891e2b14b17531471f5fc53708ccda240be809b2592a00f4e943d333fa",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "jit",
+      "argv": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/tests/Server.Streaming/bin/Release/net11.0/NativeWeave.Server.Streaming.Tests.dll"
+      ],
+      "exit": 0,
+      "stdout_sha256": "6a9fcdf36cc86c57e70a9472e94e7df5c46b8ffed1fe41d7f3a6c8c0c3d6ec6e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "aot-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "tests/Server.Streaming/Server.Streaming.Tests.csproj",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--locked-mode",
+        "-p:NuGetAudit=false",
+        "--ignore-failed-sources",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "ae5e6cd0258734d4f34c18aafeb8c4725625bcf62237e84f08f971b9a29c9559",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "aot-publish",
+      "argv": [
+        "dotnet",
+        "publish",
+        "tests/Server.Streaming/Server.Streaming.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "--no-restore",
+        "-o",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/artifacts/task06/B16/final-2/aot",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "f445634f03413f6eda4374d6b899d55aa315a472eae291e933214ff4a65e9d23",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "aot-run",
+      "argv": [
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/artifacts/task06/B16/final-2/aot/NativeWeave.Server.Streaming.Tests",
+        "--require-aot"
+      ],
+      "exit": 0,
+      "stdout_sha256": "b8d67fca792859628384caa3b486dea799c9ee90edb872c426503e7e6816f950",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "api-restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "tests/Server.Streaming/ApiCheck/ApiCheck.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=false",
+        "--ignore-failed-sources",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "api-build",
+      "argv": [
+        "dotnet",
+        "build",
+        "tests/Server.Streaming/ApiCheck/ApiCheck.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exit": 0,
+      "stdout_sha256": "9b578d998734a7b96d805de561b6a5db3a95393b83919c609758f9b6fba78a7d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "api-xml-reference",
+      "argv": [
+        "dotnet",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/tests/Server.Streaming/ApiCheck/bin/Release/net11.0/NativeWeave.Server.Streaming.ApiCheck.dll",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave",
+        "/workspace/scratch/58d2a6adf1c3/dotnet-sdk",
+        "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/tests/Server.Streaming/bin/Release/net11.0/NativeWeave.Server.Streaming.Tests.dll"
+      ],
+      "exit": 0,
+      "stdout_sha256": "a37ab977d48cf114028700380d87ad14020827b94749dfa010115786ad2559fb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "artifacts": {
+    "default_native": {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/artifacts/task06/B16/final-2/libnativeweave_server_streaming.default.so",
+      "sha256": "b5def14522861e23626921fee360eed5b0f95049d143be13c09ba0734888b4ca"
+    },
+    "native_fixture": {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/artifacts/task06/B16/final-2/libnativeweave_server_streaming.so",
+      "sha256": "a17289efe159031e798fae79db295cf364466fb748cde929055f2e8f059313d7"
+    },
+    "jit": {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/tests/Server.Streaming/bin/Release/net11.0/NativeWeave.Server.Streaming.Tests.dll",
+      "sha256": "e6180d3ac3b72ce1b644843015cde209261fab03c8621b718edcc28286395104"
+    },
+    "aot": {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-06-B16-linux/NativeWeave/artifacts/task06/B16/final-2/aot/NativeWeave.Server.Streaming.Tests",
+      "sha256": "d22a0f7de358859cecf7090e17af0c8bf8d52bd100d155f71bde9f3a056cbf2f"
+    }
+  },
+  "scope": "Production streaming component plus explicit native/Core-operation fixture; no HTTP/TLS Host or other-platform acceptance.",
+  "distribution": "B16 sources compose into NativeWeave.Server; no independent B16 package or consumer Cargo target.",
+  "offline_audit_not_refreshed": true,
+  "source_commit": "cc18bf1db92bb75f38a93f2ab176b3c289e07cd8",
+  "source_dirty": false,
+  "source_sha256": {
+    "Cargo.lock": "b8f5a68ec33b252a84e9b0cae02281694b8b47acc9f88f4531ed92b8b81528fa",
+    "Cargo.toml": "62d267dced0b589a69b85d5adea3f7267e1565dc1d90b6a020a558925f51d147",
+    "Directory.Build.props": "381d2e02b9a3c5b65aa986aa972894d28cad8cbfa93d2895ddb0e3e7330e854f",
+    "Directory.Build.targets": "eb7f0b66e004cc6685ef3ff4a16da4186a7533dbd9611e760d31ece823fd8fda",
+    "docs/guides/server-streaming.md": "e45600ac2c6e792420f8e2c7704a81778ebbda3d10d7fdeeee436ce95a2cc911",
+    "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+    "native/interop/abi/Cargo.toml": "947906645eb5931e86ba8a29db9abca0691fc16356bc5a3eeec84f1e6e5088b7",
+    "native/interop/abi/abi-v1.json": "62171763fb2d1b1a8350d2f381a85910c0368515923706923d29f4ff69681dab",
+    "native/interop/abi/generate.py": "bb3b7d453be0bd437459954590dc80a4034374d103c1e30fbe0d5bde6f92bfa4",
+    "native/interop/abi/include/nativeweave_abi_v1.h": "3a575f132b23789c103114fa29a1815a685fb6260e5d406c4be386e130fbe9d7",
+    "native/interop/abi/src/generated.rs": "7812805f6b4b2ca5dce2f34de21e3ffc624560148cb5a52bfde5e93cba85b362",
+    "native/interop/abi/src/lib.rs": "12326e69772b4f4233383deec705afb6e4a5e7b4b9cce0619035527423d8fa24",
+    "native/interop/async/Cargo.toml": "f89e62b0c11e9f4da7d2ae50fccb996fc10a9a9691d4a4d19d6d9b6f2624972a",
+    "native/interop/async/src/fixture.rs": "e636dc0c405ca4668e2d8d12d19deaa859c34d2cb2a26f5e44166b7d09cb355b",
+    "native/interop/async/src/lib.rs": "b7bcf841027060bd3f21165ed9c2cbe4a8813335f36c7caf9c8590dbc3083254",
+    "native/interop/async/src/tests.rs": "b40614be646f0268bd713d4050ea0a5cb676429b61f13e677bd5121abe478167",
+    "native/interop/errors/Cargo.toml": "de94930f0bf270ae60eb47b05d2b802a041263656ec705228983f28e45aa1dea",
+    "native/interop/errors/src/lib.rs": "dc8f2f3d3dd40f715e2f4d93497304826414ba903c5a8a929a8b1bd8d64a8b3c",
+    "native/interop/errors/src/tests.rs": "6443f0af590ec2f6fd2b77cb3b526c85062416d42d5273ac3bea469757d8dfc0",
+    "native/server/streaming/Cargo.toml": "133df076f9e71b7b034e36591b95291c04239630e69ae0e45c52aa86cbf003b2",
+    "native/server/streaming/src/fixture.rs": "45daa99a711b297c4034f4bd1cf6ce7258d865e38f8eff0293387111af2670cf",
+    "native/server/streaming/src/lib.rs": "0b9b7d66d069b80cf1c28c72c5db39b248343853f3bb8ea6e3327725f9506eb9",
+    "native/server/streaming/src/tests.rs": "a6305782b5e06ce3c5402e889c065dd51d4e3d84e2b0bb0487841d8efd3fbf38",
+    "rust-toolchain.toml": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff",
+    "samples/api/server-streaming/README.md": "3d884f4dd08c278e5a1349cd5144ec631f3bd5588aa131a00dc0698d0ca9c55e",
+    "samples/api/server-streaming/StreamingExamples.cs": "71d27fb900a7f7a727e85db21b5fd7d7582d8ac78afeef85d842ce664feb4f3c",
+    "src/Interop.Abi/AbiBootstrap.cs": "f5e1e82ad1274038e07503b3de8f4473bb9c60f15e6770e75800f4d93d8b2168",
+    "src/Interop.Abi/Interop.Abi.csproj": "db6b921240bea66a8a0bfb938023e458c6104f6d2e283a033b5d5325a0b571c6",
+    "src/Interop.Abi/WireRecords.g.cs": "84aae291861e1d22d8927e24106626a23a07f38d4d62fb4e70ab5f721981e6e2",
+    "src/Interop.Abi/api-reference.md": "47885ccb3c770bafab849ee914941be6413870b7b2bd9fabe3bbea350a893479",
+    "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+    "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+    "src/Interop.Async/AsyncOperation.cs": "9c9569fb60cd7c571b40a231602c1324ea1d70ef1a15488871b557c1179a50d5",
+    "src/Interop.Async/api-reference.md": "36f1235933bf0606c2cfbb2eddf1a0dd427b073911a3029408ac46ea186b7d05",
+    "src/Interop.Async/design-inputs.json": "8ec9cc29d14732efb7ec3c86dac5cb8c645d34e15dcf99ddbd0a0198748ee95c",
+    "src/Interop.Async/public-api.expected.json": "075bff0d724cbbddc49fb58d0b1ca3333dd2ed962d9797596491ca10eba84e56",
+    "src/Interop.Callbacks/CallbackCoordinator.cs": "92cf43c5933c7be627640c2387f37b1bedcfdd8353c946232fa22ca47e1ddc27",
+    "src/Interop.Callbacks/CallbackRegistration.cs": "a63b93bb24b7e440f3cdcfb5e37dadaff0771832f04cbda18fab5bfc16c0d9e4",
+    "src/Interop.Callbacks/api-reference.md": "60d91a11e92a317c4f0bfd46239a45146288ab46d21964fc4e1800c6d96b99d1",
+    "src/Interop.Callbacks/design-inputs.json": "f91b4fd0b50d864bd7735eb97276ca57d5c1fe1ab820b6c6e44325c6531b898d",
+    "src/Interop.Callbacks/public-api.expected.json": "954f08516b993282955e121dc72e9296ab1de99dff565cef564f57418bc6bb1e",
+    "src/Interop.Errors/NativeEngineException.cs": "f011a216f31858cf2d655594dacabca13abe8edd329fc5835da26c6d3751f519",
+    "src/Interop.Errors/NativeError.cs": "8e30dc71b3060e673ec4bc425b8938dc23f5f706c749bbe7fcd187da5a6c24e7",
+    "src/Interop.Errors/api-reference.md": "9cac0b26ff5e6d1ec0d6577061755df5ceb3f02b6fef0315263b52a38b7f0990",
+    "src/Interop.Errors/public-api.expected.json": "5f131a466c7c006bab0ce32f82f61983d2adb5890a180efe23586da0c885e1de",
+    "src/Interop.Lifetime/NativeResourceOwner.cs": "7af13cf6ebd0da4e30c8a99401315e2c6a45f5ab442d7ee9140e3dcf31510da7",
+    "src/Interop.Lifetime/api-reference.md": "45ae622e325d52779104d7bdf736da452bfa14a7e8c32edbe8fefcfa4f91787b",
+    "src/Interop.Lifetime/design-inputs.json": "7bacc5465d4bfa968138649bf3b190f927db7496f8bdb4bbdafd91ad0b2916f0",
+    "src/Interop.Lifetime/public-api.expected.json": "450839c5232d6dfab11f12e1b09cb9b09609b231a3ba2cabbc8e54b4c795ebc5",
+    "src/Interop.Negotiation/AssetLocation.cs": "29507dca8b02502a888a0efbc0379a8ce6ef991fcd84a7dc1e0f05885fcca96e",
+    "src/Interop.Negotiation/EngineMetadata.cs": "04d9ae411be692d103cc1dc34ad888bcc3014f3ebc7308e1053a8a13897e5da6",
+    "src/Interop.Negotiation/EngineModuleLoader.cs": "166462ac03df9a76ee4e1d87d64729dbaac6c29a84f40b0be1a2c4947a8c87c6",
+    "src/Interop.Negotiation/EnginePackage.cs": "2698378a68f4b967f82551cb56d768a176e378ea8cb5ac84961883bb374c58e0",
+    "src/Interop.Negotiation/MetadataValidation.cs": "c9972f2ad4f7ca3c9a9b00001f53194550bd9ae595a591aec720617c61926a2b",
+    "src/Interop.Negotiation/api-reference.md": "32ee8b8fa913469c5516f8d786882c432616fd59ca73c6b3171fbf5cedb66623",
+    "src/Interop.Negotiation/design-inputs.json": "115c99d48ba142abf369dc96631abd41629afc2ebc3aa0266505a9f261891ea4",
+    "src/Interop.Negotiation/public-api.expected.json": "4a00c03792638abd426d48c51226cae234d5da08dbbfdd6228ac29a70478067d",
+    "src/NativeWeave.Core/NativeWeave.Core.csproj": "b97d688507309066f89842ca12a7f5937baeda2eea313778909489532ee6c2e0",
+    "src/NativeWeave.Core/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+    "src/NativeWeave.Core/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+    "src/Server.Streaming/BodyChunk.cs": "ece797b54cd02690a31a4e8b2ffafba78eab8ad79cb804ff13597cb49a00380f",
+    "src/Server.Streaming/ServerBodyTransport.cs": "2a639535a23450f8bf32d14b78765bdcf51e5f986d148a975636234c1418a45e",
+    "src/Server.Streaming/ServerStreams.cs": "0c91b57754c2d6709f8d6e94da499377b8afec499c028a10f91b383ebf35f9a5",
+    "src/Server.Streaming/api-reference.md": "cf6d5635c15f00d9d65c6cc05506fd62cdc0e208a37b62bd274c3689aec9722e",
+    "src/Server.Streaming/design-inputs.json": "287b02dbfd5020b928dc9721f7c66ce4ee7188b9136edc774069eaa9d96c921c",
+    "src/Server.Streaming/public-api.expected.json": "db23ff734ee6457bd7d0b6a58068ecdf0eacff6fa0631de49fc1a8fe9ce52644",
+    "tests/Server.Streaming/ApiCheck/ApiCheck.csproj": "f3e018f8375320b470385411eb635f9e60dbefba032faadd71daaaba659fb516",
+    "tests/Server.Streaming/ApiCheck/Program.cs": "eccc6a95167c281e42f6615f9ced12b7420b370bc61ff1db486888bfe6496ee1",
+    "tests/Server.Streaming/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "tests/Server.Streaming/Fixture.cs": "25e37ccfd41e589f84caebaa495ee433050f6205484f898ba4e0db1a21b3e7ff",
+    "tests/Server.Streaming/Program.cs": "6f4189ca0895d78a96c059c99c0e63313097b8dc2aa26ddcd338cb94fcc4dd59",
+    "tests/Server.Streaming/Server.Streaming.Tests.csproj": "fee30b2682ad306b5acbc18d1e669b148dd560c176c84cd201e36433edfeaae4",
+    "tests/Server.Streaming/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+    "tests/Server.Streaming/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+    "tests/Server.Streaming/verify.py": "5fed7ebfadbee6effcf081817ad5a6003fa9b17a03b6d062be8a2d6faa182b75"
+  },
+  "jit": "B16 Linux streaming: 81 assertions; native operations/buffers/managed-credit handles=0; AOT=False.",
+  "aot": "B16 Linux streaming: 82 assertions; native operations/buffers/managed-credit handles=0; AOT=True.",
+  "api": "B16 API: 5 public symbols; signatures/nullability/XML/reference/positive and negative consumers passed.",
+  "source_unchanged": true
+}

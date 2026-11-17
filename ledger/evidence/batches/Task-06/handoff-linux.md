@@ -16,8 +16,8 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 | Task | State | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
 | B15 | in_progress | root | A02, A07, A10 | B17 |
-| B16 | in_progress | server_track | A07 | None |
-| B17 | waiting_for_batch_dependency | root (queued) | A07, A10, A11, B16, A02 | None |
+| B16 | accepted_component_linux | server_track | A07 | None |
+| B17 | in_progress | server_track | A07, A10, A11, B16, A02 | None |
 | B18 | waiting_for_batch_dependency | root (queued) | B15, B17 | None |
 | B19 | waiting_for_batch_dependency | root (queued) | B15, B17 | None |
 | B20 | waiting_for_batch_dependency | root (queued) | B17 | None |
@@ -31,7 +31,8 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 - Batch branches: `task/Task-06-linux` in NativeWeave and Plan.
 - Batch worktrees: `ROOT/.worktree/Task-06-linux/NativeWeave` and `ROOT/.worktree/Task-06-linux/Plan`.
 - Per-task branches/worktrees and integrated/pending commits: [status-linux.json](status-linux.json).
-- Implementation PR: pending first source checkpoint. Plan PR: pending creation.
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16 (Draft).
+- Plan PR: https://github.com/IzuSharp/Plan/pull/21 (Draft).
 
 ## Verification and next action
 
@@ -41,3 +42,11 @@ queue other ready tasks against available agent slots, and compose shared manife
 serially. Preserve every component checkpoint and actual failure/result before final
 acceptance. Final PR checks, merge CI and existing preview publication/consumption are
 not yet run for this batch. Windows and other platforms are outside this run.
+
+## Integrated checkpoint
+
+B16 Linux component acceptance is recorded in [its independent review](../../B16/review-linux.json): 16 native tests, 81 JIT and 82 actual NativeAOT assertions, five public XML/reference symbols, and zero final operation/buffer/credit owners. The additive prepared-write integration preserves create-time input copying and unstarted rollback; its two targeted tests are retained without repeating unrelated historical acceptance.
+
+B15 is implemented through application lifecycle/typed routing/results and optional Generic Host integration; 35 managed component assertions pass. Generated registration, complete API/reference checks and real B17 acceptance remain in progress. B17 is active on its own worktree, implementing the exact pinned ABI and native TCP HTTP/TLS Host. B18/B19 wait for B15+B17; B20 waits for B17. No database completion is required.
+
+Local source commits are integrated into the batch branch; remote GitData transport commits preserve exact trees and retain distinct identities. Native source and evidence uploads continue on the existing PRs.
