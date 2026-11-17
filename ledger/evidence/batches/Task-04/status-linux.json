@@ -19,11 +19,11 @@
     "A13": "../Task-03/handoff-linux.md",
     "A22": "../Task-03/handoff-linux.md"
   },
-  "implementation_pr": null,
-  "plan_pr": null,
+  "implementation_pr": "https://github.com/IzuSharp/NativeWeave/pull/15",
+  "plan_pr": "https://github.com/IzuSharp/Plan/pull/18",
   "tasks": {
     "A06": {
-      "state": "in_progress",
+      "state": "accepted_linux_component",
       "owner": "callbacks",
       "branch": "task/Task-04-A06-linux",
       "worktree": "ROOT/.worktree/Task-04-A06-linux/NativeWeave",
@@ -33,16 +33,26 @@
       ],
       "acceptance_dependencies": [],
       "packet_sha256": "af2c16f0f328455af1fd353069372daac03de9269b60cfe58a4ef06762392a82",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "00dc2a6",
+        "6397817",
+        "ee11f33"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Implement callback registration and two-sided drain."
+      "verification": [
+        "../../A06/acceptance-linux.json",
+        "../../A06/review-linux.md"
+      ],
+      "next_step": "Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance.",
+      "source_commits": [
+        "b340601d20072385ba3ea61e447a6f955f250541"
+      ]
     },
     "A07": {
-      "state": "waiting_dependency",
+      "state": "in_progress",
       "owner": "callbacks",
-      "branch": null,
-      "worktree": null,
+      "branch": "task/Task-04-A07-linux",
+      "worktree": "ROOT/.worktree/Task-04-A07-linux/NativeWeave",
       "start_dependencies": [
         "A04",
         "A06"
@@ -52,7 +62,7 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start immediately after A06 component integration."
+      "next_step": "Complete Task state machine and actual cancellation/take/retire tests; root shared registration and locked graph ready."
     },
     "A08": {
       "state": "waiting_dependency",
@@ -70,7 +80,7 @@
       "next_step": "Start when A07 is ready."
     },
     "A14": {
-      "state": "in_progress",
+      "state": "pending_assembled_acceptance",
       "owner": "packaging",
       "branch": "task/Task-04-A14-linux",
       "worktree": "ROOT/.worktree/Task-04-A14-linux/NativeWeave",
@@ -83,10 +93,21 @@
         "A07"
       ],
       "packet_sha256": "92535af31e906a3c31198fd8e3aade684a3540d5ccafdd597bd5458aa4b0ca8a",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "9b1daf8",
+        "79ebf0c",
+        "be289b6"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Prepare Linux packaging; final acceptance waits for A07 and Ubuntu target run."
+      "verification": [
+        "Independent component package JIT/AOT preparation passed on Debian; no Ubuntu/pristine claim."
+      ],
+      "next_step": "Run complete A07 composition on Ubuntu baseline and transfer to runtime-only environment.",
+      "source_commits": [
+        "99cd8c5",
+        "a883e38",
+        "c15a021"
+      ]
     },
     "A15": {
       "state": "deferred_other_platform",
@@ -108,10 +129,10 @@
       "next_step": "Windows is explicitly deferred by the user."
     },
     "A16": {
-      "state": "independent_preparation",
+      "state": "pending_assembled_acceptance",
       "owner": "packaging",
-      "branch": null,
-      "worktree": null,
+      "branch": "task/Task-04-A16-linux",
+      "worktree": "ROOT/.worktree/Task-04-A16-linux/NativeWeave",
       "start_dependencies": [
         "A13"
       ],
@@ -121,13 +142,20 @@
         "A22"
       ],
       "packet_sha256": "bfb792ba217f4aad1747ea0e5ac382ce7e29197a989fd984bcabafd3fca53f0e",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "f5549fa"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Reuse A22 and implement closure; Linux acceptance waits for A14."
+      "verification": [
+        "Real independent package JIT/AOT, offline app edits and 12 closure/record negatives passed preparation; immutable coordinator and clean receipts in progress."
+      ],
+      "next_step": "Finish exact closure/publication cases and independent review; await A14 Ubuntu and SDK/runtime containers.",
+      "source_commits": [
+        "4f9597698b4db410c6276576913018f1590ecf1d"
+      ]
     },
     "A17": {
-      "state": "in_progress",
+      "state": "pending_review",
       "owner": "sync_engine",
       "branch": "task/Task-04-A17-linux",
       "worktree": "ROOT/.worktree/Task-04-A17-linux/NativeWeave",
@@ -141,10 +169,20 @@
       ],
       "acceptance_dependencies": [],
       "packet_sha256": "6c5c530dcb8f7bbb46258a448762ca058046b32a853585b7f17abdad0eb8f53b",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "7785b85",
+        "74748aa",
+        "4605513"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Implement actual miniz_oxide codec integration."
+      "verification": [
+        "Native actual miniz differential/boundary tests; 144 source JIT/AOT assertions; 139 independent package JIT/AOT assertions and exact negative compilation passed preparation."
+      ],
+      "next_step": "Finish clean-source evidence and root review; preserve exact generated/native/package identities.",
+      "source_commits": [
+        "d732d1966b71f391a2483a34887a0d0a078d2850",
+        "cba55de"
+      ]
     },
     "A18": {
       "state": "waiting_dependency",
@@ -184,10 +222,10 @@
       "next_step": "Start when A07 is ready."
     },
     "A23": {
-      "state": "waiting_dependency",
-      "owner": "queued",
-      "branch": null,
-      "worktree": null,
+      "state": "in_progress",
+      "owner": "root",
+      "branch": "task/Task-04-A23-linux",
+      "worktree": "ROOT/.worktree/Task-04-A23-linux/NativeWeave",
       "start_dependencies": [
         "A02",
         "A03",
@@ -198,10 +236,10 @@
       "integrated_commits": [],
       "pending_commits": [],
       "verification": [],
-      "next_step": "Start Linux affinity scope when A06 is ready."
+      "next_step": "Implement actual Linux owner-thread/callback/lease probe; no display/device certification."
     },
     "A24": {
-      "state": "in_progress",
+      "state": "pending_assembled_acceptance",
       "owner": "root",
       "branch": "task/Task-04-A24-linux",
       "worktree": "ROOT/.worktree/Task-04-A24-linux/NativeWeave",
@@ -215,10 +253,25 @@
         "A18"
       ],
       "packet_sha256": "9b9fcaf5d1546538eaca03b6a3826b069ba4a6e5200df84820bc86daa17fefa3",
-      "integrated_commits": [],
+      "integrated_commits": [
+        "83a2647",
+        "f4e36c8"
+      ],
       "pending_commits": [],
-      "verification": [],
-      "next_step": "Prepare descriptor/scaffold; final conformance waits for A17/A18."
+      "verification": [
+        "Six descriptor methods passed preparation; not real Engine acceptance."
+      ],
+      "next_step": "Resolve independent scaffold review findings and run actual A17/A18 generated package consumers.",
+      "source_commits": [
+        "4adda7c",
+        "bcfb96d"
+      ]
     }
+  },
+  "remote_checkpoint": {
+    "implementation_commit": "e8de5abca5f42b4e0ca48cf1102f565e52260ae3",
+    "implementation_local_equivalent": "639781716cbdd257375f300a34e1b60d4a7761b8",
+    "tree": "f83bf6bfb497d3989924a1edb65dcd3b1eaadf87",
+    "note": "Further integrated source is committed locally; next authenticated GitData checkpoint pending."
   }
 }

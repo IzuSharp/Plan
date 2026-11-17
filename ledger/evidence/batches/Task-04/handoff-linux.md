@@ -22,21 +22,22 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 
 | Task | Linux state | Owner | Next step |
 | --- | --- | --- | --- |
-| A06 | in_progress | callbacks | Implement callback registration and two-sided drain. |
-| A07 | waiting_dependency | callbacks | Start immediately after A06 component integration. |
+| A06 | accepted_linux_component | callbacks | Reuse accepted component; A14/A16/A18 compose it without repeating historical acceptance. |
+| A07 | in_progress | callbacks | Complete Task state machine and actual cancellation/take/retire tests; root shared registration and locked graph ready. |
 | A08 | waiting_dependency | queued | Start when A07 is ready. |
-| A14 | in_progress | packaging | Prepare Linux packaging; final acceptance waits for A07 and Ubuntu target run. |
+| A14 | pending_assembled_acceptance | packaging | Run complete A07 composition on Ubuntu baseline and transfer to runtime-only environment. |
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
-| A16 | independent_preparation | packaging | Reuse A22 and implement closure; Linux acceptance waits for A14. |
-| A17 | in_progress | sync_engine | Implement actual miniz_oxide codec integration. |
+| A16 | pending_assembled_acceptance | packaging | Finish exact closure/publication cases and independent review; await A14 Ubuntu and SDK/runtime containers. |
+| A17 | pending_review | sync_engine | Finish clean-source evidence and root review; preserve exact generated/native/package identities. |
 | A18 | waiting_dependency | queued | Start when A07 is ready. |
 | A20 | waiting_dependency | queued | Start when A07 is ready. |
-| A23 | waiting_dependency | queued | Start Linux affinity scope when A06 is ready. |
-| A24 | in_progress | root | Prepare descriptor/scaffold; final conformance waits for A17/A18. |
+| A23 | in_progress | root | Implement actual Linux owner-thread/callback/lease probe; no display/device certification. |
+| A24 | pending_assembled_acceptance | root | Resolve independent scaffold review findings and run actual A17/A18 generated package consumers. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
-tracked in [status-linux.json](status-linux.json). New module acceptance and
-independent review are still pending; no Task-04 item is marked accepted yet.
+tracked in [status-linux.json](status-linux.json). A06 Linux component acceptance and independent review are recorded in
+[its evidence](../../A06/acceptance-linux.json); assembled packaging and the remaining
+components are still in progress. Accepted A06 can be consumed immediately.
 
 ## Workspaces and integration
 
@@ -59,10 +60,10 @@ records should be bounded summaries and source/hash/recovery indices without raw
 source/log/certificate dumps or unrelated machine details. Retain complete raw
 bytes separately when necessary; never rewrite a failed record as success.
 
-Implementation PR: pending first reviewable implementation checkpoint.
-Plan PR: pending paired checkpoint.
+Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
+Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
 
-Next: complete A06/A17 and independent A14/A16/A24 work; integrate A06 to unlock
-A07/A23, then A07 to unlock A08/A18/A20 and A14 final acceptance. Complete package
+Next: finish A07 and A23 while A17 completes review and A14/A16/A24 prepare
+assembly. Immediately dispatch A08/A18/A20 when A07 is ready. Complete package
 and scaffold assembly, independent reviews, both PRs and normal post-merge checks.
 Stop after Task-04; no Task-05/Task-06 execution is authorized by this record.
