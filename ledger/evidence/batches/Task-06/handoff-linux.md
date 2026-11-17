@@ -2,7 +2,7 @@
 
 ## Scope and current state
 
-All six Linux x64 components are accepted and integrated. Final normal PR checks, merges, exact merge CI and the existing automatic preview publication/consumption remain the delivery steps. No other-platform acceptance is claimed.
+All six Linux x64 components are accepted and integrated. Implementation PR16 has merged; its exact merge CI and the existing automatic preview publication/registry consumption have passed. Only the normal checked merge of this final Plan record and observation of its merge CI remain at creation of this record. No other-platform acceptance is claimed.
 
 The user explicitly authorized implementation, tests, documentation, worktrees, commits, pushes, PRs, normal checked merges and postmerge closeout for Task-05 and Task-06. Historical research-only statuses do not revoke that authorization. Design remains read-only at `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`; toolchains are .NET SDK11.0.100, C#15 and Rust1.100.0. External A02/A07/A10/A11 Linux dependency evidence is reused.
 
@@ -22,8 +22,8 @@ Task-05 and Task-06 were developed in parallel without adding a database prerequ
 - Both batch branches: `task/Task-06-linux`.
 - Worktrees: `ROOT/.worktree/Task-06-linux/NativeWeave` and `ROOT/.worktree/Task-06-linux/Plan`.
 - Per-task branches/worktrees, owners and integrated commits: [status-linux.json](status-linux.json).
-- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16.
-- Plan PR: https://github.com/IzuSharp/Plan/pull/21.
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16 (merged as `bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1`).
+- Plan PR: https://github.com/IzuSharp/Plan/pull/21 (this final delivery record; normal checked merge is the remaining record-delivery step).
 - Implementation local head: `506a40bf8bbf7976d42a5391c680ac8c3d973519`.
 - Remote transport head: `bcdbdfb12a34c90283ff6cbcd8cca24d9bdff1de`.
 - Verified equal Git tree: `d713e343b43c536d59136e536cebdbb0383fa03b`.
@@ -60,8 +60,18 @@ The compiler-only B19 witness's earlier native asset is explicitly a build input
 
 The first full final CI completed native workspace tests and the managed build, then rejected three whitespace locations in one MCP compiler file. The [format correction](integration-format-fix/correction.json) changes no non-whitespace bytes. A scoped formatter with absolute paths selects exactly1 file and passes; the complete remote formatter remains the required gate. The earlier relative include selected no file and is not claimed as that gate. Plan acceptance checkpoint CI44087884950 passed before this record update.
 
-## Delivery checks and next action
+## Final Linux implementation delivery and release
 
-Final implementation PR CI is running at https://github.com/IzuSharp/NativeWeave/actions/runs/44088914195 on remote head `bcdbdfb12a34c90283ff6cbcd8cca24d9bdff1de`. Complete existing required checks and normal merges without bypassing protection. Confirm exact merge CI and the normal automatic preview publication, repository signature and downloaded registry package JIT/AOT consumption.
+All six Linux components are accepted and integrated. Implementation PR16 was normally merged with all applicable checks passed; no protection, required check or approval identity was bypassed. The local implementation head and remote transport head above retain the identical tree `d713e343b43c536d59136e536cebdbb0383fa03b`, which is also the tree of main merge `bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1`.
 
-The existing public release scope remains HelloWorld only; this task does not newly publish Server/Database packages or add platforms/CI matrices. Then finalize the Plan record, normally merge PR21 and confirm its merge CI. No next task package or unrelated acceptance rerun is authorized by completion.
+- [Final PR CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44088914195): passed on remote head `bcdbdfb12a34c90283ff6cbcd8cca24d9bdff1de`, including full formatting, native workspace checks, managed build, packaging, NativeAOT, pristine no-Rust container consumption, existing package closure/runtime transfer and security.
+- [Exact merge CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44091449195): passed on the merge SHA.
+- [Existing automatic release](https://github.com/IzuSharp/NativeWeave/actions/runs/44091449288): passed on the same SHA, first attempt. The normal pipeline allocated `NativeWeave.HelloWorld` version `0.1.0-preview.10.1`, validated the retained candidate, published it, verified its repository signature and unchanged unsigned payload, and executed the downloaded registry package in JIT and NativeAOT with an isolated NuGet cache and unused Rust invocation traps. The existing push conditions skip the PR-only Dependency review job; all applicable release jobs passed.
+
+The original publication receipt and consumer logs are retained in [postmerge-release](postmerge-release/). The downloaded GitHub artifact ZIP matched SHA256 `6f15eb7f1a824c62c4b084a24b7e197cb61a2fa8ebc29969553c20589b938ccb`; the signed registry package SHA256 is `8990b64c50be33391fa897ee15d776cfb416eecff344531cba5236637df9d783`. The registry consumer explicitly records `pristineMachine:false`; the separate required CI container check supplies its own pristine-consumption evidence. No workflow rerun or implementation repair was needed for this postmerge closeout.
+
+The existing public release scope remains HelloWorld only. Server/Database component package acceptance remains in the separate component evidence; this task does not newly publish those packages or add platforms/CI matrices.
+
+## Final Plan record and recovery
+
+At creation of this final record, only the normal checked merge of [Plan PR21](https://github.com/IzuSharp/Plan/pull/21) and observation of its merge CI remain. If the linked PR is merged and that CI is green, Task-06 Linux delivery is complete: do not rerun component acceptance or append another commit merely to repeat the linked final check result. Task-05 is already complete as recorded above. Windows and other platforms remain outside this run. No next task package or unrelated acceptance rerun is authorized by completion.
