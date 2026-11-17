@@ -29,16 +29,18 @@ branch/PR and local worktree checks found no existing Task-04 work to recover.
 | A15 | deferred_other_platform | none | Windows is explicitly deferred by the user. |
 | A16 | accepted_linux_assembled | packaging | Reuse actual checkpoint4 Ubuntu/CPU/fresh-SDK/runtime-transfer evidence; final merged CI remains batch closeout. |
 | A17 | accepted_linux_component | sync_engine | Reuse accepted real synchronous engine for A24 generated package conformance. |
-| A18 | in_progress | callbacks | Close concrete managed retirement-observer capacity and issued-permit/Body-drop queued-frame accounting findings; retain prior execution and validate changed scope. |
+| A18 | accepted_linux_component | callbacks | Reuse accepted actual Hyper/Tokio HTTP component; no repeat of component acceptance. |
 | A20 | accepted_linux_component | root | Reuse accepted Linux cross-language properties, bounded races, supported sanitizer profile and isolated controls; no historical rerun. |
 | A23 | accepted_linux_component | sync_engine | Reuse accepted Linux affinity probe; unavailable device/other-platform rows remain explicit. |
-| A24 | pending_assembled_acceptance | root | A17 generated scaffold JIT/AOT passed; run heterogeneous A18 scaffold when accepted, then final independent review. |
+| A24 | accepted_linux_assembled | packaging | Reuse accepted heterogeneous A17/A18 generated-package pair; final merged CI/release remains batch closeout. |
 
 Exact branches, worktrees, dependencies, commits and new validation outcomes are
 tracked in [status-linux.json](status-linux.json). A06, A07, A08, A17, A20 and A23 Linux component acceptance and independent review are recorded
 in their original evidence directories. A07 may be consumed immediately; do not wait
 for whole-batch closeout or repeat these completed component checks. A14/A16 assembled Linux acceptance is also recorded from actual checkpoint4 CI.
-A18 and the second A24 profile remain in progress.
+A18 real HTTP and the heterogeneous A24 generated-package pair are now independently
+reviewed and accepted. All ten Linux-applicable components are accepted; batch delivery
+remains open until final integration checks, normal merges and automatic preview closeout.
 
 ## Workspaces and integration
 
@@ -61,11 +63,22 @@ records should be bounded summaries and source/hash/recovery indices without raw
 source/log/certificate dumps or unrelated machine details. Retain complete raw
 bytes separately when necessary; never rewrite a failed record as success.
 
-Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (Draft).
-Plan PR: https://github.com/IzuSharp/Plan/pull/18 (Draft).
+Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/15 (ready; final checks running).
+Plan PR: https://github.com/IzuSharp/Plan/pull/18 (final acceptance checkpoint; final checks pending).
 
-Next: Finish the two concrete A18 review corrections and independent evidence and A24's heterogeneous A18 generated
-package consumer. A08 is reviewed and integrated. A14/A16 Ubuntu, emulated CPU,
-fresh no-Rust SDK and compiler-free runtime transfer all passed in checkpoint4.
-Continue paired PRs and normal post-merge checks; do not repeat completed component
-acceptance. Stop after Task-04; no Task-05/Task-06 execution is authorized here.
+Next: The bounded shared-registration review passed at Native source29fa773
+(remote11bb5a39, identical tree). Submit the final Plan acceptance checkpoint,
+require final-head checks, merge normally and verify exact merged CI
+and the existing automatic preview/registry consumers. Component acceptance is complete;
+do not repeat it. Stop after Task-04; no Task-05/Task-06 execution is authorized here.
+
+## Recovery and retained bytes
+
+All ten accepted component source trees are preserved on their prescribed remote
+branches. [source-recovery-linux.json](source-recovery-linux.json) maps original
+execution commits to remotely fetchable, byte-identical tree snapshots. Transport
+commit metadata differs and is not presented as fresh execution evidence.
+
+[raw-evidence-index-linux.json](raw-evidence-index-linux.json) identifies the
+retained raw logs, failures, corpus and runtime/package bytes by archive SHA-256.
+Final A18/A24 and merge/publication evidence is retained during delivery closeout.
