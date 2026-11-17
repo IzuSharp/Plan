@@ -15,13 +15,13 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 
 | Task | State | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
-| B04 | in_progress | database_host | B01, B07, A03, A04, A05, A07, A10, A11, A02 | B02, B03, B05, B06 |
-| B08 | ready_queued | root (queued) | B01, B05 | B02, B03, B04 |
-| B10 | ready_queued | root (queued) | B09 | B12, B13 |
-| B11 | in_progress | query_track | B09, B07 | B02, B03, B04 |
-| B12 | in_progress | query_track | B07, B09 | B06, B04, B02, B03 |
-| B13 | waiting_for_batch_dependency | root (queued) | B09, B11 | B04, B06, B12 |
-| B14 | waiting_for_batch_dependency | root (queued) | B05, B11, B12 | B02, B03, B04, B06 |
+| B04 | awaiting_acceptance | database_host | B01, B07, A03, A04, A05, A07, A10, A11, A02 | B02, B03, B05, B06 |
+| B08 | in_progress | database_host | B01, B05 | B02, B03, B04 |
+| B10 | in_progress | root | B09 | B12, B13 |
+| B11 | awaiting_acceptance | query_track | B09, B07 | B02, B03, B04 |
+| B12 | awaiting_acceptance | query_track | B07, B09 | B06, B04, B02, B03 |
+| B13 | in_progress | query_track | B09, B11 | B04, B06, B12 |
+| B14 | ready_queued | database_host (queued) | B05, B11, B12 | B02, B03, B04, B06 |
 
 ## Exact baseline and recovery
 
@@ -46,6 +46,18 @@ not yet run for this batch. Windows and other platforms are outside this run.
 
 ## Integrated checkpoint
 
-B04 native runtime/source/session/operation/query composition and the typed C# facade are integrated. Native and managed builds pass; actual two-provider lifecycle and JIT/AOT acceptance remain active. B11 advanced SeaQuery tests pass all nine groups with real SQLite and locally built PostgreSQL18.0, with no skipped provider row. Its canonical C# ABI oracle driver compiles and publishes to Linux NativeAOT; execution awaits the corresponding Host binary and is not yet accepted. B12 is active in its own worktree, reusing B01 static row decoding and B06 stream cleanup. B08 and B10 remain ready in the concurrency queue; B13/B14 start at their actual component dependency checkpoints.
+**B04** — Actual SQLite/PostgreSQL18 Host JIT132 and NativeAOT132 assertions; all six native owner counters zero; 112 exact pinned public signatures with XML/reference checked; final expanded/package evidence active. Evidence: `ledger/evidence/B04/`.
 
-The PostgreSQL18.0 source archive was verified against its official SHA256 (`0d5b903b1e5fe361bca7aa9507519933773eb34266b1357c4e7780fdee6d6078`) and built locally. TCP loopback is available; Unix-domain socket creation is restricted, so fixtures disable Unix sockets explicitly. No repository toolchain or NuGet audit policy was weakened. Local source and remote transport commit identities are retained separately; transport uploads verify exact tree equality.
+**B08** — Worktree created at d283584; independent migration implementation started. Evidence: `ledger/evidence/B08/`.
+
+**B10** — Seven generated/manual metadata and typed DTO parity assertions pass; compiler diagnostic/incremental gate active. Evidence: `ledger/evidence/B10/`.
+
+**B11** — 11 native tests against real SQLite/PostgreSQL18; direct SQL and result oracles pass; Independent imported-plan budget and nested recursive-reference findings fixed; managed actual Host receipt active. Evidence: `ledger/evidence/B11/`.
+
+**B12** — Real SQLite/PostgreSQL18 JIT231 and NativeAOT232 assertions; 18 cases per provider and all six native counters zero; Generated-path parity and final package/source evidence active. Evidence: `ledger/evidence/B12/`.
+
+**B13** — Isolated Fluent implementation worktree based on ce38ff4. Evidence: `ledger/evidence/B13/`.
+
+**B14** — B11/B12 implementation inputs are integrated; queued after B08 against available agent slot. Evidence: `ledger/evidence/B14/`.
+
+Local source and remote transport commits retain separate identities with verified identical Git trees. The four existing Draft PRs are updated in place. Per-task final immutable source/log/hash reviews and package composition remain necessary before marking the whole batch accepted; Windows and other platforms remain outside this run.
