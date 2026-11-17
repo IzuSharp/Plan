@@ -1,0 +1,55 @@
+{
+  "task": "B04",
+  "platform": "linux-x64",
+  "result": "accepted_component_linux",
+  "author": "database_host",
+  "reviewer": "root (independent of component implementation)",
+  "source_commit": "eeab52749bf340c4886b91a7c77e5b063c2b8b15",
+  "integrated_checkpoint": "f1c3303",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "hash_verification": {
+    "recorded_files": 52,
+    "worktree_mismatches": 0,
+    "exact_source_commit_mismatches": 0
+  },
+  "review_scope": [
+    "Core create/start/take/retire ownership and cancellation-hook detach on transferred result",
+    "Source close admission, bounded waiters, shutdown worker join, registry cleanup and module residency",
+    "Managed exception translation and error/owner take failure cleanup",
+    "Public limits, provider-specific bootstrap/asset identities and optional DI disposal",
+    "Exact A14 package dependencies and SDK-selected own-provider asset records"
+  ],
+  "findings": [
+    {
+      "id": "B04-NULL-WIRE",
+      "status": "resolved",
+      "detail": "Nullable byte[] conditional had converted SQL NULL to empty ReadOnlyMemory before wire encoding; explicit nullable memory cast preserves null in SQL submission and query operand binding.",
+      "fixes": [
+        "b754e0d",
+        "17941be"
+      ],
+      "verification": "Actual nullable SQL/DTO tests, independent materialization suite and final two-provider JIT/AOT pass."
+    }
+  ],
+  "actual_verification": {
+    "native_unit_tests": 7,
+    "strict_clippy": "passed, all features",
+    "jit": {
+      "assertions": 484,
+      "separate_managed_retirements": 175
+    },
+    "aot": {
+      "assertions": 486,
+      "separate_managed_retirements": 176
+    },
+    "native_six_counters_zero": true,
+    "api_signatures": 112,
+    "exact_package_consumption": "package-03: both actual providers JIT/AOT, no Rust invocation, transitive generator and DTO edit"
+  },
+  "evidence": "linux-run-001/evidence-linux.json",
+  "limitations": [
+    "Linux x64 only",
+    "Subsequent B08/B13/B14 composition is separately verified; no rerun of accepted historical prerequisites",
+    "Package rows are local exact candidate packages; public preview remains existing release scope"
+  ]
+}
