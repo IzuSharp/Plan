@@ -32,8 +32,8 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 - Batch branches: `task/Task-05-linux` in NativeWeave and Plan.
 - Batch worktrees: `ROOT/.worktree/Task-05-linux/NativeWeave` and `ROOT/.worktree/Task-05-linux/Plan`.
 - Per-task branches/worktrees and integrated/pending commits: [status-linux.json](status-linux.json).
-- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/17 (Draft).
-- Plan PR: https://github.com/IzuSharp/Plan/pull/20 (Draft).
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/17 (merged as `275aa5e0f9eba70c637d1a32fb399108635137ce`).
+- Plan PR: https://github.com/IzuSharp/Plan/pull/20 (this final delivery record; normal checked merge is the remaining record-delivery step).
 
 ## Accepted Linux components
 
@@ -51,14 +51,24 @@ B10 is accepted after B12/B13:32 formal commands, eight generated/manual x origi
 
 B14 is accepted:1673 JIT /1678 NativeAOT assertions,570/572 separately observed managed retirements and all six native counters zero on SQLite and PostgreSQL18.81 exact API symbols, six compile-negative fixtures and the independent10-package consumer passed in both runtimes/providers without Rust. Independent review found and corrected the exact relation/projection cursor retention gap; a separately identified actual SQLite ABI regression passed Debug/Release, both provider builds and SQLite-only strict Clippy. The baseline matrix is retained under its original source and asset identities.
 
-Each accepted component has an independent review and SHA-indexed receipts under its existing `ledger/evidence/Bxx/` directory. Those are Linux component results, not all-platform acceptance or completed batch delivery.
+Each accepted component has an independent review and SHA-indexed receipts under its existing `ledger/evidence/Bxx/` directory. Those are Linux component results; the completed implementation integration and existing release closeout are recorded below. No all-platform acceptance is claimed.
 
-## Active work and next action
+## Final Linux implementation delivery and release
 
-All seven Linux components are accepted and integrated. The batch remains open for final composition, PR checks, checked merges and the existing postmerge publication/consumption workflow.
+All seven Linux components are accepted and integrated. Implementation PR17 was normally merged with all applicable checks passed; no protection, required check or approval identity was bypassed. The final local source checkpoint `67605f0afd28d058597645874fe6cab9c8fba411` and remote transport checkpoint `28dfa455d42e00f9fa5a332adae695e927549067` have the identical tree `a04a5fb6b37b6394c70ab1b7553fc56b866e1ea0`. Main merge: `275aa5e0f9eba70c637d1a32fb399108635137ce`.
 
-The shared solution builds with zero warnings/errors. Its two Database Host profiles are now staged by the existing maintainer build, and the existing Linux CI job supplies a pinned local PostgreSQL18 service for the actual provider tests. The local full solution formatter is blocked by the execution environment's denied Unix-domain socket used by Roslyn's build host; this is not recorded as a successful formatter run. The unchanged required GitHub CI formatter remains the final gate. No check or protection is bypassed.
+- [Final PR CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44072697209): passed, including full formatting, native workspace checks, managed build, packaging, NativeAOT, pristine no-Rust container consumption, existing package closure/runtime transfer and security.
+- [Exact merge CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44074361624): passed on the merge SHA.
+- [Existing automatic release](https://github.com/IzuSharp/NativeWeave/actions/runs/44074361782): passed on the same SHA. The normal pipeline allocated `NativeWeave.HelloWorld` version `0.1.0-preview.9.1`, validated the retained candidate, published it, verified its repository signature and unchanged unsigned payload, and executed the downloaded registry package in JIT and NativeAOT with an isolated NuGet cache and unused Rust invocation traps.
 
-Next: finish the batch composition gate, update the existing implementation/Plan PRs, complete normal checked merges, then verify merge CI and the existing preview publication/consumption workflow. Windows and other platforms are outside this run. Task-06 proceeds independently.
+The release still covers the existing HelloWorld preview only; it does not newly publish the Database/ORM components. Their separate exact NuGet consumer acceptance is in the component evidence above. No platform or release scope was added.
 
-Local source and remote transport commits retain separate identities with verified identical Git trees. Use this table and per-task reviews for recovery; do not repeat accepted historical component matrices.
+The publication receipt and original consumer logs are retained in [postmerge-release](postmerge-release/). The downloaded GitHub artifact ZIP matched SHA256 `39d9705a15c2f0536b4776c85a409cc3a080734d396b2a9ca7a30c50488a82f7`; the signed registry package SHA256 is `21833aa1a16025d54e3eec00215a2d40162114de9a2540d41c0618c0c5b87607`. The registry consumer explicitly records `pristineMachine:false`; the separate required CI container check supplies its own pristine-consumption evidence.
+
+The shared solution and both Database Host provider profiles are included in the existing build. PostgreSQL18 is a digest-pinned local test service in the Linux workflow. Local full solution formatting was blocked by the environment's denied Roslyn build-host Unix socket; the unchanged complete GitHub formatter passed and supplies the actual gate result.
+
+## Final Plan record and recovery
+
+At creation of this final record, only the normal checked merge of [Plan PR20](https://github.com/IzuSharp/Plan/pull/20) and observation of its merge CI remain. If the linked PR is merged and that CI is green, Task-05 Linux delivery is complete: do not rerun component acceptance or append another commit merely to repeat the linked final check result. Task-06 proceeds independently. Windows and other platforms are outside this run, and no subsequent task package is authorized by this completion.
+
+Local execution commits and GitData transport commits retain separate identities with verified equal Git trees. Use this table and the per-task reviews for recovery.
