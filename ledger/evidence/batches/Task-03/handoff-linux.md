@@ -1,13 +1,15 @@
 # Task-03 Linux x64 handoff
 
-## Outcome and remaining closeout
+## Final outcome
 
-All seven components are implemented, integrated and independently accepted for
-Linux x64. The latest local acceptance checkpoint has been recovered; old pending
-states are superseded by [status-linux.json](status-linux.json) and the exact
-[component evidence index](component-evidence-index.json). Do not repeat accepted
-implementation or historical acceptance. Batch closeout is still pending the Plan
-merge and existing automatic preview consumption. Exact implementation-merge CI passed.
+Task-03 is complete for Linux x64: all seven components are implemented,
+integrated and independently accepted; both source PRs are merged; their exact
+merge CI passed; and the existing automatic HelloWorld preview was published and
+actually consumed through JIT and Native AOT. No component or release work remains.
+Do not repeat accepted implementation or historical acceptance. See
+[status-linux.json](status-linux.json), the exact
+[component evidence index](component-evidence-index.json), and
+[final closeout record](closeout-linux.json).
 
 The user authorizes this Task-03 delivery and normal paired PR/release closeout.
 Read-only Design remains exactly `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`.
@@ -77,13 +79,31 @@ Repair remote `b0494bbc1b42ca7bb6620bae57594b3ec53276a7` equals local
 passed all build/package/API/AOT, Rust-free SDK container, drift and security gates.
 PR14 merged normally as `5ca367a2fa53e0a756b4c5bcb506113d5c1371a1`.
 
-Exact-merge [CI 44011124664](https://github.com/IzuSharp/NativeWeave/actions/runs/44011124664)
-passed on the actual merge commit. [Release 44011125473](https://github.com/IzuSharp/NativeWeave/actions/runs/44011125473)
-passed candidate/security gates and is publishing. Its identity allocated
-`0.1.0-preview.7.1`; completed publication and registry consumption are not yet
-claimed. The existing release scope is HelloWorld/Linux x64.
+Both original PRs and their normal checks are complete:
 
-## Worktrees and next step
+| Repository / flow | Merged source or version | Actual result |
+| --- | --- | --- |
+| NativeWeave PR14 | `5ca367a2fa53e0a756b4c5bcb506113d5c1371a1` | [Merge CI 44011124664](https://github.com/IzuSharp/NativeWeave/actions/runs/44011124664) passed |
+| Plan PR16 | `1a271fa8e9e958384380a0cec60005ee849874a5` | [PR CI 44012278309](https://github.com/IzuSharp/Plan/actions/runs/44012278309) and [merge CI 44013010013](https://github.com/IzuSharp/Plan/actions/runs/44013010013) passed |
+| Existing automatic Release | `0.1.0-preview.7.1` | [Release 44011125473](https://github.com/IzuSharp/NativeWeave/actions/runs/44011125473) and actual publisher succeeded at the exact implementation merge |
+
+The final publication receipt is `published-and-consumed`. Repository signature
+verification, unsigned payload equality and real registry JIT/AOT execution all
+passed. The registry consumer used an isolated NuGet cache outside the source tree
+with a Rust invocation trap. Its `pristineMachine=false` is preserved honestly;
+the separate candidate SDK-container receipt establishes Rust absence in that
+image and is not relabelled pristine signed-registry acceptance.
+
+The unchanged existing artifact reader passed all 39 consistency checks. It
+independently hashes the retained candidate and native asset and ties them to
+actual producer/publisher/consumer records; it does not rebuild or repeat package
+acceptance. A separate independent review accepted that evidence with no findings.
+The complete release artifacts, raw audit records and review are retained in
+`NativeWeave-Task03-Linux-Release-preview.7.1.zip`; exact archive, manifest, artifact,
+package and review hashes are in the final closeout record. No new component
+package or platform was published.
+
+## Worktrees and stop condition
 
 Reuse the existing writable checkout parent as ROOT. Batch worktrees remain
 `ROOT/.worktree/Task-03-linux/{NativeWeave,Plan}` on `task/Task-03-linux`.
@@ -93,9 +113,11 @@ commit mappings; Git Data checkpoints use identical trees with separate commit I
 Use pinned SDK 11.0.100 and Rust 1.100.0. Only the main executor integrates shared
 solution/Cargo/build files. The sibling Design worktree remains read-only.
 
-Finish Plan PR16 checks and normal merge, automatic preview
-publication/signature/payload verification and actual registry JIT/AOT consumption.
-Record one necessary final closeout checkpoint, merge/check it normally, and stop.
+This is the single final progress-only checkpoint. Complete its ordinary PR,
+merge and merge-CI checks, then stop; GitHub records those checks without a further
+self-referential progress commit. The original paired source PRs, source merge CI
+and automatic publication/consumption are already complete.
+
 Other platforms, static linking, full A07/Host and later A16/B24 pristine component
 package acceptance remain outside this batch. Global historical graphs are unchanged.
-Do not start Task-04 or publish new component packages.
+Task-04 was not started; do not start it or seek additional work.
