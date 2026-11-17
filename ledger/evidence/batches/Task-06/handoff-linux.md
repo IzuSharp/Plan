@@ -24,9 +24,9 @@ Task-05 and Task-06 were developed in parallel without adding a database prerequ
 - Per-task branches/worktrees, owners and integrated commits: [status-linux.json](status-linux.json).
 - Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/16.
 - Plan PR: https://github.com/IzuSharp/Plan/pull/21.
-- Implementation local head: `24e760e0083a9a05828ff56c8a3ff88cd43407f3`.
-- Remote transport head: `849ec7b6c52e98108991dfd78098031393b2a047`.
-- Verified equal Git tree: `245de26bad38ab62547d422eeb83267e7520ca92`.
+- Implementation local head: `506a40bf8bbf7976d42a5391c680ac8c3d973519`.
+- Remote transport head: `bcdbdfb12a34c90283ff6cbcd8cca24d9bdff1de`.
+- Verified equal Git tree: `d713e343b43c536d59136e536cebdbb0383fa03b`.
 
 All owned component changes are integrated; no pending agent implementation or acceptance work remains. Local execution and GitData transport commits retain distinct identities with explicit equal-tree mappings. Recover from these existing remote batch branches and PRs, not a new implementation from main.
 
@@ -52,14 +52,16 @@ The [sealed independent B19 review](../../B19/linux-final/independent/final-revi
 Selected final protocol rows use native SHA256 `f446c1263e67a7f9a38b3be3e3fdf22f48b0ac2dd15cd46bd4cecea1e6331b21` (8,162,736 bytes,48 exports). The original composed build is source `7ce4f482a1d9935cddfdd0026b9120e6c72350f5`. A fresh full Server build at `874001186635d1f58ecc2d1ad2aae736b9a9421d` reproduced identical bytes; its only native-input difference is the test isolation patch below.
 
 - [Host/diagnostics/gRPC composition](composition-stage/review-scope.json): B17 JIT85/43 dispatches, B20 JIT110, B18 JIT308/AOT308. Formal B18 AOT309 includes one CLI assertion not requested by this runner; the runner independently checks dynamic=False.
-- [Final MCP composition](composition-mcp-final/review-scope.json):291 JIT/291 AOT and180 retirements each;405 source hashes and all immutable log/executable inputs verified. Later commits add only a regression script and proof documentation.
+- [Final MCP composition](composition-mcp-final/review-scope.json):291 JIT/291 AOT and180 retirements each;405 source hashes and all immutable log/executable inputs verified. Later commits add only a regression script, proof documentation and formatter-required whitespace.
 - The shared solution, Cargo workspace and static binding inventories were integrated serially. Full125-project locked restore passed after separate ordinary and Linux AOT compiler-witness lock graphs; the original failure is retained.
 - [Counter test isolation](integration-counter-fix/review.json): remote CI exposed independently scheduled SQLite/PostgreSQL cases sharing process-global counters. Ten test-only lines isolate five cases while retaining within-case contention and every cleanup assertion. All eight actual provider tests pass with test-threads=8. Independent review confirms no production change, skipped assertion or counter reset.
 
 The compiler-only B19 witness's earlier native asset is explicitly a build input; actual final product/package rows use the composed binary above. Managed/native/package source and asset identities remain separate and explicit.
 
+The first full final CI completed native workspace tests and the managed build, then rejected three whitespace locations in one MCP compiler file. The [format correction](integration-format-fix/correction.json) changes no non-whitespace bytes. A scoped formatter with absolute paths selects exactly1 file and passes; the complete remote formatter remains the required gate. The earlier relative include selected no file and is not claimed as that gate. Plan acceptance checkpoint CI44087884950 passed before this record update.
+
 ## Delivery checks and next action
 
-Final implementation PR CI is running at https://github.com/IzuSharp/NativeWeave/actions/runs/44086853306 on remote head `849ec7b6c52e98108991dfd78098031393b2a047`. Complete existing required checks and normal merges without bypassing protection. Confirm exact merge CI and the normal automatic preview publication, repository signature and downloaded registry package JIT/AOT consumption.
+Final implementation PR CI is running at https://github.com/IzuSharp/NativeWeave/actions/runs/44088914195 on remote head `bcdbdfb12a34c90283ff6cbcd8cca24d9bdff1de`. Complete existing required checks and normal merges without bypassing protection. Confirm exact merge CI and the normal automatic preview publication, repository signature and downloaded registry package JIT/AOT consumption.
 
 The existing public release scope remains HelloWorld only; this task does not newly publish Server/Database packages or add platforms/CI matrices. Then finalize the Plan record, normally merge PR21 and confirm its merge CI. No next task package or unrelated acceptance rerun is authorized by completion.
