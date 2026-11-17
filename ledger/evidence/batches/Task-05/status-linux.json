@@ -1,0 +1,261 @@
+{
+  "batch": "Task-05",
+  "platform": "linux-x64",
+  "status": "linux_implementation_delivered_release_verified",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "tasks": [
+    {
+      "id": "B04",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "database_host",
+      "start_dependencies": [
+        "B01",
+        "B07",
+        "A03",
+        "A04",
+        "A05",
+        "A07",
+        "A10",
+        "A11",
+        "A02"
+      ],
+      "acceptance_dependencies": [
+        "B02",
+        "B03",
+        "B05",
+        "B06"
+      ],
+      "branch": "task/Task-05-B04-linux",
+      "worktree": "ROOT/.worktree/Task-05-B04-linux/NativeWeave",
+      "integrated_commits": [
+        "cc68c3b",
+        "7ac31d2",
+        "f0bc935",
+        "d283584",
+        "b19e656",
+        "f1c3303"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "JIT484/AOT486 actual two-provider assertions;175/176 separately observed managed retirements; six native counters zero",
+        "112 exact API signatures; independent source review;52 source/artifact hashes match",
+        "11 exact A14 candidate packages; actual JIT/AOT own-provider consumers; no Rust invocation; unchanged native SHA after DTO edit"
+      ],
+      "evidence": "ledger/evidence/B04/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B08",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "database_host",
+      "start_dependencies": [
+        "B01",
+        "B05"
+      ],
+      "acceptance_dependencies": [
+        "B02",
+        "B03",
+        "B04"
+      ],
+      "branch": "task/Task-05-B08-linux",
+      "worktree": "ROOT/.worktree/Task-05-B08-linux/NativeWeave",
+      "integrated_commits": [
+        "3d43ee9",
+        "63d625f",
+        "43e0925",
+        "b44ff2e",
+        "942f596",
+        "cf329ac",
+        "5ccf606",
+        "cc873ea"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"JIT\": {\"all_six_native_counters\": 0, \"assertions\": 205, \"separately_observed_managed_retirements\": 62}, \"NativeAOT\": {\"all_six_native_counters\": 0, \"assertions\": 207, \"separately_observed_managed_retirements\": 63}, \"api\": {\"XML_complete\": true, \"design_commit\": \"c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9\", \"exact_pinned_assembly_signatures\": 155, \"reference_complete\": true, \"required_B08_signatures\": 93}, \"clippy\": \"passed -D warnings\", \"cross_process\": \"JIT and AOT: actual independent process contention, observable in-flight SIGKILL, cleanup, identical new-process replay and third-process idempotency passed for SQLite and PostgreSQL18\", \"error_cleanup\": \"actual primary provider / cancellation plus failed rollback-close; kind7 flags cleanup_failed=4, disposition_discarded=3, local_ownership_released=1; original type/token/provider identity and rich cleanup preserved\", \"immutable_owned_source_hashes_verified\": 23, \"native_tests\": 7, \"samples\": \"both actual providers passed\", \"source_log_artifact_hash_mismatches\": 0}"
+      ],
+      "evidence": "ledger/evidence/B08/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B10",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "root",
+      "start_dependencies": [
+        "B09"
+      ],
+      "acceptance_dependencies": [
+        "B12",
+        "B13"
+      ],
+      "branch": "task/Task-05-B10-linux",
+      "worktree": "ROOT/.worktree/Task-05-B10-linux/NativeWeave",
+      "integrated_commits": [
+        "e06bfc2",
+        "ce38ff4",
+        "4c4b8bc",
+        "ab1f54f",
+        "74cc2bc"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"all_command_exit_codes_zero\": true, \"commands\": 32, \"component_parity_assertions\": 7, \"exact_public_symbols\": 13, \"final_edited_jit_hashes_verified\": 2, \"generated_manual_jit_aot_rows\": 8, \"immutable_aot_hashes_verified\": 4, \"immutable_source_hashes_verified\": 24, \"negative_diagnostics_cases\": 15, \"no_consumer_rust\": true, \"original_jit_preservation\": \"Original JIT inputs/executable hashes were recorded before the ordinary edit; that consumer directory was then rebuilt. Its original AOT executable remains independently hash-verified.\", \"source_hash_mismatches\": 0, \"unchanged_native_sha256\": \"d3727a90b0e7b5d9fb0af091a3294a1c27778ad1c6230a8c8ea6e05c854fa02c\"}"
+      ],
+      "evidence": "ledger/evidence/B10/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B11",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "query_track",
+      "start_dependencies": [
+        "B09",
+        "B07"
+      ],
+      "acceptance_dependencies": [
+        "B02",
+        "B03",
+        "B04"
+      ],
+      "branch": "task/Task-05-B11-linux",
+      "worktree": "ROOT/.worktree/Task-05-B11-linux/NativeWeave",
+      "integrated_commits": [
+        "4232265",
+        "1857bf2",
+        "2e61b3d",
+        "0700bad",
+        "0cada31",
+        "ee53eab",
+        "383f347",
+        "b31549d",
+        "5a2f4f6",
+        "469413d"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"all_command_exit_codes_zero\": true, \"aot_assertions\": 181, \"cases_per_runtime\": 52, \"commands\": 19, \"immutable_source_hashes_verified\": 199, \"jit_assertions\": 180, \"native_buffers_released_per_runtime\": 234, \"native_retirement_receipts_per_runtime\": 254, \"native_tests\": 12, \"source_hash_mismatches\": 0}"
+      ],
+      "evidence": "ledger/evidence/B11/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B12",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "query_track",
+      "start_dependencies": [
+        "B07",
+        "B09"
+      ],
+      "acceptance_dependencies": [
+        "B06",
+        "B04",
+        "B02",
+        "B03"
+      ],
+      "branch": "task/Task-05-B12-linux",
+      "worktree": "ROOT/.worktree/Task-05-B12-linux/NativeWeave",
+      "integrated_commits": [
+        "8da185c",
+        "9f70123",
+        "eb7f410",
+        "d8354ad",
+        "f1f832d",
+        "686e137",
+        "87d95cf"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"all_command_exit_codes_zero\": true, \"all_six_native_counters_zero\": true, \"aot_assertions\": 997, \"commands\": 19, \"exact_package_count\": 10, \"immutable_source_hashes_verified\": 239, \"independent_nuget_jit_aot\": true, \"jit_assertions\": 996, \"managed_retirements_per_runtime\": 342, \"no_consumer_rust\": true, \"source_hash_mismatches\": 0}"
+      ],
+      "evidence": "ledger/evidence/B12/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B13",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "query_track",
+      "start_dependencies": [
+        "B09",
+        "B11"
+      ],
+      "acceptance_dependencies": [
+        "B04",
+        "B06",
+        "B12"
+      ],
+      "branch": "task/Task-05-B13-linux",
+      "worktree": "ROOT/.worktree/Task-05-B13-linux/NativeWeave",
+      "integrated_commits": [
+        "18269e6",
+        "9f92142",
+        "0cea261",
+        "d53ca84"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"all_command_exit_codes_zero\": true, \"all_six_native_counters_zero\": true, \"aot_assertions\": 1063, \"commands\": 21, \"exact_package_count\": 10, \"exact_public_symbols\": 219, \"immutable_source_hashes_verified\": 248, \"independent_nuget_jit_aot\": true, \"jit_assertions\": 1062, \"managed_retirements_per_runtime\": 420, \"negative_compile_cases\": 13, \"no_consumer_rust\": true, \"source_hash_mismatches\": 0}"
+      ],
+      "evidence": "ledger/evidence/B13/review-linux.json",
+      "global_acceptance": false
+    },
+    {
+      "id": "B14",
+      "platform": "linux-x64",
+      "status": "accepted_component_linux",
+      "owner": "database_host",
+      "start_dependencies": [
+        "B05",
+        "B11",
+        "B12"
+      ],
+      "acceptance_dependencies": [
+        "B02",
+        "B03",
+        "B04",
+        "B06"
+      ],
+      "branch": "task/Task-05-B14-linux",
+      "worktree": "ROOT/.worktree/Task-05-B14-linux/NativeWeave",
+      "integrated_commits": [
+        "09110df",
+        "a15b655",
+        "6f9f636",
+        "16c9066",
+        "4199d82",
+        "c23499c",
+        "a893d95",
+        "cb58fec",
+        "e0eafbf",
+        "bf5baa7",
+        "43409dd",
+        "7b459f9",
+        "24f95b0",
+        "ba28b0a",
+        "33fffe6",
+        "863be37",
+        "3c8ca47",
+        "1ce6759"
+      ],
+      "pending_commits": [],
+      "verification": [
+        "{\"actual_providers\": [\"SQLite\", \"PostgreSQL18\"], \"all_six_native_counters_zero\": true, \"aot_assertions\": 1678, \"baseline_input_hashes_verified\": 434, \"exact_package_count\": 10, \"focused_cursor_retention_debug_release\": true, \"independent_nuget_jit_aot_both_providers\": true, \"jit_assertions\": 1673, \"managed_retirements_aot\": 572, \"managed_retirements_jit\": 570, \"negative_compile_cases\": 6, \"no_consumer_rust\": true, \"package_source_hashes_verified\": 341, \"provider_profiles_built\": [\"sqlite\", \"postgres\"], \"required_exact_api_symbols\": 81, \"source_log_artifact_hash_mismatches\": 0, \"sqlite_only_actual_cursor_and_strict_clippy\": true}"
+      ],
+      "evidence": "ledger/evidence/B14/review-linux.json",
+      "global_acceptance": false
+    }
+  ],
+  "implementation_pr": "https://github.com/IzuSharp/NativeWeave/pull/17",
+  "plan_pr": "https://github.com/IzuSharp/Plan/pull/20",
+  "global_acceptance": false,
+  "implementation_merge": "275aa5e0f9eba70c637d1a32fb399108635137ce",
+  "postmerge_ci": "https://github.com/IzuSharp/NativeWeave/actions/runs/44074361624",
+  "postmerge_release": "https://github.com/IzuSharp/NativeWeave/actions/runs/44074361782",
+  "preview_version": "0.1.0-preview.9.1",
+  "release_evidence": "ledger/evidence/batches/Task-05/postmerge-release/publication.json",
+  "remaining_at_record_creation": "Normal checked merge of this final Plan PR20 and observation of its merge CI. When those linked checks pass, Task-05 Linux delivery is complete; no component work remains."
+}

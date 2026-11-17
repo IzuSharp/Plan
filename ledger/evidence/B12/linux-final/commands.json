@@ -1,0 +1,316 @@
+[
+  {
+    "name": "diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.008,
+    "log": "01-diff-check.log"
+  },
+  {
+    "name": "format",
+    "argv": [
+      "dotnet",
+      "format",
+      "whitespace",
+      ".",
+      "--folder",
+      "--include",
+      "src/Data.Materialization",
+      "tests/Data.Materialization",
+      "samples/api/data-materialization",
+      "--verify-no-changes",
+      "--verbosity",
+      "quiet"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.922,
+    "log": "02-format.log"
+  },
+  {
+    "name": "postgres-identity",
+    "argv": [
+      "/workspace/scratch/58d2a6adf1c3/task05-toolchain/postgres/bin/postgres",
+      "--version"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.008,
+    "log": "03-postgres-identity.log"
+  },
+  {
+    "name": "postgres-init",
+    "argv": [
+      "/workspace/scratch/58d2a6adf1c3/task05-toolchain/postgres/bin/initdb",
+      "-D",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/postgres-data",
+      "-U",
+      "nativeweave",
+      "--auth=trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.767,
+    "log": "04-postgres-init.log"
+  },
+  {
+    "name": "restore-jit",
+    "argv": [
+      "dotnet",
+      "restore",
+      "tests/Data.Materialization/NativeWeave.Data.Materialization.Tests.csproj",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeaveSqliteAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_sqlite.so",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_postgresql.so"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 1.893,
+    "log": "05-restore-jit.log"
+  },
+  {
+    "name": "build-jit",
+    "argv": [
+      "dotnet",
+      "build",
+      "tests/Data.Materialization/NativeWeave.Data.Materialization.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeaveSqliteAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_sqlite.so",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_postgresql.so"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 20.407,
+    "log": "06-build-jit.log"
+  },
+  {
+    "name": "actual-jit",
+    "argv": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/jit-bin/NativeWeave.Data.Materialization.Tests.dll",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/jit-results"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 1.372,
+    "log": "07-actual-jit.log"
+  },
+  {
+    "name": "restore-aot",
+    "argv": [
+      "dotnet",
+      "restore",
+      "tests/Data.Materialization/NativeWeave.Data.Materialization.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeaveSqliteAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_sqlite.so",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_postgresql.so"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 1.784,
+    "log": "08-restore-aot.log"
+  },
+  {
+    "name": "publish-aot",
+    "argv": [
+      "dotnet",
+      "publish",
+      "tests/Data.Materialization/NativeWeave.Data.Materialization.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1",
+      "-p:NativeWeaveSqliteAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_sqlite.so",
+      "-p:NativeWeavePostgresAssetPath=/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B11-linux/NativeWeave/artifacts/B11/final-assets/libnw_database_postgresql.so"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 25.438,
+    "log": "09-publish-aot.log"
+  },
+  {
+    "name": "actual-aot",
+    "argv": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/aot/NativeWeave.Data.Materialization.Tests",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/aot-results",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 1.277,
+    "log": "10-actual-aot.log"
+  },
+  {
+    "name": "closure-task-restore",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.918,
+    "log": "11-closure-task-restore.log"
+  },
+  {
+    "name": "closure-task-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 2.388,
+    "log": "12-closure-task-build.log"
+  },
+  {
+    "name": "consumer-restore",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/Materialization.Consumer.csproj",
+      "--configfile",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/NuGet.Config",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 1.42,
+    "log": "13-consumer-restore.log"
+  },
+  {
+    "name": "consumer-build",
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/Materialization.Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 3.081,
+    "log": "14-consumer-build.log"
+  },
+  {
+    "name": "consumer-jit",
+    "argv": [
+      "dotnet",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/bin/Release/net11.0/Materialization.Consumer.dll"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 0.415,
+    "log": "15-consumer-jit.log"
+  },
+  {
+    "name": "consumer-restore-aot",
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/Materialization.Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--configfile",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/NuGet.Config",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 1.877,
+    "log": "16-consumer-restore-aot.log"
+  },
+  {
+    "name": "consumer-publish-aot",
+    "argv": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9/Materialization.Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/consumer-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 8.739,
+    "log": "17-consumer-publish-aot.log"
+  },
+  {
+    "name": "consumer-aot",
+    "argv": [
+      "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave/artifacts/data-materialization-linux-acceptance-4/consumer-aot/Materialization.Consumer",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/B12-NuGet-dwf0qdq9",
+    "exit_code": 0,
+    "seconds": 0.215,
+    "log": "18-consumer-aot.log"
+  },
+  {
+    "name": "dotnet-identity",
+    "argv": [
+      "dotnet",
+      "--info"
+    ],
+    "cwd": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-05-B12-linux/NativeWeave",
+    "exit_code": 0,
+    "seconds": 0.032,
+    "log": "19-dotnet-identity.log"
+  }
+]

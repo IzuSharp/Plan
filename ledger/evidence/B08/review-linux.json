@@ -1,0 +1,46 @@
+{
+  "task": "B08",
+  "platform": "linux-x64",
+  "status": "accepted_component",
+  "reviewer": "root independent Rust/managed ownership, bounded encoding and immutable evidence review",
+  "source_commit": "fc7bd4ff4ceaf7bed8a41476e1423a4c1fc02e19",
+  "execution_source_commit": "f53c35e",
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "verification": {
+    "JIT": {
+      "assertions": 205,
+      "separately_observed_managed_retirements": 62,
+      "all_six_native_counters": 0
+    },
+    "NativeAOT": {
+      "assertions": 207,
+      "separately_observed_managed_retirements": 63,
+      "all_six_native_counters": 0
+    },
+    "native_tests": 7,
+    "clippy": "passed -D warnings",
+    "api": {
+      "exact_pinned_assembly_signatures": 155,
+      "required_B08_signatures": 93,
+      "XML_complete": true,
+      "reference_complete": true,
+      "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9"
+    },
+    "cross_process": "JIT and AOT: actual independent process contention, observable in-flight SIGKILL, cleanup, identical new-process replay and third-process idempotency passed for SQLite and PostgreSQL18",
+    "samples": "both actual providers passed",
+    "error_cleanup": "actual primary provider / cancellation plus failed rollback-close; kind7 flags cleanup_failed=4, disposition_discarded=3, local_ownership_released=1; original type/token/provider identity and rich cleanup preserved",
+    "immutable_owned_source_hashes_verified": 23,
+    "source_log_artifact_hash_mismatches": 0
+  },
+  "review_scope": [
+    "Dedicated administrative connections, SQLx transaction/checksum ledger and catalog bounds",
+    "Transactional provider differences and explicit PostgreSQL replay preserve partial-effect semantics",
+    "Complete bundle identity remains provenance; per-entry checksum permits append-only forward evolution",
+    "Primary provider/cancellation errors survive failed rollback-close with separately owned rich cleanup buffer retirement",
+    "Focused independent findings fixed: PostgreSQL connect timeout and aggregate managed UTF8 preflight"
+  ],
+  "unresolved_findings": [],
+  "global_acceptance": false,
+  "evidence": "linux-final/evidence-linux.json",
+  "focused_addenda": "linux-final/focused-addenda/result.json"
+}
