@@ -15,7 +15,7 @@ PR was present at recovery. Task-05 and Task-06 have no mutual dependency.
 
 | Task | State | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
-| B04 | awaiting_acceptance | database_host | B01, B07, A03, A04, A05, A07, A10, A11, A02 | B02, B03, B05, B06 |
+| B04 | accepted_component_linux | database_host | B01, B07, A03, A04, A05, A07, A10, A11, A02 | B02, B03, B05, B06 |
 | B08 | in_progress | database_host | B01, B05 | B02, B03, B04 |
 | B10 | in_progress | root | B09 | B12, B13 |
 | B11 | awaiting_acceptance | query_track | B09, B07 | B02, B03, B04 |
@@ -61,3 +61,7 @@ not yet run for this batch. Windows and other platforms are outside this run.
 **B14** — B11/B12 implementation inputs are integrated; queued after B08 against available agent slot. Evidence: `ledger/evidence/B14/`.
 
 Local source and remote transport commits retain separate identities with verified identical Git trees. The four existing Draft PRs are updated in place. Per-task final immutable source/log/hash reviews and package composition remain necessary before marking the whole batch accepted; Windows and other platforms remain outside this run.
+
+## B04 accepted Linux component
+
+[Independent source and evidence review](../../B04/review-linux.json) accepted the exact B04 candidate: 484 JIT and486 NativeAOT assertions, zero final native owners,112 pinned public signatures and an11-package exact no-Rust consumer matrix. All52 recorded source/artifact hashes match the immutable candidate. The remaining six Task-05 items and batch merge/release closeout continue.
