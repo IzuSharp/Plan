@@ -13,8 +13,8 @@ The immutable Design inputs and historical evidence are unchanged.
 
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
-| B21 | Original Linux acceptance reused; newly observed transaction ownership omission under correction | Disposal fix independently reviewed and committed; affected-path runtime regression pending; no historical matrix rerun |
-| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental FD profiles are reviewed; PG002 failed at320.603s (session9>6;registry10>7). A reference transaction-disposal omission is confirmed; SQLite002 interrupted as superseded (no final retirement witness). Corrected observed artifact, narrow regression and new calibrated30-minute stages are required; 24h/72h not executed by user direction |
+| B21 | Original Linux acceptance reused; focused transaction-disposal correction accepted | Source and actual affected-path runtime regression independently approved; original wider matrix reused |
+| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; fresh900-second calibrations running under root session5413, followed by independently frozen30-minute stages. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -34,6 +34,10 @@ The current integration worktrees are
 destinations remain `task/Task-07-linux` and the same PR18/PR22. B22 and B23 use
 separate `Task-07-B22-finish-f889-linux` and `Task-07-B23-finish-f889-linux`
 worktrees/branches. No preceding task or subsequent package is restarted.
+
+[B24 read-only preparation](read-only-preparation/) records the concrete internal-native-manifest
+and facade-version closure gaps, existing tooling, and minimum Linux verification route.
+This is preparation only: B24 implementation waits for B22 and B23 applicable acceptance.
 
 Recovered calibration004 completed 900.012 seconds and 2,877 logical operations,
 with final native/server owners zero and no lost trace events. Its rising RSS
@@ -59,13 +63,22 @@ The [B21 transaction cleanup correction](../../B21/transaction-retirement-f889/s
 is source-reviewed and remotely retained at `f4068469b9bb9a6cda6eaa64949a19aa2efb3331`.
 Corrected B23 JIT/AOT and diagnostic artifacts retain the actual accepted12-package
 benchmark feed and all three native hashes; this differs from the broader14-package
-B24 staging input. Runtime regression and corrected B22 duration evidence remain pending.
+B24 staging input. The corrected runtime regression is independently approved (40 ordinary assertions,
+eight pre-explicit-GC process closures with native counters zero, and16 assertions in the real
+COMMIT-ack-loss Unknown/protection case). Corrected B22 duration evidence remains pending.
+
+The root-owned fresh two-provider900-second calibration is active at
+`ROOT/task07-runs/b22-corrected-calibration-launch-001-f889`; its `live.json` and
+`exec-session.json` bind root exec5413 and the exact child PID/start-tick identities.
+[Corrected source/runtime reviews and launch inputs](../../B22/corrected-regression-f889)
+are retained. Do not restart completed builds or overlap B23 timed load with this window.
 
 
-Latest persisted source checkpoints: NativeWeave `243161107434b1d02cf2151546cea8585d53cf3a`
-([CI44284081165 passed](https://github.com/IzuSharp/NativeWeave/actions/runs/44284081165))
-and Plan `aa2ad2881b65e4dc51833ce45e20198289d912e6`
-([CI44284126585 passed](https://github.com/IzuSharp/Plan/actions/runs/44284126585)).
+Latest persisted implementation checkpoint: NativeWeave `6a78215394a6ebc73dd8b6a2fa9e713c0b8ae40e`, exact tree `a3aa305a631b531c4c7265398949e525c7148330`
+(local `1e352b8fabcee3ca83d65d03deb5c82737676204`). Plan prior checkpoint
+`13e014664a2b9c5cf90869e8c205c9bf2228017f` binds the corrected benchmark artifacts;
+this commit adds the actual corrected runtime results, reviews and resumable launch inputs.
+Final merge checks must bind the eventual final heads; historical green checks do not substitute.
 The exact historical diagnostic source tree is separately preserved at
 NativeWeave `b8ca9a6a8a27dc04a7902597d747ea79889d5ae3` on
 `task/Task-07-B23-diagnosis-linux`; it is not the current benchmark controller.
@@ -110,7 +123,7 @@ its timed workloads in this B22 window. B24 still waits for both start dependenc
 
 
 
-## Scope and current state
+## Historical scope and earlier state (superseded by the current continuation)
 
 The current user explicitly authorizes B21, B22, B23 and B24 on Linux x64,
 including implementation, necessary verification, documentation, independent

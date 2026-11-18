@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "task": "B22",
+  "reviewer": "independent recovery_release_audit agent",
+  "reviewedUtc": "2026-11-18T11:18:44.887666+00:00",
+  "sourceCommit": "4503493d7168ac2b91becbdba8269a2daf120ec6",
+  "runMonitorCommit": "a2d97ff0ea9ec61421cf30d5a9058e52b183a16f",
+  "designCommit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "decision": "failed-and-retained; fix explicit reference-service transaction ownership before a fresh artifact-bound calibration and steady stage",
+  "stageSeconds": 320.603073743,
+  "requiredSeconds": 1800,
+  "creditedSeconds": 0,
+  "error": {
+    "oracle": "Frozen peak resource cap exceeded: native.sqlite.1",
+    "type": "OracleFailure"
+  },
+  "frozenProfileSha256": "b3b5aa5523f4735018924a3f4bf9475e759b2ced23c235ac9ab9facd2575461a",
+  "failureObservation": {
+    "sequence": 293,
+    "sqliteNativeOwners": [
+      1,
+      9,
+      0,
+      0,
+      0,
+      10
+    ],
+    "sqliteFrozenSessionPeak": 6,
+    "sqliteFrozenRegistryPeak": 7,
+    "postgresqlNativeOwners": [
+      1,
+      5,
+      0,
+      0,
+      0,
+      10
+    ],
+    "gen2Collections": 688,
+    "serverOwnersAndPayloadZero": true,
+    "observerFailures": 0
+  },
+  "comparisonObservation": {
+    "sequence": 292,
+    "sqliteNativeOwners": [
+      1,
+      5,
+      0,
+      0,
+      0,
+      6
+    ],
+    "gen2Collections": 688
+  },
+  "shutdownObservations": [
+    {
+      "phase": "application-main-returned-before-finalizers",
+      "sequence": 294,
+      "nativeOwners": {
+        "postgresql": [
+          1,
+          4,
+          0,
+          0,
+          0,
+          4
+        ],
+        "sqlite": [
+          1,
+          4,
+          0,
+          0,
+          0,
+          4
+        ]
+      },
+      "gen2Collections": 690
+    },
+    {
+      "phase": "application-main-returned-after-finalizers",
+      "sequence": 295,
+      "nativeOwners": {
+        "postgresql": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "gen2Collections": 692
+    },
+    {
+      "phase": "observer-stop",
+      "sequence": 297,
+      "nativeOwners": {
+        "postgresql": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "gen2Collections": 694
+    }
+  ],
+  "interpretation": [
+    "The native SESSIONS counter tracks live Arc<Session> objects, not physical pool permits. Session cleanup releases its permit before Session::drop decrements this counter.",
+    "The reference Outbox claim and publish, maintenance, and non-transferred Create paths omit disposal of the owned DataTransaction. CommitAsync only records the transaction outcome; HostTransactionTransport releases its DatabaseOwner through RequestClose/CloseController, not through Finish.",
+    "Native TransactionOwner retains Arc<Session>; the undisposed managed transaction SafeHandle keeps its native registry owner and retired Session alive until finalization. The observed unchanged GC count while owner totals rose, followed by finalizer reclamation, supports delayed owner cleanup. It does not demonstrate permanently leaked physical connections.",
+    "Increasing native owner limits to absorb this omission is not the selected recovery. The separate zero sampled buffer cap is also not a valid statement that transient buffers cannot exist and needs a prospective source-backed policy."
+  ],
+  "minimalCorrection": [
+    "Use nonblocking using declarations for transaction scopes in OutboxWorker.ClaimAsync, OutboxWorker.PublishAsync and MaintainAsync.",
+    "In CreateAsync finally, retain protected transaction transfer to the existing bounded retirement owner; dispose every transaction not transferred.",
+    "Leave BindAttachmentAsync transfer and RetireProtectionAsync disposal unchanged. Preserve finite HTTP session cleanup waits and Unknown/outcome semantics."
+  ],
+  "verificationScope": [
+    "Review the exact source diff and all five transaction creation sites.",
+    "Build one new source-bound observed AOT artifact without changing accepted native bytes.",
+    "Run affected create/replay/conflict, outbox drain/dedup and maintenance checks, plus an existing Unknown/protection-retirement case; inspect owners before forced GC where the harness supports it.",
+    "Run fresh artifact-bound B22 calibration and required 30-minute steady stage. Do not relabel or append the old failed stage.",
+    "Keep accepted historical B21 and unaffected B22 evidence at its original identities; B23 must use the corrected artifact."
+  ],
+  "readInputs": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-steady-postgresql-002-f889/receipt.json",
+      "sha256": "5f79aecd007ff6394551c1f506982e59706feed1f956ed241e99ae4d190f88f7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-steady-postgresql-002-f889/resources.jsonl",
+      "sha256": "a36c11a86aa61b20c6a2282392d332da49156a7437848de0b80ea7f3574a6bb7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-steady-postgresql-002-f889/service/observations.jsonl",
+      "sha256": "41061a3a13704812a99a0914a6aa792ecd3afd21a8488b77e0b4d1bc08a1662f"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Reference.TaskService/OutboxWorker.cs",
+      "sha256": "ddaa022a6f9d3b950fcd58a78e832aab8cf61319565417a107552c93b704cefd"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Reference.TaskService/DatabaseService.cs",
+      "sha256": "7796cbe064564580de13615752790a072d9c9f5417ac416aea31d3b166ef3aea"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Reference.TaskService/Maintenance.cs",
+      "sha256": "3d61be3f63ab33cc8e567a1a5b49ef8ed5824f0325c4b2e98a9820404628fef8"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Reference.TaskService/ProtectionRetirement.cs",
+      "sha256": "03cbff31ff4b9bb29aa4bb81e38c33168cbc7bcc7f81317fc4a9c6a3419efe0e"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Data.Transactions/DataTransaction.cs",
+      "sha256": "c24dce6e2a8799e6c0446d130fbab8518846e2ea825df159c13925424d8ce231"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Data.NativeHost/HostTransactionTransport.cs",
+      "sha256": "29a2fe7742459492ada51b9a16c62fc52f63b8d1e94e31b671ce87da0d33346c"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Data.NativeHost/DataSession.cs",
+      "sha256": "937d72c71c9eb6fc053a600a21fcae59ed9f839074e029585d1119f3f62be49f"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/src/Data.NativeHost/DataSource.cs",
+      "sha256": "9b48ad8053fd7bd1211022695f6a898a242fa7c9eec77927ad43acd0196770b1"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/native/database/host/src/session.rs",
+      "sha256": "c22fb27b364222f8bbaf8335adfaaa57453281e42ecaea2590e558cfcddfd3ec"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-finish-f889-linux/NativeWeave/native/database/host/src/runtime.rs",
+      "sha256": "5ce80e0fbc530292f85826b76800a590556a93c7a3adafd8f4dc59ecec337af7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design/docs/api/database.md",
+      "sha256": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea"
+    }
+  ],
+  "limits": [
+    "No build, workload, process control, product edit or outbound write was performed by this review.",
+    "Raw runtime trace and known-handle files were not copied into this text review.",
+    "The user-excluded 24-hour and 72-hour rows remain unexecuted and do not gain credit from this review."
+  ]
+}
