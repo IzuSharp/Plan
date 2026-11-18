@@ -1,25 +1,34 @@
 # B23 Linux checkpoint
 
-Implementation is in progress after accepted B21 and inherited A21. Final B23
-acceptance waits for B22 correctness and all required durations. The
-[batch handoff](../batches/Task-07/handoff-linux.md) records owners, commits and PRs.
+The ordinary three-route implementations, profile/controller, diagnostics and
+reporter are complete. Final B23 acceptance remains gated by B22 correctness and
+all declared durations. The batch handoff records exact worktrees/commits/PRs.
 
-The runnable controller consumes the accepted A21 measurement harness. Its short
-functional runs bind the immutable B21 AOT binary and independently reconcile
-durable SQL state, replay bytes, ordering and attachment content. Each explicitly
-states that it is not performance evidence; no regression bands or comparative
-benefit are inferred from those timings.
+The immutable accepted NativeWeave AOT application is compared with a standalone
+managed NativeAOT Kestrel/ADO.NET executable and direct Rust SQLx/SeaQuery/Axum.
+Each comparator passed six provider/transport readiness cells:127 checks per
+managed cell and126 per Rust cell,1518 total. Sources, locks, compiler/package/
+native/executable hashes and limits are in `comparators-final-001/manifest.json`.
+No comparator is substituted for the NativeWeave product host or DB engine.
 
-The standalone C# NativeAOT comparator now runs the normal SQLite/PostgreSQL
-business routes across HTTP1, HTTP1 TLS and HTTP2 TLS. Six cells each passed127
-independent functional checks. Its packages/assembly contain no NativeWeave
-dependency. SQLite uses the same3.51.3 amalgamation as the accepted Rust engine,
-with durability, schema and isolation documented in the comparator source.
-Raw ADO.NET query execution, absent DI/diagnostics and global byte-credit profiles
-remain explicit differences. A successful normal cell does not validate an
-unimplemented overload or diagnostic cell.
+The full controller functional preflight at e85bc13 passed66 cells, covering
+three ordinary routes, both databases, HTTP1/TLS/H2, nine product diagnostic modes
+and matched minimal/DI queries. Its report/raw archive remains expressly
+functional. Correction92f9e6b pins TLS and PostgreSQL executable bytes and checks
+the full attachment DTO. All nine affected stream/TLS/PG cells passed, with
+independent source/raw contract closure. See `functional-review-003`,
+`independent-contract-review` and `independent-review/pre-measurement.json`.
 
-Direct Rust, full workload profiles, diagnostics variants, predeclared noise-based
-bands, repeated isolated measurements and independent review are still ongoing.
-`checkpoint-preservation-001.json` binds the raw development receipts. No timed
-comparison has started, and no performance/memory benefit is claimed.
+The first isolated timed calibration/confirmation window has now started with
+frozen92f9e6b sources/profile/artifacts. Planned calibration198 fresh processes
+(66 supported cells x3 independent repetitions); confirmation requires all
+calibration cells valid and complete matching frozen bands. Root coordinates
+no competing application/fault/soak/build load. Exact live invocation/progress
+is under ROOT/task07-b23/timed-window-001.json and calibration-001. Results are
+still pending; no speed or memory improvement is asserted by this checkpoint.
+
+Fixed raw ADO.NET queries, startup migration/runtime differences and unavailable
+native allocator/FFI/copy attribution remain explicit. Unimplemented comparator
+DI/diagnostics/overload/fault/maintenance profiles are not advertised as equivalent.
+Functional failure, unequal inputs or generator saturation invalidate a cell.
+B22 and B24 remain separate gates; Linux data do not establish other platforms.

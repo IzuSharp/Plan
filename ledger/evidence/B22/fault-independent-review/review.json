@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "task": "B22",
+  "scope": "Independent external fault-controller, observer placement, protocol/filesystem injection and complete receipt review; Linux short-stage only",
+  "reviewer": "root (not author of the fault/observer implementation)",
+  "executedSourceCommit": "e042ec4025a679ce78fdb89f494bb719a49fc3ec",
+  "executedSources": {
+    "tests/Verification.EndToEnd/run.py": "66defdda85a1df37745a74758da789af0d11c9a303fef73ac20ed74bd22c392f",
+    "tests/Verification.EndToEnd/faults.py": "9f1ffdf19e30de0d5046d6166b10dbe8b39c2c7273b9d97911d4e6e5e38b4c94",
+    "tests/Verification.EndToEnd/harness.py": "76d1814a11aab110af1c529852023d90b70d8fde80e3c3039eec461ba37163a9",
+    "tests/Verification.EndToEnd/protocol_proxy.py": "fa69a615f410d8b4da7eedf2891b2a65d1687fe727905b0598333fccc28506d8",
+    "src/Verification.EndToEnd/FilesystemFaults/fs_fault.c": "a1beff47c1a4f47f4cc3f06b998e7c799caf5a37b27b87ac498182e49d3f3563",
+    "src/Verification.EndToEnd/Observer/ReferenceObserver.cs": "1978d2a995eff432600c935adb51019483f8c34ac578a55f1fc61a0b72fbf0b8",
+    "tests/Verification.EndToEnd/prepare_observer.py": "1800455951104238eef6f8854fca4bea0b3daa55602d226b5763cd65b572e348"
+  },
+  "rows": [
+    {
+      "row": "postgresql-aot",
+      "cases": 12,
+      "assertions": 131,
+      "receiptSha256": "cc774dbc07842e520caa831172f246c6ed7b5efc32373d5ad9ffadb38d69c7f4",
+      "status": "passed"
+    },
+    {
+      "row": "postgresql-jit",
+      "cases": 12,
+      "assertions": 131,
+      "receiptSha256": "21c9d109cfe165ae56d96ed611570954f6e69c14b8b9435a3cdcb0da36b5578d",
+      "status": "passed"
+    },
+    {
+      "row": "sqlite-aot",
+      "cases": 8,
+      "assertions": 83,
+      "receiptSha256": "408e4fd2d09bb755268b4c96c7621c3bccbd5f4421b3df6b92bf9ebd1fa47608",
+      "status": "passed"
+    },
+    {
+      "row": "sqlite-jit",
+      "cases": 8,
+      "assertions": 83,
+      "receiptSha256": "b341c52d91cd990d5ca093c81f4231b73bbe7362d606563a7063769c251c2d26",
+      "status": "passed"
+    }
+  ],
+  "caseCount": 40,
+  "assertionCount": 428,
+  "findings": [
+    {
+      "id": "FAULT-SESSION-1",
+      "status": "closed",
+      "finding": "A historical distinct backend PID is insufficient to prove the retry used a replacement physical session.",
+      "resolution": "411f99d binds a new INSERT after the recorded protocol sequence barrier to its actual backend PID."
+    },
+    {
+      "id": "FAULT-OWNERS-2",
+      "status": "closed",
+      "finding": "An empty provider inventory or truncated native-counter vector could pass a universal zero check.",
+      "resolution": "411f99d requires the exact provider set and six counters per module."
+    },
+    {
+      "id": "FAULT-RECEIPT-3",
+      "status": "closed",
+      "finding": "An outer cleanup failure or interruption could publish a passed partial prefix.",
+      "resolution": "0f98145635658adaedf06176bd86ec373d7eca00 writes final status once after exact selected IDs, all case statuses and completed outer lifecycle.",
+      "applicability": "Final001 unchanged observations contain all required40 cases, each outer process exited0 and both PostgreSQL stop logs confirm server stopped. This source-only receipt finalization fix does not relabel executed artifacts or rerun unrelated fault observations."
+    }
+  ],
+  "verdict": "Short fault matrix reviewed; no open finding in this scope. Full B22 acceptance remains false.",
+  "limitations": [
+    "Observed consumer changes only Main accessibility and selects a wrapper whose application task/thread are joined before final GC; the application body and native assets are unchanged.",
+    "ProcessExit before entrypoint release was an observer lifetime artifact, not demonstrated B21 leakage.",
+    "Intentional SIGKILL is not graceful resource retirement or a power-loss guarantee.",
+    "Scoped libc WAL ENOSPC is injected I/O failure, not physical whole-disk exhaustion.",
+    "Runtime GCHandle controls are separate process-level observations; neither procfs nor native owner counters count every managed root.",
+    "30m/24h/72h profiles remain required."
+  ]
+}

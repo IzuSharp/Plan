@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "7648d3e085fcac1dda6a9d240de8860ea184baad",
+  "baseline_file_sha256": {
+    "tests/Verification.EndToEnd/transport_faults.py": "ca1a99ed0ec648b4df16cdbc127a685d5ecd5ed26d22c59a5202853664d7bc52",
+    "tests/Verification.EndToEnd/transport-faults.md": "9c9d15eacd380d1e48676487b3fd7707f9766d8e6ed4865b8890d43bf1a57cfa",
+    "tests/Verification.EndToEnd/harness.py": "24e90f84dfb2e4981e6277733ec6da76ef14bf49b4f314c00d67949c87834725",
+    "tests/Verification.EndToEnd/faults.py": "e1f093269a9cee95cc96889b468e8396acc68486717ded3bc20fad8480239b54",
+    "tests/Reference.TaskService/run.py": "e805319b5129e1a84963720c4366c17b26b96e97e838e2cb96d74adc5f951dd2"
+  },
+  "scope": "Independent review of transport_faults.py and its directly used helpers (setup, Service, open_upload, no_attachment, Evidence, PostgreSQL lifecycle); not the entire inherited fault corpus.",
+  "reviewer": "/root/b21_service, not author of the transport controller",
+  "findings": [
+    {
+      "id": "B22-TRANSPORT-T1",
+      "status": "open",
+      "finding": "The H2 hold stops reading, which can conceal pre-credit DATA queued by a noncompliant peer until after local receive credit is restored. Pump and validate frames without acknowledging DATA during the hold, reject excess/reset/END_STREAM, and record held bytes."
+    },
+    {
+      "id": "B22-TRANSPORT-T2",
+      "status": "open",
+      "finding": "The exact-response assertion currently checks only HTTP200 and nonempty operationId. Bind the actual v1 attachment DTO and SQL-stored response bytes to that returned operation identity."
+    },
+    {
+      "id": "B22-TRANSPORT-T3",
+      "status": "open",
+      "finding": "An outer post-case exception or between-case interruption can leave Evidence.close reporting passed over only completed cases. Require all three named cases, unchanged artifacts, and no top-level failure before final status passes."
+    }
+  ],
+  "other_observations": [
+    "64KiB initial body positively reaches a real partial staging file before barriers.",
+    "Independent SQL excludes premature attachment reference and item-version increment.",
+    "SIGTERM occurs with incomplete client connection still held open; process exit0 and CLOSED resource joins are separately required.",
+    "Actual TLS trust and h2 ALPN precede the download; complete bytes, length, hash and END_STREAM are required after resuming.",
+    "Procfs samples have no aggregate-root/native-owner claim; long-duration/performance/fullB22 acceptance explicitly remain false."
+  ]
+}

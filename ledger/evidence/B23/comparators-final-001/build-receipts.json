@@ -1,0 +1,81 @@
+{
+  "recorded_at_utc": "2026-11-18T06:56:53.896266+00:00",
+  "purpose": "Observed producer/developer build facts; not repeated controlled build-cost measurements.",
+  "builds": [
+    {
+      "route": "managed-aot",
+      "artifact_directory": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/managed-aot-v2",
+      "command": [
+        "dotnet",
+        "publish",
+        "src/Benchmarks.Domain/comparators/managed/ManagedComparator.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-p:ComparatorSqliteLibrary=/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/sqlite/libsqlite3.so",
+        "-o",
+        "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/managed-aot-v2"
+      ],
+      "environment": {
+        "MSBUILDUSESERVER": "0",
+        "DOTNET_PROCESSOR_COUNT": "2"
+      },
+      "result": "success",
+      "observed_stdout": [
+        "Generating native code",
+        "ManagedComparator -> /workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/managed-aot-v2/"
+      ],
+      "elapsed_seconds": null,
+      "timing_limitation": "No elapsed publish time was persisted; none inferred. Terminal tool output was observed; no independent build log file exists."
+    },
+    {
+      "route": "direct-rust",
+      "artifact_directory": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/direct-rust-v1",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "src/Benchmarks.Domain/comparators/direct-rust/Cargo.toml",
+        "--locked",
+        "--release"
+      ],
+      "environment": {
+        "CARGO_BUILD_JOBS": "2",
+        "RUSTFLAGS": "-C target-cpu=x86-64",
+        "CARGO_TARGET_DIR": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/rust-target"
+      },
+      "result": "success",
+      "observed_stdout": "Finished `release` profile [optimized] target(s) in 2m 06s",
+      "compiler_reported_elapsed_seconds": 126,
+      "timing_limitation": "Single development build self-report; other compilation occurred on this host. Not a controlled comparison or distribution. Terminal tool output observed; no independent full build log file exists."
+    },
+    {
+      "route": "managed-aot/sqlite-producer",
+      "metadata": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/sqlite/sqlite-build.json",
+      "metadata_sha256": "20567584e94ef0fee0c624fd0768c6539b9afd73b954cd6e0b1de0efce2763bd",
+      "result": "success",
+      "elapsed_seconds": null,
+      "timing_limitation": "No elapsed compiler duration recorded."
+    },
+    {
+      "route": "direct-rust",
+      "purpose": "Actual incremental build after the Linux platform boundary guard, not a cold build-cost comparison",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "src/Benchmarks.Domain/comparators/direct-rust/Cargo.toml",
+        "--locked",
+        "--release"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 35.452217,
+      "log": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/rust-final-build.log",
+      "log_sha256": "0245712db4c7b647e3deca9993fd0f3a778ca5298307f6e6834a06f9dea918d1"
+    }
+  ]
+}

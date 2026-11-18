@@ -11,7 +11,7 @@ this platform ledger records the authorized product work. Design is read-only.
 | Task | Linux state | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
 | B21 | accepted_component_linux | b21_service; root integration/tests; independent task07_requirements/controller reviews | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
-| B22 | implementation_in_progress | task07_requirements external faults/soak; root public API composition | B21: satisfied | None |
+| B22 | implementation_in_progress | task07_requirements external faults/soak; root public API/transport composition | B21: satisfied | None |
 | B23 | implementation_in_progress | linux_environment controller/report; b21_service comparators | B21; A21: satisfied | B22: pending |
 | B24 | waiting_for_B22_B23 | root | B22, B23 | A16, A22, B18, B19: satisfied on Linux |
 
@@ -166,38 +166,74 @@ B21 is accepted for Linux x64. B22 and B23 started only after this closure,
 in separate worktrees with separate ownership. Their actual timed load windows
 must be coordinated: fault stress cannot contaminate performance measurements.
 
-### B22 and B23 implementation checkpoint
+### B22 short validation and B23 pre-measurement checkpoint
 
-- B22 matrix/guide `cc88306` is integrated as `921e3d5`. Public API consumer
-  `5a30ce7` is integrated as `ea0496f`; its subsequent exact lock/case checkpoint
-  `de3fbf0` is ready for integration. These are implementation stages, not B22
-  acceptance. The frozen four-row package matrix is in progress.
-- The [retained B22 development faults](../../B22/checkpoint-preservation-001.json)
-  include an independently witnessed SQLite busy rejection, a child-only libc
-  `pwrite64` ENOSPC injection into the actual native SQLite WAL path, successful
-  retry/replay/durable-data checks, and an unrelated-file positive control.
-  The failed `ptrace` attempt remains explicitly unavailable. Injected libc I/O
-  failure does not claim physical disk exhaustion or a power-loss test. Exact
-  provider error and separate owner/root observations are still being completed.
-- API pilot001–006 preserve their failures: certificate loading, explicit SQL
-  null semantics, output-path assumptions, expected post-header HTTP2 abort and
-  padded/unpadded metadata. Pilot007 then passed67 SQLite JIT public API checks.
-  The fixed matrix adds a PostgreSQL physical-session check. These probes do not
-  substitute for the external crash or long-duration rows.
-- B23 controller `4b5e057` is integrated as `19a2768`. It reuses A21 clocks,
-  histograms and independent-process reporting. Functional-only checks exercised
-  create/replay/recovery, fixed keyset paging and1MiB attachment workloads on the
-  immutable B21 AOT executable. Timings from these short checks are not performance
-  evidence; [raw development receipts](../../B23/checkpoint-preservation-001.json)
-  retain their explicit claim limits.
-- Managed comparator `c68ec7b` is integrated as `c296495`. Its standalone AOT
-  binary has no NativeWeave package/assembly and passed127 independent normal
-  workload checks in each of six database/transport cells. Fixed SQL/raw ADO.NET,
-  missing DI/diagnostic and global byte-credit profiles remain explicit limits.
-  Direct Rust and the remaining comparison/instrumentation profiles are ongoing.
-- No timed B23 measurement or B22 long-duration stage has started at this
-  checkpoint. The staged owner/root observation profile must be validated before
-  its thresholds can support a soak claim.
+- The final packaged public API matrix `58082e9` is integrated as `68c9cf9`.
+  [Final002](../../B22/api-matrix-002/progress.json) passed all four Linux
+  SQLite/PostgreSQL JIT/AOT rows:67/68 cases each,270 assertions total.
+  [Independent review](../../B22/api-independent-review/review.json) closes exact
+  gRPC terminal status/binary metadata and bounded MCP result assertions.
+  Earlier final001 and failed development pilots remain separately identified.
+- External faults at executed `e042ec4` passed40 cases and428 assertions across
+  both providers and runtimes. [Independent review](../../B22/fault-independent-review/review.json)
+  binds actual COMMIT dispatch/acknowledgment, replacement backend PID, busy and
+  scoped WAL ENOSPC, outbox/attachment/collector crashes and transport resets.
+  [Readback](../../B22/fault-independent-review/readback.json) checked62 artifact
+  references and40 distinct source/artifact files with zero mismatches.
+- The observed app build004 changes only entrypoint accessibility and wraps its
+  unchanged Main body on a joined thread. Final native owner counts and Server
+  request/payload gauges reach zero after that task/thread are released. Earlier
+  ProcessExit observations still retained an application entry task; they do not
+  establish a B21 defect. JIT/AOT EventPipe controls witnessed eight normal and
+  four pinned handle allocations/releases with zero lost events. Raw traces are
+  retained losslessly compressed under `B22/eventpipe-controls-002`.
+- Transport final002 at `9f4e142` passed12 cases and88 assertions. The corrected
+  HTTP2 hold keeps reading without issuing credit;4096 bytes remain within the
+  initial window throughout the actual2.2-second hold. Slow upload checks exact
+  durable response bytes/DTO fields. SIGTERM joins while an admitted incomplete
+  client remains open. [Independent closure](../../B22/transport-independent-review/review.json)
+  binds final receipt-only `8736c72`, integrated `fe4a72c`; successful network
+  observations retain their original hashes. Fault receipt-only `0f98145`,
+  integrated `3852ed7`, similarly requires exact selected cases and completed
+  outer lifecycle before atomically publishing success.
+- B23 comparator `be0bf7f` is integrated as `4b66ab4`: managed NativeAOT and
+  direct Rust each pass six ordinary DB/transport cells,1518 assertions total.
+  [Manifest and readiness](../../B23/comparators-final-001/manifest.json) retain
+  exact source/locks/native/executable identities. Comparator-only Kestrel and
+  ADO.NET are never selected as product engines. Missing comparator overload,
+  DI/diagnostic and maintenance/fault/soak variants remain explicit.
+- Controller `e85bc13`, integrated `333f313`, passed66 functional cells across
+  all three routes, DB/TLS/HTTP profiles, nine diagnostic modes and matched
+  minimal/DI queries. [Report and portable raw archive](../../B23/report-functional-final-002/report.json)
+  explicitly make no timing claim. A later narrow review correction `92f9e6b`,
+  integrated `b63a198`, pins actual TLS/PG tools and checks the complete attachment
+  DTO. All nine affected stream/TLS/PG cells subsequently passed;
+  [independent contract review](../../B23/independent-contract-review/review.json)
+  closes both findings and preserves original66-cell attribution.
+- The first staged-resource controller `509a373`, integrated `cbfbf13`, completed
+  an8-second plumbing probe and an actual five-cycle200-second calibration. The
+  calibration confirmed155 items/228 operations/outbox/consumer effects, valid
+  runtime controls, zero lost trace events and final owner retirement. It is
+  **not frozen**. Review requires fresh per-window GCHeapStats anchors and a
+  post-sampling dispatch clock check before a corrected calibration is frozen.
+- No30-minute,24-hour or72-hour stage has completed. B23 timed calibration
+  has started under frozen92f9e6b in an isolated window; results are pending.
+  Fault/soak application load and builds remain paused during this window.
+
+All retained short-run files and portable archives are inventoried in
+[checkpoint-preservation-002](checkpoint-preservation-002.json). Private configs,
+ephemeral keys/databases and rebuildable executables are excluded; their exact
+identities and reconstruction commands remain in the receipts.
+
+The last transported implementation checkpoint is remote
+`a2eb40a920799f60eac9eeda7a1a7bbafbd5fff9`, identical tree to local `6c8d125`,
+with [passing CI44253832670](https://github.com/IzuSharp/NativeWeave/actions/runs/44253832670).
+The last transported Plan checkpoint is remote
+`a2aa76a732f8206fda537aba1a61b6e7a2fb720b`, identical tree to local `6d2bd64`,
+with [passing CI44254156163](https://github.com/IzuSharp/Plan/actions/runs/44254156163).
+The current short-validation/pre-measurement stage is queued for transport to
+those same batch branches/PRs; the next checkpoint will record its exact heads.
+Both PRs remain Draft. No Task-07 merge or postmerge publication has occurred.
 
 B23 final acceptance waits for B22.
 B24 starts only after B22 and B23 finish.
@@ -213,8 +249,9 @@ acceptance or subsequent task package is authorized by this record.
 
 ## Next step
 
-Complete the B22 actual fault/public API/resource driver and B23 equivalent
-workload/controller/comparator implementations. Freeze actual run profiles and
-schedule isolated measurement windows, preserving every raw result and duration.
-Transport each completed stage to the existing batch branches and PRs. B24
-remains unstarted until B22 and B23 finish; the multi-day soak is not waived.
+Finish the narrow B23 contract preflight and independent closure, then execute
+its isolated calibration/confirmation windows. Freeze B22 resource thresholds
+only after corrected actual calibration and independent review, and execute
+the real30m/24h/72h profiles with durable progress. Transport each completed
+stage to the same branches/PRs. B24 remains unstarted until B22 and B23 finish;
+the multi-day soak is not waived.
