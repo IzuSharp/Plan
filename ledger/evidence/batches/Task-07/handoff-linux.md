@@ -10,9 +10,9 @@ this platform ledger records the authorized product work. Design is read-only.
 
 | Task | Linux state | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
-| B21 | original_matrix_passed; final_boundary_supplement_pending | b21_service; root integration/tests; task07_requirements review | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
-| B22 | waiting_for_B21 | unassigned | B21 | None |
-| B23 | waiting_for_B21 | unassigned | B21; A21: satisfied | B22 |
+| B21 | accepted_component_linux | b21_service; root integration/tests; independent task07_requirements/controller reviews | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
+| B22 | implementation_in_progress | task07_requirements external faults/soak; root public API composition | B21: satisfied | None |
+| B23 | implementation_in_progress | linux_environment controller/report; b21_service comparators | B21; A21: satisfied | B22: pending |
 | B24 | waiting_for_B22_B23 | root | B22, B23 | A16, A22, B18, B19: satisfied on Linux |
 
 All completed dependencies are inherited from their existing records, without
@@ -59,8 +59,16 @@ must not silently expand publication to the domain packages.
   `f43698a` is integrated as `275ee8f`. Final recovery/maintenance source
   `074b771` is integrated as `acb5be5`; its complete immutable matrix passed.
   The response-vector-only helper `d491a8a` is integrated as `11b7d27`, with
-  independent literal vectors `15ec950`. Boundary-controller supplementation
-  remains pending, so B21 is not yet accepted.
+  independent literal vectors `15ec950`. Boundary controller `a8c559f` is
+  integrated as `fd04f95`; strict PostgreSQL dispatch-window readback is
+  `517d1e4`. [B21 Linux acceptance](../../B21/review-linux.json) closes its scope.
+- B22 branch/worktree: `task/Task-07-B22-linux`,
+  `ROOT/.worktree/Task-07-B22-linux/NativeWeave`. Root API fixture uses
+  `task/Task-07-B22-api-linux` and its matching isolated worktree.
+- B23 branch/worktree: `task/Task-07-B23-linux`,
+  `ROOT/.worktree/Task-07-B23-linux/NativeWeave`. Comparator source uses
+  `task/Task-07-B23-comparators-linux` and its matching isolated worktree.
+  All three new implementation tracks start from integrated B21 `517d1e4`.
 - CLI push is unavailable because no Git HTTPS credential is configured. The
   authorized GitHub connector persists GitData commits; each transported tree is
   compared with its local execution tree. Initial product local `ec619c1` and
@@ -113,7 +121,7 @@ Plan checkpoint `6c62b08900e8b62750de7c944962f42a8ad73412` has
 Later local checkpoints are to be transported with the frozen source. Both PRs
 remain Draft; no Task-07 merge or postmerge publication has occurred.
 
-### Completed immutable B21 matrix and remaining supplement
+### Accepted immutable B21 matrix and targeted supplement
 
 The [original matrix](../../B21/package-matrix/summary.json) passed all 16 rows:
 two databases, JIT/NativeAOT, HTTP1/HTTP1-TLS/HTTP2-TLS, plus four ordinary
@@ -137,15 +145,23 @@ controller's configuration-derived TLS summary.
 
 Independent controller review identified missing true over-limit, inside-window
 retention, shared-content authorization, attachment binding and durable replay
-assertions. A strengthened controller has passed a focused 151-case SQLite/JIT
-run. The final four provider/runtime HTTP2-TLS rows, actual updated JIT/AOT
-response vectors and final controller review remain necessary before B21 closes.
-No B22 implementation or B23 measurement has started early.
+assertions. The final four provider/runtime HTTP2-TLS rows passed all 608
+assertions (152 each), including actual updated JIT/AOT response-vector output.
+Their exact execution at `fd04f95` ran from 2026-11-18T05:56:23Z to 06:00:59Z;
+[their own summary](../../B21/boundary-supplement/summary.json) remains an honest
+four-row partial selection. It supplements the original16 under the reviewed
+CLI-only source applicability, rather than claiming a newly rerun16-row matrix.
+Root rechecked409 artifact/metadata/raw-evidence SHA256 entries with zero
+mismatches. [Final controller review](../../B21/controller-review/review.json)
+closes actual-TLS inference and the PostgreSQL post-dispatch command window;
+[both real protocol traces](../../B21/package-matrix/dispatch-order-readback.json)
+also satisfy the stricter assertion. No source/controller finding remains open.
 
-B21 must first complete its real service, both database profiles, native
-HTTP1/HTTP2/TLS and actual JIT/NativeAOT package-consumer verification. B22 and
-B23 may then proceed in separate worktrees; fault injection and timed performance
-measurement must not contaminate each other. B23 final acceptance waits for B22.
+B21 is accepted for Linux x64. B22 and B23 started only after this closure,
+in separate worktrees with separate ownership. Their actual timed load windows
+must be coordinated: fault stress cannot contaminate performance measurements.
+
+B23 final acceptance waits for B22.
 B24 starts only after B22 and B23 finish.
 
 B22 and pinned D20 require actual 30-minute steady-state, 24-hour regression and
@@ -159,7 +175,8 @@ acceptance or subsequent task package is authorized by this record.
 
 ## Next step
 
-Complete B21 within its declared source/test/guide/sample scopes, integrate its
-independently reviewed commits, save exact source/native/package/executable
-identities and actual logs under `ledger/evidence/B21/`, and update this handoff
-with the two draft PRs and the next unlocked work.
+Complete the B22 actual fault/public API/resource driver and B23 equivalent
+workload/controller/comparator implementations. Freeze actual run profiles and
+schedule isolated measurement windows, preserving every raw result and duration.
+Transport each completed stage to the existing batch branches and PRs. B24
+remains unstarted until B22 and B23 finish; the multi-day soak is not waived.

@@ -1,0 +1,86 @@
+PASS independent-golden-vectors
+PASS authentication-before-business
+PASS write-authorization
+PASS create-confirmed
+PASS stable-response-version
+PASS stable-response-title
+PASS canonical-request-hash
+PASS authenticated-scope-hash
+PASS exact-replay-0
+PASS exact-replay-1
+PASS exact-replay-2
+PASS different-hash-conflict
+PASS conflict-preserves-winner
+PASS concurrent-same-key-identical
+PASS single-concurrent-effect-operations
+PASS single-concurrent-effect-items
+PASS single-concurrent-effect-outbox
+PASS same-key-independent-tenants
+PASS same-key-independent-principals
+PASS authorized-operation-recovery
+PASS operation-isolation-tenant
+PASS operation-isolation-principal
+PASS forged-identity-headers-ignored
+PASS missing-recovery-is-unconfirmed
+PASS reject-empty-title
+PASS reject-oversize-title
+PASS reject-unknown-json-field
+PASS reject-oversize-key
+PASS reject-empty-key
+PASS invalid-input-no-side-effects
+Traceback (most recent call last):
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpcore/_sync/http2.py", line 185, in handle_request
+    raise LocalProtocolError(exc)  # pragma: nocover
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+httpcore.LocalProtocolError: 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/58d2a6adf1c3/task07-package-probe/pilot-002/controller/run.py", line 424, in <module>
+    main()
+  File "/workspace/scratch/58d2a6adf1c3/task07-package-probe/pilot-002/controller/run.py", line 398, in main
+    result = run_cases(service, database, oracle, tokens)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-package-probe/pilot-002/controller/run.py", line 224, in run_cases
+    s, _, _ = service.request('POST', '/v1/items', b'{"title":"' + b'x' * (1024 * 1024) + b'"}',
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-package-probe/pilot-002/controller/run.py", line 109, in request
+    response = client.request(method, self.url.rstrip('/') + path, content=body, headers=selected)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/workspace/scratch/58d2a6adf1c3/task07-toolchain/python/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.LocalProtocolError: 1
