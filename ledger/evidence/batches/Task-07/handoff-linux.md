@@ -14,7 +14,7 @@ The immutable Design inputs and historical evidence are unchanged.
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
 | B21 | Accepted; reused without rerun | None |
-| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; SQLite 30-minute run active; first PostgreSQL run failed at 201.355s (FD 25 > frozen 24) and is being diagnosed; 24h/72h not executed by user direction |
+| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental role-based FD validation is in progress before new full30-minute stages; 24h/72h not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -64,8 +64,10 @@ NativeWeave `b8ca9a6a8a27dc04a7902597d747ea79889d5ae3` on
 [Fresh calibration evidence](../../B22/streaming-calibration-f889/index.json)
 binds both completed 900-second calibrations, their original typed observation
 rows, the immutable frozen profiles and the independent freeze review.
-The running/failed steady stages do not yet establish 30-minute acceptance.
-The active B22 launch record is
+Both first steady stages failed their original frozen FD caps and do not establish
+30-minute acceptance. Independent failure assessments are retained in
+[steady-failures-f889](../../B22/steady-failures-f889).
+The original B22 launch record is
 `ROOT/task07-runs/b22-streaming-steady-launch-001-f889/live-session.json`;
 per-provider progress is in `b22-streaming-steady-{sqlite,postgresql}-001-f889`.
 Do not restart an active process or count an interrupted partial duration as passed.
