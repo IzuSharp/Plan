@@ -14,7 +14,7 @@ The immutable Design inputs and historical evidence are unchanged.
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
 | B21 | Original Linux acceptance reused; focused transaction-disposal correction accepted | Source and actual affected-path runtime regression independently approved; original wider matrix reused |
-| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; both fresh900-second calibrations completed, and the prospective profiles were independently frozen. SQLite failed its frozen thread cap at437.605s (25>24); PostgreSQL continues under root session35995. A bounded SQLite thread-owner diagnostic is running independently, without changing any old cap. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
+| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; both fresh900-second calibrations completed, and the prospective profiles were independently frozen. SQLite001 failed at437.605s (threads25>24); its classified diagnostic and prospective monitor were reviewed. FreshSQLite002 is running under root11610; originalPostgreSQL continues under root35995. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -42,6 +42,12 @@ corrects the earlier six-package-only proposal: pinned B24 requires three indepe
 `.Native` leaves, already supported by A16. The new combined local closure therefore
 needs at least17 package IDs (8 unchanged,6 updated managed,3 new native leaves),
 with unchanged native bytes and facade identities in runtime output records.
+The [existing component pin index](read-only-preparation/b24-component-acceptance-pin-index.json)
+reuses B01-B21/A16/A22 accepted identities without historical reruns. The
+[signing boundary disposition](read-only-preparation/b24-signing-scope-disposition.json)
+keeps new local domain closure acceptance and signing-aware rejection distinct from
+unexecuted positive public-domain signer authentication. Public domain release remains
+deferred; the user limits automatic publication to the existing HelloWorld preview.
 This is preparation only: B24 implementation waits for B22 and B23 applicable acceptance.
 
 Recovered calibration004 completed 900.012 seconds and 2,877 logical operations,
@@ -98,18 +104,36 @@ FD/native/Server/RSS readings do not identify the extra thread. The original
 profile and failed receipt remain unchanged, with zero credited duration. Actual
 pre-finalizer and final native-owner zero observations are retained in the
 [independent failure record](../../B22/corrected-steady-sqlite-failed-001-f889/independent-failure-review.json).
-PostgreSQL continues independently. A same-artifact SQLite120-second load +60-second
-idle diagnostic records namespace-local thread names/start times and FD classes;
-it does not claim stage acceptance or attribution if the historical count is not reproduced.
-Resume the existing root session; do not duplicate it or overlap B23/build load.
+PostgreSQL continues independently. The same-artifact SQLite diagnostic completed
+120.0225 seconds load +60.0001 seconds idle with161 ownership snapshots, peak22
+and final21 threads. It classified dynamic .NET workers and physical SQLx workers;
+it did not reproduce or attribute historical25. [Exact diagnostic evidence](../../B22/thread-diagnosis-sqlite-001-f889/manifest.json)
+is preserved separately from stage acceptance.
+
+The [independently frozen classified thread supplement](../../B22/thread-supplement-sqlite-001-f889/manifest.json)
+uses the original measured residual9 peak /6 idle for adaptive managed workers plus
+DB blocking workers above the4 async workers, separately bounds physical SQLx workers
+by18 configured slots, rejects unknown classes, and reconciles qualified idle SQLx
+workers to actual main DB descriptors. Its derived total bands are41 peak /38 idle;
+these are finite observation bands, not a global ThreadPool invariant. Every other
+RSS/root/native/Server/FD cap remains unchanged. The exact same-window native/Server-zero
+and pre-closure timing checks prevent shutdown helpers or stale snapshots from supplying acceptance.
+
+NewSQLite002 is active at `ROOT/task07-runs/b22-corrected-steady-sqlite-002-f889`,
+owned by root exec11610. Its supervisor is
+`ROOT/task07-runs/b22-corrected-sqlite-steady-launch-002-f889`, with immutable request
+SHA-256 `18171151beeb75098933a3b475bc25f224204e1a0c69fb0bea09edf634185002`
+and frozen profile `354e1bf898d868ca2d83434e1aa28c09708bf4b93c158206ce72092c8aacb15a`.
+OriginalPostgreSQL remains in root35995 and will be reused if it passes independently.
+Resume these existing sessions; do not duplicate attempts or overlap B23/build load.
 [Corrected source/runtime regression](../../B22/corrected-regression-f889/manifest.json)
 remains separately accepted for its focused scope.
 
 
-Latest persisted implementation checkpoint: NativeWeave `2aa94647d825ca05717f524a98c8d221f4b0cdef`, exact tree `5ee63accfcf15dc6036dd396c96dc49c0424e8cd`
-(local `423f056b7a30c512681e951e3f1fcb5c64f368e4`). Plan prior checkpoint
-`9d2c6427287b3b5e194703b621ae62caaa654b2e` binds the corrected runtime results and benchmark artifacts;
-this commit adds completed calibration evidence, strict-selector provenance and immutable steady launch inputs.
+Latest persisted implementation checkpoint: NativeWeave `379d68a3358220e0234216a8cff7ae353d8cb9e5`, exact tree `ef72951868ae5222e6c7f2a1ae6b94b6b514122f`
+(local `9c9d90dfd749e4075582faa3e71371321948d677`). Plan prior checkpoint
+`f154015cdff6c5bda0dbe14956d0e76bf144abe1` retains the first corrected SQLite thread failure;
+this commit adds classified thread evidence, prospective source/policy reviews and the new SQLite launch inputs.
 Final merge checks must bind the eventual final heads; historical green checks do not substitute.
 The exact historical diagnostic source tree is separately preserved at
 NativeWeave `b8ca9a6a8a27dc04a7902597d747ea79889d5ae3` on
