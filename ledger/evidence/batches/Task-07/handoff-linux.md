@@ -13,8 +13,8 @@ The immutable Design inputs and historical evidence are unchanged.
 
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
-| B21 | Original Linux acceptance reused; newly observed transaction ownership omission under correction | Narrow disposal fix and affected-path regression; no historical matrix rerun |
-| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental FD profiles are reviewed; PG002 failed at320.603s (session9>6;registry10>7). A reference transaction-disposal omission is confirmed; SQLite002 is being stopped as superseded. Corrected observed artifact, narrow regression and new calibrated30-minute stages are required; 24h/72h not executed by user direction |
+| B21 | Original Linux acceptance reused; newly observed transaction ownership omission under correction | Disposal fix independently reviewed and committed; affected-path runtime regression pending; no historical matrix rerun |
+| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental FD profiles are reviewed; PG002 failed at320.603s (session9>6;registry10>7). A reference transaction-disposal omission is confirmed; SQLite002 interrupted as superseded (no final retirement witness). Corrected observed artifact, narrow regression and new calibrated30-minute stages are required; 24h/72h not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -55,6 +55,13 @@ Current load scheduling gives B22 the resource-validation window while B23
 prepares source/report inputs. B23 timed load starts only after that window ends.
 Both PRs remain Draft; no Task-07 merge or postmerge release is yet claimed.
 
+The [B21 transaction cleanup correction](../../B21/transaction-retirement-f889/status.json)
+is source-reviewed and remotely retained at `f4068469b9bb9a6cda6eaa64949a19aa2efb3331`.
+Corrected B23 JIT/AOT and diagnostic artifacts retain the actual accepted12-package
+benchmark feed and all three native hashes; this differs from the broader14-package
+B24 staging input. Runtime regression and corrected B22 duration evidence remain pending.
+
+
 Latest persisted source checkpoints: NativeWeave `243161107434b1d02cf2151546cea8585d53cf3a`
 ([CI44284081165 passed](https://github.com/IzuSharp/NativeWeave/actions/runs/44284081165))
 and Plan `aa2ad2881b65e4dc51833ce45e20198289d912e6`
@@ -90,8 +97,9 @@ undisposed owned DataTransaction wrappers in OutboxWorker.ClaimAsync/PublishAsyn
 Maintenance.MaintainAsync and the unprotected CreateAsync branch. Commit establishes
 outcome but does not release the transaction SafeHandle/retained Session Arc.
 The B21-owned correction preserves nonblocking disposal and protected transfer;
-it does not broaden native-owner caps. SQLite002 is gracefully stopped as an
-old-artifact attempt, with no partial-duration credit. The corrected observed AOT
+it does not broaden native-owner caps. SQLite002 was interrupted at589.458 seconds as an old-artifact attempt.
+The tool-level interruption ended before final receipts/CLOSED/observer-stop;
+no graceful-retirement or partial-duration acceptance is claimed. The corrected observed AOT
 artifact needs only the affected normal/dedup/maintenance and Unknown/protection
 regressions, then fresh provider calibration and full30-minute stages. Original
 B21/API/fault evidence remains valid for its recorded original scope.
