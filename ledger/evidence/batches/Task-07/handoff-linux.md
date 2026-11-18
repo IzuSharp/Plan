@@ -14,7 +14,7 @@ The immutable Design inputs and historical evidence are unchanged.
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
 | B21 | Original Linux acceptance reused; focused transaction-disposal correction accepted | Source and actual affected-path runtime regression independently approved; original wider matrix reused |
-| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; both fresh900-second calibrations completed, and the prospective profiles were independently frozen. Complete30-minute stages are running under root session35995. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
+| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; both fresh900-second calibrations completed, and the prospective profiles were independently frozen. SQLite failed its frozen thread cap at437.605s (25>24); PostgreSQL continues under root session35995. A bounded SQLite thread-owner diagnostic is running independently, without changing any old cap. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -37,6 +37,11 @@ worktrees/branches. No preceding task or subsequent package is restarted.
 
 [B24 read-only preparation](read-only-preparation/) records the concrete internal-native-manifest
 and facade-version closure gaps, existing tooling, and minimum Linux verification route.
+The [native-leaf topology supplement](read-only-preparation/b24-native-leaf-topology-supplement.json)
+corrects the earlier six-package-only proposal: pinned B24 requires three independent
+`.Native` leaves, already supported by A16. The new combined local closure therefore
+needs at least17 package IDs (8 unchanged,6 updated managed,3 new native leaves),
+with unchanged native bytes and facade identities in runtime output records.
 This is preparation only: B24 implementation waits for B22 and B23 applicable acceptance.
 
 Recovered calibration004 completed 900.012 seconds and 2,877 logical operations,
@@ -83,12 +88,20 @@ old/new controller SHA bridge; historical evidence is not relabeled.
 
 [Fresh corrected calibration, freeze reviews and launch inputs](../../B22/corrected-calibration-f889/manifest.json)
 retain complete lossless typed scalar observations and current descriptor classifications.
-The root-owned full1800-second load +60-second idle stages are active at
+The root-owned full1800-second load +60-second idle supervisor is active at
 `ROOT/task07-runs/b22-corrected-steady-launch-001-f889`; its `live.json` and
 `exec-session.json` bind root exec35995 and exact monitor/controller/service identities.
 Frozen profile SHA-256: SQLite `a9b6bdccef6474c3dec07257652c4b5654d8acc36c4073716ffe52d7c606fd70`,
 PostgreSQL `ea89accd617576435c78b6b5aa3633e7b488df991d87d6a56bbd0b52cee2c80e`.
-Resume the existing session; do not duplicate it or overlap B23/build load.
+The SQLite attempt failed at437.604876504s on threads25 > frozen24; its measured
+FD/native/Server/RSS readings do not identify the extra thread. The original
+profile and failed receipt remain unchanged, with zero credited duration. Actual
+pre-finalizer and final native-owner zero observations are retained in the
+[independent failure record](../../B22/corrected-steady-sqlite-failed-001-f889/independent-failure-review.json).
+PostgreSQL continues independently. A same-artifact SQLite120-second load +60-second
+idle diagnostic records namespace-local thread names/start times and FD classes;
+it does not claim stage acceptance or attribution if the historical count is not reproduced.
+Resume the existing root session; do not duplicate it or overlap B23/build load.
 [Corrected source/runtime regression](../../B22/corrected-regression-f889/manifest.json)
 remains separately accepted for its focused scope.
 
