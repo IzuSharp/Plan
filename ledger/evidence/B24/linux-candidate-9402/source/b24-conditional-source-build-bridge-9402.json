@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 1,
+  "task": "Task-07/B24",
+  "reviewer": "/root/closure_review",
+  "reviewedUtc": "2026-11-18T16:25:42.836840+00:00",
+  "mode": "Conditional independent source/build applicability readback; no historical measurement/statistical reanalysis, build, test, package consumer or network write.",
+  "decision": "CONDITIONAL_SOURCE_APPLICABILITY_SUPPORTED. Current reviewed source preserves the accepted native/product behavior-bearing paths except the already-reviewed private package identity corrections. Actual CI C build/artifact/consumer bindings remain pending; this is neither final C acceptance nor an assertion that B22/B23 executed on C.",
+  "sourceSnapshot": {
+    "localCommit": "e8083aeb7553dcd3a1b7fc59a9158406b3daf834",
+    "tree": "212ba128dc25c47933a41e16c4d6434a23de5416",
+    "nativeBaselineCommit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+    "acceptedCorrectedProductCommit": "1566ea4260ddf53dd8314aa983a75c49025547ca",
+    "nativeAndGlobalBuildChangedPaths": [],
+    "nativeTreeAtL": "eb6a12facd661b43c57d9b5a363f3884c80ccba3",
+    "nativeTreeAtSnapshot": "eb6a12facd661b43c57d9b5a363f3884c80ccba3",
+    "productChangedPaths": [
+      "src/Data.NativeHost/DatabaseOptions.cs",
+      "src/Data.Postgres/NativeWeave.Database.PostgreSql.csproj",
+      "src/Data.Sqlite/NativeWeave.Database.Sqlite.csproj",
+      "src/Server.Native/NativeCodec.cs"
+    ],
+    "productScopeRule": "Compare all src paths against accepted corrected1566ea4, excluding the separately identified benchmark tooling and new Packaging.Domain orchestration. The only remaining changed product paths are the four private version files.",
+    "commonBuildBindings": [
+      {
+        "path": "Cargo.toml",
+        "sha256": "9afa4825f8d687a33e748b5a24d08cf232a75dbf0befcfb2cd4b61878e051547",
+        "gitBlobSha1": "24686598689c4d5754b13716fe3c6c9906db68df"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "c5ad34bfac8d387ca107e131b95db92974fdda2d7d186f6e0d84295466ff5a04",
+        "gitBlobSha1": "7de67e9ffce3b0e937d12588bddf8fcfd440ae0e"
+      },
+      {
+        "path": "rust-toolchain.toml",
+        "sha256": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff",
+        "gitBlobSha1": "140a9199e85f8f4e767c49b585ea1ad27ad9f2e8"
+      },
+      {
+        "path": "global.json",
+        "sha256": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "gitBlobSha1": "af754d07e3b739b0ece47ea909a81215eabecbbc"
+      },
+      {
+        "path": "Directory.Build.props",
+        "sha256": "381d2e02b9a3c5b65aa986aa972894d28cad8cbfa93d2895ddb0e3e7330e854f",
+        "gitBlobSha1": "941a79b2d2f38fadc513ac1f6a9bf785fcb40483"
+      },
+      {
+        "path": "Directory.Build.targets",
+        "sha256": "eb7f0b66e004cc6685ef3ff4a16da4186a7533dbd9611e760d31ece823fd8fda",
+        "gitBlobSha1": "c6e1c3bd79c39f930241d8b026ebe6e9cc71abbc"
+      }
+    ],
+    "privateVersionBindings": [
+      {
+        "path": "src/Data.NativeHost/DatabaseOptions.cs",
+        "sha256": "b60c38044a3490ada43137cfa61d41a2ff73c40c94d55998ce99309b7c5787be",
+        "gitBlobSha1": "78a3b744ef64f28fe48089612b0e3c2e0af337f0"
+      },
+      {
+        "path": "src/Data.Postgres/NativeWeave.Database.PostgreSql.csproj",
+        "sha256": "d85c4a0d755204d7da96b08b46c1eb94126591f4d86884ed69dbd773e9cb0687",
+        "gitBlobSha1": "a4e66d108600c70ffc5bc7a6b5a90acf48251d22"
+      },
+      {
+        "path": "src/Data.Sqlite/NativeWeave.Database.Sqlite.csproj",
+        "sha256": "c0cb471c78ed8d99c347af405d45baf4ca5f94a7baa940fcb831be5d9aa09459",
+        "gitBlobSha1": "56750291b8a073990be4a176c56ff9c689b04517"
+      },
+      {
+        "path": "src/Server.Native/NativeCodec.cs",
+        "sha256": "52e0af0d3edc79d259f89424cfa8705b1a08e052ca7122a6c8c4cb0324cf855f",
+        "gitBlobSha1": "c180d2d327af754f5f27e8e7a51c52f0a51883a4"
+      }
+    ],
+    "candidateToolingBindings": [
+      {
+        "path": "eng/task07_native.py",
+        "sha256": "391608e6b43d88ac0c21fed3e0714934e706435f05a81cbfc8e35ba25109a5f6",
+        "gitBlobSha1": "a8e4b0664d1abb4ba013d1c56a989c2de05c6001"
+      },
+      {
+        "path": "eng/verify-task07-linux.sh",
+        "sha256": "014666d502e288ee6a247f8ba286ee6702c760e76f4de433bcaf83b88d28a0d6",
+        "gitBlobSha1": "9e3ff8123f33cb94c8b994976ce0e068c9112168"
+      },
+      {
+        "path": ".github/workflows/build.yml",
+        "sha256": "e756e5b50e15dd88903cf6e931bdd909a8db6bf5bb7ff0a90865a762ed3b250c",
+        "gitBlobSha1": "c7de59a2dae35ec0a1adff9cd356e489523a0579"
+      },
+      {
+        "path": "src/Packaging.Domain/model.py",
+        "sha256": "af9336d26efa955dd30e0320f16a55a642d9e1bed357c6522a79a4ae38d4f79a",
+        "gitBlobSha1": "141c0e1651439aeb4832d9eb50bab71a22ac871b"
+      },
+      {
+        "path": "src/Packaging.Domain/prepare.py",
+        "sha256": "24bae409a21c2ae7607d83a11e270dd15ac0c670afbbbe30989bed1dd4e2adbb",
+        "gitBlobSha1": "75e6fa618c8e95fa8070ee4afca6f25a849b6d03"
+      },
+      {
+        "path": "src/Packaging.Domain/inventory.py",
+        "sha256": "88119a21d754368c2dfc9a84c9ebad6a8f2ffb30a80c3aeea8c5882eebd2b445",
+        "gitBlobSha1": "b55afc5f780c34d1e2fe132ba66a58d261814abd"
+      },
+      {
+        "path": "tests/Packaging.Domain/release_cases.py",
+        "sha256": "daa6f2219052b85be61d8b6a3ab7695439c2b9341c3ce899ab13ab8ca5e7f851",
+        "gitBlobSha1": "d88ac29de62f451b4d30690e29a40a2af71acc5d"
+      },
+      {
+        "path": "tests/Packaging.Domain/test_release_results.py",
+        "sha256": "16e0ae6ccd7578bfa2ad231b2cbf18f89cd23a704c53a7cb5570480dc2496a77",
+        "gitBlobSha1": "d1b9f32f1cb7dd4e68fd51467d8151690e0d32f8"
+      }
+    ],
+    "receiptFixDeltaFromFd35": [
+      "eng/verify-task07-linux.sh",
+      "tests/Packaging.Domain/release_cases.py",
+      "tests/Packaging.Domain/test_release_results.py"
+    ]
+  },
+  "historicalL": {
+    "meaning": "L is the preserved accepted artifact family, not one interchangeable application hash. Its native modules are shared while B22 observer and B23 ordinary/diagnostic/comparator executables retain distinct identities.",
+    "nativeHashes": {
+      "libnativeweave_server.so": "dda62e0644be789980e39dc7081081fd6bd9d5a5f59438a52c208b141db180b8",
+      "libnw_database_postgresql.so": "4a59a5f8033bcb080838982f3e93da7ef1cad990d20fd746706558004780a800",
+      "libnw_database_sqlite.so": "09bb7fdf6246823b746e307ed39ee929521c46e8f6d4efc5c0364bffa11277d0"
+    },
+    "B22": {
+      "sqliteReceipt": {
+        "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-004-9402/receipt.json",
+        "sha256": "b760e2d93049dc5156da63a6b0d1a882ec06eed843f72bc36dfcf4690d63d390",
+        "bytes": 57193
+      },
+      "frozenControllerCommit": "44a6d7007aa94f18249e53bacae3db507f7fe39c",
+      "identitySha256": "0fe992209dc9afe5c46244629930327748bae08fb49b75f49db547981409d6db",
+      "profileSha256": "4328a6b9d272fb9350d189cb519e3905a885d7441a702a3f4ab0e744c424b571",
+      "applicationSha256": "d2d751c8f6927d3b9bcde8b3656c2c6b09171bf13e653e519781717b955b6f99",
+      "independentReview": {
+        "path": "/workspace/scratch/9402d6fb65e4/reviews/b22-sqlite004-independent-review.json",
+        "sha256": "55610b3c4ca7d7bd7f1ec37b8a92cd29c7e1ce7f745146243a8d557ea8c7478e",
+        "bytes": 13936
+      },
+      "reuse": "Accepted SQLite004 finite scope, separately accepted PostgreSQL finite scope and prior applicable short correctness/fault/retirement evidence remain attached to their original receipts. No duration or resource claim is transferred."
+    },
+    "B23": {
+      "report": {
+        "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/operating-point-cohorts-retirement-f889/report.json",
+        "sha256": "e1b0c55dfa0ea80a8153f2f2abfe8c60bdb2fa79dbc1a0965729613dc3dc57ce",
+        "bytes": 6785060
+      },
+      "cohorts": {
+        "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json",
+        "sha256": "d92580d30f96d70e2e9e99ebf36064629853689cf71b63a6ee0e9ff0e1a582ec",
+        "bytes": 204054
+      },
+      "frozenControllerCommit": "94060930b06d1da8978c0b71e1b8caa94abd7ec0",
+      "actualApplicationSource": "1566ea4260ddf53dd8314aa983a75c49025547ca",
+      "ordinaryAndComparatorArtifacts": {
+        "direct-rust": [
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/direct-rust-v2/nativeweave-b23-direct-rust",
+            "role": "runtime-executable",
+            "sha256": "d91489d80531b36414e03d09f2a1d76a9328fdadeaf1fca25b4e7bf0df05c337"
+          }
+        ],
+        "managed-aot": [
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/managed-aot-v2/NativeWeave.Benchmarks.ManagedComparator",
+            "role": "runtime-executable",
+            "sha256": "000fcef85e84759ca45e66597f41ccc990bd6b9353641433e07d48205f183d0b"
+          },
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b23-comparators/managed-aot-v2/libsqlite3.so",
+            "role": "native-module",
+            "sha256": "2b99b38b699d3834c39b1e38d089dade94f64f8beac82d2461217d81a251b654"
+          }
+        ],
+        "nativeweave-aot-rust": [
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/retirement-1566ea4-f889/artifacts/baseline-aot/attempt-002/NativeWeave.Reference.TaskService",
+            "role": "runtime-executable",
+            "sha256": "d1fec727ffa6e479aff5a4956b44e6e6936b5389f6d74d44ef17aeb52588b40c"
+          },
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/retirement-1566ea4-f889/artifacts/baseline-aot/attempt-002/libnativeweave_server.so",
+            "role": "native-module",
+            "sha256": "dda62e0644be789980e39dc7081081fd6bd9d5a5f59438a52c208b141db180b8"
+          },
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/retirement-1566ea4-f889/artifacts/baseline-aot/attempt-002/libnw_database_postgresql.so",
+            "role": "native-module",
+            "sha256": "4a59a5f8033bcb080838982f3e93da7ef1cad990d20fd746706558004780a800"
+          },
+          {
+            "path": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/retirement-1566ea4-f889/artifacts/baseline-aot/attempt-002/libnw_database_sqlite.so",
+            "role": "native-module",
+            "sha256": "09bb7fdf6246823b746e307ed39ee929521c46e8f6d4efc5c0364bffa11277d0"
+          }
+        ]
+      },
+      "instrumentedManifest": {
+        "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/instrumented-retirement-1566ea4-f889/manifest.json",
+        "sha256": "319d5016abdd34e3489d5d93de1305bf48ff0df06f99beff6a5b86961aaf3b8e",
+        "bytes": 62372
+      },
+      "instrumentedApplications": {
+        "Debug": {
+          "/workspace/scratch/58d2a6adf1c3/task07-b23/instrumented-retirement-1566ea4-f889/debug/NativeWeave.Reference.TaskService": "8c436142341a25bf8930ef00a053681592a7cb6dbe26383a2b1c33e79bfacc4a"
+        },
+        "Release": {
+          "/workspace/scratch/58d2a6adf1c3/task07-b23/instrumented-retirement-1566ea4-f889/release/NativeWeave.Reference.TaskService": "cf96c329a780d89f64e91e16902d1b3674a6c1cf38f6a8324dd8f48d5fcbcfba"
+        }
+      },
+      "independentReportReview": {
+        "path": "/workspace/scratch/b5930bb7157b/reviews/b23-final-report-review.json",
+        "sha256": "82bce5bd1120ce17141800fee142329a6f870241e6874498490907ad7a8889d1",
+        "bytes": 10135
+      },
+      "independentExecutionReview": {
+        "path": "/workspace/scratch/b5930bb7157b/reviews/b23-final-execution-readback.json",
+        "sha256": "11d5c2010fc04cb82eb81af655a139d5d69327da6838596f0cca45ec715ef69c",
+        "bytes": 18799
+      },
+      "reuse": "Application/route identities above are read from already independently accepted metadata. No executable, original measurement or benchmark matrix was rerun, relabelled or rehashed as a new execution."
+    },
+    "controllerVsProduct": "B23 controller commit9406093 is not a substitute for the corrected application source1566ea4. Comparing product behavior to the older controller checkout alone would incorrectly treat the previously accepted transaction-retirement correction as a new C change.",
+    "nativeBuildProvenance": {
+      "retainedManifest": {
+        "path": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/maintainer-environment.json",
+        "sha256": "e3a606037842ebdd58590e11580e71f175487015544cb777acf26abfcbf46eb6",
+        "bytes": 2911
+      },
+      "sourceCommit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+      "sdk": "11.0.100",
+      "rust": "1.100.0",
+      "clang": "19.1.7",
+      "cargoCommands": [
+        {
+          "cwd": "/workspace/scratch/58d2a6adf1c3/NativeWeave",
+          "env": {
+            "CARGO_TARGET_DIR": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/cargo-target",
+            "CARGO_BUILD_JOBS": "2"
+          },
+          "argv": [
+            "cargo",
+            "build",
+            "--locked",
+            "--release",
+            "-p",
+            "nativeweave-database-host",
+            "-p",
+            "nativeweave-server",
+            "--no-default-features",
+            "--features",
+            "nativeweave-database-host/sqlite"
+          ],
+          "exit_code": 0
+        },
+        {
+          "cwd": "/workspace/scratch/58d2a6adf1c3/NativeWeave",
+          "env": {
+            "CARGO_TARGET_DIR": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/cargo-target",
+            "CARGO_BUILD_JOBS": "2"
+          },
+          "argv": [
+            "cargo",
+            "build",
+            "--locked",
+            "--release",
+            "-p",
+            "nativeweave-database-host",
+            "--no-default-features",
+            "--features",
+            "postgres"
+          ],
+          "exit_code": 0
+        }
+      ]
+    }
+  },
+  "sourceApplicabilityReasoning": [
+    "Native Rust source, Cargo dependency locks, native profile and global build configuration are identical by Git comparison to the original accepted native baseline. ABI/bootstrap/capability tables and the native owner/cancellation/request paths therefore have no source change in this snapshot.",
+    "The accepted corrected reference service and all other product paths are unchanged relative to1566ea4 except the four reviewed private package-version paths. Previously accepted transaction-owner retirement corrections are retained.",
+    "Provider descriptors now take their own facade AssemblyInformationalVersion without its source-revision suffix; generated output records use the same Version property. Server performs its private assembly lookup during existing lazy descriptor creation, without initializing ServerDiagnostics.",
+    "These changes intentionally alter package identity and fail closed when required metadata is absent. They do not change public signatures, request loops, database/query operations, cancellation or owner retirement. They are not claimed to have zero initialization cost; old performance numbers remain L-only.",
+    "New native leaf topology, versioned packaging, source/license manifests, strict validator calls, consumer samples and CI orchestration are B24 packaging/verification changes. Their own actual C package/runtime/upgrade/rollback evidence is required; historical L package/runtime results do not validate different C archives.",
+    "The receipt fix changes evidence commit semantics only. The exact independently reviewed source and focused regression permit CI execution; they are not product execution or a historical workload replay."
+  ],
+  "candidateC": {
+    "definition": "One final local-only CI domain candidate with its declared previous/candidate17-package closures, exact native/archive/AOT identities and direct B24 consumer evidence. The eight common archives are preserved within that pair; historical preview identities are not overwritten.",
+    "ciRunReportedByRoot": "44346015005",
+    "remotePrHeadReportedByRoot": "c72004e7d9ffeb092cf4f494275ef58ca622697f",
+    "remotePrHeadExactTreeReportedByRoot": "212ba128dc25c47933a41e16c4d6434a23de5416",
+    "possibleSyntheticMergeReportedByRoot": "c2dbf1f2a66306ff2a83a608277a3cfe76ce86e9",
+    "actualCiCheckoutCommit": null,
+    "actualCiTree": null,
+    "nativeBuildManifest": null,
+    "preparedManifest": null,
+    "releaseTerminalReceipt": null,
+    "runtimeTerminalReceipt": null,
+    "identityRule": "Read actual sourceCommit from CI manifests/logs and read back that checkout tree. Existing ci.yml/build.yml uses github.sha for PR workflow execution, so C may be the synthetic merge checkout. Do not require C.sourceCommit to equal the PR head or local GitData-equivalent commit.",
+    "treeRule": "If actual C checkout tree matches212ba128dc25c47933a41e16c4d6434a23de5416, this exact reviewed source snapshot applies. Otherwise review only relevant source/build differences against this snapshot. Bind package/native source metadata to the actual observed checkout; preserve existing workflow semantics.",
+    "laterMainRelease": "The eventual main merge and Release build have their own actual commit/tree/artifact identities. A PR synthetic merge receipt cannot be silently relabelled as a later main build.",
+    "localPreflight": "Producer-preflight-9402-002 is local producer evidence with reused native inputs; it is not final CI C and does not substitute for C receipts.",
+    "historicalExecutionArtifact": "L",
+    "applicabilityToC": "conditional-reviewed-source-build-bridge",
+    "directB22B23ExecutionOnC": false,
+    "nativeByteEqualityWithL": "not-assumed; compare actual C hashes when available",
+    "numericMeasurementTransfer": false,
+    "finalAcceptance": "pending_actual_C_manifests_and_existing_direct_B24_receipts"
+  },
+  "existingCompletionReadbackForC": [
+    "Bind actual CI checkout commit/tree, clean native source input map, Cargo.lock, target/CPU, two selected no-default-feature profiles and actual compiler-artifact records. Reuse the already-approved native-builder source review; do not substitute workspace-unified outputs.",
+    "Record actual C Rust/Cargo/SDK/compiler/linker identity and ELF dependency/glibc/ABI/capability profile. L and C tools/build environment or artifact hashes are not assumed identical. Review any observed material difference in its affected scope; a byte difference alone does not demand a historical matrix replay.",
+    "Bind final source/package/native identities through the two complete17-ID manifests and existing strict closure/package validators, including new private versions, unchanged common archives within the pair and immutable native leaf payloads.",
+    "Use actual pristine SDK JIT/AOT, independent/combined graph, ordinary managed-edit/native-sameness, compatibility negatives, real local publication/readback/resume/conflict, fresh-process rollback and Noble runtime transfer receipts for C. Same-artifact provider parameters avoid needless provider-by-protocol rebuilds.",
+    "Require the terminal release marker and actual successful process/CI outcome, now corrected by5b7f20b. Do not credit partial cases or a stale evidence index as a completed C gate.",
+    "Append final observed C identities to a new immutable completion record when available. Preserve this conditional source record and all exact L references; no source/byte/measurement equivalence is invented."
+  ],
+  "reusedReviews": [
+    {
+      "path": "/workspace/scratch/b5930bb7157b/reviews/b24-final-candidate-scope-b593.json",
+      "sha256": "0c0f9d0be2a0420b417357dd49a8e66531aeff1696fbc04f74e524b54c87ebaf",
+      "bytes": 6900
+    },
+    {
+      "path": "/workspace/scratch/b5930bb7157b/reviews/b24-private-version-source-review.json",
+      "sha256": "c857aef7caf812e7d82ae5f560060cda903a7125981b55fccfb4c93440a46d5c",
+      "bytes": 2222
+    },
+    {
+      "path": "/workspace/scratch/b5930bb7157b/reviews/b24-native-builder-source-review.json",
+      "sha256": "bdae0595cea972b76e17cc08e80af81b8312423ba1001b9f8c9e1f8d85a34b9f",
+      "bytes": 1776
+    },
+    {
+      "path": "/workspace/scratch/9402d6fb65e4/reviews/b24-ci-artifact-bridge-review.json",
+      "sha256": "7dea4326e0b2e15c4d8de06bd1a81bd273dcb49e13867a7b066e70f90c3b818f",
+      "bytes": 10747
+    },
+    {
+      "path": "/workspace/scratch/9402d6fb65e4/reviews/b24-notice-runtime-delta-readback-9402.json",
+      "sha256": "d09911ab4cbc84c74be7655219f4c14f0a355a5e134aeebc28cd38dc91835b93",
+      "bytes": 11815
+    },
+    {
+      "path": "/workspace/scratch/9402d6fb65e4/reviews/b24-release-result-independent-review-9402.json",
+      "sha256": "6e03144c760b310084759658f4c40b320fa42b78b764a05df2eb9890c8d9194c",
+      "bytes": 5043
+    }
+  ],
+  "boundaries": {
+    "newAcceptanceGate": false,
+    "secondFullLocalAndCiMatrixRequired": false,
+    "historicalMatrixRerunRequested": false,
+    "hours24": "user-deferred-not-executed",
+    "hours72": "user-deferred-not-executed",
+    "publicDomainReleaseAccepted": false,
+    "positiveNewDomainSignerAuthenticated": false,
+    "publicPublisher": "Existing HelloWorld-only path remains separate.",
+    "b23NumericDataEgress": "No original or projected numeric observation is embedded in this source/hash record. The explicit approval block on110 numeric files remains in force; no upload or alternative egress is proposed."
+  }
+}

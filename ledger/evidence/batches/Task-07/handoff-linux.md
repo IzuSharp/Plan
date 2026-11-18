@@ -11,7 +11,7 @@ Existing accepted executions are reused; no B22 or B23 workload is restarted.
 | B21 | Accepted original evidence and transaction-retirement correction | None |
 | B22 | Accepted SQLite004 and PostgreSQL 30-minute load plus 60-second idle | Preserve original identities |
 | B23 | Accepted finite report: 468 valid processes, 30 cases, independent readback | Detailed numerical remote publication is separately blocked |
-| B24 | Producer preflight passed; actual consumer source implemented | Finish package/pristine/runtime/compatibility/rollback execution and review |
+| B24 | Reviewed source and finite development checks passed; formal CI running | Read the exact active CI; do not launch a duplicate validation |
 
 The 24-hour and 72-hour rows remain deferred and **not executed** by user
 direction. Other platforms and public domain publication remain deferred.
@@ -40,8 +40,14 @@ The targeted producer preflight generated both seventeen-package closures with
 filename mapping and a license-directory collection defect. This development
 preflight does not establish pristine consumer or full B24 acceptance.
 
-The existing Linux CI row is being completed with the pinned SDK/no-Rust and
-Noble runtime-only container paths. The final candidate needs its own direct
+The existing Linux CI row is running the pinned SDK/no-Rust and Noble
+runtime-only paths in [CI44346015005](https://github.com/IzuSharp/NativeWeave/actions/runs/44346015005).
+The PR head is `c72004e7d9ffeb092cf4f494275ef58ca622697f`; its synthetic merge
+`c2dbf1f2a66306ff2a83a608277a3cfe76ce86e9` has the same reviewed source tree
+`212ba128dc25c47933a41e16c4d6434a23de5416`. Bind the actual producer manifest
+to its real checkout; do not substitute the PR head for a merge identity.
+[Source reviews](../../B24/linux-candidate-9402/source/source-review-index.json)
+include the consumer review and the corrected terminal receipt semantics. The final candidate needs its own direct
 package and execution evidence. Historical B22/B23 measurements retain their
 original artifacts and require the reviewed source/build applicability bridge;
 they are not relabeled as measurements of a later build.
