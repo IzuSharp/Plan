@@ -1,5 +1,51 @@
 # Task-07 Linux x64 handoff
 
+## Active continuation b593 (2026-11-18)
+
+This section supersedes every historical current-work and next-step statement
+below. The exact current record is [recovery-b593.json](recovery-b593.json).
+
+| Task | Current user-scoped Linux state | Next step |
+| --- | --- | --- |
+| B21 | Accepted; original evidence and transaction-retirement correction reused | None |
+| B22 | Accepted for the amended finite scope; SQLite004 and PostgreSQL each passed 30-minute load plus 60-second idle | Preserve final review; do not rerun |
+| B23 | Frozen finite plan running in its exclusive timing window | Complete declared cohorts and independently review the honest report |
+| B24 | Read-only preparation complete; implementation not started | Start after scoped B23 acceptance |
+
+SQLite004 completed 1,800.006548833 seconds of load and 60.000962899 seconds of
+idle, with 7,194 completed logical operations and six deliberate cancellations.
+The independent reviewer rechecked exact identities, all recorded trends and
+final retirement, including 1,680 classified thread inventories and 247 input
+hashes, with no blocking finding. See the
+[SQLite final review](../../B22/sqlite004-final/independent-summary.json).
+PostgreSQL's accepted result remains reused without a new execution.
+
+The 24-hour and 72-hour stages remain deferred and not executed by user
+direction. Other platforms and public domain package publication remain
+deferred. Only the existing HelloWorld preview publication is in scope.
+
+B23 started at 2026-11-18T14:01:25Z, owned by `/root/b23_finish`, retained exec
+`97908`. Preserve the unique existing launcher output; never start a second
+cohort over it. Current state is
+`ROOT/task07-b23/root-launch-retirement-f889/launch.json` and
+`ROOT/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json`.
+The full frozen plan has no automatic retries or post-outcome tuning.
+
+Root integration uses `ROOT/.worktree/Task-07-final-b593-linux/{NativeWeave,Plan}`
+on local `task/Task-07-final-b593-linux`. Remote destinations remain
+`task/Task-07-linux`, NativeWeave PR18 and Plan PR22. Exact recovered remote
+trees match local roots: implementation `8ed256abaef9acc3454ddfbde570c011744fd8b0`
+and Plan `827bb6d5d3b05a79a7566aef5d891ae688037d43`.
+
+Both PRs remain Draft. No merge or postmerge preview success is yet claimed.
+Original full local evidence and failed/interrupted attempts are preserved.
+This checkpoint contains authored result/hash summaries; it does not retry the
+earlier rejected raw/trace uploads or claim those payloads were uploaded.
+
+Next: finish and review B23; execute B24's existing 17-package Linux closure,
+consumer, compatibility and rollback requirements; then complete the existing
+PR merges, main CI and normal HelloWorld preview closeout. Stop at Task-07.
+
 ## Active continuation 9402 (2026-11-18)
 
 This section and [recovery-9402.json](recovery-9402.json) supersede all older current-work

@@ -1,5 +1,31 @@
 # B23 Linux checkpoint
 
+## Current continuation — 2026-11-18
+
+The user-scoped B22 Linux gate has closed: both frozen 30-minute provider rows
+and final 60-second idle observations passed independent review. The user
+deferred 24-hour/72-hour execution; those rows remain unexecuted and do not
+block this scoped continuation.
+
+The independently reviewed finite operating-point plan started at
+2026-11-18T14:01:25Z under `/root/b23_finish`, retained exec `97908`. Its exact
+request SHA-256 is
+`d11abdbc8e01bd0180e9a9bb556db227c9599706eba56b5a89bc663f145f67ff`;
+all 169 input hashes matched before launch. The controller remains
+`94060930b06d1da8978c0b71e1b8caa94abd7ec0`. The active launcher record is
+`ROOT/task07-b23/root-launch-retirement-f889/launch.json`, with the execution
+receipt in the same directory. Cohort state is
+`ROOT/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json`.
+
+The plan bounds search to 72 processes, calibration to 198 and eligible
+confirmation to 198. Failed and unsupported cells remain explicit report
+outcomes; no outcome-driven retry or threshold change is allowed. B23 owns
+the exclusive local timing window. Original 200/s adverse results remain
+unchanged and are not relabeled by a lower-rate observation. B24 implementation
+continues to wait for the completed, independently reviewed B23 report.
+
+## Historical checkpoint — retained unchanged
+
 The ordinary three-route implementations, profile/controller, diagnostics and
 reporter are complete. Final B23 acceptance remains gated by B22 correctness and
 all declared durations. The batch handoff records exact worktrees/commits/PRs.
