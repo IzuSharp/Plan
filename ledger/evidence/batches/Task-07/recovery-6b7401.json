@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "platform": "linux-x64",
+  "implementation_branch": "task/Task-07-linux",
+  "plan_branch": "task/Task-07-linux",
+  "recovery_worktree_branch": "task/Task-07-recovery-6b7401-linux",
+  "original_implementation_local_commit": "bcf9795df785207e07a27a15509ffbb3f9ea756a",
+  "original_implementation_remote_commit": "11f9eceb86dd4f9c69fc975db6eb8b3ab40db2cf",
+  "implementation_equal_tree": "791cd91b7907dab253c0e5f48893d03c015684d2",
+  "original_plan_local_commit": "b60b3b969cf36dcba601205bbb8ae8fc28ef03fb",
+  "original_plan_remote_commit": "e4c7e8bff57a999778db07ee1f4235c61afa63aa",
+  "source_recovery": "Concurrent previous-session writes were observed; new work uses isolated recovery worktrees. Existing branches and original raw evidence remain unchanged.",
+  "binary_upload_status": "blocked_by_automatic_approval_review",
+  "blocked_binary_paths": [
+    {
+      "path": "ledger/evidence/B22/soak-probe-002/runtime.nettrace.gz",
+      "sha256": "79ca0092fb2d509edd470f982c3a68dfc04c4083c676f005c0109b33ba5e9f0f",
+      "bytes": 23391
+    },
+    {
+      "path": "ledger/evidence/B23/calibration-001-archive/raw-evidence.tar.gz",
+      "sha256": "ef90cbc98128c7ba2466a9ca5371c7c8c59342ae6cce9a9f203dff83e2308c6e",
+      "bytes": 11399333
+    }
+  ],
+  "automatic_review_reason": "The external repository upload was rejected as potentially sensitive binary egress. Decompression, member inventory and secret-pattern inspection did not obtain approval on the follow-up trace upload. No workaround or alternate destination is used.",
+  "payload_inspection_summary": {
+    "archive_files": 684,
+    "archive_types": [
+      "jsonl",
+      "log",
+      "json",
+      "py"
+    ],
+    "private_config_key_database_files_present": false,
+    "credential_pattern_hits_in_runtime_data": 0,
+    "authorization_keyword_matches": "Only source code concatenating a generated test bearer token and an operator timing-authorization note; no request credentials were in these matches.",
+    "trace_compressed_bytes": 23391,
+    "trace_decompressed_bytes": 94078,
+    "limitation": "Pattern checks are not a proof of absence of every sensitive value; raw payload upload remains blocked."
+  },
+  "persistence_scope": "Only independently reviewed source/review/status text is eligible for the new safe checkpoint. Blocked raw payloads and the full original b60b3b9 checkpoint are retained locally, not claimed remotely persisted.",
+  "b21": "accepted_component_linux, unchanged",
+  "b22": "existing short validation retained; calibration002 stopped at453.459s and003 at535.608015815s; no full30m/24h/72h stage",
+  "b23": "repair7e75906 under independent review; original failures retained; fresh diagnosis in progress",
+  "b24": "not_started, awaits B22 and B23"
+}

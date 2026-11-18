@@ -12,7 +12,7 @@ this platform ledger records the authorized product work. Design is read-only.
 | --- | --- | --- | --- | --- |
 | B21 | accepted_component_linux | b21_service; root integration/tests; independent task07_requirements/controller reviews | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
 | B22 | implementation_in_progress | task07_requirements external faults/soak; root public API/transport composition | B21: satisfied | None |
-| B23 | implementation_in_progress | linux_environment controller/report; b21_service comparators | B21; A21: satisfied | B22: pending |
+| B23 | verification_blocked_on_adverse_diagnosis | linux_environment controller/report; b21_service comparators | B21; A21: satisfied | B22: pending |
 | B24 | waiting_for_B22_B23 | root | B22, B23 | A16, A22, B18, B19: satisfied on Linux |
 
 All completed dependencies are inherited from their existing records, without
@@ -216,24 +216,64 @@ must be coordinated: fault stress cannot contaminate performance measurements.
   runtime controls, zero lost trace events and final owner retirement. It is
   **not frozen**. Review requires fresh per-window GCHeapStats anchors and a
   post-sampling dispatch clock check before a corrected calibration is frozen.
-- No30-minute,24-hour or72-hour stage has completed. B23 timed calibration
-  has started under frozen92f9e6b in an isolated window; results are pending.
-  Fault/soak application load and builds remain paused during this window.
+- No30-minute,24-hour or72-hour stage has completed. The B23 isolated
+  calibration at92f9e6b is now interrupted:95 completed rows, the96th incomplete,
+  and102 not run. See the adverse checkpoint below. No confirmation ran.
 
 All retained short-run files and portable archives are inventoried in
 [checkpoint-preservation-002](checkpoint-preservation-002.json). Private configs,
 ephemeral keys/databases and rebuildable executables are excluded; their exact
 identities and reconstruction commands remain in the receipts.
 
-The last transported implementation checkpoint is remote
-`a2eb40a920799f60eac9eeda7a1a7bbafbd5fff9`, identical tree to local `6c8d125`,
-with [passing CI44253832670](https://github.com/IzuSharp/NativeWeave/actions/runs/44253832670).
-The last transported Plan checkpoint is remote
-`a2aa76a732f8206fda537aba1a61b6e7a2fb720b`, identical tree to local `6d2bd64`,
-with [passing CI44254156163](https://github.com/IzuSharp/Plan/actions/runs/44254156163).
-The current short-validation/pre-measurement stage is queued for transport to
-those same batch branches/PRs; the next checkpoint will record its exact heads.
+The transported implementation checkpoint is remote
+`5ba50435e4bf8298b13a344fd79f8b6e44300efb`, identical tree to local `2783e18`,
+with [passing CI44259221284](https://github.com/IzuSharp/NativeWeave/actions/runs/44259221284).
+The transported Plan checkpoint is remote
+`e4c7e8bff57a999778db07ee1f4235c61afa63aa`, identical tree to local `5cd8057`,
+with [passing CI44261121011](https://github.com/IzuSharp/Plan/actions/runs/44261121011).
+[Transport identities](transport-checkpoint-003.json) preserve the exact trees.
 Both PRs remain Draft. No Task-07 merge or postmerge publication has occurred.
+
+### Adverse measurement and corrected resource-source checkpoint
+
+B23's original frozen198-process calibration retained95 completed rows before
+the96th encountered an actual replay500/unequal-body outcome. The adapter emitted
+`ok` with the mismatched fields; A21 correctly rejected the functional result,
+but its reader/cleanup path stalled beyond the declared operation/cleanup bounds.
+The original execution session was interrupted with Ctrl-C and returned130.
+Individual orphaned child exit or native retirement is **not** inferred from that
+session result. The [interruption record](../../B23/calibration-001/interruption.json)
+retains the exact pre-seal summary, raw mismatch and unfinalized application;
+the remaining102 rows were not run. The [portable archive](../../B23/calibration-001-preservation.json)
+preserves684 files and the exact frozen measurement source bundle (11,399,333
+compressed bytes); no unavailable original response bytes are reconstructed.
+
+The completed rows also contain backlog-cap and dispatch-lag invalidities, plus
+two unexpected create500 rows. Exact failed keys have no durable operation and
+acknowledged effects reconcile; unsuccessful response headers/body were not
+retained by the original adapter. [Diagnostic replay inputs](../../B23/adverse-replay-001/replay-recipes.json)
+record this limitation without inventing response bytes or bitwise replay.
+The prior B22 SQLite busy fixture shows that a provider failure can become generic
+HTTP500, but it does not establish the cause of these new benchmark outcomes.
+
+Required fixes remain in B23-owned code: validate complete business outcomes
+before emitting success, preserve bounded failed-response evidence, and supervise
+cells externally so A21 cleanup cannot hang the package controller. A21 source
+is unchanged. No lower-rate profile may hide the original failures, and no
+confirmation/performance benefit claim is permitted before diagnosis. Valid
+unrelated data remain preserved; a separately reviewed provenance mechanism is
+required if independent complete cohorts are reused.
+
+B22 resource source `cb603c1` and `984b9ee` are integrated as `1e9dd94` and
+`bcf9795`. [Independent source closure](../../B22/soak-independent-review/source-review-984b9ee.json)
+closes representative240s-load/60s-idle calibration, separate qualified post-GC
+native baseline, complete directly executed input/mode identity, final hash
+rechecks, and independent four-slot attachment metadata/blob oracles. These are
+source fixes. Observer006/TraceReader builds and the corrected8.006-second
+SQLiteAOT probe subsequently passed, including exact attachment state and both
+input rechecks. A fresh900-second calibration is now separately scheduled while
+B23 performs source-only controller repairs; it remains unaccepted until complete
+and reviewed. Original200-second results retain their509a373 identity.
 
 B23 final acceptance waits for B22.
 B24 starts only after B22 and B23 finish.
@@ -247,11 +287,57 @@ acceptance and B24 unaccepted.
 Windows and every other platform are deferred outside this run. No all-platform
 acceptance or subsequent task package is authorized by this record.
 
+
+### Recovery continuation 6b7401
+
+The previous session's source work and accepted B21/short B22 results are reused.
+Concurrent old-session writes were observed in the original B22/B23 recovery
+locations. The current root uses `task/Task-07-recovery-6b7401-linux` in
+`ROOT/.worktree/Task-07-recovery-6b7401-linux/`, with separately suffixed B22/B23
+worker worktrees. The original branches and raw output directories are preserved.
+The original batch branches and PR18/PR22 remain the remote delivery destinations.
+
+Implementation remote `11f9eceb86dd4f9c69fc975db6eb8b3ab40db2cf` and local
+`bcf9795df785207e07a27a15509ffbb3f9ea756a` have the same tree
+`791cd91b7907dab253c0e5f48893d03c015684d2`;
+[CI44264344510](https://github.com/IzuSharp/NativeWeave/actions/runs/44264344510)
+passed. Plan local `b60b3b969cf36dcba601205bbb8ae8fc28ef03fb` is ahead of the last
+transported checkpoint. Automatic approval review rejected raw binary evidence
+uploads, including the runtime trace and original calibration archive. A second
+trace attempt after content inspection was also rejected. No alternate egress
+path is used. The exact blocked payload hashes and the scope of the safe text-only
+checkpoint are recorded in [recovery-6b7401.json](recovery-6b7401.json). Raw payloads
+remain in the original local task worktrees and execution directories; this text
+checkpoint does not claim they are remotely preserved.
+
+B22 calibration002 stopped at453.459 seconds and003 at535.608015815 seconds.
+Neither completed900 seconds or final trace/retirement analysis, and neither is
+credited to a fresh process. The prepared calibration004-6b7401 uses a retained
+live execution session; its completion is not assumed. A finite detached-process
+probe found that ending the originating executor invocation also ended its child.
+No durable multi-day execution host has yet been established.
+
+B23 controller repair `7e75906f688ed8864ea206a72e1b22dc4d048e35` passed17 focused
+controller tests. Independent review found two further failure-recording gaps;
+the supplement is in progress. A new same-native-byte diagnostic reproduced both
+create500 and replay500 at the original offered rates. An observation-only AOT
+copy identified `DatabaseException(Provider,5)`, SQLite `SQLITE_BUSY`, at matching
+request hashes. Confirmed durable effects reconciled and shutdown joined. These
+are bounded diagnostic results, not valid performance measurements. The historical
+individual failures still lack exception evidence and are not retroactively proven.
+The first observer build was interrupted after automatic approval rejected an
+action as metadata-network risk. A separate demonstrably offline build, with an
+inherited syscall network denial and a positive control, succeeded without a restore.
+
+B21 remains accepted on Linux. B22 long-duration evidence, final B23 acceptance,
+and B24 remain incomplete. Both PRs remain Draft; no Task-07 merge or postmerge
+preview has occurred. Windows and other platforms are outside this recovery.
+
 ## Next step
 
-Finish the narrow B23 contract preflight and independent closure, then execute
-its isolated calibration/confirmation windows. Freeze B22 resource thresholds
-only after corrected actual calibration and independent review, and execute
-the real30m/24h/72h profiles with durable progress. Transport each completed
-stage to the same branches/PRs. B24 remains unstarted until B22 and B23 finish;
-the multi-day soak is not waived.
+Complete B23 bounded outcome/evidence/supervision fixes and independently classify
+the actual SQLite500/replay mismatch using the same native product bytes in a
+fresh isolated diagnostic execution. Build/probe the corrected B22 observer, then
+coordinate its900-second calibration and real30m/24h/72h profiles with subsequent
+performance windows. Preserve original adverse data. Transport each stage to the
+same branches/PRs. B24 remains unstarted; the multi-day soak is not waived.
