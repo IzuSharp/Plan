@@ -13,8 +13,8 @@ The immutable Design inputs and historical evidence are unchanged.
 
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
-| B21 | Accepted; reused without rerun | None |
-| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental role-based FD validation is in progress before new full30-minute stages; 24h/72h not executed by user direction |
+| B21 | Original Linux acceptance reused; newly observed transaction ownership omission under correction | Narrow disposal fix and affected-path regression; no historical matrix rerun |
+| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; first steady attempts failed their frozen FD caps (PostgreSQL201.355s:25>24; SQLite1353.353s:28>27). Supplemental FD profiles are reviewed; PG002 failed at320.603s (session9>6;registry10>7). A reference transaction-disposal omission is confirmed; SQLite002 is being stopped as superseded. Corrected observed artifact, narrow regression and new calibrated30-minute stages are required; 24h/72h not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -41,8 +41,10 @@ remains unaccepted: runtime tracing buffered events until shutdown and the
 buffer-size setting did not encode the documented value. The B22-owned
 observation correction streams trace output during execution and explicitly
 encodes 64 MiB. Its short probe demonstrates live trace growth and retirement;
-fresh calibration is still required before freezing thresholds. No product
-memory-leak conclusion is inferred from that observation-only finding.
+both fresh provider calibrations subsequently completed and their thresholds were
+independently frozen. No product memory-leak conclusion is inferred from that
+observation-only finding. Later steady attempts exposed separate count-only
+threshold limitations, retained below.
 
 B23's original adverse rows remain immutable. The repaired controller and
 finite diagnosis bind the reproduced create/replay failures to SQLite
@@ -71,6 +73,33 @@ The original B22 launch record is
 `ROOT/task07-runs/b22-streaming-steady-launch-001-f889/live-session.json`;
 per-provider progress is in `b22-streaming-steady-{sqlite,postgresql}-001-f889`.
 Do not restart an active process or count an interrupted partial duration as passed.
+
+[Supplementary FD evidence and approvals](../../B22/fd-supplements-f889/index.json)
+retain the exact diagnostic scripts, typed descriptor observations, original
+failures, unsuccessful first disk-size barrier and SQLite control qualification.
+PostgreSQL independently bounds retained pool sockets and requires zero accepted
+HTTP/staging-file owners at live idle; SQLite separately bounds business and
+consumer main/WAL/SHM owners. All other calibrated limits and the ordinary soak
+controller are unchanged. Second attempts are
+`b22-streaming-steady-{postgresql,sqlite}-002-f889`; `-descriptors` siblings retain
+exec-session/PID/start-tick identities. Both ordinary and external receipts must
+pass before final review. PG002 subsequently failed at320.603 seconds on the
+unchanged native consumer-session owner cap (session9>6;registry10>7); this is under source/lifetime
+review and is not retrospectively passed. Independent source review identified
+undisposed owned DataTransaction wrappers in OutboxWorker.ClaimAsync/PublishAsync,
+Maintenance.MaintainAsync and the unprotected CreateAsync branch. Commit establishes
+outcome but does not release the transaction SafeHandle/retained Session Arc.
+The B21-owned correction preserves nonblocking disposal and protected transfer;
+it does not broaden native-owner caps. SQLite002 is gracefully stopped as an
+old-artifact attempt, with no partial-duration credit. The corrected observed AOT
+artifact needs only the affected normal/dedup/maintenance and Unknown/protection
+regressions, then fresh provider calibration and full30-minute stages. Original
+B21/API/fault evidence remains valid for its recorded original scope.
+Integrated monitor source is remotely retained at
+`dfe7beaa65c2ddc820ee1f3ecd838dc5b5868c1e` (exact tree
+`66baf6260229626ab2d028b91e0e30a9c2447afe`). B23 remains ready and does not run
+its timed workloads in this B22 window. B24 still waits for both start dependencies.
+
 
 
 ## Scope and current state
