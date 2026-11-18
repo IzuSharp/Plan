@@ -1,65 +1,58 @@
 # Task-07 Linux x64 handoff
 
-## Active continuation b593 (2026-11-18)
+## Current delivery continuation 9402 (2026-11-18)
 
-This section supersedes every historical current-work and next-step statement
-below. The exact current record is [recovery-b593.json](recovery-b593.json).
+This section supersedes historical current-work statements below. The exact
+current record is [recovery-delivery-9402.json](recovery-delivery-9402.json).
+Existing accepted executions are reused; no B22 or B23 workload is restarted.
 
-| Task | Current user-scoped Linux state | Next step |
+| Task | Current user-scoped Linux state | Remaining action |
 | --- | --- | --- |
-| B21 | Accepted; original evidence and transaction-retirement correction reused | None |
-| B22 | Accepted for the amended finite scope; SQLite004 and PostgreSQL each passed 30-minute load plus 60-second idle | Preserve final review; do not rerun |
-| B23 | Accepted finite Linux report: all 468 processes and 30 cases independently checked | Persist reviewed compact numeric evidence; no rerun |
-| B24 | Implementation started after independent B23 scoped acceptance | Assemble and verify the exact 17-package candidate and pristine consumers |
+| B21 | Accepted original evidence and transaction-retirement correction | None |
+| B22 | Accepted SQLite004 and PostgreSQL 30-minute load plus 60-second idle | Preserve original identities |
+| B23 | Accepted finite report: 468 valid processes, 30 cases, independent readback | Detailed numerical remote publication is separately blocked |
+| B24 | Producer preflight passed; actual consumer source implemented | Finish package/pristine/runtime/compatibility/rollback execution and review |
 
-SQLite004 completed 1,800.006548833 seconds of load and 60.000962899 seconds of
-idle, with 7,194 completed logical operations and six deliberate cancellations.
-The independent reviewer rechecked exact identities, all recorded trends and
-final retirement, including 1,680 classified thread inventories and 247 input
-hashes, with no blocking finding. See the
-[SQLite final review](../../B22/sqlite004-final/independent-summary.json).
-PostgreSQL's accepted result remains reused without a new execution.
+The 24-hour and 72-hour rows remain deferred and **not executed** by user
+direction. Other platforms and public domain publication remain deferred.
+Only the existing HelloWorld preview publication is in scope.
 
-The 24-hour and 72-hour stages remain deferred and not executed by user
-direction. Other platforms and public domain package publication remain
-deferred. Only the existing HelloWorld preview publication is in scope.
+The unchanged [B23 authored report](../../B23/finite-final-b593/report-linux.md)
+and its independent reviews are preserved here. NativeWeave is slower than
+direct Rust beyond measured noise in 13 of 18 matched ordinary cases; four are
+inconclusive and one is within the band. Adverse results are retained without
+post-result tuning or a universal performance advantage claim.
 
-B23 finished at 2026-11-18T15:00:35Z with 72 search, 198 calibration and
-198 confirmation processes, all valid. Independent review recomputed all
-histograms and confidence intervals and accepted the exact report. See the
-[scoped report acceptance](../../B23/finite-final-b593/b23-acceptance-summary.json).
-NativeWeave is slower than direct Rust beyond measured noise in 13 of 18
-matched ordinary cases; four are inconclusive and one is within the band.
-These adverse results are retained without post-result tuning. Full raw evidence
-remains preserved; compact numeric persistence is being completed separately.
-There is no active B23 workload to restart.
+[Persistence status](../../B23/finite-final-b593/persistence-status-9402.json)
+distinguishes the eleven authored report/review/metadata files from the retained
+local numerical datasets. Automatic approval rejected uploading a detailed
+confirmation observation. All further numerical uploads stopped. The complete
+121-file local tree remains at Plan `4098fd651437609c247e48f8f43953b7359ffcab`;
+110 numerical files, including `conclusions.json`, are excluded from this report
+checkpoint. Report references to accompanying datasets mean those retained local
+datasets. No complete remote numerical persistence is claimed.
 
-B24 now has separate producer and consumer authors plus an independent reviewer.
-The root integrates the small private version-binding patch and the existing
-Linux CI row. No B21/B22/B23 measurement is repeated for a routine same-source
-package rebuild. Final C still requires its own exact runtime/package evidence.
+B24 source now includes seventeen-package previous/candidate closures, three
+independent native leaves, six independent consumer graphs, ordinary C# edits,
+actual JIT/AOT paths, strict compatibility negatives and whole-closure rollback.
+The targeted producer preflight generated both seventeen-package closures with
+44 successful commands from clean source. It caught and corrected a real project
+filename mapping and a license-directory collection defect. This development
+preflight does not establish pristine consumer or full B24 acceptance.
 
-[Final-candidate applicability preparation](read-only-preparation/b24-final-candidate-scope-b593.json)
-clarifies B24's exact identity boundary. A new source-bound CI build may be the
-final local-only candidate, but its own complete package/pristine-consumer gates
-must test that exact candidate. Historical B22/B23 observations retain their
-original hashes and require independent source/build applicability review;
-they are not relabeled as measurements of the new build.
+The existing Linux CI row is being completed with the pinned SDK/no-Rust and
+Noble runtime-only container paths. The final candidate needs its own direct
+package and execution evidence. Historical B22/B23 measurements retain their
+original artifacts and require the reviewed source/build applicability bridge;
+they are not relabeled as measurements of a later build.
 
-Root integration uses `ROOT/.worktree/Task-07-final-b593-linux/{NativeWeave,Plan}`
-on local `task/Task-07-final-b593-linux`. Remote destinations remain
-`task/Task-07-linux`, NativeWeave PR18 and Plan PR22. Exact recovered remote
-trees match local roots: implementation `8ed256abaef9acc3454ddfbde570c011744fd8b0`
-and Plan `827bb6d5d3b05a79a7566aef5d891ae688037d43`.
-
+Root integration uses `ROOT/.worktree/Task-07-resume-9402-linux/NativeWeave` and
+`ROOT/.worktree/Task-07-delivery-9402-linux/Plan`. Predecessor worktrees and evidence
+are preserved. Remote destinations remain `task/Task-07-linux`, PR18 and PR22.
 Both PRs remain Draft. No merge or postmerge preview success is yet claimed.
-Original full local evidence and failed/interrupted attempts are preserved.
-This checkpoint contains authored result/hash summaries; it does not retry the
-earlier rejected raw/trace uploads or claim those payloads were uploaded.
 
-Next: persist B23's reviewed evidence; execute B24's existing 17-package Linux closure,
-consumer, compatibility and rollback requirements; then complete the existing
-PR merges, main CI and normal HelloWorld preview closeout. Stop at Task-07.
+Next: complete B24 and its independent review, final PR checks, normal merges,
+merged-main CI and HelloWorld-only preview registry consumption. Stop at Task-07.
 
 ## Active continuation 9402 (2026-11-18)
 
