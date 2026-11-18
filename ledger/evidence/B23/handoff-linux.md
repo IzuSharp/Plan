@@ -1,38 +1,44 @@
 # B23 Linux checkpoint
 
-## Current continuation — 2026-11-18
+## Current accepted finite report — 2026-11-18
 
-The user-scoped B22 Linux gate has closed: both frozen 30-minute provider rows
-and final 60-second idle observations passed independent review. The user
-deferred 24-hour/72-hour execution; those rows remain unexecuted and do not
-block this scoped continuation.
+The complete frozen plan finished at 2026-11-18T15:00:35Z: 72 search,
+198 calibration and 198 confirmation processes, all 468 valid, covering all
+30 declared cases and 66 report groups. The independent reviewer rechecked
+all process durability/closure receipts, all 468 A21 histograms, 36 route
+confidence intervals and eight diagnostic/DI confidence intervals. The
+[scoped acceptance](finite-final-b593/b23-acceptance-summary.json) satisfies
+B24's start dependency. The exclusive measurement window has ended; do not
+repeat the completed plan.
 
-The independently reviewed finite operating-point plan started at
-2026-11-18T14:01:25Z under `/root/b23_finish`, retained exec `97908`. Its exact
+The result is an accepted measurement report, not a speed-goal acceptance.
+Of 18 matched ordinary NativeWeave/direct-Rust cases, 13 have higher cost
+beyond the measured noise band, four are inconclusive and one is within the
+band. All adverse results remain visible. Historical A21 wording of
+“regression” compares routes; it does not establish a previous-release regression.
+Native allocator/FFI/copy attribution remains unavailable. Three process
+repetitions limit confidence precision; selected rates are not maximum capacity.
+
+The exact controller remains `94060930b06d1da8978c0b71e1b8caa94abd7ec0`;
 request SHA-256 is
-`d11abdbc8e01bd0180e9a9bb556db227c9599706eba56b5a89bc663f145f67ff`;
-all 169 input hashes matched before launch. The controller remains
-`94060930b06d1da8978c0b71e1b8caa94abd7ec0`. The active launcher record is
-`ROOT/task07-b23/root-launch-retirement-f889/launch.json`, with the execution
-receipt in the same directory. Cohort state is
-`ROOT/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json`.
+`d11abdbc8e01bd0180e9a9bb556db227c9599706eba56b5a89bc663f145f67ff`.
+The original source report SHA-256 is
+`e1b0c55dfa0ea80a8153f2f2abfe8c60bdb2fa79dbc1a0965729613dc3dc57ce`.
+The 72-process search selected the largest wholly valid declared rates once;
+its [checkpoint](finite-search-b593/search-checkpoint.json) preserves the
+selection and exact profile. Original 200/s adverse evidence is unchanged.
 
-The plan bounds search to 72 processes, calibration to 198 and eligible
-confirmation to 198. Failed and unsupported cells remain explicit report
-outcomes; no outcome-driven retry or threshold change is allowed. B23 owns
-the exclusive local timing window. Original 200/s adverse results remain
-unchanged and are not relabeled by a lower-rate observation. B24 implementation
-continues to wait for the completed, independently reviewed B23 report.
+Full raw measurements and all failed/interrupted predecessors remain local.
+Lossless allowlisted numeric exports are undergoing independent readback
+before persistence; this checkpoint does not claim those payloads are uploaded.
+The [continuation rules](finite-search-b593/continuation-semantics.md) remain
+historical recovery guidance. There is no active timed B23 process to restart.
 
-The [completed search checkpoint](finite-search-b593/search-checkpoint.json)
-records all 72 valid processes and eight completed units. Selection ended at
-2026-11-18T14:10:46Z and froze profile
-`baae204fa8dd662b7bcd3584427b68d175712493d77798443d917b8b4125dd1b`.
-The 30-case matrix is now running. The
-[existing continuation rules](finite-search-b593/continuation-semantics.md)
-describe how to follow a surviving run or resume only a safely closed boundary;
-an unknown executor ID does not prove termination, and an interrupted invocation
-cannot be silently retried or adopted.
+B22's scoped dependency is accepted using SQLite004, reused PostgreSQL and
+accepted short tests. The 24-hour and 72-hour stages remain deferred and not
+executed by user direction; other platforms and public domain publication
+remain deferred. Historical numbers bind their original tested artifacts and
+are not transferred to B24's new candidate bytes.
 
 ## Historical checkpoint — retained unchanged
 

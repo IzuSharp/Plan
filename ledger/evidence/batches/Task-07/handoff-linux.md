@@ -9,8 +9,8 @@ below. The exact current record is [recovery-b593.json](recovery-b593.json).
 | --- | --- | --- |
 | B21 | Accepted; original evidence and transaction-retirement correction reused | None |
 | B22 | Accepted for the amended finite scope; SQLite004 and PostgreSQL each passed 30-minute load plus 60-second idle | Preserve final review; do not rerun |
-| B23 | Frozen finite plan running in its exclusive timing window | Complete declared cohorts and independently review the honest report |
-| B24 | Read-only preparation complete; implementation not started | Start after scoped B23 acceptance |
+| B23 | Accepted finite Linux report: all 468 processes and 30 cases independently checked | Persist reviewed compact numeric evidence; no rerun |
+| B24 | Implementation started after independent B23 scoped acceptance | Assemble and verify the exact 17-package candidate and pristine consumers |
 
 SQLite004 completed 1,800.006548833 seconds of load and 60.000962899 seconds of
 idle, with 7,194 completed logical operations and six deliberate cancellations.
@@ -24,17 +24,20 @@ The 24-hour and 72-hour stages remain deferred and not executed by user
 direction. Other platforms and public domain package publication remain
 deferred. Only the existing HelloWorld preview publication is in scope.
 
-B23 started at 2026-11-18T14:01:25Z, owned by `/root/b23_finish`, retained exec
-`97908`. Preserve the unique existing launcher output; never start a second
-cohort over it. Current state is
-`ROOT/task07-b23/root-launch-retirement-f889/launch.json` and
-`ROOT/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json`.
-The full frozen plan has no automatic retries or post-outcome tuning.
+B23 finished at 2026-11-18T15:00:35Z with 72 search, 198 calibration and
+198 confirmation processes, all valid. Independent review recomputed all
+histograms and confidence intervals and accepted the exact report. See the
+[scoped report acceptance](../../B23/finite-final-b593/b23-acceptance-summary.json).
+NativeWeave is slower than direct Rust beyond measured noise in 13 of 18
+matched ordinary cases; four are inconclusive and one is within the band.
+These adverse results are retained without post-result tuning. Full raw evidence
+remains preserved; compact numeric persistence is being completed separately.
+There is no active B23 workload to restart.
 
-The search phase subsequently completed all 72 processes valid across eight
-predeclared units. The selected profile is frozen and the 30-case matrix is
-running. [Search and safe continuation](../../B23/finite-search-b593/search-checkpoint.json)
-preserve the exact stage boundary; do not repeat the completed search.
+B24 now has separate producer and consumer authors plus an independent reviewer.
+The root integrates the small private version-binding patch and the existing
+Linux CI row. No B21/B22/B23 measurement is repeated for a routine same-source
+package rebuild. Final C still requires its own exact runtime/package evidence.
 
 [Final-candidate applicability preparation](read-only-preparation/b24-final-candidate-scope-b593.json)
 clarifies B24's exact identity boundary. A new source-bound CI build may be the
@@ -54,7 +57,7 @@ Original full local evidence and failed/interrupted attempts are preserved.
 This checkpoint contains authored result/hash summaries; it does not retry the
 earlier rejected raw/trace uploads or claim those payloads were uploaded.
 
-Next: finish and review B23; execute B24's existing 17-package Linux closure,
+Next: persist B23's reviewed evidence; execute B24's existing 17-package Linux closure,
 consumer, compatibility and rollback requirements; then complete the existing
 PR merges, main CI and normal HelloWorld preview closeout. Stop at Task-07.
 
