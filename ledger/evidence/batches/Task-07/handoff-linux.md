@@ -49,17 +49,37 @@ must not silently expand publication to the domain packages.
   `ROOT/.worktree/Task-07-linux/Plan`.
 - B21 implementation branch: `task/Task-07-B21-linux`.
 - B21 implementation worktree: `ROOT/.worktree/Task-07-B21-linux/NativeWeave`.
-- Implementation PR: not created yet; first reviewable product change pending.
-- Plan PR: not created yet; this is the initial recovery checkpoint.
-- Integrated Task-07 implementation commits: none yet.
-- Pending Task-07 implementation commits: none yet.
+- Implementation PR: https://github.com/IzuSharp/NativeWeave/pull/18 (Draft).
+- Plan PR: https://github.com/IzuSharp/Plan/pull/22 (Draft).
+- Integrated Task-07 controller checkpoints: `ec619c1` (independent byte/HTTP/SQL
+  oracle), `119d67e` (PostgreSQL protocol oracles), `8fdb096` (redelivery,
+  retention, blob boundary and restart cases).
+- B21 application source and independent package runner are still being developed
+  in their isolated worktrees; no application acceptance commit exists yet.
+- CLI push is unavailable because no Git HTTPS credential is configured. The
+  authorized GitHub connector persists GitData commits; each transported tree is
+  compared with its local execution tree. Initial product local `ec619c1` and
+  remote `5118f5ffddb3520541212f28b98694c0e1bde9ea` share tree
+  `9a49fdb2673e187317eb1bd1194bbd0914ec1683`. Initial Plan local `5029ac7` and
+  remote `ed729d51012d1e2c08c35a37c6873ecd73995dc7` share tree
+  `abecbc17393bc289aca17675d991f52267278f3a`.
 
 ## Verification and remaining sequence
 
 The initial read-only dependency audit found all external Linux prerequisites
 satisfied. No new B21–B24 runtime or acceptance result is claimed at this checkpoint.
-The required maintainer tools and isolated database environment are being restored;
-building already accepted component assets is preparation, not new acceptance.
+The required maintainer tools and isolated database environment are restored.
+Twelve exact local NuGet packages and three native assets were prepared from the
+unchanged implementation baseline; building them is preparation, not new
+acceptance. Native asset identities and restore/build logs are temporarily under
+`ROOT/task07-toolchain/`; the eventual B21 evidence will bind its actual inputs.
+Independent executor calls cannot reach each other's loopback service; each
+controller therefore starts its database and application in one process tree.
+
+Actual preparation checks: fixed Python golden bytes and controller syntax;
+isolated PostgreSQL proxy mechanisms for held COMMIT, discarded acknowledgment,
+extended-protocol conflict/lock witness and next-statement SELECT. These are
+controller checks, not passed B21 product rows.
 
 B21 must first complete its real service, both database profiles, native
 HTTP1/HTTP2/TLS and actual JIT/NativeAOT package-consumer verification. B22 and
