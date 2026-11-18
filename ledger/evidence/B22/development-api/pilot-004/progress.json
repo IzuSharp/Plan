@@ -1,0 +1,264 @@
+{
+  "all_four_rows_passed": false,
+  "b22_soak_acceptance": false,
+  "builds": {},
+  "claim": "Public API composition only; not full B22 fault/soak or B24 pristine acceptance",
+  "commands": [
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/58d2a6adf1c3/task07-api-probe/pilot-004/consumers/jit/ApiProbe.csproj",
+        "--configfile",
+        "/workspace/scratch/58d2a6adf1c3/task07-api-probe/pilot-004/consumers/jit/NuGet.Config",
+        "--disable-parallel",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "ended_utc": "2026-11-18T06:36:39.644899+00:00",
+      "exit_code": 0,
+      "label": "jit-restore",
+      "log": "logs/jit-restore.log",
+      "log_sha256": "3911cc7715bb76474dabe609dfd822c314172b7ad1cfaa793cb8bf91cf708a1b",
+      "started_utc": "2026-11-18T06:36:29.090002+00:00"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "/workspace/scratch/58d2a6adf1c3/task07-api-probe/pilot-004/consumers/jit/ApiProbe.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/58d2a6adf1c3/task07-api-probe/pilot-004/artifacts/jit"
+      ],
+      "ended_utc": "2026-11-18T06:36:45.287581+00:00",
+      "exit_code": 0,
+      "label": "jit-build",
+      "log": "logs/jit-build.log",
+      "log_sha256": "c79d3d2a2f596bc5f7c5fee0f6ed4691915b8b064b553d9fb5c6daff4f58bd0f",
+      "started_utc": "2026-11-18T06:36:39.657099+00:00"
+    }
+  ],
+  "consumer_rust_invocations": [],
+  "consumer_sources": {
+    "jit": {
+      "ApiProbe.csproj": "9a01457dcfd3d07b55b027eceb41f6c229b2cd8d1b85b5a5b40fb57f7a0b6258",
+      "DatabaseCases.cs": "fe27fa21971fac10033b564ee7ef7ca1c0e17add923364ae59488e3664c80a0a",
+      "Directory.Build.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+      "Directory.Build.targets": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+      "HttpCases.cs": "b67faa3590576e28ff0da1ee56adba72cba6ebe084a848ced4e714e6d0b301d5",
+      "NuGet.Config": "7f88b7ea8090af4c31479b8b5e28f78fc26c0c79c0ea34d220b002fd57a49faf",
+      "Program.cs": "1a13f6552ef529c40a542dab9364adc70a4c0e0ec4a6010b33fce03af0bed170",
+      "ProtocolCases.cs": "f0a525b3666ce23bba6eb6729891022812c59d6bcea2f5d0b218fd026b37516e",
+      "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9"
+    }
+  },
+  "ended_utc": "2026-11-18T06:36:45.289601+00:00",
+  "failures": [
+    {
+      "controller": "AssertionError: Consumer native bytes changed: libnw_database_postgresql.so"
+    }
+  ],
+  "host": {
+    "machine": "x86_64",
+    "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14"
+  },
+  "inputs": {
+    "accepted_identity_helper_sha256": "e2da4b3d6828f82193d9b01488c7030515808b31fa7f53b3c6a99a4dff157fc2",
+    "controller_sha256": "86ce7aa847adcb2b346803b7e668d1bef10932fbdf0dc490728abc117a5fd018",
+    "global_json_sha256": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+    "native_sha256": {
+      "libnativeweave_server.so": "dda62e0644be789980e39dc7081081fd6bd9d5a5f59438a52c208b141db180b8",
+      "libnw_database_postgresql.so": "4a59a5f8033bcb080838982f3e93da7ef1cad990d20fd746706558004780a800",
+      "libnw_database_sqlite.so": "09bb7fdf6246823b746e307ed39ee929521c46e8f6d4efc5c0364bffa11277d0"
+    },
+    "packages": {
+      "NativeWeave.Core": {
+        "bytes": 53447,
+        "filename": "NativeWeave.Core.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "00d1f4386838ce7c7c8054eeaf7b2c56605c6d208fab2b1b7a3a6f7a528e9337",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Data": {
+        "bytes": 51902,
+        "filename": "NativeWeave.Data.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "bd2ca6211b7c08650d8d63f6cced9db2dbd03d7d35734d3afea6aeb5622c423e",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Data.Streaming": {
+        "bytes": 16844,
+        "filename": "NativeWeave.Data.Streaming.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "e9030aca0429f94c7f847f5f2d5cb244ef1b6faf7fde4d53259930423608913f",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Database": {
+        "bytes": 123625,
+        "filename": "NativeWeave.Database.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "13b4b4a218a7816ea5d1862fecdc4d1ba8bc88f96eabb5af5a2ab72ad257971f",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Database.PostgreSql": {
+        "bytes": 3075209,
+        "filename": "NativeWeave.Database.PostgreSql.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "d87ae490bf6b90c32f4b76e62c375448b45f44202e82b4949b6efba607660a4a",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Database.Sqlite": {
+        "bytes": 2763993,
+        "filename": "NativeWeave.Database.Sqlite.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "9b95b84a6e2764fd2b9480167bba29ee4d8626b131ce45f06d2d4294d59b889b",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Database.Transactions": {
+        "bytes": 15563,
+        "filename": "NativeWeave.Database.Transactions.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "d7ec349e827a4d7e214658ad1cd37aa06cc18025deda59a5d7c2f3b730dc0bf2",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Interop.Abi": {
+        "bytes": 6175,
+        "filename": "NativeWeave.Interop.Abi.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "80f93096307080207db7aed0914efad46094e4aa92ce46c6a0d359d77ec7cbbd",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Query.Binding": {
+        "bytes": 17503,
+        "filename": "NativeWeave.Query.Binding.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "101303fcf050d6ca8da7d902d2055f48c5635d8e3db794afece2eea6aff57615",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Query.Generator": {
+        "bytes": 15921,
+        "filename": "NativeWeave.Query.Generator.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "a6541ecc076df0bde995a7152801001a2649d1703a615aa2c6b7137b8c98bd9b",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Server": {
+        "bytes": 3301914,
+        "filename": "NativeWeave.Server.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "c1837148ab36fa384cca6d70d72dd811630ca89443ecb5dcaa3fa9ad44da47cd",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Server.Generator": {
+        "bytes": 14475,
+        "filename": "NativeWeave.Server.Generator.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "b1411496f523ee1980cdbdcd558fe9848ca344a211ac9ff5689f5696d68e30f0",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Server.Grpc": {
+        "bytes": 53311,
+        "filename": "NativeWeave.Server.Grpc.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "5e1805b9d516d6fea5100bffe55b3c0c04e87d525e4196f864b2a560aff8fce1",
+        "version": "0.1.0-preview.1"
+      },
+      "NativeWeave.Server.Mcp": {
+        "bytes": 68747,
+        "filename": "NativeWeave.Server.Mcp.0.1.0-preview.1.nupkg",
+        "repository": {
+          "commit": "bc4f769b2bd3022df13c180d6ce3a6cea9b8faa1",
+          "type": "git",
+          "url": "https://github.com/IzuSharp/NativeWeave"
+        },
+        "sha256": "820eef490adf40e246b02547356b384455e539eb16b064229ac5a3352e074f75",
+        "version": "0.1.0-preview.1"
+      }
+    },
+    "source_sha256": {
+      "ApiProbe.csproj": "9a01457dcfd3d07b55b027eceb41f6c229b2cd8d1b85b5a5b40fb57f7a0b6258",
+      "DatabaseCases.cs": "fe27fa21971fac10033b564ee7ef7ca1c0e17add923364ae59488e3664c80a0a",
+      "HttpCases.cs": "b67faa3590576e28ff0da1ee56adba72cba6ebe084a848ced4e714e6d0b301d5",
+      "Program.cs": "1a13f6552ef529c40a542dab9364adc70a4c0e0ec4a6010b33fce03af0bed170",
+      "ProtocolCases.cs": "f0a525b3666ce23bba6eb6729891022812c59d6bcea2f5d0b218fd026b37516e"
+    }
+  },
+  "platform": "linux-x64",
+  "public_api_matrix_complete": false,
+  "required_rows": [
+    "sqlite-jit",
+    "sqlite-aot",
+    "postgresql-jit",
+    "postgresql-aot"
+  ],
+  "rows": {},
+  "schema_version": 1,
+  "source": {
+    "commit": "517d1e42cfa04f0d6a81ddf2d520a9268a26e7b9",
+    "root": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-api-linux/NativeWeave",
+    "scope_status": "?? src/Verification.EndToEnd/ApiProbe/"
+  },
+  "started_utc": "2026-11-18T06:36:29.068973+00:00",
+  "task": "B22",
+  "unlocked_development_restore": true
+}

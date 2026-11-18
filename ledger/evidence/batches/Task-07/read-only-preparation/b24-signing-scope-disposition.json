@@ -1,0 +1,128 @@
+{
+  "acceptedMachineryReused": {
+    "A16Acceptance": "ledger/evidence/A16/acceptance-linux.json",
+    "A16ActualTestCommit": "c6d9abab22e529e82dee3de790b38a5aa9e17d05",
+    "A16PositiveSignatureCaseScope": "The accepted publication_cases.py actual-repository-signature-envelope case exercised the release coordinator against previously accepted repository-signed bootstrap bytes. It did not authenticate newly published conformance or domain packages.",
+    "A16State": "accepted_linux_assembled",
+    "A22AcceptanceIndex": "ledger/evidence/batches/Task-03/component-evidence-index.json",
+    "A22FormalReceiptSha256": "9229189e2d92d528f0ad6dd4a6be2aca604739a1cfc22da287fa4122253f078e",
+    "A22ReviewSha256": "4ebf902bce8261ae1bc29648a19a9cbf3af4e9df4b209f55e26d182a6cc448b0",
+    "A22SourceCommit": "09094228c1b2a24dbbfdd68ab4f76b46012f56fa",
+    "historicalAcceptanceRerun": false
+  },
+  "decision": "Authorized Linux local domain closure may close with exact integrity/native/ABI/provenance checks and signing-aware rejection; positive signer authentication of new public domain artifacts remains unexecuted and full public-domain release acceptance remains false.",
+  "designCommit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "finalRecordRequirements": {
+    "fullPublicDomainReleaseAcceptance": false,
+    "localLinuxClosureAcceptance": "May become accepted only after actual local domain gates and scoped dependencies pass.",
+    "longSoakRows": "24-hour and 72-hour rows remain explicitly unexecuted under the user instruction; do not substitute the 30-minute row.",
+    "newDomainSignerAuthenticated": false,
+    "otherPlatforms": "Deferred; no all-platform claim.",
+    "publicDomainPublication": false
+  },
+  "forbiddenSubstitutions": [
+    "Do not remove expected.native to bypass internal native manifest and ABI/provenance validation.",
+    "Do not replace the repository-primary verifier with a fake signer or local hash equality.",
+    "Do not treat unchanged HelloWorld signed artifacts as authentication of different new domain bytes.",
+    "Do not advertise a partial or unsigned local closure as a fully authenticated public release."
+  ],
+  "gateSeparation": [
+    {
+      "currentDisposition": "Run on new assembled domain bytes when B24 starts; not yet executed.",
+      "gate": "Local exact domain closure readback",
+      "implementation": "Packaging.Release.release.verify_local plus compatibility.package_payload/validate_closure",
+      "requiredResult": "Verify complete exact dependency graph, current package archive/native/internal manifest/ABI/provenance identities, immutable resume and actual destination consumption. Record signer_authenticated=false and complete-local-closure."
+    },
+    {
+      "currentDisposition": "Run focused new assembled negatives when B24 starts; reuse accepted unchanged A16/A22 positive crypto mechanism evidence without relabelling it as domain authentication.",
+      "gate": "Signing-aware rejection on assembled domain packages",
+      "implementation": "Packaging.Release.release.verify_registry delegates to Compatibility.verify_existing and verify_signature",
+      "requiredResult": "Unsigned domain artifacts cannot be accepted as repository-signed. Altered unsigned entries, unexpected signer policy, missing package/native leaf or payload identity must fail closed. Preserve current crypto verifier and exact identities."
+    },
+    {
+      "currentDisposition": "Unexecuted/unavailable within current publication scope. No current real signed copy of the newly produced domain bytes is supplied. A future explicitly authorized domain publication/signing setup is required for this positive release gate.",
+      "gate": "Positive repository signer authentication of new domain closure",
+      "implementation": "Actual repository-primary signature verified by dotnet nuget verify plus exact allowed service/owner/certificate and accepted unsigned payload entries",
+      "requiredResult": "Real signed artifacts of every new exact domain package closure entry, read back from an authorized destination; no placeholder signer, signature fixture labelled as publication, or permissive allowlist."
+    },
+    {
+      "currentDisposition": "Independent bootstrap publication result; cannot establish domain-package signer authentication or domain release acceptance.",
+      "gate": "Existing automatic HelloWorld preview",
+      "implementation": "Existing repository workflow only",
+      "requiredResult": "Observe normal merge-triggered CI, publication and consumption in the root closeout."
+    }
+  ],
+  "mode": "Read-only prospective scope disposition; no B24 implementation or execution in this review.",
+  "normativeBasis": [
+    {
+      "meaning": "Bind accepted component revisions, execute isolated consumers and upgrade/rollback gates, audit provenance and licenses, and publish only after actual future release authorization. The assembled signing-aware readback requirement is reported separately from local closure integrity.",
+      "record": "Plan/tasks/B24.md",
+      "section": "Implementation steps 1\u20134; acceptance requirements"
+    },
+    {
+      "meaning": "Archive hashes do not authenticate a publisher. Signature, identity and semantic compatibility remain separate; reviewed service/workflow/ref, signer identity, subject and trust roots are required for actual release authentication.",
+      "record": "Design/docs/platforms/build-package-release.md",
+      "section": "9. Release manifest and trust boundary"
+    },
+    {
+      "meaning": "Complete staged consumers precede public upload. A release is advertised only after every immutable destination package passes readback and complete destination consumption. Repository signing may alter only a verified signature envelope; unsigned entries and native hashes still must match.",
+      "record": "Design/docs/platforms/build-package-release.md",
+      "section": "10. Exact package closure and incomplete publication"
+    }
+  ],
+  "platform": "linux-x64",
+  "readSources": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-finish-f889-linux/Plan/tasks/B24.md",
+      "sha256": "42d8fb82a4f5085bdd03779ae223a5827152505790b4346f98684ee7fb36d02c"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-finish-f889-linux/Plan/fragments/end-to-end.json",
+      "sha256": "e4cf5d852dcae45439907604520b3decab110566e159101df11c3c9ab454eb18"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-finish-f889-linux/Plan/ledger/evidence/A16/acceptance-linux.json",
+      "sha256": "c816c02fa0556bb2e51190333048409b82531d16749303ab53a8120541890348"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-finish-f889-linux/Plan/ledger/evidence/A16/review-linux.json",
+      "sha256": "0fdf4682966c8dff7bfa439eacff190f83da3450ccdff637e8088cacad8d8af0"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-finish-f889-linux/Plan/ledger/evidence/batches/Task-03/component-evidence-index.json",
+      "sha256": "ccaf56c2a91f951fd1cd1d8a95d147dbaaa8455c4d92ac672d9462fc8cd111c0"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/src/Packaging.Release/release.py",
+      "sha256": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/src/Verification.Compatibility/compatibility.py",
+      "sha256": "d186b03dd5896e2aad7070ddfd34186ff83e3a3364b921179150660317b3dc6b"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/tests/Packaging.Release/publication_cases.py",
+      "sha256": "249c5e7e15d9adc891cf5f56d27606f5b1054fd5372776b3b1b60d58b421ffc6"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/tests/Verification.Compatibility/signature-policy.json",
+      "sha256": "ec7377a45a50b251ee4e0da6e2bf0b75f2940ab2e23ffd0de46714050f3536a9"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/docs/guides/packaging-release.md",
+      "sha256": "fddc5c500ebccbccf391a25d95994c2e0440579c0c5ef60c53c9b8499be58b09"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design/docs/platforms/build-package-release.md",
+      "sha256": "4810c05f0af850dadc1c814ca7707ff348e7b448a9fcb792ec2a7aeb2d7c46cc"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/NativeWeave-Design/docs/api/nuget-and-consumption.md",
+      "sha256": "7aab2485a5bfe21042b701bb1eda43b630330fe896b2ca8f80a81f93d3ffced9"
+    }
+  ],
+  "reviewer": "/root/recovery_release_audit",
+  "schemaVersion": 1,
+  "task": "B24",
+  "userPublicationBoundary": "Keep the existing automatic HelloWorld preview publication range; do not introduce public domain package publication."
+}

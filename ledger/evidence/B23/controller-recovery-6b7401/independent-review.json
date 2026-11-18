@@ -1,0 +1,59 @@
+{
+  "findings": [
+    {
+      "id": "B23-RECOVERY-REVIEW-01",
+      "resolution": "Guarded validate_observation now rejects malformed/missing required fields and exact route/repetition mismatch within the cell exception boundary. A focused fixture exercises actual Controller.run and verifies invalid row, retained raw source, sealed incomplete state and explicit not_run.",
+      "status": "closed"
+    },
+    {
+      "id": "B23-RECOVERY-REVIEW-02",
+      "resolution": "GET download context clears the prior PUT and is captured before protocol validation/read. Partial response retention includes bounded yielded bytes and headers, explicit body_complete=false/body_bytes=null, observed byte count and partial-hash scope. Fixtures cover wrong protocol, read interruption after98304 bytes and pre-header failure.",
+      "status": "closed"
+    }
+  ],
+  "limitations": [
+    "Read-only schema validation of three preserved calibration rows is a compatibility check for the changed validator, not re-execution or acceptance of those workloads.",
+    "Full B23 confirmation still requires resolved adverse outcomes, valid complete cohorts and B22 correctness.",
+    "No native application/source/ABI change was introduced by this repair."
+  ],
+  "observedUnixNs": 1794994353386446199,
+  "readOnlySchemaCompatibility": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/calibration-001/observations/advanced-di-list-sqlite-http1--nativeweave-aot-rust--1.json",
+      "route": "nativeweave-aot-rust",
+      "sha256": "ec7475d20b2b76423706a4d5673c812882f5f2f99394f0c780c9fd50b6b8f81e",
+      "status": "schema-compatible"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/calibration-001/observations/cold-create-small-sqlite-http1--direct-rust--0.json",
+      "route": "direct-rust",
+      "sha256": "24ba1f427b1777a673ae59d02e8f28ddb4c5607088c52fd2427595c8a20b56fe",
+      "status": "schema-compatible"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/calibration-001/observations/cold-create-small-sqlite-http1--managed-aot--0.json",
+      "route": "managed-aot",
+      "sha256": "51c4a11bf9b68e8efa4dfe7556c0639d33bdcfbcc634bdef73293fd8fec5961f",
+      "status": "schema-compatible"
+    }
+  ],
+  "reviewKind": "Exact-source repair closure; not GitHub approval",
+  "reviewedParent": "7e75906f688ed8864ea206a72e1b22dc4d048e35",
+  "reviewer": "independent subagent /root/b22_recovery",
+  "schemaVersion": 1,
+  "sourceCommit": "1ce65d7881f842a657f29193800e88e1eeae4def",
+  "sourceFileSha256": {
+    "docs/guides/benchmarks-domain.md": "ee0275177e9b32bb61842189658e536b67391e22b0a4075b850a27ffbc19e9ed",
+    "src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+    "src/Benchmarks.Domain/run.py": "3416be7ffc0ee5c3eaa660bed07bad0ee5d6e0115f5cee593886e26ee91534ae",
+    "tests/Benchmarks.Domain/test_failure_supervision.py": "4c9ee592d3ddf9f084ebbff83c4e0115ba0950260ebffc3c763237018352b29e"
+  },
+  "status": "accepted-scoped-controller-repair",
+  "task": "B23",
+  "testReceipt": {
+    "logSha256": "53b9f93adae6e7f3dee3215498c6cc705c633ab3a0868899669eab57c3ca0fb8",
+    "observedOutcome": "22 tests passed in1.407s; implementer executed, reviewer read and verified log/source hashes",
+    "path": "/workspace/scratch/58d2a6adf1c3/task07-b23/recovery-6b7401/controller-regressions-supplement-001.json",
+    "sha256": "f1c0eed3e9271f8347a2013a8152ae25f4266e06dd5e375c6869d2b96e67b9b6"
+  }
+}

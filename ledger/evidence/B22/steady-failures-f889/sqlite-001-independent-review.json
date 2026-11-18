@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "task": "B22",
+  "platform": "linux-x64",
+  "provider": "sqlite",
+  "reviewer": "recovery_release_audit",
+  "reviewed_utc": "2026-11-18T10:59:28.164253+00:00",
+  "status": "confirmed_frozen_profile_failure_cause_unresolved",
+  "source_commit": "4503493d7168ac2b91becbdba8269a2daf120ec6",
+  "directory": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-steady-sqlite-001-f889",
+  "receipt_sha256": "285b8f19e96d89e07d8d0081326d1b0dfcad7bbba2232eb754c69e863cb120d0",
+  "frozen_profile_sha256": "3f4e488d9f58befd31c0f199fc33062a74e700bff32ac10220d49239e836f4c5",
+  "recorded_stage_seconds": 1353.353172517,
+  "sample_count": 1204,
+  "fd_histogram": {
+    "21": 1,
+    "26": 1186,
+    "27": 16,
+    "28": 1
+  },
+  "old_frozen_peak_fd_cap": 27,
+  "failed_fd_count": 28,
+  "preceding_fd_counts": [
+    26,
+    26
+  ],
+  "failed_rss_bytes": 33935360,
+  "raw_hashes": {
+    "identity.json": "49b4fee976f1b5ffca8ef4b8295099a0a8269ed939dd990ad23fd2a5571f82e3",
+    "known-handles.jsonl": "1975839e84588e102d422b14a097936cc8401778137e27fc5552baf61dfd8f00",
+    "operations.jsonl": "8a03f6d0ac6c880b432fa553f6b366d9ef11c7511257b73fcf5c3027b2604793",
+    "resources.jsonl": "64f76b5a16fcf90e165b63af302f0f2a945840f0a2569d437780f30b98f52196",
+    "runtime.nettrace": "916c1e5c0fd1e5de26b89e4ae74ed061d4ae74efc372a5a256921b91b57cc1ca",
+    "service/observations.jsonl": "3dbc5201fc9479d7875695745e9a4246367beb7f770e498664b47c4b50967232",
+    "service/service.log": "f5d4af24db4851bad70a2cd5d733a246070dd1807fdaca1d9bb0f7b1773d245d"
+  },
+  "all_declared_raw_hashes_recomputed": true,
+  "final_observer": {
+    "phase": "observer-stop",
+    "native_owners": {
+      "sqlite": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "server_gauges": {
+      "nativeweave.server.requests.active": 0,
+      "nativeweave.server.requests.queued": 0,
+      "nativeweave.server.requests.retiring": 0,
+      "nativeweave.server.payload.managed.bytes": 0,
+      "nativeweave.server.payload.native.bytes": 0,
+      "nativeweave.server.diagnostics.queue.bytes": 0,
+      "nativeweave.server.diagnostics.queue.entries": 0,
+      "nativeweave.server.requests.rejected": 0,
+      "nativeweave.server.callbacks.failed": 0,
+      "nativeweave.server.diagnostics.dropped": 0
+    },
+    "observer_failures": 0
+  },
+  "assessment": "The exact frozen profile failed. A single retained FD28 sample after prior FD26 samples does not establish persistent growth or identify legitimate transient ownership. Zero final tracked native/Server owners do not inventory every OS descriptor. This count-only attempt cannot identify the two additional descriptors now that its process has exited.",
+  "minimum_recovery": "Retain this failed attempt and old profile. Obtain a short SQLite-specific live descriptor/filename/socket role inventory and actual bounded partial-upload overlap with idle retirement. Model the business SQLite pool (configured16) and separate consumer pool (configured2) from their own evidence, not the PostgreSQL socket allowance. Freeze a separately reviewed supplemental profile and require a fresh full30-minute stage with its bound descriptor monitor. Preserve all unaffected inputs/caps and prior accepted evidence.",
+  "acceptance_boundary": "No partial duration is credited as a steady pass. No product or controller modification and no diagnostic load was performed by this reviewer. User-excluded24h/72h stages remain not executed."
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>NativeWeave.Reference.TaskService</AssemblyName>
+    <RootNamespace>NativeWeave.Reference.TaskService</RootNamespace>
+    <IsAotCompatible>true</IsAotCompatible>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NativeWeavePackageVersion Condition="'$(NativeWeavePackageVersion)' == ''">0.1.0-preview.1</NativeWeavePackageVersion>
+    <NuGetLockFilePath Condition="'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).aot.lock.json</NuGetLockFilePath>
+  <TargetFramework>net11.0</TargetFramework><LangVersion>15.0</LangVersion><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><TreatWarningsAsErrors>true</TreatWarningsAsErrors><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><NuGetAudit>true</NuGetAudit><NuGetAuditMode>all</NuGetAuditMode><Deterministic>true</Deterministic><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NativeWeave.Database.Sqlite" Version="[0.1.0-preview.1]" />
+    <PackageReference Include="NativeWeave.Database.PostgreSql" Version="[0.1.0-preview.1]" />
+    <PackageReference Include="NativeWeave.Server" Version="[0.1.0-preview.1]" />
+    <EmbeddedResource Include="Migrations/*.sql" />
+  </ItemGroup>
+<PropertyGroup><TargetFramework>net11.0</TargetFramework><LangVersion>15.0</LangVersion><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><TreatWarningsAsErrors>true</TreatWarningsAsErrors><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><IsPackable>false</IsPackable><EventSourceSupport>true</EventSourceSupport><AllowUnsafeBlocks>true</AllowUnsafeBlocks><StartupObject>NativeWeave.Verification.EndToEnd.ObserverEntryPoint</StartupObject></PropertyGroup></Project>

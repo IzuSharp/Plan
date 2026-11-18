@@ -1,0 +1,73 @@
+{
+  "kind": "read-only source and actual failed-attempt diagnosis; no altered acceptance",
+  "failure": "PostgreSQL monitored steady002 native.sqlite.1 observed9 exceeded frozen6; native.sqlite.5 observed10 also exceeded frozen7. Original failed receipt/profile unchanged.",
+  "sourceCommit": "f049989a52bdb00b4979f49e30677bb6ac953d17",
+  "sources": [
+    {
+      "path": "src/Reference.TaskService/OutboxWorker.cs",
+      "sha256": "ddaa022a6f9d3b950fcd58a78e832aab8cf61319565417a107552c93b704cefd"
+    },
+    {
+      "path": "src/Reference.TaskService/DatabaseService.cs",
+      "sha256": "7796cbe064564580de13615752790a072d9c9f5417ac416aea31d3b166ef3aea"
+    },
+    {
+      "path": "src/Reference.TaskService/Maintenance.cs",
+      "sha256": "3d61be3f63ab33cc8e567a1a5b49ef8ed5824f0325c4b2e98a9820404628fef8"
+    },
+    {
+      "path": "src/Reference.TaskService/ProtectionRetirement.cs",
+      "sha256": "03cbff31ff4b9bb29aa4bb81e38c33168cbc7bcc7f81317fc4a9c6a3419efe0e"
+    },
+    {
+      "path": "src/Data.NativeHost/DataSession.cs",
+      "sha256": "937d72c71c9eb6fc053a600a21fcae59ed9f839074e029585d1119f3f62be49f"
+    },
+    {
+      "path": "src/Data.NativeHost/DataSource.cs",
+      "sha256": "9b48ad8053fd7bd1211022695f6a898a242fa7c9eec77927ad43acd0196770b1"
+    },
+    {
+      "path": "src/Data.NativeHost/HostTransactionTransport.cs",
+      "sha256": "29a2fe7742459492ada51b9a16c62fc52f63b8d1e94e31b671ce87da0d33346c"
+    },
+    {
+      "path": "src/Query.Binding/Owners.cs",
+      "sha256": "a0ed6512b85e42cbf73206c027868305dca528b17c425e13fc22ec7c8368a88a"
+    },
+    {
+      "path": "native/database/host/src/session.rs",
+      "sha256": "c22fb27b364222f8bbaf8335adfaaa57453281e42ecaea2590e558cfcddfd3ec"
+    },
+    {
+      "path": "native/database/host/src/abi.rs",
+      "sha256": "2c3a7f9c9d140189b6f6920b52a918e55d003761a4ab9a62a40bed071b27783c"
+    },
+    {
+      "path": "native/database/host/src/runtime.rs",
+      "sha256": "5ce80e0fbc530292f85826b76800a590556a93c7a3adafd8f4dc59ecec337af7"
+    },
+    {
+      "path": "native/database/host/src/operation.rs",
+      "sha256": "14af7e2a68012530bf0248c3099b79ef5fc4a082263861e413359be460c0a6e8"
+    },
+    {
+      "path": "src/Verification.EndToEnd/Observer/ReferenceObserver.cs",
+      "sha256": "ab07be85efbba698ebae0f12e9f3c0c26d3fb14687c51ab7edd2b0993585e76f"
+    }
+  ],
+  "nativeCounterMeaning": {
+    "0": "Arc<Source> object lifetime",
+    "1": "Arc<Session> object lifetime; not physical pool connections or held permits",
+    "2": "DbOperation lifetime, including registry and asynchronous references",
+    "3": "CursorOwner lifetime",
+    "4": "Buffer lifetime (control bytes and owned result batches)",
+    "5": "all live opaque registry entries: owner, operation, buffer; not only source metadata"
+  },
+  "actualWitness": "Final two regular rows share gen2 collection count688 while consumer Session count rises5 to9 and registry6 to10; operation/cursor/buffer are0. Application closure before finalizers leaves SQLite[1,4,0,0,0,4]; explicit diagnostic finalization yields all counters0 and observerFailures0.",
+  "sourceLifetime": "Commit/rollback caches outcome but does not release the managed transaction SafeHandle. Session close returns the physical lease and admission permit; Rust TransactionOwner still has Arc<Session>. DatabaseOwner disposal/finalization removes its registry reference; native Session count decreases only on Arc drop.",
+  "independentReviewConclusion": "recovery_release_audit recommends correcting omitted DataTransaction disposal in the reference application before enlarging native session/registry peak bands. No product files were changed by the B22 agent.",
+  "additionalThresholdIssue": "A sampled buffer peak0 does not prove the runtime cannot own a transient control/result Buffer. Subsequent profile review must consider each actual native lifetime and finite workload/source capacity, while preserving post-GC baseline, final zero, RSS/managed-root and byte-owner gates.",
+  "currentRunningAttempt": "SQLite002 remains unchanged under parent control; PG002 is stopped/failed.",
+  "multiDayScope": "24h and72h not executed per current user instruction; no full release-soak acceptance claimed."
+}

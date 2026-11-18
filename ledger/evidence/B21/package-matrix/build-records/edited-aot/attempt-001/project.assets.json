@@ -1,0 +1,1598 @@
+{
+  "version": 4,
+  "targets": {
+    "net11.0": {
+      "Microsoft.DotNet.ILCompiler/11.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.DotNet.ILCompiler.props": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration/11.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.CommandLine/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "11.0.0"
+        },
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/11.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "11.0.0"
+        },
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/11.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
+      "NativeWeave.Core/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Interop.Abi": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Data/0.1.0-preview.1": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/NativeWeave.Data.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Data.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Data.Streaming/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Data.Streaming.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Data.Streaming.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Database/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Data.Streaming": "[0.1.0-preview.1]",
+          "NativeWeave.Database.Transactions": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Binding": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.targets": {}
+        }
+      },
+      "NativeWeave.Database.PostgreSql/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Database": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.PostgreSql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.PostgreSql.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.PostgreSql.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libnw_database_postgresql.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          }
+        }
+      },
+      "NativeWeave.Database.Sqlite/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Database": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.Sqlite.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libnw_database_sqlite.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          }
+        }
+      },
+      "NativeWeave.Database.Transactions/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.Transactions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.Transactions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Interop.Abi/0.1.0-preview.1": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/NativeWeave.Interop.Abi.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Interop.Abi.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Query.Binding/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Interop.Abi": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Query.Binding.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Query.Binding.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Query.Generator/0.1.0-preview.1": {
+        "type": "package",
+        "build": {
+          "buildTransitive/NativeWeave.Query.Generator.targets": {}
+        }
+      },
+      "NativeWeave.Server/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "[11.0.0]",
+          "Microsoft.Extensions.Configuration.CommandLine": "[11.0.0]",
+          "Microsoft.Extensions.DependencyInjection": "[11.0.0]",
+          "Microsoft.Extensions.Logging": "[11.0.0]",
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Server.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Server.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Server.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Server.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libnativeweave_server.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          }
+        }
+      },
+      "NativeWeave.Server.Generator/0.1.0-preview.1": {
+        "type": "package",
+        "build": {
+          "buildTransitive/NativeWeave.Server.Generator.targets": {}
+        }
+      }
+    },
+    "net11.0/linux-x64": {
+      "Microsoft.DotNet.ILCompiler/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.linux-x64.Microsoft.DotNet.ILCompiler": "11.0.0"
+        },
+        "build": {
+          "build/Microsoft.DotNet.ILCompiler.props": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration/11.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.CommandLine/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "11.0.0"
+        },
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/11.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "11.0.0"
+        },
+        "compile": {
+          "lib/net11.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net10.0/_._": {}
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/11.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
+      "NativeWeave.Core/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Interop.Abi": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Data/0.1.0-preview.1": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/NativeWeave.Data.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Data.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Data.Streaming/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Data.Streaming.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Data.Streaming.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Database/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Data.Streaming": "[0.1.0-preview.1]",
+          "NativeWeave.Database.Transactions": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Binding": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.targets": {}
+        }
+      },
+      "NativeWeave.Database.PostgreSql/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Database": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.PostgreSql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.PostgreSql.dll": {
+            "related": ".xml"
+          }
+        },
+        "native": {
+          "runtimes/linux-x64/native/libnw_database_postgresql.so": {}
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.PostgreSql.targets": {}
+        }
+      },
+      "NativeWeave.Database.Sqlite/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Database": "[0.1.0-preview.1]",
+          "NativeWeave.Query.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "native": {
+          "runtimes/linux-x64/native/libnw_database_sqlite.so": {}
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Database.Sqlite.targets": {}
+        }
+      },
+      "NativeWeave.Database.Transactions/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Database.Transactions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Database.Transactions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Interop.Abi/0.1.0-preview.1": {
+        "type": "package",
+        "compile": {
+          "lib/net11.0/NativeWeave.Interop.Abi.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Interop.Abi.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Query.Binding/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "NativeWeave.Data": "[0.1.0-preview.1]",
+          "NativeWeave.Interop.Abi": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Query.Binding.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Query.Binding.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NativeWeave.Query.Generator/0.1.0-preview.1": {
+        "type": "package",
+        "build": {
+          "buildTransitive/NativeWeave.Query.Generator.targets": {}
+        }
+      },
+      "NativeWeave.Server/0.1.0-preview.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "[11.0.0]",
+          "Microsoft.Extensions.Configuration.CommandLine": "[11.0.0]",
+          "Microsoft.Extensions.DependencyInjection": "[11.0.0]",
+          "Microsoft.Extensions.Logging": "[11.0.0]",
+          "NativeWeave.Core": "[0.1.0-preview.1]",
+          "NativeWeave.Server.Generator": "[0.1.0-preview.1]"
+        },
+        "compile": {
+          "lib/net11.0/NativeWeave.Server.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net11.0/NativeWeave.Server.dll": {
+            "related": ".xml"
+          }
+        },
+        "native": {
+          "runtimes/linux-x64/native/libnativeweave_server.so": {}
+        },
+        "build": {
+          "buildTransitive/NativeWeave.Server.targets": {}
+        }
+      },
+      "NativeWeave.Server.Generator/0.1.0-preview.1": {
+        "type": "package",
+        "build": {
+          "buildTransitive/NativeWeave.Server.Generator.targets": {}
+        }
+      },
+      "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+        "type": "package"
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.DotNet.ILCompiler/11.0.0": {
+      "sha512": "lw6gUL92db6XPwYsQwaGwrJxgRM0X0qQKl0QkwuZIACMtgH0eFu6jmq6W+/L8qTxQZwggfV/dGjICyMqVHdehg==",
+      "type": "package",
+      "path": "microsoft.dotnet.ilcompiler/11.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "build/BuildFrameworkNativeObjects.proj",
+        "build/Microsoft.DotNet.ILCompiler.SingleEntry.targets",
+        "build/Microsoft.DotNet.ILCompiler.props",
+        "build/Microsoft.NETCore.Native.Publish.targets",
+        "build/Microsoft.NETCore.Native.Unix.targets",
+        "build/Microsoft.NETCore.Native.Windows.targets",
+        "build/Microsoft.NETCore.Native.targets",
+        "build/NativeAOT.natstepfilter",
+        "build/NativeAOT.natvis",
+        "build/WindowsAPIs.txt",
+        "microsoft.dotnet.ilcompiler.11.0.0.nupkg.sha512",
+        "microsoft.dotnet.ilcompiler.nuspec",
+        "runtime.json",
+        "tools/netstandard/ILCompiler.Build.Tasks.deps.json",
+        "tools/netstandard/ILCompiler.Build.Tasks.dll"
+      ]
+    },
+    "Microsoft.Extensions.Configuration/11.0.0": {
+      "sha512": "VQS/GkFU9oLQmXZv0AR/zluF0YAbEAoUQ5aYMqcRc2TWeKa6m2AjInAOnDhCcoWI5a6LQUCzTcl8B3DZZaPZLg==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration/11.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net10.0/_._",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.targets",
+        "lib/net10.0/Microsoft.Extensions.Configuration.dll",
+        "lib/net10.0/Microsoft.Extensions.Configuration.xml",
+        "lib/net11.0/Microsoft.Extensions.Configuration.dll",
+        "lib/net11.0/Microsoft.Extensions.Configuration.xml",
+        "lib/net462/Microsoft.Extensions.Configuration.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.xml",
+        "microsoft.extensions.configuration.11.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.CommandLine/11.0.0": {
+      "sha512": "CQiIl05oA1jGjuPTWzJ8TDydEUJHk0L6FmiWfCDfsAul3N3F2esPqh2ukwkdGCwkh7i+3st3HfpHQoGxbd8bJQ==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.commandline/11.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net10.0/_._",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.CommandLine.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.CommandLine.targets",
+        "lib/net10.0/Microsoft.Extensions.Configuration.CommandLine.dll",
+        "lib/net10.0/Microsoft.Extensions.Configuration.CommandLine.xml",
+        "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.dll",
+        "lib/net11.0/Microsoft.Extensions.Configuration.CommandLine.xml",
+        "lib/net462/Microsoft.Extensions.Configuration.CommandLine.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.CommandLine.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.CommandLine.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.CommandLine.xml",
+        "microsoft.extensions.configuration.commandline.11.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.commandline.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection/11.0.0": {
+      "sha512": "KygQMITBDDPXw7+AAgdwQvVAaTXuDsc1iCAuvhO73ERxKX+d92cdbgZmpoYF7DIUq2hfs/yO2KD87uIreRy3MA==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/11.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net10.0/_._",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.targets",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net11.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net11.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.11.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Logging/11.0.0": {
+      "sha512": "zsse8MOgo0bj2KAEsSkg9WtNAfZbHbTlGeqfhy5PGozomM3zQM0XzumSQzQ0451IWNSJWLqYaSIQEpCi2j1sCA==",
+      "type": "package",
+      "path": "microsoft.extensions.logging/11.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net10.0/_._",
+        "buildTransitive/net461/Microsoft.Extensions.Logging.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.targets",
+        "lib/net10.0/Microsoft.Extensions.Logging.dll",
+        "lib/net10.0/Microsoft.Extensions.Logging.xml",
+        "lib/net11.0/Microsoft.Extensions.Logging.dll",
+        "lib/net11.0/Microsoft.Extensions.Logging.xml",
+        "lib/net462/Microsoft.Extensions.Logging.dll",
+        "lib/net462/Microsoft.Extensions.Logging.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Logging.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Logging.xml",
+        "microsoft.extensions.logging.11.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.NET.ILLink.Tasks/11.0.0": {
+      "sha512": "gK2aq4XvChj5kvozpPHrkfKkr7zc5Z4xoTrJb4GPZzDEPMlCk0TX632bwY3LsWcX2UVcVRQBBGzsBGC2lq6YhA==",
+      "type": "package",
+      "path": "microsoft.net.illink.tasks/11.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "Sdk/Sdk.props",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/ILLink.CodeFixProvider.dll",
+        "analyzers/dotnet/cs/ILLink.RoslynAnalyzer.dll",
+        "build/Microsoft.NET.ILLink.Analyzers.props",
+        "build/Microsoft.NET.ILLink.Tasks.props",
+        "build/Microsoft.NET.ILLink.targets",
+        "microsoft.net.illink.tasks.11.0.0.nupkg.sha512",
+        "microsoft.net.illink.tasks.nuspec",
+        "tools/net/ILLink.Tasks.deps.json",
+        "tools/net/ILLink.Tasks.dll",
+        "tools/net/Mono.Cecil.Mdb.dll",
+        "tools/net/Mono.Cecil.Pdb.dll",
+        "tools/net/Mono.Cecil.Rocks.dll",
+        "tools/net/Mono.Cecil.dll",
+        "tools/net/Sdk/Sdk.props",
+        "tools/net/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net/build/Microsoft.NET.ILLink.targets",
+        "tools/net/illink.deps.json",
+        "tools/net/illink.dll",
+        "tools/net/illink.runtimeconfig.json",
+        "tools/netframework/ILLink.Tasks.dll",
+        "tools/netframework/ILLink.Tasks.dll.config",
+        "tools/netframework/Mono.Cecil.Mdb.dll",
+        "tools/netframework/Mono.Cecil.Pdb.dll",
+        "tools/netframework/Mono.Cecil.Rocks.dll",
+        "tools/netframework/Mono.Cecil.dll",
+        "tools/netframework/Sdk/Sdk.props",
+        "tools/netframework/System.Buffers.dll",
+        "tools/netframework/System.Collections.Immutable.dll",
+        "tools/netframework/System.Memory.dll",
+        "tools/netframework/System.Numerics.Vectors.dll",
+        "tools/netframework/System.Reflection.Metadata.dll",
+        "tools/netframework/System.Runtime.CompilerServices.Unsafe.dll",
+        "tools/netframework/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/netframework/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/netframework/build/Microsoft.NET.ILLink.targets",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "NativeWeave.Core/0.1.0-preview.1": {
+      "sha512": "dUQZVwOWcfKGaPO2P7L5XweRzJ+BtjwGgc4/U8hHArev0kOCiMLpFKafXSSg72QDq8NRxsuykp/sM6osISLziw==",
+      "type": "package",
+      "path": "nativeweave.core/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Core.dll",
+        "lib/net11.0/NativeWeave.Core.xml",
+        "nativeweave.core.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.core.nuspec"
+      ]
+    },
+    "NativeWeave.Data/0.1.0-preview.1": {
+      "sha512": "Z3RMWA0UHvkeHg99Hw9nlfKwTXNT8L99Snq/YpwWps0Bl978MDWwAGxmxqe4aLf79QllYJmFjvmhg+WDYCpA4g==",
+      "type": "package",
+      "path": "nativeweave.data/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Data.dll",
+        "lib/net11.0/NativeWeave.Data.xml",
+        "nativeweave.data.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.data.nuspec"
+      ]
+    },
+    "NativeWeave.Data.Streaming/0.1.0-preview.1": {
+      "sha512": "/VfiHOQ8v4BO7HybM7/rm+FkDIF66/JOare0xyseBpfjncHwUm7IXXFH/hopnHS2My3yFgR6v2Q8ez7slb2UVA==",
+      "type": "package",
+      "path": "nativeweave.data.streaming/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Data.Streaming.dll",
+        "lib/net11.0/NativeWeave.Data.Streaming.xml",
+        "nativeweave.data.streaming.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.data.streaming.nuspec"
+      ]
+    },
+    "NativeWeave.Database/0.1.0-preview.1": {
+      "sha512": "nDKV/U4auldqcbf1uUBZ0SZxtM2c4NuZci5yWLySMCZTf5NuN9KOlJqbevWTVPsDzlpHW/4ATcEsgte+I+C28A==",
+      "type": "package",
+      "path": "nativeweave.database/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Database.targets",
+        "lib/net11.0/NativeWeave.Database.dll",
+        "lib/net11.0/NativeWeave.Database.xml",
+        "nativeweave.database.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.database.nuspec",
+        "nativeweave/closure.json",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.dll",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.xml"
+      ]
+    },
+    "NativeWeave.Database.PostgreSql/0.1.0-preview.1": {
+      "sha512": "Jn7ufg9+ocD8CAvTFlUJwHMYB7h+4PgDi9/Te/wf1jGlmNBaBVgfung7031uv0xxormHQddL5RuazgumfWLSRA==",
+      "type": "package",
+      "path": "nativeweave.database.postgresql/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Database.PostgreSql.targets",
+        "lib/net11.0/NativeWeave.Database.PostgreSql.dll",
+        "lib/net11.0/NativeWeave.Database.PostgreSql.xml",
+        "nativeweave.database.postgresql.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.database.postgresql.nuspec",
+        "nativeweave/closure.json",
+        "runtimes/linux-x64/native/libnw_database_postgresql.so",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.dll",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.xml"
+      ]
+    },
+    "NativeWeave.Database.Sqlite/0.1.0-preview.1": {
+      "sha512": "NCaxNMlDNcqCkv7MeEjlj0xlxCMvCTkWTqiB2wepJWaqt4Q//ARSOuI9gFV6DcGdruVl4XIzavFVDqh3iAX8WQ==",
+      "type": "package",
+      "path": "nativeweave.database.sqlite/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Database.Sqlite.targets",
+        "lib/net11.0/NativeWeave.Database.Sqlite.dll",
+        "lib/net11.0/NativeWeave.Database.Sqlite.xml",
+        "nativeweave.database.sqlite.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.database.sqlite.nuspec",
+        "nativeweave/closure.json",
+        "runtimes/linux-x64/native/libnw_database_sqlite.so",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.dll",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.xml"
+      ]
+    },
+    "NativeWeave.Database.Transactions/0.1.0-preview.1": {
+      "sha512": "Ez/cC+Nju9nCJ7LXISlbXpgqelldg8/ukG2g6qsKAXBY6D3ZtRGmv3HwXAZp8rodRXYbZ4dEXmBnHm0Mpaem7Q==",
+      "type": "package",
+      "path": "nativeweave.database.transactions/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Database.Transactions.dll",
+        "lib/net11.0/NativeWeave.Database.Transactions.xml",
+        "nativeweave.database.transactions.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.database.transactions.nuspec"
+      ]
+    },
+    "NativeWeave.Interop.Abi/0.1.0-preview.1": {
+      "sha512": "nLDmEUgYpONoXb+kIOWmlrl0PFa2Dr5L4Dxkb4RGD1KTEw3sXTZY21RDSaC5Bi9EIdBUQQSe6Ct0bI4qZNxVsA==",
+      "type": "package",
+      "path": "nativeweave.interop.abi/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Interop.Abi.dll",
+        "lib/net11.0/NativeWeave.Interop.Abi.xml",
+        "nativeweave.interop.abi.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.interop.abi.nuspec"
+      ]
+    },
+    "NativeWeave.Query.Binding/0.1.0-preview.1": {
+      "sha512": "n1OmnUNG6D29yXQU2aROgTtY0c2nQMEG/8wWvV9lUPi5lToi0nQmd9xdPLuAjUAQJsPwjipH52iku1NlkeoVbQ==",
+      "type": "package",
+      "path": "nativeweave.query.binding/0.1.0-preview.1",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "lib/net11.0/NativeWeave.Query.Binding.dll",
+        "lib/net11.0/NativeWeave.Query.Binding.xml",
+        "nativeweave.query.binding.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.query.binding.nuspec"
+      ]
+    },
+    "NativeWeave.Query.Generator/0.1.0-preview.1": {
+      "sha512": "xKQ8Yzr9YbFEUOaPLvz/Oz47JAl9GHW3sTjRyG69SKF1Euiy6uun87k/k9omPre5m8sEixJqCkFrJX2juJb5Rw==",
+      "type": "package",
+      "path": "nativeweave.query.generator/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Query.Generator.targets",
+        "nativeweave.query.generator.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.query.generator.nuspec",
+        "tools/roslyn/NativeWeave.Query.Generator.dll"
+      ]
+    },
+    "NativeWeave.Server/0.1.0-preview.1": {
+      "sha512": "TpOduFK4eTokFsaMmErOolb0+/xr9jxfrvZCrnefmolBKOj7L0IE/7wHmTC4lYtb/YjQymopGv6bYyfYv16wBg==",
+      "type": "package",
+      "path": "nativeweave.server/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Server.targets",
+        "lib/net11.0/NativeWeave.Server.dll",
+        "lib/net11.0/NativeWeave.Server.xml",
+        "nativeweave.server.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.server.nuspec",
+        "nativeweave/closure.json",
+        "runtimes/linux-x64/native/libnativeweave_server.so",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.dll",
+        "tools/net11.0/NativeWeave.Packaging.Tasks.xml"
+      ]
+    },
+    "NativeWeave.Server.Generator/0.1.0-preview.1": {
+      "sha512": "nouyxwze/5CdxVqus5wkwgIcqNvE49QgOH8s3KZ38g/+Hm9WEBXsjfigY3in8a4ZHaaNwlEvVUqkRUsQcgVVEQ==",
+      "type": "package",
+      "path": "nativeweave.server.generator/0.1.0-preview.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE",
+        "buildTransitive/NativeWeave.Server.Generator.targets",
+        "nativeweave.server.generator.0.1.0-preview.1.nupkg.sha512",
+        "nativeweave.server.generator.nuspec",
+        "tools/roslyn/NativeWeave.Server.Generator.dll"
+      ]
+    },
+    "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+      "sha512": "HMCCGxJ1Q41NF31M+yWB7h0OAWr0XpiS8ZYMOi/V5IU/864Yi00rLq3M1K3AhE2+q86YJA4V9KZ28NXE+Q/uxA==",
+      "type": "package",
+      "path": "runtime.linux-x64.microsoft.dotnet.ilcompiler/11.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "native/src/libs/Common/pal_atomic.h",
+        "native/src/libs/Common/pal_compiler.h",
+        "native/src/libs/Common/pal_config.h.in",
+        "native/src/libs/Common/pal_error_common.h",
+        "native/src/libs/Common/pal_io_common.h",
+        "native/src/libs/Common/pal_networking_common.h",
+        "native/src/libs/Common/pal_safecrt.h",
+        "native/src/libs/Common/pal_ssl_types.h",
+        "native/src/libs/Common/pal_types.h",
+        "native/src/libs/Common/pal_utilities.h",
+        "native/src/libs/Common/pal_x509_types.h",
+        "native/src/libs/System.Globalization.Native/CMakeLists.txt",
+        "native/src/libs/System.Globalization.Native/System.Globalization.Native.def",
+        "native/src/libs/System.Globalization.Native/config.h.in",
+        "native/src/libs/System.Globalization.Native/configure.cmake",
+        "native/src/libs/System.Globalization.Native/entrypoints.c",
+        "native/src/libs/System.Globalization.Native/pal_calendarData.c",
+        "native/src/libs/System.Globalization.Native/pal_calendarData.h",
+        "native/src/libs/System.Globalization.Native/pal_calendarData.m",
+        "native/src/libs/System.Globalization.Native/pal_casing.c",
+        "native/src/libs/System.Globalization.Native/pal_casing.h",
+        "native/src/libs/System.Globalization.Native/pal_casing.m",
+        "native/src/libs/System.Globalization.Native/pal_collation.c",
+        "native/src/libs/System.Globalization.Native/pal_collation.h",
+        "native/src/libs/System.Globalization.Native/pal_collation.m",
+        "native/src/libs/System.Globalization.Native/pal_common.c",
+        "native/src/libs/System.Globalization.Native/pal_errors.h",
+        "native/src/libs/System.Globalization.Native/pal_errors_internal.h",
+        "native/src/libs/System.Globalization.Native/pal_icushim.c",
+        "native/src/libs/System.Globalization.Native/pal_icushim.h",
+        "native/src/libs/System.Globalization.Native/pal_icushim_internal.h",
+        "native/src/libs/System.Globalization.Native/pal_icushim_internal_android.h",
+        "native/src/libs/System.Globalization.Native/pal_icushim_static.c",
+        "native/src/libs/System.Globalization.Native/pal_idna.c",
+        "native/src/libs/System.Globalization.Native/pal_idna.h",
+        "native/src/libs/System.Globalization.Native/pal_locale.c",
+        "native/src/libs/System.Globalization.Native/pal_locale.h",
+        "native/src/libs/System.Globalization.Native/pal_locale.m",
+        "native/src/libs/System.Globalization.Native/pal_localeNumberData.c",
+        "native/src/libs/System.Globalization.Native/pal_localeNumberData.h",
+        "native/src/libs/System.Globalization.Native/pal_localeStringData.c",
+        "native/src/libs/System.Globalization.Native/pal_localeStringData.h",
+        "native/src/libs/System.Globalization.Native/pal_locale_internal.h",
+        "native/src/libs/System.Globalization.Native/pal_normalization.c",
+        "native/src/libs/System.Globalization.Native/pal_normalization.h",
+        "native/src/libs/System.Globalization.Native/pal_normalization.m",
+        "native/src/libs/System.Globalization.Native/pal_placeholders.c",
+        "native/src/libs/System.Globalization.Native/pal_timeZoneInfo.c",
+        "native/src/libs/System.Globalization.Native/pal_timeZoneInfo.h",
+        "native/src/libs/System.Globalization.Native/pal_timeZoneInfo.m",
+        "native/src/libs/System.Security.Cryptography.Native/CMakeLists.txt",
+        "native/src/libs/System.Security.Cryptography.Native/apibridge_30.c",
+        "native/src/libs/System.Security.Cryptography.Native/apibridge_30.h",
+        "native/src/libs/System.Security.Cryptography.Native/apibridge_30_rev.h",
+        "native/src/libs/System.Security.Cryptography.Native/configure.cmake",
+        "native/src/libs/System.Security.Cryptography.Native/entrypoints.c",
+        "native/src/libs/System.Security.Cryptography.Native/extra_libs.cmake",
+        "native/src/libs/System.Security.Cryptography.Native/memory_debug.c",
+        "native/src/libs/System.Security.Cryptography.Native/memory_debug.h",
+        "native/src/libs/System.Security.Cryptography.Native/openssl.c",
+        "native/src/libs/System.Security.Cryptography.Native/openssl.h",
+        "native/src/libs/System.Security.Cryptography.Native/opensslshim.c",
+        "native/src/libs/System.Security.Cryptography.Native/opensslshim.h",
+        "native/src/libs/System.Security.Cryptography.Native/osslcompat_30.h",
+        "native/src/libs/System.Security.Cryptography.Native/osslcompat_40.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_asn1.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_asn1.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_bignum.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_bignum.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_bio.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_bio.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_crypto_config.h.in",
+        "native/src/libs/System.Security.Cryptography.Native/pal_crypto_types.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_dsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_dsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ecc_import_export.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ecc_import_export.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_eckey.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_eckey.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_err.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_err.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_cipher.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_cipher.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_kdf.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_kdf.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_kem.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_kem.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_mac.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_mac.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_dsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_dsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ecdh.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ecdh.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ecdsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ecdsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_eckey.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_eckey.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ml_dsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_ml_dsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_raw_signverify.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_raw_signverify.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_rsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_rsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_slh_dsa.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_slh_dsa.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_x25519.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_evp_pkey_x25519.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_hmac.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_hmac.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ocsp.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ocsp.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_pkcs7.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_pkcs7.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ssl.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_ssl.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509_name.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509_name.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509_root.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509_root.h",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509ext.c",
+        "native/src/libs/System.Security.Cryptography.Native/pal_x509ext.h",
+        "native/src/libs/build-local.sh",
+        "native/src/minipal/CMakeLists.txt",
+        "native/src/minipal/configure.cmake",
+        "native/src/minipal/cpucount.c",
+        "native/src/minipal/cpucount.h",
+        "native/src/minipal/cpufeatures.c",
+        "native/src/minipal/cpufeatures.h",
+        "native/src/minipal/cpuid.c",
+        "native/src/minipal/cpuid.h",
+        "native/src/minipal/debugger.c",
+        "native/src/minipal/debugger.h",
+        "native/src/minipal/descriptorlimit.c",
+        "native/src/minipal/descriptorlimit.h",
+        "native/src/minipal/entrypoints.c",
+        "native/src/minipal/entrypoints.h",
+        "native/src/minipal/getexepath.c",
+        "native/src/minipal/getexepath.h",
+        "native/src/minipal/guid.c",
+        "native/src/minipal/guid.h",
+        "native/src/minipal/log.c",
+        "native/src/minipal/log.h",
+        "native/src/minipal/memorybarrierprocesswide.c",
+        "native/src/minipal/memorybarrierprocesswide.h",
+        "native/src/minipal/minipalconfig.h.in",
+        "native/src/minipal/mutex.c",
+        "native/src/minipal/mutex.h",
+        "native/src/minipal/ospagesize.c",
+        "native/src/minipal/ospagesize.h",
+        "native/src/minipal/random.c",
+        "native/src/minipal/random.h",
+        "native/src/minipal/sanitizer_exports.def",
+        "native/src/minipal/sansupport.c",
+        "native/src/minipal/strings.c",
+        "native/src/minipal/strings.h",
+        "native/src/minipal/thread.c",
+        "native/src/minipal/thread.h",
+        "native/src/minipal/time.c",
+        "native/src/minipal/time.h",
+        "native/src/minipal/types.h",
+        "native/src/minipal/unicodedata.c",
+        "native/src/minipal/utf8.c",
+        "native/src/minipal/utf8.h",
+        "native/src/minipal/utils.h",
+        "native/src/minipal/xoshiro128pp.c",
+        "native/src/minipal/xoshiro128pp.h",
+        "runtime.linux-x64.microsoft.dotnet.ilcompiler.11.0.0.nupkg.sha512",
+        "runtime.linux-x64.microsoft.dotnet.ilcompiler.nuspec",
+        "tools/ilc",
+        "tools/libclrjit_universal_arm64_x64.so",
+        "tools/libclrjit_universal_arm_x64.so",
+        "tools/libclrjit_universal_wasm_x64.so",
+        "tools/libclrjit_unix_x64_x64.so",
+        "tools/libclrjit_win_x64_x64.so",
+        "tools/libclrjit_win_x86_x64.so",
+        "tools/libjitinterface_x64.so"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net11.0": [
+      "Microsoft.DotNet.ILCompiler >= 11.0.0",
+      "Microsoft.NET.ILLink.Tasks >= 11.0.0",
+      "NativeWeave.Database.PostgreSql >= 0.1.0-preview.1 <= 0.1.0-preview.1",
+      "NativeWeave.Database.Sqlite >= 0.1.0-preview.1 <= 0.1.0-preview.1",
+      "NativeWeave.Server >= 0.1.0-preview.1 <= 0.1.0-preview.1"
+    ]
+  },
+  "packageFolders": {
+    "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumer-cache": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumers/edited/Reference.TaskService.csproj",
+      "projectName": "NativeWeave.Reference.TaskService",
+      "projectPath": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumers/edited/Reference.TaskService.csproj",
+      "packagesPath": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumer-cache",
+      "outputPath": "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumers/edited/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/consumers/edited/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net11.0"
+      ],
+      "sources": {
+        "/workspace/scratch/58d2a6adf1c3/task07-package-probe/final-001/feed": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net11.0": {
+          "framework": "net11.0",
+          "targetAlias": "net11.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "allWarningsAsErrors": true,
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreLockProperties": {
+        "restorePackagesWithLockFile": "true"
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "11.0.100"
+    },
+    "frameworks": {
+      "net11.0": {
+        "framework": "net11.0",
+        "targetAlias": "net11.0",
+        "dependencies": {
+          "Microsoft.DotNet.ILCompiler": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[11.0.0, )",
+            "autoReferenced": true
+          },
+          "Microsoft.NET.ILLink.Tasks": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[11.0.0, )",
+            "autoReferenced": true
+          },
+          "NativeWeave.Database.PostgreSql": {
+            "target": "Package",
+            "version": "[0.1.0-preview.1, 0.1.0-preview.1]"
+          },
+          "NativeWeave.Database.Sqlite": {
+            "target": "Package",
+            "version": "[0.1.0-preview.1, 0.1.0-preview.1]"
+          },
+          "NativeWeave.Server": {
+            "target": "Package",
+            "version": "[0.1.0-preview.1, 0.1.0-preview.1]"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+            "version": "[11.0.0, 11.0.0]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+            "version": "[11.0.0, 11.0.0]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.NativeAOT.linux-x64",
+            "version": "[11.0.0, 11.0.0]"
+          },
+          {
+            "name": "runtime.linux-x64.Microsoft.DotNet.ILCompiler",
+            "version": "[11.0.0, 11.0.0]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/sdk/11.0.100/PortableRuntimeIdentifierGraph.json",
+        "packagesToPrune": {
+          "Microsoft.CSharp": "(,4.7.32767]",
+          "Microsoft.Extensions.Caching.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.Configuration.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.Diagnostics.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.FileProviders.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.Hosting.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.Logging.Abstractions": "(,11.0.32767]",
+          "Microsoft.Extensions.Options": "(,11.0.32767]",
+          "Microsoft.Extensions.Primitives": "(,11.0.32767]",
+          "Microsoft.NETCore.App": "(,2.2.32767]",
+          "Microsoft.NETCore.DotNetHost": "(,8.0.32767]",
+          "Microsoft.NETCore.DotNetHostPolicy": "(,8.0.32767]",
+          "Microsoft.NETCore.DotNetHostResolver": "(,8.0.32767]",
+          "Microsoft.NETCore.Jit": "(,2.0.32767]",
+          "Microsoft.NETCore.Platforms": "(,7.0.32767]",
+          "Microsoft.NETCore.Runtime.CoreCLR": "(,2.0.32767]",
+          "Microsoft.NETCore.Targets": "(,5.0.32767]",
+          "Microsoft.NETCore.Windows.ApiSets": "(,1.0.32767]",
+          "Microsoft.VisualBasic": "(,10.4.32767]",
+          "Microsoft.Win32.Primitives": "(,4.3.32767]",
+          "Microsoft.Win32.Registry": "(,5.0.32767]",
+          "NETStandard.Library": "(,2.0.32767]",
+          "runtime.any.System.Collections": "(,4.3.32767]",
+          "runtime.any.System.Diagnostics.Tools": "(,4.3.32767]",
+          "runtime.any.System.Diagnostics.Tracing": "(,4.3.32767]",
+          "runtime.any.System.Globalization": "(,4.3.32767]",
+          "runtime.any.System.Globalization.Calendars": "(,4.3.32767]",
+          "runtime.any.System.IO": "(,4.3.32767]",
+          "runtime.any.System.Reflection": "(,4.3.32767]",
+          "runtime.any.System.Reflection.Extensions": "(,4.3.32767]",
+          "runtime.any.System.Reflection.Primitives": "(,4.3.32767]",
+          "runtime.any.System.Resources.ResourceManager": "(,4.3.32767]",
+          "runtime.any.System.Runtime": "(,4.3.32767]",
+          "runtime.any.System.Runtime.Handles": "(,4.3.32767]",
+          "runtime.any.System.Runtime.InteropServices": "(,4.3.32767]",
+          "runtime.any.System.Text.Encoding": "(,4.3.32767]",
+          "runtime.any.System.Text.Encoding.Extensions": "(,4.3.32767]",
+          "runtime.any.System.Threading.Tasks": "(,4.3.32767]",
+          "runtime.any.System.Threading.Timer": "(,4.3.32767]",
+          "runtime.aot.System.Collections": "(,4.3.32767]",
+          "runtime.aot.System.Diagnostics.Tools": "(,4.3.32767]",
+          "runtime.aot.System.Diagnostics.Tracing": "(,4.3.32767]",
+          "runtime.aot.System.Globalization": "(,4.3.32767]",
+          "runtime.aot.System.Globalization.Calendars": "(,4.3.32767]",
+          "runtime.aot.System.IO": "(,4.3.32767]",
+          "runtime.aot.System.Reflection": "(,4.3.32767]",
+          "runtime.aot.System.Reflection.Extensions": "(,4.3.32767]",
+          "runtime.aot.System.Reflection.Primitives": "(,4.3.32767]",
+          "runtime.aot.System.Resources.ResourceManager": "(,4.3.32767]",
+          "runtime.aot.System.Runtime": "(,4.3.32767]",
+          "runtime.aot.System.Runtime.Handles": "(,4.3.32767]",
+          "runtime.aot.System.Runtime.InteropServices": "(,4.3.32767]",
+          "runtime.aot.System.Text.Encoding": "(,4.3.32767]",
+          "runtime.aot.System.Text.Encoding.Extensions": "(,4.3.32767]",
+          "runtime.aot.System.Threading.Tasks": "(,4.3.32767]",
+          "runtime.aot.System.Threading.Timer": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.debian.9-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.fedora.27-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.fedora.28-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.native.System": "(,4.3.32767]",
+          "runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+          "runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.opensuse.42.3-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+          "runtime.ubuntu.18.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+          "runtime.unix.Microsoft.Win32.Primitives": "(,4.3.32767]",
+          "runtime.unix.System.Console": "(,4.3.32767]",
+          "runtime.unix.System.Diagnostics.Debug": "(,4.3.32767]",
+          "runtime.unix.System.IO.FileSystem": "(,4.3.32767]",
+          "runtime.unix.System.Net.Primitives": "(,4.3.32767]",
+          "runtime.unix.System.Net.Sockets": "(,4.3.32767]",
+          "runtime.unix.System.Private.Uri": "(,4.3.32767]",
+          "runtime.unix.System.Runtime.Extensions": "(,4.3.32767]",
+          "runtime.win.Microsoft.Win32.Primitives": "(,4.3.32767]",
+          "runtime.win.System.Console": "(,4.3.32767]",
+          "runtime.win.System.Diagnostics.Debug": "(,4.3.32767]",
+          "runtime.win.System.IO.FileSystem": "(,4.3.32767]",
+          "runtime.win.System.Net.Primitives": "(,4.3.32767]",
+          "runtime.win.System.Net.Sockets": "(,4.3.32767]",
+          "runtime.win.System.Runtime.Extensions": "(,4.3.32767]",
+          "runtime.win10-arm-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+          "runtime.win10-arm64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.win10-x64-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+          "runtime.win10-x86-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+          "runtime.win7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.win7-x86.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "runtime.win7.System.Private.Uri": "(,4.3.32767]",
+          "runtime.win8-arm.runtime.native.System.IO.Compression": "(,4.3.32767]",
+          "System.AppContext": "(,4.3.32767]",
+          "System.Buffers": "(,5.0.32767]",
+          "System.Collections": "(,4.3.32767]",
+          "System.Collections.Concurrent": "(,4.3.32767]",
+          "System.Collections.Immutable": "(,11.0.32767]",
+          "System.Collections.NonGeneric": "(,4.3.32767]",
+          "System.Collections.Specialized": "(,4.3.32767]",
+          "System.ComponentModel": "(,4.3.32767]",
+          "System.ComponentModel.Annotations": "(,5.0.32767]",
+          "System.ComponentModel.EventBasedAsync": "(,4.3.32767]",
+          "System.ComponentModel.Primitives": "(,4.3.32767]",
+          "System.ComponentModel.TypeConverter": "(,4.3.32767]",
+          "System.Console": "(,4.3.32767]",
+          "System.Data.Common": "(,4.3.32767]",
+          "System.Data.DataSetExtensions": "(,4.5.32767]",
+          "System.Diagnostics.Contracts": "(,4.3.32767]",
+          "System.Diagnostics.Debug": "(,4.3.32767]",
+          "System.Diagnostics.DiagnosticSource": "(,11.0.32767]",
+          "System.Diagnostics.FileVersionInfo": "(,4.3.32767]",
+          "System.Diagnostics.Process": "(,4.3.32767]",
+          "System.Diagnostics.StackTrace": "(,4.3.32767]",
+          "System.Diagnostics.TextWriterTraceListener": "(,4.3.32767]",
+          "System.Diagnostics.Tools": "(,4.3.32767]",
+          "System.Diagnostics.TraceSource": "(,4.3.32767]",
+          "System.Diagnostics.Tracing": "(,4.3.32767]",
+          "System.Drawing.Primitives": "(,4.3.32767]",
+          "System.Dynamic.Runtime": "(,4.3.32767]",
+          "System.Formats.Asn1": "(,11.0.32767]",
+          "System.Formats.Tar": "(,11.0.32767]",
+          "System.Globalization": "(,4.3.32767]",
+          "System.Globalization.Calendars": "(,4.3.32767]",
+          "System.Globalization.Extensions": "(,4.3.32767]",
+          "System.IO": "(,4.3.32767]",
+          "System.IO.Compression": "(,4.3.32767]",
+          "System.IO.Compression.ZipFile": "(,4.3.32767]",
+          "System.IO.FileSystem": "(,4.3.32767]",
+          "System.IO.FileSystem.AccessControl": "(,5.0.32767]",
+          "System.IO.FileSystem.DriveInfo": "(,4.3.32767]",
+          "System.IO.FileSystem.Primitives": "(,4.3.32767]",
+          "System.IO.FileSystem.Watcher": "(,4.3.32767]",
+          "System.IO.IsolatedStorage": "(,4.3.32767]",
+          "System.IO.MemoryMappedFiles": "(,4.3.32767]",
+          "System.IO.Pipelines": "(,11.0.32767]",
+          "System.IO.Pipes": "(,4.3.32767]",
+          "System.IO.Pipes.AccessControl": "(,5.0.32767]",
+          "System.IO.UnmanagedMemoryStream": "(,4.3.32767]",
+          "System.Linq": "(,4.3.32767]",
+          "System.Linq.AsyncEnumerable": "(,11.0.32767]",
+          "System.Linq.Expressions": "(,4.3.32767]",
+          "System.Linq.Parallel": "(,4.3.32767]",
+          "System.Linq.Queryable": "(,4.3.32767]",
+          "System.Memory": "(,5.0.32767]",
+          "System.Net.Http": "(,4.3.32767]",
+          "System.Net.Http.Json": "(,11.0.32767]",
+          "System.Net.NameResolution": "(,4.3.32767]",
+          "System.Net.NetworkInformation": "(,4.3.32767]",
+          "System.Net.Ping": "(,4.3.32767]",
+          "System.Net.Primitives": "(,4.3.32767]",
+          "System.Net.Requests": "(,4.3.32767]",
+          "System.Net.Security": "(,4.3.32767]",
+          "System.Net.ServerSentEvents": "(,11.0.32767]",
+          "System.Net.Sockets": "(,4.3.32767]",
+          "System.Net.WebHeaderCollection": "(,4.3.32767]",
+          "System.Net.WebSockets": "(,4.3.32767]",
+          "System.Net.WebSockets.Client": "(,4.3.32767]",
+          "System.Numerics.Vectors": "(,5.0.32767]",
+          "System.ObjectModel": "(,4.3.32767]",
+          "System.Private.DataContractSerialization": "(,4.3.32767]",
+          "System.Private.Uri": "(,4.3.32767]",
+          "System.Reflection": "(,4.3.32767]",
+          "System.Reflection.DispatchProxy": "(,6.0.32767]",
+          "System.Reflection.Emit": "(,4.7.32767]",
+          "System.Reflection.Emit.ILGeneration": "(,4.7.32767]",
+          "System.Reflection.Emit.Lightweight": "(,4.7.32767]",
+          "System.Reflection.Extensions": "(,4.3.32767]",
+          "System.Reflection.Metadata": "(,11.0.32767]",
+          "System.Reflection.Primitives": "(,4.3.32767]",
+          "System.Reflection.TypeExtensions": "(,4.7.32767]",
+          "System.Resources.Reader": "(,4.3.32767]",
+          "System.Resources.ResourceManager": "(,4.3.32767]",
+          "System.Resources.Writer": "(,4.3.32767]",
+          "System.Runtime": "(,4.3.32767]",
+          "System.Runtime.CompilerServices.Unsafe": "(,7.0.32767]",
+          "System.Runtime.CompilerServices.VisualC": "(,4.3.32767]",
+          "System.Runtime.Extensions": "(,4.3.32767]",
+          "System.Runtime.Handles": "(,4.3.32767]",
+          "System.Runtime.InteropServices": "(,4.3.32767]",
+          "System.Runtime.InteropServices.RuntimeInformation": "(,4.3.32767]",
+          "System.Runtime.Loader": "(,4.3.32767]",
+          "System.Runtime.Numerics": "(,4.3.32767]",
+          "System.Runtime.Serialization.Formatters": "(,4.3.32767]",
+          "System.Runtime.Serialization.Json": "(,4.3.32767]",
+          "System.Runtime.Serialization.Primitives": "(,4.3.32767]",
+          "System.Runtime.Serialization.Xml": "(,4.3.32767]",
+          "System.Security.AccessControl": "(,6.0.32767]",
+          "System.Security.Claims": "(,4.3.32767]",
+          "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
+          "System.Security.Cryptography.Cng": "(,5.0.32767]",
+          "System.Security.Cryptography.Csp": "(,4.3.32767]",
+          "System.Security.Cryptography.Encoding": "(,4.3.32767]",
+          "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
+          "System.Security.Cryptography.Primitives": "(,4.3.32767]",
+          "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
+          "System.Security.Principal": "(,4.3.32767]",
+          "System.Security.Principal.Windows": "(,5.0.32767]",
+          "System.Security.SecureString": "(,4.3.32767]",
+          "System.Text.Encoding": "(,4.3.32767]",
+          "System.Text.Encoding.CodePages": "(,11.0.32767]",
+          "System.Text.Encoding.Extensions": "(,4.3.32767]",
+          "System.Text.Encodings.Web": "(,11.0.32767]",
+          "System.Text.Json": "(,11.0.32767]",
+          "System.Text.RegularExpressions": "(,4.3.32767]",
+          "System.Threading": "(,4.3.32767]",
+          "System.Threading.AccessControl": "(,11.0.32767]",
+          "System.Threading.Channels": "(,11.0.32767]",
+          "System.Threading.Overlapped": "(,4.3.32767]",
+          "System.Threading.Tasks": "(,4.3.32767]",
+          "System.Threading.Tasks.Dataflow": "(,11.0.32767]",
+          "System.Threading.Tasks.Extensions": "(,5.0.32767]",
+          "System.Threading.Tasks.Parallel": "(,4.3.32767]",
+          "System.Threading.Thread": "(,4.3.32767]",
+          "System.Threading.ThreadPool": "(,4.3.32767]",
+          "System.Threading.Timer": "(,4.3.32767]",
+          "System.ValueTuple": "(,4.6.32767]",
+          "System.Xml.ReaderWriter": "(,4.3.32767]",
+          "System.Xml.XDocument": "(,4.3.32767]",
+          "System.Xml.XmlDocument": "(,4.3.32767]",
+          "System.Xml.XmlSerializer": "(,4.3.32767]",
+          "System.Xml.XPath": "(,4.3.32767]",
+          "System.Xml.XPath.XDocument": "(,5.0.32767]"
+        }
+      }
+    },
+    "runtimes": {
+      "linux-x64": {
+        "#import": []
+      }
+    }
+  }
+}

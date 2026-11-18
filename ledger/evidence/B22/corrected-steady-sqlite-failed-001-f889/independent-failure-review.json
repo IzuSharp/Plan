@@ -1,0 +1,177 @@
+{
+  "calibrationQualifiedIdleThreads": [
+    21,
+    21,
+    21
+  ],
+  "creditedSeconds": 0,
+  "decision": "failure_retained_thread_owner_classification_required",
+  "error": {
+    "oracle": "Frozen peak resource cap exceeded: threads",
+    "type": "OracleFailure"
+  },
+  "finalObservations": [
+    {
+      "databaseNativeOwners": {
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "observerFailures": 0,
+      "phase": "application-main-returned-before-finalizers",
+      "sequence": 400
+    },
+    {
+      "databaseNativeOwners": {
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "observerFailures": 0,
+      "phase": "application-main-returned-after-finalizers",
+      "sequence": 401
+    },
+    {
+      "databaseNativeOwners": {
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "observerFailures": 0,
+      "phase": "observer-before-finalizers",
+      "sequence": 402
+    },
+    {
+      "databaseNativeOwners": {
+        "sqlite": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "observerFailures": 0,
+      "phase": "observer-stop",
+      "sequence": 403
+    }
+  ],
+  "findings": [
+    "The failed observation is25 threads against the unchanged frozen peak24; the ordinary receipt and descriptor composite correctly remain failed.",
+    "The final eight sampled descriptor counts are28 while threads change24 to25. There is no contemporaneous thread-name inventory, so this does not establish the owner or cause of the new thread.",
+    "Native counts at the failed sample equal the qualified baseline and final application-main-returned-before-finalizers counts are allzero. Those facts support native retirement but do not prove arbitrary managed/native thread ownership or a long-term resource plateau.",
+    "Each configured database source owns one owner thread and a Tokio runtime with2 workers and maximum4 blocking workers. SQLx creates a separate named worker for each physical SQLite connection. The process also includes Server and managed-runtime/observer workers; summing native slots alone cannot justify a process-wide scalar cap.",
+    "The900-second calibration observed qualified idle21 in allthree cycles and sampled peak24. That practical band did not include the later25-thread observation. No new band is accepted from this single failed count."
+  ],
+  "frozenThreadCaps": {
+    "idle": 21,
+    "peak": 24
+  },
+  "lastSample": {
+    "controlSequence": 0,
+    "monotonicNs": 50905048267221,
+    "observationSequence": 399,
+    "phase": "load",
+    "process": {
+      "cpuTicks": 5294,
+      "cpuTicksPerSecond": 100,
+      "fileDescriptors": 28,
+      "peakRssBytes": 35319808,
+      "rssBytes": 33546240,
+      "threads": 25,
+      "virtualBytes": 22913617920
+    },
+    "resources": {
+      "fileDescriptors": 28,
+      "native.sqlite.0": 2,
+      "native.sqlite.1": 0,
+      "native.sqlite.2": 0,
+      "native.sqlite.3": 0,
+      "native.sqlite.4": 0,
+      "native.sqlite.5": 6,
+      "nativeweave.server.payload.managed.bytes": 0,
+      "nativeweave.server.payload.native.bytes": 0,
+      "nativeweave.server.requests.active": 0,
+      "nativeweave.server.requests.queued": 0,
+      "nativeweave.server.requests.retiring": 0,
+      "rssBytes": 33546240,
+      "threads": 25
+    },
+    "traceBytes": 7058639
+  },
+  "minimumNextStep": "After the coordinator grants a load slot, collect same-artifact, same-workload, namespace-local /proc/PID/task inventories with TID/start ticks/name/wchan and explicit vanished-read races at startup, changes/peaks and qualified idle; correlate physical pool FDs and native/Server gauges. Derive any prospective ownership-based band only from the resulting evidence and pinned source, retain this failure and every unrelated frozen gate.",
+  "platform": "linux-x64",
+  "postgresqlSibling": "No changes or process control performed; independently running sibling remains separately adjudicated.",
+  "readSources": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-001-f889/receipt.json",
+      "sha256": "f2284619e3c3f789820c85ec730bf03d8cce37bcacd7bd58b06c97b16ad876ff"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-001-f889/resources.jsonl",
+      "sha256": "1b5ff5b1477d78e481281fd1e9609f29f58c2bf4d4cc67e2ef5a21a2a97906ba"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-001-f889/service/observations.jsonl",
+      "sha256": "2a0166d71a56d171a700c807af39d45e3c20b8a424ac22a17b477ef10ee6b545"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-001-f889-descriptors/receipt.json",
+      "sha256": "f73e05ab22cab38d6ae13157025141378b023bc7d64ebb06e6f5c66dc400b02d"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-frozen-profiles-001-f889/sqlite-aot.json",
+      "sha256": "a9b6bdccef6474c3dec07257652c4b5654d8acc36c4073716ffe52d7c606fd70"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-calibration-sqlite-001-f889/resources.jsonl",
+      "sha256": "b3275d101a3d25dac6de7d7f8cf211090342bc4c063f1c31ce7bdfd94fdff50e"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/native/database/host/src/runtime.rs",
+      "sha256": "5ce80e0fbc530292f85826b76800a590556a93c7a3adafd8f4dc59ecec337af7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/tests/Verification.EndToEnd/soak.py",
+      "sha256": "e36456b21d3001fae7eb42ab2a024717c40d1d42f1201e901a4afe7dc0740da2"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sqlx-sqlite-0.9.0/src/connection/worker.rs",
+      "sha256": "b66aafc56f0e287eac3b09111c5d4997d350ab61294c5cc576ce359bc18cebe4"
+    }
+  ],
+  "requiredSeconds": 1800,
+  "reviewer": "/root/recovery_release_audit",
+  "runDirectory": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-corrected-steady-sqlite-001-f889",
+  "schemaVersion": 1,
+  "scope": "Independent read-only review of corrected observed-AOT007 SQLite steady attempt001; no new load, build, profile edit or acceptance rerun.",
+  "stageElapsedSeconds": 437.604876504,
+  "status": "failed",
+  "task": "B22",
+  "threadCountHistogram": {
+    "18": 1,
+    "19": 1,
+    "20": 2,
+    "21": 58,
+    "22": 104,
+    "23": 123,
+    "24": 100,
+    "25": 1
+  }
+}

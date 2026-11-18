@@ -1,0 +1,69 @@
+{
+  "task": "B21",
+  "platform": "linux-x64",
+  "commit": "074b771c118afb37c0d0400726653a3d7dc84f14",
+  "tree": "9ad107873af6248cf3419dd6486d4f5e5326c252",
+  "implementationWorktree": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B21-linux/NativeWeave",
+  "branch": "task/Task-07-B21-linux",
+  "nativePackageVersion": "0.1.0-preview.1",
+  "sourceHashesMatchFinalCommit": true,
+  "builds": [
+    {
+      "project": "src/Reference.TaskService/Reference.TaskService.csproj",
+      "configuration": "Release",
+      "explicitRid": false,
+      "warnings": 0,
+      "errors": 0,
+      "log": "canonical-build.log"
+    },
+    {
+      "project": "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+      "profile": "minimum SQLite+Server",
+      "configuration": "Release",
+      "explicitRid": false,
+      "warnings": 0,
+      "errors": 0,
+      "log": "minimum-build.log"
+    },
+    {
+      "project": "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+      "profile": "ReferenceIncludePostgreSql=true",
+      "configuration": "Release",
+      "explicitRid": false,
+      "warnings": 0,
+      "errors": 0,
+      "log": "advanced-build.log"
+    }
+  ],
+  "focusedRegressions": {
+    "cases": 21,
+    "passed": true,
+    "results": "cases.json",
+    "script": "review-regressions.py",
+    "shutdownSeconds": 0.031729274000099394
+  },
+  "minimumSample": {
+    "passed": true,
+    "result": "minimum-result.json",
+    "script": "sample-smoke.py"
+  },
+  "validationCommands": [
+    "source ROOT/task07-toolchain/env.sh",
+    "MSBUILDUSESERVER=0 dotnet build src/Reference.TaskService/Reference.TaskService.csproj -c Release --no-restore -p:UseSharedCompilation=false",
+    "MSBUILDUSESERVER=0 dotnet restore samples/api/reference-taskservice/Reference.TaskService.Sample.csproj --configfile /tmp/nativeweave-b21-nuget.config -p:UseSharedCompilation=false",
+    "MSBUILDUSESERVER=0 dotnet build samples/api/reference-taskservice/Reference.TaskService.Sample.csproj -c Release --no-restore -p:UseSharedCompilation=false -o ROOT/task07-runs/b21-final-source/minimum",
+    "MSBUILDUSESERVER=0 dotnet restore samples/api/reference-taskservice/Reference.TaskService.Sample.csproj --configfile /tmp/nativeweave-b21-nuget.config -p:ReferenceIncludePostgreSql=true -p:UseSharedCompilation=false",
+    "MSBUILDUSESERVER=0 dotnet build samples/api/reference-taskservice/Reference.TaskService.Sample.csproj -c Release --no-restore -p:ReferenceIncludePostgreSql=true -p:UseSharedCompilation=false -o ROOT/task07-runs/b21-final-source/advanced",
+    "python3 ROOT/task07-runs/b21-final-source/review-regressions.py",
+    "python3 ROOT/task07-runs/b21-final-source/sample-smoke.py"
+  ],
+  "scope": "Source implementation and focused Linux JIT/sample regressions; final B21 complete PG/AOT/TLS matrix remains owned by root. No B22 crash/soak or pristine no-Rust acceptance is inferred.",
+  "publicationExclusions": [
+    "*.private.json",
+    "minimum/",
+    "advanced/",
+    "*-fixtures/",
+    "*-fixture/",
+    "*-service/config.private.json"
+  ]
+}

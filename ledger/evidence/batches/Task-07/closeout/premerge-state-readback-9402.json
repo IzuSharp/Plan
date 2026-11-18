@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "observedUtc": "2026-11-18T17:07:49Z",
+  "purpose": "Pre-merge state readback; final B24 artifact review still pending",
+  "implementation": {
+    "head": "80bd3a1f61d017d3494a6e805b831aa61cdcc39f",
+    "tree": "ad858d6582043cafd3ad638e4e3c60e468ccfd87",
+    "ciRun": 44351062732,
+    "ciConclusion": "success",
+    "checks": [
+      {
+        "id": 134979986280,
+        "name": "Verify",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 134967137915,
+        "name": "CodeQL",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 134966483009,
+        "name": "security / CodeQL (python)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 134966482922,
+        "name": "build / Build, package and Native AOT",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 134966482879,
+        "name": "security / Dependency review",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 134966482866,
+        "name": "security / CodeQL (csharp)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 134966482272,
+        "name": "security / Secret scan",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "reviewThreads": [
+      {
+        "path": "tests/Reference.TaskService/run.py",
+        "line": 177,
+        "resolved": true,
+        "outdated": false
+      },
+      {
+        "path": "src/Benchmarks.Domain/comparators/managed/Program.cs",
+        "line": 139,
+        "resolved": true,
+        "outdated": false
+      },
+      {
+        "path": "src/Benchmarks.Domain/comparators/managed/Program.cs",
+        "line": 147,
+        "resolved": true,
+        "outdated": false
+      },
+      {
+        "path": "tests/Verification.EndToEnd/faults.py",
+        "line": null,
+        "resolved": true,
+        "outdated": true
+      },
+      {
+        "path": "tests/Verification.EndToEnd/faults.py",
+        "line": 406,
+        "resolved": true,
+        "outdated": false
+      },
+      {
+        "path": "tests/Verification.EndToEnd/soak.py",
+        "line": 278,
+        "resolved": true,
+        "outdated": false
+      },
+      {
+        "path": "tests/Verification.EndToEnd/transport_faults.py",
+        "line": 99,
+        "resolved": true,
+        "outdated": false
+      }
+    ],
+    "reviewStates": [
+      "COMMENTED",
+      "COMMENTED",
+      "COMMENTED"
+    ]
+  },
+  "plan": {
+    "head": "6afd9859c2a741006d58c2ed39bc42343fa60603",
+    "ciRun": 44351873317,
+    "ciConclusion": "success",
+    "reviewThreads": [],
+    "reviewStates": []
+  },
+  "knownCodeqlAggregate": {
+    "checkId": 134967137915,
+    "conclusion": "failure",
+    "newHighAlerts": 2,
+    "priorIndependentAssessment": "No authentication/authorization bypass established by comparator method branches; authentication precedes dispatch and tenant/item predicates protect operations.",
+    "sourceHashApplicability": "Independently rechecked in b24-conditional-source-build-bridge-ad858d65-9402.json",
+    "noSuppressionDismissalOrRuleChanges": true
+  },
+  "rulesets": {
+    "NativeWeave": {
+      "id": 27094343,
+      "name": "protectmain",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "IzuSharp/NativeWeave",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "~DEFAULT_BRANCH"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5Wt9MMzgGdbUc",
+      "created_at": "2026-11-12T05:58:59.904+00:00",
+      "updated_at": "2026-11-12T05:58:59.927+00:00",
+      "bypass_actors": [],
+      "current_user_can_bypass": "never",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/IzuSharp/NativeWeave/rulesets/27094343"
+        },
+        "html": {
+          "href": "https://github.com/IzuSharp/NativeWeave/rules/27094343"
+        }
+      }
+    },
+    "Plan": {
+      "id": 27113698,
+      "name": "protectmain",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "IzuSharp/Plan",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "~DEFAULT_BRANCH"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5WvMe3zgGduOI",
+      "created_at": "2026-11-12T11:32:09.486+00:00",
+      "updated_at": "2026-11-12T11:32:09.512+00:00",
+      "bypass_actors": [],
+      "current_user_can_bypass": "never",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/IzuSharp/Plan/rulesets/27113698"
+        },
+        "html": {
+          "href": "https://github.com/IzuSharp/Plan/rules/27113698"
+        }
+      }
+    }
+  },
+  "mergeBoundary": "Normal GitHub merge with exact expected head will enforce server-side protections; no force, bypass, permission or protection change is authorized or attempted.",
+  "merged": false
+}

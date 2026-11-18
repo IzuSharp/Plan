@@ -1,0 +1,238 @@
+{
+  "decision": "accepted_as_bounded_thread_classification_diagnostic_only",
+  "diagnosticSettings": {
+    "concurrency": 4,
+    "idleSeconds": 60,
+    "loadSeconds": 120,
+    "rate": 4,
+    "sampleSeconds": 1.1,
+    "seed": 2200261118
+  },
+  "durableSummary": {
+    "cancelledOperations": 0,
+    "consumerEffects": 271,
+    "consumerReceipts": 271,
+    "dangling": 0,
+    "expected": {
+      "attachments": 89,
+      "cancelledUploads": 1,
+      "completed": 479,
+      "created": 182
+    },
+    "observed": {
+      "items": 182,
+      "operations": 271,
+      "outbox": 271
+    }
+  },
+  "finalLive": {
+    "countsByName": {
+      ".NET Finalizer": 1,
+      ".NET SigHandler": 1,
+      ".NET TP Gate": 1,
+      ".NET TP Worker": 4,
+      ".NET Timer": 1,
+      "B22 application": 1,
+      "NativeWeave.Ref": 2,
+      "nativeweave-ser": 1,
+      "nw-db-owner": 2,
+      "nw-db-worker": 4,
+      "sqlx-sqlite-wor": 3
+    },
+    "descriptorCount": 26,
+    "descriptorRaces": 0,
+    "nativeOwners": {
+      "sqlite": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        6
+      ]
+    },
+    "observerFailures": 0,
+    "openStagingParts": 0,
+    "serverMeter": {
+      "nativeweave.server.callbacks.failed": 0,
+      "nativeweave.server.diagnostics.dropped": 0,
+      "nativeweave.server.diagnostics.queue.bytes": 0,
+      "nativeweave.server.diagnostics.queue.entries": 0,
+      "nativeweave.server.payload.managed.bytes": 0,
+      "nativeweave.server.payload.native.bytes": 0,
+      "nativeweave.server.requests.active": 0,
+      "nativeweave.server.requests.queued": 0,
+      "nativeweave.server.requests.rejected": 0,
+      "nativeweave.server.requests.retiring": 0
+    },
+    "socketRoles": {
+      "listener": 1
+    },
+    "threadCount": 21
+  },
+  "finalNativeOwners": {
+    "sqlite": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "finalObserverFailures": 0,
+  "finalShutdown": {
+    "consumerResourcesReleased": true,
+    "consumerStatus": "Succeeded",
+    "databaseResourcesReleased": true,
+    "databaseStatus": "Succeeded",
+    "serverState": "Disposed"
+  },
+  "historicalFailedAttemptCreditedSeconds": 0,
+  "historicalFailedThreadAttribution": null,
+  "identityMatchesCurrentFrozen007IdentityExactly": true,
+  "idleManagedWorkerHistogram": {
+    "4": 39,
+    "5": 16
+  },
+  "idleThreadCountHistogram": {
+    "21": 39,
+    "22": 16
+  },
+  "observedDurationsSeconds": {
+    "idle": 60.000116144998174,
+    "load": 120.022495638
+  },
+  "phaseCounts": {
+    "final-live-idle": 1,
+    "idle": 55,
+    "load": 104,
+    "startup": 1
+  },
+  "platform": "linux-x64",
+  "profileFreezeApprovedByThisRecord": false,
+  "prospectivePolicyDiscussion": {
+    "candidateDynamicResidualDefinition": ".NET TP Worker count plus max(nw-db-worker count minus 4, 0)",
+    "candidateMeasuredIdleResidual": 6,
+    "candidateMeasuredPeakResidual": 9,
+    "derivation": "Conservative residual of the previously measured calibration total after subtracting the same-artifact observed fixed class cohort and the minimum SQLx worker witnessed in this diagnostic. Configured physical-pool growth is reserved separately. These are practical observation bands, not global thread-pool invariants.",
+    "notFrozen": true,
+    "requiredGuards": [
+      "Reject unknown steady thread classes and enforce individual source-role capacities.",
+      "Use a combined residual budget; do not independently add managed-worker and blocking-worker headroom.",
+      "Correlate qualified final SQLx worker ownership with the contemporaneous physical database main-file inventory.",
+      "Preserve every earlier failed attempt and all unrelated frozen memory, roots, native, Server, FD, durable and final-retirement gates.",
+      "Require independent complete prospective duration and trend review; passing a scalar ceiling alone is insufficient."
+    ]
+  },
+  "rawHashMismatches": [],
+  "rawHashesRechecked": 19,
+  "readSources": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-thread-diagnosis-sqlite-001-f889/receipt.json",
+      "sha256": "f52a470e870bd6d49464ef97c4b7a59598e5b7fc8ef09b244e8b1e5b0bcf0e9d"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-thread-diagnosis-sqlite-001-f889/thread-owners.jsonl",
+      "sha256": "ffd45a316f8573e02dcbe7e79a2794c6b1c9f82fe6d6e4361947eb7e473f9c12"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-thread-diagnosis-sqlite-001-f889/request.json",
+      "sha256": "235fcd1e45ff9beb75b21d45f9297b48dd1a99b675fd71307879f52cb5b1c40c"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-thread-diagnosis-sqlite-001-f889/service/observations.jsonl",
+      "sha256": "c264a48eea8ad830bc9b25768fbf96f97653b4b0036a2a534e605ab7b33e5952"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-finish-evidence-f889/diagnose_threads.py",
+      "sha256": "28a33e9084c00ab6204ecc68ec71e290a6e733a386696b1bec07e3512d003fcd"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/native/database/host/src/runtime.rs",
+      "sha256": "5ce80e0fbc530292f85826b76800a590556a93c7a3adafd8f4dc59ecec337af7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/native/server/host/src/engine.rs",
+      "sha256": "541b0a8cd5a5015ea2c1be96e5498a895f0cc3e836b9e8f36d9cdad4720e4245"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/.worktree/Task-07-B22-idle-f889-linux/NativeWeave/src/Reference.TaskService/ServiceConfiguration.cs",
+      "sha256": "35d2415eec723a861e46e7221db92b94226b23bd6c6740ac943742093865fcf7"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sqlx-sqlite-0.9.0/src/connection/worker.rs",
+      "sha256": "b66aafc56f0e287eac3b09111c5d4997d350ab61294c5cc576ce359bc18cebe4"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-toolchain/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sqlx-sqlite-0.9.0/src/options/mod.rs",
+      "sha256": "ff5005abc6408f2df073d95bf3440c2a3ee96c1a312d73468bf66123f8ab2f1e"
+    }
+  ],
+  "resourceAcceptance": false,
+  "reviewer": "/root/recovery_release_audit",
+  "runtimeTraceControlSummary": {
+    "eventsLost": 0,
+    "knownControlCount": 12,
+    "knownControlsPassed": true
+  },
+  "schemaVersion": 1,
+  "scriptUsesExistingWorkloadPerformAndCancelUpload": true,
+  "settingsBoundary": "This separate diagnostic retains the ordinary workload seed, rate, concurrency, source/artifact/runtime identity and HTTP2/TLS, but uses explicit 120-second load and 60-second idle windows. Its compact settings object is not falsely represented as the full soak-profile settings object.",
+  "snapshotCount": 161,
+  "sourceInterpretation": [
+    "The diagnostic observed 14 other threads with constant class counts, managed TP workers changing 3 to 5 to 4, and SQLx workers changing 1 to 3. The two threads retaining the executable comm are not both assigned semantic roles from names alone.",
+    "Each database source constructs one owner thread and two asynchronous Tokio workers, with maximum four additional blocking workers. Two SQLite sources therefore reserve at most eight additional configured blocking workers, distinct from SQLx physical-connection workers.",
+    "SQLx 0.9 constructs a dedicated named worker for each SQLite connection. Configured physical connection capacities are 16 business and 2 consumer; native logical session counters do not count those physical workers.",
+    "The Server uses one current-thread runtime while serving. Its separate close helper occurs during shutdown and shares a Linux-truncated comm prefix; a prospective monitor must distinguish the exact pre-closure stage boundary from final shutdown.",
+    "This diagnostic does not reproduce 25 threads or identify the extra thread in the failed steady attempt. It cannot by itself prove the complete 30-minute resource plateau."
+  ],
+  "task": "B22",
+  "threadNameMinMax": {
+    ".NET Finalizer": [
+      1,
+      1
+    ],
+    ".NET SigHandler": [
+      1,
+      1
+    ],
+    ".NET TP Gate": [
+      1,
+      1
+    ],
+    ".NET TP Worker": [
+      3,
+      5
+    ],
+    ".NET Timer": [
+      1,
+      1
+    ],
+    "B22 application": [
+      1,
+      1
+    ],
+    "NativeWeave.Ref": [
+      2,
+      2
+    ],
+    "nativeweave-ser": [
+      1,
+      1
+    ],
+    "nw-db-owner": [
+      2,
+      2
+    ],
+    "nw-db-worker": [
+      4,
+      4
+    ],
+    "sqlx-sqlite-wor": [
+      1,
+      3
+    ]
+  },
+  "threadReadRaceCount": 0
+}
