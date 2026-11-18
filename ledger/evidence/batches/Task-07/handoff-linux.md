@@ -10,7 +10,7 @@ this platform ledger records the authorized product work. Design is read-only.
 
 | Task | Linux state | Owner | Start dependencies | Acceptance dependencies |
 | --- | --- | --- | --- | --- |
-| B21 | final_source_freeze_and_package_matrix_pending | b21_service; root integration/tests; task07_requirements review | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
+| B21 | original_matrix_passed; final_boundary_supplement_pending | b21_service; root integration/tests; task07_requirements review | B04, B08, B13, B14, B15, B17: satisfied | B20: satisfied |
 | B22 | waiting_for_B21 | unassigned | B21 | None |
 | B23 | waiting_for_B21 | unassigned | B21; A21: satisfied | B22 |
 | B24 | waiting_for_B22_B23 | root | B22, B23 | A16, A22, B18, B19: satisfied on Linux |
@@ -56,8 +56,11 @@ must not silently expand publication to the domain packages.
   retention, blob boundary and restart cases).
 - B21 application `ebef00c` is integrated as `9e0cb8d`; package controller
   `7a5987f` is integrated as `cd4b6b0`; the corrected real PostgreSQL oracle
-  `f43698a` is integrated as `275ee8f`. Final source/review fixes and the complete
-  immutable consumer matrix remain pending, so B21 is not yet accepted.
+  `f43698a` is integrated as `275ee8f`. Final recovery/maintenance source
+  `074b771` is integrated as `acb5be5`; its complete immutable matrix passed.
+  The response-vector-only helper `d491a8a` is integrated as `11b7d27`, with
+  independent literal vectors `15ec950`. Boundary-controller supplementation
+  remains pending, so B21 is not yet accepted.
 - CLI push is unavailable because no Git HTTPS credential is configured. The
   authorized GitHub connector persists GitData commits; each transported tree is
   compared with its local execution tree. Initial product local `ec619c1` and
@@ -109,6 +112,35 @@ Plan checkpoint `6c62b08900e8b62750de7c944962f42a8ad73412` has
 [passing CI44243404717](https://github.com/IzuSharp/Plan/actions/runs/44243404717).
 Later local checkpoints are to be transported with the frozen source. Both PRs
 remain Draft; no Task-07 merge or postmerge publication has occurred.
+
+### Completed immutable B21 matrix and remaining supplement
+
+The [original matrix](../../B21/package-matrix/summary.json) passed all 16 rows:
+two databases, JIT/NativeAOT, HTTP1/HTTP1-TLS/HTTP2-TLS, plus four ordinary
+managed-edit HTTP2-TLS consumers. Its 1,856 per-row assertions, two PostgreSQL
+specialized cases in each runtime, exact native/package/executable identities,
+runtime witnesses, isolated restore graphs and raw logs are retained in
+[progress.json](../../B21/package-matrix/progress.json). No consumer Rust command
+ran. This is isolated package consumption on a host with Rust available, not
+B24's pristine-machine or release gate.
+
+The matrix executed `acb5be54f6a6af4e26048af6f98553a4ac7e41ad` from
+2026-11-18T05:44:54Z to 05:54:02Z. Its exact source
+[independent review](../../B21/source-review/review.json) resolves all six
+recovery, cleanup and maintenance findings. The
+[response-vector supplement review](../../B21/source-review/response-golden-supplement-001/review.json)
+binds the later CLI-only delta and approves reuse of unaffected matrix rows;
+it does not relabel their old executable hashes as new ones. The
+[TLS readback](../../B21/package-matrix/tls-transport-readback.json) confirms
+actual HTTPS startup for every original TLS row, closing the gap in the old
+controller's configuration-derived TLS summary.
+
+Independent controller review identified missing true over-limit, inside-window
+retention, shared-content authorization, attachment binding and durable replay
+assertions. A strengthened controller has passed a focused 151-case SQLite/JIT
+run. The final four provider/runtime HTTP2-TLS rows, actual updated JIT/AOT
+response vectors and final controller review remain necessary before B21 closes.
+No B22 implementation or B23 measurement has started early.
 
 B21 must first complete its real service, both database profiles, native
 HTTP1/HTTP2/TLS and actual JIT/NativeAOT package-consumer verification. B22 and

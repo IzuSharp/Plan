@@ -1,0 +1,76 @@
+{
+  "baseline_commit": "acb5be54f6a6af4e26048af6f98553a4ac7e41ad",
+  "created_utc": "2026-11-18T05:52:01.140487+00:00",
+  "decision": "no_open_findings_in_narrow_response_golden_delta",
+  "evidence_inspected": {
+    "build_errors": 0,
+    "build_warnings": 0,
+    "files": [
+      {
+        "path": "task07-runs/b21-response-golden/validation.json",
+        "sha256": "f85a14d7cc2cbe55c0d8658d69cb6b17f5858f05600ee24800845f6659bf485e"
+      },
+      {
+        "path": "task07-runs/b21-response-golden/response-check.json",
+        "sha256": "ebc7f48c494994dfd7c2dc4dc06c6a1cbfd0d0f642eb6741221087ff793c4540"
+      },
+      {
+        "path": "task07-runs/b21-response-golden/product-golden.json",
+        "sha256": "382719237866ae56920ce4127ba1e2af08ecef26f42643b07495fd048a2f9751"
+      },
+      {
+        "path": "task07-runs/b21-response-golden/build.log",
+        "sha256": "b34055486a4ad37c5eec896dcefa0332564536477d67448ad25f2865a2e7b386"
+      }
+    ],
+    "fixed_vectors": [
+      {
+        "bytes": 196,
+        "name": "responseCreate",
+        "sha256": "1778781abef6361f7ea1d101e2e32844d10a4ef225c64f14f6ced4efa04023e5"
+      },
+      {
+        "bytes": 233,
+        "name": "responseAttachment",
+        "sha256": "0bd1b41707f6e658b10c7f7688e4a641346e37225e2def5b949dbf624a240f57"
+      }
+    ],
+    "note": "This reviewer independently recomputed byte/hash equality from retained actual CLI output; no whole-service or matrix rerun was performed by this reviewer.",
+    "product_output_equals_entire_independent_fixture": true,
+    "source_hashes_match": true
+  },
+  "excluded": "Incoming controller boundary/retention oracle changes outside golden.py/golden-v1.json are not reviewed by this supplement.",
+  "findings": [],
+  "independence": {
+    "reviewer_authored_these_changes": false,
+    "self_authored_pg_oracles_still_excluded": true
+  },
+  "independent_python_commit": "15ec950da1af5e8b52d50a6948fbd2f98c7b3072",
+  "matrix_applicability": {
+    "decision": "The proposed targeted supplement is sufficient for this CLI-only delta; no concrete acceptance risk requires all sixteen rows to rerun.",
+    "honesty": "Do not relabel partial final-002 as 16/16 or assign new executable bytes to old observations; combine explicitly identified prior applicable rows, this narrow review and the actual supplemental rows.",
+    "limit": "This is applicability approval for the proposed validation plan, not a claim that still-running rows have passed.",
+    "original_matrix": "Keep final-001 sixteen rows bound to executed acb5be54 source and original artifact/controller hashes, retaining each actual outcome.",
+    "reuse_basis": "The reviewed application delta cannot alter normal HTTP/query/lifetime behavior, serializer DTO/metadata definitions, native modules or the exercised managed-edit profile. Baseline final executions additionally cover compilation/AOT rooting and the added CLI output.",
+    "supplement": "Run exact final product plus strengthened controller in four baseline SQLite/PostgreSQL x JIT/AOT HTTP2-TLS rows, including final actual JIT/AOT --golden-vectors outputs."
+  },
+  "parent_review": {
+    "path": "../review.json",
+    "sha256": "eb4bda5f41aa04d5e14a1f56d9ecdc548c68bdeea3e050f74a2c074b661bfbe9",
+    "source_manifest_sha256": "5d5e067e5855d663d82e55cb81af8d84a90a7ccd5f7aae4f562f0bc5ef5b169d"
+  },
+  "prior_findings": "B21-R1 through B21-R6 remain resolved; their source files/symbols are unchanged. No full repeat audit was performed.",
+  "review_id": "Task-07-B21-linux-response-golden-supplement-001",
+  "reviewed_commit": "11b7d27ba01f4b6e66d04d89d5a77984c393452b",
+  "reviewer": "/root/task07_requirements",
+  "schema_version": 1,
+  "scope_checks": [
+    "Only Canonical.WriteGoldenVectors and its new private WriteResponseVector helper change application execution; the existing --golden-vectors early CLI branch reaches them before native/config/database startup.",
+    "The helper invokes JsonSerializer.SerializeToUtf8Bytes using the same existing AppJson.Default.CreatedItem/AttachedItem metadata used by application responses; it does not hand-construct replacement product response bytes.",
+    "DTO declarations, AppJson registrations, Program/HTTP routes, authentication, database queries, native transactions, retention, filesystem ownership, package references and native assets are unchanged.",
+    "The independent Python expected response bytes are explicit literals; JSON field order, integer spelling and uppercase Unicode/surrogate escaping are frozen without importing product output or calling a generic canonicalizer.",
+    "The existing managed-edit probe modifies Item, ItemView and list handlers, not CreatedItem/AttachedItem constructor signatures. The new CLI fixture references do not invalidate that edit profile."
+  ],
+  "source_helper_commit": "d491a8abdcc1c808da8aa24ad301418b100e5542",
+  "source_manifest_sha256": "7ad0f91e17458642ee0656b6b21628889b2b6099b2441ca7c1f593983dc40738"
+}
