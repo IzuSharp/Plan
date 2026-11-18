@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "task": "Task-07",
+  "reviewer": "/root/closure_review",
+  "reviewedUtc": "2026-11-18T13:27:50.101658+00:00",
+  "mode": "Read-only source and in-memory SSLContext comparison; no socket, load, build, alert mutation or frozen source edit",
+  "implementationCommit": "31961a33c481e022721e87f8a80a0ef8bd99f8ad",
+  "priorReviewSha256": "74dc7060bfa578b0f88ba4c2adbc80dca831e312427cdc6ab673882eed777179",
+  "reportedCurrentState": "Root reports five high CodeQL TLS alerts; live annotations remain root-owned verification. This review does not independently claim a successful CodeQL rerun.",
+  "sites": [
+    {
+      "path": "tests/Reference.TaskService/run.py",
+      "priorReportedLine": 176,
+      "currentSha256": "e805319b5129e1a84963720c4366c17b26b96e97e838e2cb96d74adc5f951dd2",
+      "contexts": [
+        [
+          121,
+          "verify = ssl.create_default_context(cafile=str(self.certificate)) if self.certificate else True"
+        ],
+        [
+          147,
+          "context=ssl.create_default_context(cafile=str(self.certificate)))"
+        ],
+        [
+          171,
+          "context = ssl.create_default_context(cafile=str(self.certificate))"
+        ]
+      ],
+      "previousDisposition": "false_positive_for_reviewed_task07_execution_runtime"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/faults.py",
+      "priorReportedLine": 268,
+      "currentSha256": "9f1ffdf19e30de0d5046d6166b10dbe8b39c2c7273b9d97911d4e6e5e38b4c94",
+      "contexts": [
+        [
+          268,
+          "return ssl.create_default_context(cafile=str(self.tls[0])).wrap_socket(plain, server_hostname=parsed.hostname)"
+        ],
+        [
+          400,
+          "context = ssl.create_default_context(cafile=str(self.tls[0])); context.set_alpn_protocols([\"h2\"])"
+        ]
+      ],
+      "previousDisposition": "false_positive_for_reviewed_task07_execution_runtime"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/faults.py",
+      "priorReportedLine": 402,
+      "currentSha256": "9f1ffdf19e30de0d5046d6166b10dbe8b39c2c7273b9d97911d4e6e5e38b4c94",
+      "contexts": [
+        [
+          268,
+          "return ssl.create_default_context(cafile=str(self.tls[0])).wrap_socket(plain, server_hostname=parsed.hostname)"
+        ],
+        [
+          400,
+          "context = ssl.create_default_context(cafile=str(self.tls[0])); context.set_alpn_protocols([\"h2\"])"
+        ]
+      ],
+      "previousDisposition": "false_positive_for_reviewed_task07_execution_runtime"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/soak.py",
+      "priorReportedLine": 244,
+      "currentSha256": "e36456b21d3001fae7eb42ab2a024717c40d1d42f1201e901a4afe7dc0740da2",
+      "contexts": [
+        [
+          270,
+          "context = ssl.create_default_context(cafile=str(self.service.certificate))"
+        ]
+      ],
+      "previousDisposition": "false_positive_for_reviewed_task07_execution_runtime"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/transport_faults.py",
+      "priorReportedLine": 97,
+      "currentSha256": "e31f376fefb8ec9001afc130c864a426e74288771dcd5d6b9f968c9ea6b8846f",
+      "contexts": [
+        [
+          95,
+          "context = ssl.create_default_context(cafile=str(self.tls[0])); context.set_alpn_protocols(['h2'])"
+        ]
+      ],
+      "previousDisposition": "false_positive_for_reviewed_task07_execution_runtime"
+    }
+  ],
+  "probe": {
+    "python": "3.12.14",
+    "openssl": "OpenSSL 3.5.8 25 Aug 2026",
+    "defaultPolicyEqualsExplicitTLS12Policy": true,
+    "policy": {
+      "minimum_version": "TLSv1_2",
+      "maximum_version": "MAXIMUM_SUPPORTED",
+      "verify_mode": "CERT_REQUIRED",
+      "check_hostname": true,
+      "cipher_names": [
+        "TLS_AES_256_GCM_SHA384",
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_AES_128_GCM_SHA256",
+        "ECDHE-ECDSA-AES256-GCM-SHA384",
+        "ECDHE-RSA-AES256-GCM-SHA384",
+        "ECDHE-ECDSA-AES128-GCM-SHA256",
+        "ECDHE-RSA-AES128-GCM-SHA256",
+        "ECDHE-ECDSA-CHACHA20-POLY1305",
+        "ECDHE-RSA-CHACHA20-POLY1305",
+        "ECDHE-ECDSA-AES256-SHA384",
+        "ECDHE-RSA-AES256-SHA384",
+        "ECDHE-ECDSA-AES128-SHA256",
+        "ECDHE-RSA-AES128-SHA256",
+        "DHE-RSA-AES256-GCM-SHA384",
+        "DHE-RSA-AES128-GCM-SHA256",
+        "DHE-RSA-AES256-SHA256",
+        "DHE-RSA-AES128-SHA256"
+      ]
+    }
+  },
+  "recommendation": "In a separate integration worktree add context.minimum_version = ssl.TLSVersion.TLSv1_2 immediately after each of the five reviewed default-context constructions. Split the chained faults.py construction into context creation, minimum assignment, and existing wrap_socket return. Preserve CA, hostname verification, ALPN and timeouts.",
+  "effect": "On the recorded pinned runtime the explicit minimum equals the observed existing minimum, retaining certificate/hostname verification and enabled ciphers. It makes the intended minimum visible to static analysis; remote CodeQL must confirm alert closure.",
+  "artifactAttribution": "Do not edit frozen running worktrees or relabel their source hashes. Existing runtime acceptance retains the original hashes; the integration-only explicit policy delta can be bound by a narrow applicability review and focused current-context check.",
+  "constraints": [
+    "No suppression, alert dismissal or required-check bypass.",
+    "No comparator authentication rewrite is indicated by the two existing independent source assessments.",
+    "Keep product binaries, workload definitions and resource thresholds unchanged."
+  ]
+}

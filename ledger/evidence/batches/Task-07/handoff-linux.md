@@ -1,5 +1,64 @@
 # Task-07 Linux x64 handoff
 
+## Active continuation 9402 (2026-11-18)
+
+This section and [recovery-9402.json](recovery-9402.json) supersede all older current-work
+statements below. B21 and PostgreSQL's accepted30-minute load plus60-second idle
+result are reused. SQLite003 advanced to938.15353838seconds, then its executor
+became unavailable without final receipts; no duration or safe retirement is credited.
+Its original files remain unchanged. SQLite004 uses the identical independently
+frozen profile, monitor, source, application/native bytes, workload and caps, with
+a fresh output directory. The current root owns exec86841 and checks it directly.
+
+B23's169-input finite plan is verified and waits for the exclusive timing window.
+B24 waits for applicable B22/B23 closure.24h/72h remain deferred and not executed
+by user direction; other platforms and public domain publication remain deferred.
+Both existing PRs remain Draft. No merge or postmerge preview success is claimed.
+
+The root worktrees are `ROOT/.worktree/Task-07-close-9402-linux/{NativeWeave,Plan}`.
+Remote destinations remain `task/Task-07-linux`. The full local evidence commit
+`d4304b482d791f592d99882029c5c17734fed024` and all original run directories are
+preserved. The earlier rejected bulk upload is not retried; this checkpoint
+contains authored result/count/hash summaries and reviewed source only.
+
+A minimal integration-only TLS correction explicitly sets the already-effective
+TLS1.2 minimum at the five reported test-client sites. It preserves certificate,
+hostname and ALPN checks and leaves frozen running source untouched. The exact
+policy assessment is in [codeql-review/tls-minimum-recommendation-9402.json](codeql-review/tls-minimum-recommendation-9402.json); remote CodeQL still must confirm.
+
+
+## Active continuation 70b6 (2026-11-18)
+
+This section supersedes the older current-work paragraphs below. The exact
+coordinator-authored state is in [recovery-70b6.json](recovery-70b6.json).
+
+- B21 original acceptance and the targeted transaction-retirement correction are reused.
+- B22 PostgreSQL completed1800.002372777 seconds load and60.000747567 seconds idle,
+  with7194 completed operations,6 injected cancellations, complete durable reconciliation,
+  frozen caps satisfied and independently accepted final retirement. Do not rerun it.
+- SQLite001 and002 remain failed, with no credited duration. The completed300s+60s
+  memory diagnostic and independently reviewed original-calibration RSS supplement
+  are recovered. Exactly one fresh SQLite0031800s+60s continuation is running;
+  final receipts and independent trend/owner review remain required.
+- B23's reviewed169-input finite plan is ready; timed processes remain stopped
+  during B22's exclusive window. B24 still waits for the applicable B22/B23 gates.
+- The24-hour and72-hour rows are explicitly deferred and not executed by the user;
+  no full release-soak, other-platform or public domain release acceptance is claimed.
+
+Current root Plan worktree is `ROOT/.worktree/Task-07-resume-70b6-linux/Plan` on
+`task/Task-07-resume-70b6-linux`; implementation integration stays at
+`ROOT/.worktree/Task-07-finish-f889-linux/NativeWeave`. Remote destinations remain
+`task/Task-07-linux`, NativeWeave PR18 and Plan PR22. The earlier full local Plan
+commit `d4304b482d791f592d99882029c5c17734fed024` and run directories are retained.
+
+The attempted upload of54 projected text files was rejected by the approval layer
+without a detailed reason. It was not retried. This smaller authored checkpoint
+contains results, counts, exact hashes and recovery instructions, with no raw
+telemetry. Original full observations remain local; they are not represented as
+newly uploaded. Original failure records and historical remotely stored evidence
+are unchanged. Both PRs remain Draft and no merge/postmerge publication is claimed.
+
+
 ## Current continuation and user scope amendment (2026-11-18)
 
 This section supersedes the historical next-step statements below. The user
