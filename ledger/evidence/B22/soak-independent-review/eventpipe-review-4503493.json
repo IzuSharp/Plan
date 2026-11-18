@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "task": "B22",
+  "platform": "linux-x64",
+  "reviewer": "recovery_release_audit subagent, independent of b22_finish implementation author",
+  "reviewed_utc": "2026-11-18T10:06:56.492048+00:00",
+  "status": "source_and_short_instrumentation_probe_passed",
+  "source_commit": "4503493d7168ac2b91becbdba8269a2daf120ec6",
+  "source_tree": "ffe246ef1eab1afd02a2cbdd04a80de06bcde7b1",
+  "reviewed_inputs": [
+    {
+      "path": "tests/Verification.EndToEnd/soak.py",
+      "sha256": "fe0c369f0d07382935493cf8abe8d4715f94680c6b34528dd62049952255dad8"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/soak-profile.md",
+      "sha256": "a2ca3e647f39d31a54e6f217797c3ddbff01ae5bf1d3399ac18ee3073a9657a6"
+    },
+    {
+      "path": "tests/Verification.EndToEnd/README.md",
+      "sha256": "51920cc6ef6a753791d4e21c6a11df25a69fa67d0d7d49af451a4ca15e2ebdf8"
+    },
+    {
+      "path": "docs/guides/verification-endtoend.md",
+      "sha256": "0b4d7c5dc487b5479bf0f0759340580dbb7054bcc7335d05ae3d8d7b965b60fb"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-recovery-004-6b7401/upstream-runtime/ep-rt-aot.h",
+      "sha256": "bfba5e4ba98cae1bcf3981e5a2b69e451415c19e1915d8b6e790e4d76e49a7a4",
+      "role": "retained upstream NativeAOT runtime source, source inspection only"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-recovery-004-6b7401/upstream-runtime/RhConfig.cpp",
+      "sha256": "e35125543f1cd65afcf227ca9be2fb994c6e0a8c8cd6ce94c9c966432846d72e",
+      "role": "retained upstream NativeAOT runtime source, source inspection only"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-recovery-004-6b7401/upstream-runtime/RhConfig.h",
+      "sha256": "a0693b46e4569d166b5fa4740059de0c0abec9f17e85509d1ab55a7e4d21266d",
+      "role": "retained upstream NativeAOT runtime source, source inspection only"
+    }
+  ],
+  "review_method": "Read complete four-file change, relevant controller identity/sample/finalization path and retained runtime configuration parser. Independently read and hashed actual short-probe receipt/identity/resource/trace summaries. No replay of accepted component tests and no independent load execution.",
+  "findings": [],
+  "checks": [
+    "EventPipeOutputStreaming=1 prevents the default startup trace from retaining all trace events until shutdown.",
+    "EventPipeCircularMB=0x40 represents the advertised 64 MiB under the retained NativeAOT hexadecimal integer parser.",
+    "Explicit drop mode does not intentionally block event-writing product threads, while observed event loss remains an acceptance failure.",
+    "Trace configuration is recorded in frozen identity; live resource records include actual trace-file byte count and finalization rejects absence of observed streaming.",
+    "Both current soak.py and harness.py hashes equal their probe input identities; required pre-analysis and pre-acceptance input rechecks are present.",
+    "No product/library, observer executable or native module change is introduced by this correction."
+  ],
+  "actual_probe": {
+    "directory": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-probe-001-f889",
+    "status": "probe-passed",
+    "completed_seconds": 8.007530048,
+    "trace_bytes_observed_while_running": 87327,
+    "events_lost": 0,
+    "known_controls": {
+      "normal": 8,
+      "pinned": 4,
+      "all_set_and_destroy_observed": true
+    },
+    "final_sqlite_native_owner_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "final_server_request_payload_and_diagnostic_gauges": "all observed gauges zero"
+  },
+  "evidence": [
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-probe-001-f889/receipt.json",
+      "sha256": "6d5028c59bb249d45fddf84a8e9aa3373d0722c1db1c2b1f045072f66281a43d"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-probe-001-f889/identity.json",
+      "sha256": "49b4fee976f1b5ffca8ef4b8295099a0a8269ed939dd990ad23fd2a5571f82e3"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-probe-001-f889/trace-receipt.json",
+      "sha256": "4f78fd32d6e07b5a02f3010f1ef9f568ec64cab3a767f2a0fe60797fa979ffac"
+    },
+    {
+      "path": "/workspace/scratch/58d2a6adf1c3/task07-runs/b22-streaming-probe-001-f889/resources.jsonl",
+      "sha256": "2fd5b12dbf4e2e54d936ef19b37a3bd115b83438be1a7a5c6fac2e3b01956dbb"
+    }
+  ],
+  "acceptance_boundary": "Accepts the minimal instrumentation correction and observed short probe only. It does not freeze a resource profile or accept the 30-minute steady stage. Fresh complete calibration and independent threshold review are required. The user excluded 24-hour and 72-hour runs from this delivery; they remain not executed and are not reported as passing release-soak evidence."
+}

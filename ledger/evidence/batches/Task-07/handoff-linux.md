@@ -1,5 +1,58 @@
 # Task-07 Linux x64 handoff
 
+## Current continuation and user scope amendment (2026-11-18)
+
+This section supersedes the historical next-step statements below. The user
+explicitly instructed this continuation to **skip the 24-hour regression and
+72-hour release-soak executions, record them as not executed, and continue the
+remaining Linux Task-07 delivery and normal PR/CI/preview closeout**. These two
+rows are excluded from this session's completion gate; they are not passed,
+not silently replaced by short runs, and not evidence of full D20 release-soak
+or all-platform acceptance. The required 30-minute steady-state stage remains.
+The immutable Design inputs and historical evidence are unchanged.
+
+| Task | Current Linux continuation state | Remaining work |
+| --- | --- | --- |
+| B21 | Accepted; reused without rerun | None |
+| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Correct EventPipe observation settings, review fresh provider calibrations and run the 30-minute steady stage; 24h/72h not executed by user direction |
+| B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
+| B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
+
+Recovery fetched and compared the remote branches. Implementation
+`4d78e7b9b49bdb6dee001dc3d4f57c9d7a7101bb` has the same tree
+`87d86aafa9f13e27504122440f36bc5708e75f51` as preserved local
+`7ce86b62a590d7bb6282e0b0f52cdc9f70a767c6`; its
+[CI44278610237](https://github.com/IzuSharp/NativeWeave/actions/runs/44278610237)
+passed. Plan remote `4965d07d6f59ca4de8d6091c906ff6ad4d92d77f` is the safe-text
+checkpoint with [CI44277228083](https://github.com/IzuSharp/Plan/actions/runs/44277228083)
+passed. The original full local evidence worktrees are preserved, including
+payloads whose upload was rejected; this continuation does not retry those uploads.
+
+The current integration worktrees are
+`ROOT/.worktree/Task-07-finish-f889-linux/{NativeWeave,Plan}` on local
+`task/Task-07-finish-f889-linux`, based on those exact remote heads. The remote
+destinations remain `task/Task-07-linux` and the same PR18/PR22. B22 and B23 use
+separate `Task-07-B22-finish-f889-linux` and `Task-07-B23-finish-f889-linux`
+worktrees/branches. No preceding task or subsequent package is restarted.
+
+Recovered calibration004 completed 900.012 seconds and 2,877 logical operations,
+with final native/server owners zero and no lost trace events. Its rising RSS
+remains unaccepted: runtime tracing buffered events until shutdown and the
+buffer-size setting did not encode the documented value. The B22-owned
+observation correction streams trace output during execution and explicitly
+encodes 64 MiB. Its short probe demonstrates live trace growth and retirement;
+fresh calibration is still required before freezing thresholds. No product
+memory-leak conclusion is inferred from that observation-only finding.
+
+B23's original adverse rows remain immutable. The repaired controller and
+finite diagnosis bind the reproduced create/replay failures to SQLite
+`SQLITE_BUSY` (provider code 5), while preserving the limited attribution of the
+original historical failures. No original 200/s result is relabeled successful.
+
+Current load scheduling gives B22 the resource-validation window while B23
+prepares source/report inputs. B23 timed load starts only after that window ends.
+Both PRs remain Draft; no Task-07 merge or postmerge release is yet claimed.
+
 ## Scope and current state
 
 The current user explicitly authorizes B21, B22, B23 and B24 on Linux x64,
