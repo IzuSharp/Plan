@@ -14,7 +14,7 @@ The immutable Design inputs and historical evidence are unchanged.
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
 | B21 | Original Linux acceptance reused; focused transaction-disposal correction accepted | Source and actual affected-path runtime regression independently approved; original wider matrix reused |
-| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; fresh900-second calibrations running under root session5413, followed by independently frozen30-minute stages. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
+| B22 | Short API/fault/transport evidence accepted; corrected resource validation in progress | Corrected AOT artifact and focused runtime regressions approved; both fresh900-second calibrations completed, and the prospective profiles were independently frozen. Complete30-minute stages are running under root session35995. Failed/interrupted predecessor attempts remain preserved below. The24h/72h rows are not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -67,17 +67,36 @@ B24 staging input. The corrected runtime regression is independently approved (4
 eight pre-explicit-GC process closures with native counters zero, and16 assertions in the real
 COMMIT-ack-loss Unknown/protection case). Corrected B22 duration evidence remains pending.
 
-The root-owned fresh two-provider900-second calibration is active at
-`ROOT/task07-runs/b22-corrected-calibration-launch-001-f889`; its `live.json` and
-`exec-session.json` bind root exec5413 and the exact child PID/start-tick identities.
-[Corrected source/runtime reviews and launch inputs](../../B22/corrected-regression-f889)
-are retained. Do not restart completed builds or overlap B23 timed load with this window.
+The fresh corrected calibrations completed900.010508504s (SQLite) and900.14912695s
+(PostgreSQL), each with2877 logical operations, exact durable reconciliation,
+zero trace event loss and final native/Server owners zero. The independent reviewer
+approved the measured bands only for prospective30-minute confirmation: aggregate
+idle handles rose442/445/450 and447/448/458, while normal handles, retained managed
+heap and qualified native baselines stayed bounded. No aggregate plateau or
+leak-free claim is made from calibration alone, and no root/RSS cap is widened.
+
+A stricter idle selector requires Server-zero plus the same-window qualified native
+baseline. Replaying every original recorded idle row in all six cycles selected
+identical vectors and derived identical bands. The derivative profiles explicitly
+retain the original calibration identity/receipt and the independently reviewed
+old/new controller SHA bridge; historical evidence is not relabeled.
+
+[Fresh corrected calibration, freeze reviews and launch inputs](../../B22/corrected-calibration-f889/manifest.json)
+retain complete lossless typed scalar observations and current descriptor classifications.
+The root-owned full1800-second load +60-second idle stages are active at
+`ROOT/task07-runs/b22-corrected-steady-launch-001-f889`; its `live.json` and
+`exec-session.json` bind root exec35995 and exact monitor/controller/service identities.
+Frozen profile SHA-256: SQLite `a9b6bdccef6474c3dec07257652c4b5654d8acc36c4073716ffe52d7c606fd70`,
+PostgreSQL `ea89accd617576435c78b6b5aa3633e7b488df991d87d6a56bbd0b52cee2c80e`.
+Resume the existing session; do not duplicate it or overlap B23/build load.
+[Corrected source/runtime regression](../../B22/corrected-regression-f889/manifest.json)
+remains separately accepted for its focused scope.
 
 
-Latest persisted implementation checkpoint: NativeWeave `6a78215394a6ebc73dd8b6a2fa9e713c0b8ae40e`, exact tree `a3aa305a631b531c4c7265398949e525c7148330`
-(local `1e352b8fabcee3ca83d65d03deb5c82737676204`). Plan prior checkpoint
-`13e014664a2b9c5cf90869e8c205c9bf2228017f` binds the corrected benchmark artifacts;
-this commit adds the actual corrected runtime results, reviews and resumable launch inputs.
+Latest persisted implementation checkpoint: NativeWeave `2aa94647d825ca05717f524a98c8d221f4b0cdef`, exact tree `5ee63accfcf15dc6036dd396c96dc49c0424e8cd`
+(local `423f056b7a30c512681e951e3f1fcb5c64f368e4`). Plan prior checkpoint
+`9d2c6427287b3b5e194703b621ae62caaa654b2e` binds the corrected runtime results and benchmark artifacts;
+this commit adds completed calibration evidence, strict-selector provenance and immutable steady launch inputs.
 Final merge checks must bind the eventual final heads; historical green checks do not substitute.
 The exact historical diagnostic source tree is separately preserved at
 NativeWeave `b8ca9a6a8a27dc04a7902597d747ea79889d5ae3` on
