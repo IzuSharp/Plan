@@ -24,6 +24,16 @@ the exclusive local timing window. Original 200/s adverse results remain
 unchanged and are not relabeled by a lower-rate observation. B24 implementation
 continues to wait for the completed, independently reviewed B23 report.
 
+The [completed search checkpoint](finite-search-b593/search-checkpoint.json)
+records all 72 valid processes and eight completed units. Selection ended at
+2026-11-18T14:10:46Z and froze profile
+`baae204fa8dd662b7bcd3584427b68d175712493d77798443d917b8b4125dd1b`.
+The 30-case matrix is now running. The
+[existing continuation rules](finite-search-b593/continuation-semantics.md)
+describe how to follow a surviving run or resume only a safely closed boundary;
+an unknown executor ID does not prove termination, and an interrupted invocation
+cannot be silently retried or adopted.
+
 ## Historical checkpoint — retained unchanged
 
 The ordinary three-route implementations, profile/controller, diagnostics and

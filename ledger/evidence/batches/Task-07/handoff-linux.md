@@ -31,6 +31,18 @@ cohort over it. Current state is
 `ROOT/task07-b23/operating-point-cohorts-retirement-f889/cohorts.json`.
 The full frozen plan has no automatic retries or post-outcome tuning.
 
+The search phase subsequently completed all 72 processes valid across eight
+predeclared units. The selected profile is frozen and the 30-case matrix is
+running. [Search and safe continuation](../../B23/finite-search-b593/search-checkpoint.json)
+preserve the exact stage boundary; do not repeat the completed search.
+
+[Final-candidate applicability preparation](read-only-preparation/b24-final-candidate-scope-b593.json)
+clarifies B24's exact identity boundary. A new source-bound CI build may be the
+final local-only candidate, but its own complete package/pristine-consumer gates
+must test that exact candidate. Historical B22/B23 observations retain their
+original hashes and require independent source/build applicability review;
+they are not relabeled as measurements of the new build.
+
 Root integration uses `ROOT/.worktree/Task-07-final-b593-linux/{NativeWeave,Plan}`
 on local `task/Task-07-final-b593-linux`. Remote destinations remain
 `task/Task-07-linux`, NativeWeave PR18 and Plan PR22. Exact recovered remote
