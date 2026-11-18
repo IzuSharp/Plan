@@ -1,0 +1,67 @@
+B22_API_RUNTIME dynamic=False
+PASS commit-pre-admission-cancellation
+PASS pre-admission-cancel-confirmed-rollback
+PASS canceled-commit-no-durable-row
+PASS actual-failed-transaction-primary
+PASS failed-transaction-confirmed-rollback
+PASS early-database-stream-positive-first-row
+PASS live-cursor-holds-session-admission
+PASS early-database-stream-exit-releases-admission
+PASS public-session-safe-retirement
+PASS public-source-safe-retirement
+PASS closed-data-source-weak-reference-released
+PASS automatic-http-completion-1.1-raw
+PASS automatic-http-completion-1.1-untouched
+PASS automatic-http-completion-1.1-short
+PASS automatic-http-completion-1.1-custom
+PASS automatic-http-completion-1.1-generated-void
+PASS nullable-foreign-key-query-http-1.1
+PASS handler-fault-redacted-1.1
+PASS automatic-http-completion-2.0-raw
+PASS automatic-http-completion-2.0-untouched
+PASS automatic-http-completion-2.0-short
+PASS automatic-http-completion-2.0-custom
+PASS automatic-http-completion-2.0-generated-void
+PASS nullable-foreign-key-query-http-2.0
+PASS handler-fault-redacted-2.0
+PASS http-composition-close
+PASS retained-chunk-after-eof
+PASS ended-response-rejects-old-send-obligation
+PASS retained-owner-keeps-active-permit
+PASS pending-close-keeps-charged-owner
+PASS dispose-join-not-completed-before-owner-release
+PASS actual-dispose-joins-after-owner-release
+PASS ended-request-scope-weak-reference-released
+PASS request-immediate-resource-limit
+B22_API_FAILED HttpRequestException:Error while copying content to a stream.
+System.Net.Http.HttpRequestException: Error while copying content to a stream.
+ ---> System.Net.Http.HttpProtocolException: The HTTP/2 server reset the stream. HTTP/2 error code 'INTERNAL_ERROR' (0x2). (HttpProtocolError)
+   at System.Net.Http.Http2Connection.ThrowRequestAborted(Exception)
+   at System.Net.Http.Http2Connection.Http2Stream.CheckResponseBodyState()
+   at System.Net.Http.Http2Connection.Http2Stream.TryReadFromBuffer(Span`1, Boolean)
+   at System.Net.Http.Http2Connection.Http2Stream.CopyToAsync(HttpResponseMessage, Stream, Int32, CancellationToken)
+   at System.Net.Http.HttpConnectionResponseContent.<SerializeToStreamAsync>g__Impl|6_0(Stream, CancellationToken)
+--- End of stack trace from previous location ---
+   at System.Net.Http.HttpContent.LoadIntoBufferAsyncCore(Task, HttpContent.LimitArrayPoolWriteStream)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpContent.LoadIntoBufferAsyncCore(Task, HttpContent.LimitArrayPoolWriteStream)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage, HttpCompletionOption, CancellationTokenSource, Boolean, CancellationTokenSource, CancellationToken)
+   at System.Threading.Tasks.Task.RunContinuations(Object)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerDoWork(PortableThreadPool)
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartThread(IntPtr)
+   at System.Threading.Thread.ThreadEntryPoint(IntPtr)
+--- End of stack trace from previous location ---
+   at System.Net.Http.HttpContent.LoadIntoBufferAsyncCore(Task, HttpContent.LimitArrayPoolWriteStream)
+--- End of stack trace from previous location ---
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage, HttpCompletionOption, CancellationTokenSource, Boolean, CancellationTokenSource, CancellationToken)
+--- End of stack trace from previous location ---
+   at NativeWeave.Verification.EndToEnd.Probe.<CreditExhaustion>d__4.MoveNext()
+--- End of stack trace from previous location ---
+   at NativeWeave.Verification.EndToEnd.Probe.<CreditExhaustion>d__4.MoveNext()
+--- End of stack trace from previous location ---
+   at NativeWeave.Verification.EndToEnd.Probe.<Main>d__9.MoveNext()
+PASS final-native-database-owners-zero
+B22_API_RESULT cases=35 failures=1

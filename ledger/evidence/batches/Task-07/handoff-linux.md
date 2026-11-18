@@ -80,13 +80,16 @@ must not silently expand publication to the domain packages.
 ## Verification and remaining sequence
 
 The initial read-only dependency audit found all external Linux prerequisites
-satisfied. B21 now has actual exploratory product results listed below; none is
-promoted to the final immutable matrix or B22–B24 acceptance.
+satisfied. B21 is accepted by the immutable matrix and targeted supplement below.
+Its earlier exploratory results remain separately identified and do not imply
+B22–B24 acceptance.
 The required maintainer tools and isolated database environment are restored.
 Twelve exact local NuGet packages and three native assets were prepared from the
 unchanged implementation baseline; building them is preparation, not new
-acceptance. Native asset identities and restore/build logs are temporarily under
-`ROOT/task07-toolchain/`; the eventual B21 evidence will bind its actual inputs.
+acceptance. The unchanged B18/B19 gRPC/MCP packages were subsequently prepared for
+the B22 consumer, bringing the existing local feed to fourteen packages. Native
+asset identities remain unchanged. B21 evidence binds its actual inputs; extra
+package preparation is under `ROOT/task07-toolchain/protocol-pack-preparation/`.
 Independent executor calls cannot reach each other's loopback service; each
 controller therefore starts its database and application in one process tree.
 
@@ -108,18 +111,20 @@ Actual exploratory checks:
 - The review regression passed 21 checks for fair maintenance past 100 protected
   records, orphan-temporary grace, protected references, actual concurrent
   failed-CAS rollback and cleanup joined before graceful CLOSED. Exact source
-  hashes/results are at `ROOT/task07-runs/b21-review-regressions/`; final review
-  still needs binding to the frozen source.
+  hashes/results are at `ROOT/task07-runs/b21-review-regressions/` and are bound
+  by the accepted B21 source review and retained `focused-source` evidence.
 - Actual HTTP/2 frame observation confirmed status 413 for oversized JSON after
   the original HTTPX upload behavior obscured the early response. A reset or
   client-side exception alone is not a passing rejection oracle.
 
-The latest transported implementation checkpoint `c9bb00ca9b122b8e5a9b0a3181bc1d264c72b77c`
-has [passing CI44244176714](https://github.com/IzuSharp/NativeWeave/actions/runs/44244176714).
-Plan checkpoint `6c62b08900e8b62750de7c944962f42a8ad73412` has
-[passing CI44243404717](https://github.com/IzuSharp/Plan/actions/runs/44243404717).
-Later local checkpoints are to be transported with the frozen source. Both PRs
-remain Draft; no Task-07 merge or postmerge publication has occurred.
+Accepted B21 implementation checkpoint `4d613cba2a17e24e536d6a2fe5310d3b062ed511`
+has [passing CI44248323581](https://github.com/IzuSharp/NativeWeave/actions/runs/44248323581).
+Plan checkpoint `7d6e4134bdf80691b722a5608c83631582cde45b` has
+[passing CI44249625029](https://github.com/IzuSharp/Plan/actions/runs/44249625029).
+The first B22/B23 controller stage is transported at product
+`3b203d75dbeb113c9e9cd9bedac5289e5cde1bfe`, identical tree to local `19a2768`.
+Later stages remain separately recorded below. Both PRs remain Draft; no Task-07
+merge or postmerge publication has occurred.
 
 ### Accepted immutable B21 matrix and targeted supplement
 
@@ -160,6 +165,39 @@ also satisfy the stricter assertion. No source/controller finding remains open.
 B21 is accepted for Linux x64. B22 and B23 started only after this closure,
 in separate worktrees with separate ownership. Their actual timed load windows
 must be coordinated: fault stress cannot contaminate performance measurements.
+
+### B22 and B23 implementation checkpoint
+
+- B22 matrix/guide `cc88306` is integrated as `921e3d5`. Public API consumer
+  `5a30ce7` is integrated as `ea0496f`; its subsequent exact lock/case checkpoint
+  `de3fbf0` is ready for integration. These are implementation stages, not B22
+  acceptance. The frozen four-row package matrix is in progress.
+- The [retained B22 development faults](../../B22/checkpoint-preservation-001.json)
+  include an independently witnessed SQLite busy rejection, a child-only libc
+  `pwrite64` ENOSPC injection into the actual native SQLite WAL path, successful
+  retry/replay/durable-data checks, and an unrelated-file positive control.
+  The failed `ptrace` attempt remains explicitly unavailable. Injected libc I/O
+  failure does not claim physical disk exhaustion or a power-loss test. Exact
+  provider error and separate owner/root observations are still being completed.
+- API pilot001–006 preserve their failures: certificate loading, explicit SQL
+  null semantics, output-path assumptions, expected post-header HTTP2 abort and
+  padded/unpadded metadata. Pilot007 then passed67 SQLite JIT public API checks.
+  The fixed matrix adds a PostgreSQL physical-session check. These probes do not
+  substitute for the external crash or long-duration rows.
+- B23 controller `4b5e057` is integrated as `19a2768`. It reuses A21 clocks,
+  histograms and independent-process reporting. Functional-only checks exercised
+  create/replay/recovery, fixed keyset paging and1MiB attachment workloads on the
+  immutable B21 AOT executable. Timings from these short checks are not performance
+  evidence; [raw development receipts](../../B23/checkpoint-preservation-001.json)
+  retain their explicit claim limits.
+- Managed comparator `c68ec7b` is integrated as `c296495`. Its standalone AOT
+  binary has no NativeWeave package/assembly and passed127 independent normal
+  workload checks in each of six database/transport cells. Fixed SQL/raw ADO.NET,
+  missing DI/diagnostic and global byte-credit profiles remain explicit limits.
+  Direct Rust and the remaining comparison/instrumentation profiles are ongoing.
+- No timed B23 measurement or B22 long-duration stage has started at this
+  checkpoint. The staged owner/root observation profile must be validated before
+  its thresholds can support a soak claim.
 
 B23 final acceptance waits for B22.
 B24 starts only after B22 and B23 finish.
