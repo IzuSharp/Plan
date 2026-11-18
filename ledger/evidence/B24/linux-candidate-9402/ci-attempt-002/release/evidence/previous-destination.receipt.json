@@ -1,0 +1,207 @@
+{
+  "architecture": "x86_64",
+  "closure": "previous",
+  "commands": [
+    {
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "exitCode": 0,
+      "label": "sdk",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "/tmp/nativeweave-b24-consumer-71ttngvl/combined/Consumer.csproj",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exitCode": 0,
+      "label": "combined-restore",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "daee93e57fdf1f97d9e43fb90ab0c8227f056cba495eb32b248f6e57b3308ea6"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "/tmp/nativeweave-b24-consumer-71ttngvl/combined/Consumer.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exitCode": 0,
+      "label": "combined-build",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "16ff5ae670323722320e8e2e8dcaa74a5d9eb0f5abf56041cbd06d59d355d046"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "/tmp/nativeweave-b24-consumer-71ttngvl/combined/bin/Release/net11.0/B24Consumer.dll"
+      ],
+      "exitCode": 0,
+      "label": "combined-jit-sqlite",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "b03a11f0a4267f9f840e960fbe6e5c932974193eae9292d050a97224e49ffb6b"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "/tmp/nativeweave-b24-consumer-71ttngvl/combined/bin/Release/net11.0/B24Consumer.dll"
+      ],
+      "exitCode": 0,
+      "label": "combined-jit-postgresql",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "986fe107a2e9ba2e51c41be5194236ae5bd7f8e6f5b22dea32479eba66cce20d"
+    }
+  ],
+  "graphs": {
+    "combined": {
+      "initialJit": [
+        {
+          "checks": [
+            "typed-entity-materialization",
+            "typed-native-database-roundtrip",
+            "actual-http-1.1-tls",
+            "actual-http-2.0-tls",
+            "actual-grpc-http2-terminal-status-and-result",
+            "actual-mcp-typed-result",
+            "server-owners-retired",
+            "database-local-owners-retired"
+          ],
+          "dynamicCodeSupported": true,
+          "provider": "sqlite",
+          "schemaVersion": 1,
+          "task": "B24"
+        },
+        {
+          "checks": [
+            "typed-entity-materialization",
+            "typed-native-database-roundtrip",
+            "actual-http-1.1-tls",
+            "actual-http-2.0-tls",
+            "actual-grpc-http2-terminal-status-and-result",
+            "actual-mcp-typed-result",
+            "server-owners-retired",
+            "database-local-owners-retired"
+          ],
+          "dynamicCodeSupported": true,
+          "provider": "postgresql",
+          "schemaVersion": 1,
+          "task": "B24"
+        }
+      ],
+      "initialProjectSha256": "3c7f9d3aa18a50d393faa75d098e4daaecc81015852687a80915a0174558a13e",
+      "initialSourceSha256": "21a8dc562d1520959c0b3bff12211d69b1fd1cd194a18536695ff1b50ed1dd08",
+      "nativeBefore": {
+        "database.postgresql": {
+          "facade": "NativeWeave.Database.PostgreSql",
+          "facadeVersion": "0.1.0-task07.44351062732.1.1",
+          "record": "NativeWeave.database.postgresql.assets.json",
+          "recordSha256": "e32464b6ca08219d9cff50ae9ac3a0fdb90b75c34982ed6f1e9b7bd7a25e23c1",
+          "relativePath": "runtimes/linux-x64/native/libnw_database_postgresql.so",
+          "sha256": "47ccb6e5752e74140a104fb3e2bc2558290f180528a0691771b01df2c963e3a7"
+        },
+        "database.sqlite": {
+          "facade": "NativeWeave.Database.Sqlite",
+          "facadeVersion": "0.1.0-task07.44351062732.1.1",
+          "record": "NativeWeave.database.sqlite.assets.json",
+          "recordSha256": "bc7a035ca9129dff4ff25ddfa86d50b47f2066c629ec87d78feb302a65b1f45a",
+          "relativePath": "runtimes/linux-x64/native/libnw_database_sqlite.so",
+          "sha256": "b5e650ce1bbb4c4b034e59f00a9f8c67ae104268df7e2b01a87ea3ea442434f9"
+        },
+        "server": {
+          "facade": "NativeWeave.Server",
+          "facadeVersion": "0.1.0-task07.44351062732.1.1",
+          "record": "NativeWeave.server.assets.json",
+          "recordSha256": "5f6462ecf83284364c92ad64f172b1603f65be3ab585e5423e1fc187919ad17b",
+          "relativePath": "runtimes/linux-x64/native/libnativeweave_server.so",
+          "sha256": "86b7bca99361050740dc6578d9a489b30994a7a52e869914f0f120ef9cd7b0f1"
+        }
+      },
+      "selectedPackages": {
+        "NativeWeave.Core": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Data": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Data.Streaming": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database.PostgreSql": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database.PostgreSql.Native": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database.Sqlite": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database.Sqlite.Native": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Database.Transactions": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Interop.Abi": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Query.Binding": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Query.Generator": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Server": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Server.Generator": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Server.Grpc": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Server.Mcp": "0.1.0-task07.44351062732.1.1",
+        "NativeWeave.Server.Native": "0.1.0-task07.44351062732.1.1"
+      }
+    }
+  },
+  "historicalFaultSoakPerformanceRerun": false,
+  "image": "mcr.microsoft.com/dotnet/sdk:11.0.100-resolute-amd64@sha256:7913685c883a29dd8ba79da96172f5c6b29ed9be706ebe95935e3ef45f19c9c1",
+  "manifestSha256": "8c6c14e6c652eb50c26147664da0cafa4138571105d81783d3b726b8169a04b7",
+  "mode": "smoke",
+  "negativeCases": [],
+  "newDomainSignerAuthenticated": false,
+  "outside_source_tree": true,
+  "packages": {
+    "NativeWeave.Core": "bafab154453d16aa0ffdf744ad3dbc4e73b954e5c12c41aace80e12e86534c87",
+    "NativeWeave.Data": "20fb3a1225c3dd523c39e407ff673d055240fe13dd89c867d77286bdb4021d45",
+    "NativeWeave.Data.Streaming": "7f1a36b06dc7b327aae845b16d741a1ff92c6d01f5286a6ee446e1cadfd06481",
+    "NativeWeave.Database": "61ab06f629b8965c1eb7d005c1319ecff7b507d113a45253bc9a8391b011d92f",
+    "NativeWeave.Database.PostgreSql": "d9c46e59f0e00e824bd0eb6eb0a4ba04ad67b90e07d50fcbe19cac45f28ecca6",
+    "NativeWeave.Database.PostgreSql.Native": "4407380ccc2d905ff78fc50fb3eadc72220ce488154f72417aec50e8d25b48f6",
+    "NativeWeave.Database.Sqlite": "3c0eafb0070155011c8d2a527fc48ad9a64291e3179c767c84ba1e6092893782",
+    "NativeWeave.Database.Sqlite.Native": "66174e57f00afe8e9fc4f91f032627d9733bf1ad4d85b89339dc715af6b91627",
+    "NativeWeave.Database.Transactions": "beaf79668acdbdb45bcb043d4f032058a89b87d4e90e319666a45f5541f4ff2d",
+    "NativeWeave.Interop.Abi": "687cf092ea66496af472a0ab9707eeae05ff9b29b0594f51524fe8e6f334b013",
+    "NativeWeave.Query.Binding": "d2bc048042bb132ff08044b827d0e221c9fa22a8c6334bbf023abf9ea009cb4c",
+    "NativeWeave.Query.Generator": "dd3d773dcdeed934f9990d18b021cd8b3dbb8d07aa3a95691a0cf3381cfc993b",
+    "NativeWeave.Server": "aa863bc97606c13210f4b79f5c0719a3076452fbd98fb2bf0601417aa8d10e89",
+    "NativeWeave.Server.Generator": "43288c6e1302696eccb77a049ef34c7cb9011974442fbdbbd28a520bfdef49fa",
+    "NativeWeave.Server.Grpc": "b4e1f4b65132a27b214b6056672ee94f37de47cb1185b733a65033b743f874ea",
+    "NativeWeave.Server.Mcp": "f91d959c7d07db1c5e4685186175f73c79f1a421689a4bf079def4733149dcfb",
+    "NativeWeave.Server.Native": "a3e0b5445fecb9596c56321fc996404848b7c266cdccb88412da92bfad1b123d"
+  },
+  "passed": true,
+  "pristine_machine": true,
+  "publicDomainReleaseAccepted": false,
+  "rid": "linux-x64",
+  "runtimeOnlyTransferExecuted": false,
+  "rust_absence_before_trap": {
+    "cargo": true,
+    "rustc": true,
+    "rustup": true
+  },
+  "rust_invocation_trap_fired": false,
+  "schemaVersion": 1,
+  "sourceInputs": {
+    "samples/api/packaging-domain/AddedModels.cs.template": "5f00a14863fb502bf96e59ba5fcdb343a72bdeacb20210454fafaa5e387f5065",
+    "samples/api/packaging-domain/Program.cs": "21a8dc562d1520959c0b3bff12211d69b1fd1cd194a18536695ff1b50ed1dd08",
+    "src/Packaging.Domain/consume.py": "b7ad828161ec44242f62d9bcc0c13397fec6356574f079a01953d6bd8b9b2a80",
+    "src/Packaging.Domain/model.py": "af9336d26efa955dd30e0320f16a55a642d9e1bed357c6522a79a4ae38d4f79a",
+    "src/Packaging.Linux/linux_profile.py": "60aa114ba3c36055bc5778b37b57ce5b438fe03a485465f259e442e9dfbbd26e",
+    "tests/Packaging.Domain/consumer_cases.py": "865b0d8c671b579d56857f51607af1985eaaaf788ea4a4c0ea2f14b2ba11001a",
+    "tests/Packaging.Domain/negative_cases.py": "9e85a9902bacb12ef9ee412fbe16506e5644238bc9345b2fff33132df54997dc",
+    "tests/Packaging.Domain/runtime_verify.py": "98e2c358721ea12561a0dc419a3ea3e74d29af171ca98917d36f11712fbf299a"
+  },
+  "source_commit": "2e6578e1ea90e3eeec6e06fa9a11706cb54db66d",
+  "task": "B24"
+}

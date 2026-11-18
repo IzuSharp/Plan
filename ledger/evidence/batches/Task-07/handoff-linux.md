@@ -11,7 +11,7 @@ Existing accepted executions are reused; no B22 or B23 workload is restarted.
 | B21 | Accepted original evidence and transaction-retirement correction | None |
 | B22 | Accepted SQLite004 and PostgreSQL 30-minute load plus 60-second idle | Preserve original identities |
 | B23 | Accepted finite report: 468 valid processes, 30 cases, independent readback | Detailed numerical remote publication is separately blocked |
-| B24 | Both first-run defects corrected and independently reviewed; second formal CI running | Read CI44351062732 without duplicating workloads |
+| B24 | Independently accepted local/CI Linux x64 candidate C | Normal PR/main/HelloWorld preview closeout |
 
 The 24-hour and 72-hour rows remain deferred and **not executed** by user
 direction. Other platforms and public domain publication remain deferred.
@@ -32,44 +32,68 @@ confirmation observation. All further numerical uploads stopped. The complete
 checkpoint. Report references to accompanying datasets mean those retained local
 datasets. No complete remote numerical persistence is claimed.
 
-B24 source now includes seventeen-package previous/candidate closures, three
-independent native leaves, six independent consumer graphs, ordinary C# edits,
-actual JIT/AOT paths, strict compatibility negatives and whole-closure rollback.
-The targeted producer preflight generated both seventeen-package closures with
-44 successful commands from clean source. It caught and corrected a real project
-filename mapping and a license-directory collection defect. This development
-preflight does not establish pristine consumer or full B24 acceptance.
+### B24 actual candidate acceptance
 
-The first existing Linux CI row failed in the override-negative driver and
-evidence upload: [CI44346015005](https://github.com/IzuSharp/NativeWeave/actions/runs/44346015005).
-The PR head is `c72004e7d9ffeb092cf4f494275ef58ca622697f`; its synthetic merge
-`c2dbf1f2a66306ff2a83a608277a3cfe76ce86e9` has the same reviewed source tree
-`212ba128dc25c47933a41e16c4d6434a23de5416`. Bind the actual producer manifest
-to its real checkout; do not substitute the PR head for a merge identity.
-[Source reviews](../../B24/linux-candidate-9402/source/source-review-index.json)
-include the consumer review and the corrected terminal receipt semantics. The [failed-attempt readback](../../B24/linux-candidate-9402/ci-attempt-001/disposition.json)
-preserves the completed command observations and explicitly unexecuted stages.
-No final receipt was recovered because artifact upload failed. The corrected
-candidate still needs its own direct package and execution evidence. Historical B22/B23 measurements retain their
-original artifacts and require the reviewed source/build applicability bridge;
-they are not relabeled as measurements of a later build.
+[CI44351062732](https://github.com/IzuSharp/NativeWeave/actions/runs/44351062732)
+completed successfully, including build, B24, source drift, evidence export and
+Verify. PR head `80bd3a1f61d017d3494a6e805b831aa61cdcc39f` and actual synthetic
+checkout `2e6578e1ea90e3eeec6e06fa9a11706cb54db66d` bind source tree
+`ad858d6582043cafd3ad638e4e3c60e468ccfd87`. The actual manifests and independent
+GitHub tree readback confirm this identity; a PR head is not substituted for the
+executed merge checkout.
 
+The [final independent review](../../B24/linux-candidate-9402/ci-attempt-002/final-independent-review.json)
+accepts the local Linux x64 candidate after 93 evidence relationship checks:
 
-The two bounded corrections are independently source-approved and tested at their
-specific development boundary; the strict shipping validator is unchanged.
-The corrected [CI44351062732](https://github.com/IzuSharp/NativeWeave/actions/runs/44351062732)
-is now active for PR head `80bd3a1f61d017d3494a6e805b831aa61cdcc39f`, synthetic
-merge `2e6578e1ea90e3eeec6e06fa9a11706cb54db66d` and reviewed tree
-`ad858d6582043cafd3ad638e4e3c60e468ccfd87`. Its actual manifests and final receipts
-remain pending. The first failed run is not reclassified as accepted.
+- Previous and candidate closures each contain 17 packages: eight exact common
+  archives, six advanced managed facades and three independent native leaves.
+- The real no-Rust SDK consumer completed six graphs, ordinary managed edits,
+  actual JIT/AOT and database/TLS HTTP/2/gRPC/MCP operations, 10 compatibility
+  cases (including the valid control) and 54 candidate commands.
+- All 11 local publication/version/rollback/signature-scope cases reached the
+  completed passing terminal record, including whole-previous-closure rollback
+  into fresh processes. Live replacement and incomplete/wrong-source rollback
+  remain rejected. Unsigned domain signature verification was actually rejected.
+- The Noble runtime-only image executed all seven provider rows from the transferred
+  AOT outputs, with the required SDK/compiler/Rust tools absent and hashes matched.
+- Selected native inputs, original license notices, source inventories, package
+  records, final receipts and evidence indexes were independently reconciled.
+
+The versions are `0.1.0-task07.44351062732.1.1` and
+`0.1.0-task07.44351062732.1.2`. This is local/CI domain acceptance, with no new
+positive domain signer authentication or public domain publication.
+[Preserved core evidence](../../B24/linux-candidate-9402/ci-attempt-002/preserved-core-evidence.json)
+contains original JSON bytes and hashes from artifact `14449233444`; omitted
+index targets remain in the original artifact and are not claimed to be in Plan.
+B24 native/package/executable payloads are omitted with their identities and
+reconstruction commands retained.
+
+The completed source/build applicability bridge does **not** transfer historical
+measurements to candidate C: all three C native hashes differ from historical L.
+B22/B23 results keep their original executed artifacts, and
+`directB22B23ExecutionOnC=false`. Direct B24 execution supplies this candidate's
+own package, compatibility, ordinary-edit, pristine and runtime evidence.
+
+The first [CI44346015005](https://github.com/IzuSharp/NativeWeave/actions/runs/44346015005)
+remains failed. Its [readback and bounded fixes](../../B24/linux-candidate-9402/ci-attempt-001/disposition.json)
+preserve the SDK downgrade-warning driver and root-owned evidence-export defects.
+Neither the failed run nor partial command observations are relabelled as passing.
+
+The separate CodeQL aggregate on the accepted PR head still reports failure with
+two high comparator findings. The unchanged authentication-before-dispatch and
+tenant/item guards have an applicable independent assessment; the seven review
+threads are resolved. No suppression, dismissal, impersonated approval or rule
+change was used. Four security workflow jobs and Verify are successful; these
+facts are not summarized as every check being green.
 
 Root integration uses `ROOT/.worktree/Task-07-resume-9402-linux/NativeWeave` and
 `ROOT/.worktree/Task-07-delivery-9402-linux/Plan`. Predecessor worktrees and evidence
 are preserved. Remote destinations remain `task/Task-07-linux`, PR18 and PR22.
-Both PRs remain Draft. No merge or postmerge preview success is yet claimed.
+At this evidence checkpoint no merge or postmerge preview success is yet claimed.
 
-Next: complete B24 and its independent review, final PR checks, normal merges,
-merged-main CI and HelloWorld-only preview registry consumption. Stop at Task-07.
+Next: final evidence PR checks and normal merges, actual merged-main CI, and the
+existing HelloWorld preview registry signature/payload/JIT/AOT checks. Stop at
+Task-07. The detailed B23 upload rejection remains separate from these actions.
 
 ## Active continuation 9402 (2026-11-18)
 
