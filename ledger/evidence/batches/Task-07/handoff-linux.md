@@ -11,7 +11,7 @@ Existing accepted executions are reused; no B22 or B23 workload is restarted.
 | B21 | Accepted original evidence and transaction-retirement correction | None |
 | B22 | Accepted SQLite004 and PostgreSQL 30-minute load plus 60-second idle | Preserve original identities |
 | B23 | Accepted finite report: 468 valid processes, 30 cases, independent readback | Detailed numerical remote publication is separately blocked |
-| B24 | Reviewed source and finite development checks passed; formal CI running | Read the exact active CI; do not launch a duplicate validation |
+| B24 | Both first-run defects corrected and independently reviewed; second formal CI running | Read CI44351062732 without duplicating workloads |
 
 The 24-hour and 72-hour rows remain deferred and **not executed** by user
 direction. Other platforms and public domain publication remain deferred.
@@ -40,17 +40,28 @@ The targeted producer preflight generated both seventeen-package closures with
 filename mapping and a license-directory collection defect. This development
 preflight does not establish pristine consumer or full B24 acceptance.
 
-The existing Linux CI row is running the pinned SDK/no-Rust and Noble
-runtime-only paths in [CI44346015005](https://github.com/IzuSharp/NativeWeave/actions/runs/44346015005).
+The first existing Linux CI row failed in the override-negative driver and
+evidence upload: [CI44346015005](https://github.com/IzuSharp/NativeWeave/actions/runs/44346015005).
 The PR head is `c72004e7d9ffeb092cf4f494275ef58ca622697f`; its synthetic merge
 `c2dbf1f2a66306ff2a83a608277a3cfe76ce86e9` has the same reviewed source tree
 `212ba128dc25c47933a41e16c4d6434a23de5416`. Bind the actual producer manifest
 to its real checkout; do not substitute the PR head for a merge identity.
 [Source reviews](../../B24/linux-candidate-9402/source/source-review-index.json)
-include the consumer review and the corrected terminal receipt semantics. The final candidate needs its own direct
-package and execution evidence. Historical B22/B23 measurements retain their
+include the consumer review and the corrected terminal receipt semantics. The [failed-attempt readback](../../B24/linux-candidate-9402/ci-attempt-001/disposition.json)
+preserves the completed command observations and explicitly unexecuted stages.
+No final receipt was recovered because artifact upload failed. The corrected
+candidate still needs its own direct package and execution evidence. Historical B22/B23 measurements retain their
 original artifacts and require the reviewed source/build applicability bridge;
 they are not relabeled as measurements of a later build.
+
+
+The two bounded corrections are independently source-approved and tested at their
+specific development boundary; the strict shipping validator is unchanged.
+The corrected [CI44351062732](https://github.com/IzuSharp/NativeWeave/actions/runs/44351062732)
+is now active for PR head `80bd3a1f61d017d3494a6e805b831aa61cdcc39f`, synthetic
+merge `2e6578e1ea90e3eeec6e06fa9a11706cb54db66d` and reviewed tree
+`ad858d6582043cafd3ad638e4e3c60e468ccfd87`. Its actual manifests and final receipts
+remain pending. The first failed run is not reclassified as accepted.
 
 Root integration uses `ROOT/.worktree/Task-07-resume-9402-linux/NativeWeave` and
 `ROOT/.worktree/Task-07-delivery-9402-linux/Plan`. Predecessor worktrees and evidence

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "task": "Task-07/B24",
+  "reviewer": "/root/closure_review",
+  "reviewedUtc": "2026-11-18T16:41:19.534399+00:00",
+  "mode": "Independent read-only workflow delta and retained failure-log review; no ownership mutation, build, test, consumer, network write or new acceptance gate.",
+  "decision": "SOURCE_GO for the exact scoped ownership repair. No concrete source defect found; actual successful artifact upload remains to be observed on the next CI run.",
+  "findings": [],
+  "source": {
+    "commit": "3f44c00ae283ee1c6834973046a4cb6f7211ae23",
+    "tree": "c825f27c3fd3f92589b2426ddeb8effdb33370b3",
+    "path": ".github/workflows/build.yml",
+    "sha256": "bcda84e1264cb96d332e9c2e97eddaffa1131288756a423cfcf0ff34bcfccf98",
+    "bytes": 4971,
+    "changedPathsFromBridge": [
+      ".github/workflows/build.yml"
+    ]
+  },
+  "failureBasis": {
+    "log": {
+      "path": "/workspace/scratch/9402d6fb65e4/reviews/ci-44346015005/failure-log-excerpt.json",
+      "sha256": "2819e6491262b0a38a5acd15225fc485c8a19e395995109569f59f50226095b4",
+      "bytes": 18085
+    },
+    "runId": 44346015005,
+    "actualCheckoutFromLog": "c2dbf1f2a66306ff2a83a608277a3cfe76ce86e9",
+    "failure": "After the negative override restore failed, the always-run artifact uploader could not open release/evidence/result.json: EACCES. The existing atomic_json uses a root-owned temporary file in the SDK container, whose0600 mode remains when atomically replaced."
+  },
+  "scope": {
+    "directories": [
+      "artifacts/task07/B24/prepared/evidence",
+      "artifacts/task07/B24/release/evidence",
+      "artifacts/task07/B24/runtime/evidence",
+      "artifacts/task07/B24/evidence"
+    ],
+    "operation": "sudo chown -R --no-dereference to the current host runner UID:GID, only when each explicitly listed directory exists.",
+    "outsideScope": "Working feeds/packages, private test keys, test databases, caches, source checkout and transferred runtime bundles are not targeted. Public artifacts/packages is not targeted; existing evidence upload path declarations remain unchanged.",
+    "hashBoundary": "Ownership/ctime metadata may change, but no file content, JSON encoding, archive member, expected SHA or package identity is rewritten. Existing evidence hashes are content hashes and remain applicable."
+  },
+  "checks": [
+    "The new step has if:always() and precedes the existing if:always() uploader, so it remains eligible after the observed Task-07 failure instead of being skipped by the normal success condition.",
+    "A normal earlier build/consumer failure is not caught or changed to success. The job still fails; the separate exact verified candidate upload retains its default success condition.",
+    "The fixed four-path allowlist covers the failed release/evidence/result.json and all other declared container-produced evidence directories without recursively changing ownership of the whole B24 work directory.",
+    "The host runner becomes owner of root-created0600 files and can read them without chmod or broadening their mode. sudo also permits checking/traversing the explicitly listed root-owned evidence directories.",
+    "GNU chown --no-dereference changes a symlink itself rather than its referent. Its default recursive traversal is-P because-H/-L are absent, so this command does not follow directory symlinks out of the evidence hierarchy. This was confirmed from local chown --help without performing chown.",
+    "Missing evidence directories are skipped, which allows evidence retention after failures that occur before a later stage creates its output. A real chown error is not silently converted into a successful upload."
+  ],
+  "priorCiOutcome": {
+    "status": "failed; not B24 accepted",
+    "preservedLogFacts": "Selected logs show six graph JIT/AOT commands, real PostgreSQL and combined ordinary-edit commands completed with exit0 before negative-override-visible-restore failed on NU1605-as-error.",
+    "notCompleted": "The visible override did not reach its intended strict NWPKG001 build rejection; later release rollback and Noble runtime transfer were not executed.",
+    "artifactBoundary": "No complete downloadable artifact was available according to the CI-monitor readback. Do not manufacture completed receipts, native/package hashes or full acceptance from the command log. Preserve observed completed commands as their exact failed-run observations only."
+  },
+  "sourceBridgeExtension": {
+    "priorReview": {
+      "path": "/workspace/scratch/9402d6fb65e4/reviews/b24-conditional-source-build-bridge-9402.json",
+      "sha256": "5ef456ed490e68e73d77889303a1da5fc881de2f630071cdd7bc6b393c2f0f62",
+      "bytes": 21392
+    },
+    "scope": "The sole extension from e8083ae to3f44c00 is workflow evidence ownership. Native, product, package producer, strict validators and version semantics remain unchanged. The L-to-C bridge remains conditional on the next actual checkout/tree/manifests and terminal receipts.",
+    "nextNegativeDriverDelta": "Pending separate exact-source and actual limited-restore/build readback; this review does not pre-approve it."
+  },
+  "limits": [
+    "if:always() supports ordinary completed step failures; a terminated/unavailable runner cannot guarantee artifact preservation.",
+    "This is a source GO for a concrete transport failure, not a claim that first CI C passed or that the next upload has succeeded.",
+    "No historical B22/B23 workload replay, duplicate full local/CI matrix or alternate numerical-data egress is requested."
+  ]
+}
