@@ -14,7 +14,7 @@ The immutable Design inputs and historical evidence are unchanged.
 | Task | Current Linux continuation state | Remaining work |
 | --- | --- | --- |
 | B21 | Accepted; reused without rerun | None |
-| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Correct EventPipe observation settings, review fresh provider calibrations and run the 30-minute steady stage; 24h/72h not executed by user direction |
+| B22 | Short API/fault/transport evidence accepted; resource validation in progress | Fresh streaming calibrations completed and independently reviewed; SQLite 30-minute run active; first PostgreSQL run failed at 201.355s (FD 25 > frozen 24) and is being diagnosed; 24h/72h not executed by user direction |
 | B23 | Controller repair and finite SQLite diagnosis complete | Predeclared operating-point selection, fresh calibration/confirmation, independently reviewed workload and memory report |
 | B24 | Waiting for B22/B23 applicable scope | Assembled Linux compatibility/package/clean-consumer acceptance after the start dependencies close |
 
@@ -52,6 +52,24 @@ original historical failures. No original 200/s result is relabeled successful.
 Current load scheduling gives B22 the resource-validation window while B23
 prepares source/report inputs. B23 timed load starts only after that window ends.
 Both PRs remain Draft; no Task-07 merge or postmerge release is yet claimed.
+
+Latest persisted source checkpoints: NativeWeave `243161107434b1d02cf2151546cea8585d53cf3a`
+([CI44284081165 passed](https://github.com/IzuSharp/NativeWeave/actions/runs/44284081165))
+and Plan `aa2ad2881b65e4dc51833ce45e20198289d912e6`
+([CI44284126585 passed](https://github.com/IzuSharp/Plan/actions/runs/44284126585)).
+The exact historical diagnostic source tree is separately preserved at
+NativeWeave `b8ca9a6a8a27dc04a7902597d747ea79889d5ae3` on
+`task/Task-07-B23-diagnosis-linux`; it is not the current benchmark controller.
+
+[Fresh calibration evidence](../../B22/streaming-calibration-f889/index.json)
+binds both completed 900-second calibrations, their original typed observation
+rows, the immutable frozen profiles and the independent freeze review.
+The running/failed steady stages do not yet establish 30-minute acceptance.
+The active B22 launch record is
+`ROOT/task07-runs/b22-streaming-steady-launch-001-f889/live-session.json`;
+per-provider progress is in `b22-streaming-steady-{sqlite,postgresql}-001-f889`.
+Do not restart an active process or count an interrupted partial duration as passed.
+
 
 ## Scope and current state
 
