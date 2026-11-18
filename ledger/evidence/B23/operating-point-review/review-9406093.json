@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task": "B23",
+  "platform": "linux-x64",
+  "reviewer": "recovery_release_audit subagent, independent of b23_finish implementation author",
+  "reviewed_utc": "2026-11-18T10:15:01.846470+00:00",
+  "status": "finite_plan_and_controller_source_approved_before_measurement",
+  "source_commit": "94060930b06d1da8978c0b71e1b8caa94abd7ec0",
+  "source_tree": "e1186ac0d3dbb1f7e0f4ecb22f5634e6a6e172d5",
+  "reviewed_inputs": [
+    {
+      "path": "src/Benchmarks.Domain/cohorts.py",
+      "sha256": "f0782f3d4234e66a7c915fb0cc465742dc47640f38f8688e8592c1c628d447a9"
+    },
+    {
+      "path": "src/Benchmarks.Domain/operating-point-plan-v1.json",
+      "sha256": "98c105cc201f880c6264366edf1a500cad537dca832a0e71cb4383c32af1fef3"
+    },
+    {
+      "path": "src/Benchmarks.Domain/report.py",
+      "sha256": "9b36533aef0ec554e84101059a8010258743c023a4d9d7662fe5cb3e235eec10"
+    },
+    {
+      "path": "src/Benchmarks.Domain/run.py",
+      "sha256": "bc7d7ab12f551a3486b4aaf986f730889acd9691142fd070643c6f321cb05f9e"
+    },
+    {
+      "path": "src/Benchmarks.Domain/common.py",
+      "sha256": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135"
+    },
+    {
+      "path": "src/Benchmarks.Domain/profile-v1.json",
+      "sha256": "760180de5a89760837e43a77676a6328fc792e0dfede1893558ae8c244332012"
+    },
+    {
+      "path": "tests/Benchmarks.Domain/test_cohorts.py",
+      "sha256": "112acc4b6c26f9f163ea2a7311228471c683e01a597a62c2ff2ba959acb81751"
+    },
+    {
+      "path": "docs/guides/benchmarks-domain.md",
+      "sha256": "83f25fec0d6c5b97458965bdaf5c3e9c75d5b5cb669272734137525c68bcc0b8"
+    }
+  ],
+  "scope": "Complete new cohorts orchestrator and finite plan, DI profile selection delta, observed concurrency reporting, outer failure isolation and existing A21/inner controller validity integration. No re-review or re-execution of accepted comparator/functional component matrices.",
+  "findings": [
+    {
+      "id": "B23-RECOVERY-OUTER-CLEANUP",
+      "found_at": "1d47cec",
+      "status": "resolved",
+      "problem": "The outer search/matrix could start a new inner controller after that controller stopped for live or unverifiable owned-process cleanup.",
+      "resolution": "9406093 propagates execution_blocker and explicit stop, marks unestablished interrupted directories blocked, records exact not-run units and rejects subsequent execution/resume. Focused no-load regression verifies the second invocation never starts."
+    },
+    {
+      "id": "B23-RECOVERY-PARTIAL-OBSERVATIONS",
+      "found_at": "1d47cec",
+      "status": "resolved",
+      "problem": "The new concurrency helper assumed complete timestamps even for retained invalid A21 rows, which could fail adverse report generation.",
+      "resolution": "9406093 reports unavailable/partial observations and excluded counts, only computes real complete intervals, and sorts half-window values by scheduled arrival time. Missing values are not fabricated as zero durations."
+    },
+    {
+      "id": "B23-RECOVERY-GLOBAL-INPUT-PINS",
+      "found_at": "1d47cec",
+      "status": "resolved",
+      "problem": "Individual inner runs pinned current TLS/PG/golden inputs but the cross-invocation finite selection state did not freeze them.",
+      "resolution": "9406093 freezes reference golden.py, both TLS file identities, four PostgreSQL lifecycle executables, Python executable and six client module files in addition to manifests/profile/A21/controller inputs. Per-case confirmation fingerprint and artifact checks remain unchanged."
+    }
+  ],
+  "open_blocking_findings": [],
+  "plan_assessment": {
+    "search": "Two predeclared offered-rate candidates for four previously adverse workload families, two fresh processes per supported route/case, no latency-based winner choice. Select largest completely valid candidate; if none passes keep lower point explicitly unvalidated. No subsequent tuning/retry loop.",
+    "matrix": "Every original full case receives three fresh calibration processes per supported route. Three independent confirmation processes run only for an entirely valid calibration and matching immutable inputs/noise bands. Invalid and unexecuted rows remain explicit.",
+    "scope_boundaries": "Original high-rate adverse records remain adverse. Cold/8MiB/overload/diagnostic profiles remain unchanged; ordinary same-native artifacts, durability, semantics and A21 statistics remain authoritative. The selection is a finite operating point, not demonstrated maximum sustainable capacity.",
+    "accounting": "Attempted, completed and valid calibrations/confirmations are separate; preflight failure does not imply an executed full matrix."
+  },
+  "independent_execution": {
+    "command": "python tests/Benchmarks.Domain/test_cohorts.py",
+    "exit_code": 0,
+    "test_count": 5,
+    "elapsed_reported_seconds": 0.002,
+    "application_or_benchmark_load_started": false,
+    "source_worktree_clean_after": true
+  },
+  "acceptance_boundary": "Pre-measurement source/plan approval only. Actual timed cells, independent raw-data review and B22 current Linux correctness/resource closure still required. The user excluded 24h/72h; this never turns those omitted runs into passed evidence. Other platforms remain outside scope."
+}
