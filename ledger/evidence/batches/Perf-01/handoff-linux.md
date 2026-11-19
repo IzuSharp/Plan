@@ -250,3 +250,44 @@ frozen-execution.json is still absent and **0/10 long segments are credited**.
 Plan checkpoint8c3972979af9926a1e16ea193a9b5a68652782cd passed CI44513900559.
 Product aa3399f CI44516411426 was still running at this checkpoint. Both PRs
 remain drafts; no merge, final performance gain or preview publication is claimed.
+
+### Execution checkpoint: target retention must be fixed before final DB freeze
+
+Both compact-v4 database calibration loops completed and their artifacts remain
+immutable. SQLite's final54/s three60s confirmations had3241/3241 successes each
+and p99286.206671/214.076054/257.418997ms; PostgreSQL's180/s triplet had10801/10801
+and p99101.687186/100.874169/138.499745ms. The policy-derived rates43/s and144/s
+are **preparation selections**, not the final DB freeze. SQLite also had an earlier
+failed54/s short point, and every failed/higher sample is retained. Its80/s failed
+logical cycle had committed create201, BUSY replay500 and matching recovery200;
+there is no evidence of a corrupted successful recovery response. The PG200/s
+first confirmation rejected117 operations before dispatch at the A21 outstanding
+limit; every11884 dispatched operation succeeded. GC/native-queue/exact SQL wait
+attribution is unavailable in those ordinary cells. Separate notes preserve both
+failed verdicts and their actual evidence, without relabeling failure as success.
+
+Source follow-up found a second, concrete measurement-tool memory risk: the
+HTTPX target retains every full page in operation_outcomes, serializes the entire
+receipt after drain, and its parent loads that receipt in full despite using only
+small metadata. The existing171/s120s streamed profile actually sampled target
+RSS152,498,176B during measurement and181,960,704B in final reconciliation, with
+a42,562,221-byte final target receipt. Multi-GB long peaks are extrapolations, not
+measurements. observations-before/http-target-retention-001/ records exact scope.
+The DB agent is preparing only an explicit compact journal/streamed receipt and
+parent projection fix; default B23 behavior and complete on-disk evidence must
+remain equivalent. A21 SHA dfb57cf is frozen and will not change. Targeted gates,
+independent review and the same120s diagnostic must pass before a fresh final DB
+calibration. The prepared SQLite v4 noise script was not executed.
+
+Fresh codec final004 calibration began2026-11-19T12:21:51.572954Z in session82291,
+using actual before004 manifestd34298eb and unchanged policy4/corpus. No builds,
+tests or other loads overlap; agents are source-onlyCPU8. Both common codec and
+protocol wrappers actually passed CLI/import --help checks in
+checks/calibration-wrapper-cli-001/; this is not a full finite/load gate claim.
+The protocol final calibration and short before-only noise still follow.
+
+Latest pushed Plan bc916f0cf8bcdd41bce590f4910231d6e9d3fa69 has the source proofs
+and shared capacity wrappers; the A02 note was read back byte-for-byte. Product
+runtime remains unchanged main ea5 and driver aa3399f. Final frozen-execution.json
+is still absent. **0/10 long segments are credited; no runtime performance gain
+or final acceptance is claimed.** Continue the authorized task after this checkpoint.

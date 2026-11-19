@@ -1,0 +1,1030 @@
+{
+  "task": "Perf-01",
+  "created_utc": "2026-11-19T12:17:03.596315+00:00",
+  "scope": "Read-only completed metadata and small procfs resource-series comparison; no operation-event or observation ledger scan, new profiling or load",
+  "cells": [
+    {
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/08-refine-200",
+      "summary_sha256": "0dbf85dff930c630abaab8fc43df3ebefaf79ad1f1b78faa3bf01d8bfd37770c",
+      "frozen_inputs_sha256": "d3ded110074ccbe07126fb77b629cac7ecf49aa05cb239b179517689bfab6109",
+      "summary": {
+        "valid": true,
+        "invalid_reasons": [],
+        "offered": 6001,
+        "dispatched": 6001,
+        "successful": 6001,
+        "successful_per_second": 199.88409318656872,
+        "planned_load_seconds": 30.0,
+        "observation_seconds": 30.022399003,
+        "actual_dispatch_span_seconds": 29.998748569,
+        "p50_ns": 24441422,
+        "p95_ns": 67400253,
+        "p99_ns": 116193470,
+        "outcomes": {
+          "ok": 6001
+        },
+        "by_kind": {
+          "cycle": {
+            "offered": 3001,
+            "outcomes": {
+              "ok": 3001
+            },
+            "p50_ns": 39201247,
+            "p95_ns": 78674248,
+            "p99_ns": 143792914,
+            "successful": 3001
+          },
+          "list": {
+            "offered": 3000,
+            "outcomes": {
+              "ok": 3000
+            },
+            "p50_ns": 10401958,
+            "p95_ns": 28162782,
+            "p99_ns": 75530898,
+            "successful": 3000
+          }
+        },
+        "provider_errors": {
+          "availability": "measured",
+          "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+          "observed_exceptions": 0,
+          "provider_code_counts": {},
+          "sqlite_busy": null,
+          "sqlite_locked": null
+        },
+        "classified_error_counts": {},
+        "permanent_integrity_halt": false,
+        "closed": {
+          "consumerResourcesReleased": true,
+          "consumerStatus": "Succeeded",
+          "databaseResourcesReleased": true,
+          "databaseStatus": "Succeeded",
+          "serverState": "Disposed"
+        },
+        "durable_oracle": {
+          "attachments": 0,
+          "items": 3137,
+          "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+          "operations": 3137,
+          "outbox": 3137,
+          "passed": true,
+          "unique_blobs_verified": 0
+        },
+        "persisted_before_recovery": {
+          "availability": "measured",
+          "committed_operations_by_phase": {
+            "measurement": 3001,
+            "seed": 128,
+            "warmup": 8
+          },
+          "method": "Separate SQLite/psql SELECTs after measured dispatch; no application counters",
+          "monotonic_ns": 21587407234131,
+          "persisted_rows": {
+            "items": 3137,
+            "operations": 3137,
+            "outbox": 3137
+          },
+          "scope": "Committed mutation rows visible to the independent reader; paging has no mutation. Exact content/cardinality acceptance remains the unchanged B23 durable oracle.",
+          "utc": "2026-11-19T12:10:01.194910+00:00"
+        }
+      },
+      "route_instrumented": false,
+      "recorded_application_receipt": {
+        "path": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/08-refine-200/applications/nativeweave-aot-rust-b5c605651c264d5fa81b694aca939ac7/receipt.json",
+        "sha256": "d4ef627db3ac1e06379c3de51775aa0284bb214ba5933d3e677b329e93f191a3"
+      },
+      "resource_inputs_sha256": {
+        "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/08-refine-200/applications/nativeweave-aot-rust-b5c605651c264d5fa81b694aca939ac7/application/resources.jsonl": "2bf1e72feea1326bce245025290af0e6ff0d08bfacf5c769704a5b7afb07330d",
+        "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/08-refine-200/applications/nativeweave-aot-rust-b5c605651c264d5fa81b694aca939ac7/generator-resources.jsonl": "b4734c455d75c8705249b5278d85dc67dc60d20d46d9b88be43b673bc9574c43"
+      },
+      "resources": {
+        "application": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                2,
+                3
+              ]
+            ],
+            "app_cpu_percent_one_core": 92.0865256781279,
+            "app_cpu_seconds": 27.59,
+            "cpu_percent_one_core": 92.0865256781279,
+            "cpu_samples": 570,
+            "cpu_seconds": 27.59,
+            "cpu_span_seconds": 29.960952264,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 25,
+            "fd_peak_count": 49,
+            "identities": [
+              {
+                "pid": 3684,
+                "start_ticks": 2155553
+              }
+            ],
+            "rss_peak_bytes": 43950080,
+            "samples": 570,
+            "socket_peak_count": 33
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 191,
+              "first_sample_monotonic_ns": 21557203701917,
+              "last_sample_monotonic_ns": 21567196732088,
+              "cpu_percent_one_core": 91.1637108259261,
+              "rss_first_bytes": 35348480,
+              "rss_last_bytes": 39395328,
+              "rss_peak_bytes": 43384832,
+              "fd_peak_count": 49,
+              "threads_peak_count": 22
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 189,
+              "first_sample_monotonic_ns": 21567249421491,
+              "last_sample_monotonic_ns": 21577197441923,
+              "cpu_percent_one_core": 92.58125366008389,
+              "rss_first_bytes": 42651648,
+              "rss_last_bytes": 35717120,
+              "rss_peak_bytes": 43950080,
+              "fd_peak_count": 49,
+              "threads_peak_count": 22
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 190,
+              "first_sample_monotonic_ns": 21577249388317,
+              "last_sample_monotonic_ns": 21587164646349,
+              "cpu_percent_one_core": 92.48348447432497,
+              "rss_first_bytes": 35729408,
+              "rss_last_bytes": 38559744,
+              "rss_peak_bytes": 43085824,
+              "fd_peak_count": 49,
+              "threads_peak_count": 22
+            }
+          ],
+          "maximum_sample_gap_ms": 92.7413,
+          "maximum_sample_wall_ms": 8.079396
+        },
+        "target": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 63.26595104297316,
+            "cpu_samples": 30,
+            "cpu_seconds": 18.43,
+            "cpu_span_seconds": 29.130993364,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 30,
+            "fd_peak_count": 29,
+            "identities": [
+              {
+                "pid": 3681,
+                "start_ticks": 2155534
+              }
+            ],
+            "rss_peak_bytes": 68464640,
+            "samples": 30,
+            "socket_peak_count": 18
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21557843732487,
+              "last_sample_monotonic_ns": 21566872897963,
+              "cpu_percent_one_core": 63.35017509736436,
+              "rss_first_bytes": 34476032,
+              "rss_last_bytes": 45142016,
+              "rss_peak_bytes": 45142016,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21567876910767,
+              "last_sample_monotonic_ns": 21576940426708,
+              "cpu_percent_one_core": 65.09627138051658,
+              "rss_first_bytes": 46284800,
+              "rss_last_bytes": 56836096,
+              "rss_peak_bytes": 56836096,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21577943346624,
+              "last_sample_monotonic_ns": 21586974725771,
+              "cpu_percent_one_core": 61.3418196904831,
+              "rss_first_bytes": 58089472,
+              "rss_last_bytes": 68464640,
+              "rss_peak_bytes": 68464640,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1033.194465,
+          "maximum_sample_wall_ms": 1.76996
+        },
+        "scheduler": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 11.533966615022678,
+            "cpu_samples": 30,
+            "cpu_seconds": 3.36,
+            "cpu_span_seconds": 29.131348409,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 0,
+            "fd_peak_count": 11,
+            "identities": [
+              {
+                "pid": 3680,
+                "start_ticks": 2155490
+              }
+            ],
+            "rss_peak_bytes": 35438592,
+            "samples": 30,
+            "socket_peak_count": 2
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21557844915762,
+              "last_sample_monotonic_ns": 21566873867286,
+              "cpu_percent_one_core": 10.410976112958497,
+              "rss_first_bytes": 27164672,
+              "rss_last_bytes": 29618176,
+              "rss_peak_bytes": 29618176,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21567877603001,
+              "last_sample_monotonic_ns": 21576941414889,
+              "cpu_percent_one_core": 12.246476900895463,
+              "rss_first_bytes": 29876224,
+              "rss_last_bytes": 32251904,
+              "rss_peak_bytes": 32251904,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21577944919256,
+              "last_sample_monotonic_ns": 21586976202539,
+              "cpu_percent_one_core": 12.069079264590782,
+              "rss_first_bytes": 32522240,
+              "rss_last_bytes": 35438592,
+              "rss_peak_bytes": 35438592,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1033.010958,
+          "maximum_sample_wall_ms": 1.029664
+        },
+        "controller": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 1.2701104489965345,
+            "cpu_samples": 30,
+            "cpu_seconds": 0.37,
+            "cpu_span_seconds": 29.131324783,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 0,
+            "fd_peak_count": 8,
+            "identities": [
+              {
+                "pid": 3646,
+                "start_ticks": 2155302
+              }
+            ],
+            "rss_peak_bytes": 28409856,
+            "samples": 30,
+            "socket_peak_count": 2
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21557845636270,
+              "last_sample_monotonic_ns": 21566874377956,
+              "cpu_percent_one_core": 1.3290916631111913,
+              "rss_first_bytes": 28409856,
+              "rss_last_bytes": 28409856,
+              "rss_peak_bytes": 28409856,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21567878111619,
+              "last_sample_monotonic_ns": 21576942040473,
+              "cpu_percent_one_core": 1.3239281485018917,
+              "rss_first_bytes": 28409856,
+              "rss_last_bytes": 28409856,
+              "rss_peak_bytes": 28409856,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21577945817992,
+              "last_sample_monotonic_ns": 21586976972290,
+              "cpu_percent_one_core": 1.218006341878438,
+              "rss_first_bytes": 28409856,
+              "rss_last_bytes": 28409856,
+              "rss_peak_bytes": 28409856,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1033.096497,
+          "maximum_sample_wall_ms": 0.828751
+        }
+      },
+      "ten_second_reference_monotonic_ns": 21557203701917,
+      "bounded_application_receipt_prefix": {
+        "bytes": 65536,
+        "sha256": "4e666148e39eee77965b7a2df4f9c7e25e078696ef3ab449cf237ea0a85cca0a",
+        "observed_diagnostics_oracle": "No benchmark instrumentation in the accepted product/comparator executable",
+        "observed_last_probe": null,
+        "method": "Only the first 64 KiB was used for this selected probe evidence; the summary retains the prior whole receipt hash. Whole receipt was not rehashed for this note."
+      }
+    },
+    {
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200",
+      "summary_sha256": "976e7d52f4081b0725b250104cd98906b53e10a1fb4df56509c9c061c7b42d3e",
+      "frozen_inputs_sha256": "2cd1b7d1efd1f06f0010d068c496393a6bc6060419e1419009ebf0fbeaf9a49d",
+      "summary": {
+        "valid": false,
+        "invalid_reasons": [
+          "generator saturation: in-flight capacity"
+        ],
+        "offered": 12001,
+        "dispatched": 11884,
+        "successful": 11884,
+        "successful_per_second": 197.81925041446837,
+        "planned_load_seconds": 60.0,
+        "observation_seconds": 60.075043127,
+        "actual_dispatch_span_seconds": 60.000591235,
+        "p50_ns": 47409414,
+        "p95_ns": 2500357614,
+        "p99_ns": 3053415963,
+        "outcomes": {
+          "ok": 11884,
+          "rejected": 117
+        },
+        "by_kind": {
+          "cycle": {
+            "offered": 6001,
+            "outcomes": {
+              "ok": 5942,
+              "rejected": 59
+            },
+            "p50_ns": 54191336,
+            "p95_ns": 2531991838,
+            "p99_ns": 3092782775,
+            "successful": 5942
+          },
+          "list": {
+            "offered": 6000,
+            "outcomes": {
+              "ok": 5942,
+              "rejected": 58
+            },
+            "p50_ns": 17993657,
+            "p95_ns": 2441810643,
+            "p99_ns": 3006657624,
+            "successful": 5942
+          }
+        },
+        "provider_errors": {
+          "availability": "measured",
+          "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+          "observed_exceptions": 0,
+          "provider_code_counts": {},
+          "sqlite_busy": null,
+          "sqlite_locked": null
+        },
+        "classified_error_counts": {},
+        "permanent_integrity_halt": false,
+        "closed": {
+          "consumerResourcesReleased": true,
+          "consumerStatus": "Succeeded",
+          "databaseResourcesReleased": true,
+          "databaseStatus": "Succeeded",
+          "serverState": "Disposed"
+        },
+        "durable_oracle": {
+          "attachments": 0,
+          "items": 6078,
+          "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+          "operations": 6078,
+          "outbox": 6078,
+          "passed": true,
+          "unique_blobs_verified": 0
+        },
+        "persisted_before_recovery": {
+          "availability": "measured",
+          "committed_operations_by_phase": {
+            "measurement": 5942,
+            "seed": 128,
+            "warmup": 8
+          },
+          "method": "Separate SQLite/psql SELECTs after measured dispatch; no application counters",
+          "monotonic_ns": 21713489828650,
+          "persisted_rows": {
+            "items": 6078,
+            "operations": 6078,
+            "outbox": 6078
+          },
+          "scope": "Committed mutation rows visible to the independent reader; paging has no mutation. Exact content/cardinality acceptance remains the unchanged B23 durable oracle.",
+          "utc": "2026-11-19T12:12:07.277504+00:00"
+        }
+      },
+      "route_instrumented": false,
+      "recorded_application_receipt": {
+        "path": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200/applications/nativeweave-aot-rust-074aa6cee10246848e8377a800028c73/receipt.json",
+        "sha256": "17a977ab4b24c948d57b0690a074fc8de443243af587e50eca4dad5aecdd76c2"
+      },
+      "resource_inputs_sha256": {
+        "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200/applications/nativeweave-aot-rust-074aa6cee10246848e8377a800028c73/application/resources.jsonl": "574af467e63ca258e90b8d00479b0474c7f2f5490e00695373bffc9738cc36e7",
+        "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200/applications/nativeweave-aot-rust-074aa6cee10246848e8377a800028c73/generator-resources.jsonl": "8a3de6c6c99136b55a4d7bc8e78e32b00b8bf8a04505f8e8be80829cd6f87dee"
+      },
+      "resources": {
+        "application": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                2,
+                3
+              ]
+            ],
+            "app_cpu_percent_one_core": 90.00264111558873,
+            "app_cpu_seconds": 54.01,
+            "cpu_percent_one_core": 90.00264111558873,
+            "cpu_samples": 1128,
+            "cpu_seconds": 54.01,
+            "cpu_span_seconds": 60.009350093,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 43,
+            "fd_peak_count": 49,
+            "identities": [
+              {
+                "pid": 4422,
+                "start_ticks": 2164944
+              }
+            ],
+            "rss_peak_bytes": 63778816,
+            "samples": 1128,
+            "socket_peak_count": 33
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 186,
+              "first_sample_monotonic_ns": 21653311368361,
+              "last_sample_monotonic_ns": 21663295860881,
+              "cpu_percent_one_core": 67.70594750567571,
+              "rss_first_bytes": 35188736,
+              "rss_last_bytes": 44412928,
+              "rss_peak_bytes": 63778816,
+              "fd_peak_count": 49,
+              "threads_peak_count": 21
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 182,
+              "first_sample_monotonic_ns": 21663348621727,
+              "last_sample_monotonic_ns": 21673277817647,
+              "cpu_percent_one_core": 99.6054089525491,
+              "rss_first_bytes": 42287104,
+              "rss_last_bytes": 44462080,
+              "rss_peak_bytes": 56705024,
+              "fd_peak_count": 49,
+              "threads_peak_count": 21
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 188,
+              "first_sample_monotonic_ns": 21673330054167,
+              "last_sample_monotonic_ns": 21683300455576,
+              "cpu_percent_one_core": 95.38243856032244,
+              "rss_first_bytes": 40321024,
+              "rss_last_bytes": 41971712,
+              "rss_peak_bytes": 49741824,
+              "fd_peak_count": 49,
+              "threads_peak_count": 21
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                30,
+                40
+              ],
+              "samples": 190,
+              "first_sample_monotonic_ns": 21683366551709,
+              "last_sample_monotonic_ns": 21693259749661,
+              "cpu_percent_one_core": 92.7917894619223,
+              "rss_first_bytes": 41058304,
+              "rss_last_bytes": 37822464,
+              "rss_peak_bytes": 44593152,
+              "fd_peak_count": 49,
+              "threads_peak_count": 20
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                40,
+                50
+              ],
+              "samples": 192,
+              "first_sample_monotonic_ns": 21693312211179,
+              "last_sample_monotonic_ns": 21703305489148,
+              "cpu_percent_one_core": 92.86192096964982,
+              "rss_first_bytes": 40783872,
+              "rss_last_bytes": 43638784,
+              "rss_peak_bytes": 46653440,
+              "fd_peak_count": 49,
+              "threads_peak_count": 19
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                50,
+                60
+              ],
+              "samples": 189,
+              "first_sample_monotonic_ns": 21703358013656,
+              "last_sample_monotonic_ns": 21713269049813,
+              "cpu_percent_one_core": 91.71608464931008,
+              "rss_first_bytes": 43642880,
+              "rss_last_bytes": 41074688,
+              "rss_peak_bytes": 51576832,
+              "fd_peak_count": 49,
+              "threads_peak_count": 19
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                60,
+                70
+              ],
+              "samples": 1,
+              "first_sample_monotonic_ns": 21713320855161,
+              "last_sample_monotonic_ns": 21713320855161,
+              "cpu_percent_one_core": null,
+              "rss_first_bytes": 42000384,
+              "rss_last_bytes": 42000384,
+              "rss_peak_bytes": 42000384,
+              "fd_peak_count": 49,
+              "threads_peak_count": 19
+            }
+          ],
+          "maximum_sample_gap_ms": 122.757976,
+          "maximum_sample_wall_ms": 6.980011
+        },
+        "target": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 71.84839202848109,
+            "cpu_samples": 59,
+            "cpu_seconds": 41.91,
+            "cpu_span_seconds": 58.331159288,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 59,
+            "fd_peak_count": 29,
+            "identities": [
+              {
+                "pid": 4419,
+                "start_ticks": 2164923
+              }
+            ],
+            "rss_peak_bytes": 101519360,
+            "samples": 59,
+            "socket_peak_count": 18
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21654174964596,
+              "last_sample_monotonic_ns": 21663233018583,
+              "cpu_percent_one_core": 67.89518986861971,
+              "rss_first_bytes": 34242560,
+              "rss_last_bytes": 44068864,
+              "rss_peak_bytes": 44068864,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21664240446105,
+              "last_sample_monotonic_ns": 21673284257643,
+              "cpu_percent_one_core": 95.31485253842591,
+              "rss_first_bytes": 45621248,
+              "rss_last_bytes": 56627200,
+              "rss_peak_bytes": 56627200,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 9,
+              "first_sample_monotonic_ns": 21674290759830,
+              "last_sample_monotonic_ns": 21682329973289,
+              "cpu_percent_one_core": 79.36129429296946,
+              "rss_first_bytes": 58040320,
+              "rss_last_bytes": 67960832,
+              "rss_peak_bytes": 67960832,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                30,
+                40
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21683346052962,
+              "last_sample_monotonic_ns": 21692387345038,
+              "cpu_percent_one_core": 63.95085170014261,
+              "rss_first_bytes": 68620288,
+              "rss_last_bytes": 78999552,
+              "rss_peak_bytes": 78999552,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                40,
+                50
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21693390765497,
+              "last_sample_monotonic_ns": 21702423778227,
+              "cpu_percent_one_core": 60.555672322033786,
+              "rss_first_bytes": 80252928,
+              "rss_last_bytes": 90464256,
+              "rss_peak_bytes": 90464256,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                50,
+                60
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21703428094746,
+              "last_sample_monotonic_ns": 21712506164555,
+              "cpu_percent_one_core": 61.79750291644256,
+              "rss_first_bytes": 91226112,
+              "rss_last_bytes": 101519360,
+              "rss_peak_bytes": 101519360,
+              "fd_peak_count": 29,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1046.881802,
+          "maximum_sample_wall_ms": 6.882404
+        },
+        "scheduler": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 12.377302949422852,
+            "cpu_samples": 59,
+            "cpu_seconds": 7.22,
+            "cpu_span_seconds": 58.33257883,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 0,
+            "fd_peak_count": 11,
+            "identities": [
+              {
+                "pid": 4418,
+                "start_ticks": 2164843
+              }
+            ],
+            "rss_peak_bytes": 49999872,
+            "samples": 59,
+            "socket_peak_count": 2
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21654175718763,
+              "last_sample_monotonic_ns": 21663234470604,
+              "cpu_percent_one_core": 10.04551846078329,
+              "rss_first_bytes": 34684928,
+              "rss_last_bytes": 36872192,
+              "rss_peak_bytes": 36872192,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21664241493275,
+              "last_sample_monotonic_ns": 21673285720820,
+              "cpu_percent_one_core": 12.272985732911156,
+              "rss_first_bytes": 37146624,
+              "rss_last_bytes": 39718912,
+              "rss_peak_bytes": 39718912,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 9,
+              "first_sample_monotonic_ns": 21674291854922,
+              "last_sample_monotonic_ns": 21682330759535,
+              "cpu_percent_one_core": 12.066319746506117,
+              "rss_first_bytes": 40013824,
+              "rss_last_bytes": 42696704,
+              "rss_peak_bytes": 42696704,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                30,
+                40
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21683353976687,
+              "last_sample_monotonic_ns": 21692388702977,
+              "cpu_percent_one_core": 12.728668304100413,
+              "rss_first_bytes": 42950656,
+              "rss_last_bytes": 45162496,
+              "rss_peak_bytes": 45162496,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                40,
+                50
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21693392802380,
+              "last_sample_monotonic_ns": 21702425898879,
+              "cpu_percent_one_core": 13.173774053620836,
+              "rss_first_bytes": 45400064,
+              "rss_last_bytes": 47595520,
+              "rss_peak_bytes": 47595520,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                50,
+                60
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21703430187423,
+              "last_sample_monotonic_ns": 21712508282581,
+              "cpu_percent_one_core": 13.769422633416456,
+              "rss_first_bytes": 47833088,
+              "rss_last_bytes": 49999872,
+              "rss_peak_bytes": 49999872,
+              "fd_peak_count": 11,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1048.004164,
+          "maximum_sample_wall_ms": 1.49154
+        },
+        "controller": {
+          "whole_measurement": {
+            "affinity_masks": [
+              [
+                0,
+                1
+              ]
+            ],
+            "cpu_percent_one_core": 1.2857383419815231,
+            "cpu_samples": 59,
+            "cpu_seconds": 0.75,
+            "cpu_span_seconds": 58.332241912,
+            "cpu_unavailable_reason": null,
+            "descriptor_scan_misses": 0,
+            "fd_peak_count": 8,
+            "identities": [
+              {
+                "pid": 4384,
+                "start_ticks": 2164556
+              }
+            ],
+            "rss_peak_bytes": 32768000,
+            "samples": 59,
+            "socket_peak_count": 2
+          },
+          "ten_second_bins": [
+            {
+              "from_first_application_measurement_sample_seconds": [
+                0,
+                10
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21654177244605,
+              "last_sample_monotonic_ns": 21663235127976,
+              "cpu_percent_one_core": 1.2144132355770219,
+              "rss_first_bytes": 32464896,
+              "rss_last_bytes": 32464896,
+              "rss_peak_bytes": 32464896,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                10,
+                20
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21664242144137,
+              "last_sample_monotonic_ns": 21673286564343,
+              "cpu_percent_one_core": 1.3267783093223426,
+              "rss_first_bytes": 32464896,
+              "rss_last_bytes": 32464896,
+              "rss_peak_bytes": 32464896,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                20,
+                30
+              ],
+              "samples": 9,
+              "first_sample_monotonic_ns": 21674292839858,
+              "last_sample_monotonic_ns": 21682331386231,
+              "cpu_percent_one_core": 1.119620119939447,
+              "rss_first_bytes": 32464896,
+              "rss_last_bytes": 32768000,
+              "rss_peak_bytes": 32768000,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                30,
+                40
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21683354815072,
+              "last_sample_monotonic_ns": 21692389449874,
+              "cpu_percent_one_core": 1.4389069958504026,
+              "rss_first_bytes": 32768000,
+              "rss_last_bytes": 32768000,
+              "rss_peak_bytes": 32768000,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                40,
+                50
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21693393954558,
+              "last_sample_monotonic_ns": 21702426950357,
+              "cpu_percent_one_core": 1.1070522980863529,
+              "rss_first_bytes": 32768000,
+              "rss_last_bytes": 32768000,
+              "rss_peak_bytes": 32768000,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            },
+            {
+              "from_first_application_measurement_sample_seconds": [
+                50,
+                60
+              ],
+              "samples": 10,
+              "first_sample_monotonic_ns": 21703431487775,
+              "last_sample_monotonic_ns": 21712509382361,
+              "cpu_percent_one_core": 1.43203477430135,
+              "rss_first_bytes": 32768000,
+              "rss_last_bytes": 32768000,
+              "rss_peak_bytes": 32768000,
+              "fd_peak_count": 8,
+              "threads_peak_count": 1
+            }
+          ],
+          "maximum_sample_gap_ms": 1048.249053,
+          "maximum_sample_wall_ms": 1.189294
+        }
+      },
+      "ten_second_reference_monotonic_ns": 21653311368361,
+      "bounded_application_receipt_prefix": {
+        "bytes": 65536,
+        "sha256": "9b8b643d93b7a4de11e1b5b0afbe69ccceda619da5ff549ae5f0bff2bc33ea85",
+        "observed_diagnostics_oracle": "No benchmark instrumentation in the accepted product/comparator executable",
+        "observed_last_probe": null,
+        "method": "Only the first 64 KiB was used for this selected probe evidence; the summary retains the prior whole receipt hash. Whole receipt was not rehashed for this note."
+      }
+    }
+  ],
+  "limitations": [
+    "Ordinary route instrumented=false; application GC/alloc and native queue interval counters unavailable. Python GC callback intervals were not recorded in these ordinary cells.",
+    "PostgreSQL server CPU/RSS, exact pool/SQL/lock waits and the location of accumulated outstanding work are unavailable here.",
+    "No recorded dispatch-lag threshold violation is not proof that unobserved stalls or shorter pauses did not occur. In-flight rejection precedes the dispatch-lag check and rejected requests were not sent.",
+    "A21 outstanding count includes target IPC/queue, active HTTP business operations and completion observation. The C16 semaphore admits only after acquisition; 512 outstanding is not 512 native operations.",
+    "Target operation results are retained by the historical B23 implementation. RSS growth with run length alone does not establish a leak or GC cause."
+  ]
+}

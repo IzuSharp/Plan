@@ -1,0 +1,76 @@
+{
+  "task": "Perf-01",
+  "created_utc": "2026-11-19T12:20:57.425929+00:00",
+  "scope": "Source-only retention audit plus existing 120-second profile summary metadata; no workload/profile/test or large receipt parse for this audit",
+  "measurement_driver_commit": "aa3399f0418a6d0910cc56697abfaa3769f32b54",
+  "source_sha256": {
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/target.py": "48073074eb52b5fc924e7aecab482d82d574cec4c703f0e9c11a9aecafae1e57",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py": "92516d58fac92a206e0ef2e628c9799b6d537f40ffc8fa82bc2d1789beada198",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/encoder.py": "52bfb1b66029cc70fa3bd7fe11df9f2e03922d413407a341b387a22c987f24f8"
+  },
+  "actual_profile": {
+    "directory": "/workspace/scratch/01c249676f47/perf01-evidence/profiling/before/db-generator-streamed-001",
+    "summary_sha256": "35d329630f4bc47bbbe52b849f06e43bc94d73a6725154f4bf0e7f39d126a634",
+    "formal_timing_eligible": false,
+    "offered": 20522,
+    "successful": 20522,
+    "rate": 171.0,
+    "planned_load_seconds": 120.005843513,
+    "target_rss_peak_by_phase": {
+      "final-reconciliation-and-shutdown": 181960704,
+      "measurement": 152498176,
+      "post-load-idle": 175685632,
+      "post-load-recovery": 163319808,
+      "reconciliation-and-shutdown": 163319808,
+      "startup-and-seed": 33529856
+    },
+    "application_receipt_recorded_prior_sha256": "7cda6f5c5a78625aa64b3ef3655ecd97ed5bdd07727a8fa2cc571ea0b9b6c40d",
+    "application_receipt_path": "/workspace/scratch/01c249676f47/perf01-evidence/profiling/before/db-generator-streamed-001/applications/nativeweave-aot-rust-ebad9d528c9b4c718685c226357014d6/receipt.json",
+    "application_receipt_stat_bytes": 42562221,
+    "application_receipt_hash_reverified_by_this_audit": false
+  },
+  "explicit_estimates": {
+    "method": "Linear scale of (120-second sampled measurement peak minus startup-and-seed sampled peak) per successful logical operation, then add the same startup peak. Receipt-byte estimate scales the actual file size per successful operation. These are illustrative estimates, not limits or measured long peaks. Fixed-time resource samples, startup overhead, heap behavior and serialization are not independently decomposed.",
+    "observed_increment_bytes_per_logical_operation": 5797.111392651788,
+    "observed_receipt_bytes_per_logical_operation": 2073.9801676249876,
+    "hypothetical_1802_second_loads": [
+      {
+        "offered_rate": 200,
+        "scheduled_count_assumption": 360401,
+        "estimated_live_target_peak_bytes": 2122814599,
+        "estimated_final_receipt_bytes": 747464526,
+        "not_a_selected_pg_rate": true
+      },
+      {
+        "offered_rate": 500,
+        "scheduled_count_assumption": 901001,
+        "estimated_live_target_peak_bytes": 5256733018,
+        "estimated_final_receipt_bytes": 1868658205,
+        "not_a_selected_pg_rate": true
+      }
+    ]
+  },
+  "unavailable": [
+    "Whole target-process lifetime high-water RSS across final JSON serialization",
+    "Parent peak RSS while loading complete application receipt",
+    "Target Python GC collection or pause timeline",
+    "A guaranteed process/host memory upper bound from these short observations"
+  ],
+  "retention": {
+    "page_value": "100 independently parsed title strings retained by each normalized page value, plus a title list and version list of 100 references each; full page DTO dictionaries and HTTP response body are not deliberately retained after the operation task ends.",
+    "cycle_value": "Scalar normalized cycle outcome; separate mutation ledger retains IDs, request key/hash/scope/status and encoded first response bytes for the independent durable oracle.",
+    "application_samples": "50 ms procfs dictionaries appended for the full application lifetime; O(duration), even though the published receipt refers to the already-written JSONL file.",
+    "perf_target": "Own generator resource rows are written immediately, not appended to an in-memory list. Extra metadata has fixed-size phase/counter/identity structures and configured recovery records; inherited B23 operations/mutations/sample lists remain.",
+    "durable_oracle": "All rows plus an expected-key dictionary; PostgreSQL observer also materializes captured CSV text and tuple rows. These transient graphs coexist with retained operations and mutations.",
+    "receipt_writer": "common.save uses json.dumps(indent=2, sort_keys=True) before atomic write; pinned CPython JSONEncoder.encode materializes list(iterencode(...)) then joins a complete string.",
+    "parent_reader": "execute_cell fully json.loads the complete application receipt although its consumers need only status, durable_oracle and closed."
+  },
+  "limitations": [
+    "All calculations concern measurement harness processes, not product RSS or a Rust-vs-C# performance difference.",
+    "Finite request count bounds the eventual graph size but does not make it constant-memory or guarantee the available host budget.",
+    "The planned 500/s accounting cap alone is not a memory safety bound. Long-run validity and generator interference still require actual measurement.",
+    "No driver/runtime changes were made. All existing calibration inputs remain untouched."
+  ]
+}
