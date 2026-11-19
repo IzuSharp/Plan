@@ -1,0 +1,88 @@
+{
+  "task": "Perf-01",
+  "source_commit": "d7703831e94e2b931cb76fa8f7d6a7a0a2f0a05c",
+  "reviewer": "/root/perf01_optimization_review",
+  "db": {
+    "fresh_processes": 48,
+    "c16": {
+      "postgresql_rate": 180,
+      "sqlite_rate": 50,
+      "seconds": 60,
+      "routes": [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ],
+      "repetitions": 3
+    },
+    "descriptive": [
+      {
+        "c": 1,
+        "rate": 5,
+        "seconds": 60
+      },
+      {
+        "c": 4,
+        "rate": 20,
+        "seconds": 20
+      },
+      {
+        "c": 8,
+        "rate": 40,
+        "seconds": 20
+      }
+    ],
+    "driver_commit": "ce2a3c75cbd535490897d062b6cbb7c095408307",
+    "runbook": "database-layered-runbook.md"
+  },
+  "protocol": {
+    "fresh_processes": 54,
+    "runner": "protocol_cohorts.py --stage compare",
+    "cohorts": [
+      "http1-small",
+      "http2-small",
+      "http1-large",
+      "http2-large",
+      "grpc-unary",
+      "grpc-streams"
+    ],
+    "client": "before/protocols-v2/build.json",
+    "direct": "direct/protocols-v3/build.json",
+    "no_extra_partition_concurrency_grid": true
+  },
+  "codec": {
+    "fresh_processes": 18,
+    "optional_managed": 6,
+    "w1": {
+      "workers": 1,
+      "rate": 134,
+      "seconds": 120
+    },
+    "w2": {
+      "workers": 2,
+      "rate": 241,
+      "seconds": 67
+    },
+    "warmup_seconds": 20,
+    "recovery_seconds": 10,
+    "idle_seconds": 5,
+    "minimum_total_success": 16000,
+    "minimum_per_partition": 100,
+    "partitions_per_stratum": 32
+  },
+  "capacity": {
+    "groups": 10,
+    "variants": [
+      "after",
+      "direct"
+    ],
+    "original_before_reusable": true,
+    "policy_sha256": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc",
+    "codec_warmup_seconds": 5,
+    "codec_recovery_seconds": 4
+  },
+  "unavailable": "No current protocol managed-AOT comparator; do not splice historical B23",
+  "after_long": 5,
+  "scope": "Reviewed future command queue; not an execution or acceptance claim."
+}
