@@ -119,6 +119,36 @@ registration drain, duplicate/take failure, retire-fault quarantine, rejected
 scheduler, discarded-task and A06 active-handler/stalled-worker checks. They
 cover distinct safety boundaries and must not be replaced by a timing assertion.
 
+### Selected candidate scope and prepared regression tests
+
+The integration owner narrowed the proposed implementation to `AsyncOperation`
+only: at most one extra queued attempt after the result is processed and the
+actual native retire call returns `Pending`. A preterminal `Pending` must not
+consume that budget. The budget does not reset on fallback retries. The shared
+`CoordinatedCallback` base and `CallbackRegistration` remain unchanged.
+
+NativeWeave commit `8b50b175810dfa40127c18217ab79b7e4f255398` contains **tests only**
+for this candidate, wired into the existing A07 suite. `FixtureCalls.AfterRetire`
+observes the real native return while the cleanup control lease remains held;
+`ManualScheduler.RunOne` executes precisely one previously accepted work item.
+
+| Test | Required observable result |
+| --- | --- |
+| `ImmediateRetirementAfterPending` | Source drop after real Pending sends no Signal; one queued follow-up retires with two probes, one result mapping and one owner/input release. |
+| `ImmediateRetirementBudgetIsBounded` | A retained source allows only the initial probe plus one immediate follow-up; explicit fallback does not reset the budget; later source drop and explicit Retry release ownership. |
+| `RejectedImmediateRetirementScheduling` | Both rejection and exception before queue acceptance preserve root/input/slot, count one rejection, keep the budget spent and recover through explicit Retry. |
+| `PreterminalPendingPreservesImmediateRetry` | A real preterminal Pending followed by a terminal callback leaves the later post-result immediate budget available; the final source drop needs no new Signal. |
+
+The separate protocol agent independently reviewed the final test diff before
+commit and passed the source/control lifetimes, legal completion under the
+cleanup lease, bounded queue/take/release assertions and existing-suite
+preservation. Critical assertions run synchronously before any await; the
+one-minute coordinator timer is not used to rescue them. `git diff --check`
+passed. Neither author nor reviewer compiled or executed these tests. They
+intentionally specify behavior absent from the baseline and must be integrated
+with the runtime candidate only after measurement configuration is frozen.
+This is preparation and review evidence, not a test-pass or optimization claim.
+
 ## Database attribution beyond the boundary
 
 The new harness producer at NativeWeave commit

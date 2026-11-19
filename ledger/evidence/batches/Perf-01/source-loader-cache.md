@@ -130,3 +130,26 @@ Report codec-call and full operation/arrival times separately: the controller's
 byte oracle/JSON observations are outside the codec call but part of complete
 application throughput. Revert or decline the candidate if its application
 benefit is within the A21 noise range or if any preserved behavior regresses.
+
+## Test-only implementation checkpoint
+
+Product test commit `015b0c0` implements four focused cases in the existing A02
+verifier without modifying `EngineDescriptor`, `EngineModuleLoader` or any other
+runtime source. `default-concurrent` synchronizes eight dedicated first callers
+for 64 null inspections, checks each immediately usable native import, shared
+metadata identity and one actual bootstrap. `default-retry` repairs missing and
+malformed default records plus missing and wrong-hash assets on the same
+descriptor, entirely before mapping. `default-options` primes default success,
+then checks explicit paths, invalid/missing/mutated capability requirements and
+continued resident use after unlinking the test output. `default-conflict`
+checks independent descriptors differing in bytes, ABI, package version and
+capability mapping after the original null path succeeds.
+
+The verifier inventory includes these cases for both JIT and actual Native AOT
+execution. The copied fixture paths are private to each case; only never-mapped
+bytes are rewritten, while resident copies are unlinked during cleanup. Root
+and the separate protocol agent independently read the patch and reported no
+source blocker. At this checkpoint, the cases have **not been compiled or
+executed**; the active measurement window prohibited such work. Root will run
+the appropriate existing A02 gate with the selected runtime candidate. The
+tests assert existing public behavior and do not require a cache implementation.

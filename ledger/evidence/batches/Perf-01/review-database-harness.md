@@ -70,3 +70,52 @@ author reports Python syntax and eight pure classifier cases; this reviewer did
 not execute those checks. Native AOT/package execution, baseline/final profiling,
 timed saturation/recovery measurements and both 30-minute provider segments are
 separate root-owned gates, not implied by this review.
+
+## Subsequent isolated-generator source review
+
+Reviewed implementation commit
+`659a871d06029a7800385f477a85a5fe2ef2361f` after inspecting the author's
+uncommitted source. No builds or loads were run by this reviewer. The optional
+generator split starts the disposable PostgreSQL server while the controller is
+still on service CPUs 2,3, then moves the controller/worker side to generator
+CPUs 0,1. A hash-pinned `taskset` launcher puts the actual application on service
+CPUs before its runtime threads start. The observed `/proc/<pid>/exe` SHA-256 is
+checked against the original executable's frozen descriptor artifact hash,
+rather than treating the taskset wrapper as the application binary.
+
+Observations require exact process main masks and nonempty live-thread subsets
+of the corresponding declared CPU pair. PostgreSQL postmaster identity includes
+start ticks, and live server children are checked. Cleanup restores the
+controller before PostgreSQL shutdown. No-option behavior leaves affinity
+untouched. Mask/identity failures remain invalid or partial attempts; the source
+does not upgrade them to valid measurements. This source review found no blocker
+in the optional isolation, provenance or cleanup policy. Actual isolated runs and
+the choice of final resource cohort remain root-owned gates.
+
+## A07 regression specification review
+
+Reviewed the test-only patch now committed as
+`8b50b175810dfa40127c18217ab79b7e4f255398` in
+`tests/Interop.Async/{Fixture.cs,Program.cs}`. These new cases intentionally
+describe the proposed bounded post-result retirement retry and are not claimed
+to pass the unmodified baseline runtime. This reviewer ran no tests.
+
+The `AfterRetire` fixture hook follows the real native retirement verdict while
+the async operation's cleanup control lease still protects its pointer. Dropping
+the source handle releases the native work lease without synthesizing a wake
+callback. The manual scheduler's single-pass control makes the quiet-after-
+Pending, one-budget persistent-Pending fallback, immediate scheduler
+reject/throw, and preterminal-Pending cases deterministic. Assertions cover one
+result take, retained input/root/slot ownership while pending, a maximum of one
+queued pass and exactly one final release. The preterminal test completes the
+native fixture through a still-protected pointer after normal admission closes;
+that operation is legal under the fixture's retained cleanup lease.
+
+The critical assertions occur synchronously before awaiting completion, so a
+minute-scale fallback timer cannot make the expected second queued pass appear.
+Scheduler rejection/throw keeps ownership until explicit retry, while a
+preterminal Pending does not consume the later post-result retry allowance.
+Existing tests retain the null hook and their previous scheduler behavior.
+Source-review disposition: no blocker found. Parent integration must still run
+these cases against both the baseline failure expectation and the proposed
+runtime change, along with the required existing async regression gate.

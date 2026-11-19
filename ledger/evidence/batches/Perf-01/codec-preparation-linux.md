@@ -150,3 +150,109 @@ scope and managed ownership alias disclosure. The agent reported no remaining
 source blocker in those areas. This is independent source review, not an
 execution or long-run acceptance claim. Root still needs actual generator
 CPU/lag, resource, correctness and duration observations.
+
+## Preparation 002: optional generator affinity diagnostic
+
+Root subsequently authorized a Python-only diagnostic option to investigate
+generator scheduling on separate spare CPUs. Product test commit
+`d14be5432c7fcce7d2aeaaf5d4218b3f6bd40fd3` adds `--generator-cpus 0,1` to the
+codec `run` command. The target is first spawned on the controller's inherited
+two-CPU mask, for example CPUs 2 and 3. Only afterward does the controller move
+its main thread and every current Python thread, including any child watcher,
+to the requested disjoint generator CPUs. The target is never moved. Plans,
+phase observations and one-second resources retain actual main and thread masks;
+observed leakage invalidates the load. Invalid setup reaps the target, and
+cleanup restores and verifies the controller's original mask. Default mode
+performs no affinity mutation. Source tests cover malformed CPU lists and an
+otherwise-correct main thread whose watcher leaks onto the service CPUs.
+
+The separate protocol agent independently reviewed this change and found no
+source blocker. It also checked the explicit sampler stop before expected
+target exit, avoiding an exit-versus-procfs race being reported as affinity
+failure. These source tests were not executed by the codec agent at this
+checkpoint. Root decides whether this remains a diagnostic cohort or becomes
+the prospectively frozen policy; split and shared CPU results are not equivalent
+resource cohorts.
+
+Because the driver source guard changed, root authorized a **new full prepare**
+rather than editing the existing build manifest. It completed at
+`2026-11-19T07:56:48.983868+00:00`, again using clean product
+`ea5fa528035d025bd7a28698ee7c71194432236c`, at
+`ROOT/perf01-codec-checks/package-before-002/`. All 25 preparation commands met
+their expected exits, including the original package consumer JIT/AOT checks
+and deliberate negative builds. No timing or additional functional workload
+was executed by this agent. The original fixed corpus is reused unchanged.
+
+| Preparation 002 artifact | SHA-256 |
+| --- | --- |
+| `manifest.json` | `4a448f9f9a9e3b9dd1887fced2aae2da33280aa6b6ca7e3c9ef416fe50fc9c87` |
+| `commands.json` | `04b48792f0c47303a6a1ff4792e69d048a72994f3d9f46f618899cf41d451512` |
+| `aot/NativeWeave.Engines.SyncProof.Tests` | `769d267596d4b77cf96bf7664063f11a6619b2b4f9acc05d904ef9b4bc62c95d` |
+| `aot/libnativeweave_engine_syncproof.so` | `3a472d8e51ad5d69a28ade2b00cd23fc9a2bb8d9fa1e2c4df47b769316acff79` |
+| `direct-target/release/perf01-codec-direct` | `f91076cf2a31c895914ff7333289210a191d8ef1eaf99f1f6cadabf128831477` |
+| `packages/NativeWeave.Core.0.1.0-proof.1.nupkg` | `e664d0611e4f5f98f62fed352a2eb7f22920c1c9f6e32da8bc526550eacaef96` |
+| `packages/NativeWeave.Engines.SyncProof.0.1.0-proof.1.nupkg` | `693fa8b4e05b74d53967695507fb46b3985461c678a2b7792fb59cbb3a9cb71c` |
+
+The target `Program.cs`, consumer project, direct Rust source and Cargo lock
+hashes are unchanged from preparation 001. The resulting AOT executable and
+codec package archive hashes differ after fresh preparation; the actual 002
+identities above must be used for its evidence, rather than assuming byte
+identity from unchanged input source. The native module and direct executable
+hashes remain identical. Any reuse of a measured result still requires matching
+the reported binary, fixture and run configuration exactly.
+
+## Source audit: duration, acceptance and evidence retention
+
+This checkpoint reads the controller at
+`IzuSharp/NativeWeave@d14be5432c7fcce7d2aeaaf5d4218b3f6bd40fd3`; it performs no
+build, load or timing while root owns calibration. The inspected locations are
+`tests/Perf01.Codec/driver.py:302-498` (events, scheduling and cleanup),
+`driver.py:513-566` (streamed summaries), and
+`tests/Perf01.Codec/Program.cs:63-72,215-225` (worker join and owner snapshot).
+
+The controller records a dispatch before writing each frame, and increments
+`sent` only after its input drain succeeds. Its completed measurement must have
+an actual first-to-last sent dispatch span at least as long as the requested
+duration. The declared scheduling guard does not replace this check. Arrival
+latencies include controller/IPC observation. Successful throughput divides by
+the window from the planned first arrival through the later of the scheduled
+last arrival and final measured completion; overdue work is not discarded to
+shorten that denominator. Warmup, same-process recovery, final drain and idle
+remain separately counted phases. The UTC first-dispatch string is read after
+the corresponding input drain; use monotonic dispatch timestamps for precise
+duration arithmetic.
+
+For a qualifying long result, integrated acceptance must require all of:
+
+- `complete == true`, `valid == true`, the intended immutable configuration,
+  matching loaded module/artifact identities, and an actual dispatch span of at
+  least 1,800 seconds;
+- zero unexpected measurement failures, timeouts and rejections, plus the
+  prospectively frozen p99 and sampled RSS limits; the standalone
+  `service_standard_met` field does not itself implement these two limits;
+- `recovery_standard_met == true` for the configured recovery phase; this is a
+  separate field and is not folded into `service_standard_met`;
+- the native route's final `drained` snapshot with `live`, `capacity` and
+  `active` all zero and no correctness errors, followed by the separately
+  recorded idle interval and successful process retirement.
+
+The frozen C# native route always emits the three owner fields after joining
+every worker. Direct Rust and managed ZLibStream deliberately report native
+owner counters as unavailable; their completion/worker-retirement evidence
+must not be presented as observed NativeWeave counters. Persistent corpus and
+allocator/runtime RSS after drain are separate from live native result owners.
+
+`events.jsonl`, `operations.jsonl` and `resources.jsonl` are flushed during the
+load. A handled interruption retains pending request IDs, phase progress and
+zero long-stage duration credit. An abrupt process/session loss can occur
+before cleanup or the final receipt is written; retain its surviving raw rows
+as an incomplete attempt. Do not reconstruct a passing long stage solely from
+the elapsed wall clock or a partially written result. Result directories are
+created exclusively, so a resumed attempt must use a new directory.
+
+The build receipts and corpus locations above are presently local project
+workspace paths. This checkpoint does not claim an uploaded archive, a remote
+retention period, or retrieval verification. Root's final evidence publication
+must record the selected Plan/CI artifact location, hashes and actual retention
+policy, then verify readback. A completed source audit grants no 30-minute
+acceptance credit and does not establish a performance improvement.

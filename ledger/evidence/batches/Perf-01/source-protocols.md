@@ -219,6 +219,21 @@ The root's exclusive calibration window paused further builds. Rebuild the final
 direct source after the root releases that window, using the same common AOT
 client; do not silently reuse the older direct manifest.
 
+After the root released that window, the final direct source was actually rebuilt
+with generic Rust flags cleared and completed with exit code 0. The eligible
+control build is now `ROOT/perf01-build/direct/protocols-v3/build.json`:
+
+- Driver source commit: `4f4b2204f321b80cc45bac9c5ba7a3452dad8aa6`.
+- Build manifest SHA-256: `0f6fb40d3310e873231276527ffac3621980981b719b6fc438ee03e5fdf1bdbf`.
+- Direct executable SHA-256: `6c7c4053a6a7e141dc044e13185e6f54a8b59741ea4835ebcf92327b940e2da0`.
+- Common before-v2 AOT client SHA-256: `acb1c163cd51e291f58dbe51ae12c04f82c2b51538aa36e446a05890e06aadd0`.
+
+The agent polled and observed completion of the build; a launched command or
+vanished background session is not used as completion evidence. No protocol load
+or timing ran in that build window. The optional, subsequent Python generator-CPU
+split does not modify either compiled application; it requires its own calibrated
+and frozen cohort before being used in a before/after result.
+
 The protocol harness has passed source/syntax checks and an independent source
 review by the codec agent, including actual duration, generator scheduling,
 recovery, budget/owner observations, provenance and protobuf correctness. That
@@ -226,3 +241,51 @@ review explicitly did not execute the harness. Real protocol smoke, profiling,
 independent timed repetitions, overload/recovery observations and both domain
 before/after 30-minute segments remain integration/execution gates. This record
 does not mark any of those gates complete.
+
+## Subsequent harness verification checkpoint
+
+Implementation commit `efe50bc95a592daefe23b22b3ddadddbe3be0c7f` adds the
+optional `prepare --generator-cpus 0,1` diagnostic. The controller starts on
+service CPUs 2,3; the adapter and then server inherit that mask. After spawning
+their service-side child, the controller and adapter move every current Python
+thread to generator CPUs 0,1, and the independent client inherits the generator
+mask. Moving the main thread first also defines the mask inherited by later
+threads. Ready, post-load/recovery and post-idle receipts check exact main masks
+and require every observed thread mask to be a nonempty subset of its declared
+pair. This is phase-boundary observation, not continuous affinity monitoring.
+The controller restores all current threads during cleanup and invalidates a
+restoration failure. Both masks and helper/source hashes are frozen. The default
+performs no affinity migration. The codec agent independently reviewed this
+source and found no blocker; execution remains the root's responsibility.
+
+The root then ran the first package-based gRPC functional smoke, outside an
+exclusive timing window, at
+`ROOT/perf01-evidence/functional/before-grpc-001`. This reviewer read the actual
+result, ready and close receipts. They show 122/122 logical checks passed: 116
+ordinary successful calls, two expected cancellation probes and four expected
+deadline probes, followed by 32 successful same-process recovery calls. The
+actual loaded native server hash matches the before producer hash above, and
+the close receipt reports zero pending requests and retained managed/native
+bytes with state `Disposed` and status `Completed`.
+
+This smoke used a reduced five-second idle phase and about fifteen seconds of
+scheduled arrivals. It has no formal performance or 30-minute acceptance credit.
+Its result SHA-256 is
+`36b1c22c41652ce5928f007a544de2f261ebca75807c4e0ef01503573e2d5a4e`,
+receipt SHA-256
+`79ebac1ac69ba2af3081b3e1456cb9016b689f45ebc510299975f9b5b766b99c`,
+and profile SHA-256
+`f517a356de5c4a6e355d878d41a3ea54f273d362f36688c39f66dfa25d648ea6`.
+
+The readback exposed a measurement-only defect in the reused historical procfs
+helper: its own descriptor enumeration can close a temporary descriptor before
+`readlink`, and the catch path then discards valid CPU evidence. The protocol
+summary also discarded otherwise valid RSS when CPU was unavailable. Scoped
+implementation commit `9eec3beef0466d9a0b3d8848f58f46f59fc38a29` keeps CPU,
+A21 memory observations and descriptor scans independent, records disappeared
+descriptor entries, and preserves memory summaries independently of CPU rows.
+Non-atomic descriptor counts are labeled. It changes no product or historical
+benchmark source. Four finite actual-procfs/mock cases, syntax and diff checks
+passed, and the codec agent independently reviewed the fix without executing a
+load. Freshly prepared plans must bind the new Python hashes; the compiled
+before-v2 C# and direct-v3 Rust application artifacts remain unchanged.

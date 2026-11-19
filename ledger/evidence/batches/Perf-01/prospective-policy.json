@@ -6,16 +6,30 @@
   "first_product_change": null,
   "platform": "linux-x64",
   "resource_policy": {
-    "cpu_affinity": [2, 3],
+    "cpu_affinity": [
+      2,
+      3
+    ],
     "same_host_all_routes": true,
     "schedule": "Only one measured/profiled process tree at a time; all other task builds and loads stop. Read-only analysis and remote CI may continue.",
-    "scope": "Two fixed available virtual CPUs shared by application, generator and local database. Physical-host scheduling and hardware power controls are not exposed; do not claim bare-metal isolation.",
+    "scope": "Application and local database use fixed virtual CPUs2,3; external arrival controllers/clients use disjoint CPUs0,1. All observed thread masks and process identities are checked. Four total CPU IDs are identical before/after/direct. Physical-host scheduling and hardware power controls are unavailable.",
     "application_rss_limit_bytes": 268435456,
     "database_and_generator_resources": "Observe separately; application RSS limit does not silently include the PostgreSQL service or generator.",
     "arrival_p99_limit_ms": 500,
     "unexpected_errors_maximum": 0,
     "expected_protocol_outcomes": "Declared HTTP/gRPC cancellation and deadline probes must match their exact wire outcome and retire resources; report separately from successful ordinary calls.",
-    "failure": "Correctness, durable-oracle, loaded-identity, generator-lag/capacity, cleanup or interference failures invalidate the sample. Preserve failures; never reinterpret them as zero errors or change a threshold retroactively."
+    "failure": "Correctness, durable-oracle, loaded-identity, generator-lag/capacity, cleanup or interference failures invalidate the sample. Preserve failures; never reinterpret them as zero errors or change a threshold retroactively.",
+    "generator_cpu_affinity": [
+      0,
+      1
+    ],
+    "total_task_cpu_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "layout_selection_evidence": "codec-split-384-001: baseline package,60.050331522 actual dispatch seconds,23061/23061,valid generator,all observed masks checked,p99 arrival107682662ns; earlier shared-CPU diagnostic failures are excluded from final cohort and never called product gains."
   },
   "build_policy": {
     "sdk": "11.0.100",
@@ -30,9 +44,37 @@
     "stage_seconds": 30,
     "confirmation_seconds": 60,
     "confirmation_fresh_processes": 3,
-    "database_rates": [5, 10, 20, 40, 80, 160, 320, 640],
-    "protocol_rates": [8, 16, 32, 64, 128, 256, 512, 1024],
-    "codec_rates": [4, 8, 16, 32, 64, 128, 256, 512, 1024],
+    "database_rates": [
+      5,
+      10,
+      20,
+      40,
+      80,
+      160,
+      320,
+      640
+    ],
+    "protocol_rates": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "codec_rates": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
     "extension_rule": "If all listed rates pass, extend by doubling until the first failed SLO/generator point or the finite one-million-observation bound. State any unbracketed capacity as a measured lower bound.",
     "refinement_rule": "Bisect the highest passing / first failing rate bracket until its width is at most 10% of the passing rate; confirm selected passing point in three fresh 60-second processes. If any confirmation fails, step down within that already observed bracket and reconfirm.",
     "long_rate_rule": "80% of highest three-process consistently passing before rate, rounded down to an integer (at least 1). Cap at 500 operations/s because long observation accounting is finite. Record if this cap prevents a near-capacity claim.",
@@ -54,12 +96,40 @@
     "capacity": "Report largest consistently passing sampled rate with bracket and generator caveat; same SLO/resources on both versions and direct Rust."
   },
   "long_groups": [
-    {"name": "postgresql", "mix": "50% durable business cycle / 50% typed 100-row page", "before_seconds_required": 1800, "after_seconds_required": 1800},
-    {"name": "sqlite", "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero hidden retry", "before_seconds_required": 1800, "after_seconds_required": 1800},
-    {"name": "http", "mix": "Frozen protocol profile: tiny/JSON/1MiB upload/download/slow-reader/cancel; equal HTTP1.1 TLS and HTTP2 TLS", "before_seconds_required": 1800, "after_seconds_required": 1800},
-    {"name": "grpc", "mix": "Frozen protocol profile: unary/server/client/duplex streams plus expected deadline/cancel; HTTP2 TLS, identity only", "before_seconds_required": 1800, "after_seconds_required": 1800},
-    {"name": "codec", "mix": "Frozen160-action corpus cycle,50% compress/decompress,50% array/owned,50% entropy;256B/4KiB/1MiB/4MiB weights50/25/20/5", "before_seconds_required": 1800, "after_seconds_required": 1800}
+    {
+      "name": "postgresql",
+      "mix": "50% durable business cycle / 50% typed 100-row page",
+      "before_seconds_required": 1800,
+      "after_seconds_required": 1800
+    },
+    {
+      "name": "sqlite",
+      "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero hidden retry",
+      "before_seconds_required": 1800,
+      "after_seconds_required": 1800
+    },
+    {
+      "name": "http",
+      "mix": "Frozen protocol profile: tiny/JSON/1MiB upload/download/slow-reader/cancel; equal HTTP1.1 TLS and HTTP2 TLS",
+      "before_seconds_required": 1800,
+      "after_seconds_required": 1800
+    },
+    {
+      "name": "grpc",
+      "mix": "Frozen protocol profile: unary/server/client/duplex streams plus expected deadline/cancel; HTTP2 TLS, identity only",
+      "before_seconds_required": 1800,
+      "after_seconds_required": 1800
+    },
+    {
+      "name": "codec",
+      "mix": "Frozen160-action corpus cycle,50% compress/decompress,50% array/owned,50% entropy;256B/4KiB/1MiB/4MiB weights50/25/20/5",
+      "before_seconds_required": 1800,
+      "after_seconds_required": 1800
+    }
   ],
-  "long_acceptance": "Ten distinct completed segments on the same two CPU IDs, serially; actual first-to-last effective dispatch at least1800s each, valid generator and exact correctness/ownership/durability. Warmup/calibration/recovery/idle excluded. Interrupted or changed-binary stages do not count.",
-  "freeze_completion": "Before any product implementation edit, bind calibrated long rates, final driver/profile hashes, actual before artifacts and all lower-level fixture settings in a separate immutable frozen-execution.json. This prospective policy alone is not a claim that calibration or final freeze has completed."
+  "long_acceptance": "Ten distinct completed segments serially; fixed service/database CPUs2,3 and generator CPUs0,1. Actual first-to-last effective dispatch at least1800s each, valid generator and exact correctness/ownership/durability. Warmup/calibration/recovery/idle excluded. Interrupted or changed-binary stages do not count.",
+  "freeze_completion": "Before any product implementation edit, bind calibrated long rates, final driver/profile hashes, actual before artifacts and all lower-level fixture settings in a separate immutable frozen-execution.json. This prospective policy alone is not a claim that calibration or final freeze has completed.",
+  "policy_revision": 2,
+  "revision_utc": "2026-11-19T08:00:44.178083+00:00",
+  "supersedes_diagnostic_policy_sha256": "1b958201ed3871fb7ce4efb42675169d6faee14402a88028e15107b9796f6568"
 }

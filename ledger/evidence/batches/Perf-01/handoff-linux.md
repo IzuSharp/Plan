@@ -101,3 +101,7 @@ permits builds only: rebuild the final generic-x86-64 direct protocol comparator
 bind the reviewed optional codec controller to a fresh before package preparation,
 then resume short diagnostics. Runtime source must remain unchanged until the
 complete frozen-execution record is written.
+
+### CPU-layout selection before final calibration
+
+The split-generator codec diagnostic completed at2026-11-19T07:59:59Z:23,061/23,061 operations over60.050331522 actual dispatched seconds,arrival p99107.682662ms,exact output and owner checks,valid50ms generator bound and observed service2,3/generator0,1 masks. Policy revision2 selects this fixed four-CPU layout for the final baseline/after/direct cohort. Revision1 is archived as `prospective-policy-v1-diagnostic.json`; its shared-CPU cells remain diagnostic only. No product implementation change or30-minute segment has occurred. Exclusive final baseline calibration now starts; no builds or other loads may overlap.

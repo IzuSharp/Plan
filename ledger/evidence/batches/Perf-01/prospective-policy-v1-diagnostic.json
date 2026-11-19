@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "status": "prospective-policy-before-calibration-and-before-product-edits",
+  "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "first_product_change": null,
+  "platform": "linux-x64",
+  "resource_policy": {
+    "cpu_affinity": [2, 3],
+    "same_host_all_routes": true,
+    "schedule": "Only one measured/profiled process tree at a time; all other task builds and loads stop. Read-only analysis and remote CI may continue.",
+    "scope": "Two fixed available virtual CPUs shared by application, generator and local database. Physical-host scheduling and hardware power controls are not exposed; do not claim bare-metal isolation.",
+    "application_rss_limit_bytes": 268435456,
+    "database_and_generator_resources": "Observe separately; application RSS limit does not silently include the PostgreSQL service or generator.",
+    "arrival_p99_limit_ms": 500,
+    "unexpected_errors_maximum": 0,
+    "expected_protocol_outcomes": "Declared HTTP/gRPC cancellation and deadline probes must match their exact wire outcome and retire resources; report separately from successful ordinary calls.",
+    "failure": "Correctness, durable-oracle, loaded-identity, generator-lag/capacity, cleanup or interference failures invalidate the sample. Preserve failures; never reinterpret them as zero errors or change a threshold retroactively."
+  },
+  "build_policy": {
+    "sdk": "11.0.100",
+    "rust": "1.100.0",
+    "postgresql": "18.0",
+    "native": "Cargo --locked --release; repository thin LTO, one codegen unit, unwind; generic target, no host-native ISA",
+    "managed": "Release Native AOT linux-x64; same actual CLI for each paired driver. Protocol/shared/direct-managed fixtures explicitly x86-64-v2. Reused B21/A17 consumers omit IlcInstructionSet; resolved compiler default is not asserted to equal v2.",
+    "packages": "Fresh complete B24 previous closure per product version, including COMMON; A17 separate two-package codec closure. Same immutable driver and independent protocol client before/after.",
+    "identities": "Source/lock/driver/build/consumer/native/package hashes and procfs actual mapped native/executable paths accompany results. AOT linked managed code is identified by executable, not described as a dynamically loaded DLL."
+  },
+  "calibration": {
+    "stage_seconds": 30,
+    "confirmation_seconds": 60,
+    "confirmation_fresh_processes": 3,
+    "database_rates": [5, 10, 20, 40, 80, 160, 320, 640],
+    "protocol_rates": [8, 16, 32, 64, 128, 256, 512, 1024],
+    "codec_rates": [4, 8, 16, 32, 64, 128, 256, 512, 1024],
+    "extension_rule": "If all listed rates pass, extend by doubling until the first failed SLO/generator point or the finite one-million-observation bound. State any unbracketed capacity as a measured lower bound.",
+    "refinement_rule": "Bisect the highest passing / first failing rate bracket until its width is at most 10% of the passing rate; confirm selected passing point in three fresh 60-second processes. If any confirmation fails, step down within that already observed bracket and reconfirm.",
+    "long_rate_rule": "80% of highest three-process consistently passing before rate, rounded down to an integer (at least 1). Cap at 500 operations/s because long observation accounting is finite. Record if this cap prevents a near-capacity claim.",
+    "concurrency": {
+      "database": "1, 4, 8, 16 layering; mixed capacity/long group uses 16 client slots",
+      "protocols": "1, 4, 16, 32, 64 layering; capacity/long group uses 64 slots, four HTTP/2 connections, 32 streams/connection",
+      "codec": "1 and 2 dedicated workers; mixed capacity/long group uses 2. Four workers are a separate oversubscription stress, not an unannounced long-group change."
+    },
+    "generator": "DB/protocol max dispatch lag 100ms; codec 50ms. Record planned, actual dispatched, admitted and completed work and generator resources. Saturated generator points do not establish server capacity.",
+    "short_idle_seconds": 5,
+    "long_idle_seconds": 60,
+    "warmup_and_recovery": "Driver-declared warmup and same-live-process low-rate recovery excluded from effective load time. Retain overload and recovery observations."
+  },
+  "short_comparison": {
+    "minimum_fresh_processes_per_route": 3,
+    "interleaving": "Before, after, direct Rust; reverse order next repetition. Supplementary managed route where semantics permit. Same fixed arrival inputs/constraints at each point.",
+    "noise": "Unchanged A21 noise_comparison: 2000 seeded independent bootstrap mean differences, 95% interval. Absolute noise band is the maximum process-mean range of baseline calibration repeats, at least 1000ns; relative band 0. Freeze band per scene from before data, do not choose it from optimization results.",
+    "tails": "A21 nearest-rank rules; p99 unavailable with fewer than100 successful observations. Single long stages do not supply independent-process confidence intervals.",
+    "capacity": "Report largest consistently passing sampled rate with bracket and generator caveat; same SLO/resources on both versions and direct Rust."
+  },
+  "long_groups": [
+    {"name": "postgresql", "mix": "50% durable business cycle / 50% typed 100-row page", "before_seconds_required": 1800, "after_seconds_required": 1800},
+    {"name": "sqlite", "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero hidden retry", "before_seconds_required": 1800, "after_seconds_required": 1800},
+    {"name": "http", "mix": "Frozen protocol profile: tiny/JSON/1MiB upload/download/slow-reader/cancel; equal HTTP1.1 TLS and HTTP2 TLS", "before_seconds_required": 1800, "after_seconds_required": 1800},
+    {"name": "grpc", "mix": "Frozen protocol profile: unary/server/client/duplex streams plus expected deadline/cancel; HTTP2 TLS, identity only", "before_seconds_required": 1800, "after_seconds_required": 1800},
+    {"name": "codec", "mix": "Frozen160-action corpus cycle,50% compress/decompress,50% array/owned,50% entropy;256B/4KiB/1MiB/4MiB weights50/25/20/5", "before_seconds_required": 1800, "after_seconds_required": 1800}
+  ],
+  "long_acceptance": "Ten distinct completed segments on the same two CPU IDs, serially; actual first-to-last effective dispatch at least1800s each, valid generator and exact correctness/ownership/durability. Warmup/calibration/recovery/idle excluded. Interrupted or changed-binary stages do not count.",
+  "freeze_completion": "Before any product implementation edit, bind calibrated long rates, final driver/profile hashes, actual before artifacts and all lower-level fixture settings in a separate immutable frozen-execution.json. This prospective policy alone is not a claim that calibration or final freeze has completed."
+}
