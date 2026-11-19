@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-19 21:16 UTC
+## Current state — 2026-11-19 21:45 UTC
 
 **2 of 10 required long groups are accepted**, both before optimization: HTTP
 and gRPC at 115 calls/s. Their credited effective load totals 3,604.192232408 s.
@@ -16,15 +16,13 @@ reset. Its completed operation records cover only 1,021.572841888 s of measureme
 normal exit and drain are unavailable. It receives **zero duration credit**.
 Original files and the stale original supervisor receipt are unchanged. The
 separate audit is `checks/before-codec-long-interrupted-001/summary.json`.
-A fresh full codec attempt002 is being prepared; no partial durations are joined.
+A fresh full codec attempt002 is reviewed and published at f2dda486fd378519c3eab4c20f3bc81026be24e6; all nine source/configuration/check files were fetched and matched. Its actual execution receipt determines start and completion; no partial durations are joined.
 
 Database work is also incomplete. The original PG144/s long attempt had correct
 business/persistence results but invalid generator lag. A fixed-package 120 s
 automatic/deferred scheduler-GC pair passed 104 checks, with an observed memory
 cost. Subsequent deferred calibration consistently passed only 25/s and failed
-the unchanged 144/s long-selection gate; SQLite was not started. A measurement-
-only sampler offload candidate is now being prepared in an independent worktree.
-It has not cleared calibration or long acceptance.
+the unchanged 144/s long-selection gate; SQLite was not started. A measurement-only sampler offload candidate is committed independently as b846bb43816c8a3515fcd1e7fb512f142a1a6be3. Its producer reports six observer and four existing GC finite tests passing; actual-diff independent review and live-load equivalence remain pending. It has not cleared calibration or long acceptance.
 
 ## Immutable inputs and workspace
 
@@ -103,9 +101,7 @@ count. The current total is only2/10; all five after groups remain unstarted.
 3. Run the four independently reviewed gRPC per-mode profiles from
    `grpc-mode-profiles/commands.json` (SHA-256
    `81921bd9809844d54214f29f398058b68c8c6561991b06ee11f2b8fdb530d5f0`).
-   They are ordinary unary/server/client/duplex resource profiles, not formal
-   timing or long credit. No profile has run yet. Preserve before-v2 server,
-   common client, TLS, identity compression, quotas and validation.
+   The four before profiles actually completed at21:28:10Z with all16 command exits zero and all323 calls per mode successful. Existing-reader validation passed with only expected profiling ineligibility. Preserve them for after replication; before profiling is complete and adds no formal timing or long credit. See checks/grpc-modes-before-001.
 4. After the observer candidate passes finite ownership/cancel tests and actual
    fixed-package checks, freeze its explicit policy/source, rerun DB calibration,
    derive fresh noise from three complete confirmations, and bind the actual
@@ -152,7 +148,7 @@ separate deferred tasks.
 
 Public PRs: [NativeWeave#19](https://github.com/IzuSharp/NativeWeave/pull/19) and
 [Plan#23](https://github.com/IzuSharp/Plan/pull/23), both still draft. Public Plan
-checkpoint `b46991bcbb4fb6fccfe3b657405238d631d99c28` follows `afcdc555` and contains
+checkpoint `f2dda486fd378519c3eab4c20f3bc81026be24e6` includes the reviewed codec retry, following f2b2ca88,07226391,b46991bc and afcdc555. It also contains
 strict numerical Inspect and failed-DB-calibration summaries. Their fixed-commit
 contents were fetched successfully. It does not contain every newer local
 source or detailed audit. Inspect summary SHA-256 is
@@ -182,3 +178,7 @@ unrelated releases. After authorized merges, confirm both repos' actual CI and
 the existing normal HelloWorld preview trigger. Deliver a brief Chinese result
 with measured before/after/Rust gaps, retained/reverted changes, all ten durations,
 actual commits and retrievable evidence; no completion is currently claimed.
+
+## Completed before gRPC mode profiling — 21:28:10Z
+
+The four ordinary modes each completed323 calls, with no unexpected errors or correctness failures; recovery, retirement and final zero gauges passed. Actual whole-server allocation observation rates were16.306950MiB/s unary,512.446451MiB/s server-stream,21.053005MiB/s client-stream and518.345020MiB/s duplex. Brackets were19.785026586/19.750669434/20.033393419/19.490230838s. They are whole-process sampled deltas, not exact bytes per call or stack attribution. Public projection source and numbers are in checks/grpc-modes-before-001; summary SHA-2565349d95853b31b72d2857cd313be76fcf94b9115c7ebfe711b5cc9a0c454674a. No product-runtime optimization or new long credit is claimed.
