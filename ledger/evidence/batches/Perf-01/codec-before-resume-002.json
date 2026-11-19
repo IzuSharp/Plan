@@ -1,0 +1,199 @@
+{
+  "acceptance": "All actual command exits must be zero AND the unchanged verifier must report accepted=true for this exact fresh output and verifier hash. No credit until then. Runtime loss leaves exit unknown; no reconstruction of a successful exit from progress.",
+  "allowed_argv_changes": {
+    "measurement": [
+      "Value immediately after --output: codec-001 to codec-002; every other argv byte remains identical."
+    ],
+    "post_run_verification": [
+      "Value immediately after --output: codec-001 to codec-002.",
+      "Value immediately after --receipt: codec-001-verification.json to codec-002-verification.json."
+    ]
+  },
+  "base_plan_commit": "f12bae4dc21472bbd36f7a15d59c94004b841f15",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/flock",
+        "--nonblock",
+        "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock",
+        "taskset",
+        "-c",
+        "2,3",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Codec/driver.py",
+        "run",
+        "--manifest",
+        "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-004/manifest.json",
+        "--corpus",
+        "/workspace/scratch/01c249676f47/perf01-codec-checks/corpus",
+        "--route",
+        "nativeweave",
+        "--interface",
+        "mixed",
+        "--action",
+        "mixed",
+        "--workers",
+        "2",
+        "--queue",
+        "64",
+        "--inflight",
+        "256",
+        "--rate",
+        "192",
+        "--duration-seconds",
+        "1802",
+        "--warmup-seconds",
+        "20",
+        "--recovery-seconds",
+        "10",
+        "--recovery-rate",
+        "1",
+        "--idle-seconds",
+        "60",
+        "--deadline-ms",
+        "1000",
+        "--max-lag-ms",
+        "100",
+        "--generator-cpus",
+        "0,1",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002"
+      ],
+      "expected_exit_code": 0,
+      "id": "codec-before-r241-long-002",
+      "kind": "measurement",
+      "output": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002",
+      "requires_exclusive_measurement_window": true,
+      "requires_fresh_output": true,
+      "requires_global_freeze": true
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+        "--group",
+        "codec",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002",
+        "--receipt",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002-verification.json"
+      ],
+      "expected_exit_code": 0,
+      "id": "codec-before-r241-long-verify-002",
+      "kind": "post_run_verification",
+      "receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002-verification.json",
+      "required_receipt_accepted": true,
+      "requires_completed_measurement": true,
+      "requires_new_receipt": true,
+      "requires_no_active_measurement": true
+    }
+  ],
+  "execution_order": [
+    "codec-before-r241-long-002",
+    "codec-before-r241-long-verify-002"
+  ],
+  "future_after_rule": "The original global freeze and paired after workload remain unchanged. This document grants one fresh before attempt with the same binary/package/native/corpus/source/configuration. It adds no workload or gate amendment and invents no after identities.",
+  "global_freeze": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/frozen-execution.json",
+    "sha256": "85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3"
+  },
+  "global_publication_readback": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/checks/final-freeze-001/publication-readback.json",
+    "sha256": "a9187140d341f76f0b611c10a0160f080cd2935a127fdf2dc7836a597a264375"
+  },
+  "interrupted_attempt": {
+    "accepted": false,
+    "duration_credit_seconds": 0,
+    "execution_receipt": {
+      "path": "/workspace/scratch/01c249676f47/perf01-run/before-codec-long-001-execution.json",
+      "sha256": "5ded8e85a83bfa0aaeae2da2a0dae81a2688483326aa5f666ddf8d31cca11587"
+    },
+    "normal_exit_code": null,
+    "output": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-001",
+    "reason": "Execution runtime reset interrupted attempt001. Its original running receipt and raw bytes stay unchanged; absent actual exit, recovery, drain and final result are not inferred. The separate root interruption audit records retained partial operations.",
+    "verification_receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-001-verification.json"
+  },
+  "kind": "unchanged-codec-before-output-only-resume",
+  "locking": "Measurement retains the original outer nonblocking flock inside its unchanged argv. Supervisor takes no second measurement lock. Before verification only, supervisor takes that same nonblocking flock and invokes the unchanged verifier argv (apart from the two paths). No detach, new session, PID namespace or persistence workaround is introduced.",
+  "long_duration_credit_seconds": 0,
+  "original_command_document": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/codec-before004-r241-long-commands.json",
+    "sha256": "cd7c7eafe989b1b3aada00d6cf5ab7732f331a75ddde3618844b82b05e0711e7"
+  },
+  "original_supervisor": {
+    "path": "/workspace/scratch/01c249676f47/perf01-run/run_frozen_before_group.py",
+    "sha256": "fcec51bd45dd43ce75accf6d204ccb098b956c1727c6496050981c15c4a0f3ef"
+  },
+  "output": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002",
+  "prepared_utc": "2026-11-19T21:20:38.971600+00:00",
+  "schema_version": 1,
+  "status": "SOURCE-PREPARED ONLY; no command executed; root integration and review pending",
+  "supervision_log": "/workspace/scratch/01c249676f47/perf01-run/before-codec-long-002-supervision.jsonl",
+  "supervisor_receipt": "/workspace/scratch/01c249676f47/perf01-run/before-codec-long-002-execution.json",
+  "task": "Perf-01",
+  "timing_lock": "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock",
+  "unchanged_configuration": {
+    "action": "mixed",
+    "all_phase_planned_operations": 349878,
+    "case_filter": null,
+    "counts_scope": "Schedule arithmetic from the unchanged driver, not actual dispatch/completion or long-duration evidence.",
+    "deadline_ms": 1000,
+    "dispatch_span_guard_seconds": 0.1,
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "idle_seconds": 60,
+    "interface": "mixed",
+    "max_dispatch_lag_ms": 100,
+    "max_in_flight": 256,
+    "measurement_planned_first_to_last_schedule_ns": 1802104051332,
+    "measurement_planned_operations": 346005,
+    "period_ns": 5208333,
+    "queue_capacity": 64,
+    "rate": 192,
+    "recovery_planned_operations": 12,
+    "recovery_rate": 1,
+    "recovery_seconds": 10,
+    "requested_measurement_seconds": 1802,
+    "route": "nativeweave",
+    "sampled_target_rss_max_mib": 256,
+    "target_cpus": [
+      2,
+      3
+    ],
+    "warmup_planned_operations": 3861,
+    "warmup_seconds": 20,
+    "whole_measurement_p99_max_ms": 500,
+    "workers": 2
+  },
+  "unchanged_expected_result_checks": [
+    "Root records actual argv/start/end/exit. Stop on any failure or interruption, retain partial evidence and verify target shutdown before resource reuse.",
+    "Driver exit 0 alone is insufficient: require result valid, complete, service_standard_met and recovery_standard_met all true, no invalid reasons and target exit 0.",
+    "All 346005 planned measurement operations must be sent, admitted and completed correctly; zero failures, timeouts, rejections or generator-capacity outcomes. Warmup 3861 and recovery 12 must complete successfully in their separate phases.",
+    "The actual first-to-last dispatch span must reach the requested 1802 seconds. Verify the frozen mixed 160-operation cycle, all 32 case/action/interface rows, response sizes/content, decode limits and actual native identity through the existing driver/evidence.",
+    "Require whole-measurement arrival p99 <= 500 ms, sampled target RSS <= 256 MiB, dispatch lag <= 100 ms, fixed thread affinities and the unchanged 1000 ms deadline.",
+    "Require exactly one correct drained event with native live/capacity/active all zero, target-reported errors zero, at least 60 seconds of separately timed idle and final exit 0.",
+    "The separate common verifier must return exit 0 and accepted=true, reconcile full raw hashes/identity/counts, and prove ordinary successful-operation lower bound D-C >= 1800 seconds plus original dispatch span >= 1800 seconds. Nominal duration alone grants no credit."
+  ],
+  "unchanged_selection": {
+    "anchor_rate": 241,
+    "anchor_seconds_per_process": 67,
+    "matching_recovery_seconds": 10,
+    "matching_warmup_seconds": 20,
+    "paired_long_rate": 192,
+    "scope": "Only the predeclared before-only whole-triplet stepdown selects this paired rate. It is not a new capacity measurement and after/direct results never retune it.",
+    "selection_proposal": {
+      "bytes": 4412,
+      "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/observations-before/codec-before004-w2-r241-noise-001/paired-long-selection-proposal.json",
+      "plan_repository_path": "ledger/evidence/batches/Perf-01/observations-before/codec-before004-w2-r241-noise-001/paired-long-selection-proposal.json",
+      "sha256": "7d4c0732ff152c1e913d9e9614dd9566a727b9e964bd6ded3e365a5f0fd44f27"
+    },
+    "workers": 2
+  },
+  "verification_receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/codec-002-verification.json",
+  "working_directory": "/workspace/scratch/01c249676f47"
+}
