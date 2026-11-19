@@ -203,3 +203,50 @@ CI44508237005 and its selected policy/profile bytes were read back exactly.
 Current Plan additions await the next push. Runtime/src and native implementation
 still equal ea5fa528 except benchmark-harness source. `frozen-execution.json` is
 absent, and **0 of10 long segments are credited**.
+
+### Execution checkpoint: final streamed harness and baseline ownership defect
+
+The final test-only product checkpoint is aa3399f0418a6d0910cc56697abfaa3769f32b54
+(tree46431456e32e6c295aa3cac0c2b80344c25b6880); all C#/Rust runtime implementation
+still equals clean before main ea5fa528035d025bd7a28698ee7c71194432236c. The
+compact path now streams dataset preparation, expected values and complete
+observation finalization while retaining full correctness evidence on disk.
+Actual finite gates passed33 A21,6 DB streaming and14 common verifier tests.
+The final same-load171/s120s PostgreSQL diagnostic completed20522 correct
+operations, p99 arrival101.755224ms, valid generation and service checks, and
+90,337,280-byte worker lifetime RSS high water. Its single measurement Gen2 was
+25.573027ms; post-window finalization had no Gen2. These are harness diagnostics,
+not product improvements or long acceptance. The actual three-run comparison is
+retained in observations-before/db-generator-compaction-001/.
+
+Fresh codec before-004 completed25 expected preparation outcomes at
+2026-11-19T11:44:57.783919Z, including139 assertions in each actual JIT, managed-edit
+JIT and Native AOT consumer. Its manifest SHA is
+d34298ebc8dc82b525f19860555947a1a04eff2bf8aecc38cede2922c81285a7; current
+A21 source SHA is dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53.
+Actual immutable package/native/consumer inventories are in builds/before-codec-004/.
+Older producers and calibration results remain preparation-only; they are not
+rewritten to the final driver identity.
+
+Baseline B18's full independent package verification finished successfully, with
+JIT662/AOT663 assertions and original command receipts retained. B06 also passed
+its24 actual scoped commands, including real SQLite/PostgreSQL and Native AOT.
+A02 is a real separate failure: aot-default-concurrent exited-11, reproducible
+with the exact existing executable. Locked Native AOT FixupModuleCell frees
+each losing callback result; the existing resolver returns its sole resident
+handle without acquiring the reference transferred to that runtime fixup. An
+independent forced-overlap control reproduced-11 with a borrowed handle and
+passed64 calls with a fresh OS reference per callback, including the measured
+Linux unlink case. No runtime fix or warmup workaround has been applied; retain
+the before failure and fix ownership after configuration freeze.
+
+Fresh final compact DB calibration started2026-11-19T11:49:07.255174Z in session78012,
+SQLite then PostgreSQL, under unchanged policy4. Service/database CPUs2,3 and
+generator CPUs0,1 are exclusive; other agents may read/edit source onCPU8 only.
+No builds, tests or other workloads overlap. Fresh final-driver codec and
+HTTP/gRPC calibration plus before-only noise remain next. The final immutable
+frozen-execution.json is still absent and **0/10 long segments are credited**.
+
+Plan checkpoint8c3972979af9926a1e16ea193a9b5a68652782cd passed CI44513900559.
+Product aa3399f CI44516411426 was still running at this checkpoint. Both PRs
+remain drafts; no merge, final performance gain or preview publication is claimed.

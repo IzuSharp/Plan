@@ -1,0 +1,21 @@
+{
+  "task": "Perf-01",
+  "product_test_commit": "bf646d59c219bd1249624f752711121819b99d29",
+  "actual_finite_receipt": {
+    "path": "receipt.json",
+    "sha256": "3e78f08fe3473135a1ab4aece483bfa06a7207b4fa4502904beb3cf722c27f60"
+  },
+  "core_sources_match_test_receipt": true,
+  "source_reviews": {
+    "a21_writer": "Protocol agent source-only review, Plan d63dad18f8263ecbdbcca7a9194bb8eda74629b9; final trailing-comma guard reviewed separately",
+    "parent_and_preparation": "Codec agent source-only final review after two object-comma guards and three negative fixtures; no duplicate execution by reviewer"
+  },
+  "profiling_only_change_after_finite_gates": {
+    "file": "tests/Perf01.Database/profile_a21_generator.py",
+    "sha256": "5e1e19e23905bc25dd5f4c6683f9d2fbd51243f60f425911480146881f7967ef",
+    "change": "Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024 read after run_cell, before graph introspection; lifetime scope explicit; no live hook or timing change",
+    "validation": "Source/unit review only; next exclusive real profile supplies actual observation"
+  },
+  "scope": "Finite harness correctness only; no application performance result or long-duration credit",
+  "original_local_directory": "/workspace/scratch/01c249676f47/perf01-evidence/functional/db-streaming-tools-002"
+}

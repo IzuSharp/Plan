@@ -102,7 +102,7 @@ def main():
         "tests/Perf01.Database/run.py", "tests/Perf01.Database/target.py", "tests/Perf01.Database/perf01_affinity.py",
         "tests/Perf01.Database/perf01_resources.py", "src/Benchmarks.Domain/cell_worker.py",
         "src/Benchmarks.Domain/common.py", "src/Benchmarks.Domain/http_target.py", "src/Benchmarks.Domain/run.py",
-        "src/Benchmarks.Domain/supervision.py", "src/Benchmarks.Harness/nativeweave_bench.py")]
+        "src/Benchmarks.Domain/supervision.py", "src/Benchmarks.Harness/nativeweave_bench.py", "tests/Perf01/verify_long.py")]
     driver_hashes = {str(path): sha(path) for path in driver_paths}
     probe_path = args.package_probe / "progress.json"
     producer_paths = [probe_path, args.observer if args.variant in ("before", "after") else args.comparators]

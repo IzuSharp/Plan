@@ -1,0 +1,87 @@
+[
+  {
+    "label": "source",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "seconds": 0.004,
+    "log": "logs/source.log",
+    "log_sha256": "aa819f3efe2590b67a16cafb2aaefd3b3be8c619a9c5ccce823012107f6bf5b0"
+  },
+  {
+    "label": "clean-source",
+    "command": [
+      "git",
+      "status",
+      "--porcelain",
+      "--untracked-files=all"
+    ],
+    "exit_code": 0,
+    "seconds": 0.016,
+    "log": "logs/clean-source.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "design",
+    "command": [
+      "git",
+      "-C",
+      "/workspace/scratch/01c249676f47/repos/NativeWeave-Design",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "seconds": 0.004,
+    "log": "logs/design.log",
+    "log_sha256": "6a9721967a785d46bafa781b8d5348b293598030fe24cf6b519fa5434304238c"
+  },
+  {
+    "label": "dotnet-version",
+    "command": [
+      "dotnet",
+      "--version"
+    ],
+    "exit_code": 0,
+    "seconds": 0.115,
+    "log": "logs/dotnet-version.log",
+    "log_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+  },
+  {
+    "label": "rust-version",
+    "command": [
+      "rustc",
+      "--version"
+    ],
+    "exit_code": 0,
+    "seconds": 0.315,
+    "log": "logs/rust-version.log",
+    "log_sha256": "56625f11cb9e645f8e638a6bcdf0565a20a8724585b537b8548886789b9f77be"
+  },
+  {
+    "label": "pinned-native-wire",
+    "command": [
+      "python3",
+      "tests/Server.Native/generate.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.166,
+    "log": "logs/pinned-native-wire.log",
+    "log_sha256": "94182829d6e103deab324a54f91dde9af589746fe4c4ef4ae5771ca82e1aa30a"
+  },
+  {
+    "label": "exact-native-layout",
+    "command": [
+      "python3",
+      "tests/Server.Native/layout.py",
+      "--check"
+    ],
+    "exit_code": 1,
+    "seconds": 0.064,
+    "log": "logs/exact-native-layout.log",
+    "log_sha256": "6f9858325602758bafdeebd6779c63900063fefccebb555bc463a3833bde8c04"
+  }
+]

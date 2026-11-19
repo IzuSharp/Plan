@@ -1,0 +1,130 @@
+{
+  "task": "Perf-01",
+  "kind": "functional_baseline_regression_gate",
+  "performance_credit": false,
+  "long_run_credit_seconds": 0,
+  "observed_status": "passed",
+  "verifier_exit_code": 0,
+  "finished_utc": "2026-11-19T11:14:05Z",
+  "recorded_utc": "2026-11-19T11:19:54.489337+00:00",
+  "original_output": "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002",
+  "product_test_commit": "e77dfc1c7c463f562bcf9688cd4259b862ad1fd7",
+  "product_runtime_baseline_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "runtime_equivalence": {
+    "command": [
+      "git",
+      "diff",
+      "--name-only",
+      "ea5fa528035d025bd7a28698ee7c71194432236c",
+      "HEAD",
+      "--",
+      "src",
+      "native",
+      "global.json",
+      "Directory.Build.props",
+      "Directory.Build.targets",
+      "Cargo.lock",
+      "Cargo.toml",
+      "rust-toolchain.toml"
+    ],
+    "changed_paths": [],
+    "scoped_paths": [
+      "src",
+      "native",
+      "global.json",
+      "Directory.Build.props",
+      "Directory.Build.targets",
+      "Cargo.lock",
+      "Cargo.toml",
+      "rust-toolchain.toml"
+    ],
+    "source_clean": true
+  },
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "sdk": {
+    "dotnet": "11.0.100",
+    "rust": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "sdk": "/workspace/scratch/58d2a6adf1c3/dotnet-sdk",
+    "python": "3.12.14"
+  },
+  "execution_cpu_affinity": [
+    2,
+    3
+  ],
+  "verification_file_copy_cpu_affinity": [
+    8
+  ],
+  "environment": {
+    "source": "/workspace/scratch/01c249676f47/perf01-toolchain/env.sh",
+    "PATH_prefix": "/workspace/scratch/01c249676f47/perf01-build/before/b18-writer-tools",
+    "IlcInstructionSet": "x86-64-v2",
+    "LD_LIBRARY_PATH_override_added": false
+  },
+  "native": {
+    "path": "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/native/libnativeweave_server.so",
+    "sha256": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+    "bytes": 8798952
+  },
+  "aot_instruction_set": {
+    "response_file": "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/tests/Protocols.Grpc/obj/Release/net11.0/linux-x64/native/NativeWeave.Server.Grpc.Tests.ilc.rsp",
+    "sha256": "349e1cfd932d0c968ba8cb6331cb8899e6b277242109b04140abe220ce437458",
+    "observed_token": "--instruction-set:x86-64-v2"
+  },
+  "top_level_commands": {
+    "count": 18,
+    "all_exit_zero": true,
+    "sum_recorded_command_seconds": 165.411
+  },
+  "fresh_package_commands": {
+    "count": 25,
+    "all_exit_zero": true
+  },
+  "jit": {
+    "assertions": 662,
+    "managed_retirements": 393,
+    "dynamic_code_supported": true,
+    "executable_sha256": "425a67c69be819c73f1467559a25851823f861b74fe0d732da71e8b7ba180025",
+    "binary_inventory_sha256": "97143999e9eef3a5d43954a3f5f58b71fe60817c07e683c7a058000defb6ceb4"
+  },
+  "aot": {
+    "assertions": 663,
+    "managed_retirements": 394,
+    "dynamic_code_supported": false,
+    "executable_sha256": "8ed3a02aa29e82a62da6d63222218a9fc81eebd23d5a1f1c8639fcd63a36bef1",
+    "binary_inventory_sha256": "dff7b9977138e9479dabb2526f33bf321d3a9b755de8b3a8af6357b37c73e63b"
+  },
+  "public_api": {
+    "symbols": 71,
+    "compile_negative_fixtures": 5
+  },
+  "native_component_scope": "Accepted native gRPC component evidence is reused. Its whole Server binary can have a different MCP composition; the supplied product asset is checked separately.",
+  "failed_setup_attempt": {
+    "path": "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-001",
+    "status": "failed",
+    "failure": "The exact-native-layout verifier could not resolve the literal clang-19 executable name. A private symlink to the existing locked Clang binary corrected PATH; no product/runtime source or compiler binary changed."
+  },
+  "termination": {
+    "execution_session_exit_code": 0,
+    "all_verifier_commands_joined": true,
+    "targeted_post_completion_procfs_scan_matches": 0,
+    "scope": "A bounded scan for this output directory and the Protocols.Grpc verifier found no remaining matching process after exit; this is not continuous process tracing."
+  },
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "tests/Protocols.Grpc/verify.py",
+    "--output",
+    "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002",
+    "--design",
+    "/workspace/scratch/01c249676f47/repos/NativeWeave-Design",
+    "--sdk",
+    "/workspace/scratch/58d2a6adf1c3/dotnet-sdk",
+    "--native",
+    "/workspace/scratch/01c249676f47/perf01-build/before/native-stable/libnativeweave_server.so",
+    "--expected-native-sha256",
+    "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+    "--native-source-commit",
+    "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "--native-component-receipt",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/B18/linux-final/accepted-native-component/result.json"
+  ]
+}

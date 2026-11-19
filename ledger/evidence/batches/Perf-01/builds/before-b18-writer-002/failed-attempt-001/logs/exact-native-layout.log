@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/tests/Server.Native/layout.py", line 22, in <module>
+    f=Path(tmp)/'probe.c';f.write_text(probe);exe=Path(tmp)/'probe';subprocess.run(['clang-19','-std=c11','-Wall','-Wextra','-Werror','-I',str(R/'native/server/host/include'),str(f),'-o',str(exe)],check=True);out=subprocess.check_output([str(exe)],text=True)
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'clang-19'

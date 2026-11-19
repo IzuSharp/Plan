@@ -18,32 +18,44 @@ actual successful commits separately. These are whole-application socket paths,
 not isolated SQL execution latency. The public PageProbe supplies a separate,
 profiling-only buffered-query view.
 
-For each provider, keep the complete concurrency set **1, 4, 8, 16** for each of
-`cycle`, `page`, `mixed`. Keep the physical database pool, durability, seed, HTTP/1
-connection reuse, CPU masks and application limits unchanged; `--concurrency`
-changes the external client slots only. All routes at one matrix point use the
-same offered rate, duration and inputs.
+The prospective scoped comparison is one matched **mixed/concurrency16** anchor
+per provider, with three fresh independent processes per route and separate
+conditional cycle/page extraction. In addition, run one exploratory **mixed** cell
+per route/provider at concurrency **1, 4, 8**; concurrency16 reuses the anchor.
+Keep the physical database pool, durability, seed, HTTP/1 connection reuse, CPU
+masks and application limits unchanged; `--concurrency` changes the external
+client slots only. All routes at one point use the same offered rate, duration
+and inputs. The same explicit compact-observation mode and actual driver bytes
+are required throughout.
 
 Select rates from **before-only** evidence before product edits. The existing
 primary capacity ladder is mixed/concurrency16. Its final accepted selection and
 three final 60-second confirmation processes define the high-load anchor. Keep
-that exact anchor as an additional matched before/after/direct point even if the
-layered matrix uses lower rates. A practical initial layering grid is
-`min(5 * concurrency, confirmed_mixed_rate)` logical operations/s; pure-cycle
-write pressure can require a lower point because every logical operation writes.
-Use the existing low-to-high ladder and fixed 10% step-down/finite-attempt policy
-to settle a passing before point, then freeze it. Do not adjust a matrix point
-after examining candidate results. If no clean before point is available, retain
-the failure and label the latency/noise comparison inconclusive.
+that exact anchor for the formal fixed-load before/after/direct comparison.
+The initial before-only exploratory grid is
+`min(5 * concurrency, confirmed_mixed_rate)` logical operations/s at concurrency
+1,4,8. Freeze these actual points before examining candidate results and use
+them unchanged for after/direct/managed cells. An exploratory failure remains a
+failure and does not trigger a candidate-dependent retune.
 
-Use 60-second short cells and three independent processes per route. A slice
-needs at least 100 successes for p99; at low rates extend the prospectively
-chosen duration so a 50:50 mixed cell supplies at least 100 operations of each
-kind. Preserve each overload/recovery row. A failed error/SLO/generator point
+Use 60-second short cells. The anchor has three independent processes per route;
+the additional concurrency cells are descriptive single processes and cannot
+claim statistical significance. A slice needs at least 100 successes for p99;
+otherwise report it unavailable, or prospectively freeze a longer duration before
+any matched version is run. Preserve each overload/recovery row. A failed error/SLO/generator point
 cannot establish a latency improvement; a generator-limited point does not bound
 server capacity. The selected maximum sustainable sampled rate is a separate
 result from fixed-arrival latency. NativeWeave, direct Rust and managed routes
 must meet the same zero-error/500-ms-p99/256-MiB-application-RSS criterion.
+
+This scope is selected before final formal cohorts and product edits. A full
+standalone-cycle/page × concurrency1/4/8/16 × all-route triplet matrix would add
+many fresh processes without isolating another changed boundary. The mixed
+anchor exercises both typed paging/DTO materialization and durable transactions;
+the smaller concurrency grid exposes contention/queueing changes, and the public
+100-row PageProbe supplies the separate buffered-query profile. Standalone
+cycle/page runs remain optional if a concrete unresolved hotspot requires them.
+Existing preparatory or failed cells are not relabeled as these formal cohorts.
 
 ## Exact command template
 
@@ -55,6 +67,7 @@ invoke it only under root's exclusive timing ownership, serially.
 PERF01_ROOT=/workspace/scratch/01c249676f47
 source "$PERF01_ROOT/perf01-toolchain/env.sh"
 PERF01_PRODUCT="$PERF01_ROOT/.worktree/Perf-01-linux/NativeWeave"
+PERF01_PLAN="$PERF01_ROOT/.worktree/Perf-01-linux/Plan"
 PERF01_PYTHON=/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3
 PERF01_BEFORE_PACKAGE="$PERF01_ROOT/perf01-build/before/reference-002"
 PERF01_BEFORE_OBSERVER="$PERF01_ROOT/perf01-build/before/db-observer/manifest.json"
@@ -81,7 +94,7 @@ perf01_db_cell() {
     --variant "$variant" --repetition "$repeat" --rate "$rate" --seconds 60 \
     --concurrency "$slots" --warmup 16 --recovery-requests 16 --idle-seconds 5 \
     --seed 20261119 --max-p99-ms 500 --max-rss-mib 256 \
-    --generator-cpus 0,1 --continue-classified-overload --output "$output" \
+    --generator-cpus 0,1 --continue-classified-overload --compact-observation --output "$output" \
     --isolation-note 'Exclusive Perf-01 timing; service/database CPUs2,3; generator CPUs0,1; physical-host controls unavailable'
 }
 ```
@@ -94,7 +107,7 @@ AOT producers, including the pinned bundled SQLite source. It is not rebuilt
 against the optimized product. Preserve unsupported semantics explicitly instead
 of substituting another implementation.
 
-At each point, use repetition0 order `before, after, direct, managed`, repetition1
+At the mixed/concurrency16 anchor, use repetition0 order `before, after, direct, managed`, repetition1
 the reverse order, then repetition2 the first order again. Every invocation gets
 a new directory and equivalent fresh database. Record the executed order and
 source/package/executable/actual native hashes. These short settings deliberately
@@ -102,17 +115,31 @@ match the current confirmation shape; the ten formal long cells separately use
 1802 seconds, their frozen high-load mix, at least32 recovery calls and60 seconds
 idle, plus the common duration verifier.
 
+At each exploratory concurrency1/4/8 point, run only the declared repetition0
+matched order and label its metrics descriptive. Do not submit one such process
+as a three-process statistical cohort or reuse the anchor's noise band there.
+
 ## Freeze mixed-anchor noise before seeing after results
 
 Use the **final complete confirmation triplet**, not three favorable rows chosen
 from failed attempts. In each provider's finalized
-`perf01-evidence/calibration/before-PROVIDER-v3`, `selection.json` identifies the
+`perf01-evidence/calibration/before-PROVIDER-compact-v4` (or the explicitly named
+fresh final compact attempt), `selection.json` identifies the
 accepted rate and pins `controller.json`. The final three controller entries must
 be `confirmation-0`, `confirmation-1`, `confirmation-2`, all at that rate, each
 completed, valid and service-qualified. Require their summaries and raw A21 rows
 to contain full on-time logical success, exact loaded identities, independent
 durable correctness and valid generation. Do not run this extraction while those
-files are still being written.
+files are still being written. Full-retention calibrations, profiling-only
+directories and prior compact versions with different driver/reader bytes are
+preparatory evidence and cannot supply this band's triplet.
+
+Yes: these final three 60-second before-only confirmations can supply the noise
+calibration without another identical triplet, **at that exact selected mixed
+load only**. They are the predetermined final complete group, not a favorable
+subset of attempts. The subsequent comparison still uses fresh interleaved
+before/after/direct processes. Freeze and publish the receipt before any after
+timing; its SHA is a required input to `database_compare.py`.
 
 For each independent process, compute exact scheduled-arrival means from raw
 `completion_ns - scheduled_ns` separately for all rows, cycle rows and page rows.
@@ -171,26 +198,35 @@ selection = read(calibration / 'selection.json')
 controller = read(calibration / 'controller.json')
 assert sha(calibration / 'controller.json') == selection['controller_sha256']
 assert selection['policy_sha256'] == controller['policy_sha256']
+assert selection['compact_observation'] is True and controller['compact_observation'] is True
+assert selection['variant'] == controller['variant'] == 'before' and controller['state'] == 'completed'
 triplet = controller['cells'][-3:]
 assert [row['phase'] for row in triplet] == ['confirmation-0', 'confirmation-1', 'confirmation-2']
 means = {key: [] for key in ('mixed', 'cycle', 'page')}
-inputs, processes, signatures = {}, [], []
+inputs, processes, signatures, instances, windows = {}, [], [], [], []
 for cell in triplet:
-    assert cell['state'] == 'completed' and cell['valid'] and cell['qualifies']
+    assert cell['state'] == 'completed' and cell['exit_code'] == 0 and cell['valid'] and cell['qualifies']
     assert cell['rate'] == selection['highest_consistently_passing_rate'] and cell['seconds'] == 60
     root = Path(cell['directory']); summary = read(root / 'summary.json')
     frozen = read(root / 'frozen-inputs.json'); plan = read(root / 'plan.json')
+    assert sha(root / 'summary.json') == cell['summary_sha256']
+    assert sha(root / 'frozen-inputs.json') == cell['frozen_inputs_sha256']
     assert summary['valid'] and summary['qualifies_service_standard'] and summary['successful'] == summary['offered']
     assert summary['variant'] == 'before' and summary['scenario'] == 'mixed' and summary['concurrency'] == 16
     assert summary['provider'] == selection['group'] and summary['rate'] == cell['rate']
+    assert frozen['compact_observation'] is True and plan['settings']['features']['compact_observation'] is True
+    assert frozen.get('formal_timing_eligible') is not False
     assert frozen['route']['source']['commit'] == 'ea5fa528035d025bd7a28698ee7c71194432236c'
     assert sha(root / 'frozen-inputs.json') == summary['frozen_inputs_sha256']
     assert sha(root / 'plan.json') == frozen['plan_sha256']
     assert sha(root / 'dataset.json') == frozen['dataset_sha256'] == plan['oracle']['sha256']
     signatures.append({'seed': plan['seed'], 'dataset_sha256': frozen['dataset_sha256'], 'service_standard': frozen['service_standard'],
-                       'timing': plan['timing'], 'settings': plan['settings'], 'source_files': frozen['source_files'], 'route': frozen['route']})
+                       'timing': plan['timing'], 'settings': plan['settings'], 'source_files': frozen['source_files'], 'route': frozen['route'],
+                       'host': {key: value for key, value in frozen['host'].items() if key != 'background_load'},
+                       'affinity': {key: frozen['affinity'].get(key) for key in ('mode', 'service_cpus', 'generator_cpus')}})
     sums = {key: 0 for key in means}; counts = dict(sums)
-    rows = array_records(root / 'observation.json', 'records')
+    metadata = {'measurement_window_ns': None}
+    rows = array_records(root / 'observation.json', 'records', metadata)
     data = array_records(root / 'dataset.json')
     for index, (row, entry) in enumerate(zip(rows, data, strict=True)):
         assert row['id'] == index and row['status'] == 'ok'
@@ -203,10 +239,22 @@ for cell in triplet:
     assert counts['mixed'] == plan['timing']['requests'] == summary['offered']
     assert min(counts.values()) >= 100
     for key in means: means[key].append(sums[key] / counts[key])
-    processes.append({'directory': str(root), 'counts': counts, 'sum_arrival_ns': sums, 'loaded_files': summary['loaded_files']})
+    identities = summary['resources']['measurement']['identities']
+    assert len(identities) == 1
+    instance = (identities[0]['pid'], identities[0]['start_ticks'])
+    assert all(type(value) is int and value > 0 for value in instance)
+    instances.append(instance)
+    window = metadata['measurement_window_ns']
+    assert type(window['start']) is int and type(window['end']) is int and window['end'] > window['start']
+    windows.append((window['start'], window['end']))
+    processes.append({'directory': str(root), 'counts': counts, 'sum_arrival_ns': sums, 'loaded_files': summary['loaded_files'],
+                      'application_instance': identities[0], 'measurement_window_ns': window})
     for name in ('summary.json', 'frozen-inputs.json', 'plan.json', 'dataset.json', 'observation.json'):
         inputs[str(root / name)] = sha(root / name)
 assert all(signature == signatures[0] for signature in signatures)
+assert len(set(instances)) == 3
+windows.sort()
+assert all(windows[index - 1][1] <= windows[index][0] for index in range(1, len(windows)))
 for path in (calibration / 'selection.json', calibration / 'controller.json', product / 'src/Benchmarks.Harness/nativeweave_bench.py', product / 'tests/Perf01/verify_long.py'):
     inputs[str(path)] = sha(path)
 identity = hashlib.sha256(json.dumps(inputs, sort_keys=True).encode()).hexdigest()
@@ -229,12 +277,40 @@ matched before/after or before/direct process-mean vectors later.
 
 The three mixed-derived bands apply only to that **same mixed/concurrency16/rate
 anchor and its conditional slices**. They do not calibrate standalone page/cycle
-or concurrency1/4/8 cells: those workloads change queueing and contention. Each
-additional matrix point needs its own before-only three-process band, frozen
-before its after results, or it must carry an explicitly descriptive/inconclusive
-noise verdict. Use fresh interleaved before/after process means for the comparison
+or concurrency1/4/8 cells: those workloads change queueing and contention. The
+prospectively selected single-process exploratory grid therefore carries an
+explicitly descriptive/inconclusive noise verdict. Any future statistical claim
+at another point needs its own before-only three-process band, frozen before its
+after results. Use fresh interleaved before/after process means for the comparison
 while keeping the previously frozen band; do not widen the band to accommodate
 after variability or pool old overload failures into an apparently clean sample.
+
+After all fresh anchor cohorts complete, the existing extractor consumes the
+frozen receipt without recalculating its bands:
+
+```bash
+read -r PERF01_NOISE_SHA PERF01_NOISE_PATH_TOKEN < <(sha256sum "$PERF01_NOISE_RECEIPT")
+taskset -c 8 "$PERF01_PYTHON" "$PERF01_PLAN/ledger/evidence/batches/Perf-01/database_compare.py" \
+  --nativeweave "$PERF01_PRODUCT" \
+  --before "$PERF01_BEFORE_0" "$PERF01_BEFORE_1" "$PERF01_BEFORE_2" \
+  --after "$PERF01_AFTER_0" "$PERF01_AFTER_1" "$PERF01_AFTER_2" \
+  --direct "$PERF01_DIRECT_0" "$PERF01_DIRECT_1" "$PERF01_DIRECT_2" \
+  --managed "$PERF01_MANAGED_0" "$PERF01_MANAGED_1" "$PERF01_MANAGED_2" \
+  --noise-receipt "$PERF01_NOISE_RECEIPT" --noise-sha256 "$PERF01_NOISE_SHA" \
+  --output "$PERF01_COMPARISON_OUTPUT"
+```
+
+Set these directory variables from the actual completed cells; they are not
+placeholder results. Omit `--managed` only when that optional equivalent cohort
+was not executed. The extractor requires matching compact mode, seed, dataset,
+timing/settings/service standard, relevant driver content hashes and before
+package/application identity. It checks actual comparison-process identities and
+nonoverlapping windows, retains failed cells, and permits checkout/output-path
+differences through logical-file/content identities. It does not require the
+entire driver repository HEAD to stay equal as runtime/test-only commits advance.
+The receipt's frozen SHA and publication chronology must also be bound by the
+Plan freeze; its JSON timestamp alone is not proof that it predates after work.
+The noise triplet is separate from every later comparison process.
 
 For direct Rust, report matched-load mean/p99 absolute values and
 `100 * (NativeWeave - directRust) / directRust`, together with errors and actual
@@ -244,7 +320,7 @@ pool/lock waits and internal SQLite busy-handler retry counts remain unavailable
 in the timing adapter. Report measured application/generator resources and actual
 independently reconciled commits; do not attribute the whole difference to FFI.
 
-## Independent source review
+## Source review scope
 
 The protocol-domain reviewer read the command template, current DB result
 schema, revision-3 selection controller and extraction recipe. The final review
@@ -254,3 +330,11 @@ restriction of mixed-derived bands to their original mixed-load anchor. The
 review reported no remaining source blocker. Neither the author nor reviewer
 executed this extraction recipe or any application load while preparing this
 runbook; measured selections and later comparisons require separate receipts.
+The later scoped-grid/compact-mode clarification is prospective. Its updated
+finite extraction example adds process/window checks and is still a documented
+command, not an executed extraction or a new measurement result.
+The protocol reviewer separately checked the updated compact controller schema,
+scoped commands, process/window fields and existing extractor CLI. The two
+requested comparisons against the controller's previously recorded summary and
+frozen-input hashes are included. This follow-up was source-only; no extraction,
+test or load was run by the reviewer.

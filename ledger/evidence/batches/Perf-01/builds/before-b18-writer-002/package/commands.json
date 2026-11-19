@@ -1,0 +1,352 @@
+[
+  {
+    "label": "source",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "log_sha256": "aa819f3efe2590b67a16cafb2aaefd3b3be8c619a9c5ccce823012107f6bf5b0"
+  },
+  {
+    "label": "source-status",
+    "command": [
+      "git",
+      "status",
+      "--porcelain"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "native-source",
+    "command": [
+      "git",
+      "rev-parse",
+      "ea5fa528035d025bd7a28698ee7c71194432236c^{commit}"
+    ],
+    "exit_code": 0,
+    "log_sha256": "0c9009bb7ec4abc3d0a5f467af0841bf17559da9d32e092579ba5bc6907245d5"
+  },
+  {
+    "label": "product-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/src/Protocols.Grpc/NativeWeave.Server.Grpc.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "3f49da2c29243365e2775a28a6c56f2829dfef758173e0a2ec4199c0a11b8d64"
+  },
+  {
+    "label": "product-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/src/Protocols.Grpc/NativeWeave.Server.Grpc.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:NativeWeaveServerAssetPath=/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/native/libnativeweave_server.so",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "bcf9ae14c2df301ccb1a6499a4082ab9b9c0a14d37b3a10a52845f7b2549aee5"
+  },
+  {
+    "label": "sdk-task-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "83a8fb8976dc51d59ef0e14b9d2253dddef96d54204c73af458bef87ffc6cb93"
+  },
+  {
+    "label": "sdk-task-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/NativeWeave/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "760e1549b9593429f5b4ad88486de414b0b041f84d35475cb6f5896633e64e71"
+  },
+  {
+    "label": "consumer-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "b03bf9dec0d8d313387e9e57a599a1333ea2aca854038e3d2cab46d0db8d6fd6"
+  },
+  {
+    "label": "consumer-locked-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "733fd67fd73a76156965b6cb10142f5a0cf88bd2978be8e2180d44280ddc77d3"
+  },
+  {
+    "label": "consumer-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "6b32c683b200f46486441caab79e4f421d6484b7c1b908f2d1d8dd3beeda9a3b"
+  },
+  {
+    "label": "consumer-jit-minimal",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/bin/Release/net11.0/Consumer.dll",
+      "--minimal"
+    ],
+    "exit_code": 0,
+    "log_sha256": "de85137df1d1784dc3e919da16b86f9642a3431e72a81e3c36040fc3bb635f2a"
+  },
+  {
+    "label": "consumer-jit-advanced-clear",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/bin/Release/net11.0/Consumer.dll"
+    ],
+    "exit_code": 0,
+    "log_sha256": "3f0b60c938ddabbc6d18932317c920c6bfcc0335369a37d73e6cbf3b0d57c586"
+  },
+  {
+    "label": "consumer-jit-advanced-tls",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/bin/Release/net11.0/Consumer.dll",
+      "--tls"
+    ],
+    "exit_code": 0,
+    "log_sha256": "6488a90648272b4576e3795dc6437feadfd539ca9194c97d504259ed421c00df"
+  },
+  {
+    "label": "consumer-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "f26db78ef359c039f8101009486319e28fdc9e09955c461ff89c360bc74039b8"
+  },
+  {
+    "label": "consumer-aot-locked-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "8e1b8776d3ff20d9fec65978640f66bae40ace03f03c893e18921585e97589e1"
+  },
+  {
+    "label": "consumer-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "bd0b69452096ea0f17abae624cde7093e7a7f620cd6e853635c2165fd0ccb94b"
+  },
+  {
+    "label": "consumer-aot-minimal",
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish/Consumer",
+      "--minimal",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "log_sha256": "24352768e692cb5e2622ec445a7d6e42f709fb0bcfc601ef55568a92873f2c7b"
+  },
+  {
+    "label": "consumer-aot-advanced-clear",
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish/Consumer",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "log_sha256": "748a4861e3d339bd1544d2b54fea631c40441ba1240079a6e313b26901d3bd4b"
+  },
+  {
+    "label": "consumer-aot-advanced-tls",
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish/Consumer",
+      "--tls",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "log_sha256": "6a15909ee9e0bdd3399cec3c8924e8a963b49378c99e0071c2385b40c646280a"
+  },
+  {
+    "label": "edited-jit-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "aa73ce3c4efa9883f1b62975a6c51905319b79395af22f182fe8713b72692e0d"
+  },
+  {
+    "label": "edited-jit-build",
+    "command": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "f3d60a4563f6297e1101460461a7d1d32ecce4fd66f8f5a68eb218b69f94058c"
+  },
+  {
+    "label": "edited-jit-execute",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/bin/Release/net11.0/Consumer.dll",
+      "--tls"
+    ],
+    "exit_code": 0,
+    "log_sha256": "7c05014ab6de59d37869c265a7cd22697fd6321a6b45b361fefd4427a14aa13e"
+  },
+  {
+    "label": "edited-aot-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--disable-parallel",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "67fd72a60558fc003c8e726372008758f4d1f1d90346bf830ddc144090b0cc26"
+  },
+  {
+    "label": "edited-aot-publish",
+    "command": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish-edited",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit_code": 0,
+    "log_sha256": "af688e1a4f6741c9a90630ec7099fccbd225307f7991bbc011942a763bbedba8"
+  },
+  {
+    "label": "edited-aot-execute",
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-b18-writer-002/package/consumer/publish-edited/Consumer",
+      "--tls",
+      "--require-aot"
+    ],
+    "exit_code": 0,
+    "log_sha256": "9aee6e81bca8482c2a1fc798879430b263c67c853217d5b0517ba066378a8d97"
+  }
+]
