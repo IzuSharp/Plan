@@ -1,0 +1,144 @@
+{
+  "candidate_commit": "0b2af54419ecf6a11ec83a45725b1c5fbbaeb0d0",
+  "candidate_worktree": "/workspace/scratch/01c249676f47/.worktree/Perf-01-db-generator-fix-linux/NativeWeave",
+  "component": "DB-only scheduler GC measurement policy",
+  "execution_scope": {
+    "builds_executed_by_reviewer": false,
+    "candidate_module_executed_by_reviewer": false,
+    "independent_execution_receipts": "Separate evidence; this record neither asserts nor replaces their result",
+    "source_read_and_hash_only": true,
+    "tests_executed_by_reviewer": false,
+    "workloads_executed_by_reviewer": false
+  },
+  "findings": [
+    {
+      "evidence": "profile_postgresql.py:73 calls driver.prepare; its main Namespace initialization at lines280-283 has no scheduler_gc_policy",
+      "final_run_sha256": "d5c7172b1f595a15a969562e05bb1843e2861c5a8da7e8e5436014df9ae28ce1",
+      "fix": "prepare uses scheduler_gc_policy(getattr(args, \"scheduler_gc_policy\", \"automatic\"))",
+      "id": "profile-namespace-compatibility",
+      "initial_run_sha256": "4b211258470871122ceef0e253a576c9af4fe01a9885029e0ba3dd7683617e74",
+      "severity_before_fix": "blocking compatibility regression",
+      "status": "fixed-and-reread"
+    }
+  ],
+  "formal_timing_credit_granted_seconds": 0,
+  "frozen_baseline_commit": "ce2a3c75cbd535490897d062b6cbb7c095408307",
+  "long_memory_limits": [
+    "120-second state size does not establish the 259,526-entry long-plan heap or late-stall absence",
+    "unreachable cycles may accumulate until restored GC or process exit",
+    "no constant-memory or memory-neutral claim",
+    "unchanged resource limits, fresh prospective DB calibration/noise/capacity/long cohorts and exact route parity required"
+  ],
+  "motivating_profile": {
+    "analysis_sha256": "f3e8e652596ae8b869665917e04cfe128078d6b8c10fc9cfd5c7f99a3ccb541d",
+    "path": "ledger/evidence/batches/Perf-01/checks/postgresql-generator-gc-001/analysis-001",
+    "plan_commit": "7394f2be4d3bbf6c7930796ec503f72ff7cef64b"
+  },
+  "planned_pair_scope": {
+    "compact_observation": true,
+    "concurrency": 16,
+    "differences": [
+      "scheduler_gc_policy automatic versus deferred",
+      "fresh output directory"
+    ],
+    "duration_credit_seconds": 0,
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "idle_seconds": 60,
+    "package": "same actual fixed-before package for both cells",
+    "provider": "postgresql",
+    "rate": 144,
+    "recovery_requests": 32,
+    "requirements": [
+      "normal completion and valid policy receipts",
+      "identical dataset/package/native identity and operation mix/counts",
+      "original correctness, durable reconciliation and drain",
+      "per-role resources and dispatch validity",
+      "retain every failed or invalid result"
+    ],
+    "scenario": "mixed",
+    "seconds": 120,
+    "seed": 20261119,
+    "service_cpus": [
+      2,
+      3
+    ],
+    "stage": "short",
+    "status": "source-reviewed prospective scope; no execution claimed here",
+    "variant": "diagnostic",
+    "warmup": 16
+  },
+  "producer": "/root/perf01_optimization_review",
+  "recorded_at_utc": "2026-11-19T19:18:24.878679+00:00",
+  "remaining_blockers": [],
+  "reviewed_contracts": [
+    "policy/plan/source/PID/start identity matching",
+    "normal and Python-exception restoration, TERM/KILL incomplete receipt",
+    "unchanged thresholds and deferred zero collection-count deltas",
+    "all DB comparator routes use the same wrapper",
+    "new interpreter target GC independence and unchanged refcount cleanup",
+    "original scheduling, accounting, oracles and dispatch-lag gate unchanged",
+    "honest retained-cycle memory limitations",
+    "prospective explicit-policy cohorts; no old/new pooling"
+  ],
+  "reviewed_files": [
+    {
+      "bytes": 27785,
+      "path": "tests/Perf01.Database/run.py",
+      "sha256": "d5c7172b1f595a15a969562e05bb1843e2861c5a8da7e8e5436014df9ae28ce1"
+    },
+    {
+      "bytes": 6859,
+      "path": "tests/Perf01.Database/scheduler_gc.py",
+      "sha256": "9045e8700c39e8491767ec60c053dd51cd98ef002911ee9ce792880da1fb3dba"
+    },
+    {
+      "bytes": 4860,
+      "path": "tests/Perf01.Database/test_scheduler_gc.py",
+      "sha256": "ae18a8b3e52c31c979acd66b338e7fd2e6ebc8942f7e31b29a1e271a411c94a2"
+    },
+    {
+      "bytes": 33028,
+      "path": "tests/Perf01.Database/README.md",
+      "sha256": "75996f791c007da2eef970231cae90d1d62db06ea9aea7c2e1d26cd85f89837e"
+    }
+  ],
+  "reviewer": "/root/perf01_evidence_recovery",
+  "schema_version": 1,
+  "task": "Perf-01",
+  "unchanged_shared_sources": [
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "src/Benchmarks.Harness/nativeweave_bench.py",
+      "sha256": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53"
+    },
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "src/Benchmarks.Domain/cell_worker.py",
+      "sha256": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179"
+    },
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "src/Benchmarks.Domain/common.py",
+      "sha256": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135"
+    },
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "src/Benchmarks.Domain/supervision.py",
+      "sha256": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4"
+    },
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "tests/Perf01.Database/target.py",
+      "sha256": "d49a5adfff76261b6db115bc5faa284fb7d9e5a04174cf248b91d99d8af08272"
+    },
+    {
+      "equal_to_frozen_ce2": true,
+      "path": "tests/Perf01/verify_long.py",
+      "sha256": "8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4"
+    }
+  ],
+  "verdict": "passed-source-review"
+}
