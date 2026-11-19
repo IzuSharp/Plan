@@ -2,7 +2,7 @@
 
 ## Current state
 
-Status: source baseline and prospective selection policy recorded; real locked before packages/consumers built; final protocol driver review and calibration pending. No product optimization has been applied. No performance improvement is claimed. No Perf-01 timed segment has started.
+Status: real locked before packages/consumers built; domain drivers independently reviewed; first profiling and diagnostic calibration observations retained. Final execution configuration remains unfrozen. No product optimization has been applied. No performance improvement is claimed. No Perf-01 30-minute segment has started.
 
 The current user instruction authorizes this implementation and performance task; historical research-only scope text remains historical and is not rewritten.
 
@@ -53,4 +53,51 @@ The current gRPC implementation supports identity compression only. Independent 
 
 Draft implementation PR: [NativeWeave#19](https://github.com/IzuSharp/NativeWeave/pull/19), currently test tooling only. Draft evidence PR: [Plan#23](https://github.com/IzuSharp/Plan/pull/23). Both use `task/Perf-01-linux`. The implementation checkpoint `d252fc589d1559b7cdbb907c2dfa25bc7ea8c2ef` has the identical tree to local test commits archived at `checkpoint/Perf-01-local-drivers-001`; source baseline remains unchanged.
 
-`prospective-policy.json` fixes CPU/resource/SLO rules, ladder/refinement and long-rate selection before observing calibration. Final driver/profile/artifact hashes and calibrated rates must still be bound before any runtime implementation edit. Source studies, fresh comparator/codec build receipts and the independent codec review are adjacent files. Continue with final protocol source review, stop all heavy builders, then exclusively profile and calibrate. Resume only from exact receipts; **0 of 10 long segments remain credited**. No successful profile, performance improvement, merge or preview is yet claimed.
+`prospective-policy.json` records the first prospective CPU/resource/SLO rules,
+ladder/refinement and long-rate selection. Final driver/profile/artifact hashes
+and calibrated rates must still be bound before any runtime implementation edit.
+Source studies, fresh build receipts and independent reviews are adjacent files.
+The execution checkpoint below supersedes earlier preparation status. Resume only
+from exact receipts; **0 of 10 long segments are credited**. No performance
+improvement, merge or preview is yet claimed.
+
+### Execution checkpoint: first profile and interrupted diagnostic calibration
+
+The package AOT SQLite retirement probe completed 1,000 scalar calls / 4,000 native
+operation observations with all release and timestamp-order checks passing.
+`observations-before/shared-sqlite-profile-{summary,raw}.json` contains the actual
+data. A21 exact percentiles give public mean 1.1959153 ms and p99 20.7677 ms.
+Take-to-observed-retired has 64 of 4,000 observations above 5 ms. This includes
+mapping and continuation scheduling and does not directly count native Pending;
+it is a profile, not a formal timing row or an optimization result.
+
+Actual baseline package application smoke checks also passed independently for
+PostgreSQL and SQLite: 121/121 mixed logical operations, exact response/durable
+oracles, 61 measured committed mutations, no observed provider exceptions, and
+consumer/database/server release. Their source-bound local directories are
+`ROOT/perf01-evidence/smoke/before-{sqlite,postgresql}-001`. Codec smoke passed at
+`ROOT/perf01-evidence/smoke/before-codec-001` with actual native mapping/byte and
+owner checks. These smoke cells do not count toward long acceptance.
+
+Initial codec calibration shared CPUs 2 and 3 between target and generator.
+Higher points and longer confirmations hit the declared 50-ms generator dispatch
+lag bound even when output correctness passed. Those points are invalid, not
+server capacity results. The compact diagnostic history is
+`observations-before/codec-calibration-v1-partial.json`. After 17 completed cells,
+the controller session was unavailable (`write_stdin: Unknown process id 66326`)
+and the eighteenth cell had no final result. Last raw activity was
+2026-11-19T07:24:10Z. Its partial logs and `interruption.json` remain in
+`ROOT/perf01-evidence/calibration/before-codec`; no cause or clean exit is inferred.
+Keep live session polls/heartbeat supervision during future long execution and
+credit only fully completed, valid receipts.
+
+An **optional diagnostic** is being added to give the external generator spare
+CPUs 0 and 1 while preserving the application/database on CPUs 2 and 3. This has
+not yet been executed or selected as the final configuration. If chosen, revise
+the prospective policy explicitly and restart the baseline cohort; do not
+retroactively relabel earlier shared-CPU rows or attribute resource-layout gains
+to product optimization. SLO/correctness limits are unchanged. The current window
+permits builds only: rebuild the final generic-x86-64 direct protocol comparator,
+bind the reviewed optional codec controller to a fresh before package preparation,
+then resume short diagnostics. Runtime source must remain unchanged until the
+complete frozen-execution record is written.

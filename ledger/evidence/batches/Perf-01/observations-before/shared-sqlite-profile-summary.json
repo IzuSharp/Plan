@@ -1,0 +1,60 @@
+{
+  "task": "Perf-01",
+  "kind": "profiling-only",
+  "formal_timing_eligible": false,
+  "source_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "cpu_affinity": [
+    2,
+    3
+  ],
+  "observer_build_manifest_sha256": "721196d6d71fb64535fc390eeb7a3f5e1600c2ebb1860dff7a73e7b69f2328e9",
+  "raw_sha256": "f3bc102e9a5e1639221ded1958834c5ce26613b6c73bc1c5cfd3f80df150dbad",
+  "public_calls": {
+    "count": 1000,
+    "mean_ms": 1.1959153,
+    "p50_ms": 0.5241,
+    "p95_ms": 1.5578,
+    "p99_ms": 20.7677,
+    "above_1ms": 65,
+    "above_5ms": 40
+  },
+  "start_to_terminal": {
+    "count": 4000,
+    "mean_ms": 0.11984133025,
+    "p50_ms": 0.106812,
+    "p95_ms": 0.243678,
+    "p99_ms": 0.404842,
+    "above_1ms": 9,
+    "above_5ms": 3
+  },
+  "terminal_to_take": {
+    "count": 4000,
+    "mean_ms": 0.00997812625,
+    "p50_ms": 0.008307,
+    "p95_ms": 0.028043,
+    "p99_ms": 0.056636,
+    "above_1ms": 0,
+    "above_5ms": 0
+  },
+  "take_to_observed_retired": {
+    "count": 4000,
+    "mean_ms": 0.15414092075,
+    "p50_ms": 0.002384,
+    "p95_ms": 0.009144,
+    "p99_ms": 8.03645,
+    "above_1ms": 68,
+    "above_5ms": 64
+  },
+  "process_cpu_ms": 615.216,
+  "managed_allocated_bytes_including_observer": 17543728,
+  "source_released": true,
+  "timestamp_order_checks_passed": true,
+  "loaded_native": {
+    "/workspace/scratch/01c249676f47/perf01-build/before/shared-profile/aot/libnw_database_sqlite.so": "7254f8e490f19637701d92523c2ba08e0cbdfdbe4c5f28173d4215b5f303da8d"
+  },
+  "limits": [
+    "Retired callback is after public retirement await and includes mapping/continuation scheduling; it is not pure native wait",
+    "Native Pending count, exact lock and pool wait are not observed",
+    "Observer overhead excludes these values from formal timing"
+  ]
+}
