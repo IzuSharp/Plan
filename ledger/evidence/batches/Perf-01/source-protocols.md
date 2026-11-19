@@ -128,6 +128,11 @@ about an ambiguously named MXC project is made.
    backing bounded. Preserve exact byte/error caps, static metadata, cancellation
    and retention through the awaited output. A tiny JSON fixture can establish
    allocation/CPU benefit; compare the whole HTTP and DB service afterward.
+   The later [locked System.Text.Json study](source-json-buffer.md) identifies a
+   minimum-growth-hint compatibility hazard near finite non-power-of-two caps.
+   Arbitrary geometric growth is not accepted by this source note; the bounded
+   two-stage alternative and contract regressions remain subject to execution
+   and root-owned measurements.
 2. **gRPC: lazy writer with explicit overlap credit.** `EncodeAndCreate` currently
    obtains only `encodedLimit` managed credit. For geometric growth, acquire an
    extra old-capacity credit before allocating replacement backing; keep that
@@ -289,3 +294,23 @@ benchmark source. Four finite actual-procfs/mock cases, syntax and diff checks
 passed, and the codec agent independently reviewed the fix without executing a
 load. Freshly prepared plans must bind the new Python hashes; the compiled
 before-v2 C# and direct-v3 Rust application artifacts remain unchanged.
+
+Implementation commit `593fcdff0c94f03e7fc262cdd6632e6ac71b31ff` tightens
+post-run scenario reporting without changing dispatch, applications or payloads.
+Scenario identity now comes from the frozen Oracle token, so a unary call that
+fails before submitting bytes stays in its configured payload-size group.
+Each scenario contains offered, dispatched and admitted counts, A21 controller
+outcomes, independent client/wire outcomes, successful-check and all-outcome
+arrival histograms, ordinary business success and successful-only message and
+payload totals/rates. A late client success after the A21 deadline cannot become
+a successful business call. Expected cancellation/deadline checks remain
+separate. All scenario rates use the same whole measured window; their values
+are contributions to the frozen mixture, not standalone capacity measurements.
+CPU/RSS observations remain whole-process values.
+
+The codec agent independently reviewed these reporting semantics. An offline
+readback of the existing functional receipt retained 122 planned checks, 116
+business successes and six expected probes. Two synthetic reporting controls
+then verified exclusion of an eventual client success after an A21 timeout and
+stable unary grouping after an early failure reports zero submitted bytes. This
+verification modified no evidence file and ran no protocol/product load.

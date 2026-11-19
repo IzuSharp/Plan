@@ -1,9 +1,9 @@
 # Perf-01: successful default-inspection cache candidate
 
-Status: source-only correctness study and prospective regression design. This
-document does not establish a measured hotspot, authorize skipping the frozen
-before measurements, or claim a performance gain. Root owns any implementation
-and shared-path integration.
+Status: source correctness study, prospective regression design and a later
+diagnostic allocation observation. This document does not establish measured
+loader attribution, authorize skipping the frozen before measurements, or claim
+a performance gain. Root owns any implementation and shared-path integration.
 
 ## Inspected baseline
 
@@ -153,3 +153,59 @@ source blocker. At this checkpoint, the cases have **not been compiled or
 executed**; the active measurement window prohibited such work. Root will run
 the appropriate existing A02 gate with the selected runtime candidate. The
 tests assert existing public behavior and do not require a cache implementation.
+
+## Observed allocation: attribution remains open
+
+Root's completed `ROOT/perf01-evidence/diagnostic/codec-split-384-001/` observes
+baseline product `ea5fa528035d025bd7a28698ee7c71194432236c` through preparation
+002, manifest SHA-256
+`4a448f9f9a9e3b9dd1887fced2aae2da33280aa6b6ca7e3c9ef416fe50fc9c87`.
+It uses two target workers on CPUs 2,3 and the controller on CPUs 0,1, with
+384 planned operations per second. All 23,061 measurement operations completed
+correctly over a 60.050331522-second actual dispatch span. It remains a
+layout-selection diagnostic, with no before/after or 30-minute acceptance credit.
+
+The operation records measure `GC.GetAllocatedBytesForCurrentThread()` around
+each synchronous public codec call, before payload validation and owned-result
+release; see `tests/Perf01.Codec/Program.cs:161-190` at driver `d14be543`.
+Read-only aggregation of the existing records finds 11,516 of 11,531 successful
+owned calls at exactly **2,784 allocated managed bytes**. Fifteen owned calls
+report higher values. Selected group means are:
+
+| Payload and operation | Interface | Successful calls | Mean allocated managed bytes per public call |
+| --- | --- | ---: | ---: |
+| 256 B compressible, compress (case 0) | Owned | 1,440 | 2,784 |
+| 256 B compressible, compress (case 0) | Array | 1,441 | 2,920 |
+| 4 KiB compressible, decompress (case 2) | Owned | 721 | 2,784 |
+| 4 KiB compressible, decompress (case 2) | Array | 721 | 6,904 |
+| 4 MiB compressible, decompress (case 6) | Owned | 144 | 2,784 |
+| 4 MiB compressible, decompress (case 6) | Array | 144 | 4,197,112 |
+
+The 4 KiB and 4 MiB array/owned allocation differences are respectively 4,120
+and 4,194,328 bytes. This is consistent with the source's additional output
+array, but this mixed diagnostic is not a paired latency experiment. The
+constant owned-call cost makes shared managed preparation a concrete candidate
+for profiling. It does **not** establish that descriptor inspection accounts
+for all 2,784 bytes: `CodecHandle`, `NativeBuffer`, `NativeResourceOwner`, and
+other managed/runtime work occur in the same bracket. Native allocation and
+hardware memory traffic are not measured by this counter. Attribute any removed
+cost only after the frozen candidate's profile and equivalent-load comparison;
+retain owner construction and concurrency semantics.
+
+Evidence already committed by root:
+[32-group diagnostic summary at Plan ab893999][diagnostic-summary]. Raw
+`operations.jsonl` SHA-256 is
+`4d57985752b3f3340d7e5e7cb44c1397a17c8d6074257735ece85b4766501d03`;
+the driver's `summary.json` SHA-256 is
+`08d9fa2c429e51cef8f4739aa85c0805327b6c3721dd51bf3f416e00d02091b6`;
+`result.json` SHA-256 is
+`e64fdb825c653666ab52b9729ae0afc4acf4a6a6746c8674bc85d0fdc892739c`.
+The additional distribution above filters raw rows to measurement/ok/owned,
+then counts `target.managed_allocated_bytes`; no new load was run.
+
+[source-binding-wasmtime.md](source-binding-wasmtime.md) supplies a pinned
+external binding comparison for reusable successful metadata and explicit owner
+lifetime. Its source patterns are design evidence, not a prediction of the
+candidate's measured benefit.
+
+[diagnostic-summary]: https://github.com/IzuSharp/Plan/blob/ab893999e45991b1f45b10af31decc3f124dc2c0/ledger/evidence/batches/Perf-01/observations-before/codec-split-diagnostic-summary.json

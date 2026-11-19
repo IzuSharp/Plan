@@ -119,3 +119,72 @@ Existing tests retain the null hook and their previous scheduler behavior.
 Source-review disposition: no blocker found. Parent integration must still run
 these cases against both the baseline failure expectation and the proposed
 runtime change, along with the required existing async regression gate.
+
+
+## Procfs resource observer follow-up
+
+Reviewed implementation commit
+`edda7e7bcf27d2f3cb2d3279b25b74aa449c1094` in
+`tests/Perf01.Database/{perf01_resources.py,target.py,run.py,README.md}`.
+This was source-only review on CPU 8; no database, application, build, test, or
+new benchmark was executed by this reviewer.
+
+The old shared sampler could clear an already measured CPU field when a later
+/proc descriptor scan failed. Readback of preserved functional evidence found
+one missing CPU row among 421 SQLite application rows and one among 376
+PostgreSQL rows, with RSS still present; the latter occurred during measurement.
+Those rows did not preserve a descriptor exception, so they are consistent with
+the source hazard but do not prove its cause.
+
+The scoped helper (`perf01_resources.py:14–57`) samples CPU/start identity,
+A21 memory, affinity and file descriptors independently. Descriptor iteration
+and readlink races retain CPU and memory; vanished descriptors are counted as
+non-atomic misses, while other descriptor errors leave uncertain FD/socket
+totals unavailable. No historical B23 or product implementation was changed.
+
+`target.py:81–119,253–292` adds a nominal one-second observer for the actual
+HTTPX target, its A21 scheduler parent, and the frozen controller identity.
+Each role has PID/start ticks and phase labels, flushed raw rows and initial/
+final observer receipts. The task is stopped and awaited in finalization.
+A definite bound identity mismatch marks the observer and extra verdict
+failed; it cannot become a valid sample under the intended role.
+
+Two review findings were corrected before acceptance: bound identities that
+cannot be confirmed are excluded from role-attributed aggregates while raw
+evidence remains, and a definite PID/start mismatch invalidates the observation.
+The aggregate helper (`perf01_resources.py:60–110`) selects memory and CPU
+independently and leaves completely unobserved descriptor misses null. Existing
+application summary fields remain, with separate
+`generator_resources[role][phase]` CPU/RSS/FD results in `run.py`.
+New observer source is included in the frozen driver identity. Source-review
+disposition: no remaining blocker in the scoped sampling, identity, aggregation
+or cleanup changes. Actual generator health and final timing validity remain
+root-owned measurements.
+
+## PostgreSQL diagnostic observer cleanup follow-up
+
+Reviewed implementation commit
+`55f40b1e21c4292de2094722bb070ad406a3bb52` in
+`tests/Perf01.Database/profile_postgresql.py`. The earlier
+`2f20b2f628d2bb4ada88478a53dccc971247d264` version had a real ownership
+gap: observer spawn and initial stdin setup could fail before entering the
+cleanup guard. This note records the later fix; it does not retroactively claim
+the earlier version covered that edge.
+
+The fixed profile function writes an initial receipt before spawn and places
+stderr ownership, subprocess creation, initial command/drain and sampler
+creation inside the guarded region (`:72–158`). Input/output waits, sampler
+join, observer close, kill and reap are bounded. Finalization attempts the
+receipt even on setup failure, retains cleanup failures, and preserves the
+primary setup/load exception if receipt or summary generation also fails.
+
+The summary path (`:239–256`) labels missing receipt/files unavailable or
+failed; absent evidence cannot be interpreted as a passed observer. The main
+cleanup path (`:295–312`) does not hide the primary exception behind a later
+summary error. Statement Parse/Bind/Execute accounting and sampled wait-state
+interpretation are unchanged: they are not independent business operations or
+exact per-query waits. The profile remains ineligible for formal timing.
+Source-review disposition: no remaining blocker in this scoped ownership and
+exception-preservation fix. No observer process, SQL, application or load was
+run by this reviewer. Author-side record is Plan
+`9da04ba60cf19471389e7c9284ec516fa721f76f`.
