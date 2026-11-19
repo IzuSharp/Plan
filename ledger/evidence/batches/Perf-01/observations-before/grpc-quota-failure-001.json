@@ -1,0 +1,73 @@
+{
+  "task": "Perf-01",
+  "group": "grpc",
+  "role": "failed-before-calibration-preserved",
+  "result_sha256": "a7ec0d5c097b06607a7b68f9c1c098bb24e8b5ad5db064e05c0122dba24563a7",
+  "client_operations_sha256": "4af259ad70bde24fda5a782029e25a31463aba60e37c7705ad6b822b3a4834ca",
+  "profile_sha256": "19490e76a164d65098868f3cd51d576ba8bc22a581a57b563dc27786a336ae16",
+  "resource_configuration": "original 4MiB per request, global native64MiB/managed64MiB",
+  "outcome_counts": {
+    "ok": 240,
+    "rejected": 2
+  },
+  "valid": true,
+  "service_standard_met": false,
+  "failures": [
+    {
+      "id": 124,
+      "scenario": "grpc-server",
+      "protocol": "http2-tls",
+      "logical_status": "rejected",
+      "wire_status": "ResourceExhausted",
+      "started_timestamp": 14521284311171,
+      "completed_timestamp": 14521286937696,
+      "request_messages": 1,
+      "response_messages": 1,
+      "request_payload_bytes": 4096,
+      "response_payload_bytes": 4096,
+      "request_encoded_bytes": 4101,
+      "response_encoded_bytes": 4101,
+      "intentional_cancellation": false,
+      "intentional_deadline": false,
+      "correctness_failure": false,
+      "failure": "RpcException"
+    },
+    {
+      "id": 161,
+      "scenario": "grpc-server",
+      "protocol": "http2-tls",
+      "logical_status": "rejected",
+      "wire_status": "ResourceExhausted",
+      "started_timestamp": 14525908206738,
+      "completed_timestamp": 14525922761702,
+      "request_messages": 1,
+      "response_messages": 28,
+      "request_payload_bytes": 4096,
+      "response_payload_bytes": 114688,
+      "request_encoded_bytes": 4101,
+      "response_encoded_bytes": 114882,
+      "intentional_cancellation": false,
+      "intentional_deadline": false,
+      "correctness_failure": false,
+      "failure": "RpcException"
+    }
+  ],
+  "managed_gc": {
+    "gen0_delta": 230,
+    "gen1_delta": 213,
+    "gen2_delta": 212,
+    "managed_allocated_bytes_delta": 2554354760,
+    "managed_committed_bytes_maximum": 34099200,
+    "managed_heap_bytes_maximum": 32274192
+  },
+  "ordinary_business_and_probe_counts": {
+    "business_success_per_second": 7.534521054520733,
+    "business_successful_calls": 227,
+    "intentional_cancel_calls": 5,
+    "intentional_deadline_calls": 8,
+    "maximum_in_progress_calls": 2,
+    "operations": 242,
+    "timestamp_frequency": 1000000000
+  },
+  "long_credit_seconds": 0
+}

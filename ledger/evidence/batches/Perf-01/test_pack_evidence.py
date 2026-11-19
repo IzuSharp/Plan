@@ -118,7 +118,19 @@ class ArchiveChecks(unittest.TestCase):
 
     def test_changed_verifier_input_is_rejected(self):
         (self.cell / "operations.jsonl").write_text('{"id":1}\n')
-        with self.assertRaisesRegex(ValueError, "Verifier input changed"):
+        with self.assertRaisesRegex(ValueError, "Bound input changed"):
+            self.pack()
+
+    def test_short_rejected_receipt_still_binds_original_driver_raw_hashes(self):
+        driver_pins = {"operations.jsonl": archive.sha(self.cell / "operations.jsonl")}
+        (self.cell / "summary.json").write_text(json.dumps({"fixture_only": True, "files": driver_pins}))
+        self.pin()
+        receipt = json.loads(self.receipt.read_text())
+        receipt["evidence_sha256"] = {name: value for name, value in receipt["evidence_sha256"].items()
+                                     if name in {"summary.json", "plan.json", "result.json"}}
+        self.receipt.write_text(json.dumps(receipt))
+        (self.cell / "operations.jsonl").write_text('{"id":42}\n')
+        with self.assertRaisesRegex(ValueError, "Bound input changed"):
             self.pack()
 
     def test_missing_ledger_is_rejected(self):

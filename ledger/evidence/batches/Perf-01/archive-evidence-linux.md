@@ -100,8 +100,10 @@ timestamp normalization, redaction or JSON reserialization occurs.
 The manifest records each file's full SHA-256, byte count and newline count,
 each compressed and uncompressed chunk hash/length, packer source hash,
 verifier identity and original acceptance/duration verdict. The packer verifies
-that required consumed-file hashes match the original verifier receipt and
-that file identity/size/mtime did not change during scanning and packing. A
+that required consumed-file hashes match the original verifier receipt. It also
+checks available codec-summary/protocol-result hashes for every selected public
+file, including when an early duration rejection preceded raw-file reads.
+File identity/size/mtime must remain unchanged during scanning and packing. A
 successful pack includes a complete readback through its bounded verifier.
 
 Local safety bounds are 1–32 MiB per raw chunk, at most the selected raw chunk
@@ -125,6 +127,26 @@ repository retention, not a guarantee against later repository deletion or
 history rewriting. Record any additional CI artifact URL and its actual expiry
 separately. Existing ordinary CI artifacts are not a substitute for these raw
 files and their independent retrieval check.
+
+## Completed short-cell archive smoke
+
+The same packer can archive a finalized short cell with an actual common-verifier
+receipt whose `accepted` field is false. It has no duration bypass, and it
+preserves the failed verdict and zero duration credit. This permits a real-file
+pack/restore/readback check before the first 1802-second segment without changing
+any long-load acceptance rule. Repeat the unchanged long verifier after restore
+and expect rejection again; compare its input hashes and rejection reason as
+well as the packer's complete byte/hash roundtrip.
+
+The long verifier fails fast. A duration-first rejection does not establish that
+every later long gate was evaluated. A short codec cell with less than 60 seconds
+of idle can reject at the earlier idle gate; use an otherwise complete,
+nonprofiling short cell with recovery/drain and idle60 if the intended smoke
+reason is specifically insufficient load duration. Codec/protocol original raw
+file hash maps are checked by the packer even when the common verifier has not
+yet reached those files. DB inputs lacking such earlier producer pins receive
+new archive hashes, explicitly without new measurement acceptance. No short
+archive, successful restore or consistency recheck earns long-duration credit.
 
 ## Commands for a separate validation and archival window
 
@@ -206,5 +228,7 @@ at source checkpoint `d70e9a49185ebddc899939892defc3d1020e63b2`. The review foun
 no source blocker and requested the additional DB relocation and URI-rejection
 fixtures above. A follow-up independent source check passed those three new
 fixtures, including the relocated selected-file set and zero-port rejection.
-The finite execution gate is still pending; neither source review read large
-evidence, compressed data or executed tests/workloads.
+A further source check passed selected producer-file hash merging and the
+early-duration-rejection raw-ledger mutation fixture. The finite execution gate
+is still pending; none of these source reviews read large evidence, compressed
+data or executed tests/workloads.

@@ -235,10 +235,24 @@ def pack(args):
     selected, absent = select(args.group, root)
     expected = receipt["evidence_sha256"]
     require(isinstance(expected, dict) and expected, "Verifier input hashes are missing")
+    expected = expected.copy()
     for name, digest in expected.items():
         relative(name)
         require(isinstance(digest, str) and HASH.fullmatch(digest), "Malformed verifier input hash")
     require(set(expected).issubset(selected), "Verifier consumed a file outside the reviewed publication allowlist")
+    # A short cell can hit the long-duration gate before that verifier reads its
+    # raw files. Still bind available producer hashes without following the
+    # protocol result's private configuration/key entries.
+    driver_hashes = (small(regular(root, "summary.json")).get("files", {}) if args.group == "codec" else
+                     small(regular(root, "result.json")).get("evidence_sha256", {}) if args.group in {"http", "grpc"} else {})
+    require(isinstance(driver_hashes, dict), "Malformed producer evidence hashes")
+    original_driver_pins = {}
+    for name, digest in driver_hashes.items():
+        if name not in selected:
+            continue
+        require(isinstance(digest, str) and HASH.fullmatch(digest), "Malformed producer file hash")
+        require(name not in expected or expected[name] == digest, "Verifier and producer hashes disagree")
+        expected[name] = digest; original_driver_pins[name] = digest
     selected["duration-verification.json"] = receipt_path
     for item in args.binding:
         label, separator, name = item.partition("=")
@@ -270,12 +284,13 @@ def pack(args):
         require((before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) ==
                 (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns) and total == before.st_size,
                 "Evidence changed while packaging: " + name)
-        require(name not in expected or raw.hexdigest() == expected[name], "Verifier input changed: " + name)
+        require(name not in expected or raw.hexdigest() == expected[name], "Bound input changed: " + name)
         records.append({"path": name, "raw_bytes": total, "raw_sha256": raw.hexdigest(), "newline_count": newlines,
                         "transformation": "none; exact source bytes", "chunks": chunks})
     manifest = {"schema_version": 1, "task": "Perf-01", "group": args.group, "source_cell": str(root),
                 "created_utc": datetime.now(timezone.utc).isoformat(), "packager_sha256": sha(Path(__file__)),
                 "original_accepted": receipt["accepted"], "original_duration_credit_seconds": receipt.get("duration_credit_seconds"),
+                "original_driver_file_sha256_checked": original_driver_pins,
                 "source_verifier_sha256": receipt["verifier_sha256"], "shard_raw_limit_bytes": args.shard_mib * 1024**2,
                 "encoding": "independent gzip members; concatenate decompressed chunks in listed order",
                 "absent_optional": absent, "files": records,

@@ -14,6 +14,13 @@ The producer source inspected is the Task-07 implementation at
 `eng/verify-task07-linux.sh`. The Perf-01 codec driver source is the unchanged
 `tests/Perf01.Codec` inventory bound by the existing before-002 manifest, whose
 driver commit is `d14be5432c7fcce7d2aeaaf5d4218b3f6bd40fd3`.
+Root subsequently selected an opt-in A21 retention change for the database
+measurement harness. After that source is reviewed, tested and frozen, prepare
+a **new before codec producer/consumer** against the same clean main commit.
+The old before-002 artifact remains preparatory evidence; never edit its source
+hash binding. Final codec before and after must use the same driver checkout
+and exact A21 bytes. Existing before-002 paths/hashes below identify the earlier
+preparation, not the new final cohort producer.
 
 Run the B24 producer again in a fresh after checkout/output. Its first
 `build_managed(..., candidate=False)` builds all fourteen managed projects;

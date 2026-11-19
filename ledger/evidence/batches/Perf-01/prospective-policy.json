@@ -111,13 +111,15 @@
       "name": "postgresql",
       "mix": "50% durable business cycle / 50% typed 100-row page",
       "before_seconds_required": 1800,
-      "after_seconds_required": 1800
+      "after_seconds_required": 1800,
+      "recovery_requests": 32
     },
     {
       "name": "sqlite",
-      "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero hidden retry",
+      "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero explicit business retries; internal busy-handler/sqlx retry attempts unavailable",
       "before_seconds_required": 1800,
-      "after_seconds_required": 1800
+      "after_seconds_required": 1800,
+      "recovery_requests": 32
     },
     {
       "name": "http",
@@ -140,15 +142,29 @@
   ],
   "long_acceptance": "Ten distinct completed segments serially; fixed service/database CPUs2,3 and generator CPUs0,1. Actual first-to-last effective dispatch at least1800s each, valid generator and exact correctness/ownership/durability. Warmup/calibration/recovery/idle excluded. Interrupted or changed-binary stages do not count.",
   "freeze_completion": "Before any product implementation edit, bind calibrated long rates, final driver/profile hashes, actual before artifacts and all lower-level fixture settings in a separate immutable frozen-execution.json. This prospective policy alone is not a claim that calibration or final freeze has completed.",
-  "policy_revision": 3,
-  "revision_utc": "2026-11-19T08:44:11.043596+00:00",
-  "supersedes_diagnostic_policy_sha256": "1fec1b14c3a729d2012f10bf2ccc140ede658c927fc28df2304350a08ade4b60",
+  "policy_revision": 4,
+  "revision_utc": "2026-11-19T10:25:16.605587+00:00",
+  "supersedes_diagnostic_policy_sha256": "e7254dc0470b5a224755243b7c731687fae096914c7fc2f366b79c36819f03c8",
   "pre_product_revision_rationale": {
-    "previous_codec_guard_ms": 50,
-    "same_existing_db_protocol_guard_ms": 100,
-    "change_scope": "Prospective measurement preparation only; no product implementation has changed. Restart final codec calibration with100ms; earlier50ms invalid rows remain invalid and cannot be relabeled. Service latency500ms, error0, RSS256MiB, payloads, native byte limits, CPU masks and queue limits are unchanged.",
-    "evidence": "Repeated prior codec invalidities contained ~54\u201357ms dispatch lag, with generator1Hz CPU about12\u201318% and stable~22.6MiB RSS. Otherwise-idle confirmation still exceeded50ms. Separate120s same-interpreter GC/I/O profiling completed39018/39018; maxlag42.235ms, GCmax1.354ms, observedI/Omax9.900ms. This did not reproduce or establish the cause of older stalls.",
-    "interpretation": "The100ms guard is an explicit common scheduling-jitter allowance before the product freeze, not proof that older stalls were harmless or a claim of generator-independent server capacity. Preserve distributions and report the experiment limits."
+    "source_runtime_unchanged": true,
+    "evidence": "grpc-baseline-quota-observation.md; actual before-grpc-v3r1/00-ladder-8 had two ordinary server-stream ResourceExhausted outcomes, not intentional probes.",
+    "change_scope": "Before first runtime edit, select a gRPC-only 64MiB retained-byte request cap for both product versions and direct Rust. The existing 4MiB cap cannot cover two overlapping configured-maximum frame grants. Global native64MiB/managed64MiB, RSS256MiB, message1MiB, payload/mix, TLS, error0, p99<=500ms and generator100ms are unchanged. HTTP remains on its original4MiB profile.",
+    "old_verdicts": "All old failures retain their original verdict and hashes. New gRPC calibration starts from the low point under the revised profile. This configuration revision is not a product optimization or measured improvement.",
+    "direct_scope": "Equal configured limits; NativeWeave reserves configured maximum per output frame while direct Rust charges actual frame bytes. Preserve and disclose this implementation cost difference.",
+    "database_tooling": "The separate A21 profile observed three generation2 pauses above100ms while all20522 operations completed. Measurement-tool retention changes require their own equivalence gates and fresh baseline measurements before freeze; they are never product gains."
   },
-  "long_scheduled_seconds": 1802
+  "long_scheduled_seconds": 1802,
+  "protocol_profiles": {
+    "http": {
+      "path": "NativeWeave/tests/Perf01.Protocols/profile-v1.json",
+      "retained_bytes_per_request": 4194304
+    },
+    "grpc": {
+      "path": "Plan/ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+      "sha256": "fcd529ae210b57a6c3030f7521127204f665f33978ec50d848d13259a7b697af",
+      "retained_bytes_per_request": 67108864
+    },
+    "calibration_idle_seconds": 5,
+    "long_idle_seconds": 60
+  }
 }

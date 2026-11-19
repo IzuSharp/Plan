@@ -3,7 +3,11 @@
 Status: source-prepared configurations only; no profile, workload, build or test
 was executed while preparing this directory. Root owns execution after the
 current calibration window. These profiles supplement the existing long mix;
-`tests/Perf01.Protocols/profile-v1.json` remains unchanged.
+`tests/Perf01.Protocols/profile-v1.json` remains unchanged. Before product edits,
+root selected the separate `../grpc-budget-profile-v2.json` for new gRPC mixed
+calibration and both paired versions. It changes only the per-request retention
+cap to 64 MiB. The two gRPC partitions below now use that same cap. HTTP profiles
+and their 4 MiB per-request cap remain unchanged.
 
 Independent source review by the codec agent checked all eight files against
 the base, catalog SHA-256 values, count arithmetic, immutable fixture/client
@@ -24,7 +28,8 @@ with the same client. No C# fixture or Rust binary change is needed.
 
 All mixes below contain ordinary successful operations only. Expected deadline,
 cancellation and slow-reader probes remain in the separate unchanged long mix
-and correctness gates. Each selected mix has equal weights. The catalog records
+and correctness gates, with the prospective gRPC-only budget revision above.
+Each selected mix has equal weights. The catalog records
 profile hashes and the current preparation formula's planned counts.
 
 | Profile | Group / actual protocol | Selected calls | Rate / client slots / scheduled seconds | Planned calls; minimum per reported scenario |
@@ -69,13 +74,25 @@ the same upload/download path are deliberately in different cells.
 ## Preserved settings and real byte checks
 
 These standalone JSON files copy the exact base profile identified in
-`catalog.json`, changing only the selected mix, optional HTTP protocol,
-short idle duration and descriptive metadata. Managed/native payload
-caps remain 64 MiB each; per-request retention remains 4 MiB, JSON/message
-maxima 1 MiB, stream maximum 64 MiB, and body chunks 32 KiB. Connection,
+`catalog.json`, changing the selected mix, optional HTTP protocol,
+short idle duration and descriptive metadata. The gRPC-only retention revision
+is also recorded in that catalog. Managed/native global payload caps remain
+64 MiB each; per-request retention is 4 MiB for HTTP and 64 MiB for gRPC,
+JSON/message maxima 1 MiB, stream maximum 64 MiB, and body chunks 32 KiB. Connection,
 handshake, HTTP/2 stream, queue, timeout, bearer authentication and TLS settings
 are unchanged. Client HTTP/2 still has four reusable connections and the same
 bounded queue. Service CPUs are 2,3; generator/controller/client CPUs are 0,1.
+
+The earlier 4 MiB gRPC mixed cell at 8 calls/s remains a failed service-standard
+sample: two ordinary server-stream calls returned `ResourceExhausted`. The
+fixed codec grant plus two maximum-size frame grants cannot fit its request
+cap. See `../grpc-baseline-quota-observation.md` for pinned raw evidence, the
+source bounds, unavailable exact throw attribution, and the distinction between
+operation retirement and escaped frame ownership. The new cap is a prospective
+workload-budget selection, not a product improvement. Direct Rust reads the same
+numeric caps and reserves the same codec/request-metadata floor, but charges
+actual outgoing frame bytes where NativeWeave retains maximum-message grants.
+Report that existing admission-accounting difference in direct-Rust comparisons.
 
 Every profile retains 24 warmup calls, 32 same-server recovery calls at the
 existing quarter-second interval, owner drain, and five seconds of separately
