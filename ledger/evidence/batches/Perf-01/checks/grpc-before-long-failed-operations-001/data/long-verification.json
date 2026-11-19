@@ -1,0 +1,29 @@
+{
+  "accepted": false,
+  "application_rss_limit_bytes": 268435456,
+  "arrival_p99_limit_ns": 500000000,
+  "duration_credit_seconds": 0,
+  "evidence_sha256": {
+    "result.json": "6e6fec1cbca36e7fa0b78afe64323f7d0e3fa35f20b76bc65665462dc72308e8"
+  },
+  "failure_reasons": [
+    "ValueError: Required acceptance flag is not true: valid"
+  ],
+  "group": "grpc",
+  "limitations": [
+    "Post-run consistency check relies on the hashed domain driver's payload, persistence, identity and ownership oracles; it does not replay them.",
+    "Inputs with recorded prior hashes are compared; every consumed input gets a new hash. DB raw records/resources lacking prior hashes are pinned now, not authenticated against arbitrary historical edits.",
+    "Completion-observed to later dispatch-start is a conservative operation-span bound, not an exact wire timestamp or total busy CPU time.",
+    "Application RSS is sampled; unobserved between-sample peaks and physical-host interference cannot be reconstructed.",
+    "This receipt does not by itself establish before/after equivalence, pairing, or five-group coverage.",
+    "Protocol idle duration has a configured wait and wall-clock receipt; it is excluded from effective operation duration.",
+    "SQLite business_retry_attempts=0 means no explicit business retry policy; internal SQLite/sqlx busy-handler retry counts are unavailable."
+  ],
+  "original_checked_identities": {},
+  "output_directory": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001",
+  "required_operation_span_ns": 1800000000000,
+  "schema_version": 1,
+  "task": "Perf-01",
+  "verified_at_utc": "2026-11-19T16:40:48.937941+00:00",
+  "verifier_sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+}

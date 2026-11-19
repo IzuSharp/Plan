@@ -1,0 +1,7 @@
+# Prospective gRPC long candidate after retained failure
+
+The original128/s attempt finished its full schedule but failed23 checks. Its17 ResourceExhausted,5 unexpected Cancelled and1 missing Wait-started-header result remain failures with zero duration credit. The exact joined operations and existing resource observations are retained in ../grpc-before-long-failed-operations-001/. No protobuf or payload content mismatch was recorded for the sole IntegrityFailure; underlying terminal status/trailers were unavailable. No rejected-grant cause is asserted.
+
+The new immutable amendment selects exactly one115/s paired-long candidate (floor of90% of128) before any runtime edits. This is a new prospective bounded experiment: policy4 did not prescribe a sustained-long stepdown. C64, profile, TLS, common client, budgets, source/artifact identities and all acceptance criteria remain inherited. The same115/s applies to the final after group. Failure stops rate-only selection; no automatic repeated attempts. HTTP's existing1802.091185499 accepted seconds remain reusable under identical binaries/cases/configuration.
+
+The original frozen-execution.json is unchanged. The amendment and exact three commands must be pushed and byte-read back before execution. The small supervisor only launches those argv and preserves receipts; domain measurement drivers are unchanged. Full raw archive publication remains pending.

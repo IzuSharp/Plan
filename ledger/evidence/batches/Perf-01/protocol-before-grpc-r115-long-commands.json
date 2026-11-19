@@ -1,0 +1,84 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "--cpu-list",
+        "2,3",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+        "prepare",
+        "--build",
+        "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+        "--client-build",
+        "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+        "--profile",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+        "--group",
+        "grpc",
+        "--rate",
+        "115",
+        "--duration",
+        "1802",
+        "--concurrency",
+        "64",
+        "--generator-cpus",
+        "0,1",
+        "--certificate",
+        "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/certificate.pem",
+        "--private-key",
+        "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/private-key.pem",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-r115-002"
+      ],
+      "id": "protocol-before-grpc-r115-prepare-002",
+      "kind": "prepare"
+    },
+    {
+      "argv": [
+        "taskset",
+        "--cpu-list",
+        "2,3",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+        "run",
+        "--plan",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-r115-002/plan.json",
+        "--exclusive-lock",
+        "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock"
+      ],
+      "id": "protocol-before-grpc-r115-measure-002",
+      "kind": "measure"
+    },
+    {
+      "argv": [
+        "taskset",
+        "--cpu-list",
+        "8",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+        "--group",
+        "grpc",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-r115-002",
+        "--receipt",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-r115-002-verification.json"
+      ],
+      "id": "protocol-before-grpc-r115-verify-002",
+      "kind": "verify-after-processes-stop"
+    }
+  ],
+  "environment_source": "/workspace/scratch/01c249676f47/perf01-toolchain/env.sh",
+  "group": "grpc",
+  "parent_command_document": {
+    "bytes": 17188,
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/protocol-before-long-commands.json",
+    "plan_repository_path": "ledger/evidence/batches/Perf-01/protocol-before-long-commands.json",
+    "sha256": "5c15a741134fb1ae74cb8f70dcb30ab3c603fcde4466554bfad7e71404e50c45"
+  },
+  "schema_version": 1,
+  "status": "Prospectively declared single candidate; not executed at publication",
+  "task": "Perf-01",
+  "variant": "before",
+  "working_directory": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave"
+}
