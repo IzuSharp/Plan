@@ -1,0 +1,144 @@
+{
+  "client": {
+    "http2_connections": 4,
+    "queue_capacity": 1024,
+    "timeout_seconds": 20
+  },
+  "comparators": {
+    "direct-rust": "DirectRust Hyper/rustls/Tonic fixture, same independent client, fixed five-field protobuf codec and conservative native payload quota; build and execute before claiming equivalence",
+    "managed-aot": "not-implemented-in-this-driver; ordinary B23 comparator remains available separately"
+  },
+  "compression": "identity-only; no HTTP automatic decompression or negotiated gRPC compression",
+  "duration_credit_seconds": 0,
+  "formal_timing_eligible": false,
+  "grpc_mix": [
+    {
+      "bytes": 4096,
+      "messages": 32,
+      "scenario": "grpc-server",
+      "weight": 1
+    }
+  ],
+  "http_mix": [
+    {
+      "bytes": 0,
+      "messages": 1,
+      "scenario": "http-tiny",
+      "weight": 50
+    },
+    {
+      "bytes": 0,
+      "messages": 1,
+      "scenario": "http-json",
+      "weight": 10
+    },
+    {
+      "bytes": 1048576,
+      "messages": 1,
+      "scenario": "http-upload",
+      "weight": 15
+    },
+    {
+      "bytes": 1048576,
+      "messages": 1,
+      "scenario": "http-download",
+      "weight": 15
+    },
+    {
+      "bytes": 1048576,
+      "messages": 1,
+      "scenario": "http-slow",
+      "weight": 5
+    },
+    {
+      "bytes": 8388608,
+      "messages": 1,
+      "scenario": "http-cancel",
+      "weight": 5
+    }
+  ],
+  "ladder_candidates": [
+    {
+      "concurrency": 1,
+      "rate": 8
+    },
+    {
+      "concurrency": 4,
+      "rate": 16
+    },
+    {
+      "concurrency": 16,
+      "rate": 32
+    },
+    {
+      "concurrency": 32,
+      "rate": 64
+    },
+    {
+      "concurrency": 64,
+      "rate": 128
+    }
+  ],
+  "layered": {
+    "arrival_rate_per_second": 16,
+    "client_concurrency": 4,
+    "group": "grpc",
+    "id": "grpc-server-stream-resource-profile",
+    "kind": "resource-allocation-profile",
+    "long_acceptance_eligible": false,
+    "note": "One ordinary mode per fresh process; profile-only, no formal comparison/noise/long credit. Exact original server/client/TLS/resource constraints are retained.",
+    "ordinary_paths_only": true,
+    "scheduled_duration_seconds": 20
+  },
+  "platform": "linux-x64",
+  "process_cpu_count": 2,
+  "schema_version": 1,
+  "seed": 20261119,
+  "server": {
+    "chunk_bytes": 32768,
+    "managed_payload_bytes": 67108864,
+    "max_active_requests": 256,
+    "max_connections": 512,
+    "max_http2_streams_per_connection": 32,
+    "max_json_bytes": 1048576,
+    "max_message_bytes": 1048576,
+    "max_queued_requests": 128,
+    "max_stream_bytes": 67108864,
+    "native_payload_bytes": 67108864,
+    "request_timeout_seconds": 30,
+    "retained_bytes_per_request": 67108864,
+    "shutdown_timeout_seconds": 30
+  },
+  "service_standard": {
+    "arrival_p99_maximum_ms": 500,
+    "native_managed_payload_bytes_maximum": 67108864,
+    "native_payload_bytes_maximum": 67108864,
+    "note": "Prospective candidate standard; root must freeze before product edits. Intentional cancel/deadline probes count separately and require their exact expected wire outcome.",
+    "unexpected_error_rate_maximum": 0.0,
+    "whole_process_rss_bytes_maximum": 268435456
+  },
+  "status": "prospective-profile-only-not-executed",
+  "task": "Perf-01",
+  "timing": {
+    "cleanup_timeout_ns": 120000000000,
+    "histogram_maximum_ns": 60000000000,
+    "histogram_resolution_ns": 1000,
+    "idle_seconds": 5,
+    "max_dispatch_lag_ns": 100000000,
+    "max_in_flight": 1024,
+    "recovery_period_seconds": 0.25,
+    "recovery_requests": 32,
+    "timeout_ns": 25000000000,
+    "warmup_requests": 24
+  },
+  "tls": "Two separate loopback TLS listeners, exact HTTP/1.1 and HTTP/2; client pins the generated test certificate SHA256",
+  "transport_defaults": {
+    "header_read_timeout_seconds": 10,
+    "keep_alive_idle_seconds": 60,
+    "max_header_bytes": 32768,
+    "max_header_entries": 200,
+    "note": "Pinned product defaults from Server.Application/Contracts.cs; matching constants in DirectRust. Final build review must preserve these defaults.",
+    "tls_concurrent_handshakes_per_listener": 64,
+    "tls_handshake_timeout_seconds": 10
+  }
+}
