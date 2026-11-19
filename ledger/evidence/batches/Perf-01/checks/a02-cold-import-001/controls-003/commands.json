@@ -1,0 +1,126 @@
+[
+  {
+    "affinity": [
+      2,
+      3
+    ],
+    "command": [
+      "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+      "restore",
+      "ImportRace.csproj",
+      "--locked-mode",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003",
+    "elapsed_seconds": 1.5787746829992102,
+    "end_utc": "2026-11-19T11:43:03.232112+00:00",
+    "error": null,
+    "exit_code": 0,
+    "name": "restore",
+    "start_utc": "2026-11-19T11:43:01.653350+00:00",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "1b18ef8eb266ceb34d0cd06fd96211deba41679fd4181a318756239d6a75382d"
+  },
+  {
+    "affinity": [
+      2,
+      3
+    ],
+    "command": [
+      "/workspace/scratch/58d2a6adf1c3/dotnet-sdk/dotnet",
+      "publish",
+      "ImportRace.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003/aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "cwd": "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003",
+    "elapsed_seconds": 7.367502042001433,
+    "end_utc": "2026-11-19T11:43:10.600194+00:00",
+    "error": null,
+    "exit_code": 0,
+    "name": "publish",
+    "start_utc": "2026-11-19T11:43:03.232705+00:00",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "90afe8910d8ffa4372b8afc10e314b46c1f42e97c2c808af982a74ba8422060d"
+  },
+  {
+    "affinity": [
+      2,
+      3
+    ],
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003/aot/ImportRace",
+      "borrowed",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-A02-001/fixtures/libnw_a02_alpha.so",
+      "/workspace/scratch/01c249676f47/perf01-evidence/diagnostic/a02-import-controls-003/borrowed-fixture",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003",
+    "elapsed_seconds": 0.0322380300021905,
+    "end_utc": "2026-11-19T11:43:10.632908+00:00",
+    "error": null,
+    "exit_code": -11,
+    "name": "borrowed",
+    "start_utc": "2026-11-19T11:43:10.600683+00:00",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "1e60b43364d710e4e574b11dbb0742b412f3d27c5e38475d46d1101fcdfa228e"
+  },
+  {
+    "affinity": [
+      2,
+      3
+    ],
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003/aot/ImportRace",
+      "owned",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-A02-001/fixtures/libnw_a02_alpha.so",
+      "/workspace/scratch/01c249676f47/perf01-evidence/diagnostic/a02-import-controls-003/owned-fixture",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003",
+    "elapsed_seconds": 0.03195324099942809,
+    "end_utc": "2026-11-19T11:43:10.665401+00:00",
+    "error": null,
+    "exit_code": 0,
+    "name": "owned",
+    "start_utc": "2026-11-19T11:43:10.633457+00:00",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "81d39d85044f327c6f50603e8d177a5d75b04469a359dd29c0ae4d540f9e8b16"
+  },
+  {
+    "affinity": [
+      2,
+      3
+    ],
+    "command": [
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003/aot/ImportRace",
+      "owned-unlink",
+      "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-A02-001/fixtures/libnw_a02_alpha.so",
+      "/workspace/scratch/01c249676f47/perf01-evidence/diagnostic/a02-import-controls-003/owned-unlink-fixture",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/01c249676f47/perf01-codec-checks/a02-import-diagnostic-003",
+    "elapsed_seconds": 0.031942984998750035,
+    "end_utc": "2026-11-19T11:43:10.697752+00:00",
+    "error": null,
+    "exit_code": 0,
+    "name": "owned-unlink",
+    "start_utc": "2026-11-19T11:43:10.665835+00:00",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "942d2b78a2e559ebd4ee220b47b0e51951050e8757b3000a5224439d4f86b4fb"
+  }
+]

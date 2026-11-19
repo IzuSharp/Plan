@@ -209,3 +209,8 @@ lifetime. Its source patterns are design evidence, not a prediction of the
 candidate's measured benefit.
 
 [diagnostic-summary]: https://github.com/IzuSharp/Plan/blob/ab893999e45991b1f45b10af31decc3f124dc2c0/ledger/evidence/batches/Perf-01/observations-before/codec-split-diagnostic-summary.json
+
+
+## Later actual cold-import correctness gate
+
+The baseline A02 Native AOT `default-concurrent` regression failed with signal 11 and its exact rerun reproduced the failure. [The retained cold-import diagnosis](source-a02-cold-import.md) isolates the callback reference-ownership mismatch with eight overlapping plain-.NET resolver callbacks: returning the borrowed resident handle crashes, while acquiring a fresh OS reference per callback passes, including the measured Linux unlink case. The statement above that modules remain resident describes the loader's intended policy; the external AOT losing-fixup release currently violates that policy. Root must resolve this correctness gate in the shared loader candidate and keep the original failed baseline receipt. It does not establish the descriptor-cache performance benefit or invalidate a separately verified preinitialized steady-state cell by itself.
