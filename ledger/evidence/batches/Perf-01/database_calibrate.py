@@ -100,7 +100,8 @@ def main():
     script_hash = sha(Path(__file__))
     driver_paths = [args.nativeweave / relative for relative in (
         "tests/Perf01.Database/run.py", "tests/Perf01.Database/target.py", "tests/Perf01.Database/perf01_affinity.py",
-        "tests/Perf01.Database/perf01_resources.py", "src/Benchmarks.Domain/cell_worker.py",
+        "tests/Perf01.Database/perf01_resources.py", "tests/Perf01.Database/perf01_outcomes.py",
+        "src/Benchmarks.Domain/cell_worker.py",
         "src/Benchmarks.Domain/common.py", "src/Benchmarks.Domain/http_target.py", "src/Benchmarks.Domain/run.py",
         "src/Benchmarks.Domain/supervision.py", "src/Benchmarks.Harness/nativeweave_bench.py", "tests/Perf01/verify_long.py")]
     driver_hashes = {str(path): sha(path) for path in driver_paths}

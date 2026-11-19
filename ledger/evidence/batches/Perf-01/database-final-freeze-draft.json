@@ -1,0 +1,145 @@
+{
+  "task": "Perf-01",
+  "status": "prospective domain draft; final selections/noise not yet populated or accepted",
+  "created_utc": "2026-11-19T12:44:47.729551+00:00",
+  "scope": "Database short comparisons only; global final freeze and five paired long groups remain owned by root",
+  "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "required_calibration_attempt": "compact-v5-target",
+  "driver_source_sha256": {
+    "tests/Perf01.Database/run.py": "f03ef0d31cd9bfa66cbdd66b99a3e8444269a7a4f0a8541635d76dc423a3ce55",
+    "tests/Perf01.Database/target.py": "d49a5adfff76261b6db115bc5faa284fb7d9e5a04174cf248b91d99d8af08272",
+    "tests/Perf01.Database/perf01_outcomes.py": "f0cf9c6162817be9ac936b29072ff2e1c85b2844b13d08e2809afe34919831e2",
+    "tests/Perf01.Database/perf01_affinity.py": "b8ea966ec3d763126afc70ccf87b988263d8c0f37dbf384d70653651225a02ca",
+    "tests/Perf01.Database/perf01_resources.py": "a0b5ff1978b1fb56812dc8202560cbbc8e6a494be4fbc7ecb963031f2876a2b9",
+    "tests/Perf01/verify_long.py": "8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4",
+    "src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+    "src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+    "src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+    "src/Benchmarks.Domain/cell_worker.py": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179",
+    "src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4"
+  },
+  "routes": [
+    "nativeweave-aot-rust before",
+    "nativeweave-aot-rust after",
+    "direct-rust",
+    "managed-aot"
+  ],
+  "providers": [
+    "sqlite",
+    "postgresql"
+  ],
+  "common": {
+    "scenario": "mixed",
+    "seed": 20261119,
+    "warmup_requests": 16,
+    "recovery_requests": 16,
+    "idle_seconds": 5,
+    "service_cpus": [
+      2,
+      3
+    ],
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "compact_observation": true,
+    "continue_classified_overload": true,
+    "unexpected_errors_maximum": 0,
+    "arrival_p99_ms_maximum": 500,
+    "application_rss_mib_maximum": 256,
+    "generator_dispatch_lag_ms_maximum": 100
+  },
+  "formal_anchor": {
+    "concurrency": 16,
+    "seconds_per_process": 60,
+    "fresh_processes_per_route": 3,
+    "rate_source": "The provider final before-only capacity selection with three complete qualified confirmations",
+    "noise_source": "Exactly those final before-only 60-second confirmations at the same workload/rate/identity; never reused as the fresh before comparison triplet",
+    "fresh_route_order_by_repetition": [
+      [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ],
+      [
+        "managed",
+        "direct",
+        "after",
+        "before"
+      ],
+      [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ]
+    ]
+  },
+  "descriptive_grid": {
+    "rate_formula": "min(5 * concurrency, provider_final_before_anchor_rate)",
+    "points": [
+      {
+        "concurrency": 1,
+        "seconds": 60
+      },
+      {
+        "concurrency": 4,
+        "seconds": 20
+      },
+      {
+        "concurrency": 8,
+        "seconds": 20
+      }
+    ],
+    "fresh_processes_per_route_point": 1,
+    "repetition": 0,
+    "same_rates_durations_inputs_across_routes": true,
+    "noise_or_significance_claim": false,
+    "candidate_dependent_retune": false,
+    "p99_minimum_successful_observations_per_slice": 100
+  },
+  "population_basis": {
+    "condition": "Final before anchor >= 40 logical operations/s; otherwise recalculate exact counts from its frozen rate",
+    "scheduler_formula": "ceil(seconds * 1e9 / round(1e9 / rate)) + 1",
+    "rows": [
+      {
+        "concurrency": 1,
+        "rate": 5,
+        "seconds": 60,
+        "planned_operations": 301,
+        "cycles": 151,
+        "pages": 150
+      },
+      {
+        "concurrency": 4,
+        "rate": 20,
+        "seconds": 20,
+        "planned_operations": 401,
+        "cycles": 201,
+        "pages": 200
+      },
+      {
+        "concurrency": 8,
+        "rate": 40,
+        "seconds": 20,
+        "planned_operations": 801,
+        "cycles": 401,
+        "pages": 400
+      }
+    ],
+    "actual_measurement": false
+  },
+  "retained_scope": [
+    "Physical pool, durability, CPU masks, connection reuse and application resource limits remain those of the existing frozen provider driver.",
+    "The existing public 100-row PageProbe supplies separate profiling-only buffered-query evidence.",
+    "No full standalone cycle/page x all-concurrency triplet expansion is planned absent a concrete unresolved hotspot.",
+    "Earlier actual/preparation cells keep their original durations and verdicts; no relabeling.",
+    "Final provider rate, concrete cell paths, selection hashes and before-only noise receipt hashes must be bound after current calibration completes and before product edits/after measurements."
+  ],
+  "source_reviews": {
+    "root": "passed",
+    "perf01_protocols": "passed",
+    "scope": "Source/hash review only; no execution or final selection/noise acceptance"
+  }
+}

@@ -291,3 +291,41 @@ and shared capacity wrappers; the A02 note was read back byte-for-byte. Product
 runtime remains unchanged main ea5 and driver aa3399f. Final frozen-execution.json
 is still absent. **0/10 long segments are credited; no runtime performance gain
 or final acceptance is claimed.** Continue the authorized task after this checkpoint.
+
+### Recovery checkpoint: completed target validation and live calibration
+
+Recovered at 2026-11-19T12:57:29.573020+00:00. The 120-second target-journal PostgreSQL diagnostic
+completed at 2026-11-19T12:37:48.497253Z with 20,522/20,522 correct operations,
+arrival p99 74.715633 ms, valid generation and service checks, an independent
+10,261-commit durable oracle, 16 successful same-process recovery operations,
+and complete consumer/database/server release. The complete journal/receipt
+audit is in `observations-before/db-target-journal-001/`; this is test-harness
+validation, never a product performance gain. No repeat is required.
+
+SQLite's final compact-v5-target calibration completed three passing 60-second
+processes at 50/s, each 3,001/3,001, arrival p99
+295.961647/219.822617/168.307978 ms. The policy-derived long rate is 40/s with
+16 slots. Codec final004 completed three passing 60-second processes at
+384/s, each 23,080/23,080; its long rate is 307/s with two workers. Exact
+controllers and selections are retained under observations-before. Failed
+higher points remain unchanged. Codec short comparisons remain their separately
+declared 134/s one-worker and 268/s two-worker cells; they need their own
+before-only noise and must use actual producer before-004.
+
+The original PostgreSQL final-v5 controller is still live: its files progressed
+during recovery, even though a new command's PID namespace cannot observe the
+old process tree. It must not be duplicated or terminated based on that local
+PID inventory. At this checkpoint it has 9 recorded cells and
+controller state `running`. Wait for its immutable selection before the
+next exclusive workload. The database Python controller itself covers only
+SQLite/PostgreSQL; inspect for any further outer-shell activity before starting
+the remaining final protocol calibration and before-only noise.
+
+Current product/test commit is ce2a3c75cbd535490897d062b6cbb7c095408307. Runtime
+implementation and native source still equal fixed main ea5fa528. The policy4,
+A21, DB final driver, before codec producer and current kernel-boot hashes all
+matched their recorded inputs on recovery. The historical A02 concurrent
+Native AOT borrowed-resolver-handle failure remains unfixed baseline evidence.
+`frozen-execution.json` remains pending; **0/10 long segments are credited**.
+Do not restart completed calibration, claim optimization gains, merge, or publish
+until the actual remaining comparisons, ten long segments and required gates pass.

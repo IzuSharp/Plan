@@ -1,0 +1,935 @@
+{
+  "task": "Perf-01",
+  "created_utc": "2026-11-19T12:36:38.307393+00:00",
+  "status": "preparation-only after subsequent HTTPX target retention correction",
+  "original_directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4",
+  "selection_sha256": "0e705ae765d56c03814b10f8e6e3865fce1d4b34028f9200ec44dcc25e762c75",
+  "controller_sha256": "9438f318b8655dc8bfe5495b468005f385917c477b1aeb351d99b88b84da2210",
+  "original_cell_validity_unchanged": true,
+  "noise_extraction_executed": false,
+  "long_credit_seconds": 0,
+  "fresh_final_cohort_required": "compact-v5-target",
+  "confirmations": [
+    {
+      "cell": {
+        "commands": [
+          [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+            "--package-probe",
+            "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+            "--provider",
+            "postgresql",
+            "--protocol",
+            "http1",
+            "--scenario",
+            "mixed",
+            "--stage",
+            "short",
+            "--variant",
+            "before",
+            "--route",
+            "nativeweave-aot-rust",
+            "--rate",
+            "180",
+            "--seconds",
+            "60",
+            "--concurrency",
+            "16",
+            "--seed",
+            "20261119",
+            "--warmup",
+            "16",
+            "--idle-seconds",
+            "5",
+            "--recovery-requests",
+            "16",
+            "--continue-classified-overload",
+            "--compact-observation",
+            "--generator-cpus",
+            "0,1",
+            "--max-p99-ms",
+            "500",
+            "--max-rss-mib",
+            "256.0",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/14-confirmation-0-180",
+            "--isolation-note",
+            "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+            "--observer",
+            "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+            "--postgres-bin",
+            "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+          ]
+        ],
+        "cpu_percent_one_core": 84.3948648809647,
+        "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/14-confirmation-0-180",
+        "end_utc": "2026-11-19T12:17:08.351815+00:00",
+        "exit_code": 0,
+        "frozen_inputs_sha256": "cd28ab262c3eabb12ff77fe7d3e9f2c34ab2b33f43d37ba30a64a6cb3d411fa2",
+        "index": 14,
+        "invalid_reasons": [],
+        "offered": 10801,
+        "p99_ns": 101687186,
+        "phase": "confirmation-0",
+        "qualifies": true,
+        "rate": 180,
+        "rss_peak_bytes": 46092288,
+        "seconds": 60,
+        "start_utc": "2026-11-19T12:15:48.898641+00:00",
+        "state": "completed",
+        "successes": 10801,
+        "summary_sha256": "716e30e871b4c7c1a1635f61c4fa1d37e193eb54396aa83202ca7b6351c451ce",
+        "throughput": 179.91137963672708,
+        "valid": true
+      },
+      "summary": {
+        "successful": 10801,
+        "offered": 10801,
+        "outcomes": {
+          "ok": 10801
+        },
+        "by_kind": {
+          "cycle": {
+            "offered": 5401,
+            "outcomes": {
+              "ok": 5401
+            },
+            "p50_ns": 36996725,
+            "p95_ns": 68376786,
+            "p99_ns": 119785718,
+            "successful": 5401
+          },
+          "list": {
+            "offered": 5400,
+            "outcomes": {
+              "ok": 5400
+            },
+            "p50_ns": 9433778,
+            "p95_ns": 24900850,
+            "p99_ns": 54927896,
+            "successful": 5400
+          }
+        },
+        "p50_ns": 21765530,
+        "p95_ns": 59064452,
+        "p99_ns": 101687186,
+        "provider_errors": {
+          "availability": "measured",
+          "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+          "observed_exceptions": 0,
+          "provider_code_counts": {},
+          "sqlite_busy": null,
+          "sqlite_locked": null
+        },
+        "business_retry_attempts": 0,
+        "durable_oracle": {
+          "attachments": 0,
+          "items": 5537,
+          "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+          "operations": 5537,
+          "outbox": 5537,
+          "passed": true,
+          "unique_blobs_verified": 0
+        },
+        "persisted_before_recovery": {
+          "availability": "measured",
+          "committed_operations_by_phase": {
+            "measurement": 5401,
+            "seed": 128,
+            "warmup": 8
+          },
+          "method": "Separate SQLite/psql SELECTs after measured dispatch; no application counters",
+          "monotonic_ns": 22000926209145,
+          "persisted_rows": {
+            "items": 5537,
+            "operations": 5537,
+            "outbox": 5537
+          },
+          "scope": "Committed mutation rows visible to the independent reader; paging has no mutation. Exact content/cardinality acceptance remains the unchanged B23 durable oracle.",
+          "utc": "2026-11-19T12:16:54.713885+00:00"
+        },
+        "closed": {
+          "consumerResourcesReleased": true,
+          "consumerStatus": "Succeeded",
+          "databaseResourcesReleased": true,
+          "databaseStatus": "Succeeded",
+          "serverState": "Disposed"
+        }
+      },
+      "application_instance": {
+        "pid": 5896,
+        "start_ticks": 2193880
+      },
+      "loaded_files": {
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService": {
+          "expected_sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3",
+          "method": "Actual /proc/application_pid/exe after READY, including taskset exec replacement",
+          "route_executable": "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService",
+          "sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3"
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnativeweave_server.so": {
+          "executable_virtual_bytes": 4804608,
+          "sha256": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+          "virtual_mapped_bytes": 6778880
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_postgresql.so": {
+          "executable_virtual_bytes": 4362240,
+          "sha256": "b0510d35c2b7b633a9aade7a5d3ad9a74498b54fbe23863c770881e38442a6f3",
+          "virtual_mapped_bytes": 6246400
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_sqlite.so": {
+          "executable_virtual_bytes": 4210688,
+          "sha256": "7254f8e490f19637701d92523c2ba08e0cbdfdbe4c5f28173d4215b5f303da8d",
+          "virtual_mapped_bytes": 5414912
+        }
+      },
+      "driver_source": {
+        "commit": "aa3399f0418a6d0910cc56697abfaa3769f32b54",
+        "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave",
+        "scope_status": ""
+      },
+      "dataset_sha256": "f632234232bd9d06fa543965f1fa2db75cafadfe8cd8ed3e6258b97ae2fc114b",
+      "source_files": {
+        "/usr/bin/taskset": "0c34de807bc9c617406360836fca2c7505eb86ede4df5a34854bde6eeddad9f3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/cell_worker.py": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/run.py": "bc7d7ab12f551a3486b4aaf986f730889acd9691142fd070643c6f321cb05f9e",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_affinity.py": "b8ea966ec3d763126afc70ccf87b988263d8c0f37dbf384d70653651225a02ca",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_resources.py": "a0b5ff1978b1fb56812dc8202560cbbc8e6a494be4fbc7ecb963031f2876a2b9",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py": "92516d58fac92a206e0ef2e628c9799b6d537f40ffc8fa82bc2d1789beada198",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/target.py": "48073074eb52b5fc924e7aecab482d82d574cec4c703f0e9c11a9aecafae1e57",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py": "e59f692009cd2233e0a94a17ce1dea6a399b0da76a929a43d8e240407bc29ec5",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Reference.TaskService/golden.py": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/initdb": "36b09d93274fcb9821de088fb0e81a264976b33b56257ebc5cf066b36e4fa127",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/pg_ctl": "727d0181300433363a781a00d84041efdac5a9ab12b91a2c19af7eaee28a76ac",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/postgres": "c9007680bcc15ee4d371f9c02857527f2e55bc16c9ab316bd536b280f40bc525",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/psql": "3d9d9a37cd12e5a85425a86240efc09aae50d00a4bab2d126e4b05f5806fd41c",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h11/__init__.py": "88ed4ace448ee36c99e9f7e0f953206f1fd9553586518d349d16045a7facde46",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h2/__init__.py": "1baaac023c2da4d25451ad290ea0909519ca9eeef92b9dc13cfc61f338252bae",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hpack/__init__.py": "8d7e285593c15d356e93f6b7c6856a51bb93e2cd6f95e7d74a091e5587b71471",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpcore/__init__.py": "f644ff92a0a10822544c7c30db866647f7b371d6e94585a4b03fa060dce464ff",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpx/__init__.py": "0ac6997bac998f4ac783adf6d8058a587193315afdb718047c3e4fdff46bcfad",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hyperframe/__init__.py": "43f3017642040964cbbe4b0e5e0e67607517f2303c861a10b2e8fa394436e252"
+      }
+    },
+    {
+      "cell": {
+        "commands": [
+          [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+            "--package-probe",
+            "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+            "--provider",
+            "postgresql",
+            "--protocol",
+            "http1",
+            "--scenario",
+            "mixed",
+            "--stage",
+            "short",
+            "--variant",
+            "before",
+            "--route",
+            "nativeweave-aot-rust",
+            "--rate",
+            "180",
+            "--seconds",
+            "60",
+            "--concurrency",
+            "16",
+            "--seed",
+            "20261119",
+            "--warmup",
+            "16",
+            "--idle-seconds",
+            "5",
+            "--recovery-requests",
+            "16",
+            "--continue-classified-overload",
+            "--compact-observation",
+            "--generator-cpus",
+            "0,1",
+            "--max-p99-ms",
+            "500",
+            "--max-rss-mib",
+            "256.0",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/15-confirmation-1-180",
+            "--isolation-note",
+            "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+            "--observer",
+            "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+            "--postgres-bin",
+            "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+          ]
+        ],
+        "cpu_percent_one_core": 83.0815438172161,
+        "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/15-confirmation-1-180",
+        "end_utc": "2026-11-19T12:18:27.386707+00:00",
+        "exit_code": 0,
+        "frozen_inputs_sha256": "021284166956e2a7e314fe03510f129bd7641793e3ab63576cb8c57f075683ae",
+        "index": 15,
+        "invalid_reasons": [],
+        "offered": 10801,
+        "p99_ns": 100874169,
+        "phase": "confirmation-1",
+        "qualifies": true,
+        "rate": 180,
+        "rss_peak_bytes": 45006848,
+        "seconds": 60,
+        "start_utc": "2026-11-19T12:17:08.357178+00:00",
+        "state": "completed",
+        "successes": 10801,
+        "summary_sha256": "445e88f8e1efc32622ab6eed2739cc1c74218409748a78d44a53a3872fd651db",
+        "throughput": 179.85117059003156,
+        "valid": true
+      },
+      "summary": {
+        "successful": 10801,
+        "offered": 10801,
+        "outcomes": {
+          "ok": 10801
+        },
+        "by_kind": {
+          "cycle": {
+            "offered": 5401,
+            "outcomes": {
+              "ok": 5401
+            },
+            "p50_ns": 35671940,
+            "p95_ns": 65949483,
+            "p99_ns": 126159644,
+            "successful": 5401
+          },
+          "list": {
+            "offered": 5400,
+            "outcomes": {
+              "ok": 5400
+            },
+            "p50_ns": 9164355,
+            "p95_ns": 24189191,
+            "p99_ns": 63636491,
+            "successful": 5400
+          }
+        },
+        "p50_ns": 21065868,
+        "p95_ns": 58232671,
+        "p99_ns": 100874169,
+        "provider_errors": {
+          "availability": "measured",
+          "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+          "observed_exceptions": 0,
+          "provider_code_counts": {},
+          "sqlite_busy": null,
+          "sqlite_locked": null
+        },
+        "business_retry_attempts": 0,
+        "durable_oracle": {
+          "attachments": 0,
+          "items": 5537,
+          "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+          "operations": 5537,
+          "outbox": 5537,
+          "passed": true,
+          "unique_blobs_verified": 0
+        },
+        "persisted_before_recovery": {
+          "availability": "measured",
+          "committed_operations_by_phase": {
+            "measurement": 5401,
+            "seed": 128,
+            "warmup": 8
+          },
+          "method": "Separate SQLite/psql SELECTs after measured dispatch; no application counters",
+          "monotonic_ns": 22079846576303,
+          "persisted_rows": {
+            "items": 5537,
+            "operations": 5537,
+            "outbox": 5537
+          },
+          "scope": "Committed mutation rows visible to the independent reader; paging has no mutation. Exact content/cardinality acceptance remains the unchanged B23 durable oracle.",
+          "utc": "2026-11-19T12:18:13.634251+00:00"
+        },
+        "closed": {
+          "consumerResourcesReleased": true,
+          "consumerStatus": "Succeeded",
+          "databaseResourcesReleased": true,
+          "databaseStatus": "Succeeded",
+          "serverState": "Disposed"
+        }
+      },
+      "application_instance": {
+        "pid": 6266,
+        "start_ticks": 2201790
+      },
+      "loaded_files": {
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService": {
+          "expected_sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3",
+          "method": "Actual /proc/application_pid/exe after READY, including taskset exec replacement",
+          "route_executable": "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService",
+          "sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3"
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnativeweave_server.so": {
+          "executable_virtual_bytes": 4804608,
+          "sha256": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+          "virtual_mapped_bytes": 6778880
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_postgresql.so": {
+          "executable_virtual_bytes": 4362240,
+          "sha256": "b0510d35c2b7b633a9aade7a5d3ad9a74498b54fbe23863c770881e38442a6f3",
+          "virtual_mapped_bytes": 6246400
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_sqlite.so": {
+          "executable_virtual_bytes": 4210688,
+          "sha256": "7254f8e490f19637701d92523c2ba08e0cbdfdbe4c5f28173d4215b5f303da8d",
+          "virtual_mapped_bytes": 5414912
+        }
+      },
+      "driver_source": {
+        "commit": "aa3399f0418a6d0910cc56697abfaa3769f32b54",
+        "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave",
+        "scope_status": ""
+      },
+      "dataset_sha256": "f632234232bd9d06fa543965f1fa2db75cafadfe8cd8ed3e6258b97ae2fc114b",
+      "source_files": {
+        "/usr/bin/taskset": "0c34de807bc9c617406360836fca2c7505eb86ede4df5a34854bde6eeddad9f3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/cell_worker.py": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/run.py": "bc7d7ab12f551a3486b4aaf986f730889acd9691142fd070643c6f321cb05f9e",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_affinity.py": "b8ea966ec3d763126afc70ccf87b988263d8c0f37dbf384d70653651225a02ca",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_resources.py": "a0b5ff1978b1fb56812dc8202560cbbc8e6a494be4fbc7ecb963031f2876a2b9",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py": "92516d58fac92a206e0ef2e628c9799b6d537f40ffc8fa82bc2d1789beada198",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/target.py": "48073074eb52b5fc924e7aecab482d82d574cec4c703f0e9c11a9aecafae1e57",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py": "e59f692009cd2233e0a94a17ce1dea6a399b0da76a929a43d8e240407bc29ec5",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Reference.TaskService/golden.py": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/initdb": "36b09d93274fcb9821de088fb0e81a264976b33b56257ebc5cf066b36e4fa127",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/pg_ctl": "727d0181300433363a781a00d84041efdac5a9ab12b91a2c19af7eaee28a76ac",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/postgres": "c9007680bcc15ee4d371f9c02857527f2e55bc16c9ab316bd536b280f40bc525",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/psql": "3d9d9a37cd12e5a85425a86240efc09aae50d00a4bab2d126e4b05f5806fd41c",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h11/__init__.py": "88ed4ace448ee36c99e9f7e0f953206f1fd9553586518d349d16045a7facde46",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h2/__init__.py": "1baaac023c2da4d25451ad290ea0909519ca9eeef92b9dc13cfc61f338252bae",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hpack/__init__.py": "8d7e285593c15d356e93f6b7c6856a51bb93e2cd6f95e7d74a091e5587b71471",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpcore/__init__.py": "f644ff92a0a10822544c7c30db866647f7b371d6e94585a4b03fa060dce464ff",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpx/__init__.py": "0ac6997bac998f4ac783adf6d8058a587193315afdb718047c3e4fdff46bcfad",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hyperframe/__init__.py": "43f3017642040964cbbe4b0e5e0e67607517f2303c861a10b2e8fa394436e252"
+      }
+    },
+    {
+      "cell": {
+        "commands": [
+          [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+            "--package-probe",
+            "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+            "--provider",
+            "postgresql",
+            "--protocol",
+            "http1",
+            "--scenario",
+            "mixed",
+            "--stage",
+            "short",
+            "--variant",
+            "before",
+            "--route",
+            "nativeweave-aot-rust",
+            "--rate",
+            "180",
+            "--seconds",
+            "60",
+            "--concurrency",
+            "16",
+            "--seed",
+            "20261119",
+            "--warmup",
+            "16",
+            "--idle-seconds",
+            "5",
+            "--recovery-requests",
+            "16",
+            "--continue-classified-overload",
+            "--compact-observation",
+            "--generator-cpus",
+            "0,1",
+            "--max-p99-ms",
+            "500",
+            "--max-rss-mib",
+            "256.0",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/16-confirmation-2-180",
+            "--isolation-note",
+            "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+            "--observer",
+            "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+            "--postgres-bin",
+            "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+          ]
+        ],
+        "cpu_percent_one_core": 84.54921794024864,
+        "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/16-confirmation-2-180",
+        "end_utc": "2026-11-19T12:19:47.629378+00:00",
+        "exit_code": 0,
+        "frozen_inputs_sha256": "822b1515fb458375f1bcad24e2e7410ee718d76b333ad7ccdd008403326eed4d",
+        "index": 16,
+        "invalid_reasons": [],
+        "offered": 10801,
+        "p99_ns": 138499745,
+        "phase": "confirmation-2",
+        "qualifies": true,
+        "rate": 180,
+        "rss_peak_bytes": 45101056,
+        "seconds": 60,
+        "start_utc": "2026-11-19T12:18:27.392920+00:00",
+        "state": "completed",
+        "successes": 10801,
+        "summary_sha256": "c3f010c3f23e13375ba49e10d655aad036583aca4c3b38e8338dfac8cf3e5d7f",
+        "throughput": 179.69599045943121,
+        "valid": true
+      },
+      "summary": {
+        "successful": 10801,
+        "offered": 10801,
+        "outcomes": {
+          "ok": 10801
+        },
+        "by_kind": {
+          "cycle": {
+            "offered": 5401,
+            "outcomes": {
+              "ok": 5401
+            },
+            "p50_ns": 36916499,
+            "p95_ns": 84504647,
+            "p99_ns": 163188691,
+            "successful": 5401
+          },
+          "list": {
+            "offered": 5400,
+            "outcomes": {
+              "ok": 5400
+            },
+            "p50_ns": 9607941,
+            "p95_ns": 32128330,
+            "p99_ns": 81161962,
+            "successful": 5400
+          }
+        },
+        "p50_ns": 22716112,
+        "p95_ns": 65295221,
+        "p99_ns": 138499745,
+        "provider_errors": {
+          "availability": "measured",
+          "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+          "observed_exceptions": 0,
+          "provider_code_counts": {},
+          "sqlite_busy": null,
+          "sqlite_locked": null
+        },
+        "business_retry_attempts": 0,
+        "durable_oracle": {
+          "attachments": 0,
+          "items": 5537,
+          "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+          "operations": 5537,
+          "outbox": 5537,
+          "passed": true,
+          "unique_blobs_verified": 0
+        },
+        "persisted_before_recovery": {
+          "availability": "measured",
+          "committed_operations_by_phase": {
+            "measurement": 5401,
+            "seed": 128,
+            "warmup": 8
+          },
+          "method": "Separate SQLite/psql SELECTs after measured dispatch; no application counters",
+          "monotonic_ns": 22159855257236,
+          "persisted_rows": {
+            "items": 5537,
+            "operations": 5537,
+            "outbox": 5537
+          },
+          "scope": "Committed mutation rows visible to the independent reader; paging has no mutation. Exact content/cardinality acceptance remains the unchanged B23 durable oracle.",
+          "utc": "2026-11-19T12:19:33.642933+00:00"
+        },
+        "closed": {
+          "consumerResourcesReleased": true,
+          "consumerStatus": "Succeeded",
+          "databaseResourcesReleased": true,
+          "databaseStatus": "Succeeded",
+          "serverState": "Disposed"
+        }
+      },
+      "application_instance": {
+        "pid": 6633,
+        "start_ticks": 2209789
+      },
+      "loaded_files": {
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService": {
+          "expected_sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3",
+          "method": "Actual /proc/application_pid/exe after READY, including taskset exec replacement",
+          "route_executable": "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService",
+          "sha256": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3"
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnativeweave_server.so": {
+          "executable_virtual_bytes": 4804608,
+          "sha256": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+          "virtual_mapped_bytes": 6778880
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_postgresql.so": {
+          "executable_virtual_bytes": 4362240,
+          "sha256": "b0510d35c2b7b633a9aade7a5d3ad9a74498b54fbe23863c770881e38442a6f3",
+          "virtual_mapped_bytes": 6246400
+        },
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_sqlite.so": {
+          "executable_virtual_bytes": 4210688,
+          "sha256": "7254f8e490f19637701d92523c2ba08e0cbdfdbe4c5f28173d4215b5f303da8d",
+          "virtual_mapped_bytes": 5414912
+        }
+      },
+      "driver_source": {
+        "commit": "aa3399f0418a6d0910cc56697abfaa3769f32b54",
+        "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave",
+        "scope_status": ""
+      },
+      "dataset_sha256": "f632234232bd9d06fa543965f1fa2db75cafadfe8cd8ed3e6258b97ae2fc114b",
+      "source_files": {
+        "/usr/bin/taskset": "0c34de807bc9c617406360836fca2c7505eb86ede4df5a34854bde6eeddad9f3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/cell_worker.py": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/run.py": "bc7d7ab12f551a3486b4aaf986f730889acd9691142fd070643c6f321cb05f9e",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_affinity.py": "b8ea966ec3d763126afc70ccf87b988263d8c0f37dbf384d70653651225a02ca",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/perf01_resources.py": "a0b5ff1978b1fb56812dc8202560cbbc8e6a494be4fbc7ecb963031f2876a2b9",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py": "92516d58fac92a206e0ef2e628c9799b6d537f40ffc8fa82bc2d1789beada198",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/target.py": "48073074eb52b5fc924e7aecab482d82d574cec4c703f0e9c11a9aecafae1e57",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py": "e59f692009cd2233e0a94a17ce1dea6a399b0da76a929a43d8e240407bc29ec5",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Reference.TaskService/golden.py": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/initdb": "36b09d93274fcb9821de088fb0e81a264976b33b56257ebc5cf066b36e4fa127",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/pg_ctl": "727d0181300433363a781a00d84041efdac5a9ab12b91a2c19af7eaee28a76ac",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/postgres": "c9007680bcc15ee4d371f9c02857527f2e55bc16c9ab316bd536b280f40bc525",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin/psql": "3d9d9a37cd12e5a85425a86240efc09aae50d00a4bab2d126e4b05f5806fd41c",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h11/__init__.py": "88ed4ace448ee36c99e9f7e0f953206f1fd9553586518d349d16045a7facde46",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/h2/__init__.py": "1baaac023c2da4d25451ad290ea0909519ca9eeef92b9dc13cfc61f338252bae",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hpack/__init__.py": "8d7e285593c15d356e93f6b7c6856a51bb93e2cd6f95e7d74a091e5587b71471",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpcore/__init__.py": "f644ff92a0a10822544c7c30db866647f7b371d6e94585a4b03fa060dce464ff",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/httpx/__init__.py": "0ac6997bac998f4ac783adf6d8058a587193315afdb718047c3e4fdff46bcfad",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/python-libs/hyperframe/__init__.py": "43f3017642040964cbbe4b0e5e0e67607517f2303c861a10b2e8fa394436e252"
+      }
+    }
+  ],
+  "failed_points": [
+    {
+      "commands": [
+        [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+          "--package-probe",
+          "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+          "--provider",
+          "postgresql",
+          "--protocol",
+          "http1",
+          "--scenario",
+          "mixed",
+          "--stage",
+          "short",
+          "--variant",
+          "before",
+          "--route",
+          "nativeweave-aot-rust",
+          "--rate",
+          "320",
+          "--seconds",
+          "30",
+          "--concurrency",
+          "16",
+          "--seed",
+          "20261119",
+          "--warmup",
+          "16",
+          "--idle-seconds",
+          "5",
+          "--recovery-requests",
+          "16",
+          "--continue-classified-overload",
+          "--compact-observation",
+          "--generator-cpus",
+          "0,1",
+          "--max-p99-ms",
+          "500",
+          "--max-rss-mib",
+          "256.0",
+          "--output",
+          "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/06-ladder-320",
+          "--isolation-note",
+          "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+          "--observer",
+          "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+          "--postgres-bin",
+          "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+        ]
+      ],
+      "cpu_percent_one_core": 95.04622571148327,
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/06-ladder-320",
+      "end_utc": "2026-11-19T12:08:37.167730+00:00",
+      "exit_code": 1,
+      "frozen_inputs_sha256": "1f1a74526d1010ce0de165a8a4da5037e142bfed6a68f4484140dc4cc449e40f",
+      "index": 6,
+      "invalid_reasons": [
+        "generator saturation: in-flight capacity"
+      ],
+      "offered": 9601,
+      "p99_ns": 2776917553,
+      "phase": "ladder",
+      "qualifies": false,
+      "rate": 320,
+      "rss_peak_bytes": 55181312,
+      "seconds": 30,
+      "start_utc": "2026-11-19T12:07:47.140045+00:00",
+      "state": "completed",
+      "successes": 6853,
+      "summary_sha256": "4e93a7230d3f15a062e3e755b2f87202c3d305924c91534c4a4fce5cf228f79b",
+      "throughput": 212.87387751885115,
+      "valid": false
+    },
+    {
+      "commands": [
+        [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+          "--package-probe",
+          "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+          "--provider",
+          "postgresql",
+          "--protocol",
+          "http1",
+          "--scenario",
+          "mixed",
+          "--stage",
+          "short",
+          "--variant",
+          "before",
+          "--route",
+          "nativeweave-aot-rust",
+          "--rate",
+          "240",
+          "--seconds",
+          "30",
+          "--concurrency",
+          "16",
+          "--seed",
+          "20261119",
+          "--warmup",
+          "16",
+          "--idle-seconds",
+          "5",
+          "--recovery-requests",
+          "16",
+          "--continue-classified-overload",
+          "--compact-observation",
+          "--generator-cpus",
+          "0,1",
+          "--max-p99-ms",
+          "500",
+          "--max-rss-mib",
+          "256.0",
+          "--output",
+          "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/07-refine-240",
+          "--isolation-note",
+          "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+          "--observer",
+          "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+          "--postgres-bin",
+          "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+        ]
+      ],
+      "cpu_percent_one_core": 94.83585517432266,
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/07-refine-240",
+      "end_utc": "2026-11-19T12:09:26.807652+00:00",
+      "exit_code": 1,
+      "frozen_inputs_sha256": "3b774caa23db3f7e552057f17a79fecf2aa12876a059fcc96b715dabe83299ee",
+      "index": 7,
+      "invalid_reasons": [
+        "generator saturation: in-flight capacity"
+      ],
+      "offered": 7201,
+      "p99_ns": 2551030011,
+      "phase": "refine",
+      "qualifies": false,
+      "rate": 240,
+      "rss_peak_bytes": 54472704,
+      "seconds": 30,
+      "start_utc": "2026-11-19T12:08:37.172222+00:00",
+      "state": "completed",
+      "successes": 6890,
+      "summary_sha256": "6b2b2565504ff1d86f94f9992385cad0d96f477b65806c57c7ca78032f6bead5",
+      "throughput": 213.17688586336095,
+      "valid": false
+    },
+    {
+      "commands": [
+        [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+          "--package-probe",
+          "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+          "--provider",
+          "postgresql",
+          "--protocol",
+          "http1",
+          "--scenario",
+          "mixed",
+          "--stage",
+          "short",
+          "--variant",
+          "before",
+          "--route",
+          "nativeweave-aot-rust",
+          "--rate",
+          "220",
+          "--seconds",
+          "30",
+          "--concurrency",
+          "16",
+          "--seed",
+          "20261119",
+          "--warmup",
+          "16",
+          "--idle-seconds",
+          "5",
+          "--recovery-requests",
+          "16",
+          "--continue-classified-overload",
+          "--compact-observation",
+          "--generator-cpus",
+          "0,1",
+          "--max-p99-ms",
+          "500",
+          "--max-rss-mib",
+          "256.0",
+          "--output",
+          "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/09-refine-220",
+          "--isolation-note",
+          "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+          "--observer",
+          "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+          "--postgres-bin",
+          "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+        ]
+      ],
+      "cpu_percent_one_core": 96.62810872588824,
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/09-refine-220",
+      "end_utc": "2026-11-19T12:10:59.346762+00:00",
+      "exit_code": 0,
+      "frozen_inputs_sha256": "8caff80504abc8400ba65686fb83adf7c4f9db2e7eebeb61674ac30aea49a954",
+      "index": 9,
+      "invalid_reasons": [],
+      "offered": 6601,
+      "p99_ns": 646199172,
+      "phase": "refine",
+      "qualifies": false,
+      "rate": 220,
+      "rss_peak_bytes": 53755904,
+      "seconds": 30,
+      "start_utc": "2026-11-19T12:10:12.832010+00:00",
+      "state": "completed",
+      "successes": 6601,
+      "summary_sha256": "f948d0498bc0728ab2d2cbd0d301cb16dd3d15e29bb3d4bb3a5f3605b76fa127",
+      "throughput": 218.0575288919553,
+      "valid": true
+    },
+    {
+      "commands": [
+        [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Database/run.py",
+          "--package-probe",
+          "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+          "--provider",
+          "postgresql",
+          "--protocol",
+          "http1",
+          "--scenario",
+          "mixed",
+          "--stage",
+          "short",
+          "--variant",
+          "before",
+          "--route",
+          "nativeweave-aot-rust",
+          "--rate",
+          "200",
+          "--seconds",
+          "60",
+          "--concurrency",
+          "16",
+          "--seed",
+          "20261119",
+          "--warmup",
+          "16",
+          "--idle-seconds",
+          "5",
+          "--recovery-requests",
+          "16",
+          "--continue-classified-overload",
+          "--compact-observation",
+          "--generator-cpus",
+          "0,1",
+          "--max-p99-ms",
+          "500",
+          "--max-rss-mib",
+          "256.0",
+          "--output",
+          "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200",
+          "--isolation-note",
+          "Exclusive root measurement: service and database CPUs 2,3; generator CPUs 0,1; other agents source-only CPU8; no concurrent builds or workloads.",
+          "--observer",
+          "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+          "--postgres-bin",
+          "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+        ]
+      ],
+      "cpu_percent_one_core": 90.00264111558873,
+      "directory": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v4/10-confirmation-0-200",
+      "end_utc": "2026-11-19T12:12:21.393953+00:00",
+      "exit_code": 1,
+      "frozen_inputs_sha256": "2cd1b7d1efd1f06f0010d068c496393a6bc6060419e1419009ebf0fbeaf9a49d",
+      "index": 10,
+      "invalid_reasons": [
+        "generator saturation: in-flight capacity"
+      ],
+      "offered": 12001,
+      "p99_ns": 3053415963,
+      "phase": "confirmation-0",
+      "qualifies": false,
+      "rate": 200,
+      "rss_peak_bytes": 63778816,
+      "seconds": 60,
+      "start_utc": "2026-11-19T12:10:59.351233+00:00",
+      "state": "completed",
+      "successes": 11884,
+      "summary_sha256": "976e7d52f4081b0725b250104cd98906b53e10a1fb4df56509c9c061c7b42d3e",
+      "throughput": 197.81925041446837,
+      "valid": false
+    }
+  ],
+  "scope": "Bounded completed metadata audit only; no raw operation/dataset scans, extractor, new workload or tests",
+  "checks": {
+    "prior_summary_frozen_plan_hashes_match": true,
+    "matching_dataset_settings_and_driver_producer_bindings": true,
+    "three_distinct_application_pid_start_pairs": true,
+    "raw_window_nonoverlap_not_recomputed": true
+  }
+}

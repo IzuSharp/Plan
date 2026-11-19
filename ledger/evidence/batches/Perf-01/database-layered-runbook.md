@@ -38,11 +38,27 @@ The initial before-only exploratory grid is
 them unchanged for after/direct/managed cells. An exploratory failure remains a
 failure and does not trigger a candidate-dependent retune.
 
-Use 60-second short cells. The anchor has three independent processes per route;
-the additional concurrency cells are descriptive single processes and cannot
-claim statistical significance. A slice needs at least 100 successes for p99;
-otherwise report it unavailable, or prospectively freeze a longer duration before
-any matched version is run. Preserve each overload/recovery row. A failed error/SLO/generator point
+Keep the formal C16 anchor at **three fresh 60-second processes per route**.
+For the descriptive grid, use **one 60-second process at C1** and **one 20-second
+process at each of C4 and C8** per route/provider. These durations are chosen
+prospectively before any product edit or after result and remain identical for
+before/after/direct/managed. The grid cannot claim statistical significance.
+
+For a final before anchor of at least 40/s, the declared rates are 5/s, 20/s and
+40/s at C1/C4/C8. The unchanged finite scheduler uses
+`ceil(seconds * 1e9 / round(1e9 / rate)) + 1` planned operations. Consequently:
+
+| Descriptive point | Duration | Planned operations | Cycle / page observations if all succeed |
+|---|---:|---:|---:|
+| C1 at 5/s | 60 s | 301 | 151 / 150 |
+| C4 at 20/s | 20 s | 401 | 201 / 200 |
+| C8 at 40/s | 20 s | 801 | 401 / 400 |
+
+These are prospective population calculations, not executed results. Recalculate
+from the actual frozen `min(5 * concurrency, anchor)` rate if the final anchor is
+lower. A slice needs at least 100 successes for p99; otherwise report it
+unavailable. No candidate-dependent rate or duration retune is permitted.
+Preserve each overload/recovery row. A failed error/SLO/generator point
 cannot establish a latency improvement; a generator-limited point does not bound
 server capacity. The selected maximum sustainable sampled rate is a separate
 result from fixed-arrival latency. NativeWeave, direct Rust and managed routes
@@ -75,6 +91,12 @@ PERF01_COMPARATORS="$PERF01_ROOT/perf01-build/comparators/comparators.json"
 
 perf01_db_cell() {
   local provider="$1" scene="$2" slots="$3" rate="$4" variant="$5" repeat="$6" output="$7"
+  local seconds
+  case "$slots" in
+    1|16) seconds=60 ;;
+    4|8) seconds=20 ;;
+    *) return 2 ;;
+  esac
   local package="$PERF01_BEFORE_PACKAGE"
   local -a route_args=() provider_args=()
   case "$variant" in
@@ -91,7 +113,7 @@ perf01_db_cell() {
   taskset -c 2,3 "$PERF01_PYTHON" "$PERF01_PRODUCT/tests/Perf01.Database/run.py" \
     --package-probe "$package" "${route_args[@]}" "${provider_args[@]}" \
     --provider "$provider" --protocol http1 --scenario "$scene" --stage short \
-    --variant "$variant" --repetition "$repeat" --rate "$rate" --seconds 60 \
+    --variant "$variant" --repetition "$repeat" --rate "$rate" --seconds "$seconds" \
     --concurrency "$slots" --warmup 16 --recovery-requests 16 --idle-seconds 5 \
     --seed 20261119 --max-p99-ms 500 --max-rss-mib 256 \
     --generator-cpus 0,1 --continue-classified-overload --compact-observation --output "$output" \
@@ -116,15 +138,16 @@ match the current confirmation shape; the ten formal long cells separately use
 idle, plus the common duration verifier.
 
 At each exploratory concurrency1/4/8 point, run only the declared repetition0
-matched order and label its metrics descriptive. Do not submit one such process
+matched order, with 60/20/20 seconds respectively, and label its metrics
+descriptive. Do not submit one such process
 as a three-process statistical cohort or reuse the anchor's noise band there.
 
 ## Freeze mixed-anchor noise before seeing after results
 
 Use the **final complete confirmation triplet**, not three favorable rows chosen
 from failed attempts. In each provider's finalized
-`perf01-evidence/calibration/before-PROVIDER-compact-v4` (or the explicitly named
-fresh final compact attempt), `selection.json` identifies the
+`perf01-evidence/calibration/before-PROVIDER-compact-v5-target` (or the explicitly
+named fresh final attempt with the same outcome-journal implementation), `selection.json` identifies the
 accepted rate and pins `controller.json`. The final three controller entries must
 be `confirmation-0`, `confirmation-1`, `confirmation-2`, all at that rate, each
 completed, valid and service-qualified. Require their summaries and raw A21 rows
@@ -338,3 +361,14 @@ scoped commands, process/window fields and existing extractor CLI. The two
 requested comparisons against the controller's previously recorded summary and
 frozen-input hashes are included. This follow-up was source-only; no extraction,
 test or load was run by the reviewer.
+
+The later 60/20/20-second descriptive-grid duration refinement is prospective,
+before any runtime candidate or after data. C16 formal comparison remains three
+fresh 60-second processes; no actual earlier cell is relabeled. The finite
+population basis above and `database-final-freeze-draft.json` are policy inputs,
+not completed measurements or frozen noise receipts.
+
+Root and the protocol-domain reviewer independently source-checked the final
+60/20/20-second grid, exact scheduler count formula, lower-anchor p99 rule and
+source-pinned domain draft. Both reported no blocker; neither ran this grid or
+any additional test/load to review the documentation change.

@@ -1,5 +1,13 @@
 # SQLite compact calibration selection and prepared noise extraction
 
+**Current status: preparation evidence.** After this receipt was recorded, the
+HTTPX target outcome-retention correction changed the DB measurement driver
+before final freeze. The original valid/invalid results below are preserved,
+but this compact-v4 selection is not the final paired-load/noise selection.
+`freeze-noise.sh` remains an unused historical recipe and must not be executed
+for the final cohort. Fresh compact-v5-target calibration will supply final
+rates and before-only noise inputs. No v4 noise receipt was generated.
+
 This is a read-only audit of the completed **before** SQLite calibration. The
 policy selected **54 offered business operations/s at concurrency 16** for the
 short mixed anchor and **43/s** for the paired long load. This records a sampled
