@@ -2,7 +2,7 @@
 
 ## Current state
 
-Status: real locked before packages/consumers built; domain drivers independently reviewed; first profiling and diagnostic calibration observations retained. Final execution configuration remains unfrozen. No product optimization has been applied. No performance improvement is claimed. No Perf-01 30-minute segment has started.
+Status (2026-11-19, latest detailed checkpoint at the end): **2 of 10 formal long groups accepted**: before HTTP and before gRPC115. Original gRPC128 and PostgreSQL144 long attempts remain invalid with zero credit. The immutable global freeze85061c4e and adopted gRPC amendment002 remain unchanged. The actual fixed-before automatic/deferred DB policy pair passed independent104-check validation with a measured scheduler-memory cost. Reviewed DB-only deferred calibration is prepared for publication/readback and launch. No C#/Rust product-runtime optimization has been applied; no product performance gain is claimed.
 
 The current user instruction authorizes this implementation and performance task; historical research-only scope text remains historical and is not rewritten.
 
@@ -18,24 +18,24 @@ The measured before version must be built from the product starting main commit 
 
 `ROOT` is `/workspace/scratch/01c249676f47` for this execution. Integration worktrees are `ROOT/.worktree/Perf-01-linux/{NativeWeave,Plan}` on `task/Perf-01-linux`. The immutable product source is `ROOT/.worktree/Perf-01-baseline-linux/NativeWeave`. Independent source/driver work uses `Perf-01-db-linux`, `Perf-01-protocol-linux` and `Perf-01-codec-linux` worktrees. Root owns shared implementation integration and the sole formal timing resource.
 
-Parallel agents currently prepare source analysis and test drivers only. Product implementation changes must wait for the measurement configuration freeze. Builds/profiling and formal timing do not overlap. Every valid segment requires exact source, driver, executable, package and loaded-native hashes.
+Root owns the sole measurement queue and shared runtime integration. Parallel work is currently limited to approved source preparation/review and remote archive upload. All five before long groups must be accepted before the first product-runtime optimization. Builds/profiling and formal timing do not overlap; source-only analysis may useCPU8 during calibration, and every other local task pauses during long segments. Every valid segment binds exact source, driver, executable, package and loaded-native hashes.
 
 ## Required execution
 
-Five representative mixed groups (PostgreSQL, SQLite, HTTP, gRPC, compression/decompression) each need an actual 1,800-second before and after segment: **0 of 10 completed, 0 effective seconds credited**. Warmup, calibration and idle/drain are separate. Interrupted and invalid attempts remain immutable and receive no passing credit. Existing Task-07 segments do not match this baseline and are not reused.
+Five representative mixed groups (PostgreSQL, SQLite, HTTP, gRPC, compression/decompression) each need an actual 1,800-second before and after segment: **2 of 10 accepted, 3604.192232408 effective seconds credited** (before HTTP1802.091185499s and before gRPC1151802.101046909s). Warmup, calibration and idle/drain are separate. Interrupted and invalid attempts remain immutable and receive no passing credit. Existing Task-07 segments do not match this baseline and are not reused.
 
 The prospective configuration must freeze machine/CPU, dependency/build settings, package closures, durable database state, TLS, data, pool/connection policy, operation mix, arrival/concurrency ladder, failure rules, service constraints and generator saturation checks. Same driver inputs apply to both product versions. A21 independent-process noise analysis is reused where applicable. Direct Rust rows need semantic parity; unavailable metrics remain unavailable.
 
 ## Environment recovery
 
-The execution host is Linux x64 / Debian 13 with nine available virtual CPU IDs. The prospective cohort pins every measured process tree to CPUs 2 and 3. A retained `.NET SDK 11.0.100` is available under `ROOT/../58d2a6adf1c3/dotnet-sdk`. Exact Rust 1.100.0, PostgreSQL 18.0 and local Native AOT linker prerequisites were installed/built successfully under `ROOT/perf01-toolchain`. Source `ROOT/perf01-toolchain/env.sh` for all reproduction commands. No remote Linux host tool is exposed. Physical-host scheduling and hardware power controls are unavailable; do not claim dedicated bare-metal isolation.
+The execution host is Linux x64 / Debian 13 with nine available virtual CPU IDs. The frozen cohort pins application/database work to CPUs2,3 and generation to CPUs0,1; ancillary source/supervision usesCPU8. A retained `.NET SDK 11.0.100` is available under `ROOT/../58d2a6adf1c3/dotnet-sdk`. Exact Rust 1.100.0, PostgreSQL 18.0 and local Native AOT linker prerequisites were installed/built successfully under `ROOT/perf01-toolchain`. Source `ROOT/perf01-toolchain/env.sh` for all reproduction commands. No remote Linux host tool is exposed. Physical-host scheduling and hardware power controls are unavailable; do not claim dedicated bare-metal isolation.
 
 The clean main baseline produced full B24 package closures, B21 package JIT/AOT applications, the identical B23 exception observer, the shared retirement AOT profiler, the complete A17 codec package/consumer checks and fresh direct Rust/managed database comparators. Protocol package server/client AOT builds passed, with review fixes being rebuilt separately. Build success is not a measured performance result. Exact local manifests:
 
 - `ROOT/perf01-build/before/native-stable/manifest.json` (fresh stable tool environment; native hashes also equal an earlier independent build).
 - `ROOT/perf01-build/before/packages/manifest.json`; use its complete **previous** feed, version `0.1.0-perf01.before.1`.
 - `ROOT/perf01-build/before/reference-002/progress.json` and `ROOT/perf01-build/before/db-observer/manifest.json`.
-- `ROOT/perf01-build/before/shared-profile/manifest.json` (profiling-only; not yet executed).
+- `ROOT/perf01-build/before/shared-profile/manifest.json` (profiling-only; actual later probe execution is recorded in the dated checkpoints).
 - `ROOT/perf01-build/comparators/comparators.json` (fresh actual golden checks passed; live HTTP/SQL measurement pending).
 - `ROOT/perf01-codec-checks/package-before-001/manifest.json` (clean source `ea5fa528`; A17 package/AOT/ordinary-edit-reuse/negative checks completed).
 
@@ -571,3 +571,50 @@ The DB-only wrapper was independently reviewed and integrated into NativeWeave67
 The reviewed command document database-gc-fixed-before-pair-001.json has SHA21b8f09254b41cbfe46f817d3fb61c0360b1470323b5191ef56c92e73c7d22a9. It binds two fresh120s PostgreSQL144/s C16 cells using the same before package,17282 operations,16 warmup,32 recovery and60s idle, differing only in automatic/deferred scheduler GC policy and output. The integration supervisor preserves actual exits, source/config/clean-driver checks, and each cell must pass the original service/valid/policy summary gates before the next cell. Completed commands still require independent pair validation; both cells have0 long credit. No new pair workload has started at this prepared checkpoint.
 
 All three full long raw bundles now passed local lossless streaming verification: HTTP1096540527 rawB→89512603 gzipB, gRPC270746833→23071607, invalid PostgreSQL4288946569→68250442. Every final compressed shard is below1000000B. Independent archive publication/readback is in progress; originals remain intact. Plan GC-result checkpointe4d2c43 passed CI44596251575. Stop all local archive/source work before executing the pair; connector-only operations using preloaded payloads do not use measurement-host resources.
+
+### Fixed-before policy pair commands completed 2026-11-19T19:38:31.166335+00:00
+
+Session96951 completed with outer exit0. Exact supervisor receipt ROOT/perf01-run/database-gc-fixed-before-pair-001-execution.json records actual start 2026-11-19T19:26:44.671776+00:00 and end 2026-11-19T19:33:37.212392+00:00. Both individual commands exited0 and passed valid/service/policy summary gates. Config21b8f092 was published/read back at Pland701e556166ada2ca11572f6190596df365f8ca4; its CI44598271600 passed. Raw outputs are ROOT/perf01-evidence/diagnostic/database-scheduler-gc-equivalence-001/{01-automatic,02-deferred}.
+
+Root read both finalized summaries:17282/17282 successes each,8641 cycles and8641 pages,8641 independently observed measurement commits, equal dataset SHAed18b71b187550b6c92f98057a5ecd1f56a6594719c94077e00717f4f87728bc, zero provider exceptions/business retries, and released consumer/database plus disposed server. Automatic/deferred p99 were123.159958/63.245867ms. These are single fixed-package diagnostic observations, not product before/after gains or a noise-qualified speedup. Worker-scope GC deltas were[1483,134,5] and[0,0,0], respectively; both restored automatic GC.
+
+Scheduler measurement RSS peaks were68648960B and115056640B: deferral costs46407680B (about44.26MiB) in this pair. The target/application retain ordinary GC. This smaller17282-entry plan does not validate full259526-entry long memory or late stalls, and target-owned sampling does not cover all scheduler postprocessing. The independent full-record/policy/artifact/equivalence audit is in progress; supervisor remains commands-completed-validation-pending, both cells have0 long credit. Accepted formal long groups remain2/10. No runtime changes.
+
+The exclusive pair window is released. Resume DB-only controller/amendment source preparation and raw archive upload. New before noise will use the three new-policy final60s calibration confirmations, with fresh identities and no old automatic pooling. Preserve PG144/C16 and SQLite40/C16 paired long rates and all service/dispatch/resource bounds. Do not start new measured cells until the source/command proposal has actual review and immutable publication.
+
+### Independent pair accepted; fresh DB calibration prepared 2026-11-19T19:51:08.028874+00:00
+
+Independent audit6946689, integrated44c3480, executed at19:43:50Z with exit0 and104 passing checks. It streamed all17282 records per cell against the identical dataset, checked actual before loaded binaries/native identities, separate persisted counts/recovery/drain/cleanup and source/plan/PID policy receipts. Maximum dispatch lag was12.640345ms automatic and19.613328ms deferred; neither exceeded100ms. Audit SHA5b0d75fed3ed26a06ed0d4ffd35196952eabfaf3627ec0bee93bb98acf981769. Root accepts the fixed-package policy gate with its measured46407680B scheduler RSS cost and incomplete whole-worker peak coverage. This grants0 long credit.
+
+The separate reviewed calibration snapshot is controller04a898d3e9340a85594dd4d4284fb3b6486299feca1b7d8bb6702c5743b889ae, policy7ab92f3a6b7cddac5b3f6a3bfb2ce138a5e45f0b60b3a59300054bb09b288057, command document06862edded915cc404d893972ce6b020088c6808ad9923c0fc74495921e32355, supervisorc78f38ce1680480f5a144a4ddcee91e7786404c48b6ef223aa37401f0c37684f. Source review is in checks/database-scheduler-gc-equivalence-001/calibration-source-review-001.json. It preserves the original low-to-high/refinement/three60s confirmation algorithm and all invalid rows. Fresh noise derives from the final complete three confirmations; PG144/SQLite40 long rates remain fixed and require separate actual-result-bound long amendment. No fresh calibration command has started at this checkpoint.
+
+NativeWeave67e13fd passed actual CI44596848599. Complete PG raw compressed bytes are preloaded outside the measurement host; archive-agent connector-only upload may continue during calibration. Source-only preparation onCPU8 is allowed by policy4; no build/profile/other load/local archive work may overlap the next calibration.
+
+### Public control projection after automatic review 2026-11-19T20:08:36.570580+00:00
+
+The large checkpoint publication was interrupted before any remote commit/ref update, then automatic approval review rejected a copied supervision receipt because it contained private process-registration token values. No fresh calibration has started. The safer public copies now remove only four `/owned_processes/*/token` fields across the two pair receipts. Original private measurement files remain unchanged; original/public SHA and JSON pointers are in checks/database-scheduler-gc-equivalence-001/public-control-projection.json. All other JSON values and all performance data, actual104-check analysis SHA5b0d75fe, measurement configuration and source identities are unchanged. These two public controls are explicitly projections, not byte-exact originals. The actual postprocessing script ran successfully and the public manifest/README reflect the exception.
+
+No rejected token content will be republished indirectly in an archive. The original raw archiver already excludes supervision/registry files and forbids token fields; its actual three manifests are being independently checked before safe unaffected uploads resume. Existing original archives/raw files remain intact. At this checkpoint primary remote Plan remains d701e556; locally accepted source and complete audit are committed, with safe publication pending.
+
+
+## 2026-11-19 public evidence scope correction (resume 027)
+
+The 026 sanitized supervision payload was verified byte-for-byte against the
+local token-free projection and accepted on a checked retry. A subsequent actual
+automatic approval rejection separately blocked a detailed deferred perf01 raw
+receipt as outside the numerical publication scope. Raw archive upload was also
+blocked on scope grounds and is stopped. All actual errors remain under
+`perf01-run/plan-push-026-blob-batches/` and the independent archive checkpoint.
+No primary Plan ref had moved beyond d701e556166ada2ca11572f6190596df365f8ca4.
+
+The pending public commit now omits every copied raw pair control/receipt and
+the full original analysis. `public-summary.json` is a new explicit allowlist
+projection of synthetic comparison numbers, resource aggregates, loaded-file
+basenames/hashes and the 104 audit check results. Original analysis SHA-256
+5b0d75fed3ed26a06ed0d4ffd35196952eabfaf3627ec0bee93bb98acf981769 is unchanged;
+its public numerical projection is 7cc8b52a6955ccbbb6df72bd4ceba6364e9b94785552cbcdd8d992f43c300ddb.
+The full prior local copied directory is preserved at
+`perf01-run/private-public-copy-before-scope-027`, alongside unchanged raw cells.
+This is a materially smaller publication scope, not a raw-payload re-encoding.
+Current long credit remains 2/10. Fresh DB calibration has not started yet;
+its reviewed commands and source hashes are unchanged.
