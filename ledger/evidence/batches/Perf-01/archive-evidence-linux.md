@@ -106,6 +106,15 @@ file, including when an early duration rejection preceded raw-file reads.
 File identity/size/mtime must remain unchanged during scanning and packing. A
 successful pack includes a complete readback through its bounded verifier.
 
+HTTP/gRPC `result.json` may exceed the small-control JSON limit because it
+contains complete sparse histograms. The packer streams that file to project
+only its finalized status and producer hashes for allowlisted files. Every
+other scalar is still checked, malformed or trailing JSON is rejected, and
+the complete original result is hashed and archived without transformation.
+This uses the packer's existing bounded JSON reader and the long verifier's
+metadata-projection pattern; it adds no dependency on a NativeWeave checkout
+and changes neither a measurement driver nor a long-run acceptance receipt.
+
 Local safety bounds are 1–32 MiB per raw chunk, at most the selected raw chunk
 limit plus 64 KiB per compressed chunk, 128 selected files, 16 GiB total raw
 bytes, 20,000 unique chunks, 64 MiB per small control JSON, depth 64 and

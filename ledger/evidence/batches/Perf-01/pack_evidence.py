@@ -124,7 +124,7 @@ class JsonReader:
 
     def peek(self):
         while True:
-            while self.pos < len(self.buffer) and self.buffer[self.pos].isspace():
+            while self.pos < len(self.buffer) and self.buffer[self.pos] in " \t\r\n":
                 self.pos += 1
             if self.pos < len(self.buffer):
                 return self.buffer[self.pos]
@@ -172,6 +172,46 @@ class JsonReader:
                 self.take(",")
         self.take(close)
 
+    def selected_object(self, selection, depth=0):
+        """Retain explicit metadata while validating every skipped scalar.
+
+        Projection follows the long verifier's selected_object pattern. Hash
+        maps are projected by allowlisted file name, never decoded as a whole.
+        """
+        require(isinstance(selection, dict), "Metadata projection must be an object")
+        require(depth < 64, "Evidence nesting exceeds bound")
+        result = {}
+        self.take("{")
+        while self.peek() != "}":
+            name = self.scalar()
+            require(isinstance(name, str) and name.lower() not in FORBIDDEN_KEYS,
+                    "Private or malformed JSON key")
+            self.take(":")
+            if name in selection:
+                nested = selection[name]
+                if isinstance(nested, dict):
+                    result[name] = self.selected_object(nested, depth + 1)
+                else:
+                    value = self.scalar()
+                    safe_value(value, name, depth + 1)
+                    result[name] = value
+            else:
+                self.walk(name, depth + 1)
+            if self.peek() == "}":
+                break
+            self.take(",")
+            require(self.peek() != "}", "Trailing comma in evidence JSON object")
+        self.take("}")
+        return result
+
+
+def object_metadata(path, selection):
+    with path.open(encoding="utf-8") as stream:
+        reader = JsonReader(stream)
+        result = reader.selected_object(selection)
+        require(reader.peek() == "", "Trailing bytes after JSON evidence")
+        return result
+
 
 def inspect_json(path):
     with path.open(encoding="utf-8") as stream:
@@ -198,7 +238,8 @@ def select(group, root):
         require(route in {"nativeweave-aot-rust", "direct-rust"}, "Unknown protocol route")
         required += ["execution/server/" + ("managed-resources.jsonl" if route == "nativeweave-aot-rust" else "native-resources.jsonl")]
         optional += ["started.json", "execution/server/native-resources.jsonl"] if route == "nativeweave-aot-rust" else ["started.json"]
-        require(small(regular(root, "result.json")).get("status") == "completed", "Protocol cell is not finalized")
+        require(object_metadata(regular(root, "result.json"), {"status": None}).get("status") == "completed",
+                "Protocol cell is not finalized")
     else:
         required = ["summary.json", "progress.json", "frozen-inputs.json", "plan.json", "target.json", "dataset.json",
                     "observation.json", "observation.events.jsonl"]
@@ -244,7 +285,8 @@ def pack(args):
     # raw files. Still bind available producer hashes without following the
     # protocol result's private configuration/key entries.
     driver_hashes = (small(regular(root, "summary.json")).get("files", {}) if args.group == "codec" else
-                     small(regular(root, "result.json")).get("evidence_sha256", {}) if args.group in {"http", "grpc"} else {})
+                     object_metadata(regular(root, "result.json"), {"evidence_sha256": dict.fromkeys(selected)})
+                     .get("evidence_sha256", {}) if args.group in {"http", "grpc"} else {})
     require(isinstance(driver_hashes, dict), "Malformed producer evidence hashes")
     original_driver_pins = {}
     for name, digest in driver_hashes.items():

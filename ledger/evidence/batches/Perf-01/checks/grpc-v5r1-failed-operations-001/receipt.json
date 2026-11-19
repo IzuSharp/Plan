@@ -1,0 +1,3660 @@
+{
+  "cells": [
+    {
+      "cell": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-grpc-v5r1/05-ladder-256",
+      "client_outcomes": [
+        {
+          "correctness_failure": false,
+          "count": 14,
+          "logical_status": "cancelled",
+          "wire_status": "Cancelled"
+        },
+        {
+          "correctness_failure": true,
+          "count": 3,
+          "logical_status": "failed",
+          "wire_status": "IntegrityFailure"
+        },
+        {
+          "correctness_failure": false,
+          "count": 152,
+          "logical_status": "ok",
+          "wire_status": "ExpectedCanceledStream"
+        },
+        {
+          "correctness_failure": false,
+          "count": 229,
+          "logical_status": "ok",
+          "wire_status": "ExpectedDeadlineExceeded"
+        },
+        {
+          "correctness_failure": false,
+          "count": 7248,
+          "logical_status": "ok",
+          "wire_status": "GrpcOK"
+        },
+        {
+          "correctness_failure": false,
+          "count": 61,
+          "logical_status": "rejected",
+          "wire_status": "ResourceExhausted"
+        }
+      ],
+      "input_sha256": {
+        "execution/client/operations.jsonl": "de2c519483dbf719e558db4aba46eaa41a37cf6c6f51ee8855d469c636d77d37",
+        "oracle.json": "77977c18e0db1efe0ade3822dc12b55b3776d6cd0b0ee794ae469b4da06f0cb7",
+        "plan.json": "c374c81152380503f24a6b9b50c67162fde5aa5275483466a01ae922ae3477c5",
+        "requests.jsonl": "31ff716c1d4ba456ec7b5b9b02e0db2cd1aad7fc85a4694aa2219a156adc96fc",
+        "result.json": "3149588ad535feb5cc64b89e889739a215d7476760825bccf63f7f90a52c6985"
+      },
+      "measured_client_rows": 7707,
+      "original_result": {
+        "evidence_sha256": {
+          "adapter-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "adapter.json": "796bb1bad88f75fea6baae6090603a595c407da7d131e5ba64264778537a1cca",
+          "controller-affinity-restored.json": "cec8a2f78f4343d3a9a65cb0eeb5d03c6fcb59e12be0daf83dd351ffe62acd39",
+          "dispatches.jsonl": "a7c6af1234973d7a2ff8535190306dcf608b65f0fe227489d7c12c5d2a62d338",
+          "events.jsonl": "2ecbd7afe8c62dfe6d1f0a096159d3026ba590e72b487c5d07f0a483b7103157",
+          "execution/client-config.json": "33db7dfa9df84c787b1cccff2174ab8da801b1d13a70dfd15bed5e70cc14b030",
+          "execution/client-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/client/operations.jsonl": "de2c519483dbf719e558db4aba46eaa41a37cf6c6f51ee8855d469c636d77d37",
+          "execution/process-resources.jsonl": "228b959c9b64eb5d7bfd30c28244e0431b059c9b1168333043d524f58bb0875f",
+          "execution/processes.json": "8983c6a3260c0d9f37b361760f753b6310b08ef889d299c70abca0b9bc985a19",
+          "execution/ready.json": "f68fac8d5020c8e7562d6984b55dd8718bd2b8b36b8b1ce759d151c6848d9843",
+          "execution/receipt.json": "a6f41d2aff12dc284fda3a460061f402ebb9650b2a61275fb523783d51b6e213",
+          "execution/server-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/server-stdout-tail.log": "85d60ee51c7bccd21913bb3a5d14acc50f108c71c90f139023892d7e0909dca4",
+          "execution/server/closed.json": "21aa10d6ca4eed37b304987cf596ab839ebc4e6b5de34a44fa3c6a2f756a0a5b",
+          "execution/server/managed-resources.jsonl": "a9d92e487c501e4119493048686dae9989106505c4bb2e193e849765b88148e4",
+          "oracle.json": "77977c18e0db1efe0ade3822dc12b55b3776d6cd0b0ee794ae469b4da06f0cb7",
+          "plan.json": "c374c81152380503f24a6b9b50c67162fde5aa5275483466a01ae922ae3477c5",
+          "profile.json": "42fb00a0571a5721b2b63144544471c103639530dbf8e5664bd7906d1866315b",
+          "requests.jsonl": "31ff716c1d4ba456ec7b5b9b02e0db2cd1aad7fc85a4694aa2219a156adc96fc",
+          "server-config.json": "ff82d11254d98d51220a72b34ee41fe48f55996ea18edc9263696f6f262f5636",
+          "started.json": "a0c10ef8b6cb24c45df10717efef33464d0c83733a87468e3bd296a09d7d157b"
+        },
+        "invalid_reasons": [
+          "response/protobuf/hash correctness failure",
+          "response/protobuf/hash correctness failure",
+          "response/protobuf/hash correctness failure"
+        ],
+        "offered": 7707,
+        "outcome_counts": {
+          "cancelled": 14,
+          "failed": 3,
+          "ok": 7629,
+          "rejected": 61
+        },
+        "plan_sha256": "c374c81152380503f24a6b9b50c67162fde5aa5275483466a01ae922ae3477c5",
+        "service_standard_met": false,
+        "status": "completed",
+        "successful": 7629,
+        "valid": false
+      },
+      "rate": 256,
+      "selected": [
+        {
+          "client": {
+            "completed_timestamp": 26573911759768,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 698,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 82058,
+            "response_messages": 20,
+            "response_payload_bytes": 81920,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26573738237814,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573738543956,
+            "attempts": 1,
+            "completion_ns": 26573913002713,
+            "deadline_ns": 26598737452293,
+            "dispatch_ns": 26573738103522,
+            "id": 698,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573737452293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573913002713,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573911898878,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 703,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 82058,
+            "response_messages": 20,
+            "response_payload_bytes": 81920,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26573758445015,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573758673579,
+            "attempts": 1,
+            "completion_ns": 26573913055383,
+            "deadline_ns": 26598756983543,
+            "dispatch_ns": 26573757394700,
+            "id": 703,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573756983543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573913055383,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573914175512,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 707,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 77955,
+            "request_messages": 19,
+            "request_payload_bytes": 77824,
+            "response_encoded_bytes": 41028,
+            "response_messages": 10,
+            "response_payload_bytes": 40960,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26573773894442,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26573774095455,
+            "attempts": 1,
+            "completion_ns": 26573915421522,
+            "deadline_ns": 26598772608543,
+            "dispatch_ns": 26573773679979,
+            "id": 707,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26573772608543,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26573915421522,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573887314176,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 720,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26573861232666,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573878433791,
+            "attempts": 1,
+            "completion_ns": 26573888237819,
+            "deadline_ns": 26598823389793,
+            "dispatch_ns": 26573833085409,
+            "id": 720,
+            "request_wire_bytes": 36,
+            "response_wire_bytes": 118,
+            "scheduled_ns": 26573823389793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573888237819,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573895221784,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 724,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26573876642959,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573880246054,
+            "attempts": 1,
+            "completion_ns": 26573895722124,
+            "deadline_ns": 26598839014793,
+            "dispatch_ns": 26573865744671,
+            "id": 724,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573839014793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573895722124,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573914716338,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 726,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 24616,
+            "request_messages": 6,
+            "request_payload_bytes": 24576,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26573876788249,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26573880257862,
+            "attempts": 1,
+            "completion_ns": 26573915440180,
+            "deadline_ns": 26598846827293,
+            "dispatch_ns": 26573865931363,
+            "id": 726,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26573846827293,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26573915440180,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573896259034,
+            "correctness_failure": true,
+            "failure": "Wait headers were not committed.",
+            "id": 728,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "failed",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-cancel",
+            "started_timestamp": 26573876827217,
+            "wire_status": "IntegrityFailure"
+          },
+          "controller": {
+            "admission_ns": 26573880265554,
+            "attempts": 1,
+            "completion_ns": 26573897616741,
+            "deadline_ns": 26598854639793,
+            "dispatch_ns": 26573865963201,
+            "id": 728,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 114,
+            "scheduled_ns": 26573854639793,
+            "status": "failed",
+            "target_completion_observed_ns": 26573897616741,
+            "value": "grpc-cancel|http2-tls|64|1"
+          },
+          "explanation_scope": "required initial-header assertion; underlying terminal status unrecorded",
+          "oracle": {
+            "expected": "grpc-cancel|http2-tls|64|1",
+            "input": "grpc-cancel|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573912868871,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 730,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 36925,
+            "response_messages": 9,
+            "response_payload_bytes": 36864,
+            "scenario": "grpc-server",
+            "started_timestamp": 26573876878315,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573880272885,
+            "attempts": 1,
+            "completion_ns": 26573913110997,
+            "deadline_ns": 26598862452293,
+            "dispatch_ns": 26573866414411,
+            "id": 730,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573862452293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573913110997,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573895221514,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 732,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26573876911204,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573880279284,
+            "attempts": 1,
+            "completion_ns": 26573897071679,
+            "deadline_ns": 26598870264793,
+            "dispatch_ns": 26573872429254,
+            "id": 732,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573870264793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573897071679,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26573887616191,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 736,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 36925,
+            "request_messages": 9,
+            "request_payload_bytes": 36864,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-client",
+            "started_timestamp": 26573886676554,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26573888215135,
+            "attempts": 1,
+            "completion_ns": 26573888335487,
+            "deadline_ns": 26598885889793,
+            "dispatch_ns": 26573886218273,
+            "id": 736,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26573885889793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26573888335487,
+            "value": "grpc-client|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-client|http2-tls|4096|32",
+            "input": "grpc-client|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574282948321,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 816,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-server",
+            "started_timestamp": 26574199077579,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26574199248236,
+            "attempts": 1,
+            "completion_ns": 26574283162525,
+            "deadline_ns": 26599198389793,
+            "dispatch_ns": 26574198793200,
+            "id": 816,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26574198389793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26574283162525,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574282918456,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 824,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26574230323669,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26574230530280,
+            "attempts": 1,
+            "completion_ns": 26574283137487,
+            "deadline_ns": 26599229639793,
+            "dispatch_ns": 26574230198540,
+            "id": 824,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26574229639793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26574283137487,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574261827288,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 832,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26574261202005,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26574261409898,
+            "attempts": 1,
+            "completion_ns": 26574262022753,
+            "deadline_ns": 26599260889793,
+            "dispatch_ns": 26574261035654,
+            "id": 832,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 119,
+            "scheduled_ns": 26574260889793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26574262022753,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574275814942,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 833,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26574265345635,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26574265549613,
+            "attempts": 1,
+            "completion_ns": 26574276135710,
+            "deadline_ns": 26599264796043,
+            "dispatch_ns": 26574265185333,
+            "id": 833,
+            "request_wire_bytes": 33,
+            "response_wire_bytes": 115,
+            "scheduled_ns": 26574264796043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26574276135710,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574278238452,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 836,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 32822,
+            "request_messages": 8,
+            "request_payload_bytes": 32768,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-client",
+            "started_timestamp": 26574277466938,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26574278370120,
+            "attempts": 1,
+            "completion_ns": 26574278391112,
+            "deadline_ns": 26599276514793,
+            "dispatch_ns": 26574277293646,
+            "id": 836,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26574276514793,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26574278391112,
+            "value": "grpc-client|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-client|http2-tls|4096|32",
+            "input": "grpc-client|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26574282423279,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 837,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26574281774260,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26574281996095,
+            "attempts": 1,
+            "completion_ns": 26574283063675,
+            "deadline_ns": 26599280421043,
+            "dispatch_ns": 26574281613848,
+            "id": 837,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26574280421043,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26574283063675,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075261031,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1250,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 73852,
+            "response_messages": 18,
+            "response_payload_bytes": 73728,
+            "scenario": "grpc-server",
+            "started_timestamp": 26575893883228,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26575893982192,
+            "attempts": 1,
+            "completion_ns": 26576075328378,
+            "deadline_ns": 26600893702293,
+            "dispatch_ns": 26575893749781,
+            "id": 1250,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26575893702293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075328378,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576079851802,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1255,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 28719,
+            "request_messages": 7,
+            "request_payload_bytes": 28672,
+            "response_encoded_bytes": 16410,
+            "response_messages": 4,
+            "response_payload_bytes": 16384,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26575914870589,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26575915183251,
+            "attempts": 1,
+            "completion_ns": 26576079937240,
+            "deadline_ns": 26600913233543,
+            "dispatch_ns": 26575913683088,
+            "id": 1255,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26575913233543,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26576079937240,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576079068570,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1260,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 16410,
+            "request_messages": 4,
+            "request_payload_bytes": 16384,
+            "response_encoded_bytes": 8204,
+            "response_messages": 2,
+            "response_payload_bytes": 8192,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26575934066229,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26575935021520,
+            "attempts": 1,
+            "completion_ns": 26576079211826,
+            "deadline_ns": 26600932764793,
+            "dispatch_ns": 26575933561688,
+            "id": 1260,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26575932764793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576079211826,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576076545103,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1261,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 20513,
+            "response_messages": 5,
+            "response_payload_bytes": 20480,
+            "scenario": "grpc-server",
+            "started_timestamp": 26575937478175,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26575937858924,
+            "attempts": 1,
+            "completion_ns": 26576076658695,
+            "deadline_ns": 26600936671043,
+            "dispatch_ns": 26575937264458,
+            "id": 1261,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26575936671043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576076658695,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576080691218,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1273,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 61543,
+            "request_messages": 15,
+            "request_payload_bytes": 61440,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26575998026965,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576069888192,
+            "attempts": 1,
+            "completion_ns": 26576080778239,
+            "deadline_ns": 26600983546043,
+            "dispatch_ns": 26575988248364,
+            "id": 1273,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26575983546043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576080778239,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075350697,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1278,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26576067386108,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576070506705,
+            "attempts": 1,
+            "completion_ns": 26576075396110,
+            "deadline_ns": 26601003077293,
+            "dispatch_ns": 26576042686593,
+            "id": 1278,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26576003077293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075396110,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075013638,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1280,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26576071125794,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26576071329195,
+            "attempts": 1,
+            "completion_ns": 26576075120284,
+            "deadline_ns": 26601010889793,
+            "dispatch_ns": 26576067908556,
+            "id": 1280,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26576010889793,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26576075120284,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576073841821,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1281,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071167096,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071334133,
+            "attempts": 1,
+            "completion_ns": 26576074050260,
+            "deadline_ns": 26601014796043,
+            "dispatch_ns": 26576067971371,
+            "id": 1281,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576014796043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576074050260,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075460743,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1282,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071180266,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071337708,
+            "attempts": 1,
+            "completion_ns": 26576075510262,
+            "deadline_ns": 26601018702293,
+            "dispatch_ns": 26576067986333,
+            "id": 1282,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576018702293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075510262,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075101721,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1284,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071202479,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071469096,
+            "attempts": 1,
+            "completion_ns": 26576075234036,
+            "deadline_ns": 26601026514793,
+            "dispatch_ns": 26576068075398,
+            "id": 1284,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576026514793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075234036,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576073896844,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1285,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-client",
+            "started_timestamp": 26576071210471,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071472762,
+            "attempts": 1,
+            "completion_ns": 26576074087246,
+            "deadline_ns": 26601030421043,
+            "dispatch_ns": 26576068096760,
+            "id": 1285,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26576030421043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576074087246,
+            "value": "grpc-client|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-client|http2-tls|4096|32",
+            "input": "grpc-client|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075446952,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1286,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071273937,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071572973,
+            "attempts": 1,
+            "completion_ns": 26576075473397,
+            "deadline_ns": 26601034327293,
+            "dispatch_ns": 26576068105543,
+            "id": 1286,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576034327293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075473397,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075088251,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1288,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071297853,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071604771,
+            "attempts": 1,
+            "completion_ns": 26576075206114,
+            "deadline_ns": 26601042139793,
+            "dispatch_ns": 26576068232254,
+            "id": 1288,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26576042139793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075206114,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576073735620,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1289,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26576071306005,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071608116,
+            "attempts": 1,
+            "completion_ns": 26576073967565,
+            "deadline_ns": 26601046046043,
+            "dispatch_ns": 26576068246786,
+            "id": 1289,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26576046046043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576073967565,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075495215,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1290,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26576071312475,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071611371,
+            "attempts": 1,
+            "completion_ns": 26576075546086,
+            "deadline_ns": 26601049952293,
+            "dispatch_ns": 26576068256651,
+            "id": 1290,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26576049952293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075546086,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075071015,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1292,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071329561,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071617761,
+            "attempts": 1,
+            "completion_ns": 26576075174456,
+            "deadline_ns": 26601057764793,
+            "dispatch_ns": 26576068274228,
+            "id": 1292,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576057764793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075174456,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576073456880,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1293,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071386687,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071621196,
+            "attempts": 1,
+            "completion_ns": 26576073867364,
+            "deadline_ns": 26601061671043,
+            "dispatch_ns": 26576068281809,
+            "id": 1293,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576061671043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576073867364,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576075374372,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1294,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26576071450704,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071624741,
+            "attempts": 1,
+            "completion_ns": 26576075436621,
+            "deadline_ns": 26601065577293,
+            "dispatch_ns": 26576068289521,
+            "id": 1294,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26576065577293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576075436621,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26576076154815,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1295,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-client",
+            "started_timestamp": 26576071486738,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26576071627956,
+            "attempts": 1,
+            "completion_ns": 26576076258802,
+            "deadline_ns": 26601069483543,
+            "dispatch_ns": 26576070470290,
+            "id": 1295,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26576069483543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26576076258802,
+            "value": "grpc-client|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-client|http2-tls|4096|32",
+            "input": "grpc-client|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578235263397,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1796,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 127191,
+            "response_messages": 31,
+            "response_payload_bytes": 126976,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578027684342,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578028246971,
+            "attempts": 1,
+            "completion_ns": 26578235990514,
+            "deadline_ns": 26603026514793,
+            "dispatch_ns": 26578027556109,
+            "id": 1796,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578026514793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578235990514,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578229052774,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1798,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 102573,
+            "response_messages": 25,
+            "response_payload_bytes": 102400,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578034865379,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578035148927,
+            "attempts": 1,
+            "completion_ns": 26578229693160,
+            "deadline_ns": 26603034327293,
+            "dispatch_ns": 26578034795984,
+            "id": 1798,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578034327293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578229693160,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578229196110,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1803,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 65646,
+            "response_messages": 16,
+            "response_payload_bytes": 65536,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578056053768,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578056378768,
+            "attempts": 1,
+            "completion_ns": 26578229708423,
+            "deadline_ns": 26603053858543,
+            "dispatch_ns": 26578055651111,
+            "id": 1803,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578053858543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578229708423,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578239174336,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1807,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 94367,
+            "request_messages": 23,
+            "request_payload_bytes": 94208,
+            "response_encoded_bytes": 53337,
+            "response_messages": 13,
+            "response_payload_bytes": 53248,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578070169846,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578070453754,
+            "attempts": 1,
+            "completion_ns": 26578239631075,
+            "deadline_ns": 26603069483543,
+            "dispatch_ns": 26578070067682,
+            "id": 1807,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578069483543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578239631075,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578228240990,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1809,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 61543,
+            "response_messages": 15,
+            "response_payload_bytes": 61440,
+            "scenario": "grpc-server",
+            "started_timestamp": 26578077737581,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578078030984,
+            "attempts": 1,
+            "completion_ns": 26578229609043,
+            "deadline_ns": 26603077296043,
+            "dispatch_ns": 26578077640365,
+            "id": 1809,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578077296043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578229609043,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578221570297,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1818,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578149471972,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578157517483,
+            "attempts": 1,
+            "completion_ns": 26578227973636,
+            "deadline_ns": 26603112452293,
+            "dispatch_ns": 26578137298310,
+            "id": 1818,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578112452293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578227973636,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578223899931,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1820,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578151616837,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578157630864,
+            "attempts": 1,
+            "completion_ns": 26578228063312,
+            "deadline_ns": 26603120264793,
+            "dispatch_ns": 26578145874516,
+            "id": 1820,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26578120264793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228063312,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578221270986,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1824,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26578152349322,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578157655631,
+            "attempts": 1,
+            "completion_ns": 26578227639132,
+            "deadline_ns": 26603135889793,
+            "dispatch_ns": 26578146026084,
+            "id": 1824,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578135889793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578227639132,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578223686239,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1833,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578215426751,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227240671,
+            "attempts": 1,
+            "completion_ns": 26578228034017,
+            "deadline_ns": 26603171046043,
+            "dispatch_ns": 26578214807717,
+            "id": 1833,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578171046043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228034017,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578224514588,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1834,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578216699761,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227247401,
+            "attempts": 1,
+            "completion_ns": 26578228085755,
+            "deadline_ns": 26603174952293,
+            "dispatch_ns": 26578215205677,
+            "id": 1834,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578174952293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228085755,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578225372322,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1835,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578216742165,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227253059,
+            "attempts": 1,
+            "completion_ns": 26578228115360,
+            "deadline_ns": 26603178858543,
+            "dispatch_ns": 26578216514381,
+            "id": 1835,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578178858543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228115360,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578223616133,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1837,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578216949988,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26578227264607,
+            "attempts": 1,
+            "completion_ns": 26578227990281,
+            "deadline_ns": 26603186671043,
+            "dispatch_ns": 26578216555603,
+            "id": 1837,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26578186671043,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26578227990281,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578224444873,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1838,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26578217031712,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227270596,
+            "attempts": 1,
+            "completion_ns": 26578228078154,
+            "deadline_ns": 26603190577293,
+            "dispatch_ns": 26578216568293,
+            "id": 1838,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26578190577293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228078154,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578225329007,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1839,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578217093395,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227275483,
+            "attempts": 1,
+            "completion_ns": 26578228101459,
+            "deadline_ns": 26603194483543,
+            "dispatch_ns": 26578216607952,
+            "id": 1839,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578194483543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228101459,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578225179121,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1843,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578218689843,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26578227324177,
+            "attempts": 1,
+            "completion_ns": 26578228093136,
+            "deadline_ns": 26603210108543,
+            "dispatch_ns": 26578218467447,
+            "id": 1843,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26578210108543,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26578228093136,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578238741393,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1844,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 28719,
+            "request_messages": 7,
+            "request_payload_bytes": 28672,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26578218738296,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26578227329515,
+            "attempts": 1,
+            "completion_ns": 26578239614069,
+            "deadline_ns": 26603214014793,
+            "dispatch_ns": 26578218527197,
+            "id": 1844,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26578214014793,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26578239614069,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578225793928,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1845,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578218918417,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578227335113,
+            "attempts": 1,
+            "completion_ns": 26578228123472,
+            "deadline_ns": 26603217921043,
+            "dispatch_ns": 26578218545224,
+            "id": 1845,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578217921043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578228123472,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26578231563882,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1848,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26578229893783,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26578230143840,
+            "attempts": 1,
+            "completion_ns": 26578232047331,
+            "deadline_ns": 26603229639793,
+            "dispatch_ns": 26578229742545,
+            "id": 1848,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26578229639793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26578232047331,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26579989105475,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2298,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26579988268793,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26579988385089,
+            "attempts": 1,
+            "completion_ns": 26579989337165,
+            "deadline_ns": 26604987452293,
+            "dispatch_ns": 26579988144766,
+            "id": 2298,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26579987452293,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26579989337165,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582467393332,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2880,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 114882,
+            "response_messages": 28,
+            "response_payload_bytes": 114688,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26582261366299,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582261757450,
+            "attempts": 1,
+            "completion_ns": 26582468542197,
+            "deadline_ns": 26607260889793,
+            "dispatch_ns": 26582261028028,
+            "id": 2880,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582260889793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582468542197,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582462782009,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2889,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 41028,
+            "response_messages": 10,
+            "response_payload_bytes": 40960,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582296853585,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582297079947,
+            "attempts": 1,
+            "completion_ns": 26582462925025,
+            "deadline_ns": 26607296046043,
+            "dispatch_ns": 26582296752472,
+            "id": 2889,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582296046043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582462925025,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582468107321,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2890,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 94367,
+            "request_messages": 23,
+            "request_payload_bytes": 94208,
+            "response_encoded_bytes": 28719,
+            "response_messages": 7,
+            "response_payload_bytes": 28672,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26582300474273,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26582301242964,
+            "attempts": 1,
+            "completion_ns": 26582468568717,
+            "deadline_ns": 26607299952293,
+            "dispatch_ns": 26582300060158,
+            "id": 2890,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26582299952293,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26582468568717,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582451197359,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2899,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 16410,
+            "response_messages": 4,
+            "response_payload_bytes": 16384,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582368537582,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582372943896,
+            "attempts": 1,
+            "completion_ns": 26582454274536,
+            "deadline_ns": 26607335108543,
+            "dispatch_ns": 26582347122412,
+            "id": 2899,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582335108543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582454274536,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582455012370,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2909,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 8204,
+            "response_messages": 2,
+            "response_payload_bytes": 8192,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582375044438,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582376250830,
+            "attempts": 1,
+            "completion_ns": 26582455073102,
+            "deadline_ns": 26607374171043,
+            "dispatch_ns": 26582374410310,
+            "id": 2909,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582374171043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582455073102,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582462288118,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2910,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 12307,
+            "response_messages": 3,
+            "response_payload_bytes": 12288,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582404121368,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582412166257,
+            "attempts": 1,
+            "completion_ns": 26582462631046,
+            "deadline_ns": 26607378077293,
+            "dispatch_ns": 26582386953252,
+            "id": 2910,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582378077293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582462631046,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582462358414,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2911,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 12307,
+            "response_messages": 3,
+            "response_payload_bytes": 12288,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582413247250,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582415681666,
+            "attempts": 1,
+            "completion_ns": 26582462648041,
+            "deadline_ns": 26607381983543,
+            "dispatch_ns": 26582396386087,
+            "id": 2911,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582381983543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582462648041,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582463035031,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2914,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26582413818322,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582415725673,
+            "attempts": 1,
+            "completion_ns": 26582463184967,
+            "deadline_ns": 26607393702293,
+            "dispatch_ns": 26582396748875,
+            "id": 2914,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26582393702293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582463184967,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582462046112,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2916,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 12307,
+            "response_messages": 3,
+            "response_payload_bytes": 12288,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582414006436,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582415737941,
+            "attempts": 1,
+            "completion_ns": 26582462202579,
+            "deadline_ns": 26607401514793,
+            "dispatch_ns": 26582402537857,
+            "id": 2916,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582401514793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582462202579,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582462888300,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2918,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26582416075661,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582454173804,
+            "attempts": 1,
+            "completion_ns": 26582463102964,
+            "deadline_ns": 26607409327293,
+            "dispatch_ns": 26582411673443,
+            "id": 2918,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26582409327293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582463102964,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582451781321,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2923,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 0,
+            "request_messages": 0,
+            "request_payload_bytes": 0,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-client",
+            "started_timestamp": 26582448502199,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26582454251852,
+            "attempts": 1,
+            "completion_ns": 26582454283990,
+            "deadline_ns": 26607428858543,
+            "dispatch_ns": 26582443298521,
+            "id": 2923,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26582428858543,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26582454283990,
+            "value": "grpc-client|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-client|http2-tls|4096|32",
+            "input": "grpc-client|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582463233180,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 2924,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26582448521267,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26582454255077,
+            "attempts": 1,
+            "completion_ns": 26582463355104,
+            "deadline_ns": 26607432764793,
+            "dispatch_ns": 26582443368256,
+            "id": 2924,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26582432764793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26582463355104,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26582450821101,
+            "correctness_failure": true,
+            "failure": "Wait headers were not committed.",
+            "id": 2925,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "failed",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-deadline",
+            "started_timestamp": 26582448571373,
+            "wire_status": "IntegrityFailure"
+          },
+          "controller": {
+            "admission_ns": 26582454258392,
+            "attempts": 1,
+            "completion_ns": 26582454265232,
+            "deadline_ns": 26607436671043,
+            "dispatch_ns": 26582443380615,
+            "id": 2925,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 118,
+            "scheduled_ns": 26582436671043,
+            "status": "failed",
+            "target_completion_observed_ns": 26582454265232,
+            "value": "grpc-deadline|http2-tls|64|1"
+          },
+          "explanation_scope": "required initial-header assertion; underlying terminal status unrecorded",
+          "oracle": {
+            "expected": "grpc-deadline|http2-tls|64|1",
+            "input": "grpc-deadline|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26592994036329,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 5611,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 45131,
+            "response_messages": 11,
+            "response_payload_bytes": 45056,
+            "scenario": "grpc-server",
+            "started_timestamp": 26592930511166,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26592932111670,
+            "attempts": 1,
+            "completion_ns": 26592994235910,
+            "deadline_ns": 26617928858543,
+            "dispatch_ns": 26592930312716,
+            "id": 5611,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26592928858543,
+            "status": "rejected",
+            "target_completion_observed_ns": 26592994235910,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26592994107847,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 5617,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26592952836298,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26592953248971,
+            "attempts": 1,
+            "completion_ns": 26592994276681,
+            "deadline_ns": 26617952296043,
+            "dispatch_ns": 26592952547593,
+            "id": 5617,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26592952296043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26592994276681,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599260284636,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7190,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 131294,
+            "request_messages": 32,
+            "request_payload_bytes": 131072,
+            "response_encoded_bytes": 69749,
+            "response_messages": 17,
+            "response_payload_bytes": 69632,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26599097148644,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599097516810,
+            "attempts": 1,
+            "completion_ns": 26599261901766,
+            "deadline_ns": 26624096827293,
+            "dispatch_ns": 26599097033511,
+            "id": 7190,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26599096827293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599261901766,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599261329613,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7196,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 102573,
+            "request_messages": 25,
+            "request_payload_bytes": 102400,
+            "response_encoded_bytes": 36925,
+            "response_messages": 9,
+            "response_payload_bytes": 36864,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26599151703082,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26599153715898,
+            "attempts": 1,
+            "completion_ns": 26599261969748,
+            "deadline_ns": 26624120264793,
+            "dispatch_ns": 26599138011633,
+            "id": 7196,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26599120264793,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26599261969748,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599260808867,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7203,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "cancelled",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 102573,
+            "request_messages": 25,
+            "request_payload_bytes": 102400,
+            "response_encoded_bytes": 41028,
+            "response_messages": 10,
+            "response_payload_bytes": 40960,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26599152066690,
+            "wire_status": "Cancelled"
+          },
+          "controller": {
+            "admission_ns": 26599153903431,
+            "attempts": 1,
+            "completion_ns": 26599261939413,
+            "deadline_ns": 26624147608543,
+            "dispatch_ns": 26599148677733,
+            "id": 7203,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 122,
+            "scheduled_ns": 26599147608543,
+            "status": "cancelled",
+            "target_completion_observed_ns": 26599261939413,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599258608788,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7210,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 24616,
+            "response_messages": 6,
+            "response_payload_bytes": 24576,
+            "scenario": "grpc-server",
+            "started_timestamp": 26599206635078,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599216265055,
+            "attempts": 1,
+            "completion_ns": 26599259447494,
+            "deadline_ns": 26624174952293,
+            "dispatch_ns": 26599194239600,
+            "id": 7210,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26599174952293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599259447494,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599226308655,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7220,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26599219792405,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599220689879,
+            "attempts": 1,
+            "completion_ns": 26599226875851,
+            "deadline_ns": 26624214014793,
+            "dispatch_ns": 26599219027091,
+            "id": 7220,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26599214014793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599226875851,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599236735408,
+            "correctness_failure": true,
+            "failure": "Wait headers were not committed.",
+            "id": 7225,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "failed",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-deadline",
+            "started_timestamp": 26599235962498,
+            "wire_status": "IntegrityFailure"
+          },
+          "controller": {
+            "admission_ns": 26599236360678,
+            "attempts": 1,
+            "completion_ns": 26599237010839,
+            "deadline_ns": 26624233546043,
+            "dispatch_ns": 26599233796781,
+            "id": 7225,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 118,
+            "scheduled_ns": 26599233546043,
+            "status": "failed",
+            "target_completion_observed_ns": 26599237010839,
+            "value": "grpc-deadline|http2-tls|64|1"
+          },
+          "explanation_scope": "required initial-header assertion; underlying terminal status unrecorded",
+          "oracle": {
+            "expected": "grpc-deadline|http2-tls|64|1",
+            "input": "grpc-deadline|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599258667637,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7226,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 8204,
+            "request_messages": 2,
+            "request_payload_bytes": 8192,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-duplex",
+            "started_timestamp": 26599238670768,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599238784535,
+            "attempts": 1,
+            "completion_ns": 26599259474324,
+            "deadline_ns": 26624237452293,
+            "dispatch_ns": 26599238479605,
+            "id": 7226,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26599237452293,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599259474324,
+            "value": "grpc-duplex|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-duplex|http2-tls|4096|32",
+            "input": "grpc-duplex|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599258828810,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7228,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-cancel",
+            "started_timestamp": 26599246007911,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599246232029,
+            "attempts": 1,
+            "completion_ns": 26599259491390,
+            "deadline_ns": 26624245264793,
+            "dispatch_ns": 26599245814870,
+            "id": 7228,
+            "request_wire_bytes": 35,
+            "response_wire_bytes": 118,
+            "scheduled_ns": 26599245264793,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599259491390,
+            "value": "grpc-cancel|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-cancel|http2-tls|64|1",
+            "input": "grpc-cancel|http2-tls|64|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26599257738976,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 7229,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 4101,
+            "response_messages": 1,
+            "response_payload_bytes": 4096,
+            "scenario": "grpc-server",
+            "started_timestamp": 26599249595953,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26599249955135,
+            "attempts": 1,
+            "completion_ns": 26599258151278,
+            "deadline_ns": 26624249171043,
+            "dispatch_ns": 26599249379376,
+            "id": 7229,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26599249171043,
+            "status": "rejected",
+            "target_completion_observed_ns": 26599258151278,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        }
+      ]
+    },
+    {
+      "cell": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-grpc-v5r1/06-refine-192",
+      "client_outcomes": [
+        {
+          "correctness_failure": false,
+          "count": 116,
+          "logical_status": "ok",
+          "wire_status": "ExpectedCanceledStream"
+        },
+        {
+          "correctness_failure": false,
+          "count": 174,
+          "logical_status": "ok",
+          "wire_status": "ExpectedDeadlineExceeded"
+        },
+        {
+          "correctness_failure": false,
+          "count": 5486,
+          "logical_status": "ok",
+          "wire_status": "GrpcOK"
+        },
+        {
+          "correctness_failure": false,
+          "count": 5,
+          "logical_status": "rejected",
+          "wire_status": "ResourceExhausted"
+        }
+      ],
+      "input_sha256": {
+        "execution/client/operations.jsonl": "97fb6f850481d691add431b4be37b70c019cea877984855c4c4583fedbf36d6c",
+        "oracle.json": "2d33720ec866ac75696e1528e842aedf38ba4a19b43c63d2f04104e566e896fe",
+        "plan.json": "35c1e95561c592ebe8c6c22b1437bc8e52cb0e31cf18f49ac95b9fe6b715c486",
+        "requests.jsonl": "aeacd7ca60336b1e33006fc102e3c0b63018ebbf7012dbd024329d28937115fe",
+        "result.json": "7d576bf4b1867b3dd46b96515d3584dc9faf3540026d69e7f29dcb96dad1198c"
+      },
+      "measured_client_rows": 5781,
+      "original_result": {
+        "evidence_sha256": {
+          "adapter-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "adapter.json": "b4151d545423d60cdcba0c02c7339b428c0ae33d3bd80e551228efbbc424ec9d",
+          "controller-affinity-restored.json": "5d955dbc01640109ec0d4ba6b57df496cb7774f89d6cd93a10ac0d01e4a0c2d7",
+          "dispatches.jsonl": "0837d5c21a213d9309ce5285cad7210f3f05264834b855b20a746911e21f6ce8",
+          "events.jsonl": "e75569e64427ce615ffe7744b11b068d7773208a3c9e2ee12724d24ed72ca674",
+          "execution/client-config.json": "2c8f5c767ffc513b7e2925889c3c80fc3fde5a7810f814ab2bbfcfe67dac43c8",
+          "execution/client-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/client/operations.jsonl": "97fb6f850481d691add431b4be37b70c019cea877984855c4c4583fedbf36d6c",
+          "execution/process-resources.jsonl": "7de56e5b8a15e43580b22389b1a92d094770352187cab3f606dc829aa09ba363",
+          "execution/processes.json": "6796cce6c1a3b71f99ee71939da9160fd376ddd654a6c32e85ddfe452fef674a",
+          "execution/ready.json": "43a7c18f9cca51a0c8fe01529182319dbcb8c3c9855e3f53bf4e2361271d5202",
+          "execution/receipt.json": "817b214377ee05093a53159302beda92f77c4a92a25b850878638b69eaa8842b",
+          "execution/server-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/server-stdout-tail.log": "85d60ee51c7bccd21913bb3a5d14acc50f108c71c90f139023892d7e0909dca4",
+          "execution/server/closed.json": "21aa10d6ca4eed37b304987cf596ab839ebc4e6b5de34a44fa3c6a2f756a0a5b",
+          "execution/server/managed-resources.jsonl": "72230623041c7eee83b7ddd2f13fc6160a3d61cb45d9154724a573f6ba5d2cee",
+          "oracle.json": "2d33720ec866ac75696e1528e842aedf38ba4a19b43c63d2f04104e566e896fe",
+          "plan.json": "35c1e95561c592ebe8c6c22b1437bc8e52cb0e31cf18f49ac95b9fe6b715c486",
+          "profile.json": "42fb00a0571a5721b2b63144544471c103639530dbf8e5664bd7906d1866315b",
+          "requests.jsonl": "aeacd7ca60336b1e33006fc102e3c0b63018ebbf7012dbd024329d28937115fe",
+          "server-config.json": "ff82d11254d98d51220a72b34ee41fe48f55996ea18edc9263696f6f262f5636",
+          "started.json": "e66a418e9cbdc0bb7f84dd2ce4638cac4b124242fe6e208793b94e1546cf8bf0"
+        },
+        "invalid_reasons": [],
+        "offered": 5781,
+        "outcome_counts": {
+          "ok": 5776,
+          "rejected": 5
+        },
+        "plan_sha256": "35c1e95561c592ebe8c6c22b1437bc8e52cb0e31cf18f49ac95b9fe6b715c486",
+        "service_standard_met": false,
+        "status": "completed",
+        "successful": 5776,
+        "valid": true
+      },
+      "rate": 192,
+      "selected": [
+        {
+          "client": {
+            "completed_timestamp": 26626733851005,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1399,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 69749,
+            "response_messages": 17,
+            "response_payload_bytes": 69632,
+            "scenario": "grpc-server",
+            "started_timestamp": 26626548802265,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26626549007445,
+            "attempts": 1,
+            "completion_ns": 26626734532723,
+            "deadline_ns": 26651548451256,
+            "dispatch_ns": 26626548660251,
+            "id": 1399,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26626548451256,
+            "status": "rejected",
+            "target_completion_observed_ns": 26626734532723,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26626734439111,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1409,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 8204,
+            "response_messages": 2,
+            "response_payload_bytes": 8192,
+            "scenario": "grpc-server",
+            "started_timestamp": 26626619173478,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26626619648784,
+            "attempts": 1,
+            "completion_ns": 26626734674176,
+            "deadline_ns": 26651600534586,
+            "dispatch_ns": 26626604904233,
+            "id": 1409,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26626600534586,
+            "status": "rejected",
+            "target_completion_observed_ns": 26626734674176,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26626729384447,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1429,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26626705339186,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26626705616825,
+            "attempts": 1,
+            "completion_ns": 26626731719098,
+            "deadline_ns": 26651704701246,
+            "dispatch_ns": 26626705215730,
+            "id": 1429,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26626704701246,
+            "status": "rejected",
+            "target_completion_observed_ns": 26626731719098,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26626732378223,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1432,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 4101,
+            "request_messages": 1,
+            "request_payload_bytes": 4096,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-server",
+            "started_timestamp": 26626721302415,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26626721506232,
+            "attempts": 1,
+            "completion_ns": 26626732524143,
+            "deadline_ns": 26651720326245,
+            "dispatch_ns": 26626721152298,
+            "id": 1432,
+            "request_wire_bytes": 38,
+            "response_wire_bytes": 121,
+            "scheduled_ns": 26626720326245,
+            "status": "rejected",
+            "target_completion_observed_ns": 26626732524143,
+            "value": "grpc-server|http2-tls|4096|32"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-server|http2-tls|4096|32",
+            "input": "grpc-server|http2-tls|4096|32"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26626732488519,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 1434,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26626731953111,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26626732074504,
+            "attempts": 1,
+            "completion_ns": 26626732563101,
+            "deadline_ns": 26651730742911,
+            "dispatch_ns": 26626731244663,
+            "id": 1434,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26626730742911,
+            "status": "rejected",
+            "target_completion_observed_ns": 26626732563101,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        }
+      ]
+    },
+    {
+      "cell": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-grpc-v5r1/08-refine-176",
+      "client_outcomes": [
+        {
+          "correctness_failure": false,
+          "count": 106,
+          "logical_status": "ok",
+          "wire_status": "ExpectedCanceledStream"
+        },
+        {
+          "correctness_failure": false,
+          "count": 159,
+          "logical_status": "ok",
+          "wire_status": "ExpectedDeadlineExceeded"
+        },
+        {
+          "correctness_failure": false,
+          "count": 5032,
+          "logical_status": "ok",
+          "wire_status": "GrpcOK"
+        },
+        {
+          "correctness_failure": false,
+          "count": 2,
+          "logical_status": "rejected",
+          "wire_status": "ResourceExhausted"
+        }
+      ],
+      "input_sha256": {
+        "execution/client/operations.jsonl": "7cb8ad537452224b696eb39e5c53b0fc14e9a41b4c724d3c976a6760def16a72",
+        "oracle.json": "1e3ff952355b0ba0f6d1ad188f7179744cc92c0af057226deb787ef1601a2cda",
+        "plan.json": "4bf1903f1b8a3e98b363b2305870c8774c3198a7abaa9aeddd265f9ae57bdef0",
+        "requests.jsonl": "84b22daec5a74e895404432d377b8136d4fe7791db472b79cfff7154463814f7",
+        "result.json": "0c5846d5ad1939fa26e68a2517f352ceeafe2b852f08f21a0f2166d51baa4452"
+      },
+      "measured_client_rows": 5299,
+      "original_result": {
+        "evidence_sha256": {
+          "adapter-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "adapter.json": "95087c4c19ff9eaa4c246ad6be7dc762f797defda642d866cc61d1bdc940ebde",
+          "controller-affinity-restored.json": "a081f163081cc7aef87e5cd51951366c453648ee675080f3e7693b8a77d2d51c",
+          "dispatches.jsonl": "614972e70c7607296740876f8b0371eed140c9e68efe55db3e1fa0bf43dd2e4e",
+          "events.jsonl": "95158f30faa70d88733bb889bb666461b720cfe3b60bc5e67d62a8c7be359a9c",
+          "execution/client-config.json": "b01c8c603313abfa19a16d28b0287a547aac116dd0e2ddaafa46caaa9e4db501",
+          "execution/client-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/client/operations.jsonl": "7cb8ad537452224b696eb39e5c53b0fc14e9a41b4c724d3c976a6760def16a72",
+          "execution/process-resources.jsonl": "c32d79f3d9daf5121a94bcf01835e09c208d479312d72d6df29ab6db3ddd85dc",
+          "execution/processes.json": "4fdebed0a4ad925987c7d2dbcaa2f55c5c23817d88001deb6f2ab87e3ccb0884",
+          "execution/ready.json": "94dedf36a3d3616fcb95c3d468104c0a28d8caeb4058b3dd61d8cbedeb880729",
+          "execution/receipt.json": "9e6fc8524364d540d582524c86ec7abfd869d328e2bec5ef4544648d55b8a57c",
+          "execution/server-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution/server-stdout-tail.log": "85d60ee51c7bccd21913bb3a5d14acc50f108c71c90f139023892d7e0909dca4",
+          "execution/server/closed.json": "21aa10d6ca4eed37b304987cf596ab839ebc4e6b5de34a44fa3c6a2f756a0a5b",
+          "execution/server/managed-resources.jsonl": "3f2a6f06c9d473fe28fbcbe65b8190c0fc7aa8ad2fadbe1bf012907507db5b21",
+          "oracle.json": "1e3ff952355b0ba0f6d1ad188f7179744cc92c0af057226deb787ef1601a2cda",
+          "plan.json": "4bf1903f1b8a3e98b363b2305870c8774c3198a7abaa9aeddd265f9ae57bdef0",
+          "profile.json": "42fb00a0571a5721b2b63144544471c103639530dbf8e5664bd7906d1866315b",
+          "requests.jsonl": "84b22daec5a74e895404432d377b8136d4fe7791db472b79cfff7154463814f7",
+          "server-config.json": "ff82d11254d98d51220a72b34ee41fe48f55996ea18edc9263696f6f262f5636",
+          "started.json": "00e6063ca902944d525cc2db9b39aa5116935194b9dc48d60c6c4ec0defd885f"
+        },
+        "invalid_reasons": [],
+        "offered": 5299,
+        "outcome_counts": {
+          "ok": 5297,
+          "rejected": 2
+        },
+        "plan_sha256": "4bf1903f1b8a3e98b363b2305870c8774c3198a7abaa9aeddd265f9ae57bdef0",
+        "service_standard_met": false,
+        "status": "completed",
+        "successful": 5297,
+        "valid": true
+      },
+      "rate": 176,
+      "selected": [
+        {
+          "client": {
+            "completed_timestamp": 26746127911309,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 5264,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 65542,
+            "request_messages": 1,
+            "request_payload_bytes": 65536,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26746111600384,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26746112725823,
+            "attempts": 1,
+            "completion_ns": 26746128949376,
+            "deadline_ns": 26771083648721,
+            "dispatch_ns": 26746098221199,
+            "id": 5264,
+            "request_wire_bytes": 37,
+            "response_wire_bytes": 120,
+            "scheduled_ns": 26746083648721,
+            "status": "rejected",
+            "target_completion_observed_ns": 26746128949376,
+            "value": "grpc-unary|http2-tls|65536|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|65536|1",
+            "input": "grpc-unary|http2-tls|65536|1"
+          }
+        },
+        {
+          "client": {
+            "completed_timestamp": 26746127356782,
+            "correctness_failure": false,
+            "failure": "RpcException",
+            "id": 5271,
+            "intentional_cancellation": false,
+            "intentional_deadline": false,
+            "logical_status": "rejected",
+            "protocol": "http2-tls",
+            "request_encoded_bytes": 68,
+            "request_messages": 1,
+            "request_payload_bytes": 64,
+            "response_encoded_bytes": 0,
+            "response_messages": 0,
+            "response_payload_bytes": 0,
+            "scenario": "grpc-unary",
+            "started_timestamp": 26746124057412,
+            "wire_status": "ResourceExhausted"
+          },
+          "controller": {
+            "admission_ns": 26746124223262,
+            "attempts": 1,
+            "completion_ns": 26746128873832,
+            "deadline_ns": 26771123421447,
+            "dispatch_ns": 26746123879423,
+            "id": 5271,
+            "request_wire_bytes": 34,
+            "response_wire_bytes": 117,
+            "scheduled_ns": 26746123421447,
+            "status": "rejected",
+            "target_completion_observed_ns": 26746128873832,
+            "value": "grpc-unary|http2-tls|64|1"
+          },
+          "explanation_scope": "retain exact client failure/wire fields; no inferred root cause",
+          "oracle": {
+            "expected": "grpc-unary|http2-tls|64|1",
+            "input": "grpc-unary|http2-tls|64|1"
+          }
+        }
+      ]
+    }
+  ],
+  "extracted_utc": "2026-11-19T13:41:11.785211+00:00",
+  "metadata_sha256": {
+    "controller.json": "dd1901f0762146cafcd6c59cfd71880421668bbc3a8e5bd04e3a2f0c9e712319",
+    "selection.json": "8af8ed599c3378a7009635a681e787da5d44fae4b783f60e82ee7b12c02f09ba"
+  },
+  "reader_sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82",
+  "scope": "specific failed-operation evidence; original verdicts unchanged"
+}

@@ -1,0 +1,23 @@
+{
+  "dependency_impact": "No new dependency or cross-repository import; no benchmark driver, product binary or verifier change.",
+  "final_conclusion": "No further concrete regression found. Projection, allowlisted producer pins, finalized/route gates and complete raw-byte archive/hash binding remain intact.",
+  "finite_execution_receipt": "execution.json",
+  "initial_finding": {
+    "description": "Replacing json.loads with the streaming reader would have accepted non-JSON whitespace through str.isspace().",
+    "final_state": "resolved by independent source re-review",
+    "id": "strict-json-whitespace",
+    "resolution": "JsonReader.peek skips only JSON space, tab, CR and LF; invalid vertical-tab value boundary and trailing form-feed/NBSP fixtures were added."
+  },
+  "long_duration_credit_seconds": 0,
+  "prior_fixture_pass": "../archive-protocol-projection-001/execution.json",
+  "recorded_utc": "2026-11-19T14:46:31.689619+00:00",
+  "reviewer_agent": "/root/perf01_remote_recovery/archive_projection_review",
+  "reviewer_executed_tests": false,
+  "scope": "Independent source-only review of archive protocol metadata projection",
+  "source_files_sha256": {
+    "archive-evidence-linux.md": "25ed405ff6991b152fcebfc9e65392f8c1f59587aef3a01e57c9014efabbe909",
+    "pack_evidence.py": "057e33d857e362a3e890b72b785c006df6f53a9234518ea93b29ef0bfd7724f8",
+    "test_pack_evidence.py": "4891d2888e35b6d61de7143f6620877da9d8e24b3a59f18c68aa449fc13246b4"
+  },
+  "task": "Perf-01"
+}

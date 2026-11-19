@@ -1,0 +1,31 @@
+{
+  "accepted": false,
+  "application_rss_limit_bytes": 268435456,
+  "arrival_p99_limit_ns": 500000000,
+  "duration_credit_seconds": 0,
+  "evidence_sha256": {
+    "plan.json": "4614a1cbefadeb1bd2b2b18d6fa063587b3bbb6a26c1bfab36a480c3a4e7a8b8",
+    "result.json": "8eddf0b1b518997aa08349ae31d6eeb7da0cfcb173afd4e41669f11c85263b6b",
+    "summary.json": "474f34a3240a53bb38e2548b2c3c3ff13cd0a05ca6797d096d238a985ed30b68"
+  },
+  "failure_reasons": [
+    "ValueError: Codec exit/drain/idle observation incomplete"
+  ],
+  "group": "codec",
+  "limitations": [
+    "Post-run consistency check relies on the hashed domain driver's payload, persistence, identity and ownership oracles; it does not replay them.",
+    "Inputs with recorded prior hashes are compared; every consumed input gets a new hash. DB raw records/resources lacking prior hashes are pinned now, not authenticated against arbitrary historical edits.",
+    "Completion-observed to later dispatch-start is a conservative operation-span bound, not an exact wire timestamp or total busy CPU time.",
+    "Application RSS is sampled; unobserved between-sample peaks and physical-host interference cannot be reconstructed.",
+    "This receipt does not by itself establish before/after equivalence, pairing, or five-group coverage.",
+    "Protocol idle duration has a configured wait and wall-clock receipt; it is excluded from effective operation duration.",
+    "SQLite business_retry_attempts=0 means no explicit business retry policy; internal SQLite/sqlx busy-handler retry counts are unavailable."
+  ],
+  "original_checked_identities": {},
+  "output_directory": "/workspace/scratch/01c249676f47/perf01-evidence/archive-readback-recovery-001/restored",
+  "required_operation_span_ns": 1800000000000,
+  "schema_version": 1,
+  "task": "Perf-01",
+  "verified_at_utc": "2026-11-19T15:14:39.563808+00:00",
+  "verifier_sha256": "fc179e94458d5d86faf7fda67790d1d18d187613bad22b64022f65c478215e2f"
+}

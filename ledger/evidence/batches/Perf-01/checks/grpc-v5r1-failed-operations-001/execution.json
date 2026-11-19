@@ -1,0 +1,26 @@
+{
+  "actual_invocation": "taskset -c 8 /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -",
+  "actual_stdin_wrapper": "from pathlib import Path\nimport sys\nroot=Path('/workspace/scratch/01c249676f47')\np=root/'.worktree/Perf-01-protocol-linux/Plan/ledger/evidence/batches/Perf-01/protocol-grpc-failure-inspection.md'\nsource=p.read_text().split(\"<<'PY'\\n\",1)[1].split('\\nPY\\n```',1)[0]\nsys.argv=[str(p),str(root),str(root/'.worktree/Perf-01-linux/NativeWeave')]\nexec(compile(source,str(p),'exec'),{'__name__':'__main__'})\n",
+  "cpu_affinity": [
+    8
+  ],
+  "executed_python_body_sha256": "c4304b49f5cafda2e2f1143a9e2479325e87a485463b3e8973a7cabca8badd62",
+  "exit_code": 0,
+  "measurement_or_functional_workload_started": false,
+  "operation": "post-run bounded evidence extraction",
+  "python": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "python_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+  "python_version": "3.12.14",
+  "receipt_sha256": "4b7d221db337ad2915dcf551becede54d43640e982e6549afdeba99f367e2925",
+  "reproduce": [
+    "taskset",
+    "-c",
+    "8",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/Plan/ledger/evidence/batches/Perf-01/checks/grpc-v5r1-failed-operations-001/extract.py",
+    "/workspace/scratch/01c249676f47",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave"
+  ],
+  "reproduce_note": "Existing evidence is immutable. Change only the new output suffix in a copied script before repeating; retain its new source hash.",
+  "task": "Perf-01"
+}

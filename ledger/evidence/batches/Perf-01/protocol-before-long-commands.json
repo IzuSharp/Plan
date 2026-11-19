@@ -1,0 +1,397 @@
+{
+  "after": "Not executable here; future after producer must be bound while preserving identical loads/profiles/common client/timing sources. No rate retuning from candidate performance.",
+  "before_build": {
+    "client": "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/client/Perf01.ProtocolClient",
+    "client_sha256": "acb1c163cd51e291f58dbe51ae12c04f82c2b51538aa36e446a05890e06aadd0",
+    "path": "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+    "product_source_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "product_source_dirty": false,
+    "server": "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/server/Perf01.ProtocolServer",
+    "server_native_sha256": {
+      "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/server/libnativeweave_server.so": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69"
+    },
+    "server_sha256": "5ba1df0946ece4a490d7bb43b295b7c720c3d32159c7e47e0cd28f0a3098460d",
+    "sha256": "818643898f04803f3070cb55f6bf0894dc23c1f9c21ff7d556a8e99b6b96d8c3",
+    "toolchain": {
+      "aot": true,
+      "configuration": "Release",
+      "dotnet_sha256": "bb015c1dbaec79f69addde16893609baf880ccdc5931db354d40096769010e3e",
+      "isa": "x86-64-v2",
+      "sdk": "11.0.100"
+    }
+  },
+  "common_client_build": {
+    "path": "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+    "sha256": "818643898f04803f3070cb55f6bf0894dc23c1f9c21ff7d556a8e99b6b96d8c3"
+  },
+  "comparison_noise_index": {
+    "path": "/workspace/scratch/01c249676f47/perf01-evidence/protocol-short/noise-before-001/noise-index.json",
+    "scope": "only exact short C4 partitions; not the long mixed load",
+    "sha256": "af9b4a68014c231fbc8c6b3e651a310045e155d83bd06d1bd9cbf4fe3b5bed20"
+  },
+  "environment_source": "/workspace/scratch/01c249676f47/perf01-toolchain/env.sh",
+  "exclusive_lock": {
+    "implementation": "run.py holds nonblocking fcntl LOCK_EX internally",
+    "outer_flock": "DO NOT add a second outer flock; it would contend with the driver itself",
+    "path": "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock"
+  },
+  "generator_cpus": [
+    0,
+    1
+  ],
+  "groups": [
+    {
+      "commands": [
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "2,3",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+            "prepare",
+            "--build",
+            "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+            "--client-build",
+            "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+            "--profile",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/profile-v1.json",
+            "--group",
+            "http",
+            "--rate",
+            "500",
+            "--duration",
+            "1802",
+            "--concurrency",
+            "64",
+            "--generator-cpus",
+            "0,1",
+            "--certificate",
+            "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/certificate.pem",
+            "--private-key",
+            "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/private-key.pem",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001"
+          ],
+          "kind": "prepare"
+        },
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "2,3",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+            "run",
+            "--plan",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001/plan.json",
+            "--exclusive-lock",
+            "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock"
+          ],
+          "kind": "measure"
+        },
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "8",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+            "--group",
+            "http",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001",
+            "--receipt",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001-verification.json"
+          ],
+          "kind": "verify-after-processes-stop"
+        }
+      ],
+      "concurrency": 64,
+      "controller": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-http-v5r1/controller.json",
+      "controller_sha256": "b1ae28ecd3f4bbc7e44dacd90f3ce91f1efeb467f758c983521a391ba2e6965f",
+      "duration_argument_seconds": 1802,
+      "duration_credit_seconds": 0,
+      "group": "http",
+      "idle_seconds": 60,
+      "measurement_counts_include_expected_probes": true,
+      "original_mix": [
+        {
+          "bytes": 0,
+          "messages": 1,
+          "scenario": "http-tiny",
+          "weight": 50
+        },
+        {
+          "bytes": 0,
+          "messages": 1,
+          "scenario": "http-json",
+          "weight": 10
+        },
+        {
+          "bytes": 1048576,
+          "messages": 1,
+          "scenario": "http-upload",
+          "weight": 15
+        },
+        {
+          "bytes": 1048576,
+          "messages": 1,
+          "scenario": "http-download",
+          "weight": 15
+        },
+        {
+          "bytes": 1048576,
+          "messages": 1,
+          "scenario": "http-slow",
+          "weight": 5
+        },
+        {
+          "bytes": 8388608,
+          "messages": 1,
+          "scenario": "http-cancel",
+          "weight": 5
+        }
+      ],
+      "output_directory": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001",
+      "period_ns": 2000000,
+      "planned_first_to_last_scheduled_span_ns": 1802100000000,
+      "planned_measurement_logical_checks": 901051,
+      "profile": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/profile-v1.json",
+      "profile_sha256": "b523306d177fe23a9c32025fdb97fa8efb422a182320a64d8f037905e31efa6a",
+      "recovery_period_seconds": 0.25,
+      "recovery_requests": 32,
+      "selected_rate_per_second": 500,
+      "selection": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-http-v5r1/selection.json",
+      "selection_sha256": "d652f232f69d17ed7e9f2e1028401e3809b8ac28f3ad784c8bf6d038be079db6",
+      "server_caps": {
+        "chunk_bytes": 32768,
+        "managed_payload_bytes": 67108864,
+        "max_active_requests": 256,
+        "max_connections": 512,
+        "max_http2_streams_per_connection": 32,
+        "max_json_bytes": 1048576,
+        "max_message_bytes": 1048576,
+        "max_queued_requests": 128,
+        "max_stream_bytes": 67108864,
+        "native_payload_bytes": 67108864,
+        "request_timeout_seconds": 30,
+        "retained_bytes_per_request": 4194304,
+        "shutdown_timeout_seconds": 30
+      },
+      "service_standard": {
+        "arrival_p99_maximum_ms": 500,
+        "native_managed_payload_bytes_maximum": 67108864,
+        "native_payload_bytes_maximum": 67108864,
+        "note": "Prospective candidate standard; root must freeze before product edits. Intentional cancel/deadline probes count separately and require their exact expected wire outcome.",
+        "unexpected_error_rate_maximum": 0.0,
+        "whole_process_rss_bytes_maximum": 268435456
+      },
+      "status": "planned-not-executed",
+      "verification_receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/http-001-verification.json",
+      "warmup_requests": 24
+    },
+    {
+      "commands": [
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "2,3",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+            "prepare",
+            "--build",
+            "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+            "--client-build",
+            "/workspace/scratch/01c249676f47/perf01-build/before/protocols-v2/build.json",
+            "--profile",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+            "--group",
+            "grpc",
+            "--rate",
+            "128",
+            "--duration",
+            "1802",
+            "--concurrency",
+            "64",
+            "--generator-cpus",
+            "0,1",
+            "--certificate",
+            "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/certificate.pem",
+            "--private-key",
+            "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/private-key.pem",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001"
+          ],
+          "kind": "prepare"
+        },
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "2,3",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py",
+            "run",
+            "--plan",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001/plan.json",
+            "--exclusive-lock",
+            "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock"
+          ],
+          "kind": "measure"
+        },
+        {
+          "argv": [
+            "taskset",
+            "--cpu-list",
+            "8",
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+            "--group",
+            "grpc",
+            "--output",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001",
+            "--receipt",
+            "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001-verification.json"
+          ],
+          "kind": "verify-after-processes-stop"
+        }
+      ],
+      "concurrency": 64,
+      "controller": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-grpc-v5r1/controller.json",
+      "controller_sha256": "dd1901f0762146cafcd6c59cfd71880421668bbc3a8e5bd04e3a2f0c9e712319",
+      "duration_argument_seconds": 1802,
+      "duration_credit_seconds": 0,
+      "group": "grpc",
+      "idle_seconds": 60,
+      "measurement_counts_include_expected_probes": true,
+      "original_mix": [
+        {
+          "bytes": 64,
+          "messages": 1,
+          "scenario": "grpc-unary",
+          "weight": 40
+        },
+        {
+          "bytes": 65536,
+          "messages": 1,
+          "scenario": "grpc-unary",
+          "weight": 10
+        },
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-server",
+          "weight": 15
+        },
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-client",
+          "weight": 15
+        },
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-duplex",
+          "weight": 15
+        },
+        {
+          "bytes": 64,
+          "messages": 1,
+          "scenario": "grpc-deadline",
+          "weight": 3
+        },
+        {
+          "bytes": 64,
+          "messages": 1,
+          "scenario": "grpc-cancel",
+          "weight": 2
+        }
+      ],
+      "output_directory": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001",
+      "period_ns": 7812500,
+      "planned_first_to_last_scheduled_span_ns": 1802101562500,
+      "planned_measurement_logical_checks": 230670,
+      "profile": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+      "profile_sha256": "fcd529ae210b57a6c3030f7521127204f665f33978ec50d848d13259a7b697af",
+      "recovery_period_seconds": 0.25,
+      "recovery_requests": 32,
+      "selected_rate_per_second": 128,
+      "selection": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-grpc-v5r1/selection.json",
+      "selection_sha256": "8af8ed599c3378a7009635a681e787da5d44fae4b783f60e82ee7b12c02f09ba",
+      "server_caps": {
+        "chunk_bytes": 32768,
+        "managed_payload_bytes": 67108864,
+        "max_active_requests": 256,
+        "max_connections": 512,
+        "max_http2_streams_per_connection": 32,
+        "max_json_bytes": 1048576,
+        "max_message_bytes": 1048576,
+        "max_queued_requests": 128,
+        "max_stream_bytes": 67108864,
+        "native_payload_bytes": 67108864,
+        "request_timeout_seconds": 30,
+        "retained_bytes_per_request": 67108864,
+        "shutdown_timeout_seconds": 30
+      },
+      "service_standard": {
+        "arrival_p99_maximum_ms": 500,
+        "native_managed_payload_bytes_maximum": 67108864,
+        "native_payload_bytes_maximum": 67108864,
+        "note": "Prospective candidate standard; root must freeze before product edits. Intentional cancel/deadline probes count separately and require their exact expected wire outcome.",
+        "unexpected_error_rate_maximum": 0.0,
+        "whole_process_rss_bytes_maximum": 268435456
+      },
+      "status": "planned-not-executed",
+      "verification_receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/grpc-001-verification.json",
+      "warmup_requests": 24
+    }
+  ],
+  "policy": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/prospective-policy.json",
+    "revision": 4,
+    "sha256": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc"
+  },
+  "post_run_verifier": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+    "sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+  },
+  "post_run_verifier_cpu": [
+    8
+  ],
+  "preparation_checks": "Source and small metadata content hashes checked; binaries, TLS files, packages and raw ledgers not rescanned. Existing prepare/run validates actual frozen artifacts and loaded native identities.",
+  "python": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "version": "3.12.14"
+  },
+  "requires_committed_global_freeze": true,
+  "root": "/workspace/scratch/01c249676f47",
+  "schema_version": 1,
+  "scope": "Two before protocol groups using existing commands; no new supervisor or runtime implementation",
+  "serial_resource_ownership": "Root runs one measurement at a time and performs post-run extraction only after its process tree has stopped",
+  "service_cpus": [
+    2,
+    3
+  ],
+  "status": "planned-not-executed",
+  "task": "Perf-01",
+  "timing_sources_sha256": {
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/adapter.py": "21254a039396e8de485d5729cc3a7236e4c12ae7b41a4427f703af86e3e77f69",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/affinity.py": "9b5547dc27b0cd4bb2e4a76c02169bce1f12c5c97d18658d5ff12a5c93482b5e",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Protocols/run.py": "ee5867cfd5c29b52595b96a69328fc612c88ebdd38fd5796ed7582102c4c49b4"
+  },
+  "tls": {
+    "certificate": "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/certificate.pem",
+    "certificate_sha256": "9c5c88b63e03a095061b6af052a3c8aa714a96bcf3a01fde9124bbd781b57b35",
+    "content_not_copied": true,
+    "private_key_local_only": "/workspace/scratch/01c249676f47/perf01-evidence/functional/before-grpc-001/private-key.pem",
+    "private_key_sha256": "c9238030f5a0b9c7352007b3edca6ca75b92a85291e7d56d8918e2ee3dbd789a"
+  },
+  "working_directory": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave"
+}

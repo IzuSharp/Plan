@@ -1,0 +1,59 @@
+{
+  "artifact_capability": {
+    "available_methods": "list workflow artifacts and download workflow artifact ZIP",
+    "local_file_upload_or_release_asset_upload_tool_observed": false,
+    "ordinary_build_artifact_retention_days": 14,
+    "ordinary_ci_artifacts_do_not_contain_these_local_raw_measurements": true,
+    "release_artifact_retention_days": 30
+  },
+  "binary_reference_read": {
+    "blob_sha": "be37a148cdb0c73b0c0856c2c686f06e4195e4a2",
+    "bytes": 3880,
+    "exact_remote_base64_matches_local_bytes": true,
+    "github_fetch_blob_result": "UnicodeDecodeError: UTF-8 cannot decode gzip byte 0x8b at position 1",
+    "github_fetch_git_blobs_rest_result": "HTTPError 400: GitHub Fetch only accepts UTF-8 text",
+    "method": "github_fetch_file encoding=base64",
+    "path": "ledger/evidence/B22/eventpipe-controls-002/aot/runtime.nettrace.gz",
+    "ref_used": "task/Perf-01-linux",
+    "repository": "IzuSharp/Plan",
+    "sha256": "d415ab74f7dbac4ca0a727ea2eb5a5728cb62721fc932a97ceed2bb4a6f267ca"
+  },
+  "contents_api_boundary": {
+    "conservative_existing_path": "Keep each actual compressed blob at or below 1000000 bytes and retrieve through fetch_file encoding=base64. This is a publication plan, not proof that a 1 MB transfer was executed.",
+    "documented_behavior": "Files above 1 MB require raw/object media types; object content is empty with encoding none. The fetch_file tool exposes no media-type argument.",
+    "existing_shard_option": "pack_evidence.py supports --shard-mib 1 through 32; raw shard size alone does not guarantee compressed file size",
+    "official_source": "https://docs.github.com/en/rest/repos/contents#get-repository-content"
+  },
+  "exact_observation_time_utc": null,
+  "local_smoke_observation": {
+    "gzip_chunk_count": 12,
+    "largest_gzip_bytes": 961665,
+    "manifest_sha256": "4e772853d523bcc9a1a2b7656c821431277bc72f832d63269bdb732c7486adf5",
+    "observed_local_git_status": "untracked",
+    "observed_remote_manifest_status": "404 on task/Perf-01-linux at this inspection; not a current publication status claim",
+    "path": "ledger/evidence/batches/Perf-01/raw-archives/codec-smoke-001"
+  },
+  "long_duration_credit_seconds": 0,
+  "observation_date_utc": "2026-11-19",
+  "recorded_utc": "2026-11-19T14:47:33.658595+00:00",
+  "retention_contract": {
+    "optional_artifact": "Record actual URL and expires_at separately; ordinary artifacts do not replace raw input retrieval",
+    "plan_raw_files": "Repository history without scheduled expiry; subject to repository deletion/history rewriting",
+    "required_index_fields": [
+      "merged_plan_commit",
+      "archive_path",
+      "manifest_sha256",
+      "readback_date_and_outcome",
+      "original_verifier_verdict",
+      "report_row"
+    ],
+    "source": "ledger/evidence/batches/Perf-01/archive-evidence-linux.md"
+  },
+  "scope": "Read-only GitHub connector capability inspection, not an upload or final archive readback",
+  "task": "Perf-01",
+  "upload_capability": {
+    "actual_upload_performed_by_this_inspection": false,
+    "connector_payload_limit": "Not documented by the available tool schema; not measured",
+    "documented_method": "github_create_blob encoding=base64, followed by create_tree/create_commit/update_ref"
+  }
+}

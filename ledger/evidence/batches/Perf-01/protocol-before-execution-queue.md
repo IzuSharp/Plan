@@ -146,6 +146,13 @@ the fresh comparison triplet. No future hash or measured value is invented here.
 
 ## 3. Eventual paired long-load before commands
 
+Final update: the completed selections are now **v5r1**, with HTTP 500/s and
+gRPC 128/s. Use the concrete reviewed arrays in
+[`protocol-before-long-commands.json`](protocol-before-long-commands.json) and
+its companion Markdown for the final `long/before/{http,grpc}-001` paths and
+actual selection hashes. The preliminary v5/path examples below are retained
+as preparation history and are superseded for execution.
+
 Run these one group at a time only after root commits the complete final freeze.
 Read each actual v5 selection's `long_rate`; preserve that same rate for after.
 The original mixed profiles below explicitly retain **idle 60 seconds, warmup

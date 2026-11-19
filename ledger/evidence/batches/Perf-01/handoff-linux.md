@@ -459,3 +459,61 @@ latest observation HTTP 8/16/32 offered requests/s passed and64/s was running.
 Keep this invocation exclusive. Future DB and codec formal invocations will also
 use the same existing resource lock through a standard outer flock guard; protocol
 already owns that lock internally and must not be double-locked.
+
+### Execution checkpoint: final protocol calibration and all protocol noise passed
+
+Protocol v5r1 completed normally in session98397. HTTP selected 1,088/s after
+three 65,390-success confirmations with p99 285.246995, 274.753607 and
+280.616883 ms. Its capped paired long rate is 500/s. gRPC selected 160/s after
+three 9,617-success confirmations with p99 154.982480, 153.711915 and
+155.846419 ms; its paired long rate is 128/s. Exact selection/controller files
+are in checks/protocol-{http,grpc}-v5r1-selection/. The complete five long rates
+are PostgreSQL144, SQLite40, HTTP500, gRPC128 and codec307 logical operations/s.
+These selections alone do not provide any long-duration credit.
+
+The authorized post-calibration bounded extracts completed with exit0 before
+starting another timed cell. HTTP controller sampled peak RSS was about103.9MB
+at65,390 operations, gRPC about34.9MB at9,617 operations. The illustrative HTTP
+901,051-operation scaling is about1.43GB, not a memory bound; postprocessing
+peak and Python GC pauses remain unavailable. Server allocation snapshots are
+explicitly server-only. No speculative protocol-retention change was made.
+protocol-controller-memory-review.md records the source/measurement distinction.
+
+Actual high-load gRPC classification is preserved:256/s had61 ResourceExhausted,
+14 unexpected Cancelled and3 missing required Wait-header observations. Those
+three calls received no response messages and recorded no underlying terminal
+status; no payload/protobuf mismatch was observed.192/s and176/s had5 and2
+ResourceExhausted outcomes. No invalid or service-failed point was relabeled.
+protocol-grpc-failure-inspection.md binds exact operations and saved extraction
+source. Plan local8678fc6 integrates these reviewed actual records.
+
+The six ordinary protocol noise triplets completed successfully in session89255
+at2026-11-19T13:55Z: all18 fresh cells were valid and met the service standard.
+The completed noise index is ROOT/perf01-evidence/protocol-short/noise-before-001/noise-index.json,
+SHA af9b4a68014c231fbc8c6b3e651a310045e155d83bd06d1bd9cbf4fe3b5bed20.
+No extractor rerun or comparison-cell reuse is needed. Small exact receipt
+copies and the final protocol long argv are being prepared for Plan.
+
+Codec fixed-load before noise started at2026-11-19T13:56:09.428108Z, session32211,
+W1 noise-1 at134/s for120 seconds plus separate20s warmup,10s recovery and5s idle.
+It uses the reviewed exact argv and an outer nonblocking flock on the original
+shared timing.lock. Its launch/result receipt is in
+ROOT/perf01-evidence/noise/codec-before004-command-receipts/. Five more cells and
+two existing extractor commands remain. Keep all other local loads/builds/tests
+stopped; source/small-metadata work may useCPU8. The final global execution
+freeze is still pending, runtime remains immutable main ea5fa528 and **0/10
+long segments are credited**.
+
+### Resumed integration checkpoint 2026-11-19T15:20:54.011987+00:00
+
+The resumed root workspace c7a50ab71f57 now owns the single integration and timing queue. Shared Plan tracked files were unchanged and clean at3715d8e before integration. Archive commits411bd77/226f928/814b496 were fast-forwarded, and final-freeze proposal0692455 was applied as2d71265. Original untracked raw archive files and all prior failed/partial measurements were preserved. Coordination receipt: ROOT/perf01-run/resumed-integration-owner-20261119.json. Do not launch a second workload.
+
+The r241 W2 remaining queue completed at2026-11-19T14:35:31.779294Z: all three processes succeeded16173/16173, final noise SHA749238affbb591e90f5f8801cf952b51e575222c227d8ed07d66b32ab404196b. W1 remains134/s with three16095/16095 processes. The predeclared stepdown selects192/s for the paired codec long group; the268/s failure and former384/s capacity/307/s proposal remain original history.
+
+Archive transport is now actually verified at Plan commitde38d6ed6e8ff919d9263edffc2fdf29b3b2a8f9 on task/Perf-01-archive-readback-linux:14 remote files,10 restored raw files,23921929 bytes, all exact. Historical verifierfc179 reproduces the original rejection; this smoke has0 long credit. See checks/archive-readback-recovery-001/. Current archiver057e33d streams protocol control metadata and passed19 finite tests plus independent review; no timed driver changed.
+
+Product remains ab8357d with runtime source unchanged from baseline ea5fa528. CI44530911423 attempt2 succeeded after the original APT network failure; that failure remains preserved. Five before long loads are HTTP500/s C64, gRPC128/s C64, PostgreSQL144/s C16, SQLite40/s C16, codec192/s W2. Finalize and publish the distinct immutable configuration next, then run all five before long groups before runtime edits. During each long window all other local work pauses except necessary supervision. All current long acceptance is0/10; no runtime improvement is claimed.
+
+### Immutable configuration created 2026-11-19T15:27:09.191434+00:00
+
+Final frozen-execution.json now binds the completed before noise, exact producers, timed sources, two integrated archive helpers and actual transport smoke readback. SHA-256: 85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3. Product runtime remains unchanged at baseline ea5fa528; current product head ab8357d contains harness/regression preparation only. All five before long groups must pass before runtime edits. The separate publication receipt must confirm fixed-commit remote byte readback before the first formal long command. No long credit is granted by this configuration.

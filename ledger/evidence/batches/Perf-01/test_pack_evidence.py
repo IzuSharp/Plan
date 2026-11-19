@@ -87,6 +87,25 @@ class ArchiveChecks(unittest.TestCase):
         self.pin()
         return prefix
 
+    def protocol_fixture(self, group="http", route="nativeweave-aot-rust"):
+        self.group = group
+        values = {name: {"fixture_only": True} for name in (
+            "adapter.json", "oracle.json", "profile.json", "execution/receipt.json",
+            "execution/ready.json", "execution/processes.json", "execution/server/closed.json")}
+        values["plan.json"] = {"route": route, "fixture_only": True}
+        self.raw = {name: (json.dumps(value) + "\n").encode() for name, value in values.items()}
+        self.raw.update({name: b'{"fixture_only":true}\n' for name in (
+            "requests.jsonl", "dispatches.jsonl", "events.jsonl", "execution/client/operations.jsonl",
+            "execution/process-resources.jsonl", "execution/server/" +
+            ("managed-resources.jsonl" if route == "nativeweave-aot-rust" else "native-resources.jsonl"))})
+        pins = {"requests.jsonl": hashlib.sha256(self.raw["requests.jsonl"]).hexdigest(),
+                "execution/server/config.private.json": "0" * 64}
+        self.raw["result.json"] = (json.dumps({"status": "completed", "formal_timing_eligible": False,
+                                             "evidence_sha256": pins, "fixture_only": True}) + "\n").encode()
+        for name, value in self.raw.items():
+            path = self.cell / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(value)
+        self.pin()
+
     def test_exact_bytes_multichunk_empty_jsonl_and_exclusions(self):
         block = '{"id":0,"value":"synthetic-\u03bb"}\n'.encode()
         self.raw["operations.jsonl"] = block * (1024**2 // len(block) + 5)
@@ -217,6 +236,98 @@ class ArchiveChecks(unittest.TestCase):
                 (self.cell / "target.json").write_text(json.dumps({"postgres_base": uri})); self.pin()
                 with self.assertRaises(ValueError):
                     self.pack(output=self.root / f"uri-rejected-{index}")
+
+    def test_protocol_projection_retains_complete_result_above_control_bound(self):
+        self.protocol_fixture()
+        path = self.cell / "result.json"
+        full = json.loads(path.read_text())
+        bins = {str(index * 1000): index + 1 for index in range(6000)}
+        full = {"histograms": {"arrival_success": {"bins": bins}},
+                "scenarios": {"http-tiny/http1-tls": {"bins": bins}}, **full}
+        self.raw["result.json"] = (json.dumps(full) + "\n").encode()
+        path.write_bytes(self.raw["result.json"]); self.pin()
+        self.assertGreater(path.stat().st_size, 65536)
+        original_read, original_scalar = Path.read_text, archive.JsonReader.scalar
+
+        def no_full_text(candidate, *args, **kwargs):
+            if candidate == path:
+                raise AssertionError("Protocol result must not be loaded as a whole string")
+            return original_read(candidate, *args, **kwargs)
+
+        def no_decoded_containers(reader):
+            value = original_scalar(reader)
+            self.assertNotIsInstance(value, (dict, list), "Projection must walk nested maps and arrays")
+            return value
+
+        # Lower the existing control bound for a real multi-reader-chunk file.
+        # This exercises the same gate without a 65 MiB fixture or RSS claim.
+        with patch.object(archive, "MAX_CONTROL", 65536):
+            with self.assertRaisesRegex(ValueError, "Oversized control JSON"):
+                archive.small(path)
+            with patch.object(Path, "read_text", no_full_text), patch.object(archive.JsonReader, "scalar", no_decoded_containers):
+                self.pack()
+        restored = self.root / "protocol-restored"
+        manifest = archive.verify(self.bundle, restored)
+        record = next(row for row in manifest["files"] if row["path"] == "result.json")
+        self.assertEqual(archive.sha(path), record["raw_sha256"])
+        self.assertEqual(len(self.raw["result.json"]), record["raw_bytes"])
+        self.assertEqual(self.raw["result.json"], (restored / "result.json").read_bytes())
+        self.assertFalse(manifest["original_accepted"])
+        self.assertEqual(0, manifest["original_duration_credit_seconds"])
+        self.assertEqual({"requests.jsonl": archive.sha(self.cell / "requests.jsonl")},
+                         manifest["original_driver_file_sha256_checked"])
+        self.assertNotIn("execution/server/config.private.json", {row["path"] for row in manifest["files"]})
+
+    def test_protocol_projection_preserves_status_route_and_producer_hash_checks(self):
+        self.protocol_fixture(group="grpc", route="direct-rust")
+        path = self.cell / "result.json"; full = json.loads(path.read_text())
+        mutations = [("status", "failed"), ("evidence_sha256", []),
+                     ("evidence_sha256", {"requests.jsonl": "not-a-hash"}),
+                     ("evidence_sha256", {"requests.jsonl": "0" * 64})]
+        for index, (name, value) in enumerate(mutations):
+            with self.subTest(field=name, value=value):
+                path.write_text(json.dumps(dict(full, **{name: value}))); self.pin()
+                with self.assertRaises(ValueError):
+                    self.pack(output=self.root / f"protocol-rejected-{index}")
+        path.write_text(json.dumps(full)); self.pin()
+        self.pack()
+        manifest = archive.verify(self.bundle)
+        self.assertIn("execution/server/native-resources.jsonl", {row["path"] for row in manifest["files"]})
+        (self.cell / "plan.json").write_text('{"route":"unknown"}'); self.pin()
+        with self.assertRaisesRegex(ValueError, "Unknown protocol route"):
+            self.pack(output=self.root / "route-rejected")
+
+    def test_protocol_projection_rejects_malformed_and_private_skipped_content(self):
+        self.protocol_fixture()
+        path = self.cell / "result.json"; valid = path.read_text().strip()
+        documents = (valid[:-1], valid + " {}", "[]",
+                     '{"status":\v"completed","evidence_sha256":{}}', valid + "\f", valid + "\u00a0",
+                     valid[:-1] + ',"ignored":[1,]}', valid[:-1] + ',"ignored":{"x":1,}}',
+                     valid[:-1] + ',"ignored":[1 2]}', valid[:-1] + ',}',
+                     valid[:-1] + ',"ignored":{"password":"fixture"}}')
+        for index, document in enumerate(documents):
+            with self.subTest(index=index):
+                path.write_text(document); self.pin()
+                with self.assertRaises(ValueError):
+                    self.pack(output=self.root / f"malformed-protocol-{index}")
+
+    def test_protocol_short_rejected_receipt_still_binds_producer_raw_hashes(self):
+        self.protocol_fixture(group="grpc", route="direct-rust")
+        receipt = json.loads(self.receipt.read_text())
+        receipt["evidence_sha256"] = {name: digest for name, digest in receipt["evidence_sha256"].items()
+                                     if name in {"plan.json", "result.json"}}
+        self.receipt.write_text(json.dumps(receipt))
+        (self.cell / "requests.jsonl").write_text('{"changed":true}\n')
+        with self.assertRaisesRegex(ValueError, "Bound input changed"):
+            self.pack()
+
+    def test_protocol_skipped_result_bytes_remain_verifier_bound(self):
+        self.protocol_fixture()
+        path = self.cell / "result.json"
+        full = json.loads(path.read_text()); full["histograms"] = {"bins": {"0": 1}}
+        path.write_text(json.dumps(full))
+        with self.assertRaisesRegex(ValueError, "Bound input changed"):
+            self.pack()
 
 
 if __name__ == "__main__":

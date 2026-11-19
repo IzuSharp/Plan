@@ -1,0 +1,539 @@
+{
+  "acceptance": [
+    "Root records actual argv/start/end/exit and stops after any failed/interrupted cell; retain all partial evidence and confirm owned-process cleanup before the next load.",
+    "Driver exit 0 plus summary valid=true and qualifies_service_standard=true; no unexpected errors, full offered/dispatched/admitted/completed/successful counts, independent durable SQL oracle and owner release. Exit0 alone does not establish the service standard.",
+    "All measured arrival latencies include scheduled-to-completion delay; whole mixed p99 <= 500 ms, sampled application RSS <= 256 MiB, dispatch lag <= 100 ms, zero explicit business retries. Internal SQLite busy-handler retry attempts and DB server CPU/RSS remain unavailable unless separately observed.",
+    "At least 32 completed same-process recovery cycles and 60 s idle observation, excluded from effective load duration; complete outcome journal and full receipts must be retained.",
+    "Post-run verifier must accept full raw accounting, source/native identity, durable correctness, service/resource limits and drain; ordinary successful-operation lower bound D-C >= 1800 s plus original dispatch span >= 1800 s. D-A is diagnostic only.",
+    "The 1802 s requested duration and existing 0.25 s guard are schedule arithmetic, never automatic long acceptance. No uninterrupted CPU-busy claim is made."
+  ],
+  "after_binding": {
+    "observer_manifest": null,
+    "package_and_artifact_sha256": null,
+    "package_probe": null,
+    "paired_workload_rule": "Use the same immutable ce2 driver, rates 40/144, periods/counts, duration 1802, concurrency 16, seed, warmup 16, recovery 32, idle 60,CPU masks,limits,compact and overload policies; substitute only independently built after producer identities and after labels/output paths.",
+    "proposed_output_directories": [
+      "/workspace/scratch/01c249676f47/perf01-evidence/long/after/sqlite-001",
+      "/workspace/scratch/01c249676f47/perf01-evidence/long/after/postgresql-001"
+    ],
+    "status": "Future unexecuted placeholders only; no after argv emitted before the actual after package/observer builds and global freeze."
+  },
+  "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/flock",
+        "--nonblock",
+        "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock",
+        "taskset",
+        "-c",
+        "2,3",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/run.py",
+        "--package-probe",
+        "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+        "--observer",
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+        "--route",
+        "nativeweave-aot-rust",
+        "--provider",
+        "sqlite",
+        "--protocol",
+        "http1",
+        "--scenario",
+        "mixed",
+        "--stage",
+        "soak",
+        "--variant",
+        "before",
+        "--rate",
+        "40",
+        "--seconds",
+        "1802",
+        "--concurrency",
+        "16",
+        "--seed",
+        "20261119",
+        "--repetition",
+        "0",
+        "--warmup",
+        "16",
+        "--recovery-requests",
+        "32",
+        "--idle-seconds",
+        "60",
+        "--generator-cpus",
+        "0,1",
+        "--continue-classified-overload",
+        "--compact-observation",
+        "--max-p99-ms",
+        "500",
+        "--max-rss-mib",
+        "256",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/sqlite-001",
+        "--isolation-note",
+        "Exclusive Perf-01 paired long timing; shared timing.lock held; service/database CPUs2,3; generator CPUs0,1; no concurrent local builds or workloads; physical-host controls unavailable."
+      ],
+      "expected_exit_code": 0,
+      "group": "sqlite",
+      "id": "database-before-sqlite-long-001",
+      "kind": "measurement",
+      "output": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/sqlite-001",
+      "requires_exclusive_measurement_window": true,
+      "requires_fresh_output": true
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+        "--group",
+        "sqlite",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/sqlite-001",
+        "--receipt",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/sqlite-001-verification.json"
+      ],
+      "expected_exit_code": 0,
+      "group": "sqlite",
+      "id": "database-before-sqlite-verify-001",
+      "kind": "post_run_verification",
+      "receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/sqlite-001-verification.json",
+      "required_receipt_accepted": true,
+      "requires_completed_measurement": true,
+      "requires_new_receipt": true,
+      "requires_no_active_measurement": true
+    },
+    {
+      "argv": [
+        "/usr/bin/flock",
+        "--nonblock",
+        "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock",
+        "taskset",
+        "-c",
+        "2,3",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/run.py",
+        "--package-probe",
+        "/workspace/scratch/01c249676f47/perf01-build/before/reference-002",
+        "--observer",
+        "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json",
+        "--route",
+        "nativeweave-aot-rust",
+        "--provider",
+        "postgresql",
+        "--protocol",
+        "http1",
+        "--scenario",
+        "mixed",
+        "--stage",
+        "soak",
+        "--variant",
+        "before",
+        "--rate",
+        "144",
+        "--seconds",
+        "1802",
+        "--concurrency",
+        "16",
+        "--seed",
+        "20261119",
+        "--repetition",
+        "0",
+        "--warmup",
+        "16",
+        "--recovery-requests",
+        "32",
+        "--idle-seconds",
+        "60",
+        "--generator-cpus",
+        "0,1",
+        "--continue-classified-overload",
+        "--compact-observation",
+        "--max-p99-ms",
+        "500",
+        "--max-rss-mib",
+        "256",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/postgresql-001",
+        "--isolation-note",
+        "Exclusive Perf-01 paired long timing; shared timing.lock held; service/database CPUs2,3; generator CPUs0,1; no concurrent local builds or workloads; physical-host controls unavailable.",
+        "--postgres-bin",
+        "/workspace/scratch/01c249676f47/perf01-toolchain/postgres18/bin"
+      ],
+      "expected_exit_code": 0,
+      "group": "postgresql",
+      "id": "database-before-postgresql-long-001",
+      "kind": "measurement",
+      "output": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/postgresql-001",
+      "requires_exclusive_measurement_window": true,
+      "requires_fresh_output": true
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+        "--group",
+        "postgresql",
+        "--output",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/postgresql-001",
+        "--receipt",
+        "/workspace/scratch/01c249676f47/perf01-evidence/long/before/postgresql-001-verification.json"
+      ],
+      "expected_exit_code": 0,
+      "group": "postgresql",
+      "id": "database-before-postgresql-verify-001",
+      "kind": "post_run_verification",
+      "receipt": "/workspace/scratch/01c249676f47/perf01-evidence/long/before/postgresql-001-verification.json",
+      "required_receipt_accepted": true,
+      "requires_completed_measurement": true,
+      "requires_new_receipt": true,
+      "requires_no_active_measurement": true
+    }
+  ],
+  "created_utc": "2026-11-19T13:18:36.093005+00:00",
+  "environment_prerequisite": "source /workspace/scratch/01c249676f47/perf01-toolchain/env.sh",
+  "execution_order": [
+    "database-before-sqlite-long-001",
+    "database-before-sqlite-verify-001",
+    "database-before-postgresql-long-001",
+    "database-before-postgresql-verify-001"
+  ],
+  "groups": [
+    {
+      "concurrency": 16,
+      "counts_are_source_arithmetic_not_measurements": true,
+      "existing_soak_dispatch_guard_seconds": 0.25,
+      "expected_complete_outcome_journal_rows": 72107,
+      "final_before_selection": {
+        "paired_long_rate": 40,
+        "path": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-sqlite-compact-v5-target/selection.json",
+        "sha256": "95d967363da3bf86df025f71304d535c626ea7f0853f64ccf843d157530c8e87",
+        "short_capacity_rate": 50
+      },
+      "group": "sqlite",
+      "idle_seconds": 60,
+      "period_ns": 25000000,
+      "planned_cycles": 36046,
+      "planned_first_to_last_schedule_ns": 1802250000000,
+      "planned_measurement_operations": 72091,
+      "planned_pages": 36045,
+      "protocol": "http1",
+      "rate": 40,
+      "recovery_operations": 32,
+      "recovery_scope": "32 durable cycles at the existing 250 ms schedule after measured work drains; excluded from measurement counts and duration.",
+      "requested_seconds": 1802,
+      "route": "nativeweave-aot-rust",
+      "scenario": "mixed",
+      "seed": 20261119,
+      "variant": "before",
+      "warmup_operations": 16
+    },
+    {
+      "concurrency": 16,
+      "counts_are_source_arithmetic_not_measurements": true,
+      "existing_soak_dispatch_guard_seconds": 0.25,
+      "expected_complete_outcome_journal_rows": 259542,
+      "final_before_selection": {
+        "paired_long_rate": 144,
+        "path": "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v5-target/selection.json",
+        "sha256": "0a7d22909d593eeb23ffce58868528912ad2cb61f28195c7648c4bc4d9593cbf",
+        "short_capacity_rate": 180
+      },
+      "group": "postgresql",
+      "idle_seconds": 60,
+      "period_ns": 6944444,
+      "planned_cycles": 129763,
+      "planned_first_to_last_schedule_ns": 1802256829100,
+      "planned_measurement_operations": 259526,
+      "planned_pages": 129763,
+      "protocol": "http1",
+      "rate": 144,
+      "recovery_operations": 32,
+      "recovery_scope": "32 durable cycles at the existing 250 ms schedule after measured work drains; excluded from measurement counts and duration.",
+      "requested_seconds": 1802,
+      "route": "nativeweave-aot-rust",
+      "scenario": "mixed",
+      "seed": 20261119,
+      "variant": "before",
+      "warmup_operations": 16
+    }
+  ],
+  "identity_scope": "Only source and small metadata were rehashed in this preparation. Package/native/executable digests are recorded producer identities, not a claim that binaries were rescanned. The existing driver validates supplied artifacts and actual procfs-loaded executable/native files before timing.",
+  "immutable_measurement_driver": {
+    "a21_sha256": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+    "commit": "ce2a3c75cbd535490897d062b6cbb7c095408307",
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave",
+    "reader_sha256": "8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4"
+  },
+  "kind": "prospective-existing-database-long-command-arrays",
+  "long_duration_credit_seconds": 0,
+  "post_run_verifier": {
+    "path": "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py",
+    "scope": "Post-run only, separately pinned from the immutable 8034692 timing reader; do not change DB timing checkout.",
+    "sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+  },
+  "python": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "hash_scope": "Copied from prior exact toolchain and executed noise receipt; binary not rescanned during active timing.",
+    "recorded_executable_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "version": "3.12.14"
+  },
+  "recorded_before_artifact_sha256_from_observer_manifest": {
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService": "6f2bd3e2b31422393d0e9543388f238226df2e3ab8f7e67c7f6b613a00e650d3",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService.dbg": "9a407b59f4abcaa3839f594a98179c864d311d8dcf456c96539bc07031e58d28",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.Reference.TaskService.xml": "4fc6865ae9b1d4299ad25c802cfe60173bd079e5f6444c2392697fb5c6b02f34",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.database.postgresql.assets.json": "96c7a40746db478dd8b884ba05903da8ab0c947a2d8962f352193a647bef691d",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.database.sqlite.assets.json": "e7a6744f2f18b1b23c9f9ad8729023a7ba84b123cfe16f99dff71a0960bb71d1",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/NativeWeave.server.assets.json": "43a3b5327e7e57adc54caace7da21fe893e88a1c4125c3f970eca6a835cfdce9",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnativeweave_server.so": "4827a6ecc76f871e0b4828f4ff6fe23a0d0a4ca1c57c5fc89a10a8e4d83ffe69",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_postgresql.so": "b0510d35c2b7b633a9aade7a5d3ad9a74498b54fbe23863c770881e38442a6f3",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/artifacts/libnw_database_sqlite.so": "7254f8e490f19637701d92523c2ba08e0cbdfdbe4c5f28173d4215b5f303da8d"
+  },
+  "recorded_package_closure_from_progress": {
+    "NativeWeave.Core": {
+      "bytes": 53489,
+      "filename": "NativeWeave.Core.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "f861f94331ca58d38c138cd7effada68ff78a4c8598e17869804d4813159cfc0",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Data": {
+      "bytes": 51943,
+      "filename": "NativeWeave.Data.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "6afc484d2dc60b302a40540b68edcd1866ec0b2a35a2f973dd9b8a51ba028de1",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Data.Streaming": {
+      "bytes": 16887,
+      "filename": "NativeWeave.Data.Streaming.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "47d977db5be1ff2ab3845f1460bae145da86593ef0c903461a4f9b0d3afeb50b",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database": {
+      "bytes": 123858,
+      "filename": "NativeWeave.Database.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "122540baf389c5a2cb05922eb8c7a89ca818d9959307ca18c4d11d873b700780",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database.PostgreSql": {
+      "bytes": 25596,
+      "filename": "NativeWeave.Database.PostgreSql.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "b3a7fd0ffe9671fd9eef871d7285b5884132d981cb88d78267ade15e59e69701",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database.PostgreSql.Native": {
+      "bytes": 3701418,
+      "filename": "NativeWeave.Database.PostgreSql.Native.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "7cb4a551c829c5f0745f922a0ba26fb6d7ba41dc95ac813f0cd8085c49653744",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database.Sqlite": {
+      "bytes": 25200,
+      "filename": "NativeWeave.Database.Sqlite.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "33dd677b8d38db5f3b3feed7b7fb71fb48d9255debf1e31577aed3e85461b5f8",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database.Sqlite.Native": {
+      "bytes": 3394697,
+      "filename": "NativeWeave.Database.Sqlite.Native.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "ce91e755e64d6035c3fb7bfc8c08ca0dc407742233a812262fb90d831601d544",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Database.Transactions": {
+      "bytes": 15596,
+      "filename": "NativeWeave.Database.Transactions.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "5bda76542524c5c35322fb9839fa20e7049fc0aa6d168a3e785315c13698d513",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Interop.Abi": {
+      "bytes": 6217,
+      "filename": "NativeWeave.Interop.Abi.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "f1bbec78cfb1fc9dbaf01ca377239689701450a1877e1ed44643efe0cf058161",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Query.Binding": {
+      "bytes": 17548,
+      "filename": "NativeWeave.Query.Binding.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "170279a533ae02803e43182005b49aa654ffed1c3e36096e5bc853625e8bc917",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Query.Generator": {
+      "bytes": 15965,
+      "filename": "NativeWeave.Query.Generator.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "4ea396fa4d0ed16a3ca50a9c3f99bc0d37f4ffeed216e8c3bac2695fbb2d004c",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Server": {
+      "bytes": 129938,
+      "filename": "NativeWeave.Server.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "85601ec945d57271fd2016cbf40c0f8bea9edcd313a697630d6c22201812696f",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Server.Generator": {
+      "bytes": 14519,
+      "filename": "NativeWeave.Server.Generator.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "88a7093e85b38ea0e2636f8af6954f47c9a237299bc5837087ee9ddf5f1da0de",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Server.Grpc": {
+      "bytes": 53438,
+      "filename": "NativeWeave.Server.Grpc.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "812a48c7f477ef2d1ae661db4b842ae44e7b2679346f5ab7bf7ba91db9964a56",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Server.Mcp": {
+      "bytes": 68907,
+      "filename": "NativeWeave.Server.Mcp.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "590af1a3877ba375c15f1040323df33948cd4e67c87fb4f65701a2fbd89b4e49",
+      "version": "0.1.0-perf01.before.1"
+    },
+    "NativeWeave.Server.Native": {
+      "bytes": 3673720,
+      "filename": "NativeWeave.Server.Native.0.1.0-perf01.before.1.nupkg",
+      "repository": {
+        "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+        "type": "git",
+        "url": "https://github.com/IzuSharp/NativeWeave"
+      },
+      "sha256": "f99b9018e2119d5b1551847876e6923f107ef7cff41be86c5b5b96f5fc218151",
+      "version": "0.1.0-perf01.before.1"
+    }
+  },
+  "required_final_selection_sha256": {
+    "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v5-target/controller.json": "8667a28dd5a1eb38a93a301fef2fe02359d6a74b38a78ec17446c2df6068626a",
+    "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-postgresql-compact-v5-target/selection.json": "0a7d22909d593eeb23ffce58868528912ad2cb61f28195c7648c4bc4d9593cbf",
+    "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-sqlite-compact-v5-target/controller.json": "40b95313d2492afa6f30f8a5e2003c6f43fbcbc38c52ebca750d6754c0d52a71",
+    "/workspace/scratch/01c249676f47/perf01-evidence/calibration/before-sqlite-compact-v5-target/selection.json": "95d967363da3bf86df025f71304d535c626ea7f0853f64ccf843d157530c8e87"
+  },
+  "required_source_and_metadata_sha256": {
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/cell_worker.py": "fa9105f875a28788ab13f3c461e4edfc6114d37b280c8e78d54346abc362e179",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/common.py": "f4eebb84835ffba8f6826065197740e1234ee8f3c4f7c6a51af5b2debb9c3135",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/http_target.py": "cde9c7c492cfbdf016c1e3c5ed0048f61e45360919fd5fb9715bda5a4aabaede",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/profile-v1.json": "760180de5a89760837e43a77676a6328fc792e0dfede1893558ae8c244332012",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/run.py": "bc7d7ab12f551a3486b4aaf986f730889acd9691142fd070643c6f321cb05f9e",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Domain/supervision.py": "c57b845fbbc2dd97015888fa7e251fb924040daf3a3b4c342e4fd0e5d1875de4",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/src/Benchmarks.Harness/nativeweave_bench.py": "dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/perf01_affinity.py": "b8ea966ec3d763126afc70ccf87b988263d8c0f37dbf384d70653651225a02ca",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/perf01_outcomes.py": "f0cf9c6162817be9ac936b29072ff2e1c85b2844b13d08e2809afe34919831e2",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/perf01_resources.py": "a0b5ff1978b1fb56812dc8202560cbbc8e6a494be4fbc7ecb963031f2876a2b9",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/run.py": "f03ef0d31cd9bfa66cbdd66b99a3e8444269a7a4f0a8541635d76dc423a3ce55",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01.Database/target.py": "d49a5adfff76261b6db115bc5faa284fb7d9e5a04174cf248b91d99d8af08272",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Perf01/verify_long.py": "8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-frozen-drivers-linux/NativeWeave/tests/Reference.TaskService/golden.py": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01/verify_long.py": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/prospective-policy.json": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc",
+    "/workspace/scratch/01c249676f47/perf01-build/before/db-observer/manifest.json": "0aeb5121fa7cc4f9ff4b86b4c24bdc4ce80991f83d1a07b45a849b68de271f62",
+    "/workspace/scratch/01c249676f47/perf01-build/before/reference-002/progress.json": "36991e0498764aff50c62e259f3a8fb5a403e8d07b4bb7d89a128b643476b327",
+    "/workspace/scratch/01c249676f47/perf01-toolchain/env.sh": "9354447f2d824cb5239e9677e308ac291af6b46d55c7fa22cd2cda56e5c81aeb"
+  },
+  "review_status": "Independent bounded source/hash review passed; no command execution.",
+  "schema_version": 1,
+  "source_review": {
+    "reviewed_json_sha256": "02cfddf4671dd3d9d9b73d5b964119edb24084a8569b43009b755a9a1e800baf",
+    "reviewer": "perf01_codec",
+    "scope": "Both run/verifier argv arrays,19 source/small-metadata hashes,4 selection/controller hashes, immutable ce2 identity, CLI and count/guard arithmetic. Subsequent edits only clarify prose spacing and record this review. No binary/raw-ledger scan, test, build or workload by reviewer.",
+    "verdict": "passed"
+  },
+  "status": "Source preparation only; none of these long or verifier commands has been executed by the author.",
+  "task": "Perf-01",
+  "timing_lock": {
+    "launcher": "/usr/bin/flock",
+    "metadata_readback": {
+      "launcher_executable": true,
+      "launcher_regular_file": true,
+      "launcher_size_bytes": 35288,
+      "lock_regular_file": true,
+      "lock_size_bytes": 0
+    },
+    "mode": "Exclusive nonblocking flock, same existing lock used internally by the protocol driver; no protocol outer/double lock.",
+    "path": "/workspace/scratch/01c249676f47/perf01-evidence/timing.lock",
+    "scope": "Prospective orchestration only; applies identically to before/after DB and codec measurements. Busy lock means no measurement started and is not application failure."
+  },
+  "working_directory": "/workspace/scratch/01c249676f47"
+}

@@ -1,0 +1,26 @@
+{
+  "actual_invocation": "taskset -c 8 /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -",
+  "actual_stdin_wrapper": "from pathlib import Path\nimport sys\nroot=Path('/workspace/scratch/01c249676f47')\np=root/'.worktree/Perf-01-protocol-linux/Plan/ledger/evidence/batches/Perf-01/protocol-controller-memory-review.md'\nsource=p.read_text().split(\"<<'PY'\\n\",1)[1].split('\\nPY\\n```',1)[0]\nsys.argv=[str(p),str(root),str(root/'.worktree/Perf-01-linux/NativeWeave')]\nexec(compile(source,str(p),'exec'),{'__name__':'__main__'})\n",
+  "cpu_affinity": [
+    8
+  ],
+  "executed_python_body_sha256": "1b381ff2b6d62957203efd97f1979d0e2f27befd6e69167cb46f44ece0936178",
+  "exit_code": 0,
+  "measurement_or_functional_workload_started": false,
+  "operation": "post-run bounded evidence extraction",
+  "python": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "python_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+  "python_version": "3.12.14",
+  "receipt_sha256": "2966f2f0611dd208bebc7cd7500fe7d208449b038afcb22d37768ab264e997f8",
+  "reproduce": [
+    "taskset",
+    "-c",
+    "8",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-protocol-linux/Plan/ledger/evidence/batches/Perf-01/checks/protocol-controller-retention-v5r1-001/extract.py",
+    "/workspace/scratch/01c249676f47",
+    "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave"
+  ],
+  "reproduce_note": "Existing evidence is immutable. Change only the new output suffix in a copied script before repeating; retain its new source hash.",
+  "task": "Perf-01"
+}
