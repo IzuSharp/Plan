@@ -155,3 +155,42 @@ per-frame reservation policies are different. Report this difference when
 interpreting capacity or direct-Rust gaps; do not describe their quota admission
 paths as identical. This finite fixture comparator is not an arbitrary-protobuf
 or arbitrary-metadata conformance proof.
+
+## Later 64 MiB-cap calibration: 224/s probe-header failure
+
+Root subsequently executed the prospective profile in
+`ROOT/perf01-evidence/calibration/before-grpc-v4/07-refine-224`.
+
+| Existing file | SHA-256 |
+| --- | --- |
+| `result.json` | `8a6bc34003d85fce9d1299668df43a9c3ae978211517684fe3b4e1638b8064e3` |
+| `execution/client/operations.jsonl` | `0b2e274de1f3a9c6a8b684565cc8fd573f43836ea4781c434d224f60b778d57a` |
+| `oracle.json` | `703ea1298e78bfcd765d11ba8a8feb947a9abe141af9f1fce36a9be56bf88e6e` |
+| `requests.jsonl` | `e93ea733bc39de5104d24b6c7f600c83655c4936d4916c474f342ac4668af6aa` |
+
+The original result remains invalid with
+`response/protobuf/hash correctness failure`; this note does not loosen or
+reclassify the frozen driver's check. Its aggregate measured outcomes are
+6,744 offered, 6,727 `ok`, 12 `rejected`, four `cancelled`, and one `failed`.
+The twelve explicit rejections are ordinary calls with the actual recorded
+`ResourceExhausted` wire status. The four unexpected cancellations are ordinary
+duplex calls, not the intended cancellation probes.
+
+The one integrity failure is ID **228**, whose frozen Oracle input and expected
+value are both `grpc-cancel|http2-tls|64|1`. Its independent client row records
+`wire_status=IntegrityFailure`, `failure="Wait headers were not committed."`,
+zero received messages/bytes, and both intentional-probe completion flags false.
+Its client elapsed time is 0.531893 ms. The A21 request row preserves `failed`
+with the same expected token, no retry, and completion equal to the observed
+target-completion timestamp.
+
+`tests/Perf01.Protocols/Client/Program.cs:202-206` awaits the `Wait` call's initial
+headers and requires `perf-started=yes` before reading a protobuf message or
+requesting cancellation. That particular assertion failed. Thus the available
+evidence establishes a missing required initial header for the probe, **not an
+observed corrupted payload, protobuf field or content hash**. The raw row does
+not retain its underlying terminal status/trailers after that early assertion,
+so it cannot prove `ResourceExhausted` for ID 228, despite the neighboring
+ordinary calls' explicit code-8 errors. The exact cause of the missing header
+remains unobserved. Keep this narrower explanation beside the unchanged invalid
+verdict in the capacity table.

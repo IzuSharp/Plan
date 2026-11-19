@@ -7,6 +7,10 @@ calibration window ends. This recipe launches the existing frozen
 actual command arrays, output paths, timestamps and return codes in the root
 execution ledger. Do not run this document as an unattended shell script.
 
+The actual before-only W1 smoke and recorded W1/W2 fixed selections are in
+[the short-load decision](codec-short-selection-linux.md). Noise and confirmation
+processes remain separate from that selection smoke.
+
 ## One mixed process covers all 32 rows
 
 The frozen `tests/Perf01.Codec/driver.py:62–72` `cycle()` has weights **10, 5, 4, 1** for 256 B, 4 KiB, 1 MiB and

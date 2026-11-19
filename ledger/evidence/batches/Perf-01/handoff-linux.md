@@ -155,3 +155,51 @@ The actual PostgreSQL statement/wait profile completed122/s20s with correctness/
 `measurement-tools-finite-002.json` records20 actual Plan archive/codec-helper checks and19 existing A21 checks passing with exactPython3.12.14. A proposed outer long-run wrapper was withdrawn before commit after review found unnecessary interruption-lifecycle complexity; use existing supervised domain commands one group at a time and freeze their exact arguments. Database soak recovery must be32 requests (not the16 used in calibration), with idle60s.
 
 Product runtime still equals main ea5fa528; product local510409e only adds the separate profiling launcher. Plan last remote429c091 has passed CI44501673440. Current new evidence/profile/policy files await the next push checkpoint. Final frozen-execution.json remains absent and **0/10 long segments are credited**. Continue until actual before/after comparisons, all ten long groups, required verification/review and normal merges/preview complete.
+
+### Execution checkpoint: compact observer verified, final producer refreshed
+
+The test-only A21 compact observer passed29 actual finite harness tests and six
+DB affinity tests, then the same171/s120s PostgreSQL generator profile completed
+20522/20522 correct operations with valid generation and the service standard
+(p99 arrival89.080751ms). No generation2 collection interval occurred during
+measurement; the maximum measured GC callback interval was0.988382ms. Complete
+values/counters were restored after load. This is a measurement-tool change,
+not a NativeWeave runtime improvement. Fresh compact SQLite/PG calibration must
+replace the older full-retention selection before the final freeze.
+
+gRPC revision4 completed three passing60s confirmations at208 offered calls/s,
+with arrival p99152.263/152.687/151.965ms. Its before-derived long rate is166/s.
+The complete controller and selection are retained as
+`observations-before/grpc-calibration-v4-{controller,selection}.json`. The224/s
+probe failure is specifically a missing expected committed header, not proved
+payload corruption or an inferred gRPC status. The256/s service failures remain
+failed. HTTP's earlier mixed selection remains1152/s, with the prospective500/s
+long cap.
+
+Fresh final codec before producer `perf01-codec-checks/package-before-003` passed
+all25 expected preparation outcomes, including139 assertions each for JIT,
+ordinary managed-edit JIT reuse and actual Native AOT. It binds unchanged clean
+product main ea5fa528 and current A21 SHAa07dc5f338a13c8f9c4bedadb6d21cffd1e0f835d8381f16bb24f90d68ea98ad.
+Its immutable manifest SHA is
+f7a766eb277d09a6f5d64fd3ecac2e83bf6dcbac41ab384c0b75affc234c775d;
+full metadata is in `builds/before-codec-003/`. Do not rewrite before-002.
+The new one-worker134/s smoke completed1355/1355 with p99110.687603ms and passed
+resource/ownership checks; it is not a noise cohort or long segment.
+
+Baseline B18 writer tests actually passed Release/JIT662 assertions and Native
+AOT663 assertions against the unchanged server4827a6ec. The full scoped verifier
+still runs its independent package proof in session25804, output
+`ROOT/perf01-evidence/functional/before-b18-writer-002`. Attempt001 stopped before
+managed tests because the literal clang-19 name was absent; a private launcher
+now names the same installed19.1.7 compiler. Keep001 as a tooling failure.
+After002 exits and all builds stop, run the reviewed compact DB calibration
+controller and final before-only noise/cohorts before runtime edits.
+
+Product branch a723bac2274ea760ef5afbe025edbee32589b9ae is tree-equal to local
+archive `checkpoint/Perf-01-local-drivers-008`; it only adds B18 tests. The
+predecessor a583 CI was superseded/cancelled during Task-07 package verification
+when this new checkpoint was pushed; it is not claimed green. Plan8bae297 passed
+CI44508237005 and its selected policy/profile bytes were read back exactly.
+Current Plan additions await the next push. Runtime/src and native implementation
+still equal ea5fa528 except benchmark-harness source. `frozen-execution.json` is
+absent, and **0 of10 long segments are credited**.

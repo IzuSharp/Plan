@@ -1,0 +1,389 @@
+[
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "elapsed_seconds": 0.0021780269998998847,
+    "exit": 0,
+    "label": "source-commit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "0c9009bb7ec4abc3d0a5f467af0841bf17559da9d32e092579ba5bc6907245d5"
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain"
+    ],
+    "elapsed_seconds": 0.007355822999670636,
+    "exit": 0,
+    "label": "source-status",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "--version"
+    ],
+    "elapsed_seconds": 0.06205861199850915,
+    "exit": 0,
+    "label": "dotnet-version",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+  },
+  {
+    "argv": [
+      "rustc",
+      "-vV"
+    ],
+    "elapsed_seconds": 0.25897164399793837,
+    "exit": 0,
+    "label": "rust-version",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "be69adad9137eaa0bdac1dd07e2fe286b1831fc8bad193ea27806ca0c7c8e7c6"
+  },
+  {
+    "argv": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "-p",
+      "nativeweave-engine-syncproof"
+    ],
+    "elapsed_seconds": 0.38219380200098385,
+    "exit": 0,
+    "label": "native-build",
+    "stderr_sha256": "5089e1c94f049189c2882fc87c84f7dc7b10bacee71a9d1d0a37f5d69d73d594",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/repos/NativeWeave/src/Engines.SyncProof/NativeWeave.Engines.SyncProof.csproj",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 1.49910657700093,
+    "exit": 0,
+    "label": "facade-restore",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/repos/NativeWeave/src/Engines.SyncProof/NativeWeave.Engines.SyncProof.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 1.165933522999694,
+    "exit": 0,
+    "label": "facade-build",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "5b26e78af0d92c67c322fddac9953e3894dd6861adb379f323470cd628a36a9e"
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "elapsed_seconds": 0.0026896890012721997,
+    "exit": 0,
+    "label": "packaging-source-commit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "0c9009bb7ec4abc3d0a5f467af0841bf17559da9d32e092579ba5bc6907245d5"
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain",
+      "--",
+      "src/Packaging.Release",
+      "src/Packaging.Linux"
+    ],
+    "elapsed_seconds": 0.004942470000969479,
+    "exit": 0,
+    "label": "packaging-source-dirty",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/packaging-source/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "--locked-mode",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 0.9090649279969512,
+    "exit": 0,
+    "label": "packaging-task-restore",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "93ac1c0d1f2c43af1aa620bbbf1f76a9e4a5fee784d186ed6cc28990f3a45f36"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/packaging-source/src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 2.4028128499994637,
+    "exit": 0,
+    "label": "packaging-task-build",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "22779bb087c08e9ba285da3ef56f4d605651b4e73814525b2061e3f08e77b67e"
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "elapsed_seconds": 0.0019454559987934772,
+    "exit": 0,
+    "label": "package-source-commit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "0c9009bb7ec4abc3d0a5f467af0841bf17559da9d32e092579ba5bc6907245d5"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "restore",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 10.43768915399778,
+    "exit": 0,
+    "label": "package-consumer-restore",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "531ae5f1a88d5d5091ee5cf586d7d319762853472d88c44434aa680850d6aa3c"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 2.867720427999302,
+    "exit": 0,
+    "label": "package-consumer-build",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "0dd1e2163755bb7032d53c7355b9ce178ed8d5c764f79728ed8600144293399f"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/bin/Release/net11.0/NativeWeave.Engines.SyncProof.Tests.dll"
+    ],
+    "elapsed_seconds": 1.1945460419992742,
+    "exit": 0,
+    "label": "package-consumer-jit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "62e3d734aeee0f1f5d4d268b0f610a9b8ec3027af348fc87b115278fbc7a06fe"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 1.6910655909996422,
+    "exit": 1,
+    "label": "negative-null-limit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "aa0bd428f1956a5d8adfa2ccd5c34f14e5b61067cd846535192e709cb2ebce5c"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 1.7400103460022365,
+    "exit": 1,
+    "label": "negative-span-escape",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "6377c43dff03e02fcaab6a596a9703fb226d66d1b08e4d35cad26f8f72eeab84"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "build",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 2.6452822089995607,
+    "exit": 0,
+    "label": "package-managed-change",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "96bba3c875899cca31413f0eab67f2dd96d3041e55c9181344349a6c33051259"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/bin/Release/net11.0/NativeWeave.Engines.SyncProof.Tests.dll"
+    ],
+    "elapsed_seconds": 1.2210315670017735,
+    "exit": 0,
+    "label": "package-managed-change-jit",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "62e3d734aeee0f1f5d4d268b0f610a9b8ec3027af348fc87b115278fbc7a06fe"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "restore",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 10.348521241001436,
+    "exit": 0,
+    "label": "package-aot-restore",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "3f6c4489c8b2d6c53a74d3b81bf9b375c39b2f87f40c3ea7455056edbfefee02"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "publish",
+      "/tmp/nativeweave-a17-consumer-k4c9_wy_/Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:IlcTreatWarningsAsErrors=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/package-aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 5.930562016001204,
+    "exit": 0,
+    "label": "package-aot-publish",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "6c8813a407b17406416a104a86e1c292c4021643ea6070e480b99905c06ab1d8"
+  },
+  {
+    "argv": [
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/package-aot/NativeWeave.Engines.SyncProof.Tests",
+      "--require-aot"
+    ],
+    "elapsed_seconds": 1.0819249039996066,
+    "exit": 0,
+    "label": "package-aot-execute",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "f5e39df4db3625d1fc4efb86d450f3645cfec0171558c8771b52888f1f2a55dd"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "restore",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/consumer/Consumer.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 2.0697790580015862,
+    "exit": 0,
+    "label": "perf-consumer-restore",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "2b9efc5434e51220ce056d72b1ef383b87d62311f3ed72fa75b5bfc2ceb320ae"
+  },
+  {
+    "argv": [
+      "dotnet",
+      "publish",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/consumer/Consumer.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-p:IlcTreatWarningsAsErrors=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/01c249676f47/perf01-codec-checks/package-before-003/aot",
+      "-p:UseSharedCompilation=false",
+      "-nr:false",
+      "-m:1"
+    ],
+    "elapsed_seconds": 5.461559060000582,
+    "exit": 0,
+    "label": "perf-consumer-publish",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "38fcf247a3fa438269816ad03ce6475ec490e75d3ca3b89b8b45285303586394"
+  },
+  {
+    "argv": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "--manifest-path",
+      "/workspace/scratch/01c249676f47/.worktree/Perf-01-linux/NativeWeave/tests/Perf01.Codec/native/Cargo.toml"
+    ],
+    "elapsed_seconds": 4.107292728996981,
+    "exit": 0,
+    "label": "direct-build",
+    "stderr_sha256": "634a9a151bf3dc79446892a5f5cf48dab9670ee6f2362501d23eb7a849d9aa9b",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
