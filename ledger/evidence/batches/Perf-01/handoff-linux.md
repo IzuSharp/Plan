@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-19 23:12 UTC
+## Current state — 2026-11-19 23:25 UTC
 
 **3 of 10 required long groups are accepted**, all before optimization: HTTP,
 gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
@@ -97,7 +97,28 @@ The threaded/deferred policy is adopted prospectively for fresh DB calibration
 and matching noise qualification only. It has no diagnostic failure whitelist:
 all three confirmation processes must pass the original validity and SLO gates.
 PG144/s and SQLite40/s long targets remain unchanged. The new portable
-calibration/noise source is in preparation; no other measurement is running.
+calibration/noise source passed independent final source/configuration review.
+Source-002 checks actually passed68/68; root rechecked all26 private input pins.
+No calibration result or long credit is implied by those finite checks.
+The new public contract is `database-observer-policy-001.json`, SHA-256
+`98f8e537d87cac9de87cb2d1ae1150465a5c9a052333451f0772398b58ad58c3`.
+The actual private command configuration is
+`ROOT/perf01-run/database-observer-before-calibration-001-prepared-private.json`,
+SHA-256 `fbaee7021be73322b7a73d1169bace6b03679a87ecf36b66bd1700e8c7ec5df8`.
+The supervisor SHA-256 is
+`c411e2d998bfaa0278d9ef2092bff785f37bfa50c45a2e1b05c6da153e5201c1`.
+After exact public source/contract readback, root will start the serial PG then
+SQLite calibration. Its actual status must be read from
+`ROOT/perf01-run/database-observer-before-calibration-001-execution.json`;
+an absent receipt means it has not started. Source and private command hashes
+must not be reconstructed from prose. All other local work is paused for that
+exclusive window. Noise extraction and both DB long groups remain pending.
+
+The actual pair report and current recovery record were published at
+Plan `aaf82720133bc7408061731a64785a59da5de476`; all five files were fetched and
+matched, and Plan CI run44635783203 passed. The subsequent workspace-maintenance
+notice did not remove the checked source, pair evidence, before application,
+codec manifest, environment or SDK. The checked boot identity is unchanged.
 
 Automatic publication review rejected the full14-file source/configuration/test-
 receipt bundle because of extensive absolute workspace/toolchain/cache paths

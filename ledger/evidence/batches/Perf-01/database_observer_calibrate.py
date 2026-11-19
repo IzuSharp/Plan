@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""Serial policy-4 DB calibration with explicit deferred GC and threaded sampling.
+
+Derived from ROOT/perf01-run/calibrate-apps-v4.py. This does not replace the
+domain driver's supervisor, retry policy, correctness oracle or resource checks.
+Execute only under the integration owner's exclusive measurement control.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+import math
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+ROUTES = {"before": "nativeweave-aot-rust", "after": "nativeweave-aot-rust",
+          "direct": "direct-rust", "managed": "managed-aot"}
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def sha(path):
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+PAIR_FILES = {
+    "configuration": ".worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/database-observer-fixed-before-pair-001.json",
+    "execution": "perf01-run/database-observer-fixed-before-pair-001-execution.json",
+    "audit": "perf01-evidence/diagnostic/database-observer-equivalence-001/audit-pair/analysis.json",
+}
+
+
+def confined(root, value):
+    root = root.resolve(strict=True)
+    candidate = Path(value)
+    candidate = (candidate if candidate.is_absolute() else root / candidate).resolve()
+    require(candidate.is_relative_to(root), "Input/output path escapes its declared root")
+    return candidate
+
+
+def require_adoption(amendment, root):
+    adoption = amendment["current_pair_adoption"]
+    require(adoption["accepted"] is True and adoption["scope"] == "calibration-noise-only",
+            "The current pair has not been adopted for fresh calibration/noise")
+    references = {}
+    for key, relative in PAIR_FILES.items():
+        expected = adoption[key + "_sha256"]
+        path = confined(root, relative)
+        require(isinstance(expected, str) and re.fullmatch(r"[0-9a-f]{64}", expected) is not None
+                and sha(path) == expected, "Current pair evidence binding differs: " + key)
+        references[str(path)] = expected
+    configuration = json.loads(confined(root, PAIR_FILES["configuration"]).read_text())
+    execution = json.loads(confined(root, PAIR_FILES["execution"]).read_text())
+    audit = json.loads(confined(root, PAIR_FILES["audit"]).read_text())
+    require(configuration["immutable_measurement_driver"]["commit"] == amendment["driver_commit"]
+            and configuration["immutable_measurement_driver"]["tree"] == amendment["driver_tree"]
+            and configuration["before_runtime_commit"] == amendment["before_runtime_commit"], "Current pair source/tree differs")
+    require(execution["state"] == "diagnostic-functional-equivalence-completed"
+            and execution["functional_equivalence_passed"] is True and execution["duration_credit_seconds"] == 0
+            and len(execution["commands"]) == 2 and all(row["state"] == "completed" and row["exit_code"] == 0 for row in execution["commands"]),
+            "Current pair does not have both actual successful driver exits")
+    require(audit["functional_equivalence_passed"] is True and audit["formal_timing_eligible"] is False
+            and audit["duration_credit_seconds"] == 0 and audit["document_sha256"] == adoption["configuration_sha256"]
+            and audit["checklist"] and all(row["passed"] is True for row in audit["checklist"]),
+            "Current independent pair audit failed or grants unexpected timing credit")
+    return references
+
+
+def sampling_descriptor(product, mode):
+    # Import the exact already hash-checked driver only to call its pure descriptor.
+    previous = list(sys.path)
+    try:
+        sys.path.insert(0, str(product / "tests/Perf01.Database"))
+        spec = importlib.util.spec_from_file_location("perf01_calibration_sampling_descriptor", product / "tests/Perf01.Database/run.py")
+        driver = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(driver)
+        return driver.resource_sampling_policy(mode)
+    finally:
+        sys.path[:] = previous
+
+
+def utc():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def save(path, value):
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n")
+    temporary.replace(path)
+
+
+def command(args, policy, provider, rate, seconds, output):
+    resource = policy["resource_policy"]
+    result = [sys.executable, str(args.nativeweave / "tests/Perf01.Database/run.py"),
+              "--package-probe", str(args.package_probe), "--provider", provider,
+              "--protocol", "http1", "--scenario", "mixed", "--stage", "short",
+              "--variant", args.variant, "--route", ROUTES[args.variant],
+              "--rate", str(rate), "--seconds", str(seconds), "--concurrency", "16",
+              "--seed", "20261119", "--warmup", "16", "--idle-seconds", str(policy["calibration"]["short_idle_seconds"]),
+              "--recovery-requests", "16", "--continue-classified-overload", "--compact-observation",
+              "--generator-cpus", ",".join(map(str, resource["generator_cpu_affinity"])),
+              "--max-p99-ms", str(resource["arrival_p99_limit_ms"]),
+              "--max-rss-mib", str(resource["application_rss_limit_bytes"] / 1024**2),
+              "--output", str(output), "--isolation-note", args.isolation_note]
+    if args.variant in ("before", "after"):
+        result.extend(("--observer", str(args.observer)))
+    else:
+        result.extend(("--comparators", str(args.comparators)))
+    if provider == "postgresql":
+        result.extend(("--postgres-bin", str(args.postgres_bin)))
+    if args.scheduler_gc_policy is not None:
+        result.extend(("--scheduler-gc-policy", args.scheduler_gc_policy))
+    result.extend(("--resource-sampling-policy", args.resource_sampling_policy))
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--nativeweave", type=Path, required=True)
+    parser.add_argument("--policy", type=Path, required=True)
+    parser.add_argument("--policy-sha256", required=True)
+    parser.add_argument("--package-probe", type=Path, required=True)
+    parser.add_argument("--observer", type=Path)
+    parser.add_argument("--comparators", type=Path)
+    parser.add_argument("--postgres-bin", type=Path)
+    parser.add_argument("--variant", choices=ROUTES, default="before")
+    parser.add_argument("--groups", nargs="+", choices=("sqlite", "postgresql"), required=True)
+    parser.add_argument("--attempt", default="compact-v4")
+    parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument("--scheduler-gc-policy", choices=("deferred",), required=True)
+    parser.add_argument("--resource-sampling-policy", choices=("threaded",), required=True)
+    parser.add_argument("--database-amendment", type=Path, required=True)
+    parser.add_argument("--database-amendment-sha256", required=True)
+    parser.add_argument("--isolation-note", required=True)
+    args = parser.parse_args()
+    require(re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", args.attempt) is not None, "Use a new simple attempt label")
+    require(len(set(args.groups)) == len(args.groups), "A provider may appear only once")
+    require(args.observer is not None if args.variant in ("before", "after") else args.comparators is not None,
+            "NativeWeave needs its exact observer; comparator routes need their actual build manifest")
+    require("postgresql" not in args.groups or args.postgres_bin is not None, "PostgreSQL requires its locked server bin directory")
+    args.root = args.root.resolve(strict=True)
+    for name in ("nativeweave", "policy", "package_probe", "observer", "comparators", "postgres_bin", "output_root", "database_amendment"):
+        if getattr(args, name) is not None:
+            setattr(args, name, confined(args.root, getattr(args, name)))
+    policy = json.loads(args.policy.read_text())
+    require(sha(args.policy) == args.policy_sha256 and policy["policy_revision"] == 4, "Use the immutable actual policy-4 SHA")
+    require(policy["before_product_commit"] == "ea5fa528035d025bd7a28698ee7c71194432236c", "Unexpected before runtime source")
+    resource, calibration = policy["resource_policy"], policy["calibration"]
+    require(sorted(os.sched_getaffinity(0)) == resource["cpu_affinity"], "Launch on the frozen service CPUs before spawning PostgreSQL")
+    python = policy["build_policy"]["measurement_python"]
+    require(sys.version_info[:3] == (3, 12, 14) and Path(sys.executable).resolve() == Path(python["executable"]).resolve()
+            and sha(Path(sys.executable).resolve()) == python["executable_sha256"], "Use the exact locked measurement Python")
+    require(resource["generator_maximum_dispatch_lag_ms"] == 100 and resource["unexpected_errors_maximum"] == 0,
+            "The existing DB driver requires the frozen 100 ms/zero-error policy")
+    script_hash = sha(Path(__file__))
+    driver_paths = [args.nativeweave / relative for relative in (
+        "tests/Perf01.Database/run.py", "tests/Perf01.Database/target.py", "tests/Perf01.Database/perf01_affinity.py",
+        "tests/Perf01.Database/perf01_resources.py", "tests/Perf01.Database/perf01_outcomes.py",
+        "src/Benchmarks.Domain/cell_worker.py",
+        "src/Benchmarks.Domain/common.py", "src/Benchmarks.Domain/http_target.py", "src/Benchmarks.Domain/run.py",
+        "src/Benchmarks.Domain/supervision.py", "src/Benchmarks.Harness/nativeweave_bench.py", "tests/Perf01/verify_long.py")]
+    driver_hashes = {str(path): sha(path) for path in driver_paths}
+    amendment = gc_driver = gc_policy = None
+    wrapper = args.nativeweave / "tests/Perf01.Database/scheduler_gc.py"
+    if wrapper.is_file() or args.scheduler_gc_policy is not None or args.database_amendment is not None:
+        require(args.scheduler_gc_policy is not None and args.database_amendment is not None
+                and args.database_amendment_sha256 is not None,
+                "The new DB wrapper requires an explicit policy and source-bound prospective DB amendment")
+        require(sha(args.database_amendment) == args.database_amendment_sha256, "DB amendment identity differs")
+        amendment = json.loads(args.database_amendment.read_text())
+        require_adoption(amendment, args.root)
+        require(amendment["controller_source_sha256"] == script_hash and
+                amendment["base_final_freeze_sha256"] == "85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3",
+                "DB amendment controller/base-freeze binding differs")
+        require(amendment["base_calibration_policy_sha256"] == args.policy_sha256,
+                "DB amendment uses a different existing calibration/resource policy")
+        expected = {str(confined(args.nativeweave, name)): value for name, value in amendment["driver_source_files_sha256"].items()}
+        require(str(wrapper) in expected and all(sha(Path(path)) == value for path, value in expected.items()),
+                "DB amendment driver/wrapper source differs")
+        require(all(expected.get(path) == value for path, value in driver_hashes.items()),
+                "DB amendment omits an existing measurement dependency")
+        driver_hashes = expected
+        spec = importlib.util.spec_from_file_location("perf01_calibration_gc_receipt", wrapper)
+        gc_driver = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(gc_driver)
+        gc_policy = gc_driver.policy(args.scheduler_gc_policy)
+        require(gc_policy["mode"] == amendment["scheduler_gc_mode"] and
+                gc_driver.policy_sha256(gc_policy) == amendment["scheduler_gc_policy_sha256"],
+                "Explicit DB scheduler policy differs from the prospective amendment")
+        sampling_policy = sampling_descriptor(args.nativeweave, args.resource_sampling_policy)
+        require(sampling_policy["mode"] == amendment["resource_sampling_mode"] and
+                gc_driver.policy_sha256(sampling_policy) == amendment["resource_sampling_policy_sha256"],
+                "Explicit DB resource sampling differs from the prospective amendment")
+        require(amendment["paired_long_rates_per_second"] == {"postgresql": 144, "sqlite": 40},
+                "This scoped amendment cannot retune the already frozen paired long rates")
+    probe_path = args.package_probe / "progress.json"
+    producer_paths = [probe_path, args.observer if args.variant in ("before", "after") else args.comparators]
+    producer_hashes = {str(path): sha(path) for path in producer_paths}
+    probe = json.loads(probe_path.read_text())
+    runtime_source = probe["source_repository"]
+    if args.variant in ("before", "after"):
+        observer = json.loads(args.observer.read_text())
+        packages = probe["inputs"]["packages"]
+        require(runtime_source.get("scope_status") == "" and observer["original_source"].get("scope_status") == "",
+                "Package consumer and observer must identify clean runtime source scopes")
+        require(observer["state"] == "built" and observer["original_source"]["commit"] == runtime_source["commit"],
+                "Observer and package consumer identify different runtime sources")
+        require(packages and all(value["repository"]["commit"] == runtime_source["commit"] for value in packages.values()),
+                "Every measured package must come from the same fresh runtime source closure")
+        if args.variant == "before":
+            require(runtime_source["commit"] == policy["before_product_commit"], "Actual before package/observer source is not the frozen main commit")
+
+    def unchanged():
+        require(sha(Path(__file__)) == script_hash and sha(args.policy) == args.policy_sha256, "Controller or policy changed")
+        require(all(sha(Path(path)) == digest for path, digest in driver_hashes.items()), "Measurement driver source changed")
+        if amendment is not None:
+            require(sha(args.database_amendment) == args.database_amendment_sha256, "DB amendment changed")
+            require_adoption(amendment, args.root)
+        require(all(sha(Path(path)) == digest for path, digest in producer_hashes.items()), "Supplied producer metadata changed between cells")
+        require(hashlib.sha256(Path("/proc/sys/kernel/random/boot_id").read_bytes().strip()).hexdigest()
+                == resource["measurement_host_kernel_boot_sha256"], "Measurement host boot identity changed")
+        require(sorted(os.sched_getaffinity(0)) == resource["cpu_affinity"], "Controller service affinity changed")
+
+    for provider in args.groups:
+        output = args.output_root / f"{args.variant}-{provider}-{args.attempt}"
+        output.mkdir(parents=True, exist_ok=False)
+        rows = []
+        receipt = {"task": "Perf-01", "group": provider, "variant": args.variant, "state": "running",
+                   "script_sha256": script_hash, "policy_sha256": args.policy_sha256, "compact_observation": True,
+                   "driver_source_sha256": driver_hashes, "python_version": sys.version,
+                   "producer_metadata_sha256": producer_hashes,
+                   "kernel_boot_sha256": resource["measurement_host_kernel_boot_sha256"], "cells": rows}
+        if amendment is not None:
+            receipt.update(database_amendment_sha256=args.database_amendment_sha256,
+                           scheduler_gc_policy=gc_policy, scheduler_gc_policy_sha256=gc_driver.policy_sha256(gc_policy),
+                           resource_sampling_policy=sampling_policy,
+                           resource_sampling_policy_sha256=gc_driver.policy_sha256(sampling_policy))
+
+        def checkpoint():
+            save(output / "controller.json", receipt)
+
+        def cell(rate, seconds=None, phase="ladder"):
+            unchanged()
+            seconds = calibration["stage_seconds"] if seconds is None else seconds
+            require(0 < rate <= 10000 and math.ceil(seconds * 1e9 / round(1e9 / rate)) + 1 <= 1_000_000,
+                    "Requested cell exceeds the existing DB finite driver bound")
+            index = len(rows)
+            path = output / f"{index:02}-{phase}-{rate:g}"
+            row = {"index": index, "phase": phase, "rate": rate, "seconds": seconds,
+                   "directory": str(path), "start_utc": utc(), "state": "running", "commands": []}
+            rows.append(row)
+            cmd = command(args, policy, provider, rate, seconds, path)
+            row["commands"].append(cmd); checkpoint()
+            print(json.dumps(row), flush=True)
+            try:
+                with (output / f"{index:02}.log").open("x") as log:
+                    completed = subprocess.run(cmd, cwd=args.nativeweave, stdout=log, stderr=subprocess.STDOUT)
+            except BaseException as error:
+                row.update(state="interrupted-or-failed", end_utc=utc(), error=type(error).__name__)
+                checkpoint()
+                raise
+            row.update(exit_code=completed.returncode, end_utc=utc(), state="completed")
+            result_path = path / "summary.json"
+            if not result_path.is_file():
+                row.update(valid=False, qualifies=False, error="Missing final result"); checkpoint()
+                raise RuntimeError("Incomplete cell; inspect original supervision/partial evidence before resuming")
+            result = json.loads(result_path.read_text())
+            frozen = json.loads((path / "frozen-inputs.json").read_text())
+            plan = json.loads((path / "plan.json").read_text())
+            require(frozen["compact_observation"] is True and plan["settings"]["features"]["compact_observation"] is True,
+                    "The actual cell did not freeze compact observation")
+            require(frozen["route"]["id"] == ROUTES[args.variant], "The actual measured route differs")
+            if amendment is not None:
+                require(frozen["driver_source"]["commit"] == amendment["driver_commit"] and
+                        frozen["driver_source"]["scope_status"] == "", "Actual DB driver source scope differs")
+                require(frozen["scheduler_gc_policy"] == result["scheduler_gc_policy"] ==
+                        plan["settings"]["features"]["scheduler_gc_policy"] == gc_policy and
+                        frozen["scheduler_gc_policy_sha256"] == result["scheduler_gc_policy_sha256"] ==
+                        gc_driver.policy_sha256(gc_policy), "Actual DB policy/comparison identity differs")
+                gc_path = path / "observation.scheduler-gc.json"
+                require(Path(result["scheduler_gc_receipt"]["path"]).resolve() == gc_path.resolve() and
+                        sha(gc_path) == result["scheduler_gc_receipt"]["sha256"], "Actual GC receipt file/hash differs")
+                supervision = json.loads((path / "supervision/receipt.json").read_text())
+                require(result["scheduler_gc_policy_valid"] is True and gc_driver.valid_receipt(
+                    json.loads(gc_path.read_text()), gc_policy, supervision, frozen["plan_sha256"], frozen["source_files"]),
+                    "Actual DB scheduler policy receipt is incomplete or inconsistent")
+                row.update(scheduler_gc_policy_sha256=result["scheduler_gc_policy_sha256"],
+                           scheduler_gc_receipt_sha256=sha(gc_path))
+                require(frozen["resource_sampling_policy"] == result["resource_sampling_policy"] ==
+                        plan["settings"]["features"]["resource_sampling_policy"] == sampling_policy and
+                        frozen["resource_sampling_policy_sha256"] == result["resource_sampling_policy_sha256"] ==
+                        gc_driver.policy_sha256(sampling_policy), "Actual resource sampling descriptor/hash differs")
+                observer_receipt = result["generator_resource_observer"]
+                require(observer_receipt["status"] == "completed" and not observer_receipt["errors"]
+                        and not observer_receipt["identity_failures"]
+                        and observer_receipt["resource_sampling_policy"] == sampling_policy,
+                        "Actual resource observer did not finish with the exact selected policy")
+                row.update(resource_sampling_policy_sha256=result["resource_sampling_policy_sha256"],
+                           generator_resources_sha256=observer_receipt["sha256"])
+            if args.variant in ("before", "after"):
+                route = frozen["route"]
+                require(route["source"] == runtime_source
+                        and route["package_probe_receipt"]["sha256"] == producer_hashes[str(probe_path)]
+                        and route["observer_manifest"]["sha256"] == producer_hashes[str(args.observer)],
+                        "Actual frozen runtime/observer binding differs from the pinned supplied producers")
+            resources = result.get("resources", {}).get("measurement", {})
+            qualifies = completed.returncode == 0 and result.get("valid") is True and result.get("qualifies_service_standard") is True
+            row.update(valid=result.get("valid", False), qualifies=qualifies, p99_ns=result.get("p99_ns"),
+                       rss_peak_bytes=resources.get("rss_peak_bytes"), successes=result.get("successful"),
+                       offered=result.get("offered"), throughput=result.get("successful_per_second"),
+                       cpu_percent_one_core=resources.get("app_cpu_percent_one_core"), invalid_reasons=result.get("invalid_reasons"),
+                       summary_sha256=sha(result_path), frozen_inputs_sha256=sha(path / "frozen-inputs.json"))
+            unchanged(); checkpoint()
+            print(json.dumps(row), flush=True)
+            return qualifies
+
+        checkpoint()
+        low = high = None
+        try:
+            for rate in calibration["database_rates"]:
+                if cell(rate): low = rate
+                else: high = rate; break
+            require(low is not None, "No passing low point; inspect fixture/environment without relaxing criteria")
+            while high is None:
+                rate = low * 2
+                if rate > 10000 or math.ceil(calibration["confirmation_seconds"] * 1e9 / round(1e9 / rate)) + 1 > 1_000_000:
+                    break
+                if cell(rate): low = rate
+                else: high = rate
+            while high is not None and high - low > max(1, low * .1):
+                rate = (low + high) // 2
+                if cell(rate, phase="refine"): low = rate
+                else: high = rate
+            for attempt in range(calibration["confirmation_attempt_limit"]):
+                passed = [cell(low, seconds=calibration["confirmation_seconds"], phase=f"confirmation-{index}")
+                          for index in range(calibration["confirmation_fresh_processes"])]
+                if all(passed): break
+                high = low; low = max(1, math.floor(low * .9))
+                cell(low, phase="confirmation-step-down")
+            else:
+                raise RuntimeError("No consistently passing confirmation point; inspect generator/environment")
+            unchanged()
+            receipt.update(state="completed", completed_utc=utc()); checkpoint()
+            selection = {"group": provider, "variant": args.variant, "compact_observation": True,
+                         "highest_consistently_passing_rate": low, "first_failing_bracket_rate": high,
+                         "long_rate": max(1, min(500, math.floor(.8 * low))) if args.variant == "before" else None,
+                         "concurrency": 16, "completed_utc": utc(), "policy_sha256": args.policy_sha256,
+                         "controller_sha256": sha(output / "controller.json"),
+                         "higher_failed_points": [{key: row.get(key) for key in ("rate", "phase", "valid", "qualifies", "invalid_reasons")}
+                                                  for row in rows if row["rate"] > low and not row.get("qualifies")],
+                         "capacity_scope": "Largest consistently passing sampled offered rate; generator failures are not a server-capacity upper bound. An unbracketed result is only a measured lower bound.",
+                         "long_rate_scope": "Only the before selection freezes paired long rates; comparator/after capacity never retunes them."}
+            if amendment is not None:
+                fixed = amendment["paired_long_rates_per_second"][provider]
+                selection.update(database_amendment_sha256=args.database_amendment_sha256,
+                    scheduler_gc_policy=gc_policy, scheduler_gc_policy_sha256=gc_driver.policy_sha256(gc_policy),
+                    resource_sampling_policy=sampling_policy,
+                    resource_sampling_policy_sha256=gc_driver.policy_sha256(sampling_policy),
+                    long_rate=fixed if args.variant == "before" else None,
+                    paired_long_rate_already_frozen=fixed,
+                    fixed_long_rate_within_confirmed_capacity=low >= fixed,
+                    long_rate_scope="The prospective DB-only amendment retains PG144/SQLite40; capacity results never retune either. Full new-policy long validation remains required.")
+            save(output / "selection.json", selection)
+            print(json.dumps(selection), flush=True)
+        except BaseException as error:
+            receipt.update(state="interrupted-or-failed", finished_utc=utc(), error=type(error).__name__)
+            checkpoint()
+            raise
+
+
+if __name__ == "__main__":
+    main()
