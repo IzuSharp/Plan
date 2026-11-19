@@ -517,3 +517,7 @@ Product remains ab8357d with runtime source unchanged from baseline ea5fa528. CI
 ### Immutable configuration created 2026-11-19T15:27:09.191434+00:00
 
 Final frozen-execution.json now binds the completed before noise, exact producers, timed sources, two integrated archive helpers and actual transport smoke readback. SHA-256: 85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3. Product runtime remains unchanged at baseline ea5fa528; current product head ab8357d contains harness/regression preparation only. All five before long groups must pass before runtime edits. The separate publication receipt must confirm fixed-commit remote byte readback before the first formal long command. No long credit is granted by this configuration.
+
+### Before HTTP long accepted 2026-11-19T16:05:11.422894+00:00
+
+Exact published freeze85061c4e at Plan4b0a5a78 passed CI44555266985 and fixed-commit byte readback. Supervisor session29388 completed successfully; raw HTTP output is ROOT/perf01-evidence/long/before/http-001. Independent verifier accepted1802.091185499 seconds,901051/901051 checks,856000 ordinary successes,45051 expected probes,arrival p99 260.565040ms. Recovery32/32 and final idle owner/request recession passed. Metadata and exact verifier are retained in checks/before-http-long-001/. Full raw archive publication is still pending. Next group is gRPC128/s C64 using the exact published selectors. Current acceptance1/10; no runtime edits. During the next long window all local work pauses except supervision.
