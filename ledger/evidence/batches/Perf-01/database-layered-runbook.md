@@ -9,6 +9,32 @@ The after application/observer must come from the actual complete rebuilt B24
 closure and remain immutable after preparation. Ordinary DTO/handler source and
 the measurement driver remain identical across the two versions.
 
+The final DB measurement driver is a detached, immutable checkout at
+`ce2a3c75cbd535490897d062b6cbb7c095408307`, located at
+`ROOT/.worktree/Perf-01-frozen-drivers-linux/NativeWeave`. All later DB timed
+before/after/direct/managed cells and before-only noise extraction use that
+checkout. Its reader remains SHA-256
+`8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4`;
+the separately invoked final post-run verifier may advance without changing the
+measurement helper. Product packages are prepared from their respective source
+commits and supplied through explicit package/observer descriptors. No full-file
+source comparison is weakened when a post-run-only protocol verifier changes.
+
+## Completed before-only bindings
+
+Final v5 calibration selected SQLite **50/s** (paired long **40/s**) and
+PostgreSQL **180/s** (paired long **144/s**). The exact three final confirmation
+processes supplied the before-only noise receipts at **13:10:14–13:10:20 UTC on
+2026-11-19**, after all DB calibration stopped and before any runtime edit or
+after measurement. This six-second extraction ran no application load. See the
+[executed noise record](checks/database-noise-freeze-001/README.md), the
+[SQLite selection](observations-before/sqlite-compact-v5-selection-001/README.md),
+the [PostgreSQL selection](observations-before/postgresql-compact-v5-selection-001/README.md)
+and [domain freeze bindings](database-final-freeze-draft.json). The later
+comparison cohorts described below remain prospective and must use fresh
+processes. The recorded scripts use exclusive creation and must not overwrite
+these frozen receipts.
+
 ## Scene and load selection
 
 Run PostgreSQL and SQLite independently. A logical `cycle` contains a durable
@@ -82,7 +108,7 @@ invoke it only under root's exclusive timing ownership, serially.
 ```bash
 PERF01_ROOT=/workspace/scratch/01c249676f47
 source "$PERF01_ROOT/perf01-toolchain/env.sh"
-PERF01_PRODUCT="$PERF01_ROOT/.worktree/Perf-01-linux/NativeWeave"
+PERF01_PRODUCT="$PERF01_ROOT/.worktree/Perf-01-frozen-drivers-linux/NativeWeave"
 PERF01_PLAN="$PERF01_ROOT/.worktree/Perf-01-linux/Plan"
 PERF01_PYTHON=/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3
 PERF01_BEFORE_PACKAGE="$PERF01_ROOT/perf01-build/before/reference-002"

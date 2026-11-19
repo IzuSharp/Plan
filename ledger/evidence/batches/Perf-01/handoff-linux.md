@@ -329,3 +329,133 @@ Native AOT borrowed-resolver-handle failure remains unfixed baseline evidence.
 `frozen-execution.json` remains pending; **0/10 long segments are credited**.
 Do not restart completed calibration, claim optimization gains, merge, or publish
 until the actual remaining comparisons, ten long segments and required gates pass.
+
+### Execution checkpoint: final DB and codec selections; bounded protocol verification
+
+The final database target journal and receipt projection are in product commit
+ce2a3c75cbd535490897d062b6cbb7c095408307. Runtime C#/Rust still matches immutable
+before main ea5fa528035d025bd7a28698ee7c71194432236c. The actual same-load
+171/s, 120-second target diagnostic completed all 20,522 operations, with arrival
+p99 74.715633 ms. Measured target RSS fell from 152,498,176 to 55,144,448 bytes
+during load and from 181,960,704 to 78,344,192 bytes during sampled reconciliation;
+the complete 42,562,221-byte receipt stayed equivalent. An independent full audit
+matched every outcome and 389,918 counters. These are measurement-tool diagnostics,
+not product optimization gains or long-duration credit. Actual targeted gates
+passed 8 outcome-journal, 6 streaming and 15 common-verifier tests.
+
+Final codec before-004 calibration selected 384 offered operations/s after three
+23,080/23,080-success confirmations, with p99 110.590555, 116.248592 and
+110.282025 ms. The paired long load is 307/s. Higher 512/448/416 points retained
+18/8/3 rejected operations respectively. The complete compact calibration and
+observed-versus-estimated memory audit are in observations-before/codec-final004-calibration/.
+
+Final compact-v5-target database calibration finished both providers. SQLite
+selected 50/s, with three 3,001-success confirmations and p99 295.961647,
+219.822617 and 168.307978 ms; its paired long load is 40/s. PostgreSQL selected
+180/s, with three 10,801-success confirmations and p99 155.462124, 120.373713 and
+158.974390 ms; its paired long load is 144/s. The 200/s third PostgreSQL
+confirmation failed the p99 limit, and all higher failed/invalid observations
+remain unchanged. Selection completion was 2026-11-19T13:07:52.613515+00:00.
+Before-only final-v5 noise extraction is next; earlier v4 bands/recipes are not
+substituted for these final identities.
+
+A source-proved protocol acceptance risk was fixed before long measurement:
+sparse result histograms can exceed the old 64 MiB summary-reader limit. The
+post-run verifier now streams its required metadata, hashes the entire original
+file and preserves every original acceptance check. Independent review passed;
+all 18 actual common-verifier tests passed at 2026-11-19T13:08:22Z. The final
+verifier SHA is 3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82.
+
+Because DB timing imports and pins the earlier common parser file, root actually
+created and verified a clean detached ce2a3c7 checkout at
+ROOT/.worktree/Perf-01-frozen-drivers-linux/NativeWeave. Every later DB before,
+after, direct-Rust and managed timed cell will use this same snapshot, retaining
+reader SHA 8034692b643f4dbb1385cd61e25c9d4d6f084d7b71268fec02411b5c2fcdbeb4
+and A21 SHA dfb57cf6f09b3c585e886d97d7653d938d3eebf907e741c1400b23890461db53.
+The separately updated post-run verifier does not replace the timed parser.
+Creation and exact hashes are recorded with the actual 18-test gate in
+checks/protocol-result-verifier-001/.
+
+Product ce2a3c7 CI run 44525871378 passed every job; Plan e223451 CI run
+44523760735 passed. Local protocol-verifier and evidence changes await the next
+push checkpoint. Final HTTP/gRPC calibration and short before-only noise still
+follow. No C#/Rust runtime optimization has been applied. The final global freeze
+is still absent and **0/10 long segments are credited**.
+
+### Execution checkpoint: recovered DB final selection and protocol continuation
+
+PostgreSQL compact-v5-target completed at 2026-11-19T13:07:52.613515+00:00. Its
+200/s third confirmation failed the fixed tail limit (p99 850.807314 ms). The
+predeclared step-down retained that failure and all earlier failures. The final
+180/s confirmations each completed 10,801/10,801 correct operations, with arrival
+p99 155.462124/120.373713/158.974390 ms. The paired long load is 144/s at16 slots.
+
+The already-reviewed runbook extraction was actually executed against the final
+SQLite/PG confirmation triplets. It verified original summary/frozen/dataset
+hashes, complete normalized successful records, independent process identities,
+nonoverlapping windows and equal configurations. New before-only noise receipts
+are in `observations-before/{sqlite,postgresql}-final-v5-calibration/noise.json`.
+The source-bound execution record is
+`observations-before/database-final-noise-extraction-001.json`. Future formal
+comparison triplets are fresh processes; these confirmations are not relabeled
+as before comparison runs.
+
+The resumed root started existing `protocol_calibrate.py` for HTTP then gRPC
+using immutable before protocol-v2 server/common client, original TLS files,
+policy4 and final A21 source. Current shell session is21557; output roots are
+`ROOT/perf01-evidence/calibration/before-{http,grpc}-final-v5`, and the outer log
+is `before-protocol-final-v5-controller.log` in the calibration directory. No
+other workload or build may overlap; source-only work remains onCPU8. After
+this controller completes, run the six protocol and two codec before-only noise
+cohorts, then bind the immutable execution freeze before any runtime edits.
+
+Product ce2a3c7 passed CI44525871378; recovered Plan bc5cb49 passed CI44528943177.
+Both PR descriptions were updated and the SQLite final selection was read back
+from GitHub. Neither CI run substitutes for candidate acceptance. Runtime still
+matches ea5fa528, the final global freeze is absent, and **0/10 long segments
+are credited**.
+
+The two final DB before-only noise extractions actually passed at
+2026-11-19T13:10:14–13:10:20Z using the immutable ce2 driver and original parser.
+SQLite noise receipt SHA is c3cd91e963ff3390d58821487a628cf7c311d367f085eb63b13437fca034ec68;
+PostgreSQL noise receipt SHA is 5bb25871bdd4863158f6b0aa0791b321b8ae147f122ec4ff9400c5b1106f7585.
+The final protocol calibration began 2026-11-19T13:11:05.069792Z, session76449,
+HTTP then gRPC under unchanged policy4, attemptv5. No other task loads/builds/tests
+overlap; source-only CPU8 work is permitted. NativeWeave ab8357dd7e3d924e267f584056e5fba6d3a59265
+is pushed and tree-equal to local verifier checkpoint824879e; its CI is pending.
+Plan checkpointbc5cb49bd8cd21fff6e32053af25f73d6482a971 passed CI44528943177.
+
+### Concurrent-session coordination checkpoint
+
+At 2026-11-19T13:13:54.265612+00:00, the resumed turn in workspace c7a50ab71f57 detected another
+active execution session updating the same product/Plan branches and attempting
+protocol calibration (`before-http-v5`) while its own `before-http-final-v5`
+controller held the shared timing lock. The resumed turn requested Ctrl-C for
+session21557 and received exit130. Its last32/s cell has no final result and
+receives zero credit; last resource output was13:11:07.345065Z. The original
+controller file may still say running and is not proof of a live or accepted run.
+The resumed turn stops launching workloads and avoids further product/branch
+edits to let one integration owner continue. Full coordination details are in
+`ROOT/perf01-run/recovery-session-coordination-20261119T1312.json`.
+
+Completed DB/codec selections and new DB noise receipts remain available. Use
+the existing clean ce2a3c7 frozen-driver checkout for future DB timed cells, as
+their calibration source map pins verifier8034692b. The noise extraction read
+the later3f5eec2f file, whose change affects only protocol post-run metadata;
+no DB reader semantics or measurement values were changed. Do not relabel the
+historical driver identity or rerun completed DB calibration unnecessarily.
+Before any next load, the continuing owner must resolve current controller and
+process ownership. **No runtime gain or long-segment acceptance is claimed.**
+
+The first protocol v5 attempt stopped at 13:11:06Z before any application load:
+the existing timing lock was held and run.py correctly rejected concurrent use.
+The original lock was later acquired and released at 13:13:40.924060Z, unchanged
+device/inode. The holder was not identifiable in the per-exec PID namespace; no
+inheritance or product-defect attribution is made. No lock replacement/deletion
+or process signal occurred. The failed zero-credit attempt and exact logs are
+in checks/timing-lock-contention-001/. Fresh v5r1 began 13:14:33.288914Z in
+session98397 with unchanged controller/driver/producer/profile inputs. At the
+latest observation HTTP 8/16/32 offered requests/s passed and64/s was running.
+Keep this invocation exclusive. Future DB and codec formal invocations will also
+use the same existing resource lock through a standard outer flock guard; protocol
+already owns that lock internally and must not be double-locked.
