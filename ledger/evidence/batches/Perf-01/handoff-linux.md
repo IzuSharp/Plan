@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-19 22:35 UTC
+## Current state — 2026-11-19 23:12 UTC
 
 **3 of 10 required long groups are accepted**, all before optimization: HTTP,
 gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
@@ -54,8 +54,63 @@ unchanged and clean. The generator RSS follow-up was independently closed.
 See `checks/database-observer-offload-001/source-and-finite-checklist.json`.
 The local b846 lineage and remote772 tree differ in other verifier files; they
 are not the measured source identity. The fresh synchronous/threaded load pair
-is being prepared against a3ce0f6. No DB calibration or long acceptance has
-been granted.
+actually completed against a3ce0f6 after independent source review. No new DB
+calibration or long acceptance has been granted.
+
+The reviewed observer diagnostic pair ran from22:54:00.025163Z to
+23:01:28.735570Z. Both driver processes, both offline cell audits and the final
+pair audit exited0. The actual supervisor receipt is
+`ROOT/perf01-run/database-observer-fixed-before-pair-001-execution.json` and the
+sibling `-supervision.jsonl` preserves progress. Receipt SHA-256 is
+`c64debb45b30388809373695dfda3e59714571debf3db8801b4672a54c7de796`.
+Final equality analysis SHA-256 is
+`bfca614ae18a47237df7f1fdea5daed54a364cd087a12118fc3937aaedee130d`.
+Both sides completed17282 measured operations,8641 cycles and8641 pages,
+with all expected row values matched. Independent durable totals were8777 per
+business table before recovery and8809 after32 recovery operations. Each idle
+observation covered60s; registered process cleanup passed without forced signals.
+Both original valid/SLO flags are true, with no invalid reasons. The
+configuration SHA-256 is
+`2f7a7149d3f8de59a90b1cd569032bb16a203957c4807062e8a5330c6f1368e0`,
+supervisor SHA-256 is
+`4a3a30d8b74c905b419ca6d71e8c059f6ea888dbbfa2b9aef58455c22e680d40`,
+and auditor SHA-256 is
+`f8013d23a12b5e0a4acb0e2befa800a10120353729330eaad59bc7e6b76bdd43`.
+The source preparation is local Planecd530cb, integrated as25bb6f8; its independent
+review is in `checks/database-observer-equivalence-001/preparation-001`.
+All48 input pins were checked and both sides use identical PG144/C16/120s
+before-product workloads with explicit synchronous/threaded observer policies.
+The synchronous/threaded arrival p99 values were68.575553/73.439022ms,
+maximum dispatch lag21.823064/15.139320ms, and successful throughput
+143.945136160/143.923746726op/s. Application sampled peak RSS was
+44982272/46891008B; scheduler peak RSS116379648/117608448B. Scheduler CPU
+was10.58/12.29s over119.490688952/118.921159540s sampling spans. Both
+deferred-GC policy scopes recorded zero cyclic collections and restored the
+original policy. This short pair did not reproduce the earlier timing failure
+and does not prove a product gain, memory neutrality or30-minute heap stability.
+It earns zero formal timing/long credit. The independent evidence review and
+strict numerical projection are complete under
+`checks/database-observer-equivalence-001/results-001`; public-summary SHA-256 is
+`46a3d151e66fff044ea6f082a4be0a03cd6956037e1bd982b904a0491c7904f2`.
+Root also independently cross-checked 283 reported scalar/resource fields.
+The threaded/deferred policy is adopted prospectively for fresh DB calibration
+and matching noise qualification only. It has no diagnostic failure whitelist:
+all three confirmation processes must pass the original validity and SLO gates.
+PG144/s and SQLite40/s long targets remain unchanged. The new portable
+calibration/noise source is in preparation; no other measurement is running.
+
+Automatic publication review rejected the full14-file source/configuration/test-
+receipt bundle because of extensive absolute workspace/toolchain/cache paths
+and operational metadata. No successful tree/commit/ref was returned for that
+attempt, and that payload is not retried through another encoding or channel.
+The materially narrower numerical workload/check checklist is published at
+Plan `0cd7d9b9cf86ab0587b9882f1de90b698e98b383` and was read back exactly.
+Reviewed local source and configuration remain unchanged and committed; the
+user-authorized local diagnostic continues. The full source-publication item is
+still open. The narrower public checklist commit0cd7d9b passed Plan CI
+run44632649728. The earlier codec report and integrated observer numerical checklist
+are published at `c1076ee564597451e5415c24eda5d95387ed7d18` with all seven files
+read back equal. Do not describe the blocked full bundle as retrievable remotely.
 
 ## Immutable inputs and workspace
 
@@ -211,7 +266,25 @@ scope review. Those payloads are not retried in another encoding/channel.
 Publish only genuinely narrower authorized synthetic numbers/checklists or
 reviewable task artifacts. Never upload process-registration tokens, TLS private
 keys, credentials or unrelated data. Do not describe local archives or orphan
-Git blobs as publicly retrievable artifacts. Original raw files are retained.
+Git blobs as publicly retrievable artifacts. Original raw bytes are retained.
+
+At 23:06:41Z the five large inputs from the invalid original PG long attempt
+were retained in the already verified lossless archive, after a new complete
+byte-for-byte comparison against every uncompressed original and every pinned
+compressed/raw chunk hash. Only the uncompressed duplicate copies were removed;
+4,279,460,020 bytes were released. The original acceptance remains false and
+duration credit remains zero. Small original metadata and all other runs are
+unchanged. The local archive is
+`ROOT/.worktree/Perf-01-raw-archive-linux/Plan/ledger/evidence/batches/Perf-01/raw/before/postgresql-001-raw8m-001`;
+its manifest SHA-256 remains
+`8f4669483b3965599657513a06ca81a73a77a9ce0e9fd5a16e2df67a3285491d`.
+The actual retention receipt is
+`ROOT/perf01-run/invalid-pg-cold-retention-001.json`, SHA-256
+`335ddc02ca7cbf0ae39f1ebcde001de180eb35f4868275f907a81c61104e95e3`.
+Use the existing `pack_evidence.py restore --bundle <archive> --output <fresh>`
+before any future full raw replay of that failed run. This local retention does
+not establish remote recoverability. Free workspace space after retention was
+20,879,200,256 bytes; recheck before subsequent large builds or long runs.
 
 The previous full local handoff is preserved at
 `ROOT/perf01-run/handoff-before-scope-029.md`; immutable local commits retain
