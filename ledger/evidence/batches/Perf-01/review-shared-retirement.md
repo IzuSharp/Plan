@@ -174,3 +174,39 @@ unavailable. PostgreSQL source documentation was read from the pinned 18.0
 `connection/establish.rs:177–184` installs `sqlite3_busy_timeout`: application
 retries are zero, but internal busy-handler attempts are unobserved and must not
 be reported as zero.
+
+## Scheduling gate check for the one-follow-up candidate
+
+Source-only follow-up during baseline calibration: the implementation still has
+the original scheduling base. `CoordinatedCallback.Retry()` returns while
+`_scheduled` is true (`src/Interop.Callbacks/CallbackCoordinator.cs:111`). Calling
+`Retry()` from `AsyncOperation.Process()` therefore cannot request the desired
+immediate follow-up. `RequestRetry()` alone likewise only retains timer fallback.
+
+The bounded AsyncOperation-only candidate should keep `RequestRetry()` on every
+actual native `Pending`, mark one lifetime budget consumed under the operation
+gate only after `_resultProcessed` is true, then call `Signal()` outside that
+gate. While `Process` runs, `Signal()` sets `_dirty` and sees `_scheduled=true`;
+it does not execute inline or queue another simultaneous process pass. The
+unchanged `Execute()` epilogue clears `_scheduled` under the scheduling gate and
+queues one coalesced follow-up from the dirty bit. Preterminal Pending must not
+consume the budget; later Pending, explicit timer retry and rejected scheduling
+must never reset it.
+
+The existing base catches scheduler rejection/throw before acceptance, preserves
+dirty/retry state and counts the refusal. A failed immediate queue must retain
+native/input/root/slot ownership and rely on the unchanged explicit/timer Retry.
+The trusted scheduler contract forbids inline execution and throw-after-accept.
+Do not change that contract or alter CallbackRegistration/coordinator behavior.
+Keep the actual native-quiet, processed-result, drained-registration,
+zero-control/callback-entry release gate unchanged.
+
+Prepared A07 commit `8b50b175810dfa40127c18217ab79b7e4f255398` covers this exact
+gate through `ManualScheduler.RunOne`: one real post-result Pending followed by
+source release without Signal must leave exactly one queued follow-up; a still
+Pending second pass queues none; reject/throw retains ownership until explicit
+Retry; preterminal Pending cannot spend the later budget. These assertions run
+synchronously before any await/timer rescue. They remain source preparation,
+intentionally requiring the future candidate. No product edit, build, or test
+execution occurred in this follow-up review; the concrete runtime diff still
+requires independent review and full existing regression gates after freeze.
