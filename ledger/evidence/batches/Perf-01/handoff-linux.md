@@ -2,7 +2,7 @@
 
 ## Current state
 
-Status: source baseline frozen; execution environment and reusable measurement drivers in preparation. No product optimization has been applied. No performance improvement is claimed. No Perf-01 timed segment has started.
+Status: source baseline and prospective selection policy recorded; real locked before packages/consumers built; final protocol driver review and calibration pending. No product optimization has been applied. No performance improvement is claimed. No Perf-01 timed segment has started.
 
 The current user instruction authorizes this implementation and performance task; historical research-only scope text remains historical and is not rewritten.
 
@@ -28,7 +28,18 @@ The prospective configuration must freeze machine/CPU, dependency/build settings
 
 ## Environment recovery
 
-The execution host is Linux x64 / Debian 13. A retained `.NET SDK 11.0.100` is available under `ROOT/../58d2a6adf1c3/dotnet-sdk`. The exact Rust 1.100.0 toolchain and PostgreSQL 18.0 are being prepared under `ROOT/perf01-toolchain`; their successful installation/build is not yet claimed. No remote Linux host tool is exposed in the current session. GitHub read access and source checkout succeeded.
+The execution host is Linux x64 / Debian 13 with nine available virtual CPU IDs. The prospective cohort pins every measured process tree to CPUs 2 and 3. A retained `.NET SDK 11.0.100` is available under `ROOT/../58d2a6adf1c3/dotnet-sdk`. Exact Rust 1.100.0, PostgreSQL 18.0 and local Native AOT linker prerequisites were installed/built successfully under `ROOT/perf01-toolchain`. Source `ROOT/perf01-toolchain/env.sh` for all reproduction commands. No remote Linux host tool is exposed. Physical-host scheduling and hardware power controls are unavailable; do not claim dedicated bare-metal isolation.
+
+The clean main baseline produced full B24 package closures, B21 package JIT/AOT applications, the identical B23 exception observer, the shared retirement AOT profiler, the complete A17 codec package/consumer checks and fresh direct Rust/managed database comparators. Protocol package server/client AOT builds passed, with review fixes being rebuilt separately. Build success is not a measured performance result. Exact local manifests:
+
+- `ROOT/perf01-build/before/native-stable/manifest.json` (fresh stable tool environment; native hashes also equal an earlier independent build).
+- `ROOT/perf01-build/before/packages/manifest.json`; use its complete **previous** feed, version `0.1.0-perf01.before.1`.
+- `ROOT/perf01-build/before/reference-002/progress.json` and `ROOT/perf01-build/before/db-observer/manifest.json`.
+- `ROOT/perf01-build/before/shared-profile/manifest.json` (profiling-only; not yet executed).
+- `ROOT/perf01-build/comparators/comparators.json` (fresh actual golden checks passed; live HTTP/SQL measurement pending).
+- `ROOT/perf01-codec-checks/package-before-001/manifest.json` (clean source `ea5fa528`; A17 package/AOT/ordinary-edit-reuse/negative checks completed).
+
+Failed setup attempts remain separate: initial PostgreSQL build before explicit M4 path, reference build before installing its pinned HTTP/2 client extras, and the direct protocol comparator's first compilation attempt. No measurement credit is assigned to setup attempts.
 
 ## Package and scope cautions
 
@@ -40,4 +51,6 @@ The current gRPC implementation supports identity compression only. Independent 
 
 `baseline-source.json` binds the starting source and lock files. English source analyses and frozen executable profiles are added here as work completes. Only authorized synthetic project samples and allowlisted host metadata may be uploaded; keys, credentials, database contents and unrelated data stay out of evidence. No old rejected publication is retried by this task.
 
-Resume by checking this handoff, existing Perf-01 branches/PRs and exact segment receipts. Reuse only completed segments whose binaries, cases and configuration match the reported version. At this checkpoint no PR, product change, passed test, successful profiling run, timed segment, merge or preview is claimed.
+Draft implementation PR: [NativeWeave#19](https://github.com/IzuSharp/NativeWeave/pull/19), currently test tooling only. Draft evidence PR: [Plan#23](https://github.com/IzuSharp/Plan/pull/23). Both use `task/Perf-01-linux`. The implementation checkpoint `d252fc589d1559b7cdbb907c2dfa25bc7ea8c2ef` has the identical tree to local test commits archived at `checkpoint/Perf-01-local-drivers-001`; source baseline remains unchanged.
+
+`prospective-policy.json` fixes CPU/resource/SLO rules, ladder/refinement and long-rate selection before observing calibration. Final driver/profile/artifact hashes and calibrated rates must still be bound before any runtime implementation edit. Source studies, fresh comparator/codec build receipts and the independent codec review are adjacent files. Continue with final protocol source review, stop all heavy builders, then exclusively profile and calibrate. Resume only from exact receipts; **0 of 10 long segments remain credited**. No successful profile, performance improvement, merge or preview is yet claimed.
