@@ -1,9 +1,10 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-19 21:45 UTC
+## Current state — 2026-11-19 22:35 UTC
 
-**2 of 10 required long groups are accepted**, both before optimization: HTTP
-and gRPC at 115 calls/s. Their credited effective load totals 3,604.192232408 s.
+**3 of 10 required long groups are accepted**, all before optimization: HTTP,
+gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
+5,406.296300913 s.
 No C#/Rust product-runtime optimization has been applied and no product speedup
 is claimed. All five accepted before groups remain required before the first
 runtime optimization. The current user instruction authorizes this performance
@@ -16,13 +17,45 @@ reset. Its completed operation records cover only 1,021.572841888 s of measureme
 normal exit and drain are unavailable. It receives **zero duration credit**.
 Original files and the stale original supervisor receipt are unchanged. The
 separate audit is `checks/before-codec-long-interrupted-001/summary.json`.
-A fresh full codec attempt002 is reviewed and published at f2dda486fd378519c3eab4c20f3bc81026be24e6; all nine source/configuration/check files were fetched and matched. Its actual execution receipt determines start and completion; no partial durations are joined.
+The independently reviewed codec attempt002 configuration is published at
+`f2dda486fd378519c3eab4c20f3bc81026be24e6`; all nine files were fetched and matched.
+The fresh full attempt actually completed at22:17:58.861155Z with driver and
+independent verifier exits0. All346005 measurement operations succeeded;
+credited effective duration is1802.104068505s. No partial durations were joined.
+The original retry supervisor receipt is
+`ROOT/perf01-run/before-codec-long-002-execution.json`, and its accepted verifier
+receipt is `ROOT/perf01-evidence/long/before/codec-002-verification.json`
+(SHA-256 `a49b986b50dd01d0e35265d3bfb892f665aeae0416d7f9747cddc2fd6ba38635`).
+The strict numerical report is complete under `checks/before-codec-long-002`;
+summary SHA-256 is `488fb6155d5f891fe1668c3bc4f9e92c259ffd4881d599c17592a2f70226acf7`.
+It preserves all32 partitions, four action/interface aggregates and30-second
+resource buckets. The producer's actual offline extraction exited0, and root
+reviewed the reporting source plus independently checked partition totals,
+aggregate byte/ratio arithmetic and all report-file hashes. Original raw files
+and acceptance are unchanged.
 
 Database work is also incomplete. The original PG144/s long attempt had correct
 business/persistence results but invalid generator lag. A fixed-package 120 s
 automatic/deferred scheduler-GC pair passed 104 checks, with an observed memory
 cost. Subsequent deferred calibration consistently passed only 25/s and failed
-the unchanged 144/s long-selection gate; SQLite was not started. A measurement-only sampler offload candidate is committed independently as b846bb43816c8a3515fcd1e7fb512f142a1a6be3. Its producer reports six observer and four existing GC finite tests passing; actual-diff independent review and live-load equivalence remain pending. It has not cleared calibration or long acceptance.
+the unchanged 144/s long-selection gate; SQLite was not started. The measurement-
+only sampler candidate `b846bb43816c8a3515fcd1e7fb512f142a1a6be3` received actual
+independent source review against the seven published files at
+`77205c1e11e3a19082fa374502885f488078c401`. Core cancellation/lifetime handling
+passed. A subsequent two-file correction `583e9d70f6974b91d865fd67a9eb7dc9d27dacb1`
+passes the same conservative RSS window to the three generator roles.
+Root integrated the changes on current published parentd859 in the separate
+`Perf-01-db-observer-measured-linux/NativeWeave` worktree. Its actual local/public
+HEAD is `a3ce0f6295c535b0a81de95fc0f98aa19deb259c`, complete tree
+`eb6b61e7c159c343513f7a50359f1a6c09f8df77`. The full remote tree and all seven
+changed-file contents were checked equal. Ten finite tests and the whitespace
+check actually passed on this exact checkout at22:24:27Z; source/tree stayed
+unchanged and clean. The generator RSS follow-up was independently closed.
+See `checks/database-observer-offload-001/source-and-finite-checklist.json`.
+The local b846 lineage and remote772 tree differ in other verifier files; they
+are not the measured source identity. The fresh synchronous/threaded load pair
+is being prepared against a3ce0f6. No DB calibration or long acceptance has
+been granted.
 
 ## Immutable inputs and workspace
 
@@ -69,7 +102,7 @@ recovery evidence remain separate. Do not replace pinned dependencies.
 | gRPC115 | 1802.101046909 | 207243, including4145 cancel and6218 deadline probes | 109.246215 | 152.456566 | Accepted; recovery32/32, idle60s and all10 owner/request/queue gauges zero |
 | PostgreSQL | 0 credited | Earlier144/s long invalid generator lag | — | — | Replacement pending |
 | SQLite | 0 credited | No accepted before long | — | — | Pending |
-| Codec | 0 credited | Attempt001 interrupted | — | — | Full attempt002 pending |
+| Codec | 1802.104068505 | 346005, all successful | 191.994948 | 105.719745 | Accepted; recovery12/12, idle60.077663s and normal owner drain |
 
 HTTP dispatch UTC: 15:31:55.221462–16:01:57.321053. gRPC dispatch UTC:
 16:57:34.317798–17:27:36.421953, all on2026-11-19. Details and exact source,
@@ -78,30 +111,41 @@ package/native identities are in `checks/before-http-long-001` and
 5 unexpected cancellations and1 missing-header/terminal-response record; it is
 not rescued by a later steady portion. Its data remain immutable.
 
+Codec dispatch UTC is21:46:34.974014–22:16:37.078450 on2026-11-19; its actual
+dispatch span is1802.104435880s. The independent credit uses the smaller ordinary-
+operation lower bound. p50/p95/p99 are1.096052/27.814088/105.719745ms. Target CPU
+is1160.68s /64.405051% of one core; sampled target peak RSS is120487936B. Maximum
+dispatch lag is46.976085ms with zero over50ms. All3861 warmup and12 recovery
+operations also succeeded. Actual before004 native identity remains unchanged.
+
 All ten long segments must run at least1800 effective seconds with correctness,
 SLO, generator-lag, resource and drain gates. Warmup, recovery and idle do not
-count. The current total is only2/10; all five after groups remain unstarted.
+count. The current total is3/10; all five after groups remain unstarted.
 
 ## Immediate queue and ownership
 
-1. Finish the codec interruption audit and preserve fresh-output attempt002
-   commands. Independent preparation uses `Perf-01-codec-resume-linux/Plan`.
-   Only the before output directory and corresponding verifier receipt may
-   change; keep rate192, workers2, queue64, inflight256, duration1802, warmup20,
-   recovery10 at1/s, idle60, deadline1000ms, max lag100ms and the exact before004
-   manifest/corpus. Root reviews and starts it; the original run stays untouched.
-2. Complete/review the measurement-only observer candidate in
-   `Perf-01-db-observer-linux/NativeWeave`, based on immutable0b2af544. Keep
-   existing sampling cadence, fields and gates. One in-flight read per sampler;
-   shield the same Future from its first await, join through repeated cancel,
-   publish its last completed row exactly once, then propagate cancellation.
-   Preserve actual worker phase/read times and conservative RSS-window overlap.
-   Include thread/Future CPU/RSS cost in the fixed-package diagnostic. No old
-   failed result becomes valid through a driver change.
-3. Run the four independently reviewed gRPC per-mode profiles from
+1. Publish the completed strict numerical codec002 report and preserve its actual accepted
+   receipt. Attempt001 remains interrupted with zero credit. The accepted load
+   remains rate192, workers2, queue64, inflight256, duration1802, warmup20,
+   recovery10 at1/s, idle60, deadline1000ms, max lag100ms, before004 manifest and
+   fixed corpus. Preserve these exact settings for the after long group.
+2. Finish the reviewed diagnostic pair configuration in the independent
+   `Perf-01-db-observer-pair-linux/Plan` worktree, using the actual measured
+   a3ce0f6 checkout for both sides. Both explicitly select the same deferred GC
+   policy and synchronous/threaded resource policy respectively; keep the
+   before package, PG144/C16,120s,W16,recovery32,idle60 and full durable oracle.
+   Include thread/Future CPU/RSS cost. Preserve any control-side service/timing
+   failure as invalid; continuation requires complete correct outcomes, identity,
+   persistence, resource limits and normal drain. The original driver/verifier
+   gates are unchanged and the pair receives zero formal or long credit.
+3. Preserve the four completed gRPC per-mode profiles from
    `grpc-mode-profiles/commands.json` (SHA-256
    `81921bd9809844d54214f29f398058b68c8c6561991b06ee11f2b8fdb530d5f0`).
-   The four before profiles actually completed at21:28:10Z with all16 command exits zero and all323 calls per mode successful. Existing-reader validation passed with only expected profiling ineligibility. Preserve them for after replication; before profiling is complete and adds no formal timing or long credit. See checks/grpc-modes-before-001.
+   The four before profiles completed at21:28:10Z with all16 command exits0 and
+   all323 calls per mode successful. Existing-reader validation passed with only
+   expected profiling ineligibility. After replication remains required; before
+   profiling is complete and adds no formal timing or long credit. See
+   `checks/grpc-modes-before-001`.
 4. After the observer candidate passes finite ownership/cancel tests and actual
    fixed-package checks, freeze its explicit policy/source, rerun DB calibration,
    derive fresh noise from three complete confirmations, and bind the actual
@@ -148,7 +192,11 @@ separate deferred tasks.
 
 Public PRs: [NativeWeave#19](https://github.com/IzuSharp/NativeWeave/pull/19) and
 [Plan#23](https://github.com/IzuSharp/Plan/pull/23), both still draft. Public Plan
-checkpoint `f2dda486fd378519c3eab4c20f3bc81026be24e6` includes the reviewed codec retry, following f2b2ca88,07226391,b46991bc and afcdc555. It also contains
+checkpoint `a6616a1876de93395522e98f19bbe83099ef6f57` includes the gRPC mode
+numerical report and merge/preview review, following the reviewed codec retry
+atf2dda486, f2b2ca88,07226391,b46991bc andafcdc555. Its paired-integrity CI
+44623801574 passed at22:02:32Z; all six changed files were read back and matched.
+It also contains
 strict numerical Inspect and failed-DB-calibration summaries. Their fixed-commit
 contents were fetched successfully. It does not contain every newer local
 source or detailed audit. Inspect summary SHA-256 is

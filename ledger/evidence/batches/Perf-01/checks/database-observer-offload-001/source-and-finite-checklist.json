@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "domain": "database",
+  "kind": "source-and-finite-checklist",
+  "product_runtime_modified": false,
+  "performance_acceptance": false,
+  "duration_credit_seconds": 0,
+  "source": {
+    "repository": "IzuSharp/NativeWeave",
+    "branch": "task/Perf-01-db-observer-measured-linux",
+    "commit": "a3ce0f6295c535b0a81de95fc0f98aa19deb259c",
+    "tree": "eb6b61e7c159c343513f7a50359f1a6c09f8df77",
+    "parent": "d859b79eedb87dfc372be6c07e516d173c96124b",
+    "files_sha256": {
+      "src/Benchmarks.Domain/http_target.py": "f870c04ca6dda706a95e59a9fbb3ee58e9744b1da9b0b58f254e7eb1f98cbeed",
+      "src/Benchmarks.Harness/nativeweave_bench.py": "a25dca7ca09c609bf6984050047b4bed752660bf6aa7f1c540cb113317b61b04",
+      "tests/Perf01.Database/README.md": "080388311730cca4b8b3090ee1f50655298b3e968c5d24b1f995062b0858e747",
+      "tests/Perf01.Database/perf01_resources.py": "25063ca25eafabf6f70ab4069186382c0f6292da53b5200644f61e2a8fdf6b4c",
+      "tests/Perf01.Database/run.py": "ac981175be058512d65593b9dcd03ec00dcfcc363b030b183248c62063ff43fe",
+      "tests/Perf01.Database/scheduler_gc.py": "9045e8700c39e8491767ec60c053dd51cd98ef002911ee9ce792880da1fb3dba",
+      "tests/Perf01.Database/target.py": "4b8a0cc55d11c7585e5d58c5a729b741dc6509e4214900b2901cac3fa30f99d8",
+      "tests/Perf01.Database/test_observer_sampling.py": "49abaacd50483111def7eb534e4271fd797c4dc39df5882e212c47e3111e901f",
+      "tests/Perf01.Database/test_scheduler_gc.py": "ae18a8b3e52c31c979acd66b338e7fd2e6ebc8942f7e31b29a1e271a411c94a2",
+      "tests/Perf01/verify_long.py": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+    },
+    "complete_remote_tree_matches_local": true,
+    "all_seven_changed_files_read_back_equal": true,
+    "clean_before_and_after_finite_tests": true
+  },
+  "python": {
+    "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "version": "3.12.14"
+  },
+  "cpu_affinity": [
+    8
+  ],
+  "executions": [
+    {
+      "name": "observer",
+      "tests": 6,
+      "started_utc": "2026-11-19T22:24:27.572325Z",
+      "finished_utc": "2026-11-19T22:24:27.751406Z",
+      "elapsed_monotonic_ns": 179053839,
+      "exit_code": 0,
+      "passed": true,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 1042,
+        "sha256": "12140c55d46bdee5603e5a1e50f43576d8ed0828d7c1d89e02a8c19cae007fa3"
+      }
+    },
+    {
+      "name": "scheduler-gc",
+      "tests": 4,
+      "started_utc": "2026-11-19T22:24:27.753332Z",
+      "finished_utc": "2026-11-19T22:24:27.888938Z",
+      "elapsed_monotonic_ns": 135593040,
+      "exit_code": 0,
+      "passed": true,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 102,
+        "sha256": "84ff24306afcf5e19892adf32493aa9bc9dbc8db16870c6155e8e03c23864a33"
+      }
+    },
+    {
+      "name": "diff-check",
+      "tests": null,
+      "started_utc": "2026-11-19T22:24:27.889815Z",
+      "finished_utc": "2026-11-19T22:24:27.896311Z",
+      "elapsed_monotonic_ns": 6486911,
+      "exit_code": 0,
+      "passed": true,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "finite_execution_receipt_sha256": "be0762119d0df9dc3c4d7050e1daac95bbfb78040f9d3ca54248134d1593c467",
+  "source_review": {
+    "core_lifecycle_passed": true,
+    "first_await_shield_and_single_publication_checked": true,
+    "repeated_cancel_joins_same_worker_checked": true,
+    "default_synchronous_compatibility_checked": true,
+    "generator_rss_window_followup_closed": true,
+    "legacy_verifier_reporting_scope_documented": true,
+    "live_load_equivalence_pending": true
+  }
+}
