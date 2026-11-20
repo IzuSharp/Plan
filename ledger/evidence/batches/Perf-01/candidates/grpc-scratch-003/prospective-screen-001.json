@@ -1,0 +1,44 @@
+{
+  "task": "Perf-01",
+  "kind": "grpc-scratch-ablation-003",
+  "scope": "Diagnostic corrected-control da48ccf versus corrected scratch candidate1207b8d with identical fresh Rust bytes; zero formal-matrix, capacity, retention or long-test credit.",
+  "control_source": "da48ccf9d263155ebcbc2a6eea986f6b05972f51",
+  "candidate_source": "1207b8d3b0c273752a28dabdf3e7a2b54c933571",
+  "control_version": "0.1.0-perf01.grpc-credit-control.1",
+  "candidate_version": "0.1.0-perf01.grpc-credit-candidate.1",
+  "screen_policy": {
+    "absolute_limits": "Unchanged frozen correctness, generator validity, p99 500ms, RSS 256MiB, zero unexpected errors, payload credits, recovery and drain limits all mandatory.",
+    "before_only_processes_per_profile": 3,
+    "comparison_processes_per_route_profile": 3,
+    "id": "grpc-scratch-003-prospective-001",
+    "interpretation": "Descriptive resource/tail screens from three independent processes; no confidence claim for p99/CPU/RSS. Screen pass is eligibility for review, never retention or formal acceptance.",
+    "latency": "No latency improvement required; any original A21 mean-latency regression verdict vetoes the screen.",
+    "missing": "Any missing/nonfinite required observation is unresolved; any failed screen is rejected. No changed threshold, selected replacement or automatic retry.",
+    "primary": "All three candidate unary allocation MiB/s observations strictly below all three interleaved control observations by more than the frozen A-only allocation range.",
+    "tail_and_resources": "For every ordinary scenario p99, and whole-profile server CPU percent and sampled maximum RSS, candidate mean and maximum each may exceed interleaved control mean and maximum by no more than the corresponding frozen A-only process range. Applies to both profiles."
+  },
+  "prospective_supersession": {
+    "candidate_original_source": "e524ade4b5be0b8d556d2dd6f8e8d9fa9698c2f5",
+    "control_original_source": "0715ffb6376b1ae08259ad7e2cb30ff0320d83e7",
+    "fresh_control_noise_before_comparison": true,
+    "native_hashes_must_match": true,
+    "prior": "grpc-scratch-002-prospective-001",
+    "reason": "Both roles require the same demonstrated native metadata/admission correction; no old candidate timing exists. All old failed gates are preserved.",
+    "same_formula_driver_limits": true
+  },
+  "control_tree": "409f2e9e690f6c218d90fe38500933e619d850ec",
+  "candidate_tree": "86c4ac7a7c4d17f705d3fa52af4fafdb6959d2da",
+  "profiles": [
+    "grpc-unary",
+    "grpc-streams"
+  ],
+  "fixed_rate": 16,
+  "fixed_concurrency": 4,
+  "fixed_load_seconds": 20,
+  "control_only_processes": 6,
+  "interleaved_processes": 18,
+  "source_only": true,
+  "formal_matrix_credit": false,
+  "capacity_credit": false,
+  "long_test_credit": false
+}

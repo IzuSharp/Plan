@@ -1,0 +1,105 @@
+{
+  "task": "Perf-01",
+  "scope": "All seven CREDIT-PROBE lines from the one diagnostic process. A successful reproduction confirms the existing bug; it is not product acceptance.",
+  "samples": [
+    {
+      "stdout_line": 3,
+      "fields": {
+        "event": "first-owner-retired-connection-open",
+        "utc": "2026-11-20T11:15:29.1338824Z",
+        "request": "0000000000000001",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 0,
+        "retiring": 1,
+        "managed": 0,
+        "native": 79264
+      },
+      "raw": "CREDIT-PROBE event=first-owner-retired-connection-open utc=2026-11-20T11:15:29.1338824Z request=0000000000000001 owner_retired=True active=0 queued=0 retiring=1 managed=0 native=79264"
+    },
+    {
+      "stdout_line": 4,
+      "fields": {
+        "event": "second-client-queued-behind-retired-first",
+        "utc": "2026-11-20T11:15:29.1411588Z",
+        "request": "0000000000000001",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 1,
+        "retiring": 1,
+        "managed": 0,
+        "native": 79264
+      },
+      "raw": "CREDIT-PROBE event=second-client-queued-behind-retired-first utc=2026-11-20T11:15:29.1411588Z request=0000000000000001 owner_retired=True active=0 queued=1 retiring=1 managed=0 native=79264"
+    },
+    {
+      "stdout_line": 6,
+      "fields": {
+        "event": "second-still-blocked-before-first-close",
+        "utc": "2026-11-20T11:15:29.2403406Z",
+        "request": "0000000000000001",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 1,
+        "retiring": 1,
+        "managed": 0,
+        "native": 79264
+      },
+      "raw": "CREDIT-PROBE event=second-still-blocked-before-first-close utc=2026-11-20T11:15:29.2403406Z request=0000000000000001 owner_retired=True active=0 queued=1 retiring=1 managed=0 native=79264"
+    },
+    {
+      "stdout_line": 7,
+      "fields": {
+        "event": "only-first-client-disposed",
+        "utc": "2026-11-20T11:15:29.3190353Z",
+        "request": "0000000000000001",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 1,
+        "retiring": 1,
+        "managed": 0,
+        "native": 77184
+      },
+      "raw": "CREDIT-PROBE event=only-first-client-disposed utc=2026-11-20T11:15:29.3190353Z request=0000000000000001 owner_retired=True active=0 queued=1 retiring=1 managed=0 native=77184"
+    },
+    {
+      "stdout_line": 10,
+      "fields": {
+        "event": "second-owner-retired-connection-open",
+        "utc": "2026-11-20T11:15:29.3426967Z",
+        "request": "0000000000000002",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 0,
+        "retiring": 1,
+        "managed": 0,
+        "native": 79264
+      },
+      "raw": "CREDIT-PROBE event=second-owner-retired-connection-open utc=2026-11-20T11:15:29.3426967Z request=0000000000000002 owner_retired=True active=0 queued=0 retiring=1 managed=0 native=79264"
+    },
+    {
+      "stdout_line": 11,
+      "fields": {
+        "event": "both-clients-closed-all-credits-zero-before-host-close",
+        "utc": "2026-11-20T11:15:29.3694671Z",
+        "request": "0000000000000002",
+        "owner_retired": true,
+        "active": 0,
+        "queued": 0,
+        "retiring": 0,
+        "managed": 0,
+        "native": 0
+      },
+      "raw": "CREDIT-PROBE event=both-clients-closed-all-credits-zero-before-host-close utc=2026-11-20T11:15:29.3694671Z request=0000000000000002 owner_retired=True active=0 queued=0 retiring=0 managed=0 native=0"
+    },
+    {
+      "stdout_line": 14,
+      "fields": {
+        "reproduced_existing_admission_pin": true,
+        "expected_handlers": 2,
+        "formal_acceptance": false
+      },
+      "raw": "CREDIT-PROBE reproduced_existing_admission_pin=true expected_handlers=2 formal_acceptance=false"
+    }
+  ]
+}

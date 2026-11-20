@@ -1,5 +1,52 @@
 # Perf-01 Linux x64 handoff
 
+## Confirmed gRPC admission defect and correction candidate — 2026-11-20 11:27 UTC
+
+The [paired unchanged-fixture diagnostic](checks/grpc-cancel-observation-001/README.md)
+reproduced the original three-second idle failure on both `0715` and `e524`.
+Both settle at zero active/queued/managed usage but one retiring request and
+79,264 native bytes. The canceled encoder's owner retires; the native charge
+was already present before that call. Both JIT exits remain failed, with no
+functional or performance acceptance credit.
+
+The separate [two-client TLS/H2 probe](checks/grpc-connection-credit-001/README.md)
+then established the admission problem on unchanged `0715` runtime code. With
+one request slot, a completed first call retains its slot while its connection
+stays open. An independent second client queues; closing only the first client
+admits the second call. Both clients closed then yields all-zero gauges before
+host close. The retained charge is a 77,184-byte request anchor plus 2,080 bytes
+of response metadata. Source inspection identifies the credit-owning header
+values held in the locked h2 HPACK dynamic table. The implicated path predates
+Perf-01, but the main binary was not executed by this diagnostic.
+
+The narrowly scoped correction is published as NativeWeave
+`423c07c1d8969298e605e9488b4c271ea3d0148a`, exactly matching local
+`1207b8d3b0c273752a28dabdf3e7a2b54c933571` at tree
+`86c4ac7a7c4d17f705d3fa52af4fafdb6959d2da`. All five files were read back
+exactly. A per-value sensitive flag prevents insertion of request-owned values
+into the connection's dynamic table; existing exact/static index reuse remains
+possible without retaining that owner. The original credits, limits, ABI,
+payload compression and cancellation assertions remain. New regressions cover
+cloned credit lifetime and persistent/independent TLS/H2 clients with one slot.
+[CI125](https://github.com/IzuSharp/NativeWeave/actions/runs/44726962784) is running.
+Actual corrected native, B18 JIT/AOT and package gates remain pending.
+
+The [superseding prospective scratch screen](candidates/grpc-scratch-003/prospective-screen-001.md)
+uses corrected control `da48ccf9d263155ebcbc2a6eea986f6b05972f51` and the
+candidate above. Only three managed scratch implementation files differ;
+fresh actual native hashes must agree. Six new control-only processes precede
+the same eighteen interleaved processes, with unchanged formulas, drivers,
+load and limits. No old candidate timing exists or is transferred. The scratch
+candidate remains unretained.
+
+The [verified compiler-cache cleanup](checks/compiler-cache-cleanup-003/README.md)
+preserved actual binaries, package archives and raw evidence. Its ending free
+space observation is 10,827,952,128 bytes; later builds can consume that margin.
+Plan `e6abcc513009d0b0fd0b952349ebc88f3b716412` and CI44725185391 passed.
+All 126 measured `0715` short cells and the five accepted before long groups
+retain their identities. Final capacity and five after long groups remain
+pending; both PRs remain draft.
+
 ## gRPC B18 cancellation failure and audited CI124 — 2026-11-20 11:07 UTC
 
 The fresh B18-only continuation ran from 10:53:08.212044 to

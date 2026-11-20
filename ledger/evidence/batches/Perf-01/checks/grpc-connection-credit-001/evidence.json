@@ -1,0 +1,241 @@
+{
+  "task": "Perf-01",
+  "kind": "persistent-http2-connection-admission-bug-reproduction",
+  "diagnostic_reproduced_existing_bug": true,
+  "product_acceptance_pass": false,
+  "b18_acceptance_credit": false,
+  "performance_comparison_credit": false,
+  "capacity_credit": false,
+  "long_test_credit": false,
+  "started_utc": "2026-11-20T11:15:06.252715+00:00",
+  "ended_utc": "2026-11-20T11:15:29.569607+00:00",
+  "execution_receipt_sha256": "5d44d527ca24713c09f3d224ac56ef64116b7ed58c01d783fce586726b814251",
+  "executor_sha256": "676c1363693379681f52fa671380b9b2d2ce7f0fa3831e50626cc724288ee8cc",
+  "runtime_source": "0715ffb6376b1ae08259ad7e2cb30ff0320d83e7",
+  "test_only_overlay_commit": "01f3e96580edde1ec5bbc676d7000180879a436d",
+  "native_sha256": "7dd16c9f13c394f09e6c88b0f814110a0b1c002166257c02b66a0cb0a99d54b5",
+  "fixture_sha256": {
+    "tests/Protocols.Grpc/ApiCheck/ApiCheck.csproj": "70e9cb095e34bf96748ec6f47ad36e6235c2403ea2109942b16142c9ea9e56a6",
+    "tests/Protocols.Grpc/ApiCheck/Program.cs": "1353184a24683486e547ac666bb263cba0a66fe4c84f0aae6aa84185d44908d0",
+    "tests/Protocols.Grpc/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "tests/Protocols.Grpc/ConnectionCreditProbe.cs": "08ec2f1cd3c4f475f5bb0c30394859d1e40f28c2b7ee737b5f8415b3ec78f18a",
+    "tests/Protocols.Grpc/Edges.cs": "88b525c847859946efd6c8632c7c39d02a0d3e7878b671b9e51fc6a3d8508fe3",
+    "tests/Protocols.Grpc/NativeWeave.Server.Grpc.Tests.csproj": "0d11def4938f23b16c879c2519c22e482d92bab9791565d436dfaee2bbfc88fc",
+    "tests/Protocols.Grpc/Program.cs": "f9fdb123ec59af70fd6e867eaf490ed5a3566562156629316b91e9aeddaf4a8f",
+    "tests/Protocols.Grpc/WriterContracts.cs": "69c2fa88de432be9749c5798c1d3a5b99eb489caa8433a82ff8b97e82d00e756",
+    "tests/Protocols.Grpc/messages.proto": "76cab3448e9f65b35204ad647bdc3f699990b0523bae8538288e684b359c4ef1",
+    "tests/Protocols.Grpc/package_probe.py": "2c40f8eaa36270e08ef1422c8c7b76862b4f0239c54b6e4355b3428aca843a0e",
+    "tests/Protocols.Grpc/packages.linux-x64.aot.lock.json": "80d8cdb0f1a4ae91bd7b9488c9eed41a282e1b8dee131aa6f1ffe873b56f8fff",
+    "tests/Protocols.Grpc/packages.lock.json": "a00f0e294f5e58540b6d06bec9d18722db95c970489c1d8f2d8d58faf7cb8422",
+    "tests/Protocols.Grpc/verify.py": "b453328bbc8851e40acf418df5e59fc9f493ee95be113abc95690d7ca7e08a09"
+  },
+  "artifacts_sha256": {
+    "Google.Protobuf.dll": "0f93ce18692e0b789c41299d0d2af2b477644fc4b13482bd0680b29289603996",
+    "Grpc.Core.Api.dll": "d9b5751a0988cdcf209f669b166e20b76b6ea3af1bc6601e03f3349e97059385",
+    "Grpc.Net.Client.dll": "a2bdafc8d6a7baa8b8f6c0b39d8a7f859ad84af14380ccae118c2f5316602212",
+    "Grpc.Net.Common.dll": "b2354e7717e4d1b5b23a80d1eaf65ecc128f1b458bf052a7b83334dcbe3f6206",
+    "Microsoft.Extensions.Configuration.CommandLine.dll": "f055b0d57218e6f35931ee367b8296b19640715e15fe7f23faaefdf5cc721a31",
+    "Microsoft.Extensions.Configuration.dll": "8a03d941791b2df6a4e33ef3e27fdc61a6f04f59a07d7212bc61f51291aab1a0",
+    "Microsoft.Extensions.DependencyInjection.dll": "a6201727d822f8482f11c68b593f00827f21c867548a702461de41223c608481",
+    "Microsoft.Extensions.Logging.dll": "398541049f14e673db3df03990d7e8421948436df493cc84fa95ed7e65a9112d",
+    "NativeWeave.Core.dll": "9929bc5973ebdc01907936246b09ff23cb136d0093d6eee65c48b7235e2da4d3",
+    "NativeWeave.Core.pdb": "145d288641fb4efa37a5a223ab018984afee79e4f8056193ed6fa98c2fd9e31b",
+    "NativeWeave.Core.xml": "bc17e0cfcd9a72f39120772e64f18d936d4b2525da3fca4e2d4783b0a242c572",
+    "NativeWeave.Interop.Abi.dll": "34fa9834d31af6b17ac3227b0729db0349f654d3305eee6088072ef1dfa786ac",
+    "NativeWeave.Interop.Abi.pdb": "af33e95782034c8d706a02927e6ad520a176acfdfb8c7742feda5f0c8849508c",
+    "NativeWeave.Interop.Abi.xml": "5840e9bf12c699b580dc2a4716f05affc4c05b2fe96d0985d81b4b2c50a2bedc",
+    "NativeWeave.Server.Grpc.Tests": "43a8dda10d68d7dc2fbc8c22d8ee08f03ab85a6036662d6fcd62d84ddd046213",
+    "NativeWeave.Server.Grpc.Tests.deps.json": "df47e31174ffaf137255985da03469d353056164733b816138693f63d94eb953",
+    "NativeWeave.Server.Grpc.Tests.dll": "4d220def2effc013b21b3203aecaf11970925f313750651ddf76144b113e41e1",
+    "NativeWeave.Server.Grpc.Tests.pdb": "d84dd43471b773ccbd71c0dfc8b6e7669621799ba6d9bffe6f25dd2a0050cc63",
+    "NativeWeave.Server.Grpc.Tests.runtimeconfig.json": "8c019e2c7c9acc0440d8b263897f7b0079b1c6895307921604be20e732900366",
+    "NativeWeave.Server.Grpc.dll": "25cbee49cab71b3743eb8de1862b46a066ecd9753766f4126c1374db1b1d925f",
+    "NativeWeave.Server.Grpc.pdb": "6ddf640a0dba863fb88b7af800717c7572a59e9f6b0aff2a676e16e6e7693cd4",
+    "NativeWeave.Server.Grpc.xml": "9d3efd9e393e464e4d285ea6f8f543420cb57fb307da00a93a6e80c2b746ee55",
+    "NativeWeave.Server.dll": "1b77c8f138e176dd16522c1697c7de7d3ffce1aaf8826d9cc0a1b65b505d5693",
+    "NativeWeave.Server.pdb": "b12ffefba25cd61a4f0771d02aa4cca1734d6c1512c4b4ec7b1fbc808d03e16d",
+    "NativeWeave.Server.xml": "78308c1e86fdb50f944101f0cc196ba58a7cc1b2332f97f21337856e8cbb3916",
+    "NativeWeave.server.assets.json": "00b5165077a2f70404bafef26d86cd54cfeab06c55d14e39ac433559d697599b",
+    "runtimes/linux-x64/native/libnativeweave_server.so": "7dd16c9f13c394f09e6c88b0f814110a0b1c002166257c02b66a0cb0a99d54b5"
+  },
+  "commands": [
+    {
+      "id": "control-restore",
+      "state": "completed",
+      "exit_code": 0,
+      "started_utc": "2026-11-20T11:15:06.274066+00:00",
+      "ended_utc": "2026-11-20T11:15:10.015626+00:00",
+      "elapsed_ns": 3741587401,
+      "timeout_seconds": 900,
+      "group_retired": true,
+      "adopted_descendants_retired": true,
+      "cleanup_signals": [],
+      "received_signal": null,
+      "stdout_sha256": "9c09b3805f9fd65f739a8e7f7f3308ad956885d419edd31e979da7b2d2389944",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "control-build",
+      "state": "completed",
+      "exit_code": 0,
+      "started_utc": "2026-11-20T11:15:10.016570+00:00",
+      "ended_utc": "2026-11-20T11:15:28.676211+00:00",
+      "elapsed_ns": 18659657088,
+      "timeout_seconds": 900,
+      "group_retired": true,
+      "adopted_descendants_retired": true,
+      "cleanup_signals": [],
+      "received_signal": null,
+      "stdout_sha256": "a521376202251dcd394d50cabda100ff1605fc80d2d8308a63a2e8b12c38a3e6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "control-jit",
+      "state": "completed",
+      "exit_code": 0,
+      "started_utc": "2026-11-20T11:15:28.706641+00:00",
+      "ended_utc": "2026-11-20T11:15:29.498365+00:00",
+      "elapsed_ns": 791751315,
+      "timeout_seconds": 90,
+      "group_retired": true,
+      "adopted_descendants_retired": true,
+      "cleanup_signals": [],
+      "received_signal": null,
+      "stdout_sha256": "91acb6bd76ce404e953a3580e419bc8c19f479aab950cb64e1bae2383bf5ba9d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "diagnostic_assertions": 7,
+  "diagnostic_stdout_rows": 7,
+  "snapshot_rows": 6,
+  "snapshots": [
+    {
+      "event": "first-owner-retired-connection-open",
+      "utc": "2026-11-20T11:15:29.1338824Z",
+      "request": "0000000000000001",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 0,
+      "retiring": 1,
+      "managed": 0,
+      "native": 79264
+    },
+    {
+      "event": "second-client-queued-behind-retired-first",
+      "utc": "2026-11-20T11:15:29.1411588Z",
+      "request": "0000000000000001",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 1,
+      "retiring": 1,
+      "managed": 0,
+      "native": 79264
+    },
+    {
+      "event": "second-still-blocked-before-first-close",
+      "utc": "2026-11-20T11:15:29.2403406Z",
+      "request": "0000000000000001",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 1,
+      "retiring": 1,
+      "managed": 0,
+      "native": 79264
+    },
+    {
+      "event": "only-first-client-disposed",
+      "utc": "2026-11-20T11:15:29.3190353Z",
+      "request": "0000000000000001",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 1,
+      "retiring": 1,
+      "managed": 0,
+      "native": 77184
+    },
+    {
+      "event": "second-owner-retired-connection-open",
+      "utc": "2026-11-20T11:15:29.3426967Z",
+      "request": "0000000000000002",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 0,
+      "retiring": 1,
+      "managed": 0,
+      "native": 79264
+    },
+    {
+      "event": "both-clients-closed-all-credits-zero-before-host-close",
+      "utc": "2026-11-20T11:15:29.3694671Z",
+      "request": "0000000000000002",
+      "owner_retired": true,
+      "active": 0,
+      "queued": 0,
+      "retiring": 0,
+      "managed": 0,
+      "native": 0
+    }
+  ],
+  "source_supported_conclusion": "Outgoing gRPC metadata credit ownership escapes into the persistent HPACK dynamic table. The existing request admission permit remains held after its physical managed ABI owner retires. Closing only the first HTTP2 connection releases response metadata grants, permits native request reaping, and admits the queued independent second client. This predates the scratch candidate.",
+  "pre_perf01_source_check": {
+    "baseline": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "actual_probe_runtime": "0715ffb6376b1ae08259ad7e2cb30ff0320d83e7",
+    "grpc_and_streaming_source_changes": false,
+    "host_request_ownership_path_changes": false,
+    "host_file_other_changes": "Acceptor shutdown completion handling only.",
+    "baseline_probe_executed": false
+  },
+  "correction_status": "Not implemented or accepted by this reproduction. A narrowly scoped per-value no-dynamic-index policy is being reviewed separately.",
+  "unchanged_configuration": {
+    "release_jit": true,
+    "actual_http2_tls": true,
+    "max_active_requests": 1,
+    "host_timeout_seconds": 15,
+    "method_timeout_seconds": 15,
+    "phase_bounds_seconds": 3,
+    "snapshot_poll_interval_ms": 5,
+    "declared_queued_observation_delay_ms": 100,
+    "hpack_and_connection_pool_settings_changed": false
+  },
+  "source_logs": {
+    "control-restore.stdout.log": {
+      "bytes": 1027,
+      "sha256": "9c09b3805f9fd65f739a8e7f7f3308ad956885d419edd31e979da7b2d2389944"
+    },
+    "control-restore.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "control-build.stdout.log": {
+      "bytes": 1210,
+      "sha256": "a521376202251dcd394d50cabda100ff1605fc80d2d8308a63a2e8b12c38a3e6"
+    },
+    "control-build.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "control-jit.stdout.log": {
+      "bytes": 1669,
+      "sha256": "91acb6bd76ce404e953a3580e419bc8c19f479aab950cb64e1bae2383bf5ba9d"
+    },
+    "control-jit.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "preparation_failure": "The initial source-only description supplied the wrong literal executor hash and failed before any command or output directory. The unchanged executor then passed with its actual hash; this does not add a probe result.",
+  "projection_failure": {
+    "kind": "report-projection-assertion",
+    "recorded_utc": "2026-11-20T11:18:25.574521+00:00",
+    "expected_pass_markers": 8,
+    "actual_pass_markers": 7,
+    "cause": "Initial projection counted expected markers incorrectly; all seven original PASS lines and seven CREDIT-PROBE rows remain unchanged.",
+    "runtime_outputs_modified": false,
+    "files_written_before_failure": false,
+    "receipt_sha256": "0a4b3ec0d39918c691e2c0ec6084a6a74d89f354f33d4c9361bb33114fb812ef"
+  },
+  "retention": {
+    "public_numeric_files": "Git while repository history is retained",
+    "full_raw_logs_and_binaries": "Measurement workspace; no remote full raw archive claimed"
+  }
+}
