@@ -1,5 +1,115 @@
 # Perf-01 Linux x64 handoff
 
+## After protocol capacities complete; direct Rust capacity remains active
+
+The final003 after gRPC capacity selection completed at16:43:47.307652 UTC.
+Its largest consistently passing sampled offered rate is **144/s**, versus
+**160/s** in the unchanged before selection (difference−16/s,−10%). Both use
+concurrency64, profile42fb00a0571a5721b2b63144544471c103639530dbf8e5664bd7906d1866315b
+and the original policy. All three144/s confirmations completed8,656 successful
+logical calls with no unexpected outcomes; p99 values were152.998530,
+152.588253 and152.197693ms. The after selection hash is
+`586085b1d86ce76b41e15dfe2c5cfbe6b025f25f43774bd95dd2948527110e06`;
+its controller hash is
+`1c69aff06e5745280e49f19d1d3dd18587c7e0a41a9a371660adeb69bcf0fef8`.
+The before selection remains
+`8af8ed599c3378a7009635a681e787da5d44fae4b783f60e82ee7b12c02f09ba`.
+The fixed paired long workload remains the separately accepted115/s amendment;
+the earlier selected128/s and failed long attempt remain historical records.
+
+The higher160/s confirmations include a generator-lag invalid sample and a
+valid sample with three rejections. The256/s and192/s probe IntegrityFailure
+classifications and unexpected duplex cancellations remain unresolved until
+an idle reading of the original failed event messages. Final product review
+`7509dcb1a3f7f90543bbe1d4815f10550ad0a0ac` is committed in the report-assembly
+worktree and explicitly holds final acceptance for these findings. It does not
+claim a confirmed implementation defect or payload corruption.
+
+The original exclusive protocol-capacity owner is still running its direct Rust
+HTTP+gRPC command. No build, raw reader or archive is allowed concurrently.
+The16:46:42.259474 UTC statfs observation was1,832,919,040 bytes available.
+The existing owner/calibrator has no boundary-pause or free-space hook; monitor
+actual available bytes and preserve any interrupted state rather than altering
+the live source, lock or thresholds.
+
+The final report display preparation is now independently accepted at executable
+source `f8ae3b0b9588fc056260b398ab0e56a7aea7a3cf`, source index
+`37cde316432f7cd2869fab9be090ef162bac3d1c1e76fe3893b5c80522ae02a8` and
+renderer SHA-256 `0a6d173921202d7b95394e38678119d6e5296ce05004574ef73907992f19cea6`.
+Documentation HEAD is81fb929760a8609d1d5d2c7e761ea609a30a3cff in
+Perf-01-report-render-linux/Plan. Independent review
+`1c61dede2cee44272167b6fbbe014ac19e92563c8f23dfb9145085710ad66ec1`
+confirms integer error populations, eligibility-only descriptive differences,
+recorded offers, separate logical/business capacity rates and protocol long
+latency including successful probes. It has not executed;12 future input slots
+remain pending. All five before and zero after long groups remain accepted.
+
+
+## HTTP capacity observed; gRPC capacity and source audits continue
+
+Final003 protocol capacity began at16:04:31.864257 UTC and still owns the
+exclusive timing resource. The after HTTP group completed at16:27:51.776860:
+its highest consistently passing sampled offered rate is **1,036/s**, versus
+**1,088/s** in the accepted current-baseline selection (difference−52/s,
+−4.779411764705882%). The profile, policy and concurrency64 match exactly.
+All three final1,036/s confirmation processes completed62,265 operations each;
+their aggregate successful-call p99 values are268.178953,271.484504 and
+269.010534ms. Higher rates include generator-inflight/lag failures and a valid
+1,280/s confirmation exceeding the500ms tail standard. This is no demonstrated
+HTTP capacity gain or theoretical server bound. The fixed paired HTTP long
+rate remains500/s; no long workload is retuned.
+
+The after gRPC group is still running. Its256/s and192/s cells contain one
+IntegrityFailure each in a deadline/cancel probe, separately from ordinary
+ResourceExhausted and unexpected Cancelled outcomes. These retain the original
+invalid classification. Source-only tracing found multiple possible client
+assertions, including a missing perf-started header before status consumption;
+it does not establish a payload defect or production root cause. Both small
+result controls show request/owner/queue gauges returning to zero. Read the exact
+two failed client event messages at the next idle window before resolving the
+protocol-semantic concern. Do not waive their original failure or issue final
+product acceptance from source review alone.
+
+The reviewed idle sequence is now pinned to:
+
+- DB binding recovery002: source75ce4013, index
+  `4d2c76d4e3ebd804af72d5d2538c37e75da92bf6a3c22b6a33df5626b6b90888`,
+  fresh `verify-before-binding-002`, zero producers. Seven exact signed external
+  package tuples distinguish archive/content hashes, with original successful
+  archive/lock proofs retained. Failed verification001 stays separate.
+- Before cache005 and final cache003: source06b66b83; selectors
+  `9afca6a6e8a71c3c50b549dfe19ef350cc563835e8d8db3605a31b7d0d1da8cb`
+  and `211ec3a09844e893e051cb844cb70b25f04faae5564ff2fcd602a4edd4ec5dd7`.
+  Actual inventory/cleanup hashes remain UNSELECTED. Cleanup008 must precede
+  creation of build-final; cleanup009 must precede any measure/evidence root.
+- DB numerical recovery002: source1d034ec2, index
+  `8533e3747a211bd295415dcf0b7f0bb97e14368bddf5aefe6da5bd9a5aa1c1cd`.
+  Numeric logic is unchanged; actual successful future receipts remain unbound.
+- Codec continuation: sourceb98b19ea, index
+  `8736226211f2821c9a60a623e6beb5d590f33baa5108d663ccfe073df31eb83d`.
+  Run the exact remaining20 processes; preserve the expected original W1 report
+  refusal, then report the unchanged core-only W1 cohort separately. No replacement
+  sample or all126-process success claim is allowed.
+- Historical16-root retention: source6643e964, index
+  `cd4413b203c615bf19371a4a9d0ba2d4c3879da1f4cc50c7a1b8f751d2dab101`.
+  The helper-hash check covers execution and restoration. Actual future closure,
+  census, selection/count/bytes and freeze remain UNBOUND. Both cache cleanups
+  and all eight eligible diagnostic cells precede historical cold retention.
+
+All these source preparations have independent acceptance, with no runtime
+execution credit. The documentation-only next-idle runbook is commit9843f058,
+`NEXT-IDLE-RUNBOOK.md` under historical-payload-cold-retention-002, SHA-256
+`761f40d523a9c989d4ad03b3c99f74ba6c5bf1e8b0555e12693bd7d731769231`.
+It supplies exact commands and future hash arguments without changing executors.
+
+The public interruption bundle and handoff were pushed at Plan
+`f21b52d1f564d3b44e78c43b0ac487d82344fb45`; all four selected files were
+fetched back exactly (107,034 bytes). The private readback receipt is
+`3a04cbec110db6e08674e994d68e16950c153fad54ecda5deb72c6f842236872`.
+Plan CI185 passed. The final report presentation source is prepared separately;
+it has no actual completed final dataset or rendering credit yet. Both PRs
+remain draft, and **five before / zero after long groups** remain accepted.
+
 ## Resume: codec generator-invalid sample and binding-only failure retained
 
 The [curated interruption checklist](checks/codec-and-binding-interruptions-001/README.md)
