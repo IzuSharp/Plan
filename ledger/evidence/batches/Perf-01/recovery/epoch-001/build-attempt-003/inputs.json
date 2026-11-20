@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-001",
+  "driver": ".worktree/Perf-01-linux/NativeWeave",
+  "products": {
+    "before": {
+      "path": ".worktree/Perf-01-recovery-before-003-linux/NativeWeave",
+      "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+      "version": "0.1.0-perf01.recovery001.before.1",
+      "upgrade_version": "0.1.0-perf01.recovery001.before.2"
+    },
+    "after": {
+      "path": ".worktree/Perf-01-recovery-on-linux/NativeWeave",
+      "commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+      "version": "0.1.0-perf01.recovery001.on.1",
+      "upgrade_version": "0.1.0-perf01.recovery001.on.2"
+    }
+  },
+  "output": "perf01-recovery/epoch-001/build-attempt-003",
+  "control": "perf01-recovery/epoch-001/control-attempt-003",
+  "exclusive_lock": "perf01-recovery/epoch-001/timing.lock",
+  "freeze": {
+    "path": ".worktree/Perf-01-linux/Plan/ledger/evidence/batches/Perf-01/recovery/epoch-001/freeze.json",
+    "sha256": "eda07013d5fa06f793ea9f15667cc99f4a7a4368c733bbbba75f76932319f862"
+  },
+  "toolchain": {
+    "path": "perf01-recovery/toolchain-001/toolchain-environment.json",
+    "sha256": "663c591a1b69c46a7f3785b32e73de9874028ef531ac4b606a4c759e7b989b4d"
+  },
+  "entry_free_bytes": 17179869184,
+  "between_command_free_bytes": 8589934592,
+  "build_environment": {
+    "CARGO_BUILD_JOBS": "3",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+    "MSBUILDDISABLENODEREUSE": "1",
+    "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+    "DOTNET_NOLOGO": "1",
+    "DOTNET_PROCESSOR_COUNT": "2",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "PYTHONPATH": "/workspace/scratch/b0579dac28f5/perf01-recovery/python-http2-001/site-packages"
+  },
+  "credit": "Source preparation only. Actual new producer receipts are required. No historical source, binary, noise or long-test acceptance is relabelled.",
+  "attempt": 3,
+  "prior_attempt": {
+    "number": 2,
+    "status": "failed",
+    "execution": "perf01-recovery/epoch-001/control-attempt-002/build-before/execution.json",
+    "execution_sha256": "a7fb57acb2d09f6df58390d6be3d6bb51a36aa3714d9d38d4e8ad18a3fb3dad4",
+    "reason": "Native and package producers completed and retired; reference producer failed and retired before any dotnet build because h2 distribution metadata was absent. All partial outputs remain untouched; no receipt or binary is reused in attempt003."
+  },
+  "python_dependencies": {
+    "path": "perf01-recovery/python-http2-001/manifest.json",
+    "sha256": "1584ba1bf4c27fda85a8054bfe0dc84a6330d52b10e4f74e8b022fd1104eaddb",
+    "activation": "build_environment.PYTHONPATH",
+    "preflight": "Root rehashes every installed file before each original producer stage; measurement admission rechecks this bundle. No preinstalled package was upgraded."
+  }
+}

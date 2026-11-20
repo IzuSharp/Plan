@@ -10,7 +10,7 @@ transfers a historical execution result into recovery epoch001.
 
 | Identity | Value |
 | --- | --- |
-| Actual new product commit | `0c67621f0d6cedca268f15e80fd75595d26b5094` |
+| Local preparation commit reviewed initially | `0c67621f0d6cedca268f15e80fd75595d26b5094` |
 | Direct parent | `2e3995df8d86583ee9443348276ca8d918056bfc` |
 | Actual tree | `a8f33c1c07127d8e70642afeb84c3822fbf4565e` |
 | Only changed file | `src/Protocols.Grpc/NativeTransport.cs` |
@@ -20,8 +20,8 @@ The actual clean repository diff contains one insertion and thirteen deletions
 in that single file. It removes the weak array-reference field and the
 lookup/clear/retarget block, replacing it with `new byte[encodedLimit]` after
 the same managed-credit acquisition. It does not reconstruct the historical
-private commit or its missing runtime evidence; the newly created commit above
-is the actual producer identity for any later build.
+private commit or its missing runtime evidence. A later build must bind its
+actual clean checkout commit; the subsequent public commit is recorded below.
 
 `WriteCoreAsync` still obtains the same native reservation before allocation.
 `EncodeAndCreate` retains the same managed credit, scoped `MessageWriter`
@@ -41,6 +41,32 @@ the prospectively reviewed current-epoch ON/OFF measurement policy.
 The implementation repository's current `AGENTS.md`, README and background
 boundary were read. This narrow source verdict is not a claim that repository
 verification or current functional regressions have executed for OFF.
+
+### Subsequent public commit and build-source alignment
+
+Root published the same complete source tree as actual public product commit
+`4ae2e15f4825a9b5237734444ff68b0b6d2c5aa4`, direct parent
+`2e3995df8d86583ee9443348276ca8d918056bfc`, on
+`task/Perf-01-recovery-grpc-off-linux`. The publication-readback receipt is
+`70a86e3dbd2c9c4c4fdbb3a3008b4fe1e5117f4eb07525e9e068b94c5d81b76d`.
+It records exact branch and source readback and no OFF build/runtime before
+alignment. The original local preparation commit remains preserved separately.
+
+The reviewer read the 709-byte receipt and independently confirmed the clean
+local checkout at the public commit, its parent and complete tree, and the exact
+`NativeTransport.cs` SHA-256 above. The diff between local preparation and public
+commit is empty. Both trees are
+`a8f33c1c07127d8e70642afeb84c3822fbf4565e`; the changed source's Git blob is
+`d6e3025e21b5f696eedb38c11095743a41eee131`. This is source/content equality,
+not an OFF binary or execution identity.
+
+Root selected complete fresh OFF production: native assets and the full
+17-package B24 closure will both identify the actual public OFF commit, with
+fresh consumers and the unchanged public application/driver checkout at ON2e.
+That choice avoids a managed-OFF/native-ON exception in the original protocol
+builder. The separate new caller still requires its own source and actual
+execution binding. OFF remains optional and unselected; publication grants no
+build, runtime, performance, capacity, long or retention credit.
 
 ## Database terminal-state reader correction
 

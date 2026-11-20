@@ -1,5 +1,11 @@
 # Perf-01 Linux x64 handoff
 
+## Recovery build attempt 003 preparation — 2026-11-20 20:22 UTC
+
+Attempt 002 ended with an actual failure at 20:16:36.912200 UTC. Native-stable and packages both completed/retired; reference failed/retired before its first application build because h2 metadata was missing. Preserve execution SHA `a7fb57acb2d09f6df58390d6be3d6bb51a36aa3714d9d38d4e8ad18a3fb3dad4` and all outputs. This is distinct from attempt 001's unknown terminal state.
+
+A new clean EA5 checkout and fresh attempt 003 directories are prepared for the unchanged c752 build source. The explicit Python HTTP/2 dependency bundle restores historical h2 4.4.1 without upgrading installed packages; actual hpack/hyperframe resolution and every wheel/file hash are frozen in [the attempt record](recovery/epoch-001/build-attempt-003/README.md). Independent input review accepted attempt 003, then the original before producer stage actually started at 20:22:49.291073 UTC. All 51 restored bundle files passed the root preflight. No completed eight-producer before role exists yet. Recovery formal measurement and long acceptance remain 0, with all ten long groups outstanding. Public checkpoint 108 is `f91aa00bce561d953da4a2aca918271241d08ea3`; four-file exact readback passed.
+
 ## Baseline attempt 002: fresh production after session loss
 
 The first new baseline tool session became unavailable without an observed final
