@@ -1,5 +1,80 @@
 # Perf-01 Linux x64 handoff
 
+## Managed admission handoff reproduced in AOT — 2026-11-20 11:53 UTC
+
+The independently checked records are the [failed partial B18 build](checks/grpc-corrected-build-failure-001/README.md),
+the [bounded AOT handoff proof](checks/grpc-ticket-tail-001/README.md), and the
+separate [CI125 canonical](checks/ci125-canonical-001/README.md) and
+[A20 artifact audits](checks/ci125-a20-001/README.md). CI125 has seven successful
+jobs, while the local B18 AOT gate remains failed. The CI archives expire on
+2026-12-04; the small numerical/hash projections have repository-history
+retention. None of these records substitutes a later corrected-source gate.
+
+One bounded, test-only AOT diagnostic on corrected control `da48ccf9` reproduced
+the exact suspected handoff. Overlay `ee71bf2e0f30c0ee3b8b6c9ae81adf82c0da7f0a`
+holds the existing ticket-removal tail after native owner retirement; it does
+not change the original rejection predicate. At 11:52:15.9165022 UTC the first
+owner was retired and active, queued, retiring, managed-byte and native-byte
+gauges were all zero. At 11:52:15.9186693 UTC the independent second TLS/H2
+request was rejected specifically as `ticket_capacity`, with one managed ticket
+against the unchanged limit of one. Exactly one business handler entered.
+Releasing the diagnostic barrier allowed complete zero-resource host close.
+
+All three owned commands exited zero from 11:51:18.830107 to
+11:52:16.072323 UTC; all process groups and adopted descendants retired. The
+receipt `perf01-run/grpc-ticket-tail-001/execution.json` has SHA-256
+`21ac50d2cf6271816468b0716b62c1822bcb78f138481e6b36335e488e510d2a`.
+The actual native asset remains `28d793d64bcea642abcaa58b88c775faa2bd0c20ae15c0ef3b25a540f0c65dc2`.
+This deliberately held causal reproduction is separate from the spontaneous
+B18 AOT failure below. Its success means that the existing bug was reproduced;
+it gives no functional, performance, capacity or long-test acceptance credit.
+
+A Server-only ownership correction is being prepared and independently
+reviewed. It must join the complete managed dispatch/diagnostics/cancellation
+tail, preserve the close obligation through actual physical release, and make
+native permit release and managed ticket removal indivisible to admission.
+Delayed last-lease release and existing MCP managed-tail shutdown semantics are
+explicit regression obligations. No final source, scratch retention or final
+measurement is accepted yet.
+
+## Corrected-native B18 AOT failure retained — 2026-11-20 11:43 UTC
+
+The nine-command scratch-003 build stopped at the corrected control's B18
+Native AOT execution. The native component, control native asset, all B24
+packages and frozen protocol AOT application had completed successfully. B18
+layout, exports, locked restore, JIT execution (948 assertions), API/XML and
+AOT compilation passed. Actual AOT execution aborted with exit `-6`; the outer
+verifier exited `1` at 2026-11-20 11:40:35 UTC. No candidate producer or
+diagnostic measurement ran. All owned and adopted processes retired.
+
+The failure is in the new persistent TLS/H2 regression. The first call passed
+protobuf, metadata, trailers, physical-owner retirement and all-zero native
+gauge checks while its client remained connected. The next client-streaming
+call returned `Internal: managed dispatch unavailable`. Source review identifies
+a possible shared admission handoff: `NativeRequest.CompleteDispatchAsync`
+releases its native owner before `HostTicket.RunAsync` removes its managed
+ticket, while `NativeHost.Notify` rejects at the managed ticket limit. This is
+under investigation; the test will not be changed to wait for private managed
+state that real clients cannot observe.
+
+The failed outer receipt is
+`perf01-run/grpc-scratch-ablation-003/build/execution.json`, SHA-256
+`7448091c8272160f261c4b6b2f9756ecc4e98f4dee10049e60bf4f28105568f4`.
+Actual AOT log SHA-256 is
+`2b02f9678357a558c4a66189a9b43634b2930e0bc6a0f39162cad59fd486c659`.
+The native component's distinct test-profile binary was separately retained
+at SHA-256 `0542a7766a79091c6ea2d51daad74c257fcc7e9f902619bf4eebcc129b6a2e5b`;
+the control B24 server asset is
+`28d793d64bcea642abcaa58b88c775faa2bd0c20ae15c0ef3b25a540f0c65dc2`.
+Their different build profiles are not conflated.
+
+[CI125](https://github.com/IzuSharp/NativeWeave/actions/runs/44726962784)
+completed successfully on public product `423c07c1`, and
+[Plan CI](https://github.com/IzuSharp/Plan/actions/runs/44728161840) passed on
+`d0d2fb92`. These remote results do not replace the failed local B18 gate.
+The scratch candidate remains unretained. Five before long groups remain valid;
+zero final-after long groups are credited. No final source is frozen yet.
+
 ## Confirmed gRPC admission defect and correction candidate — 2026-11-20 11:27 UTC
 
 The [paired unchanged-fixture diagnostic](checks/grpc-cancel-observation-001/README.md)
