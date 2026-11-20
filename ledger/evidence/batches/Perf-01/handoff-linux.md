@@ -1,5 +1,50 @@
 # Perf-01 Linux x64 handoff
 
+## Resume: codec generator-invalid sample and binding-only failure retained
+
+The [curated interruption checklist](checks/codec-and-binding-interruptions-001/README.md)
+preserves the exact failed states and the bounded package-hash diagnosis.
+The original final003 protocol capacity queue started at16:04:31.864257 UTC;
+only source/small-metadata work continues on ancillary CPU8 during formal timing.
+
+The protocol/cleanup007/reproduction checkpoint was published at Plan
+`6b5cd1c28cb2f317ef52cd3b72c60a6f14ddb74d` and all twenty selected files
+were fetched back exactly at 15:53:31.952 UTC. Plan CI184 (run44767771926)
+passed. Both PR bodies were updated and fetched back exactly; private receipt
+`perf01-run/pr-checkpoint-099-readback.json` has SHA-256
+`096e8be115e53702a61ab4c400d858597ae2a6ec1ff3d7ed3e8e2d16b9d83729`.
+The public protocol result remains 54/54 valid and service eligible.
+
+The codec owner **failed** at 15:54:37.901261 UTC on `w1-0-managed`.
+Its first three before/after/direct cells completed with exit0 and full process
+retirement, awaiting the pinned full resource reader. The managed target itself
+exited0, completed all16,095 measured operations successfully and recovered, but
+the frozen generator-dispatch-lag gate invalidated the sample. Its only recorded
+invalid reason is `generator_dispatch_lag`. The original sample and failed owner
+remain unchanged; receipt SHA-256 is
+`332900863bae682a32301643eae4c57755d3eb2323115ed3359586b6be7059bf`.
+No complete codec matrix is credited. A separately reviewed continuation must
+preserve this invalid observation and the unchanged remaining workload queue.
+
+The source-reviewed DB binding-only recovery001 actually ran from
+16:00:37.276721 through 16:00:38.415475 UTC and failed with zero producer
+commands. After the package-folder spelling check succeeded, the exact assets
+SHA-512 comparison rejected `Microsoft.DotNet.ILCompiler/11.0.0`. Original
+successful producer artifacts remain untouched. The new failed receipt is
+`perf01-run/db-phases-002/verify-before-binding-001/execution.json`, SHA-256
+`5c0274a0091b4cf1d54daa03cb8cc27ef8418eae8008837298087f90c1a79db7`.
+An independent bounded diagnosis is checking representation versus actual
+archive-content mismatch. No provenance gate is waived and no successful build
+is rerun. Existing before-cache004/final-cache002/numeric/retention preparations
+still require their actual completed proof; this failed verification cannot
+satisfy them.
+
+The after-long source/readback audit found no cold-before dependency blocker:
+the verifier reuses pinned before summary/config/verification controls and does
+not reopen retained cold operation journals. Actual admission, disk headroom,
+final capacity and five after long runs are still pending. **Five before long
+groups remain accepted; zero after long groups are credited.**
+
 ## Final protocol matrix complete; codec matrix active — 2026-11-20 15:51 UTC
 
 The final003 protocol stage completed **54/54 valid, service-eligible processes**
