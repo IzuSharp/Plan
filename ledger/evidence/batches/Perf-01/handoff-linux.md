@@ -1,6 +1,51 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 06:59 UTC
+## Latest recovery — 2026-11-20 07:31 UTC
+
+The original measurement workspace and all five accepted before long groups
+were recovered. The frozen kernel boot identity, CPU fingerprint, compiler bytes
+and measurement environment match the recorded freeze. **Five of ten long groups
+remain accepted; no final-after long group has run.**
+
+Final retained product source remains
+`0715ffb6376b1ae08259ad7e2cb30ff0320d83e7`, tree
+`cd0a6022e0115c22f133aedf6c801d9244640523`. The complete nine-producer build
+ran from 07:07:45.509242 to 07:17:02.217218 UTC with all exits zero, using actual
+package version `0.1.0-perf01.after.3`. Final business comparisons, capacity and
+after long tests must bind these new packages, not the historical ADA build.
+
+[CI123](https://github.com/IzuSharp/NativeWeave/actions/runs/44690977311)
+completed successfully at 07:14:28 UTC. Both complete downloaded artifacts were
+hashed and their actual outcomes audited. The [canonical report](checks/ci123-canonical-001/README.md)
+and [A20 report](checks/ci123-a20-001/README.md) bind the actual checkout tree to
+0715, all seven jobs, 48 A20 outcomes and 96 command-log hashes, enabled
+ASan/UBSan/leak checks and the normal package/fresh-SDK/Task04/Task07 gates.
+These are functional results with zero measurement-duration credit.
+
+At this checkpoint, 8 of the nine fresh affected component gates have
+passed: A07, A08, A18, B06, B16, B17, B19, B15. The first B17 attempt stopped before compilation
+because its literal `clang-19` command was absent from PATH. The locked compiler
+already existed and its SHA matched; adding its existing directory only to the
+functional continuation resolved that launch issue. The failed attempt remains
+preserved. Passed prefix gates were not rerun; the four-gate continuation has
+fresh outputs and binds the exact failed-prefix receipt. Remaining functional
+work is not claimed complete by this checkpoint.
+
+The [independent retained-source review](reviews/final-retained-source-0715ffb6.md)
+records API/ownership applicability and the final gate scope. The latest eight-file
+ablation/ADA publication was fetched back exactly at public Plan commit
+`8c06d49239fe43074e78e739247348f86c03bdcb`. Both PR descriptions now record the
+retry removal, completed superseded matrix and final-source CI/build distinction.
+
+[Verified numerical retention](checks/comparison-database-cold-retention-004/README.md)
+preserved 208 completed historical ADA numeric files, 3,151,319,300 bytes, in
+96,856,400 gzip bytes with full decoded/hash verification before original
+replacement. Every original valid/ineligible/failed classification remains.
+This storage operation grants no test or performance credit.
+
+## Earlier checkpoint — 2026-11-20 06:59 UTC
+
+The following historical state remains attached to its actual time and source.
 
 **All five before long groups passed: five of ten required groups, totaling
 9,010.718473445 seconds of credited effective load. No final-after long group
