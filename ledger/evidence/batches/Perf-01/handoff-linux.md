@@ -1,5 +1,39 @@
 # Perf-01 Linux x64 handoff
 
+## Control B18 complete and CI126 verified — 2026-11-20 12:31 UTC
+
+The ablation-004 control's four actual producers/gates have completed with exit
+zero: native at 12:23:29.534056, B24 packages at 12:25:29.568625, frozen protocol
+AOT application at 12:26:26.541790 and full B18 at **12:29:02.911112 UTC**.
+Its actual clean producer remains `db95a9fb`, and the selected Server native
+SHA-256 is `28d793d64bcea642abcaa58b88c775faa2bd0c20ae15c0ef3b25a540f0c65dc2`.
+B18 JIT passed 948 assertions and AOT passed 949, including persistent TLS/H2,
+cross-call writer/queue and byte-grant retirement checks; its original
+independent-package proof also completed. Candidate native production is now
+running. The complete 31-command batch, scratch decision and all new timing
+remain pending; no partial receipt is promoted to full-batch acceptance.
+
+[CI126 canonical evidence](checks/ci126-canonical-001/README.md) and its separate
+[A20 audit](checks/ci126-a20-001/README.md) are complete. All seven CI jobs passed
+at 12:24:11 UTC. Actual merge checkout `abe83d5ae77049a2d4a7795ff45958a197bc787c`
+and public product `12c477f0` share tree `0c763ba3`. Complete canonical and A20
+archives, their named checks and the separate basic HelloWorld candidate were
+downloaded and verified; root independently rehashed all three complete ZIPs.
+Their GitHub retention ends on 2026-12-04. The basic candidate and CI producer
+remain distinct from locally measured domain packages. CI gives no performance,
+capacity, scratch-retention or long-duration credit.
+
+Plan `3bed0a534577314efd7a42c24c053b3d55593dca` published thirteen selected
+B17, prospective-policy, storage-checklist and handoff files, all fetched back
+exactly. Its CI176 run `44735054509` passed at 12:25:46 UTC. The conditional
+final-003 source index is now
+`44ea75912cb386f195c5094852a4f84cba2e2faa984cbe75c3cd3327d3f03a12`;
+only the two eligible corrected trees changed. Root's five unchanged source
+checks passed; receipt SHA-256 is
+`a9ff26768c190aeb76acb0dd56fad1bd0092d6f4190a5d2da42e4cd903d72c25`.
+No final producing commit was selected by that preparation. Five before long
+groups remain accepted, and zero final-after long groups are credited.
+
 ## Corrected-source scratch gates running — 2026-11-20 12:21 UTC
 
 The 31-command ablation-004 build began at **12:19:11.227549 UTC**. Its two
