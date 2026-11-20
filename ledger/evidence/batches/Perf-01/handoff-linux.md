@@ -1,5 +1,94 @@
 # Perf-01 Linux x64 handoff
 
+## CI127 audited; exact cache cleanup completed — 2026-11-20 14:09 UTC
+
+The [canonical/package audit](checks/ci127-canonical-001/README.md) and
+[A20 audit](checks/ci127-a20-001/README.md) are complete for selected product
+`2e3995df8d86583ee9443348276ca8d918056bfc`. All seven CI127 jobs passed.
+Actual CI checkout `d4a51f16c8154ee026a8fe0e1975f7ce087d90d5` shares the
+retained source tree; its producer identity remains distinct. Complete archive
+bytes were retrieved and checked. Canonical eleven gates, A20 forty-eight
+expected command outcomes / ninety-six log hashes / 20,000 fuzz units and the
+separate basic HelloWorld candidate's 1,496 source hashes were audited.
+B24 domain package/native payloads are absent from that archive: the seven
+metadata records' linkage is verified, without claiming missing payload rehashes.
+The artifacts expire on 2026-12-04; these small repository records persist with
+repository history. This finite CI evidence provides no measurement credit.
+
+The fixed cache cleanup completed from **14:07:34.296243 through
+14:07:51.458655 UTC**. All **2,280** selected files / **1,997,693,177**
+apparent bytes were removed after the required checks; all **2,257** package
+members underwent complete archive-byte and CRC comparison. Each has a durable
+restore record and command. All **2,684** protected file hashes and **160**
+retained archives passed the post-operation verification. The ten temporary-
+fixture safety checks passed beforehand. Free space changed from
+5,941,751,808 to 7,930,380,288 bytes; actual tested binaries, packages and raw
+measurements remain retained. Journal SHA-256 is
+`cd35faeb8c0af2324a3863fb13bfe088c6db229d5fbb62a8e837a5b8e3cc43b4`.
+
+The separate 342-file old-build-copy lossless retention source has independent
+review acceptance; its six bounded checks and actual execution are next.
+DB diagnostic producers and final-003 producers have not run. Final preparation
+index remains `e95bbd5bf04f677c715c0293c0e6eed0870d26f195984eb9ca0cada68795992c`.
+Five before long groups remain accepted, and zero final-after long groups are
+credited. Continue with storage, DB diagnostics and the fresh final build.
+
+## Final source checks complete; storage before builds — 2026-11-20 13:59 UTC
+
+The selected final product remains **`2e3995df8d86583ee9443348276ca8d918056bfc`**,
+tree `246de1eb9368efbc62f46ce10c4a8a894d646152`. Its dedicated final-003
+checkout is clean. CI127 run `44745493272` passed all seven jobs by
+**13:52:21 UTC**. All three complete canonical/A20/basic-package archives
+were retrieved and matched their GitHub SHA-256 digests; download receipt is
+`35454077dad0beecebf405d589ece47e93a4c2a160fd4b858cf4f6f0d178b5fa`.
+Their expiry is 2026-12-04. The separate archive-content audit is pending;
+download/hash verification alone gives no performance or long credit.
+
+Public Plan **`2f370532f36b8c6b9e2bcef5b9faeda9c9403af1`** preserves the
+complete rejected scratch comparison and handoff. All four selected files
+were fetched back exactly. Both draft PR descriptions now identify the actual
+forward revert and the outstanding final measurement work.
+
+The final-003 preparation's current source index is
+**`e95bbd5bf04f677c715c0293c0e6eed0870d26f195984eb9ca0cada68795992c`**.
+It requires the read-only post-build observer managed-package proof before
+original binding preparation. The first nine-check pass at the superseded
+`5f767df4` index did not cover an extra comparison-document key rejected by
+the original exact schema. That one extra key was removed; the mandatory
+proof remains in the completed execution receipt, and the original eight-key
+comparison schema stays unchanged. Ten corrected source/schema checks passed
+at **13:53:46 UTC**, receipt
+`e39b003f351c1a66db81da911f396de589f203872b9f50416ba884736edf6e5f`.
+The numerical wrapper and its calculations remain byte-identical; its current
+import and scaffold now bind this corrected preparation index. No final-003
+producer or measurement has run.
+
+The DB diagnostic source-only preparation is also complete. Actual baseline
+child `ffd2c0e798cb5ca2fac542bce39df4bd177b8f45` descends directly from
+`ea5fa528`; actual final child `e01fc07112d0823b8db2b24e29f22dadb02268a4`
+descends directly from `2e3995df`. Each changes exactly the seven diagnostic
+overlay files, is clean, and has no generated managed inputs. Actual source
+binding SHA-256 is
+`f0eb6318bf6b9414131ef0daafb824e3b562dd923db3f6598593bb3d598f9e61`;
+execution source index remains
+`a953baab0721a5ff6748e74d03e5ec26f0d7b964e1acd0d9feeb947f4657516d`.
+The original product checkouts and formal workloads remain unchanged.
+
+Completed idle metadata censuses identify 23 AOT objects / 963,208,790
+apparent bytes and 2,257 archive-backed non-NativeWeave NuGet members /
+1,034,484,387 apparent bytes. A separate exact cold-retention proposal covers
+342 large generated bin copies in old after-001/002 builds, totaling
+1,428,425,528 logical bytes while excluding canonical executed artifacts,
+packages and all future inputs. These are candidate sizes, not reclaimed
+space. No selected file has been removed or compressed. The exact cache
+cleanup and lossless retention adaptations are being reviewed before builds;
+actual compression savings and later PostgreSQL preflight remain pending.
+
+Five before long groups remain accepted and zero final-after long groups are
+credited. Continue from the concrete storage preparations, then the diagnostic
+builds and final-003 nine producers, fresh matrix/capacity queues and five long
+groups. Do not substitute the superseded source indexes or historical binaries.
+
 ## Scratch rejected and final source selected — 2026-11-20 13:43 UTC
 
 The [complete scratch-004 comparison](checks/grpc-scratch-comparison-004/README.md)
