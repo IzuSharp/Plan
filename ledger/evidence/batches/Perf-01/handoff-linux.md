@@ -1,5 +1,21 @@
 # Perf-01 Linux x64 handoff
 
+## Both candidate roles built and bound — 2026-11-20 21:54 UTC
+
+The fresh ON build completed all eight producers at 21:49:30.669758 UTC, with
+execution SHA `be5d0cffb0a792d1e07b4e5fc14afb18f64770bd9d72f788590727371b045cf8`.
+All producers exited 0 and retired without signals or remaining children. The
+actual baseline, ON and common comparators passed pairing; the measurement
+identity check also passed with the common application, selected before-produced
+protocol client and shared TLS. See the [selected package/native/AOT identities](recovery/epoch-001/built-candidates-001/README.md).
+
+The ON gRPC component/assembly functional stage started at 21:50:58 UTC and is
+still running. ON is not yet the final selected runtime. OFF construction and
+functional checks, fresh weak-buffer selection, final profiling/noise/comparisons,
+capacity and all ten 30-minute segments remain outstanding. Build/identity passes
+confer zero performance credit. Public checkpoint110 `fd7829df1809cb3e9c553cf4f43fa6da7d011fce`
+was read back exactly; CI195 passed and both draft PR descriptions were read back.
+
 ## Exact restoration and fresh candidate retry — 2026-11-20 21:34 UTC
 
 The recovery baseline completed all eight producers at 20:37:52 UTC; the direct
