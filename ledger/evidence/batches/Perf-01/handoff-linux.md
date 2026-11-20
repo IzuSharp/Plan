@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 04:12 UTC
+## Current state — 2026-11-20 04:29 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
@@ -35,9 +35,11 @@ aggregate. Its exact source was read back from GitHub. The complete A20 job in
 CI120 passed with ASan, UBSan and leak detection enabled; the [actual artifact
 audit][ci-a20] verifies all48 outcomes and96 command-log hashes. The whole CI120
 workflow was subsequently superseded and cancelled by the next normal PR update,
-so it is not a whole-workflow pass. CI121 on the current head is still pending
-full canonical and pristine evidence. This functional sanitizer job does not
-alter the frozen local performance toolchain.
+so it is not a whole-workflow pass. The [CI121 archive audit][ci-canonical]
+subsequently verified the complete successful canonical, fresh SDK, Task04 and
+Task07 gates on the exact3db tree. That historical result does not cover the
+later native shutdown correction. This functional sanitizer job does not alter
+the frozen local performance toolchain.
 
 B17's first two attempts executed its real native/JIT/AOT and example checks,
 but failed while writing its legacy cost/result files: first a missing default
@@ -53,11 +55,30 @@ package gate passed at04:00:37.317440 UTC. Runtime implementation remains
 unchanged from R3, and the clean after checkout uses this current head.
 
 B19 then passed native, JIT and compiled-API checks but failed its AOT
-managed-tail fixture's immediate native-completion assertion. The failed result
-is retained. Its shutdown/cancellation ordering is being investigated; no gate
-pass is inferred. Actual after package builds and all after performance
-measurements remain pending. The revised local after-long publication proof
-passed51 finite source/negative checks; this grants no business-load credit.
+managed-tail fixture's immediate native-completion assertion. Test-only commit
+`178aee4750b198147f270675980692079e445e4d` establishes a bounded native-ready
+precondition without weakening any original managed-tail assertion. Its next
+full attempt still failed and exposed native fault state5 with zero retained
+bytes. Both failed attempts remain preserved.
+
+The native supervisor could select a normally completed acceptor when the stop
+signal was also ready, then incorrectly report a host fault. A fixed64-cycle
+actual-network diagnostic passed and is not claimed as a reproduction. A
+separate real-Tokio ordered-outcome regression failed on the extracted original
+unconditional-fault logic, observing state5 instead of4. Independently reviewed
+correction `ada13b865ec5d19876745498f6f51d8ad2367399` accepts normal acceptor
+completion only after stop, while retaining faults for unexpected completion
+and failed tasks, including the final join. Existing fault state is preserved.
+This is a correctness correction, with no claimed performance benefit.
+
+The complete fresh B17 Host gate passed at04:28:01.137436 UTC, including all19
+native tests, JIT and Native AOT. Fresh B19, B15 and B18 gates are running serially
+against the changed native Host. Independent B16 and A23 inputs did not change;
+their completed gates remain applicable. Both clean product checkouts and the
+after build recipe now use ada13b8. Its normal CI122 is in progress. Actual after
+package builds and all after measurements remain pending. The revised local
+after-long publication proof passed51 finite source/negative checks; this grants
+no business-load credit.
 
 | Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
 | --- | ---: | ---: | ---: | ---: |
@@ -192,3 +213,5 @@ research-only phase text; no repository protections or required checks are waive
 [ci-a20]: checks/ci120-a20-001/README.md
 
 [a18-diagnostic]: checks/a18-self-close-diagnostic-001/data-001/README.md
+
+[ci-canonical]: checks/ci121-canonical-001/README.md
