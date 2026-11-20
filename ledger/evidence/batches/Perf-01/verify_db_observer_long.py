@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -65,6 +66,26 @@ def frozen_sources(root, values, expected):
         require(sha(candidate) == value, "Frozen source/toolchain bytes differ")
 
 
+def long_schedule_gate(summary, frozen, plan, target, amendment, expected):
+    # run.py freezes the first-to-last schedule span, not the requested CLI
+    # duration. Preserve its pre-existing 250 ms soak guard and exact rounding.
+    period = expected["period_ns"]
+    count = expected["planned_operations"]
+    span_ns = (count - 1) * period
+    require(amendment["requested_seconds"] == 1802 and
+            amendment["existing_soak_dispatch_guard_seconds"] == .25 and
+            period == round(1e9 / expected["rate_per_second"]) and
+            count == math.ceil((amendment["requested_seconds"] + .25) * 1e9 / period) + 1 and
+            expected["planned_first_to_last_schedule_ns"] == span_ns,
+            "Frozen long schedule does not match the original guarded count formula")
+    require(frozen["planned_load_seconds"] == summary["planned_load_seconds"] == span_ns / 1e9 and
+            plan["timing"]["requests"] == count and plan["timing"]["period_ns"] == period and
+            plan["timing"]["max_dispatch_lag_ns"] == 100_000_000 and
+            plan["settings"]["warmup_requests"] == 16 and
+            target["perf01"]["recovery_requests"] == 32 and target["perf01"]["idle_seconds"] == 60,
+            "Actual long schedule/recovery/idle policy differs")
+
+
 def policy_gate(group, root, output, driver, policy, amendment, controller, noise_reader):
     expected = amendment["groups"][group]
     summary, frozen, plan, target = (read(output / name) for name in
@@ -77,12 +98,7 @@ def policy_gate(group, root, output, driver, policy, amendment, controller, nois
             summary["variant"] == "before" and summary["scenario"] == "mixed" and summary["stage"] == "soak" and
             summary["rate"] == expected["rate_per_second"] and summary["concurrency"] == 16,
             "Actual long workload differs")
-    require(frozen["planned_load_seconds"] == 1802 and plan["timing"]["requests"] == expected["planned_operations"] and
-            plan["timing"]["period_ns"] == expected["period_ns"] and
-            plan["timing"]["max_dispatch_lag_ns"] == 100_000_000 and
-            plan["settings"]["warmup_requests"] == 16 and
-            target["perf01"]["recovery_requests"] == 32 and target["perf01"]["idle_seconds"] == 60,
-            "Actual long schedule/recovery/idle policy differs")
+    long_schedule_gate(summary, frozen, plan, target, amendment, expected)
     require(frozen["driver_source"]["commit"] == policy["driver_commit"] and
             frozen["driver_source"]["scope_status"] == "" and
             frozen["route"]["source"]["commit"] == policy["before_runtime_commit"] and
