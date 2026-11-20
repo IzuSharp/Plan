@@ -1,11 +1,12 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 05:14 UTC
+## Current state — 2026-11-20 05:43 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
 runtime candidates are built and functionally verified. Layered profiling is
-complete, while formal equivalent-load comparison is running. All five final
+complete. Formal database comparison has partially collected valid processes;
+a stopped queue is being continued without replacing completed observations. All five final
 after long groups and final performance acceptance remain pending.
 
 R1 is published as `da95b81282b25152e82c9aa7877cd872ea9e03a0`: reuse successfully
@@ -112,12 +113,21 @@ client-stream allocation rates did not improve. These are profiling observations
 with zero formal-comparison or long-duration credit. A remaining post-result
 retirement tail and the fixed-E unary writer cost are explicitly documented.
 
-The48-process database comparison started at05:03:25.791019 UTC. At05:14:32 UTC,
-13 application processes had completed with exit0 and the first PostgreSQL C16
-after process was running. All scheduled matrix rows, three independent C16
-repetitions, original before anchor noise and direct/managed controls remain.
-Other comparison stages, capacity sweeps and all five after long groups are
-still pending. No formal improvement conclusion is inferred from partial rows.
+The48-process database comparison started at05:03:25.791019 UTC and stopped
+at05:18:10.259307 UTC after16 application processes exited0. All16 records are
+correctness-valid. The last PostgreSQL C16 managed process completed10,801
+operations but missed the unchanged500ms standard with p99=1,524.691236ms.
+The launcher incorrectly required every collected comparison row to meet the
+service standard and therefore exited1. The [partial numerical checkpoint][db-partial]
+preserves every result and the failure; no sample is rerun, removed or relabeled.
+A narrowly bound continuation is being prepared for the remaining32 processes
+and original readers, keeping the exact matrix, order, thresholds and noise.
+A separate reader correction recognizes existing comparator `Stopped` versus
+NativeWeave `Disposed` terminal enums; its89 finite checks passed. All other
+validity/SLO/persistence/release gates remain, and the actual managed SLO miss
+stays ineligible. The original reader and its eventual reports are retained.
+Other comparison stages, capacity sweeps and all five after long groups remain
+pending. No final improvement conclusion is inferred from partial rows.
 
 The first comparison launcher description failed before starting any workload
 because a logical profile name was resolved to a nonexistent file. That failed
@@ -277,3 +287,5 @@ research-only phase text; no repository protections or required checks are waive
 [shutdown]: checks/native-shutdown-functional-001/README.md
 [after-build]: checks/after-long-build-001/public-checklist.json
 [layered-after]: checks/final-layered-profiles-001/results-001/README.md
+
+[db-partial]: checks/database-collection-checkpoint-001/public-summary.json
