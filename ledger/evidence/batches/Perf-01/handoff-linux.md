@@ -1,5 +1,61 @@
 # Perf-01 Linux x64 handoff
 
+## Final-003 built and bound; formal protocol comparison resumed — 2026-11-20 15:08 UTC
+
+All nine final-003 producers completed successfully from actual product commit
+`2e3995df8d86583ee9443348276ca8d918056bfc`, tree
+`246de1eb9368efbc62f46ce10c4a8a894d646152`, using package version
+`0.1.0-perf01.after.5`. Actual build receipt SHA-256 is
+`02c2fdfbc20a116c06ba5dc2cce11373db4edef9a597061db16a5ea471aa2e59`.
+The required observer managed-package proof passed, and all seventeen selected
+packages are bound to the actual producers and loaded native assets. Binding
+preparation completed at **14:32:12.462732 UTC**; receipt SHA-256 is
+`d209676967ceca852b17c6768dff906caf908e5cc5a7e05bd9d7462a43f6dc0d`.
+The immutable comparison binding is
+`3d7c526b37d8d064c69e7231734f630250ef6f3f60059b2b58f60c9c5edd20bf`;
+the paired long binding is
+`176ba13a58b6f5a2dc0c6e31974ef89ee112ee8cfd239e9fd67e724811b45da5`.
+Preparation index remains `e95bbd5bf04f677c715c0293c0e6eed0870d26f195984eb9ca0cada68795992c`.
+
+The fresh final-003 HTTP/gRPC comparison started at **15:04:48.381829 UTC**.
+Its fifty-four independent processes preserve the fixed baseline, actual final
+package and direct Rust routes, original profile/arrival/TLS settings, process
+interleaving and noise rules. Completed early cells are valid and meet the
+service standard; no completed matrix or final improvement is claimed yet.
+The current kernel boot hash and recorded CPU, kernel, architecture, Python and
+cgroup fields match the frozen measurement host. Formal timing owns the same
+exclusive resources; other local work is limited to source and small metadata
+reads on the reserved ancillary CPU.
+
+The DB002 diagnostic overlay removed only the two redundant casts from DB001.
+Its format, Clippy and three SQLite provider regressions passed; before-role
+native and package producers also completed successfully. The reference
+application's SDK identity and restore passed, but its JIT build was externally
+interrupted when the tool reported a network policy block. The tool session and
+recorded child no longer exist; the original incomplete execution receipt is
+unchanged. Observation receipt SHA-256 is
+`9182da853c4d7b698b6b9416c574ae7810e7a1dad5ba9bfdd88a6133d3c12469`.
+The exact locked SDK and retained archive remain present. An application-origin
+download has not been established; source investigation and a separate explicit
+continuation are pending. No diagnostic measurement or performance credit is
+claimed. Independent source reviews accept the DB002 identity-only executor
+delta and numeric projector, but the projector must not accept this incomplete
+stage as completed.
+
+Final003 cache cleanup007 completed at **14:44:13.949965 UTC**. All 6,507
+selected compiler/cache files, 2,451,051,152 apparent bytes, were removed only
+after the existing provenance/archive checks; all 3,637 protected actual
+artifacts remain retained. Actual cleanup receipt SHA-256 is
+`8b5f0d938930056292674af8bdbdb1602f81c2e6cbbea4438e9794d5e2ae736b`.
+No tested executable, native asset, package archive or raw measurement was
+removed by this cleanup.
+
+Public Plan remains `70e19fbab88b74abfe2129168aa4106e8a4dc46e`, whose
+CI182 passed. Both PRs remain draft. Five before long groups are accepted;
+**zero final-after long groups** are credited. Next: complete the final matrix
+and capacity queues, resolve the diagnostic interruption, publish/read back the
+exact final003 long checklist, and run all five paired after long groups.
+
 ## Final-003 build started; diagnostic gate failure retained — 2026-11-20 14:23 UTC
 
 The actual final-003 nine-producer build started at **14:21:28.805883 UTC**
