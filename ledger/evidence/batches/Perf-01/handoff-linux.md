@@ -1,5 +1,32 @@
 # Perf-01 Linux x64 handoff
 
+## Recovered continuation — 2026-11-20 09:27 UTC
+
+The original measurement workspace and actual final-002 package bindings were
+recovered. The protocol process continued beyond the conversation interruption:
+52 of its 54 fixed process slots completed with valid evidence and the frozen
+service standard met. This includes all 36 HTTP processes, all nine gRPC unary
+processes and seven gRPC streaming processes. Their completed records are reused.
+
+The next slot, gRPC streaming repetition 2 of the final candidate, stopped during
+recovery without a result or cleanup receipt. Its last resource sample is at
+09:22:58 UTC. Two later nonblocking observations found the timing lock free.
+The incomplete slot and its original orchestration records remain untouched and
+receive no acceptance credit. A narrowly bound continuation will run that slot
+in a fresh output location, then the unstarted final direct-Rust slot. It will
+preserve the original 52-process prefix, order, driver, profile, client, native
+bytes, TLS settings, noise and service limits.
+
+The independent, unchanged 24-process codec comparison started at 09:25:19 UTC
+while that recovery wrapper is prepared. Formal workload timing remains serial.
+Its first command passed the original frozen-host/toolchain/source preflight;
+no codec comparison result or final-after long acceptance is yet claimed.
+Final product source remains `0715ffb6376b1ae08259ad7e2cb30ff0320d83e7` and
+package version remains `0.1.0-perf01.after.3`. A separate SQLite cleanup-Ping
+ablation is source-prepared only, with no retained product change or performance
+claim. All five accepted before long groups remain valid; five after groups
+remain pending. Both PRs remain draft until actual acceptance and review.
+
 ## Latest measured checkpoint — 2026-11-20 08:43 UTC
 
 The final-002 database stage completed from 07:47:12 to 08:37:38 UTC: all
