@@ -1,12 +1,12 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 04:54 UTC
+## Current state — 2026-11-20 05:14 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
-runtime candidate is now committed; no performance improvement is claimed yet.
-All five final after groups, equivalent-load comparisons and final acceptance
-remain pending.
+runtime candidates are built and functionally verified. Layered profiling is
+complete, while formal equivalent-load comparison is running. All five final
+after long groups and final performance acceptance remain pending.
 
 R1 is published as `da95b81282b25152e82c9aa7877cd872ea9e03a0`: reuse successfully
 validated default descriptor metadata and give each import resolver callback its
@@ -101,11 +101,30 @@ application, native and manifest hashes, and the unchanged five long-load
 configurations. It explicitly does not claim public availability of local
 operational helper source. The revised publication proof passed51 finite checks.
 
-All after performance measurements remain pending. The first comparison
-launcher description failed before starting any workload because a logical
-profile name was resolved to a nonexistent file. That failed preflight is
-retained; only launcher path resolution is being corrected, with frozen profile
-bytes, driver, matrix and acceptance limits unchanged. A separately reviewed
+The layered queue completed22 commands with all exits0 between04:55:54.660538
+and04:59:53.951191 UTC. The [layered numerical report][layered-after] preserves
+all15 processes and the actual input/result hashes. Three interleaved Inspect
+processes per version show2,624 to0 B/call in the repeated path. Page allocation
+fell about12.2%, but single-process latency was mixed. HTTP JSON sampled
+allocation fell97.258%; gRPC server-stream/duplex allocation rates fell96.328%
+and95.350%, while sampled RSS peaks increased by52.254 and58.809MiB. Unary and
+client-stream allocation rates did not improve. These are profiling observations
+with zero formal-comparison or long-duration credit. A remaining post-result
+retirement tail and the fixed-E unary writer cost are explicitly documented.
+
+The48-process database comparison started at05:03:25.791019 UTC. At05:14:32 UTC,
+13 application processes had completed with exit0 and the first PostgreSQL C16
+after process was running. All scheduled matrix rows, three independent C16
+repetitions, original before anchor noise and direct/managed controls remain.
+Other comparison stages, capacity sweeps and all five after long groups are
+still pending. No formal improvement conclusion is inferred from partial rows.
+
+The first comparison launcher description failed before starting any workload
+because a logical profile name was resolved to a nonexistent file. That failed
+preflight remains retained. The correction resolves the logical name to the
+existing catalog sibling without changing frozen profile bytes, driver, matrix
+or acceptance limits; all six corrected stage descriptions passed before any
+formal workload started. A separately reviewed
 lossless-storage helper passed11 finite boundary tests. Its actual execution
 finished at04:54:40.469433 UTC with exit0:484 explicit completed before
 numerical files,6,884,013,987 raw bytes, were preserved in200,931,346 verified
@@ -180,7 +199,7 @@ when pairing any subsequent result.
    final after package closure is built. The reviewed R1–R3 changes comprise
    metadata reuse, lazy stream-disposal waiting and one bounded post-result
    retirement retry, bounded initial JSON storage and scoped weak gRPC writer
-   reuse. Run the prepared layered probes and retain performance changes only
+   reuse. The layered probes are complete; retain performance changes only
    when equivalent-load evidence supports them. The native shutdown correction
    is separately supported by correctness regressions.
 4. Keep the frozen application/client and direct Rust controls, execute
@@ -257,3 +276,4 @@ research-only phase text; no repository protections or required checks are waive
 [ci122-a20]: checks/ci122-a20-001/README.md
 [shutdown]: checks/native-shutdown-functional-001/README.md
 [after-build]: checks/after-long-build-001/public-checklist.json
+[layered-after]: checks/final-layered-profiles-001/results-001/README.md
