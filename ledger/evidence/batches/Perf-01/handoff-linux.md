@@ -1,5 +1,80 @@
 # Perf-01 Linux x64 handoff
 
+## Complete 0715 short matrix — 2026-11-20 10:25 UTC
+
+The measured `0715ffb6376b1ae08259ad7e2cb30ff0320d83e7` iteration now has
+all 126 fixed short process slots and their original readers complete: 48
+database, 54 protocol and 24 codec. All are evidence-valid. The three previously
+reported PostgreSQL C16 control service misses remain ineligible; every
+before/after process and all protocol/codec controls meet the frozen service
+standard. No sample was dropped or replaced for performance reasons.
+
+The [protocol report](checks/final-002-protocol-results-001/README.md) includes
+the unchanged 52-cell prefix plus the exact two-cell continuation completed at
+10:19:51 UTC. The interrupted original attempt remains preserved with zero
+credit. Both fresh suffix cells passed correctness, service and cleanup checks.
+The completed continuation controller SHA-256 is
+`3ebd97e90a66d4c3e78196278e1727300115eccee53ff3cc293a7c1a5d67ae49`.
+The [codec report](checks/final-002-codec-results-001/README.md) covers both
+worker strata; all 24 processes and both readers completed at 10:18:01 UTC.
+Both complete-domain numerical projections passed their unchanged raw-input,
+statistical and resource validators. Larger projected numeric files are
+losslessly encoded as gzip, with stored and decoded hashes and retrieval notes.
+Full operational raw bundles are not claimed published.
+
+Protocol latency changes remain descriptive: every A21 mean-latency decision
+is inconclusive or within the frozen noise band. HTTP mixed-profile allocation
+falls roughly 44–79%; the gRPC streaming profile falls from 6,828 to 424 MiB
+allocated and from 16.20 to 12.34 percent of one CPU core, while its mean peak
+RSS rises from 62.52 to 88.26 MiB and its three tail-latency changes are mixed.
+Unary allocation is essentially unchanged, motivating the unretained scratch
+candidate. Codec call-mean decisions across 64 partitions are eight improvements,
+20 within-band and 36 inconclusive, with no A21 mean regression. Arrival tails,
+raw throughput, call throughput, allocation and copying remain distinct fields.
+
+SQLite's separate diagnostic build is now running; its format, Clippy and native
+test commands have exited zero. No SQLite candidate measurement or retention is
+claimed. The gRPC candidate still awaits its actual functional and diagnostic
+gates. All current numbers remain attached to `0715` / `0.1.0-perf01.after.3`.
+After/direct capacity sweeps and all five final-after 30-minute groups remain
+pending. The five accepted before long groups remain reusable. Both PRs remain
+draft, and new candidates receive no credit from this completed iteration.
+
+## Candidate and recovery checkpoint — 2026-11-20 10:05 UTC
+
+The unchanged codec comparison is running its second worker-count cohort;
+the completed first cohort passes the original comparison reader. Formal local
+timing still uses `0715ffb6376b1ae08259ad7e2cb30ff0320d83e7` and
+`0.1.0-perf01.after.3`. No final-after long group has started. The original
+52 completed protocol cells remain preserved, with a reviewed two-cell
+continuation ready after the codec stage.
+
+Two additional minimal candidates remain **unretained experiments**. SQLite
+candidate `58132a44f1d2a9d338fe75f54f1504ee6d93f588` removes only the successful
+cleanup's redundant worker Ping while retaining cache-clear acknowledgement,
+the handle barrier, transaction-state validation, quarantine and cancellation
+recovery. Its independently reviewed diagnostic executor now owns child groups,
+persists their identities, enforces deadlines and retires descendants before
+releasing the timing lock. Seven bounded Python-only ownership checks passed;
+no SQLite candidate build or performance measurement has run.
+
+The gRPC scratch candidate was published to Draft NativeWeave#19 as
+`458939dab00d4080cd36076d31d912114f245340`, exactly matching independently
+reviewed local candidate `e524ade4b5be0b8d556d2dd6f8e8d9fa9698c2f5` at tree
+`6dad1215d22d5c950c33dafeae3e9d876ec7cd0b`. All five source files were fetched
+back byte-for-byte. It adds one weak scratch slot per unary/client-stream
+descriptor, with full managed admission before atomic promotion, a fresh scoped
+writer per callback, and complete clearing after synchronous native copy.
+Streaming keeps its separate storage. Targeted ownership/concurrency regression
+source is included. [CI124](https://github.com/IzuSharp/NativeWeave/actions/runs/44715862136)
+is running on a separate runner. Actual functional and performance gates remain
+pending; publication is not retention or acceptance.
+
+Existing `0715` measurements retain their actual source, package and loaded-byte
+identities. A retained candidate will require honest final binding and affected
+measurements; no prior sample will be relabeled. All five accepted before long
+groups remain reusable. Both PRs remain draft.
+
 ## Recovered continuation — 2026-11-20 09:27 UTC
 
 The original measurement workspace and actual final-002 package bindings were
