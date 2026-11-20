@@ -1,13 +1,37 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 06:01 UTC
+## Current state — 2026-11-20 06:59 UTC
 
-**All five before long groups passed. Five of ten required long groups are
-accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
-runtime candidates are built and functionally verified. Layered profiling is
-complete. Formal database comparison has partially collected valid processes;
-the fixed remaining queue is running without replacing completed observations. All five final
-after long groups and final performance acceptance remain pending.
+**All five before long groups passed: five of ten required groups, totaling
+9,010.718473445 seconds of credited effective load. No final-after long group
+has run.** The first candidate's complete 48-process database comparison is
+validated and preserved. Forty-three rows meet the frozen service standard;
+five PostgreSQL control rows do not. No row is measurement-invalid. The
+[historical candidate report][db-ada] distinguishes this completed experiment
+from the final product identity.
+
+The six-process [retirement ablation][retry-ablation] completed with all exits
+zero and all correctness/ownership checks passing. Removing the extra
+post-result retry reduced mean-of-process scalar latency from7.820495 to
+1.232239ms and mean-of-process p99 from31.584900 to16.309367ms in this isolated
+probe. All three means, p99 values and CPU readings without it were lower than
+all three with it. This is profiling evidence with zero formal/long credit.
+The decision is to remove the extra retry and retain the lazy stream waiter.
+
+The exact final source is now public commit
+`0715ffb6376b1ae08259ad7e2cb30ff0320d83e7`, tree
+`cd0a6022e0115c22f133aedf6c801d9244640523`. All three changed files were fetched
+and compared exactly at06:53:59.509302 UTC. Independent review verified the
+runtime equals the measured ablation and the two A07 test files equal their
+pre-retry versions; the original13 main tests and ownership/cancellation/timer/
+scheduler-rejection coverage remain. The immutable ada checkout, packages and
+measurements remain preserved. A fresh full candidate build and its affected
+functional gates, final business comparisons, capacity sweeps and five after
+long groups are pending. CI123 (run44690977311) is running on the new source;
+its eventual result is not yet claimed.
+
+The following sections retain the earlier candidate history and actual results.
+They must not be relabeled as builds or acceptance of0715ffb6.
 
 R1 is published as `da95b81282b25152e82c9aa7877cd872ea9e03a0`: reuse successfully
 validated default descriptor metadata and give each import resolver callback its
@@ -54,7 +78,7 @@ The narrow test correction is published as
 `3db42f3131c72be217e49e386ba61ece7cee27fb`; its complete JIT, Native AOT and
 package gate passed at04:00:37.317440 UTC. At that checkpoint runtime
 implementation was unchanged from R3; the subsequent native correction below
-is included in the current final candidate.
+is retained in the later final candidate.
 
 B19 then passed native, JIT and compiled-API checks but failed its AOT
 managed-tail fixture's immediate native-completion assertion. Test-only commit
@@ -79,7 +103,7 @@ native tests, JIT and Native AOT. Fresh B19, B15 and B18 also passed, finishing 
 [shutdown regression report][shutdown] preserves both earlier failures, the
 ordered RED result, the non-reproducing network diagnostic and all four fresh
 gates. Independent B16 and A23 inputs did not change; their completed gates
-remain applicable. Both clean product checkouts use ada13b8.
+remain applicable. At that historical checkpoint both product checkouts used ada13b8.
 
 CI122 completed successfully at04:45:12 UTC. The [canonical artifact audit][ci122]
 read all46,797,437 downloaded bytes and checked the actual source tree,
@@ -93,7 +117,7 @@ expire on2026-12-04 at04:43:36 and04:29:36 UTC respectively; their portable
 numerical reports remain in Git. No sanitizer or required check was disabled.
 
 The complete nine-step after build ran from04:36:00.904295 to04:44:30.117702
-UTC; every command exited0. All actual packages and consumers bind the final
+UTC; every command exited0. All those actual packages and consumers bind the historical
 ada13b8 source. The measured Server native SHA-256 is
 `7dd16c9f13c394f09e6c88b0f814110a0b1c002166257c02b66a0cb0a99d54b5`;
 PostgreSQL, SQLite and codec native bytes remain identical to before. The
@@ -137,8 +161,20 @@ A separate reader correction recognizes existing comparator `Stopped` versus
 NativeWeave `Disposed` terminal enums; its89 finite checks passed. All other
 validity/SLO/persistence/release gates remain, and the actual managed SLO miss
 stays ineligible. The original reader and its eventual reports are retained.
-Other comparison stages, capacity sweeps and all five after long groups remain
-pending. No final improvement conclusion is inferred from partial rows.
+The suffix and full projection subsequently completed as recorded above.
+Other final comparison stages, capacity sweeps and all five after long groups
+remain pending. No final improvement conclusion is inferred from ADA rows.
+
+The retirement ablation is complete and its decision is recorded above. Its
+six actual processes ran from06:40:12.922114 to06:40:41.183159 UTC with the
+fixed A/B, B/A, A/B order,20 warmup calls,1,000 measured scalar calls and4,000
+native-operation observations each. The B experiment source is
+`5ac6620015f5096bc3c800b1d95f60af898a097b`; its managed packages retain the
+actual reused-native producer identity. The separate independent projection
+recomputed all6,000 call durations and24,000 operation intervals and passed455
+audit checks. An initial projection metadata assertion failed and remains
+preserved; no measured input changed. The final0715 source is a separate
+reviewed integration, requiring fresh packages and affected application results.
 
 The first comparison launcher description failed before starting any workload
 because a logical profile name was resolved to a nonexistent file. That failed
@@ -228,13 +264,13 @@ when pairing any subsequent result.
    processes. The existing220/60 capacity noise and144/40 long rates remain
    separate. The portable source/contract commit900adc6 and its passed
    CI44658571298 remain unchanged.
-3. Final affected shared-adopter and canonical gates passed, and the complete
-   final after package closure is built. The reviewed R1–R3 changes comprise
-   metadata reuse, lazy stream-disposal waiting and one bounded post-result
-   retirement retry, bounded initial JSON storage and scoped weak gRPC writer
-   reuse. The layered probes are complete; retain performance changes only
-   when equivalent-load evidence supports them. The native shutdown correction
-   is separately supported by correctness regressions.
+3. Build and verify the new0715 final candidate. Prior ada functional gates and
+   package closure retain their original identities. Keep metadata reuse, lazy
+   stream-disposal waiting, bounded initial JSON storage and scoped weak gRPC
+   writer reuse; remove the extra post-result retirement retry based on the
+   six-process experiment. The native shutdown correction remains supported
+   by correctness regressions. Bind every final-after result to actual new
+   packages and loaded library hashes.
 4. Keep the frozen application/client and direct Rust controls, execute
    interleaved comparisons and capacity sweeps,
    then run all five after long groups at the unchanged accepted rates:
@@ -315,3 +351,6 @@ research-only phase text; no repository protections or required checks are waive
 
 [db-continuation]: checks/database-continuation-002/public-checklist.json
 [storage003]: checks/calibration-postgresql-cold-retention-003/README.md
+
+[db-ada]: checks/database-ada-comparison-001/README.md
+[retry-ablation]: checks/retirement-ablation-001/results-001/README.md
