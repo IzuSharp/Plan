@@ -1,0 +1,85 @@
+diff --git a/native/database/sqlite/src/session.rs b/native/database/sqlite/src/session.rs
+index ae4df22286985ee628d6fa8d20c59065a9c39937..c8b06375047341e928ef38db4c921e58625d7263 100644
+--- a/native/database/sqlite/src/session.rs
++++ b/native/database/sqlite/src/session.rs
+@@ -707,7 +707,10 @@ async fn run_query(
+     };
+     let clean = if removed {
+         match connection.clear_cached_statements().await {
+-            Ok(()) => probe(connection).await.is_ok(),
++            // ClearCache has already acknowledged the worker after cleanup. Keep
++            // the handle barrier and actual transaction-state validation without
++            // requesting another liveness-only Ping from that same worker.
++            Ok(()) => check_transaction_state(connection).await.is_ok(),
+             Err(_) => false,
+         }
+     } else {
+@@ -786,6 +789,10 @@ fn finish(
+ 
+ async fn probe(connection: &mut SqliteConnection) -> Result<()> {
+     connection.ping().await?;
++    check_transaction_state(connection).await
++}
++
++async fn check_transaction_state(connection: &mut SqliteConnection) -> Result<()> {
+     let depth = Manager::get_transaction_depth(connection);
+     let mut handle = connection.lock_handle().await?;
+     // SAFETY: SQLx's public LockedSqliteHandle grants exclusive ownership of this
+diff --git a/native/database/sqlite/tests/support/scenarios.rs b/native/database/sqlite/tests/support/scenarios.rs
+index 62879eae8f07a55b4a1e8d82ab693ce6378f7120..43182f4861aea501d25807d810551d7ab24c8354 100644
+--- a/native/database/sqlite/tests/support/scenarios.rs
++++ b/native/database/sqlite/tests/support/scenarios.rs
+@@ -130,7 +130,10 @@ pub async fn run(case: u32, root: &Path) -> TestResult {
+         3 => codecs(&file).await?,
+         4 => savepoints(&file).await?,
+         5 => cancellation(&file).await?,
+-        6 => early_stream(&file).await?,
++        6 => {
++            early_stream(&file).await?;
++            post_cleanup_transaction_state(&file).await?;
++        }
+         7 => pool_retirement(&file).await?,
+         8 => lost_commit(&file).await?,
+         9 => admission(&file).await?,
+@@ -145,6 +148,41 @@ pub async fn run(case: u32, root: &Path) -> TestResult {
+     Ok(())
+ }
+ 
++async fn post_cleanup_transaction_state(file: &Path) -> TestResult {
++    let file = file.with_file_name("perf01-cleanup-state.db");
++    assert!(
++        !file.exists(),
++        "the cleanup-state case needs a fresh database"
++    );
++    let pool = pool(&file, &Options::default(), limits()).await?;
++    let (s, budget) = session(&pool, Options::default(), limits()).await?;
++    // This deliberately changes SQLite's autocommit state outside SQLx's
++    // transaction manager. Successful worker cleanup must not mark it usable.
++    let mut rows = s.stream("BEGIN DEFERRED", None, Cancellation::default())?;
++    let receipt = rows.receipt();
++    assert!(tokio::time::timeout(WAIT, rows.next()).await?.is_none());
++    let retired = tokio::time::timeout(WAIT, receipt.join()).await??;
++    assert!(retired.native_retired && retired.progress_handler_removed);
++    assert_eq!(retired.disposition, ConnectionDisposition::Quarantined);
++    assert_eq!(budget.snapshot().active_commands, 0);
++    assert_eq!(budget.snapshot().queued_commands, 0);
++    assert_eq!(budget.snapshot().retained_input_bytes, 0);
++    assert_eq!(rows.buffered_rows(), 0);
++    assert!(matches!(
++        s.stream("SELECT 1", None, Cancellation::default())
++            .err()
++            .map(|e| e.kind),
++        Some(ErrorKind::Closed)
++    ));
++    drop(rows);
++    close(s, pool).await?;
++    assert_eq!(budget.snapshot().active_commands, 0);
++    assert_eq!(budget.snapshot().queued_commands, 0);
++    assert_eq!(budget.snapshot().retained_input_bytes, 0);
++    println!("PASS Perf-01 SQLite cleanup-state mismatch quarantined and retired");
++    Ok(())
++}
++
+ async fn profile(file: &Path) -> TestResult {
+     let options = Options {
+         busy_timeout: Duration::from_millis(40),

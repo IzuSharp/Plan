@@ -1,5 +1,48 @@
 # Perf-01 Linux x64 handoff
 
+## Rejected SQLite experiment and pending gRPC gate — 2026-11-20 10:46 UTC
+
+The separate [SQLite cleanup-Ping experiment](checks/sqlite-cleanup-ping-rejected-001/README.md)
+is complete and **rejected under its predeclared screen**. All seven build
+commands and eighteen independent diagnostic processes passed their applicable
+correctness and retirement checks. Both A21 mean decisions are inconclusive;
+CPU per completed unit rises by 12.3974% for scalar and 10.5693% for page, and
+scalar mean process p99 rises by 12.8771%. The page tail reduction does not
+override the fixed screen. These are descriptive observations, not statistically
+proven mean regressions. The candidate was not integrated and will not be
+repeated or advanced to a business test to seek a different outcome. The
+complete source patch, actual package/native identities, all 18,000 numeric
+samples, original noise/summary and recorded failures are preserved separately.
+This experiment gives no formal-comparison or long-duration credit.
+
+The gRPC candidate's fresh native assets, seventeen-package B24 feed and frozen
+protocol Native AOT application have built successfully. Its ordinary B18 gate
+then stopped at `exact-native-layout` before compiling the C layout probe,
+because the literal `clang-19` command was not in PATH. The actual locked
+compiler exists and was independently rehashed as
+`0a3c55936ac43954fbe4914e6e73b577ca9e35e75d89ef13d3e28c187f41ca1a`.
+No B18 product-regression pass or candidate timing is claimed. The failed
+execution remains unchanged at receipt SHA-256
+`0330f65bc8fc97bbba229070abe9e1eeedd1f351fb9d24ecc12e91c6b3e097f8`;
+its owned and adopted processes all retired. A fresh B18-only continuation
+will bind the three completed producers and the new gate explicitly, with the
+existing compiler directory added only to that functional command's PATH.
+
+The [prospective gRPC policy](candidates/grpc-scratch-002/prospective-screen-001.md)
+fixes the allocation-first screen, independent A-only calibration, interleaved
+order and tail/CPU/RSS limits before candidate timing. Product candidate
+`458939dab00d4080cd36076d31d912114f245340` / local `e524ade4` remains unretained.
+[CI124](https://github.com/IzuSharp/NativeWeave/actions/runs/44715862136)
+completed successfully; its CI result does not replace the pending dedicated
+B18/diagnostic gates. The previous fourteen-file numerical publication was
+read back exactly at Plan `40e264f1efaaead8c2f0f6a79bdd14ba6ab57bac` and its
+[Plan CI](https://github.com/IzuSharp/Plan/actions/runs/44719500688) passed.
+
+All 126 `0715` short samples remain attached to their actual identities. Five
+before long groups remain accepted, and no final-after long group is credited.
+Capacity, final-after long tests, final retention/review and merges remain
+pending. Both PRs remain draft.
+
 ## Complete 0715 short matrix — 2026-11-20 10:25 UTC
 
 The measured `0715ffb6376b1ae08259ad7e2cb30ff0320d83e7` iteration now has

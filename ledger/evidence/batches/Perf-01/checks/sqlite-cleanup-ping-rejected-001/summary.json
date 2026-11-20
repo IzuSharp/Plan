@@ -1,0 +1,68 @@
+{
+  "task": "Perf-01",
+  "comparisons": {
+    "scalar": {
+      "mean_decision": {
+        "effect_ns": 1727092.5333333337,
+        "bootstrap_95_percent_interval_ns": [
+          154808.8999999999,
+          3299376.166666667
+        ],
+        "noise_band_ns": 996333.0,
+        "decision": "inconclusive",
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "baseline_id": "Perf-01-sqlite-ping-001-scalar",
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "roles": {
+        "a": {
+          "mean_of_process_means_ns": 3093787.6666666665,
+          "mean_of_process_p99_ns": 25214566.666666668,
+          "mean_cpu_ms_per_unit": 0.558212,
+          "mean_managed_bytes_per_unit": 17354.768
+        },
+        "b": {
+          "mean_of_process_means_ns": 4820880.2,
+          "mean_of_process_p99_ns": 28461466.666666668,
+          "mean_cpu_ms_per_unit": 0.6274156666666666,
+          "mean_managed_bytes_per_unit": 17354.49066666667
+        }
+      }
+    },
+    "page": {
+      "mean_decision": {
+        "effect_ns": 1096965.7803333336,
+        "bootstrap_95_percent_interval_ns": [
+          -1908.3170000007376,
+          2299657.9130000006
+        ],
+        "noise_band_ns": 2233679.732,
+        "decision": "inconclusive",
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "baseline_id": "Perf-01-sqlite-ping-001-page",
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "roles": {
+        "a": {
+          "mean_of_process_means_ns": 7221050.067666667,
+          "mean_of_process_p99_ns": 28955773.333333332,
+          "mean_cpu_ms_per_unit": 1.8793906666666667,
+          "mean_managed_bytes_per_unit": 63863.51733333334
+        },
+        "b": {
+          "mean_of_process_means_ns": 8318015.848,
+          "mean_of_process_p99_ns": 27772493.666666668,
+          "mean_cpu_ms_per_unit": 2.078029,
+          "mean_managed_bytes_per_unit": 63857.84266666667
+        }
+      }
+    }
+  },
+  "advance_to_business_test": false,
+  "retained": false,
+  "decision_rule": "All correctness/release checks pass; at least one probe mean decision is improvement; neither mean decision is regression; neither mean-of-process-p99 nor CPU-per-completed-unit increases in either probe. This only screens for full-business testing, not retention.",
+  "completed_processes": 18,
+  "noise_sha256": "3fae11d628b37854d8bf73730f5294dca06832e0721991c6e460f026ff23fba9",
+  "formal_comparison_credit": 0,
+  "long_duration_credit_seconds": 0
+}
