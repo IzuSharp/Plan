@@ -1,5 +1,51 @@
 # Perf-01 Linux x64 handoff
 
+## All corrected-source functional gates passed — 2026-11-20 12:53 UTC
+
+The [complete ablation-004 functional checklist](checks/grpc-functional-gates-004/README.md)
+records **31/31 zero exits** from 12:19:11.227549 through 12:44:33.428564 UTC.
+Both source-specific native/package/protocol producers and full B18 gates
+passed, together with supplied-native B15 and original B19/B20
+managed/API/package subsets. Every owned/adopted process retired without
+cleanup signals or errors. B19/B20 native-producing verifiers and standalone
+cost modes were not replayed. The original persistent-H2, cancellation-tail,
+throwing-listener, cross-call writer and byte-credit assertions all passed.
+
+The actual completed receipt SHA-256 is
+`2e93747ff1bee94ea1c690f20ea1af0c23dcfedbe785c03714b5a0e80e643414`;
+measurement inputs are
+`17dda4d7989d04591e0ced28ef71d052553746dbace748e21f37ffd1a56bb3e5`,
+and build binding is
+`5168b214e1dae056e6eaffc9834b113bc2fdfd5e818f6bc8cce3ba18170fd5be`.
+Both roles retain their actual `db95a9fb` / `9de3f744` producers and identical
+`28d793d6` Server bytes. Independent completion review rehashed 580 bound
+files and all 62 command logs; the public projection review checked 101
+path/hash references, 42 original marker occurrences and all 31 command rows.
+No performance, capacity, scratch-retention or long credit is inferred.
+
+The six-control noise stage has not run. It must use the actual measurement
+input hash above. Its complete actual noise-index hash must be committed and
+read back before the eighteen interleaved processes. Current public product
+remains `12c477f0`; final scratch retention remains pending.
+
+Storage maintenance is running serially before timing. PG archive 007 completed
+664 files / 964,894,720 original bytes into 212,978,449 gzip bytes, manifest
+`31ca8d5d1506350077c872fdbdd7b6c65905d782048b50cb12877778c710bf56`.
+Archive 008 completed 664 files / 964,960,256 bytes into 212,929,826 gzip bytes,
+manifest `49c892757f05ab50f95257643fea9b01d5ff41f67cc401b4e19585d98ed54caa`.
+Both preserve full original/decoded hashes and bound restore commands; archive
+009 is still running. A terminal-build-only compiler-cache inventory is source
+reviewed but unexecuted. Actual tested binaries, packages and all measurement
+outcomes remain protected.
+
+The DB coverage audit found no retained native SQLite elapsed-phase trace.
+Existing managed intervals and PostgreSQL server statement/wait samples do
+not establish exact pool/SQLite-lock attribution. A separate diagnostic-only
+instrumentation proposal is being prepared, with no frozen product, driver,
+load or acceptance change. Five before long groups remain accepted and zero
+final-after long groups are credited. CI126 and Plan CI177 passed; the latest
+seven-file CI126 publication at `8ddac06e` was fetched back exactly.
+
 ## Control B18 complete and CI126 verified — 2026-11-20 12:31 UTC
 
 The ablation-004 control's four actual producers/gates have completed with exit
