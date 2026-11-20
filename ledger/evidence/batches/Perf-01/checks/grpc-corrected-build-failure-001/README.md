@@ -12,7 +12,7 @@ The four candidate outer commands did not start.
 | --- | --- | --- |
 | Corrected native component | 11 commands, all exit 0 | Component-only evidence from candidate source `1207b8d3b0c273752a28dabdf3e7a2b54c933571` |
 | Control native assets | Completed | Three retained native assets from clean control source `da48ccf9d263155ebcbc2a6eea986f6b05972f51` |
-| Control B24 packages | Completed | 17 selected `.1` packages; 17 unused upgrade `.2` packages were also produced |
+| Control B24 packages | Completed | 17 selected `.1` packages; an unused 17-package mixed upgrade feed contains nine `.2` packages and eight retained `.1` packages |
 | Frozen protocol application | Release Native AOT build completed | Build identities are recorded; no performance process was run |
 | Assembled B18 JIT | Exit 0; 948 assertions; 578 managed retirements | The completed JIT observation remains valid as a partial functional result |
 | Public API and XML | 71 exact declarations and 5 negative fixtures | Completed before the AOT failure |
