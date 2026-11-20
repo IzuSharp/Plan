@@ -1,5 +1,35 @@
 # Perf-01 Linux x64 handoff
 
+## Fresh weak ON noise and resource ranges — 2026-11-20 22:41 UTC
+
+The first six recovery weak-ON noise processes completed at 22:36:06 UTC. All
+six were valid and met the frozen service standard. The original finite owner
+completed with exit 0 and retired; its execution SHA is
+`80b6b0447109885be228b74932a03c33949117a928eb20b4c9b681f78127e19d`.
+The complete fresh noise index is
+`924e8bd03bff9a50fb56c3038a0bb44a82fa75b2f315a1ab9aa086629539772f`.
+The original supplemental reader completed at 22:41 UTC and produced range freeze
+`6737006913586e9983e3337d6bcee08d6c015b3a622f1f606d4217011be2ceb8`:
+five ordinary-scenario p99 vectors and six whole-profile CPU/RSS/allocation
+vectors, each retaining all three independent ON process values. These are
+observed maximum-minus-minimum ranges, not confidence intervals.
+
+The [fresh numeric projection](recovery/epoch-001/weak-noise-001/README.md),
+[exact range freeze](recovery/epoch-001/weak-noise-001/resource-ranges.json) and
+[accepted independent review](recovery/epoch-001/weak-noise-001/independent-review.md)
+bind these actual inputs. The review independently recalculated all 15 raw
+scenario populations, 11 resource vectors and five A21 bands, and matched the
+public projection. All 1,938 measured ordinary calls succeeded; maximum observed
+dispatch lag was 10.077007 ms under the frozen 100 ms limit. Root will publish and read back
+this checkpoint before the first ON/OFF/direct comparison or capacity process.
+No optional weak reuse is approved by these ON-only observations. The main
+EA5/selected-final suite has not started, and all ten new 30-minute segments
+remain outstanding. Historical performance and accepted duration stay separate.
+
+Public checkpoint113 is `37386a9c1017aba21f86f7acd9f5c8e3c016ed1e`;
+its four files were read back exactly and CI198 passed. All before/ON/OFF
+producer and applicable B18 functional results remain complete and reusable.
+
 ## OFF build/function accepted; fresh weak noise next — 2026-11-20 22:28 UTC
 
 The complete OFF producer role finished at 22:19:57.711494 UTC, execution SHA

@@ -1,0 +1,494 @@
+{
+  "checks": {
+    "all_eleven_range_vectors_recomputed": true,
+    "all_five_A21_bands_recomputed": true,
+    "all_measurement_windows_nonoverlapping": true,
+    "all_raw_arrival_percentiles_and_means_match": true,
+    "all_raw_call_message_payload_and_encoded_byte_counts_match": true,
+    "all_raw_client_calls_pass_content_status_and_trailer_fixture_checks": true,
+    "all_sampled_CPU_RSS_and_allocation_rates_recomputed": true,
+    "all_six_recovery_idle_and_disposal_checks_passed": true,
+    "all_thread_affinities_match_frozen_cpu_sets": true,
+    "both_finite_owners_retired_without_signals": true,
+    "cell_evidence_files_rehashed": 138,
+    "complete_input_and_source_hashes_match": true,
+    "public_identities_profile_configuration_and_execution_times_match": true,
+    "public_projection_six_processes_and_fifteen_scenario_samples_match": true,
+    "six_distinct_result_and_server_process_identities": true
+  },
+  "configuration": {
+    "arrival_p99_limit_ns": 500000000,
+    "arrival_rate_per_second": 16,
+    "configured_concurrency": 4,
+    "dispatch_lag_limit_ns": 100000000,
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "managed_payload_limit_bytes": 67108864,
+    "native_payload_limit_bytes": 67108864,
+    "planned_requests_per_process": 323,
+    "protocol": "HTTP/2 + TLS",
+    "recovery_requests_per_process": 32,
+    "requested_duration_seconds": 20,
+    "server_rss_limit_bytes": 268435456,
+    "service_cpus": [
+      2,
+      3
+    ],
+    "unexpected_error_rate_maximum": 0,
+    "warmup_requests_per_process": 24,
+    "wire_compression": "identity"
+  },
+  "epoch": "recovery-001",
+  "finite_owners": [
+    {
+      "ended_utc": "2026-11-20T22:36:06.037661+00:00",
+      "exit_code": 0,
+      "receipt_sha256": "cd72a19d2268db44f0d042e0bdecf8b4d4685685c99498e1421182b38d5f7f86",
+      "recorded_owned_processes": 33,
+      "remaining_owned_processes": 0,
+      "retired": true,
+      "signals": 0,
+      "stage": "noise",
+      "started_utc": "2026-11-20T22:32:25.805317+00:00"
+    },
+    {
+      "ended_utc": "2026-11-20T22:41:15.493546+00:00",
+      "exit_code": 0,
+      "receipt_sha256": "8c992fc486edee69f55c57322f5f3f73664cc8165f2bb8ef2736329a24c2c7dd",
+      "recorded_owned_processes": 1,
+      "remaining_owned_processes": 0,
+      "retired": true,
+      "signals": 0,
+      "stage": "ranges",
+      "started_utc": "2026-11-20T22:41:15.380147+00:00"
+    }
+  ],
+  "independent_review": {
+    "actionable_findings": [],
+    "method": "Independent source reading and standard-library-only recomputation from retained raw evidence. No target module imports, builds, tests, services or timing loads.",
+    "scope": "The exact six weak-ON noise populations, resource-range freeze and the named public projection.",
+    "verdict": "ACCEPT"
+  },
+  "input_sha256": {
+    "finite_execution_source_index": "a48786a56e0b233b670e6c8f6b4c7d94678610c54f49bdd2093376e4587279a9",
+    "frozen_weak_policy": "0399d704c04e625412c8a365c6e0b071588d3059632dfcda8d6937fa429b3cc9",
+    "noise_execution": "80b6b0447109885be228b74932a03c33949117a928eb20b4c9b681f78127e19d",
+    "noise_index": "924e8bd03bff9a50fb56c3038a0bb44a82fa75b2f315a1ab9aa086629539772f",
+    "original_A21": "a25dca7ca09c609bf6984050047b4bed752660bf6aa7f1c540cb113317b61b04",
+    "protocol_compare": "9541d89b96a6f874f1f39263724ba526b08d6fc605e1cf2ffd51877c919ce44f",
+    "ranges_execution": "87eed4bd889c9e99eb21159d358111b13532b0ec254def475a1f65a934ee5f18",
+    "resource_ranges": "6737006913586e9983e3337d6bcee08d6c015b3a622f1f606d4217011be2ceb8",
+    "resource_reader": "2271627c6b8053691470509ea31aac7766f0d49595a16200f25cad2d63babce9",
+    "streams_original_noise": "2154f0ea143b01891e63f948e9b998740816248ea9bc775c1d667688b61862c9",
+    "unary_original_noise": "3f2603ee803a325dbad8f77a1beb47acaa6fe170276430b7e64a75acaeb3750a"
+  },
+  "limitations": [
+    "Three-process max-minus-min ranges describe observed variability; they are not confidence intervals.",
+    "CPU, sampled RSS and managed allocation apply to the whole profile process, not individual scenarios.",
+    "RSS is the maximum among in-window 1 Hz observations; native allocation, copies and active HTTP/2 stream counts are unavailable in these timing cells.",
+    "Managed allocation uses sampled GC.GetTotalAllocatedBytes(false) counter differences and a partial measurement bracket.",
+    "Configured concurrency is 4; actual maximum in-progress calls are recorded separately. These samples do not establish maximum sustainable load.",
+    "Ordinary noise populations contain no deadline or cancellation probes. Existing functional and later protocol coverage remain separate.",
+    "Review acceptance concerns these exact noise/range bytes and the projection only; optional-feature retention is not approved."
+  ],
+  "long_run_credit_seconds": 0,
+  "processes": [
+    {
+      "allocated_mib_per_second": 17.2949528290197,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20128107351,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 9582670,
+      "maximum_in_progress_calls": 1,
+      "measurement_end_utc": "2026-11-20T22:32:48.096123+00:00",
+      "measurement_start_utc": "2026-11-20T22:32:27.968015+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-unary",
+      "raw_client_operations_sha256": "4de94893ee99f2fdf709c6438e48f0e373d517c0f125fcb0493ced713e1afce7",
+      "raw_managed_resources_sha256": "65d9bbc4d6c99577110b7d6e975cb2626604c5975b504143d9a6af282ed46699",
+      "raw_process_resources_sha256": "51e3346a85bea6ac800872b0d0262d9aed8ddbf32d24c59b73d688a9aa08844a",
+      "raw_requests_sha256": "c20e9909e8e6f7958ee3b5f64943803d87b24e39751a66af38a14d52efdc5c24",
+      "receipt_sha256": "3fdd9668e8ae56cf1d876e3f5e5f95a8eb3726d966bf15f523bdfed0b353dcaa",
+      "recovery_passed": true,
+      "repetition": 0,
+      "result_sha256": "a89087ed190bf1e01745f1f723df83b41ba2e286dfca5435c6f77b656d6240ea",
+      "server_cpu_percent_one_core": 3.7704389545502193,
+      "server_rss_bytes_maximum": 54185984,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    },
+    {
+      "allocated_mib_per_second": 17.2921096439249,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20166587687,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 6423167,
+      "maximum_in_progress_calls": 1,
+      "measurement_end_utc": "2026-11-20T22:33:23.568448+00:00",
+      "measurement_start_utc": "2026-11-20T22:33:03.401860+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-unary",
+      "raw_client_operations_sha256": "d79a74ad7006a5bd0567fe99df486f5e3724ef403d347c7d70df9de1d14d9f71",
+      "raw_managed_resources_sha256": "872f39ab6dcf31d51a1381728ab24d499753e2f940bc727cb666e72366a9f54b",
+      "raw_process_resources_sha256": "24327e03abec68f162dc89b2e8d298aaed440d4519957ac3a01db9135d13a82e",
+      "raw_requests_sha256": "43850dd9270283c8dc0910b4e811d4a2110471ca749af10cca7b67e5dbffa93a",
+      "receipt_sha256": "24f44a4c6e2e27baec21f0e8d1bc9926c534931132867822dfafc898a17edba0",
+      "recovery_passed": true,
+      "repetition": 1,
+      "result_sha256": "bd55d770efe40003080b9caac8e1d7f9f1903073631fc479499f23d98f807708",
+      "server_cpu_percent_one_core": 3.6679839537263508,
+      "server_rss_bytes_maximum": 54042624,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    },
+    {
+      "allocated_mib_per_second": 17.33175474300125,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20127231596,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 6836010,
+      "maximum_in_progress_calls": 1,
+      "measurement_end_utc": "2026-11-20T22:33:59.001026+00:00",
+      "measurement_start_utc": "2026-11-20T22:33:38.873795+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-unary",
+      "raw_client_operations_sha256": "40f154ea956af30dfc469de29e48efd884e3e596bfb3cc5e02a71d9891eff739",
+      "raw_managed_resources_sha256": "7e6be4d8e5501ad84dcb967fdf075f936c8abd6ea36e9817262abe39d5d75eb7",
+      "raw_process_resources_sha256": "b0008698cc67f81e2136307ec8e944e2f817c8cdf4eae037bcde5290b1c9ef00",
+      "raw_requests_sha256": "cfbae49eac2c0df7d0bb1116b052c7ed875a3e4b28c638ce9579556c20f9e750",
+      "receipt_sha256": "d09b4d93ee9f9c40bc6bcd417fb71a5ffa9453b07bde5463a4351350ad957f4b",
+      "recovery_passed": true,
+      "repetition": 2,
+      "result_sha256": "d59cd57361e2efb6b14035b61925c58c299ffd8fbf1e6eb700e216d10a1af0a7",
+      "server_cpu_percent_one_core": 3.824622162006095,
+      "server_rss_bytes_maximum": 57479168,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    },
+    {
+      "allocated_mib_per_second": 21.252202086769476,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20236247168,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 7330481,
+      "maximum_in_progress_calls": 4,
+      "measurement_end_utc": "2026-11-20T22:34:35.928979+00:00",
+      "measurement_start_utc": "2026-11-20T22:34:15.692732+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-streams",
+      "raw_client_operations_sha256": "0f8d4bcd6f6913ec078cf41d1628c3120d6e60071c24ab10f15d62b74de6da41",
+      "raw_managed_resources_sha256": "ad055ab33ac1d0554a0062652effefd9ec449b9974f154e080f5a77e72b4c99b",
+      "raw_process_resources_sha256": "b27211adff09cb632e739a150775a139d8077c44ad8d844d74ed4f99cfd56812",
+      "raw_requests_sha256": "9dbad384140b77384b1701a8b1099819d74c32b8b28fbead8aa56109267e5d25",
+      "receipt_sha256": "2c29d181aceae9bb5021a271f76539b9e17cbe58d8ef41d38f237af7bc580572",
+      "recovery_passed": true,
+      "repetition": 0,
+      "result_sha256": "fdf8b1178b30c749474aa628f99416a1107c6fa9f4f75cc1e306e25d6882ec96",
+      "server_cpu_percent_one_core": 9.745184992273524,
+      "server_rss_bytes_maximum": 94494720,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    },
+    {
+      "allocated_mib_per_second": 21.49560946892382,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20138111290,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 6294314,
+      "maximum_in_progress_calls": 3,
+      "measurement_end_utc": "2026-11-20T22:35:14.150634+00:00",
+      "measurement_start_utc": "2026-11-20T22:34:54.012523+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-streams",
+      "raw_client_operations_sha256": "171b58dbc62d1ef38686e704a5d501f007e855a131c324e78c263e7dd997fd74",
+      "raw_managed_resources_sha256": "df05450369ada57a1b1b77ba09bacb063204a50e57ef827a42010661c03325e8",
+      "raw_process_resources_sha256": "d9c8f6bba04951eb69fdd4a53146b57742231a02fb82ce7afec57b1b6f10af6a",
+      "raw_requests_sha256": "b41e2d5c0e0d7f8a6cf79aa9a11b4659b998030dd41b575d81389e9aca07cbc9",
+      "receipt_sha256": "37e3964b6a668e6894ee39882fb48ec678aa4fc58c03c4e7323c91f893eb3a12",
+      "recovery_passed": true,
+      "repetition": 1,
+      "result_sha256": "788fff7f2fe2ccba451047c3317f0a9ab7cac99093e34606cd38fda81b24e725",
+      "server_cpu_percent_one_core": 10.368847178341007,
+      "server_rss_bytes_maximum": 92917760,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    },
+    {
+      "allocated_mib_per_second": 21.640703472233145,
+      "dispatched": 323,
+      "disposed_zero_pending_and_retained": true,
+      "elapsed_ns": 20144388788,
+      "errors": 0,
+      "idle_gauges_zero": true,
+      "managed_resource_samples": 21,
+      "maximum_dispatch_lag_ns": 10077007,
+      "maximum_in_progress_calls": 4,
+      "measurement_end_utc": "2026-11-20T22:35:51.623695+00:00",
+      "measurement_start_utc": "2026-11-20T22:35:31.479306+00:00",
+      "offered": 323,
+      "process_resource_samples": 20,
+      "profile": "grpc-streams",
+      "raw_client_operations_sha256": "0ba0cdbed1ab41ad72317bf7160645ba4b75ab32b9a5a80766497e4b6ff2113b",
+      "raw_managed_resources_sha256": "1b312b6e6863ba81edfa6939023f5165ccdf59144e3a22e08197a3d3f880e12c",
+      "raw_process_resources_sha256": "1f1e5f491f9cb5cbe18909cd664178d649ba8b3a5c816a0cac466cd8375bebea",
+      "raw_requests_sha256": "95d7019a739a81d22ed9fb0a63078049d444504a58a239aaf40dce80f15067d1",
+      "receipt_sha256": "a31f6a85590970b04bad4f136de2cc5b0e28e8ec06903a04485991cf075d891b",
+      "recovery_passed": true,
+      "repetition": 2,
+      "result_sha256": "3a317ae04d31e683ec7bc9bf46b47fbbf6248216be6ac096abda9c7974efb6d9",
+      "server_cpu_percent_one_core": 11.09287550342027,
+      "server_rss_bytes_maximum": 91533312,
+      "service_standard_met": true,
+      "successful": 323,
+      "valid": true
+    }
+  ],
+  "public_files_sha256": {
+    "README.md": "645b81dd722dc53542758f6e057db523659d9bc5575b70a8833b4922fccec18c",
+    "resource-ranges.json": "6737006913586e9983e3337d6bcee08d6c015b3a622f1f606d4217011be2ceb8",
+    "samples.json": "280b6ea42fc53aca8d043082da577c126596da627d5f16e6fc8c46b48c5afe4b"
+  },
+  "publication_gate": "Pending publication and exact readback before comparison, as already required by the frozen weak policy.",
+  "recomputed_A21_mean_bands": [
+    {
+      "absolute_noise_ns": 1158214.8395061726,
+      "process_arrival_mean_ns": [
+        4779348.666666667,
+        5839489.635802469,
+        4681274.796296297
+      ],
+      "profile": "grpc-unary",
+      "relative_noise": 0,
+      "scenario": "grpc-unary|http2-tls|64|1"
+    },
+    {
+      "absolute_noise_ns": 391140.3291925462,
+      "process_arrival_mean_ns": [
+        5726731.763975156,
+        5900114.130434782,
+        5508973.801242236
+      ],
+      "profile": "grpc-unary",
+      "relative_noise": 0,
+      "scenario": "grpc-unary|http2-tls|65536|1"
+    },
+    {
+      "absolute_noise_ns": 3025974.5140186884,
+      "process_arrival_mean_ns": [
+        30683813.495327104,
+        27862322.299065422,
+        30888296.81308411
+      ],
+      "profile": "grpc-streams",
+      "relative_noise": 0,
+      "scenario": "grpc-client|http2-tls|4096|32"
+    },
+    {
+      "absolute_noise_ns": 16637100.75,
+      "process_arrival_mean_ns": [
+        44762179.68518519,
+        55765952.18518519,
+        61399280.43518519
+      ],
+      "profile": "grpc-streams",
+      "relative_noise": 0,
+      "scenario": "grpc-duplex|http2-tls|4096|32"
+    },
+    {
+      "absolute_noise_ns": 11524726.06481481,
+      "process_arrival_mean_ns": [
+        32317424.953703705,
+        36570936.36111111,
+        43842151.018518515
+      ],
+      "profile": "grpc-streams",
+      "relative_noise": 0,
+      "scenario": "grpc-server|http2-tls|4096|32"
+    }
+  ],
+  "recomputed_resource_ranges": {
+    "grpc-streams": {
+      "p99/grpc-client|http2-tls|4096|32": {
+        "maximum": 166855115,
+        "minimum": 118932505,
+        "process_values": [
+          124447689,
+          118932505,
+          166855115
+        ],
+        "range": 47922610
+      },
+      "p99/grpc-duplex|http2-tls|4096|32": {
+        "maximum": 246240138,
+        "minimum": 171858607,
+        "process_values": [
+          203806939,
+          171858607,
+          246240138
+        ],
+        "range": 74381531
+      },
+      "p99/grpc-server|http2-tls|4096|32": {
+        "maximum": 209850642,
+        "minimum": 149472707,
+        "process_values": [
+          185489903,
+          149472707,
+          209850642
+        ],
+        "range": 60377935
+      },
+      "server_allocated_mib_per_second": {
+        "maximum": 21.640703472233145,
+        "minimum": 21.252202086769476,
+        "process_values": [
+          21.252202086769476,
+          21.49560946892382,
+          21.640703472233145
+        ],
+        "range": 0.38850138546366964
+      },
+      "server_cpu_percent_one_core": {
+        "maximum": 11.09287550342027,
+        "minimum": 9.745184992273524,
+        "process_values": [
+          9.745184992273524,
+          10.368847178341007,
+          11.09287550342027
+        ],
+        "range": 1.3476905111467463
+      },
+      "server_rss_bytes_maximum": {
+        "maximum": 94494720,
+        "minimum": 91533312,
+        "process_values": [
+          94494720,
+          92917760,
+          91533312
+        ],
+        "range": 2961408
+      }
+    },
+    "grpc-unary": {
+      "p99/grpc-unary|http2-tls|64|1": {
+        "maximum": 41587687,
+        "minimum": 28414108,
+        "process_values": [
+          28414108,
+          41587687,
+          38537136
+        ],
+        "range": 13173579
+      },
+      "p99/grpc-unary|http2-tls|65536|1": {
+        "maximum": 39711202,
+        "minimum": 35541979,
+        "process_values": [
+          37488555,
+          35541979,
+          39711202
+        ],
+        "range": 4169223
+      },
+      "server_allocated_mib_per_second": {
+        "maximum": 17.33175474300125,
+        "minimum": 17.2921096439249,
+        "process_values": [
+          17.2949528290197,
+          17.2921096439249,
+          17.33175474300125
+        ],
+        "range": 0.03964509907635261
+      },
+      "server_cpu_percent_one_core": {
+        "maximum": 3.824622162006095,
+        "minimum": 3.6679839537263508,
+        "process_values": [
+          3.7704389545502193,
+          3.6679839537263508,
+          3.824622162006095
+        ],
+        "range": 0.15663820827974417
+      },
+      "server_rss_bytes_maximum": {
+        "maximum": 57479168,
+        "minimum": 54042624,
+        "process_values": [
+          54185984,
+          54042624,
+          57479168
+        ],
+        "range": 3436544
+      }
+    }
+  },
+  "retention_approved": false,
+  "reviewed_utc": "2026-11-20T22:50:02.455722+00:00",
+  "roles": {
+    "common_independent_client_product_source_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "note": "Only ON was exercised in this noise stage. EA is not weak-before. OFF/direct timing and sustainable capacity remain separate.",
+    "original_main_baseline": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "weak_after_OFF": "4ae2e15f4825a9b5237734444ff68b0b6d2c5aa4",
+    "weak_before_ON": "2e3995df8d86583ee9443348276ca8d918056bfc"
+  },
+  "schema_version": 1,
+  "task": "Perf-01",
+  "tested_identity": {
+    "client_executable_sha256": "4f08f8e5f1b999a712f91eb8528e5346b8367d0918bdad6a904865c17145f365",
+    "common_application_and_driver_source_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "common_client_build_manifest_sha256": "be7d469e95e628c790fd02834f5e0e6d15c458887a4a6a781f6584a6da9d69ea",
+    "loaded_server_native_sha256": "4de9964f470fe0ed44304d623889d68a4c9754c37321ffaf5f703b4239c9dbc3",
+    "managed_configuration": "Release / Native AOT / x86-64-v2",
+    "managed_sdk": "11.0.100",
+    "native_producer_manifest_sha256": "0c26512a68c9ecdbd2a7dcdfbad404398ab21e27784cdbde0c49112db44e8056",
+    "on_build_manifest_sha256": "04a94e88078bca8946e53ab81ae00cdd2addf19d50ac77a5fb9090d511ee859f",
+    "on_product_source_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "package_version": "0.1.0-perf01.recovery001.on.1",
+    "server_executable_sha256": "684cd580b54b58e0ae962dcb6175b6ff3d57c2d05aac92bf07377c4f47bef088",
+    "tls_certificate_sha256": "7791e4ce73571b25ece18e56d6ace786a2db3ea820fdfc10402a364605b09c39"
+  },
+  "totals": {
+    "all_client_operations": 2274,
+    "measured_dispatched": 1938,
+    "measured_errors": 0,
+    "measured_offered": 1938,
+    "measured_successful": 1938,
+    "recovery_calls": 192,
+    "successful_measurement_wire_counts": {
+      "request_encoded_bytes": 117703188,
+      "request_messages": 21933,
+      "request_payload_bytes": 117553536,
+      "response_encoded_bytes": 116791458,
+      "response_messages": 22026,
+      "response_payload_bytes": 116619648
+    },
+    "warmup_calls": 144
+  }
+}
