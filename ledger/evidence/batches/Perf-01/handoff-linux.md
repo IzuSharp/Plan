@@ -1,5 +1,44 @@
 # Perf-01 Linux x64 handoff
 
+## Six corrected-control noise processes completed — 2026-11-20 13:16 UTC
+
+The [actual control-only noise projection](checks/grpc-scratch-noise-004/README.md)
+records all six independent processes as valid and within the unchanged
+service standard. The owned batch ran from 13:06:06.979473 through
+13:09:50.328363 UTC; all fourteen prepare/run/reader commands exited zero
+and retired without cleanup signals or errors. Each process offered,
+dispatched and successfully completed 323 calls. Both resource-calibration
+unavailable lists are empty.
+
+The **complete original noise-index SHA-256**, frozen before any comparison, is
+`c5afdc5a893b2927150c6db26bb3823a44d21ad43b51df01900e6d8848117de0`.
+The terminal execution receipt is
+`89def0224d1b4e3f7e3765df551bf517a40fc04276af64f37ac32742826b6c30`.
+The original reader and resource-screen observations are copied unchanged;
+the public projection hash is distinct from the complete original index.
+These are corrected-control `db95a9fb` observations, not replacement
+`ea5fa528` baseline results. The eighteen fixed interleaved processes remain
+unexecuted at this checkpoint and may start only after this freeze is
+published and read back. Scratch retention remains pending.
+
+The three [historical PostgreSQL](checks/comparison-postgresql-cold-retention-007/README.md)
+[retention](checks/comparison-postgresql-cold-retention-008/README.md)
+[operations](checks/calibration-postgresql-cold-retention-009/README.md)
+completed: 3,359 original files / 2,901,819,392 bytes are retained in
+678,775,140 verified gzip bytes with complete restoration mappings.
+[Cache cleanup 005](checks/compiler-cache-cleanup-005/README.md) then removed
+7,802 reproducible intermediates / 3,053,590,233 apparent bytes after
+protecting actual inputs and outputs. Observed free space reached
+6,261,362,688 bytes, still below the later PostgreSQL long-test preflight.
+These operations grant no measurement credit. No storage work overlaps
+the six-process noise interval.
+
+All 31 functional prerequisites and CI126 remain passed. Public product
+`12c477f0` still includes the unretained scratch candidate. A separate
+diagnostic-only DB phase observer is undergoing source review; no DB
+instrumented workload has run. Five before long groups remain accepted;
+zero final-after long groups are credited.
+
 ## All corrected-source functional gates passed — 2026-11-20 12:53 UTC
 
 The [complete ablation-004 functional checklist](checks/grpc-functional-gates-004/README.md)
