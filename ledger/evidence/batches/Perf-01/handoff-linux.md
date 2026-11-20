@@ -1,5 +1,146 @@
 # Perf-01 Linux x64 handoff
 
+## Resumed: capacity interruption preserved; before binding and cleanup008 complete
+
+The latest complete public checkpoint is Plan `6ecc417b29c48f1ebe9627b2d9fb933f95c9db71`.
+Both selected files were fetched back exactly (112,873 bytes); private readback
+receipt SHA-256 is `c2122e5132092783ccbf5526b1bfcca47a88e5e4d7e3407efcf495c461e54425`.
+Plan CI186 passed. The current public NativeWeave branch remains `2e3995df`;
+both PRs remain draft. **Five before / zero after long groups are accepted.**
+
+### Formal timing is now idle; do not resume the incomplete owner
+
+The final003 after protocol-capacity command completed cleanly: HTTP selected
+1,036/s versus before 1,088/s (−4.7794%); gRPC selected144/s versus before160/s
+(−10%). Direct HTTP completed its group selection at17:02:16.344163 UTC,
+selecting1,382/s after three confirmations of83,060 calls each. These retain
+original group/profile/policy identities and the sampled-rate limitation.
+
+Direct gRPC did not finish. Its higher-rate observations include probe/header
+failures, and the recorded15-confirmation-0-576 cell remains partial. At low
+storage headroom root requested Ctrl-C on actual session92277; the tool returned
+exit130. The original outer receipt is still `running`, SHA-256
+`b207b88eead40a1ee384ec52428da05bef1250a06bceff9382f8ec56bf77e285`.
+There is no terminal retirement proof for the direct command. Preserve that
+state rather than changing it to completed/interrupted in place. At the separate
+17:18:12.997218 UTC observation the timing lock was available, both last server
+endpoints refused connections and305,508,352 bytes were free. The observation is
+`perf01-run/protocol-capacity-final003-interruption-001.json`, SHA-256
+`5555c5a33b5bd7a13eccda654ecb3fc47a23c8560eff31c0ec20df842959c94d`.
+No historical PID was signaled. The direct HTTP group selection retains the
+explicit missing outer-terminal-proof limitation; direct gRPC receives no
+capacity credit. A fresh reviewed continuation must recover missing work only.
+
+The independent idle semantic review inspected six hash-bound operation files
+selected by completed results. All eight IntegrityFailure events (after2,
+direct Tonic6) say exactly `Wait headers were not committed.` None records
+protobuf/order mismatch or unexpected clean EOF. The actual terminal status
+was not saved and cannot be inferred as ResourceExhausted. Two after192 duplex
+calls additionally report unexpected Cancelled, with0/0 and26/10 request/response
+messages. Details and both direction outcomes were not saved. Their timing and
+source exclude ordinary global shutdown/normal timeout as an explanation;
+they remain unexplained failed calls. Original invalid/nonqualifying outcomes
+remain unchanged. Full selected-event proof is
+`c4ab66725d17fbd00102982e0f8b70ca33440d13455d1713c4342d21258b7afb`;
+timing-context proof is
+`6597e3d2113f35ff83e0bf12ea5f8bac7dbc6e76d638b6551c63751107dc4f5f`.
+Review addendum `a40a3d219fd16347c4ea3e5660120bb92faeae7a` has been copied
+into canonical Plan; final acceptance is still held. The curated checkpoint is
+[protocol-capacity-interruption-001](checks/protocol-capacity-interruption-001/README.md).
+
+### Actual DB proof and cache recovery
+
+DB recovery002 index `4d2c76d4e3ebd804af72d5d2538c37e75da92bf6a3c22b6a33df5626b6b90888`
+completed zero-producer verification at17:19:17.006088–17:19:18.795298 UTC.
+Receipt `930bc9e84f2dcf11ed8d38fbdb950cde58ffb74255b4db2d7f55da6da2f8f4ab`
+and full binding `afe39bc5065f079625d109823c3fdfa188d874facf7e11a34c29fffd60303039`
+are now the actual before inputs. Original failures and the five-plus-two
+successful producer chain remain unchanged. An initial truncated CLI digest
+failed before creating any owned stage; separate typo observation
+`baa81d08303346edd636de8c56b641d80032a6f3bc1b98017c3163d3d06e8bad`
+records that correction without new producer/measurement credit.
+
+Root explicitly selected a268,435,456-byte caller floor for this zero-producer
+metadata-only invocation after observing305,504,256 free bytes. This does not
+change the positive-floor source contract, artifact/signing checks or any
+workload. There is no strict serialized-output size bound. Build-final/measure
+retain1,073,741,824-byte floors. The prospective storage decision is
+`f29b8dd03576f2ff859a1ee51891777770b195cf9ff64b3407065664d91ac20f`.
+
+The exact before-cache inventory005 completed17:21:03.900077–17:21:11.622803,
+SHA-256 `d375c8dc3d8acfd62312f3c90837a0adab8f1f0604c0f62de222f23b6886de6b`.
+It selected1,704 files/1,088,946,298 apparent bytes while retaining4,728 actual
+artifact pins,5,463 references and181 metadata records. Independent selection
+review accepted the one-line source freeze, commit9b11e4c; cleanup source is
+`debb9e44f5bc6f01c37580721c22d15dab757119239c30c5a03bba917adf413e`.
+The documented existing owner/guard caller is preserved at
+`perf01-run/db-before-cache-inventory-005-caller-001.py`, SHA-256
+`fc9394aa9c0b1e7724291c4a02ae026a79c564004d9cea8d6ec33957849273ce`;
+its source is the exact reviewed OWNER-CALL-EXAMPLE.md block (`a3486501…`).
+
+Cleanup008 completed17:25:31.282815–17:25:47.694881. All1,704 selected files
+were removed after required checks; all1,016 SDK members were fully compared.
+Free space increased300,400,640→1,386,237,952 bytes. Cleanup receipt is
+`a384912c4ce89ce1bbf2400279d6cf608953504003f0879f67e001a431f54fca`;
+outer clean-retirement receipt is
+`35a95204d08cd91c1617f355cc96e42252f125b7fde065cc9cddff59ef74ba47`;
+journal is `47b0367723fd95cdcf9e0cbca41c8c3ad5903eec8a0dc50367c01b2789aad1ce`.
+No raw data, package archive or actual tested output was deleted. See
+[db-binding-and-cache008-001](checks/db-binding-and-cache008-001/README.md).
+No DB final producer or diagnostic measurement has started; do not invoke them
+without actual adequate headroom.
+
+### Optional weak writer retention remains unresolved
+
+The existing layered/final003 evidence combines changes and shows large stream
+allocation/CPU reductions together with higher RSS and no demonstrated capacity
+gain. It contains no per-transport weak-writer ON/OFF attribution. It is separate
+from the already rejected per-method scratch. Root therefore authorized a minimal
+isolation and a bounded failure-status diagnostic before deciding the final
+implementation. All final003 results retain their original identities.
+
+OFF source is `963dfbc5a99a45b57d0ffa2c9fb21612d110aa1c`, parent2e3995df,
+tree `a8f33c1c07127d8e70642afeb84c3822fbf4565e`, in
+`Perf-01-grpc-weak-linux/NativeWeave`. Its only production delta removes the
+transport-local weak cache and allocates the original exact-capacity zeroed
+array after unchanged credit acquisition (+1/−13 lines). All other optimizations
+and correctness fixes remain. Source-only review accepts this narrow toggle.
+
+Plan candidate41c991f4 contains the prospective attribution plan. The build-only
+recipe is independently accepted at Plan `1f30f583cd3c2dc81caa5f891af6dc7fd18c227d`,
+index `f20dd38a07a6597be75e887c6eff27d22cae159ac04d087206b0de6c750fb909`,
+inputs `7409ac9c1d7d9b9918201050911469bcb820eea2db837f19af949c6ca2f12d0a`.
+It uses exactly three existing producers, truthful native2e/managed963 identity
+checks, the original owner/guard and32 absent bin/obj checks. Entry requires4GiB
+free and each producer at least1GiB; these do not guarantee a peak-size bound.
+No producer has run. Later reader/noise/measurement admission is still separate.
+The failure-client diagnostic source is being prepared separately, for exactly
+one original192/s finite gRPC load and zero formal credit; it must not rewrite
+any original missing status or alter the formal driver/classification.
+
+### Next storage and execution boundary
+
+The existing late16-root retention preparation remains unchanged and UNBOUND.
+Its no-later-build declaration cannot truthfully be signed while the new weak
+and diagnostic producers remain pending. A narrower independent
+`historical-unprotected-cold-retention-001` preparation is being reviewed:
+only the same16 parents, all existing4,728 artifact pins/5,463 references and
+all actual future DB/cache/weak/diagnostic inputs remain hot, including entire
+referenced directories. No candidate census, candidate byte hashing or retention
+has run; no savings are assumed. Its initial proposal is27a50fa and must bind
+the current reviewed weak index f20dd38a, not superseded782a.
+
+After adequate reviewed storage recovery: finish DB final production, cleanup009
+before any DB measurement, and the unchanged eight diagnostic cells; complete
+the original20-cell codec continuation (index87362262), remaining comparisons
+and capacities; finish the weak-writer decision and actual final bindings; then
+run all five final-after1802-second groups serially. Reuse the five accepted
+before groups. Keep the original long rates144/40/500/115/192 and all existing
+correctness/resource standards. No merge or public domain release is authorized
+by a preparation or partial observation alone; complete the user's accepted
+checks, merge both PRs, and verify post-merge CI and the normal existing preview.
+
+
 ## After protocol capacities complete; direct Rust capacity remains active
 
 The final003 after gRPC capacity selection completed at16:43:47.307652 UTC.

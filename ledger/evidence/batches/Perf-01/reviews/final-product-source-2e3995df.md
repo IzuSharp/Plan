@@ -121,3 +121,64 @@ These are Git blob object IDs at retained commit `2e3995df`, not newly computed 
 | `src/Interop.Lifetime/NativeResourceOwner.cs` | `2f439bbb863b919c5bc80b702e3453a4cd6c9953` |
 | `src/Protocols.Grpc/CallContext.cs` | `f7a10ae004c71eda27413b4f7b87a9d90b38a1c2` |
 | `src/Protocols.Grpc/Registration.cs` | `0c8c25d91b1d7e64e7e639f1773e45c78b30a5d9` |
+
+## Idle follow-up: exact capacity failures and stop ordering
+
+This addendum follows the explicit idle authorization after interruption of the outer protocol-capacity controller. It does not revise the original source review, classifications, result files or controller state. The after command completed; the direct outer command has no terminal retirement receipt. Its unfinished `15-confirmation-0-576` cell is excluded. The interruption observation is SHA-256 `5555c5a33b5bd7a13eccda654ecb3fc47a23c8560eff31c0ec20df842959c94d`.
+
+The bounded review inspected the existing result metadata of 16 completed after and 15 completed direct gRPC cells, then only the six original operation files whose metadata contained correctness failures or unexpected cancellation. Every selected operation-file hash matched its original result pin; original bytes remained unchanged. This is an inspection of existing events, not a new workload, performance calculation, successful capacity result or long-run credit.
+
+### What the original events actually say
+
+All **eight** `IntegrityFailure` events have the exact message **`Wait headers were not committed.`** They comprise two after events and six direct-Tonic events. Each has one submitted request and zero received messages. None records a protobuf/order mismatch or the separate assertion for clean Wait-stream termination. The original invalid classifications remain unchanged.
+
+| Original completed cell | Selected event IDs | Recorded failure |
+| --- | --- | --- |
+| After `05-ladder-256` | 4025, deadline probe | Missing Wait header |
+| After `06-refine-192` | 5768, cancel probe | Missing Wait header |
+| Direct `07-ladder-1024` | 368, cancel probe | Missing Wait header |
+| Direct `08-refine-768` | 415, deadline probe | Missing Wait header |
+| Direct `11-confirmation-0-640` | 7028, cancel probe; 7025 and 7015, deadline probes | Missing Wait header |
+| Direct `14-confirmation-step-down-576` | 1128, cancel probe | Missing Wait header |
+
+The frozen client tests this handler-produced header before consuming the stream or terminal status. The native pre-handler rejection paths described above can produce a trailers-only response without that header. The same assertion failing against direct Tonic confirms a shared observation boundary; it does **not** establish the actual status of any of these eight responses. Their event rows did not retain it. In particular, they must not be rewritten as `ResourceExhausted`, successful intentional probes, or payload corruption.
+
+The two other selected events are both after `06-refine-192` duplex calls. Each records wire status `Cancelled`, logical status `cancelled`, `intentional_cancellation=false`, `intentional_deadline=false`, `correctness_failure=false`, and only the failure text `RpcException`:
+
+| Event | Submitted / received messages | Elapsed time | Completion before last measurement dispatch | Completion before measurement end |
+| --- | ---: | ---: | ---: | ---: |
+| 5772 | 0 / 0 | 996,885 ns | 40,422,423 ns | 133,995,314 ns |
+| 5737 | 26 / 10 | 182,057,339 ns | 39,680,303 ns | 133,253,194 ns |
+
+These differences use the saved nanosecond-frequency client timestamps and the original measurement window. They are an event-order explanation, not new latency statistics. The configured ordinary client timeout is 20 seconds and the server request timeout is 30 seconds. The observed sub-183-millisecond lifetimes do not support an ordinary per-call timeout explanation.
+
+The measurement ended at `2026-11-20T16:33:13.512321+00:00`; recovery began afterwards and passed. The original cell retirement receipt passed with no errors and zero pending requests/retained bytes at completed disposal. Frozen `adapter.py` lines 159–172 first closes client input, waits for all client work and recovery output, then performs the idle phase, and only then sends `stop` to the server. `Client/Program.cs::RunAsync` completes the queue and joins all workers on input EOF; it does not cancel them. `Server/Program.cs` starts `CloseAsync` only after the stop command or server-input EOF. Consequently, these two events occurred **before** the normal global-stop path. Their proximity to the measurement boundary is not evidence that shutdown caused them.
+
+### Acceptance implications
+
+No selected event demonstrates malformed protobuf, wrong message order, normal completion of an infinite Wait handler, cross-stream cancellation, or a recurrence of either diagnosed ownership bug. The finite B18 evidence on the exact retained control tree covers successful cardinalities, status/trailers, deadline/cancellation and the persistent-header/request-permit regression; B17 covers managed-tail/lease cancellation and close. Those finite gates provide relevant support, but cannot supply the missing status/detail of these capacity failures or prove all overload paths.
+
+The concrete execution blockers are unchanged: the two after cells are invalid and cannot establish a supported load, and the affected direct cells cannot supply a valid comparison at those loads. The eight header assertions are an unresolved terminal-status observation limit, not a demonstrated product payload defect. The two duplex cancellations are actual failed calls whose cause remains unobserved; they must remain counted and must not be dismissed as normal stop, timeout, or ordinary `ResourceExhausted` rejection. Their status/type alone does not establish a new source defect. Conversely, absence of a source-established cause is not permission to certify that they are harmless.
+
+The product acceptance hold remains in force. This follow-up narrows its evidence: it does not request a speculative product change, weaken the original service/correctness gates, promote an invalid load, or turn passing finite B18 checks into the pending final matrix/capacity/five-long-run acceptance.
+
+### Smallest additional discriminator, if required
+
+Use the **same already-built server/application/native bytes** and an isolated diagnostic build of the independent client. Preserve the frozen load, TLS, messages, request limits, deadlines and original verdicts. Add failure-only observations of the active operation direction (`headers`, `read`, `write`, `CompleteAsync`), RPC status/detail and bounded inner-exception text, token/deadline state, call-disposal ordering, and each duplex direction's independently observed outcome. Record exceptions before disposal so client cleanup does not masquerade as their cause. Do not replace the formal client or silently join/retry a different workload.
+
+For a missing-header failure, first attempt a nonblocking terminal-status/trailers observation. If status is not yet available, the only extra action needed is a separately labeled, bounded failure-only terminal read before disposal under the existing call deadline. It must retain the original header-failure verdict and have zero formal credit. For duplex failures, recording both direction exceptions around the existing operations can identify which failed first; any observation obtained only after disposal must be marked accordingly.
+
+One fixed finite reproduction of the existing 192-rate cell is the smallest useful initial scope because it contains both observed categories. A run without the failure is inconclusive and must not be replayed until success or substituted for the original cell. This paragraph is a proposal only: no new diagnostic source, client build, server run or workload was created or executed by this review.
+
+### Follow-up evidence binding
+
+The private bounded review receipts are in `perf01-run/grpc-capacity-semantic-review-001/`; they retain the exact original event lines, line numbers and operation-file/result hashes. They are not an operational-bundle publication request.
+
+| Receipt | SHA-256 |
+| --- | --- |
+| `after-priority-events.json` | `b3673b75bde55f084dbc271d909ede73d699520cfa00cbb1525c8cd240a05388` |
+| `completed-result-catalog.json` | `be7f05bc2c44674fe6c839cce00a73c26c533353cf70509be6ef5e903649bb91` |
+| `all-selected-events.json` | `c4ab66725d17fbd00102982e0f8b70ca33440d13455d1713c4342d21258b7afb` |
+| `timing-context.json` | `6597e3d2113f35ff83e0bf12ea5f8bac7dbc6e76d638b6551c63751107dc4f5f` |
+
+The timing context rechecks only the small original result/config/retirement metadata and binds the existing event receipt. It does not reread the operation files. Its source Git blobs at retained `2e3995df` are `b45b24bc53534c2b516481d56d543b10e69de5c8` (`adapter.py`), `e7727c73bd8cb17a6f71756b0b2264bd58dcb8ad` (`Client/Program.cs`) and `a708fdf758c198fa5bcf411d91121a071c2a0887` (`Server/Program.cs`).
