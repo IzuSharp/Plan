@@ -1,5 +1,32 @@
 # Perf-01 Linux x64 handoff
 
+## OFF build/function accepted; fresh weak noise next — 2026-11-20 22:28 UTC
+
+The complete OFF producer role finished at 22:19:57.711494 UTC, execution SHA
+`103a0f93aaa5492cad8d1f0e65b1371a0c68e6d2a57f16cc32a2f3316ab80ab6`. All eight
+commands completed and retired. OFF's original assembled B18 stage completed at
+22:27:54.318002 UTC, execution SHA
+`1927328cf808dd1e0b5b778098c24e9fda6f71c942e7c2d0c2b826d0f4c6ae7a`. It has
+18 new assembled commands and 25 new package commands; the exactly matching
+11-command ON native-component proof is explicitly reused. See the [actual OFF
+record](recovery/epoch-001/weak-off-actual-001/README.md).
+
+All three roles have actual build and applicable functional proof. Baseline and
+ON artifacts passed pairing with the common driver, before-produced independent
+protocol client and TLS. The first fresh weak experiment will run six ON noise
+processes: unary and three-stream-cardinality profiles, three independent processes
+each at the frozen16 calls/s, concurrency4, requested20 seconds. Root will publish
+and read back their complete fresh noise identity and resource ranges before the
+18 ON/OFF/direct comparison processes and separate capacity searches. This is not
+an EA5/selected-final comparison, and no optional cache retention is yet approved.
+
+A later workspace-maintenance notice prompted rechecking actual current records,
+SDK, locked Design and boot: they remained intact and matching. It does not prove
+the cause of the earlier SDK disappearance. Public functional checkpoint112 is
+`a38381bb22302df9f4fb58c2a7cb6693046bbf19`; exact readback passed. CI196 and CI197
+passed, and both draft PR descriptions were updated/read back. Main formal
+comparison and all ten fresh 30-minute acceptances remain outstanding.
+
 ## Before and ON gRPC functional acceptance — 2026-11-20 22:04 UTC
 
 The ON original component and assembled B18 stages completed at 22:04:20.635963
