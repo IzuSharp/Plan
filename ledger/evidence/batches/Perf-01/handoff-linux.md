@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 03:46 UTC
+## Current state — 2026-11-20 04:12 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
@@ -31,17 +31,33 @@ The completed CI119 tree equals the R3 product tree, but actual workflow,
 job logs and downloaded evidence confirm that it did not execute full A20.
 The minimal CI-only commit `7b588c48e2898d93423ff278814370cdd7b49030`
 adds the unchanged complete A20 harness and requires it in the existing Verify
-aggregate. Its exact source was read back from GitHub; CI120
-(run44669770570) is in progress. This functional sanitizer job does not alter
-the frozen local performance toolchain. The final after source checkout now
-uses this clean commit; runtime implementation is unchanged from R3.
+aggregate. Its exact source was read back from GitHub. The complete A20 job in
+CI120 passed with ASan, UBSan and leak detection enabled; the [actual artifact
+audit][ci-a20] verifies all48 outcomes and96 command-log hashes. The whole CI120
+workflow was subsequently superseded and cancelled by the next normal PR update,
+so it is not a whole-workflow pass. CI121 on the current head is still pending
+full canonical and pristine evidence. This functional sanitizer job does not
+alter the frozen local performance toolchain.
 
 B17's first two attempts executed its real native/JIT/AOT and example checks,
 but failed while writing its legacy cost/result files: first a missing default
 report directory, then an unsupported external artifact path. Both failed
-receipts remain preserved. A fresh attempt uses the verifier's supported
-in-checkout artifact location. A17/A18/B19, canonical verification, actual after
-builds and all after measurements remain pending.
+receipts remain preserved. The third attempt passed using the verifier's supported
+in-checkout artifact location. A17 also passed. A18 exposed an existing test
+assumption: its unchanged original self-close assertion failed in two of three
+fixed baseline processes and two of three candidate processes. The [diagnostic
+report][a18-diagnostic] retains every outcome and the source-supported race.
+The narrow test correction is published as
+`3db42f3131c72be217e49e386ba61ece7cee27fb`; its complete JIT, Native AOT and
+package gate passed at04:00:37.317440 UTC. Runtime implementation remains
+unchanged from R3, and the clean after checkout uses this current head.
+
+B19 then passed native, JIT and compiled-API checks but failed its AOT
+managed-tail fixture's immediate native-completion assertion. The failed result
+is retained. Its shutdown/cancellation ordering is being investigated; no gate
+pass is inferred. Actual after package builds and all after performance
+measurements remain pending. The revised local after-long publication proof
+passed51 finite source/negative checks; this grants no business-load credit.
 
 | Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
 | --- | ---: | ---: | ---: | ---: |
@@ -172,3 +188,7 @@ research-only phase text; no repository protections or required checks are waive
 [runtime]: checks/runtime-functional-001/public-summary.json
 
 [a08-a20]: checks/retained-runtime-functional-gates-001/data-001/README.md
+
+[ci-a20]: checks/ci120-a20-001/README.md
+
+[a18-diagnostic]: checks/a18-self-close-diagnostic-001/data-001/README.md
