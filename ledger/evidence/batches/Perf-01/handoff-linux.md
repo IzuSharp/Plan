@@ -1,5 +1,47 @@
 # Perf-01 Linux x64 handoff
 
+## Final-003 build started; diagnostic gate failure retained — 2026-11-20 14:23 UTC
+
+The actual final-003 nine-producer build started at **14:21:28.805883 UTC**
+from selected product `2e3995df8d86583ee9443348276ca8d918056bfc`, tree
+`246de1eb9368efbc62f46ce10c4a8a894d646152`, in its clean dedicated checkout.
+Preparation index is `e95bbd5bf04f677c715c0293c0e6eed0870d26f195984eb9ca0cada68795992c`.
+Native production is running; no final-003 build completion, binding, formal
+comparison, capacity result or after-long duration is claimed yet. The required
+post-build observer managed-package proof and original binding preparation remain
+next. Source-only diagnostic repair proceeds separately on the reserved source CPU.
+
+The [first DB diagnostic source gate](checks/db-phases-source-gate-failure-001/README.md)
+failed before any native/package producer or application measurement ran. Rustfmt
+passed; Clippy exited 101 on exactly two unnecessary `u32` casts in the diagnostic
+SQLite trace setup/callback. The outer stage ended at **14:19:05.293309 UTC**.
+Both owned process groups and adopted descendants retired without cleanup signals.
+Actual failed receipt SHA-256 is
+`48fee8de0054e7325691e375876014c78097fabf0cfd2135e8f8f8861e78d338`.
+The original diagnostic source/index, children and outputs remain unchanged.
+A new 002 preparation will remove those two casts and use fresh diagnostic source,
+package and output identities. The selected product source is unaffected. No
+failed diagnostic observation is counted as a performance result.
+
+[Cache cleanup006](checks/compiler-cache-cleanup-006/README.md) and the
+[old-build lossless retention](checks/obsolete-build-cold-retention-001/README.md)
+are complete. The latter ran **14:16:12.930893–14:16:56.673625 UTC**:
+342 duplicate files / 1,428,425,528 original bytes became 643,251,109 gzip bytes.
+Every original/decoded hash and size matched before removal; ordinary modes and
+mtime are recorded for fresh restoration. Six bounded checks passed beforehand.
+Manifest SHA-256 is `7246f36320248c631f6b0438e003b85cb309ac4f72df5c6aff31921a86b1711d`.
+Canonical tested artifacts, all packages and original result identities remain
+retained. The separate old-deps metadata census found zero candidates because
+its twelve direct dependency directories were absent; no additional savings are
+claimed and that scope will not be repeated.
+
+Public Plan `a08a2e022b02cb1cdab1fe8f8c75e2769bf937e6` contains the CI127
+archive audits and prior handoff; all seven selected files were fetched back
+exactly. Plan CI181 passed at **14:15:30 UTC**. Both PRs remain draft. Five
+before long groups remain accepted, and **zero final-after long groups** are
+credited. Continue from the active final build, required actual bindings, repaired
+DB diagnostics, fresh comparison/capacity queues and five after long groups.
+
 ## CI127 audited; exact cache cleanup completed — 2026-11-20 14:09 UTC
 
 The [canonical/package audit](checks/ci127-canonical-001/README.md) and
