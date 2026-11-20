@@ -1,5 +1,37 @@
 # Perf-01 Linux x64 handoff
 
+## gRPC B18 cancellation failure and audited CI124 — 2026-11-20 11:07 UTC
+
+The fresh B18-only continuation ran from 10:53:08.212044 to
+10:53:35.414531 UTC. Adding the already-locked Clang directory resolved the
+earlier compiler lookup failure: native layout, exports, locked restore and
+Release JIT compilation passed. The actual JIT executable then exited -6;
+the functional verifier exited 1. Both failed executions remain unchanged.
+The continuation receipt SHA-256 is
+`0ec9eb69f0ff9c5f50c90b6918c7fcf465c7da0a5920ff1330ae9f5a348cc627`.
+
+The failure is the new fixture's three-second `AcrossWaitIdle` assertion after
+client cancellation while response encoder 103 is blocked, followed by release
+of that encoder. The client observed its expected Cancelled classification.
+Final host close subsequently passed its zero-resource check, but this does
+not establish that per-call retirement met the earlier deadline. The original
+failure log does not expose the four individual idle counters; neither a
+product leak nor a fixture error is concluded yet. Independent source review
+and a minimally instrumented same-fixture control/candidate comparison are the
+next diagnostic steps. No timeout or assertion has been weakened. Owned and
+adopted processes retired, and no composite eligible build receipt was created.
+
+The [CI124 canonical](checks/ci124-canonical-001/README.md) and
+[A20](checks/ci124-a20-001/README.md) archives have separately passed full-byte
+and named-member audits for candidate tree `6dad1215d22d5c950c33dafeae3e9d876ec7cd0b`.
+All seven CI jobs succeeded. A20 records 48 expected outcomes, 96 verified
+logs and 20,000 actual fuzz units; its sanitizer coverage is limited to the
+existing C components. CI does not substitute for the failed local B18 gate.
+
+The gRPC candidate remains unretained, with no candidate noise/comparison
+process or final-after long run credited. All completed `0715` short results
+and the five accepted before long groups retain their original identities.
+
 ## Rejected SQLite experiment and pending gRPC gate — 2026-11-20 10:46 UTC
 
 The separate [SQLite cleanup-Ping experiment](checks/sqlite-cleanup-ping-rejected-001/README.md)
