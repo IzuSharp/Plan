@@ -1,5 +1,26 @@
 # Perf-01 Linux x64 handoff
 
+## Exact restoration and fresh candidate retry — 2026-11-20 21:34 UTC
+
+The recovery baseline completed all eight producers at 20:37:52 UTC; the direct
+comparators/common corpus completed at 20:47:06 UTC; before gRPC component and
+assembled B18 checks passed by 21:02:12 UTC. These actual successful records are
+preserved. The first ON build failed at 21:19:53 UTC when the locked SDK executable
+was absent, before any managed build. Its cause is unknown. Exact SDK 11.0.100
+and locked Design sources were restored and verified; the failed role remains
+preserved unchanged. A new complete eight-producer ON build started at 21:34:19
+UTC. Its terminal result is pending at this checkpoint. See the
+[concise actual record](recovery/epoch-001/sdk-restoration-001/README.md).
+
+Automatic publication review rejected broader internal inventories and execution
+control details. Those proposed bundles remain unpublished. Public updates are
+limited to necessary project identities, synthetic outcomes and validation
+summaries; no full-raw remote archive is claimed. The latest prior public
+checkpoint is `bffe6524cd437e061698dcea2dfb4b8de3db3b53`, whose CI194 passed.
+
+**Recovery formal measurements and long acceptance remain zero; all ten new
+30-minute segments are outstanding.** Historical results remain separate.
+
 ## Recovery build attempt 003 preparation — 2026-11-20 20:22 UTC
 
 Attempt 002 ended with an actual failure at 20:16:36.912200 UTC. Native-stable and packages both completed/retired; reference failed/retired before its first application build because h2 metadata was missing. Preserve execution SHA `a7fb57acb2d09f6df58390d6be3d6bb51a36aa3714d9d38d4e8ad18a3fb3dad4` and all outputs. This is distinct from attempt 001's unknown terminal state.
