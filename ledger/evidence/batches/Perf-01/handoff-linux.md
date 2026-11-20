@@ -1,5 +1,151 @@
 # Perf-01 Linux x64 handoff
 
+## Corrected weak binding passed; six fresh ON noise processes are running
+
+The narrow correction received independent ACCEPT at Plan03de36e. The new
+zero-producer binding actually passed at18:17:40.897959–18:17:42.934707 UTC on
+2026-11-20, without rebuilding or changing the existing f20 outputs. Its receipt
+is `a552b7c4f0742ecac7712a61f72bbcbf31ea0290bd912c7a624d4858e96a937a`;
+measurement-binding SHA-256 is
+`704eaab1e0fc59bf288ad97958c1df4af767f36a680bb9a0fbe7c5f769b6bdb4`;
+effective-input SHA-256 is
+`0f0de2a50f778d4fe8b85419886569914de71b02f21e89c854682458db5e75ab`.
+The failed001 receipt and original source index remain unchanged.
+
+Six fresh ON noise processes started at18:18:39.082109 UTC, tool session53595.
+The original finite owner now holds the exclusive timing resource. Its control
+is `perf01-run/grpc-weak-001/noise/execution.json`; the first unary process is
+running. Only bounded CPU8 source/small-control work may overlap; no builds,
+inventories, payload hashing, raw readers or storage work outside this owner.
+The completed noise index must receive independent review, publication and exact
+readback before comparison. The18-process ON/OFF/direct comparison, fresh
+capacity pair, status-client runtime and all five final after long groups remain
+pending. **Five before / zero after long groups remain accepted.**
+
+## Archive and weak OFF producers complete; binding correction awaits review
+
+At18:04:35.233159 UTC on2026-11-20, the exact 483-file archive completed with
+zero exit and clean group/adopted retirement. The final owner receipt is
+`8daab05c79a9fa55cf03be7b4b8276204c8ed7ca35700a911edff330ccbea687`;
+the manifest is
+`4869f7e682b1b2bba5e79345396e653340ab130154bf490d15ad69b4352bdb11`.
+All 4,640,235,640 original bytes have verified compressed and full-decoded
+counterparts; gzip bytes total1,651,272,305. The manifest records free space
+1,384,419,328→4,285,296,640 bytes. The exact restore command remains in its
+fixed bundle's `RESTORE.txt`. The previously reported seven checks are actual
+passes for this frozen source. This storage work grants no performance credit.
+The reviewed public totals and exact evidence hashes are in
+[the storage checklist](checks/historical-unprotected-cold-retention-001/README.md).
+
+Plan's standard `git repack -a -d --keep-unreachable --threads=1` then completed
+under the exclusive lock, preserving all refs byte-for-byte (SHA-256
+`613ee4c3ab1be14e412be2115cf1caf234a62669826245580a864ce4ace2ea50`).
+It did not prune objects, reset refs or remove working files. Its separate
+receipt is `3049bb5b7b65a4d6e7cc99ab3dfc36130af82803c76cf39ffacc0fc06e287cc8`;
+observed free space increased4,285,235,200→4,314,693,632 bytes. Do not attribute
+this additional metadata compaction to the lossless archive.
+
+The independently accepted weak OFF three-producer stage ran from
+18:07:52.400876 to18:13:43.576056 UTC, source indexf20dd38a, tool session42393.
+Actual entry
+free space4,314,677,248 exceeded its unchanged4,294,967,296-byte floor.
+All three producers exited0 with clean group/adopted retirement, including the
+full independent B18 JIT/AOT/API/package gate. The actual build owner is
+`8ce2a50ac65845740443cbe9c68ccd9da95819998e5db5fe8897013ac98ab710`;
+its850-artifact binding is
+`483112ed17c3015828657d06c136bdd96acefa0e6813b978230c25ff9d1a18fc`.
+The native-source proof is
+`3b8af8341b2fece7686ae2d16f6f5984857ffddd1352016b1fe6b23fd26bad36`;
+the OFF protocol manifest is
+`cfc8f35202f9382c70868874b2dc83ad44b5f2e805a9569cc3537f35549b941d`;
+the fresh B18 result is
+`e5c33026dd19d386509d87525ecb71e72fb57a552dcfd4b4363434a9a300700f`.
+Managed source remains actual963dfbc and reused native source actual2e3995d.
+No weak-cache retention decision or new performance result follows from these
+functional/build successes. Actual free space after production was1,700,675,584
+bytes; later build preparation requires additional reviewed cache recovery.
+
+The first zero-producer measurement binding failed at18:15:16 UTC because the
+new binder read executed owner rows as `label` instead of their actual `id`.
+The original receipt is preserved at
+`perf01-run/grpc-weak-001/measurement-binding-001/execution.json`, SHA-256
+`3b54b95035547895006d14334e17ab3e01aadc8e55f3fc6b281b3103d3df51ca`.
+No producer or measured process ran. Root's minimum forward correction is
+Plan03de36e in the separate weak-measure worktree: read `id`, use fresh
+`measurement-binding-002`, and pin the original failed receipt. The corrected
+source index is
+`36314001faf7717ab2d50c5e0429f59610ac406121cb2fe22f610953037a013a`.
+Independent narrow review and actual binding are pending; original reader,
+queue, service policy and A21 calculations are unchanged. Then run six fresh
+ON noise processes, publish/read back their actual policy/index, and only then
+the18-process ON/OFF/direct comparison and separate capacity pair.
+
+The status-client source and exact restoration prerequisite received independent
+ACCEPT at Plan `a8f49481529785cc7367a2e3119cace070a0b664`, source index
+`128a76f7c6266ef54570c24bb591dfd21cc41544ea036b3e8d828e2eaf5850ff`.
+Its 309-member external restore caller is
+`perf01-run/grpc-status-cache-restore-caller-001.py`, SHA-256
+`b103d509312771f23389123eeb1b92015fc7287f82c2691faf0bd627d6b51b78`.
+The original restore helper, exact copied argv, signed-package raw/content
+distinction and actual future-input closure were checked. Restoration, the
+three Client commands and the single192/s diagnostic cell remain unrun.
+**Five before / zero after long groups remain accepted.**
+
+## Resumed: narrow archive is running after seven actual checks
+
+The complete public checkpoint is Plan
+`43466be08997d55d65234db936bca11004d8ffc7` (publication102). Eight selected
+files, 172,180 bytes, were fetched back exactly, including both new check
+bundles, the source-review addendum and this handoff's preceding version.
+The private readback receipt is
+`faa36243c80463f6ec6d0b9f498788a6924a147d0044482986ba1ef1ecf791a3`.
+Both PR bodies were updated and fetched back exactly. Plan CI187, run44785113503,
+passed. Public NativeWeave remains `2e3995df`; both PRs remain draft.
+**Five before / zero after long groups remain accepted.**
+
+The narrower historical selection actually completed its metadata census at
+17:43:37.550545–17:44:06.834686 UTC on 2026-11-20. Its clean owner receipt is
+`957aff4d58e46fe523de6d1ca6cfc835bd14977a639317c9fa4045a2717b333c`;
+the immutable selection is
+`5ce2597eba526cf7cf1dfe8322c799d29f5cc0b3f0912123ca593da3dccc1848`.
+The actual scope is 483 files / 4,640,235,640 apparent bytes /
+4,641,058,816 allocated bytes. Every inherited protected artifact/reference and
+all planned future inputs remain hot. Independent metadata review reconstructed
+5,463 references and 7,490 hot entries and found no selected intersection.
+This census has no candidate payload hashing, compression or removal credit.
+
+The exact four-constant freeze is Plan
+`49a038d370e8bc8afeed66c8f3682c0ad3204e3a`, source index
+`be97df5b33980d3de64e614ef9f816e4043ebfdfffe2a68718c372a7e5f9829a`,
+retain source
+`a73e9ff02f650290495e08c2044edca60a5c887ccf814c0f008eaac4a3bc074e`.
+The existing owner/guard caller is
+`perf01-run/historical-unprotected-retention-caller-001.py`, SHA-256
+`2885cd4c101bb9f26de92f4d2621c660d89f0a53031ef303dd858c2c021c8e6a`.
+Independent review accepted the freeze and caller before runtime. All seven
+temporary-file tests actually passed at17:54:34 UTC with clean group/adopted
+retirement; their receipt is
+`da3f1721607f8261501bd363176892ed3bf49d0488e7163d55d31b8a376abae7`.
+
+The actual archive is now running in tool session8898, using the exact fixed
+fresh bundle `perf01-archive/historical-unprotected-cold-retention-001` and
+control `perf01-run/historical-unprotected-cold-retention-001-retain-owned-001`.
+Its parent descriptor is unheld; the existing retention child holds the
+exclusive timing lock. No formal load may overlap this stage. Inspect actual
+completion/manifest/space before claiming savings or starting a build; never
+overwrite or resume a partial archive decision. Per-file original/compressed/
+fully decoded hashes, source re-read, durable recovery mapping and identity
+checks remain unchanged. There is no measured-performance credit.
+
+The gRPC status-client preparation additionally identified exactly 309 missing
+expanded members (119,494,447 bytes) of its eight already-resolved packages;
+49 declared members remain present. Its source-only mapping binds each missing
+member to the actual cleanup007 verified-unlink intent and durable restore
+record. Root will restore through the existing exact member helper after
+review and space recovery. No new package/version/download or signed-package
+raw/content-hash equivalence is assumed. The client diagnostic, weak OFF
+producers, fresh weak noise/comparison and DB final producers remain unrun.
+
 ## Resumed: capacity interruption preserved; before binding and cleanup008 complete
 
 The latest complete public checkpoint is Plan `6ecc417b29c48f1ebe9627b2d9fb933f95c9db71`.
