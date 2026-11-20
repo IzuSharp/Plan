@@ -1,12 +1,12 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 05:43 UTC
+## Current state — 2026-11-20 06:01 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
 runtime candidates are built and functionally verified. Layered profiling is
 complete. Formal database comparison has partially collected valid processes;
-a stopped queue is being continued without replacing completed observations. All five final
+the fixed remaining queue is running without replacing completed observations. All five final
 after long groups and final performance acceptance remain pending.
 
 R1 is published as `da95b81282b25152e82c9aa7877cd872ea9e03a0`: reuse successfully
@@ -120,8 +120,19 @@ operations but missed the unchanged500ms standard with p99=1,524.691236ms.
 The launcher incorrectly required every collected comparison row to meet the
 service standard and therefore exited1. The [partial numerical checkpoint][db-partial]
 preserves every result and the failure; no sample is rerun, removed or relabeled.
-A narrowly bound continuation is being prepared for the remaining32 processes
-and original readers, keeping the exact matrix, order, thresholds and noise.
+The narrowly bound continuation started at05:54:37.826927 UTC for the
+remaining32 processes and original readers, keeping the exact matrix, order,
+thresholds and noise. It uses source SHA-256
+`3a5bb35e45f98dd9c65c2f998414e2693919b567d4ce729df22e42ad9206b135`
+and exact-prefix proof SHA-256
+`6375e85f6e9709ce3922e9248cb0b6662b4e095832da75ae0b10cda36105703f`.
+The [actual continuation checklist][db-continuation] preserves all preflight
+exits and input hashes. Its eight finite checks passed, including all sixteen actual terminal control
+schemas, followed by a successful real description. The first description had
+failed before workload because the launcher read `max_rss_mib` instead of the
+existing `max_app_rss_mib` field. That failure and the initial seven finite
+model checks are preserved; only the read key changed, retaining256MiB.
+Independent review covered the fixed-prefix continuation and reader correction.
 A separate reader correction recognizes existing comparator `Stopped` versus
 NativeWeave `Disposed` terminal enums; its89 finite checks passed. All other
 validity/SLO/persistence/release gates remain, and the actual managed SLO miss
@@ -144,6 +155,18 @@ SHA-256 is `b5d703dc1edf5b6c6f6ebe7d59fd80f55bd176c25237907d79b16b82614b67b1`.
 It preserves all original valid, invalid and interrupted classifications and
 gives no measurement credit. Actual available disk afterward was11,614,433,280
 bytes; database and application files were outside the storage selection.
+
+The separate [PostgreSQL snapshot storage report][storage003] covers the actual
+05:35:44.358063–05:37:01.847585 UTC operation:245 selected large files from79
+stopped baseline calibration clusters,2,364,178,432 original bytes preserved
+in447,308,972 verified gzip bytes, all records removed only after their recorded
+full decoded readback and source rehash. Small files and all original controls
+remain. The103,381-file inventory is descriptive; only245 files were selected.
+These partially cold clusters require exact restoration before restarting.
+The67 originally valid and12 invalid classifications are unchanged. The actual
+ending free-space observation was11,477,278,720 bytes; it is not a promise about
+space available to later loads. The15 finite checks and actual storage process
+passed. This operation gives zero performance or long-duration credit.
 
 | Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
 | --- | ---: | ---: | ---: | ---: |
@@ -289,3 +312,6 @@ research-only phase text; no repository protections or required checks are waive
 [layered-after]: checks/final-layered-profiles-001/results-001/README.md
 
 [db-partial]: checks/database-collection-checkpoint-001/public-summary.json
+
+[db-continuation]: checks/database-continuation-002/public-checklist.json
+[storage003]: checks/calibration-postgresql-cold-retention-003/README.md
