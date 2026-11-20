@@ -1,5 +1,135 @@
 # Perf-01 Linux x64 handoff
 
+## Execution environment unavailable during the fresh weak comparison
+
+**This is an interruption checkpoint, not final acceptance. Five before
+30-minute groups and zero final after groups are accepted. Both PRs remain
+draft.** The executor transport disconnected during the newly started
+18-process weak-writer comparison. A recovery attempt timed out, the environment
+reported unavailable, and an empty poll of the existing session returned
+`No usable execution environment is available`. No process signal or
+termination command was sent. It is unknown whether the measurement continued
+after the last observed output; no terminal owner or result proof was available
+to read. Do not rewrite its receipt or call the unobserved cohort passed,
+failed, or cleanly retired.
+
+### Last directly observed comparison boundary
+
+The reviewed original runner was started with corrected measurement inputs
+`0f0de2a50f778d4fe8b85419886569914de71b02f21e89c854682458db5e75ab`
+and complete fresh noise index
+`13cdfeaa09f02f0d4b6cb615ecc9d2fddd073b9c378968324392006634edf675`.
+The noise had already been published at Plan
+`29be1c5d9ee4dc5e1e7a458065a733f0b999e0c6` and its four files, Git blobs
+and branch were read back exactly. The local publication-readback receipt was
+`3b94abf3a16008130ac323678b7f6292c2a73a35f38a330bdb02b09a412b7bb6`.
+Both PR descriptions were updated and read back. Plan CI189, run44794141479,
+subsequently completed successfully; NativeWeave's public head remains
+`2e3995df8d86583ee9443348276ca8d918056bfc`.
+
+The comparison used tool session23797, original exclusive ownership, and fresh
+control `perf01-run/grpc-weak-001/compare/execution.json`. Last direct tool
+output on 2026-11-20 recorded:
+
+| Command | Exit | Observed completion UTC |
+| --- | ---: | --- |
+| grpc-unary-0-before-prepare | 0 | 18:41:12.330894 |
+| grpc-unary-0-before-run | 0 | 18:41:46.688447 |
+| grpc-unary-0-after-prepare | 0 | 18:41:48.468662 |
+
+Here the existing diagnostic labels mean **before=retained ON2e,
+after=OFF963**, not the original Perf-01 main baseline. The first ON unary run
+completed; only OFF preparation completion was directly observed. The OFF
+runtime, later cells, original readers, final screen and complete 18-process
+cohort have no observed completion at this checkpoint. The first failed new
+metadata command reported exec-server transport disconnected; its retry
+reported recovery timed out. Those are environment/tool errors, not measured
+application outcomes. The completed six-process ON noise remains separately
+valid; broad bands are unchanged.
+
+### Cleanup010 actually completed before comparison
+
+Root ran the reviewed selection through the unchanged finite owner and adopted
+guard. Actual inventory SHA-256 is
+`0e5847a31073091e5723a24ab846812a99156d9c9cd0a50df18df2030bc34dfa`;
+its owner is
+`1d8c4a16a9ef755b9bfe8f159eaf3a4e7ef52bebe7b9b76baba9fff1df78d13c`.
+The 2,098 unique candidates comprise 2,094 external NuGet expanded members in
+two new private caches and four exact publish-bound AOT objects. The inventory
+rehashed all 5,448 protected artifacts, preserved 6,227 references and 204
+metadata sources, and found no missing AOT path or unmatched SDK member. Its
+selection/caller independent review is
+`457b7be7839436dec0d533555a64bd3956fde4722ad5a7573b135fc965690426`.
+
+The sole executable freeze changed `INVENTORY_SHA` to that actual digest in
+commit `9c7450ffe88014ccfb49d062cd421e7f15176982`. Cleanup source is
+`d0d853adf28b5883fc13dae833e71c87c1a9b4b54781afd77525fed900a58679`;
+selector263f1b9a and restore112cec09 remain unchanged. Root and the independent
+reviewer accepted the one-constant freeze; no new primitive test or census was
+required or run. The exact owner caller is
+`e6e01391772db13b4e3d6d597ed96171037ebab47c4257e00be26319cc128cc5`.
+The independent English freeze note was separately committed at1603dca in the
+reviewer's Plan worktree; that short commit is not a public acceptance identity.
+
+The cleanup result records 18:40:01.070215–18:40:21.877972 UTC on 2026-11-20:
+all2,098 files unlinked, all2,094 selected SDK members fully compared against
+retained decoded archives before unlink, 856,372,307 selected bytes, no removed
+package archive, tested output or raw evidence. Free bytes in that result were
+1,599,660,032 before and2,447,618,048 after; these observations are not a claim
+that apparent bytes equal filesystem free-space change. All protected artifacts
+were checked by the unchanged engine. The actual result, journal and clean
+final owner hashes are respectively:
+
+- `f7257303d320a309c4be0446ca5121e1837b34eafbf6ee5704d6f77577e51aae`
+- `ec85c3f3ee11fe8caba8d672c40ca83dea1aa73533063ada759eaa83a2391855`
+- `25ecd2064cd8160be65467f2a9bca8c861636f67419fb362bfe27fc1e72a6c0c`
+
+The owner reported exit0 and complete retirement at18:40:21.914611 UTC.
+These actual cleanup results were read before the environment loss. They grant
+zero workload, performance or long-duration credit; do not rerun cleanup010.
+
+### Resume from the preserved owner, not from an assumed result
+
+Restore access to the original fixed measurement workspace first. Inspect the
+unchanged comparison receipt and actual controls before deciding whether a
+cohort is complete, partial, invalid or still active. Do not signal a historical
+PID or start overlapping load. Preserve every existing result/failed/partial
+output; do not overwrite a fresh-root guard or silently replace samples. If the
+original owner completed normally, validate its actual terminal proof and use
+those results rather than rerunning an accepted cohort. If not, record the
+observed interruption and prepare only the required remaining work using the
+same frozen policy and explicit continuation semantics.
+
+The fresh ON/OFF capacity adapter was reported committed locally at3107bff,
+scope `diagnostics/grpc-weak-capacity-001` in the independent
+`Perf-01-grpc-weak-capacity-linux/Plan` worktree. The author observed the
+five-file commit before disconnection, but its full commit/source index and
+actual bytes were not read back or independently reviewed. It is **unreviewed
+and unrun**. Verify those identities and complete source review before any
+invocation. Its intended recipe uses the unchanged calibrator with
+`--variant after` for both explicit ON/OFF roles, separate attempts, unchanged
+mixed gRPC policy, C64, finite ownership, and OFF binding to an actually completed
+fresh ON receipt. This description supplies no execution authority for an
+unverified source.
+
+The conditional per-domain admission work remains unselected source planning;
+no new domain map, final producer or acceptance is claimed. If OFF is retained,
+follow the existing applicability memo: DB/codec may retain only their exact
+actual2e whole input closures with explicit per-domain provenance, whereas the
+shared new OFF HTTP/gRPC consumer needs its own formal timing. Never relabel
+old producers or reuse old processes as new interleaved samples.
+
+After actual comparison recovery, remaining work is the fresh capacity pair
+and retention decision; the source-reviewed status-client cache restoration,
+three client producers and one diagnostic cell; DB final diagnostic production,
+mandatory cleanup009 and eight diagnostic cells; main DB and codec comparison
+continuations; remaining capacities; final source/package/native binding; all
+five final after1,802-second groups; numerical reports, review, both merges,
+post-merge CI and the normally triggered existing HelloWorld preview. The
+status diagnostic, DB final producers, capacity pair and all five after long
+groups were still unrun when access was lost. Public domain-package release
+and24h/72h remain deferred.
+
 ## Six fresh ON noise processes completed; original bands frozen for comparison
 
 The actual noise owner completed from 2026-11-20T18:18:39.082109+00:00 to
