@@ -1,5 +1,29 @@
 # Perf-01 Linux x64 handoff
 
+## Baseline attempt 002: fresh production after session loss
+
+The first new baseline tool session became unavailable without an observed final
+owner receipt. Its SQLite/Server Release command completed, PostgreSQL compilation
+started, and the owner control remains `running`. The original receipt and logs
+are preserved unchanged. At 19:59:58.360943 UTC, the current boot still matched
+and the timing lock was free; this is not proof of a normal terminal owner or
+native retirement. The interruption cause has not been established. No product
+measurement had started and no partial producer is accepted.
+
+A full fresh baseline build started at 20:05:13.311839 UTC on 2026-11-20 with
+[runtime inputs 8898e8c1](recovery/epoch-001/build-attempt-002/README.md).
+Only output/control roots and an explanatory attempt note differ. Source index
+`c7526f08d3c50c6d58f7336adae6ebab5fb82b606cce140108a48f6b54b3d0ab`, actual
+toolchain, clean EA5/ON2e sources, versions and compiler settings are unchanged.
+The new session is actively polled. Fresh NuGet and compiler target roots admit
+no incomplete prior producer result. All eight actual producer receipts and
+terminal ownership are still required before any performance admission.
+
+Plan publication 107 is `4108dbeefcda013e5d72ee592d894163682151c0`.
+Its thirteen source/review/checkpoint files, Git blobs and branch were read back
+exactly. Plan CI191 and CI192 both passed. Recovery long progress remains
+zero before / zero after; the historical five before groups remain separate.
+
 ## Recovery execution resumed: baseline producers running
 
 The reviewed new build owner passed all three actual finite ownership fixtures
