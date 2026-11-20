@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 03:21 UTC
+## Current state — 2026-11-20 03:46 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
@@ -20,11 +20,28 @@ published as `bf0755977b16d049ee35a192f456779ce74c3767`; B15 and the fresh B18
 attempt002 both passed, including compiled API and independent package
 consumption. The [direct regression report][runtime] preserves exact receipts
 and the initial missing-launcher failure. All runtime candidates match their
-independently reviewed source. A08 also passed. The first A20 attempt completed its managed JIT/AOT and API
-checks, then failed while linking the fuzzer because the matching Clang19
-sanitizer/fuzzer archives were absent. The exact compiler-version test runtime
-is being restored from the retained package index; no sanitizer check has been
-disabled. Remaining gates, actual after builds and measurements are pending.
+independently reviewed source. A08, A23 and B16 also passed. The
+[A08/A20 numerical report][a08-a20] preserves the two local A20 failures:
+missing matching Clang sanitizer archives, followed after restoration by a
+LeakSanitizer fatal diagnostic explaining the unsupported ptrace environment.
+The second fuzz process completed20,000 inputs but exited1; A20 remains
+unaccepted locally and no sanitizer has been disabled.
+
+The completed CI119 tree equals the R3 product tree, but actual workflow,
+job logs and downloaded evidence confirm that it did not execute full A20.
+The minimal CI-only commit `7b588c48e2898d93423ff278814370cdd7b49030`
+adds the unchanged complete A20 harness and requires it in the existing Verify
+aggregate. Its exact source was read back from GitHub; CI120
+(run44669770570) is in progress. This functional sanitizer job does not alter
+the frozen local performance toolchain. The final after source checkout now
+uses this clean commit; runtime implementation is unchanged from R3.
+
+B17's first two attempts executed its real native/JIT/AOT and example checks,
+but failed while writing its legacy cost/result files: first a missing default
+report directory, then an unsupported external artifact path. Both failed
+receipts remain preserved. A fresh attempt uses the verifier's supported
+in-checkout artifact location. A17/A18/B19, canonical verification, actual after
+builds and all after measurements remain pending.
 
 | Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
 | --- | ---: | ---: | ---: | ---: |
@@ -153,3 +170,5 @@ research-only phase text; no repository protections or required checks are waive
 [r1]: checks/R1-A02-001/public-checklist.json
 
 [runtime]: checks/runtime-functional-001/public-summary.json
+
+[a08-a20]: checks/retained-runtime-functional-gates-001/data-001/README.md
