@@ -1,0 +1,57 @@
+{
+  "task": "Perf-01",
+  "kind": "grpc-scratch-ablation-004",
+  "scope": "Prospective gRPC scratch diagnostic after shared header-credit and managed-admission correctness repairs in both roles. Fresh six-process corrected-control-only noise precedes eighteen comparisons; frozen protocol loads, formulas and resource limits are unchanged. No global before/after, capacity or long-test credit.",
+  "control_source": "db95a9fbdd18c208ba8fa3fdb6dabaa2bcc073c0",
+  "candidate_source": "9de3f74444246e356a2b12ab664ef99286309aaf",
+  "control_tree": "246de1eb9368efbc62f46ce10c4a8a894d646152",
+  "candidate_tree": "0c763ba3b908dcc289528369231daf1788f87571",
+  "control_version": "0.1.0-perf01.grpc-retirement-control.1",
+  "candidate_version": "0.1.0-perf01.grpc-retirement-candidate.1",
+  "profiles": [
+    "grpc-unary",
+    "grpc-streams"
+  ],
+  "screen_policy": {
+    "absolute_limits": "Unchanged frozen correctness, generator validity, p99 500ms, RSS 256MiB, zero unexpected errors, payload credits, recovery and drain limits all mandatory.",
+    "before_only_processes_per_profile": 3,
+    "comparison_processes_per_route_profile": 3,
+    "id": "grpc-scratch-004-prospective-001",
+    "interpretation": "Descriptive resource/tail screens from three independent processes; no confidence claim for p99/CPU/RSS. Screen pass is eligibility for review, never retention or formal acceptance.",
+    "latency": "No latency improvement required; any original A21 mean-latency regression verdict vetoes the screen.",
+    "missing": "Any missing/nonfinite required observation is unresolved; any failed screen is rejected. No changed threshold, selected replacement or automatic retry.",
+    "primary": "All three candidate unary allocation MiB/s observations strictly below all three interleaved control observations by more than the frozen A-only allocation range.",
+    "tail_and_resources": "For every ordinary scenario p99, and whole-profile server CPU percent and sampled maximum RSS, candidate mean and maximum each may exceed interleaved control mean and maximum by no more than the corresponding frozen A-only process range. Applies to both profiles."
+  },
+  "prospective_supersession": {
+    "candidate_original_source": "e524ade4b5be0b8d556d2dd6f8e8d9fa9698c2f5",
+    "control_original_source": "0715ffb6376b1ae08259ad7e2cb30ff0320d83e7",
+    "fresh_control_noise_before_comparison": true,
+    "native_hashes_must_match": true,
+    "prior": "grpc-scratch-003-prospective-001",
+    "reason": "Both roles add the same proven managed request-admission lifetime correction after the earlier common native header-credit correction. B17 managed JIT/AOT passed; all affected shared gates remain mandatory before new timing. No old scratch timing exists.",
+    "same_formula_driver_limits": true
+  },
+  "supersedes": {
+    "failed_execution_sha256": "7448091c8272160f261c4b6b2f9756ecc4e98f4dee10049e60bf4f28105568f4",
+    "kind": "grpc-scratch-ablation-003",
+    "reason": "Spontaneous managed admission tail rejection in corrected-control AOT; no scratch timing ran. Original failed records and plans remain unchanged."
+  },
+  "prerequisite_b17_managed": {
+    "path": "/workspace/scratch/01c249676f47/perf01-run/server-retirement-managed-001/execution.json",
+    "sha256": "9ba7c4dd2d2d95f0fe911468815dfe980fb4304bbc26244ab673721957c8ddad"
+  },
+  "public_candidate_source": "12c477f0cdbc01fb026e98ac0e26eb45617424ed",
+  "public_candidate_tree": "0c763ba3b908dcc289528369231daf1788f87571",
+  "producer_identity_note": "The public source has the identical tree. Actual locally built package and executable producers retain their own exact source commit; no evidence is relabeled.",
+  "fixed_rate": 16,
+  "fixed_concurrency": 4,
+  "fixed_load_seconds": 20,
+  "control_only_processes": 6,
+  "interleaved_processes": 18,
+  "prospective_policy_only": true,
+  "timing_has_started": false,
+  "formal_matrix_credit": false,
+  "capacity_credit": false,
+  "long_test_credit": false
+}

@@ -1,5 +1,87 @@
 # Perf-01 Linux x64 handoff
 
+## Corrected-source scratch gates running — 2026-11-20 12:21 UTC
+
+The 31-command ablation-004 build began at **12:19:11.227549 UTC**. Its two
+clean source roles are `db95a9fb` and `9de3f744`, with public candidate
+`12c477f0`. The [prospective policy](candidates/grpc-scratch-004/prospective-screen-001.md)
+is fixed before any new timing: six fresh control-only processes, followed by
+eighteen interleaved A/B/direct processes only after the complete actual noise
+index hash is committed. Rates, limits, ordering and decision formulas are
+unchanged. The scratch candidate remains unretained.
+
+Independent source review accepted operational Plan `2270a8b1` and the narrow
+policy commit `5f48c8bd`; the input SHA-256 is
+`f546b04b0d120acb8987d7d8094338832d5a190786804d84b705d4bba6cd1dd4`.
+It verified all 42 pinned files, both clean product trees, 60 native-component
+source inputs in each role and 11 original component logs. The audit receipt is
+`e779dd99561bdc1e3d87ac7deb00b01298e5369c2614728c46e65f1158e919fa`.
+The batch requires fresh native/package/protocol producers and full B18 in
+both roles, plus B15 and the affected B19/B20 managed/API/package command
+subsets. Existing B17 and unchanged native-component evidence retain their
+original producers. Every command retains its original finite timeout and
+owned/adopted-process cleanup. No timing credit follows from this review.
+
+The [B17 completion checklist](checks/server-retirement-managed-001/README.md)
+records the actual 105 checks in each JIT/AOT mode. The separately curated
+[cache cleanup](checks/compiler-cache-cleanup-004/README.md) and
+[historical row retention](checks/calibration-row-cold-retention-006/README.md)
+record verified storage operations only. CI126 is still running at this
+checkpoint. Five before long groups remain accepted; zero final-after long
+groups are credited. The next source-dependent final build, complete matrix,
+capacity queues and five final long groups remain outstanding.
+
+## Shared retirement correction and B17 passed — 2026-11-20 12:14 UTC
+
+The independently reviewed Server-only correction is public NativeWeave
+`12c477f0cdbc01fb026e98ac0e26eb45617424ed`, parent `423c07c1`. Its exact tree
+`0c763ba3b908dcc289528369231daf1788f87571` matches local candidate
+`9de3f74444246e356a2b12ab664ef99286309aaf`; all five source files were fetched
+back exactly and independently verified. Corrected control
+`db95a9fbdd18c208ba8fa3fdb6dabaa2bcc073c0`, tree
+`246de1eb9368efbc62f46ce10c4a8a894d646152`, differs only in the three original
+managed scratch files. No Core, ABI, Rust source, admission limit or original
+gRPC/MCP assertion changed. The separate admission gate avoids the identified
+native-close/managed-control lock inversion and preserves actual physical
+retirement as a close obligation.
+
+The [actual B17 managed gate](checks/server-retirement-managed-001/README.md)
+completed from 12:07:20.425721 to 12:08:16.445972 UTC. All six commands exited
+zero; Release JIT and Native AOT each completed 105 checks and 43 original
+fixture dispatches. Both modes passed all four original transport markers and
+the new HTTP/1.1/HTTP/2 TLS tail, cancellation-fault and delayed-lease cases.
+Every owned/adopted process retired. Receipt SHA-256 is
+`9ba7c4dd2d2d95f0fe911468815dfe980fb4304bbc26244ab673721957c8ddad`.
+This is managed B17 evidence against the unchanged actual `28d793d6` native
+asset; its `da48ccf9` producer and the distinct `0542a776` native component
+remain explicitly separate. No full native replay, B18, performance or long
+credit is inferred.
+
+[CI126](https://github.com/IzuSharp/NativeWeave/actions/runs/44732929976) is
+running. The next independently reviewed preparation builds fresh same-source
+native/package/protocol assets for both roles and runs full B18, B15 and the
+affected B19/B20 managed/API/package checks. Native-only suites and B20 cost
+samples that are not rerun will be labeled accordingly. No scratch timing has
+run. The prospective six-control/eighteen-interleaved screen keeps its original
+loads, formulas and limits and requires new actual bindings.
+
+Verified cache cleanup 004 preserved 222 package archives, 88 manifests and
+242 actual artifacts while removing 10,532 reproducible compiler files. The
+historical row archive 006 fully verified 283 original/decoded files:
+2,599,219,116 original bytes became 334,650,699 gzip bytes. Its manifest is
+`943afb37034261bc9e38b1ee3084192c45cae0773e976a063dd8929d08489fd1` at
+`perf01-archive/calibration-row-cold-retention-006/manifest.json`, with a bound
+restore command. Original invalid outcomes and all before-long records remain
+unchanged. Ending free space was 10,659,487,744 bytes before later work.
+
+Curated CI125, spontaneous failure and controlled proof records are public at
+Plan `a77b694537a49c0a813e2779dbd9281cb761a268`; all selected files were read
+back exactly, including the forward correction of unused upgrade-feed counts.
+The final-003 source index must be updated to the actual new final tree after
+functional gates and scratch review; the earlier two-tree preparation is not
+authority for this changed source. Five before long groups remain accepted;
+zero final-after long groups are credited. Both PRs remain draft.
+
 ## Managed admission handoff reproduced in AOT — 2026-11-20 11:53 UTC
 
 The independently checked records are the [failed partial B18 build](checks/grpc-corrected-build-failure-001/README.md),
