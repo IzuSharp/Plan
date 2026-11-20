@@ -19,7 +19,7 @@ C1/C4/C8 have one process per role and remain descriptive. C16 has three process
 ## Database
 
 
-Conditional cycle/page latency shares the whole-load denominator. Whole-process CPU/RSS and lifetime SQLite BUSY/LOCKED counts are separate in the JSON. C1/C4/C8 are descriptive single-process points; C16 has three processes per role.
+Conditional cycle/page success rates use the whole-load observation window. Whole-process CPU/RSS and lifetime SQLite BUSY/LOCKED counts are separate in the JSON. C1/C4/C8 are descriptive single-process points; C16 has three processes per role.
 
 | Provider / C / slice | Role | Status | Success/s | p99 ms | CPU % one core | Peak RSS MiB (mean) | Errors (mean) |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
