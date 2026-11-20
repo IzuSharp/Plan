@@ -1,5 +1,23 @@
 # Perf-01 Linux x64 handoff
 
+## Before and ON gRPC functional acceptance — 2026-11-20 22:04 UTC
+
+The ON original component and assembled B18 stages completed at 22:04:20.635963
+UTC, execution SHA `ad310d71be3c937e9666b82430b064d298b5f779dd067588bce7aac74e0e0c00`.
+Both commands exited 0 and retired without signals or remaining children. The
+[before/ON functional record](recovery/epoch-001/functional-before-on-001/README.md)
+contains actual JIT/AOT, protocol, public API and independent ordinary-edit package
+proofs. Assertion counts differ because test source changed; they are functional
+observations, not performance improvements. Component native libraries and
+assembled Server assets retain separate identities.
+
+The full OFF candidate build started at 22:04:36 UTC. It is not complete at this
+checkpoint, and neither weak retention nor final runtime selection is decided.
+The baseline/ON measurement identity was admitted with the common driver, client
+and TLS; no formal load has run. All ten new 30-minute segments remain outstanding.
+The prior three-file build-identity publication is `d9097009335ceb0652893e8f8e73166337782d5a`;
+its exact files, blobs and branch were read back. Both PRs remain drafts.
+
 ## Both candidate roles built and bound — 2026-11-20 21:54 UTC
 
 The fresh ON build completed all eight producers at 21:49:30.669758 UTC, with
