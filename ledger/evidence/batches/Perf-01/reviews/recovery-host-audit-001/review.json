@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "kind": "independent-recovery-host-audit",
+  "created_utc": "2026-11-20T19:25:13.816278+00:00",
+  "source_plan_commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+  "review_scope": "Read-only source and small metadata comparison. Documentation creation is separate from measurement; no workload, build, test or payload recovery was executed.",
+  "baseline_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "retained_product_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+  "observed_current_host": {
+    "os": "Linux",
+    "kernel": "6.18.57",
+    "arch": "x86_64",
+    "python": "3.12.14",
+    "logical_cpu_count": 9,
+    "power_governors": null,
+    "cgroup_limits": {
+      "cpu.max": null,
+      "memory.max": null,
+      "memory.high": null
+    },
+    "clock": {
+      "name": "time.monotonic_ns",
+      "resolution_seconds": 1e-09
+    },
+    "cpu": {
+      "vendor_id": "AuthenticAMD",
+      "cpu family": "25",
+      "model": "17",
+      "model name": "AMD EPYC 9V74 80-Core Processor",
+      "stepping": "1",
+      "flags_sha256": "5389328efbd7f8ada3fa7dba5262d1273823ac4d7c8b95c72904a6425a0dcd58"
+    }
+  },
+  "audit_process_affinity": [
+    8
+  ],
+  "affinity_scope": "CPU8 was used only for this audit. No application/database/generator affinity was exercised or admitted.",
+  "historical_frozen_affinity": {
+    "service_and_database": [
+      2,
+      3
+    ],
+    "generator": [
+      0,
+      1
+    ]
+  },
+  "boot_identity": {
+    "hash_convention": "SHA-256 of boot_id file bytes after bytes.strip(); raw file value is not published",
+    "historical_sha256": "d19b8f888214efe7966ce4acd9313f5a8536f876c1e35f78201081604986df45",
+    "current_sha256": "da43a0d2a2e133779956f40af91ffa7da7dd18f0f49065a5756faa29361bff32",
+    "current_raw_file_sha256": "fab4c6b647b597723c31a077dddfe6e4fe590c6b3b4d2eb026bd98403ae5467b",
+    "matches": false,
+    "original_boot_admission_passes": false,
+    "interpretation": "Different boot instance. This alone neither identifies nor disproves the same physical machine."
+  },
+  "matching_observed_fields": {
+    "os": true,
+    "kernel": true,
+    "arch": true,
+    "python": true,
+    "cpu": true,
+    "logical_cpu_count": true,
+    "clock": true
+  },
+  "matching_cpu_subfields": {
+    "cpu family": true,
+    "flags": true,
+    "model": true,
+    "model name": true,
+    "stepping": true,
+    "vendor_id": true
+  },
+  "unavailable_on_both_sides": {
+    "cgroup_limits": {
+      "cpu.max": null,
+      "memory.max": null,
+      "memory.high": null
+    },
+    "power_governors": null,
+    "interpretation": "Matching unavailable values do not prove equal or unlimited quotas, memory limits or power settings."
+  },
+  "original_workspace_present": false,
+  "not_established": [
+    "physical machine identity",
+    "effective CPU scheduling entitlement and interference",
+    "physical power/frequency controls",
+    "effective memory limits",
+    "storage and database I/O equivalence",
+    "current toolchain executable-byte identity",
+    "recovery of the original tested binaries, package/native archives and complete raw evidence"
+  ],
+  "historical_long_evidence": {
+    "acceptance_preserved": true,
+    "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "accepted_before_groups": 5,
+    "accepted_final_after_groups": 0,
+    "total_effective_load_seconds": 9010.718473445,
+    "groups": [
+      {
+        "group": "http",
+        "variant": "before",
+        "accepted": true,
+        "effective_load_seconds": 1802.091185499,
+        "offered_logical_operations": 901051,
+        "ordinary_successful_operations": 856000,
+        "expected_probe_successes": 45051,
+        "unexpected_errors": 0,
+        "arrival_p99_ns": 260565040,
+        "maximum_dispatch_start_lag_ns": 57376082,
+        "verification_sha256": "7a33fb612e8febcbb14e938d231b5777768af510dc3fe23d7e839da178a4bbf0"
+      },
+      {
+        "group": "grpc",
+        "variant": "before",
+        "accepted": true,
+        "effective_load_seconds": 1802.101046909,
+        "offered_logical_operations": 207243,
+        "ordinary_successful_operations": 196880,
+        "expected_probe_successes": 10363,
+        "unexpected_errors": 0,
+        "arrival_p99_ns": 152456566,
+        "maximum_dispatch_start_lag_ns": 75082895,
+        "verification_sha256": "255239882714d9eda7d0058b8c55f93bf52c2b2a9a80a872f2410207913a6f14"
+      },
+      {
+        "group": "codec",
+        "variant": "before",
+        "accepted": true,
+        "effective_load_seconds": 1802.104068505,
+        "offered_logical_operations": 346005,
+        "ordinary_successful_operations": 346005,
+        "expected_probe_successes": 0,
+        "unexpected_errors": 0,
+        "arrival_p99_ns": 105719745,
+        "maximum_dispatch_start_lag_ns": 46976085,
+        "verification_sha256": "a49b986b50dd01d0e35265d3bfb892f665aeae0416d7f9747cddc2fd6ba38635"
+      },
+      {
+        "group": "postgresql",
+        "variant": "before",
+        "accepted": true,
+        "effective_load_seconds": 1802.212239616,
+        "offered_logical_operations": 259526,
+        "ordinary_successful_operations": 259526,
+        "expected_probe_successes": 0,
+        "unexpected_errors": 0,
+        "arrival_p99_ns": 207259125,
+        "maximum_dispatch_start_lag_ns": 56106435,
+        "verification_sha256": "ba6947c372a807cfa9d3c4d097096bff87a50def1fdf6772759592a93d2fdd96"
+      },
+      {
+        "group": "sqlite",
+        "variant": "before",
+        "accepted": true,
+        "effective_load_seconds": 1802.209932916,
+        "offered_logical_operations": 72091,
+        "ordinary_successful_operations": 72091,
+        "expected_probe_successes": 0,
+        "unexpected_errors": 0,
+        "arrival_p99_ns": 115857606,
+        "maximum_dispatch_start_lag_ns": 28537958,
+        "verification_sha256": "65b05e2ebda307c4d892d1374fbbe2550fc9fe3c977ea981f06aa0f238f2efd5"
+      }
+    ],
+    "full_raw_evidence_published": false,
+    "public_retention_scope": "Git numerical evidence persists while repository history is retained; this checklist does not claim remote retention of full raw records.",
+    "currently_admitted_cross_environment_pairs": 0,
+    "interpretation": "All five historical before runs retain their original acceptance. None is admitted as the baseline of a new after run in the current environment."
+  },
+  "historical_final003_protocol": {
+    "validated_processes": 54,
+    "service_eligible_processes": 54,
+    "historical_cohort_preserved": true,
+    "entire_matrix_complete": false,
+    "projection_contains_host_snapshot": false,
+    "host_attribution_sources": [
+      "frozen-execution.json",
+      "handoff-linux.md"
+    ],
+    "published_manifest_fields": {
+      "entire_matrix_complete": false,
+      "files": [
+        {
+          "bytes": 1000110,
+          "file_role": "protocol",
+          "sha256": "8e13a1f284af2f5725d4c71e28c03fc5ef5dccfe98cfe1b9b1c5abc5bf01b238"
+        },
+        {
+          "bytes": 50395,
+          "file_role": "coverage",
+          "sha256": "0da2a86cca7b67935a94f747c07fda85655d3a73f0f1037bd82d5b1f75852170"
+        },
+        {
+          "bytes": 8891,
+          "file_role": "readme",
+          "sha256": "81bd6f4397ae05e8f68ce7d8dad9b79c45e773c90f749f28120c717888dd760c"
+        }
+      ],
+      "input_binding_sha256": "f81c6f6d1a69b75c984b3de2882fb45d2a35a88c841c26e6b23193aa51070881",
+      "original_projector_sha256": "38f94831f934faa8498e0fe39e056a316a62f35e12e9d6ecb6995594dd37002c",
+      "schema_version": 1,
+      "selected_stage": "protocol",
+      "stage_wrapper_sha256": "3ae161ae6ee1af35b0a2fb01f215a2e53a7cd6654c9334a8b229301ad8f026c5",
+      "task": "Perf-01"
+    },
+    "scope": "Published summary and manifest attribution; no raw operation replay or renewed validation."
+  },
+  "interrupted_weak_comparison": {
+    "planned_processes": 18,
+    "terminal_outcome": "unknown",
+    "historical_receipt_rewritten": false,
+    "last_directly_observed_commands": [
+      {
+        "command_id": "grpc-unary-0-before-prepare",
+        "exit_code": 0,
+        "ended_utc": "2026-11-20T18:41:12.330894+00:00"
+      },
+      {
+        "command_id": "grpc-unary-0-before-run",
+        "exit_code": 0,
+        "ended_utc": "2026-11-20T18:41:46.688447+00:00"
+      },
+      {
+        "command_id": "grpc-unary-0-after-prepare",
+        "exit_code": 0,
+        "ended_utc": "2026-11-20T18:41:48.468662+00:00"
+      }
+    ],
+    "role_map": {
+      "before": "retained ON 2e3995df",
+      "after": "OFF 963dfbc5"
+    },
+    "historical_complete_noise_index_sha256": "13cdfeaa09f02f0d4b6cb615ecc9d2fddd073b9c378968324392006634edf675",
+    "historical_effective_inputs_sha256": "0f0de2a50f778d4fe8b85419886569914de71b02f21e89c854682458db5e75ab",
+    "terminal_status_inferred_from_environment_loss": false
+  },
+  "new_environment_decision": {
+    "fresh_epoch_required": true,
+    "reuse_fixed_baseline_source": true,
+    "reuse_frozen_workload_semantics": true,
+    "carry_old_noise_bands": false,
+    "carry_old_long_credit_into_new_pair": false,
+    "fresh_required_long_groups": {
+      "before": 5,
+      "after": 5
+    },
+    "new_epoch_measurement_credit_seconds": 0,
+    "state": "Source decision only; the new environment freeze and portable build owner require separate review."
+  },
+  "evidence_sources": [
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/prospective-policy.json",
+      "git_blob": "a03082a67de44179dd1efa1c1a08e0feccfe9be4",
+      "sha256": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc",
+      "bytes": 11136,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/frozen-execution.json",
+      "git_blob": "08a11f629005fabcf63b91fd5d289b068255a540",
+      "sha256": "85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3",
+      "bytes": 80837,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/protocol_calibrate.py",
+      "git_blob": "2e2698e6c1064283e704f1c4be21b869bd701e0f",
+      "sha256": "32db840b1ec8374d66086b298e53055aed9ee9c9e71d2e5f54c6295ae8d039b7",
+      "bytes": 15935,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/handoff-linux.md",
+      "git_blob": "1615d1d96b84f6d6e1ef1b8d9cd7ffc2ece71a0e",
+      "sha256": "54638939df72a1c81aae29c31aa83eb6696ba2ef2487467ab0034d7f0057712d",
+      "bytes": 119680,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/checks/before-long-five-001/public-checklist.json",
+      "git_blob": "d8cf377b6aec376b689167a3863a856caa118460",
+      "sha256": "53ce793e17f04ffff2a0d6420eb26c3e81dcb3609843527b82e97712aaa3b1c6",
+      "bytes": 5544,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/checks/final-003-protocol-results-001/README.md",
+      "git_blob": "20eee4788d3ccdf89e7b62c155ef39b6327c070a",
+      "sha256": "81bd6f4397ae05e8f68ce7d8dad9b79c45e773c90f749f28120c717888dd760c",
+      "bytes": 8891,
+      "read_scope": "source or small public control; no raw operation journal"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+      "path": "ledger/evidence/batches/Perf-01/checks/final-003-protocol-results-001/manifest.json",
+      "git_blob": "e7eba8d9724763746ea26cd3a9416e916707b675",
+      "sha256": "e88212c178e2ade9ff3651a8b8bb5f6fc2b23fbfaa633761ac81ae20473b9aa6",
+      "bytes": 864,
+      "read_scope": "source or small public control; no raw operation journal"
+    }
+  ],
+  "privacy": {
+    "only_project_relative_source_paths": true,
+    "raw_boot_id_published": false,
+    "hostname_published": false,
+    "raw_environment_published": false,
+    "process_identifiers_published": false
+  }
+}

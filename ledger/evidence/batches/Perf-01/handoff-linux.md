@@ -1,5 +1,77 @@
 # Perf-01 Linux x64 handoff
 
+## Recovery epoch 001: public sources restored; fresh paired measurements required
+
+The execution service is available again, but the original measurement workspace
+is absent from the recovered filesystem. Bounded local searches and the public
+Git/CI artifact audit did not recover the original measured executables, native
+libraries, B24 feeds, complete operation journals or private continuation controls.
+The stripped boot SHA-256 is now
+`da43a0d2a2e133779956f40af91ffa7da7dd18f0f49065a5756faa29361bff32`,
+which differs from the original frozen admission. Matching virtual CPU/kernel
+strings do not establish physical-host, storage or resource-envelope equivalence.
+See the [independent host audit](reviews/recovery-host-audit-001/README.md).
+
+The original five before-long acceptances and their9,010.718473445 effective
+seconds remain valid historical evidence. None is admitted as the before half
+of a newly built/current-environment pair. The completed54-process protocol
+cohort and six-process weak-ON noise also remain historical. The interrupted
+18-process weak comparison still has no observed terminal proof. No historical
+noise band, measured binary identity or accepted duration is relabelled.
+
+Both public repositories have been recovered into new canonical
+`ROOT/.worktree/Perf-01-linux/{NativeWeave,Plan}` worktrees. A separate clean
+baseline worktree contains the same fixed pre-change main
+`ea5fa528035d025bd7a28698ee7c71194432236c`; the existing candidate and shared
+public drivers remain `2e3995df8d86583ee9443348276ca8d918056bfc`. Locked Design
+`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9` and .NET11.0.100 survived. Exact
+Rust 1.100.0 and clang/LLD 19.1.7 have been recovered from checksum-verified
+official archives/packages in local prefixes. PostgreSQL 18.0 was rebuilt from
+its verified official source with OpenSSL, ICU and readline; installation
+completed at 19:29:13 UTC on 2026-11-20. All 15 actual tool/version checks passed.
+The local toolchain manifest SHA-256 is
+`663c591a1b69c46a7f3785b32e73de9874028ef531ac4b606a4c759e7b989b4d`;
+activation is `551e0c94c332bcb560f2c9465ba0d25b6f7bb438565bef3901f531ee6210dafd`.
+The [curated toolchain identities](recovery/epoch-001/toolchain-identities.json)
+are published with this checkpoint. These are new actual toolchain identities,
+not recovery of lost binary bytes.
+No database or product measurement has started in this epoch. Plan CI190 for
+the prior interruption checkpoint passed.
+
+The [new prospective configuration](recovery/epoch-001/README.md) preserves the
+public workload mixes, profiles, rates, limits, statistical definitions and
+correctness rules. Its `freeze.json` SHA-256 is
+`eda07013d5fa06f793ea9f15667cc99f4a7a4368c733bbbba75f76932319f862`,
+and its separate `policy.json` is
+`b70aebe88bbf271b1ea53dad2b68b8e29c9f1796b32bb0e1721ab09db3f54760`.
+Independent source/configuration review accepted35 exact bindings and the unchanged
+long-group dictionaries. A naming ambiguity was fixed before execution:
+outer supervisor CPU8, unchanged measurement/calibration controllers and
+service/database CPUs2,3, independent generators CPUs0,1. No affinity gate was
+changed. This is configuration acceptance only; actual toolchain, producer,
+resolved consumer, owner and fresh-noise bindings are still required.
+
+**Recovery epoch long progress: zero before / zero after; ten fresh segments
+are required.** The prospective fixed rates remain PostgreSQL144/s, SQLite40/s,
+HTTP500/s, gRPC115/s and codec192/s, all with the original mixes and1,802-second
+requests. Fresh before qualification must pass without relaxing the service
+standard. The unchanged calibrators' 80%-capacity proposal does not replace these
+explicit rates; a failed prerequisite stops admission and requires a prospective
+reviewed amendment before matched runs. An after result cannot retune its pair.
+
+Next: review the minimal portable build owner and actual dependency/producer
+closure; rebuild clean EA5 and existing2e
+inputs with fresh package/output identities; recover the needed reader admission
+checks under explicit new source identities; collect fresh baseline noise,
+profiling, fixed comparisons and capacity, including a fresh weak-ON/OFF decision;
+then run all five before and final after long groups serially. Optional weak
+removal remains unselected. Missing private status/DB-phase/report preparation
+must be explicitly reconstructed/reviewed as needed, with no claim that absent
+source or runtime proof was recovered. Publish reviewed configuration and curated
+synthetic numerical/resource/checklist evidence after completed groups, with
+immutable readback. Required final review, both merges, post-merge CI and the
+normal existing preview remain outstanding.
+
 ## Execution environment unavailable during the fresh weak comparison
 
 **This is an interruption checkpoint, not final acceptance. Five before

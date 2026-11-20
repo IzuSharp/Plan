@@ -1,0 +1,179 @@
+{
+  "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "build_policy": {
+    "identities": "Source/lock/driver/build/consumer/native/package hashes and procfs actual mapped native/executable paths accompany results. AOT linked managed code is identified by executable, not described as a dynamically loaded DLL.",
+    "managed": "Release Native AOT linux-x64; same actual CLI for each paired driver. Protocol/shared/direct-managed fixtures explicitly x86-64-v2. Reused B21/A17 consumers omit IlcInstructionSet; resolved compiler default is not asserted to equal v2.",
+    "measurement_python": {
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "executable_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+      "rule": "Invoke this exact interpreter for controllers and child adapters; unqualified Python under external native wrappers may select a different runtime and is not equivalent.",
+      "version": "3.12.14"
+    },
+    "native": "Cargo --locked --release; repository thin LTO, one codegen unit, unwind; generic target, no host-native ISA",
+    "packages": "Fresh complete B24 previous closure per product version, including COMMON; A17 separate two-package codec closure. Same immutable driver and independent protocol client before/after.",
+    "postgresql": "18.0",
+    "rust": "1.100.0",
+    "sdk": "11.0.100"
+  },
+  "calibration": {
+    "codec_rates": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "concurrency": {
+      "codec": "1 and 2 dedicated workers; mixed capacity/long group uses 2. Four workers are a separate oversubscription stress, not an unannounced long-group change.",
+      "database": "1, 4, 8, 16 layering; mixed capacity/long group uses 16 client slots",
+      "protocols": "1, 4, 16, 32, 64 layering; capacity/long group uses 64 slots, four HTTP/2 connections, 32 streams/connection"
+    },
+    "confirmation_attempt_limit": 10,
+    "confirmation_fresh_processes": 3,
+    "confirmation_seconds": 60,
+    "database_rates": [
+      5,
+      10,
+      20,
+      40,
+      80,
+      160,
+      320,
+      640
+    ],
+    "extension_rule": "If all listed rates pass, extend by doubling until the first failed SLO/generator point or the finite one-million-observation bound. State any unbracketed capacity as a measured lower bound.",
+    "generator": "All three domain drivers use maximum100ms dispatch lag, prospectively20% of the unchanged500ms arrival-p99 service limit. Every arrival latency includes full planned-to-completion delay. CPU, lag distribution, offered/dispatched/admitted counts remain separate. Excess lag invalidates the cell; generator/host-limited failures never establish a server-capacity upper bound.",
+    "long_idle_seconds": 60,
+    "long_rate_rule": "The unchanged calibrators may emit their original 80%-of-capacity proposal. Recovery epoch 001 initially freezes the five explicit workload rates in freeze.json from the public reproduction bundle; a proposal does not replace them. If a required before qualification fails, stop and preserve it. Any prospective change requires a separate reviewed freeze before matched measurements; no after result retunes its paired before rate.",
+    "protocol_rates": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "refinement_rule": "Bisect highest passing / first failing rate bracket to width at most10% of passing rate, or adjacent integer rates when low<10. Confirm selected rate in three fresh60s processes; on failure step down10% and reconfirm, at most10 rounds.",
+    "short_idle_seconds": 5,
+    "stage_seconds": 30,
+    "warmup_and_recovery": "Driver-declared warmup and same-live-process low-rate recovery excluded from effective load time. Retain overload and recovery observations."
+  },
+  "first_product_change": "da95b81282b25152e82c9aa7877cd872ea9e03a0",
+  "first_recovery_product_change": null,
+  "freeze_completion": "Before any product implementation edit, bind calibrated long rates, final driver/profile hashes, actual before artifacts and all lower-level fixture settings in a separate immutable frozen-execution.json. This prospective policy alone is not a claim that calibration or final freeze has completed.",
+  "long_acceptance": "Ten distinct completed segments serially; fixed service/database CPUs2,3 and generator CPUs0,1. Actual first-to-last effective dispatch at least1800s each, valid generator and exact correctness/ownership/durability. Warmup/calibration/recovery/idle excluded. Interrupted or changed-binary stages do not count.",
+  "long_groups": [
+    {
+      "after_seconds_required": 1800,
+      "before_seconds_required": 1800,
+      "mix": "50% durable business cycle / 50% typed 100-row page",
+      "name": "postgresql",
+      "recovery_requests": 32
+    },
+    {
+      "after_seconds_required": 1800,
+      "before_seconds_required": 1800,
+      "mix": "50% durable business cycle / 50% typed 100-row page; WAL/FULL, BUSY/LOCKED observed, zero explicit business retries; internal busy-handler/sqlx retry attempts unavailable",
+      "name": "sqlite",
+      "recovery_requests": 32
+    },
+    {
+      "after_seconds_required": 1800,
+      "before_seconds_required": 1800,
+      "mix": "Frozen protocol profile: tiny/JSON/1MiB upload/download/slow-reader/cancel; equal HTTP1.1 TLS and HTTP2 TLS",
+      "name": "http"
+    },
+    {
+      "after_seconds_required": 1800,
+      "before_seconds_required": 1800,
+      "mix": "Frozen protocol profile: unary/server/client/duplex streams plus expected deadline/cancel; HTTP2 TLS, identity only",
+      "name": "grpc"
+    },
+    {
+      "after_seconds_required": 1800,
+      "before_seconds_required": 1800,
+      "mix": "Frozen160-action corpus cycle,50% compress/decompress,50% array/owned,50% entropy;256B/4KiB/1MiB/4MiB weights50/25/20/5",
+      "name": "codec"
+    }
+  ],
+  "long_scheduled_seconds": 1802,
+  "platform": "linux-x64",
+  "policy_revision": 4,
+  "pre_product_revision_rationale": {
+    "change_scope": "Before first runtime edit, select a gRPC-only 64MiB retained-byte request cap for both product versions and direct Rust. The existing 4MiB cap cannot cover two overlapping configured-maximum frame grants. Global native64MiB/managed64MiB, RSS256MiB, message1MiB, payload/mix, TLS, error0, p99<=500ms and generator100ms are unchanged. HTTP remains on its original4MiB profile.",
+    "database_tooling": "The separate A21 profile observed three generation2 pauses above100ms while all20522 operations completed. Measurement-tool retention changes require their own equivalence gates and fresh baseline measurements before freeze; they are never product gains.",
+    "direct_scope": "Equal configured limits; NativeWeave reserves configured maximum per output frame while direct Rust charges actual frame bytes. Preserve and disclose this implementation cost difference.",
+    "evidence": "grpc-baseline-quota-observation.md; actual before-grpc-v3r1/00-ladder-8 had two ordinary server-stream ResourceExhausted outcomes, not intentional probes.",
+    "old_verdicts": "All old failures retain their original verdict and hashes. New gRPC calibration starts from the low point under the revised profile. This configuration revision is not a product optimization or measured improvement.",
+    "source_runtime_unchanged": true
+  },
+  "protocol_profiles": {
+    "calibration_idle_seconds": 5,
+    "grpc": {
+      "path": "Plan/ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+      "retained_bytes_per_request": 67108864,
+      "sha256": "fcd529ae210b57a6c3030f7521127204f665f33978ec50d848d13259a7b697af"
+    },
+    "http": {
+      "path": "NativeWeave/tests/Perf01.Protocols/profile-v1.json",
+      "retained_bytes_per_request": 4194304
+    },
+    "long_idle_seconds": 60
+  },
+  "recovery_epoch": "recovery-001",
+  "recovery_origin": {
+    "legacy_policy_revision_field": "4 is retained for the unchanged public calibrator schema; recovery_policy_revision identifies this separate configuration.",
+    "original_policy_sha256": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc",
+    "public_plan_commit": "0d2ed1b460ca194978cd595417739bce99adc224",
+    "reason": "Original measured workspace and artifact closure were not recovered; boot identity differs. This is a new paired cohort, not a continuation admission for historical binaries."
+  },
+  "recovery_policy_revision": 1,
+  "resource_policy": {
+    "ancillary_cpu_policy": "Source-only analysis may use CPU8 during calibration. During each long segment, no other local task commands except necessary read-only status observations; no builds/profiles/other loads. Remote CI may continue.",
+    "application_rss_limit_bytes": 268435456,
+    "arrival_p99_limit_ms": 500,
+    "cpu_affinity": [
+      2,
+      3
+    ],
+    "database_and_generator_resources": "Observe separately; application RSS limit does not silently include the PostgreSQL service or generator.",
+    "expected_protocol_outcomes": "Declared HTTP/gRPC cancellation and deadline probes must match their exact wire outcome and retire resources; report separately from successful ordinary calls.",
+    "failure": "Correctness, durable-oracle, loaded-identity, generator-lag/capacity, cleanup or interference failures invalidate the sample. Preserve failures; never reinterpret them as zero errors or change a threshold retroactively.",
+    "generator_cpu_affinity": [
+      0,
+      1
+    ],
+    "generator_lag_definition": "Existing controller dispatch-start timestamp, before event logging and stdin write/drain; not an exact wire-send timestamp. Record full lag distributions and all >50ms excursions separately.",
+    "generator_maximum_dispatch_lag_ms": 100,
+    "layout_selection_evidence": "codec-split-384-001: baseline package,60.050331522 actual dispatch seconds,23061/23061,valid generator,all observed masks checked,p99 arrival107682662ns; earlier shared-CPU diagnostic failures are excluded from final cohort and never called product gains.",
+    "measurement_host_kernel_boot_sha256": "da43a0d2a2e133779956f40af91ffa7da7dd18f0f49065a5756faa29361bff32",
+    "same_host_all_routes": true,
+    "schedule": "Only one measured/profiled process tree at a time; all other task builds and loads stop. Read-only analysis and remote CI may continue.",
+    "scope": "Application and local database use fixed virtual CPUs2,3; external arrival controllers/clients use disjoint CPUs0,1. All observed thread masks and process identities are checked. Four total CPU IDs are identical before/after/direct. Physical-host scheduling and hardware power controls are unavailable.",
+    "total_task_cpu_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "unexpected_errors_maximum": 0
+  },
+  "revision_utc": "2026-11-19T10:25:16.605587+00:00",
+  "schema_version": 1,
+  "short_comparison": {
+    "capacity": "Report largest consistently passing sampled rate with bracket and generator caveat; same SLO/resources on both versions and direct Rust.",
+    "interleaving": "Before, after, direct Rust; reverse order next repetition. Supplementary managed route where semantics permit. Same fixed arrival inputs/constraints at each point.",
+    "minimum_fresh_processes_per_route": 3,
+    "noise": "Unchanged A21 noise_comparison: 2000 seeded independent bootstrap mean differences, 95% interval. Absolute noise band is the maximum process-mean range of baseline calibration repeats, at least 1000ns; relative band 0. Freeze band per scene from before data, do not choose it from optimization results.",
+    "tails": "A21 nearest-rank rules; p99 unavailable with fewer than100 successful observations. Single long stages do not supply independent-process confidence intervals."
+  },
+  "status": "prospective-recovery-epoch-001-before-new-product-edits-and-measurement",
+  "supersedes_diagnostic_policy_sha256": "e7254dc0470b5a224755243b7c731687fae096914c7fc2f366b79c36819f03c8",
+  "task": "Perf-01"
+}
