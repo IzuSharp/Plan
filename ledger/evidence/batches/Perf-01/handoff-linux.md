@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Latest recovery — 2026-11-20 07:31 UTC
+## Latest recovery — 2026-11-20 07:43 UTC
 
 The original measurement workspace and all five accepted before long groups
 were recovered. The frozen kernel boot identity, CPU fingerprint, compiler bytes
@@ -22,19 +22,37 @@ and [A20 report](checks/ci123-a20-001/README.md) bind the actual checkout tree t
 ASan/UBSan/leak checks and the normal package/fresh-SDK/Task04/Task07 gates.
 These are functional results with zero measurement-duration credit.
 
-At this checkpoint, 8 of the nine fresh affected component gates have
-passed: A07, A08, A18, B06, B16, B17, B19, B15. The first B17 attempt stopped before compilation
+All nine fresh affected component gates have
+passed: A07, A08, A18, B06, B16, B17, B19, B15 and B18. The continuation completed
+at 07:33:18 UTC. The first B17 attempt stopped before compilation
 because its literal `clang-19` command was absent from PATH. The locked compiler
 already existed and its SHA matched; adding its existing directory only to the
 functional continuation resolved that launch issue. The failed attempt remains
 preserved. Passed prefix gates were not rerun; the four-gate continuation has
-fresh outputs and binds the exact failed-prefix receipt. Remaining functional
-work is not claimed complete by this checkpoint.
+fresh outputs and binds the exact failed-prefix receipt.
+The [actual functional checklist](checks/final-functional-0715-001/README.md)
+retains all ten attempts and the nine successful gate results.
+
+The final source, four actual measured-consumer manifests and unchanged frozen
+matrix are bound in the new comparison binding (SHA-256
+`851a84a5351fa91a5098f4319ff20d2b225429229101bb911b6e71b535fd69f3`).
+All six short comparison/capacity queues passed their describe-only checks.
+The five after-long groups have a new actual build binding (SHA-256
+`646bed58f9564c36bb66f2577855c8f4185fc1b3be32af47ef1ad59caab7ffd9`)
+and a numerical build checklist (SHA-256
+`e8e1de83307947317c3b95f726f03cc621b13c3321f368bb09d109e093f64b3a`).
+The [final build binding](checks/after-long-build-002/README.md) records these
+actual package/consumer/native identities and all five unchanged loads.
+No formal after-002 measurement has started. The short collection amendments
+passed all seven finite tests; the final result projector passed all eighteen
+after correcting its missing allowlist entry for the existing numeric generator
+resource subtree. The preceding failed finite attempt is retained. These are
+offline preparation checks and grant no measurement-duration credit.
 
 The [independent retained-source review](reviews/final-retained-source-0715ffb6.md)
 records API/ownership applicability and the final gate scope. The latest eight-file
-ablation/ADA publication was fetched back exactly at public Plan commit
-`8c06d49239fe43074e78e739247348f86c03bdcb`. Both PR descriptions now record the
+CI/source/retention publication was fetched back exactly at public Plan commit
+`e0d2940861639effb0eae5a683074f72401d76cc`. Both PR descriptions now record the
 retry removal, completed superseded matrix and final-source CI/build distinction.
 
 [Verified numerical retention](checks/comparison-database-cold-retention-004/README.md)
