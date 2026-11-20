@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-19 23:25 UTC
+## Current state — 2026-11-20 00:01 UTC
 
 **3 of 10 required long groups are accepted**, all before optimization: HTTP,
 gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
@@ -55,7 +55,7 @@ See `checks/database-observer-offload-001/source-and-finite-checklist.json`.
 The local b846 lineage and remote772 tree differ in other verifier files; they
 are not the measured source identity. The fresh synchronous/threaded load pair
 actually completed against a3ce0f6 after independent source review. No new DB
-calibration or long acceptance has been granted.
+calibration or long acceptance was granted by that pair itself.
 
 The reviewed observer diagnostic pair ran from22:54:00.025163Z to
 23:01:28.735570Z. Both driver processes, both offline cell audits and the final
@@ -107,16 +107,61 @@ The actual private command configuration is
 SHA-256 `fbaee7021be73322b7a73d1169bace6b03679a87ecf36b66bd1700e8c7ec5df8`.
 The supervisor SHA-256 is
 `c411e2d998bfaa0278d9ef2092bff785f37bfa50c45a2e1b05c6da153e5201c1`.
-After exact public source/contract readback, root will start the serial PG then
-SQLite calibration. Its actual status must be read from
-`ROOT/perf01-run/database-observer-before-calibration-001-execution.json`;
-an absent receipt means it has not started. Source and private command hashes
-must not be reconstructed from prose. All other local work is paused for that
-exclusive window. Noise extraction and both DB long groups remain pending.
+After exact public source/contract readback, the serial PostgreSQL then SQLite
+calibration actually ran from23:27:44.057296Z to23:49:21.299571Z. Both controller
+processes exited0 and both unchanged fixed-long-rate selection gates passed.
+The actual receipt is
+`ROOT/perf01-run/database-observer-before-calibration-001-execution.json`, SHA-256
+`04a052a4902d8b191ccb68d8c2a22b8632db37db33a1d51cfe14b786c145325c`.
+PostgreSQL confirmed220/s in three new60s processes,13201/13201 operations each,
+with p99 values124.763984/70.706392/391.044979ms. The240/s sample completed all
+operations but failed the500ms p99 standard;320/s was invalid for generator
+in-flight saturation and is not a server-capacity upper bound.
+SQLite confirmed60/s in three new60s processes,3601/3601 operations each,
+with p99 values377.839309/279.342387/287.805384ms. Its65/70/80/s samples completed
+the business operations but failed the original tail-latency standard.
+The exact selection/controller SHA-256 pairs are respectively
+`2070cae31ab0e72d69f1b02eea237dab7c3dc87f62b248c95cfef104d7528f43` /
+`4a87700447f84853ef68c2edbdf81a9cf76b45c1d8dd799e74b99a41edc73206`, and
+`5d9b6bbec0186503ddfdab3b9d21fedc95bd0fa5480841e4faba44036b24436f` /
+`6b06eea81b24cbec2e7b916dc8f0552182887771e20b3c681e53c3d6e4340831`.
+
+The new source-bound noise helper then actually exited0 for both providers,
+reading the entire final triplets and verifying59 input pins per provider.
+It ran offline on CPU8 under the timing lock; no load was generated. The actual
+noise-execution receipt SHA-256 is
+`ba45fbd2141eae25b3896bb7f0fda00af8401a0a897f00e5e1f544e067f2b8a5` at
+`ROOT/perf01-run/database-observer-noise-001-execution.json`.
+Noise receipts are under
+`ROOT/perf01-evidence/noise/database-gc-deferred-threaded-v1`:
+`postgresql.json` SHA-256
+`1da887679a1e115070428d38c4069e35faacd6288f24c5854d6afefc64d697f1`, and
+`sqlite.json` SHA-256
+`69a4c8b909b1336fae7302944f2db176856a84addc96e85275b037009a405557`.
+The original max-minus-min process-mean rule gives mixed/cycle/page absolute
+noise bands of34.038735657/38.390880256/29.685931642ms for PostgreSQL and
+2.880008805/5.668907591/0.497168953ms for SQLite. The large PostgreSQL variation
+is retained without selecting a favorable subset. Relative noise remains zero.
+This is measurement qualification, not a product speedup or long credit.
+The strict actual-results projection is complete in
+`checks/database-observer-calibration-001/results-001`, public-summary SHA-256
+`c9bb4b25de321614e5ae55c709ddeeaa2238d6ade06f50d4bac52b1c654d566a`.
+Its four files passed independent source/numerical/public-field review. Root
+also independently compared2558 scalar/resource values against the actual24
+cell summaries and two noise receipts. All failed points remain in the report.
+The metadata-only projector read152 small inputs; its actual exit0 receipt
+retains the preliminary exit1 caused by an incorrect progress-state assumption.
+It did not rerun load or raw-row validation. SQLite surfaced BUSY/LOCKED and
+business retry counts were zero; internal busy-handler attempts remain unavailable.
+PG144/s and SQLite40/s long targets remain unchanged. Their new exact long
+configuration and independent review are being prepared; neither has started.
 
 The actual pair report and current recovery record were published at
 Plan `aaf82720133bc7408061731a64785a59da5de476`; all five files were fetched and
-matched, and Plan CI run44635783203 passed. The subsequent workspace-maintenance
+matched, and Plan CI run44635783203 passed. The portable calibration source and
+contract were subsequently published at
+`1a5478c4c2009512d24e3a0d69ba0204da12796f`; all11 changed files were fetched
+and matched, and Plan CI run44637791448 passed at23:32:07Z. The subsequent workspace-maintenance
 notice did not remove the checked source, pair evidence, before application,
 codec manifest, environment or SDK. The checked boot identity is unchanged.
 
@@ -200,20 +245,16 @@ count. The current total is3/10; all five after groups remain unstarted.
 
 ## Immediate queue and ownership
 
-1. Publish the completed strict numerical codec002 report and preserve its actual accepted
-   receipt. Attempt001 remains interrupted with zero credit. The accepted load
-   remains rate192, workers2, queue64, inflight256, duration1802, warmup20,
-   recovery10 at1/s, idle60, deadline1000ms, max lag100ms, before004 manifest and
-   fixed corpus. Preserve these exact settings for the after long group.
-2. Finish the reviewed diagnostic pair configuration in the independent
-   `Perf-01-db-observer-pair-linux/Plan` worktree, using the actual measured
-   a3ce0f6 checkout for both sides. Both explicitly select the same deferred GC
-   policy and synchronous/threaded resource policy respectively; keep the
-   before package, PG144/C16,120s,W16,recovery32,idle60 and full durable oracle.
-   Include thread/Future CPU/RSS cost. Preserve any control-side service/timing
-   failure as invalid; continuation requires complete correct outcomes, identity,
-   persistence, resource limits and normal drain. The original driver/verifier
-   gates are unchanged and the pair receives zero formal or long credit.
+1. Publish the strict numerical report for the24 completed new database
+   calibration cells and both actual noise triplets. Preserve every failed or
+   invalid point separately; the6 final confirmations are not fresh comparison
+   processes and earn zero long credit.
+2. Complete and independently review the new source-bound database long
+   amendment and exact private command configuration. Use a3ce0f6, deferred GC,
+   threaded resource sampling, current before packages, PG144/SQLite40,C16,
+   duration1802,W16,recovery32,idle60, and all unchanged original gates. Run the
+   two new before segments serially only after source review and exact public
+   contract readback. Do not overwrite or relabel the original failed PG long.
 3. Preserve the four completed gRPC per-mode profiles from
    `grpc-mode-profiles/commands.json` (SHA-256
    `81921bd9809844d54214f29f398058b68c8c6561991b06ee11f2b8fdb530d5f0`).
@@ -222,12 +263,7 @@ count. The current total is3/10; all five after groups remain unstarted.
    expected profiling ineligibility. After replication remains required; before
    profiling is complete and adds no formal timing or long credit. See
    `checks/grpc-modes-before-001`.
-4. After the observer candidate passes finite ownership/cancel tests and actual
-   fixed-package checks, freeze its explicit policy/source, rerun DB calibration,
-   derive fresh noise from three complete confirmations, and bind the actual
-   result to the next DB long amendment. Keep PG144/SQLite40 long rates. The
-   failed25/s selection is diagnostic, not accepted clearance or a server limit.
-5. Complete all remaining before longs. Only then apply small runtime candidates,
+4. Complete all remaining before longs. Only then apply small runtime candidates,
    build actual after packages, run affected correctness/AOT gates, interleaved
    before/after/direct-Rust comparisons and capacity sweeps, then all five after
    longs using the same accepted drivers and fixed load configurations.
