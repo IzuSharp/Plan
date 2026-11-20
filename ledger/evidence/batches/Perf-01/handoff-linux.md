@@ -1,5 +1,79 @@
 # Perf-01 Linux x64 handoff
 
+## Scratch rejected and final source selected — 2026-11-20 13:43 UTC
+
+The [complete scratch-004 comparison](checks/grpc-scratch-comparison-004/README.md)
+ran from **13:22:08.756109 through 13:33:11.660166 UTC**. All eighteen
+independent processes met the absolute correctness, recovery, drain and service
+standards; all thirty-eight owned commands exited zero and retired without
+signals or cleanup errors. The complete comparison-index SHA-256 is
+`2eedad4d6a4eb8f465f182e0f3d05cb6d602131b3fb39d24e58717b7a1e9244b`,
+and owner receipt is
+`90ed6eb3249da8fbac19f392205a956043b526726358d83ac77c8b7dee4ce854`.
+
+Both prospective retention screens rejected the candidate. Unary 64-byte p99
+failed the maximum-delta condition; duplex p99 and stream-profile peak RSS
+failed their mean and maximum conditions. Unary allocation decreased from
+17.298986 to 1.270912 MiB/s (-92.6533%), and stream-profile allocation decreased
+from 21.647251 to 17.648549 MiB/s (-18.4721%), but those observations do not
+override the predeclared tail/RSS vetoes. No original A21 mean-latency result
+established an improvement. All observations and rejected tradeoffs remain.
+
+Root completed the exact three-file forward revert in public NativeWeave
+**`2e3995df8d86583ee9443348276ca8d918056bfc`**, parent `12c477f0`.
+Its actual tree is **`246de1eb9368efbc62f46ce10c4a8a894d646152`**, matching
+the corrected control; all three restored files and the branch head were
+fetched back exactly. The native metadata-credit and managed final-release /
+admission correctness fixes remain. This actual public commit is the selected
+final product parent; already measured control/candidate binaries retain their
+original producing commits and are not relabeled as its final build.
+
+Independent terminal numerical review accepted the recorded rejection, receipt
+`260fc487045a11be93bbdd2b1430b8260abfb6111a661007a08e8f4179e8058f`.
+Root's public-projection review compared 5,839 copied scalar observations,
+all eighteen process summaries, both reader objects and both exact screens;
+its receipt is
+`7c7b9889b220843f70a33f1119a7bd0751275b6e263c761a999b641507a01d43`.
+No reader, operation journal or workload was replayed for those reviews.
+
+The separate DB phase diagnostic preparation passed its source-description
+check. Its two fresh diagnostic source children and actual parent bindings are
+being prepared; no diagnostic build or load has run. A concrete observer
+managed-package provenance gap was found in final-003 preparation. A separate
+post-build verification and required binding receipt are being added without
+changing producer commands, environments, drivers, loads or scoring.
+
+The idle Native AOT metadata census found only twenty-three eligible objects /
+963,208,790 apparent bytes; none was removed. This is insufficient to reach
+the existing PostgreSQL long-test storage floor, so archive-backed inactive
+cache scope is being examined before further builds. Plan CI179 passed for
+the published six-process noise freeze. Five before long groups remain
+accepted, and zero final-after long groups are credited.
+
+## Fixed gRPC scratch comparison running — 2026-11-20 13:23 UTC
+
+Public Plan `9469e0cf7d22c70b469dbd7358b53c258d7310cb` contains the
+six-process noise freeze, four completed storage checklists and handoff.
+All sixteen selected files were fetched back exactly, and the branch head
+was verified before comparison started. The complete original noise-index
+hash remains `c5afdc5a893b2927150c6db26bb3823a44d21ad43b51df01900e6d8848117de0`.
+Independent review accepted all six processes, fifteen scenario observations,
+both original A21/calibration objects and all fourteen retired owner commands;
+review receipt SHA-256 is
+`b030d391e15c559799af1d9e6484f8db902235fa31e2e69af5c3f97cd0cfb0a4`.
+
+The fixed eighteen-process comparison began at **13:22:08.756109 UTC**
+under the exclusive timing owner. All original rates, mixtures, resources,
+limits, interleaved orders and the prospective decision policy remain fixed.
+No scratch retention decision is made while it is running. Plan CI178 passed
+for the prior functional-checklist publication. Both associated draft PRs
+were updated and their complete descriptions fetched back exactly.
+
+DB observer and additional inactive-intermediate inventory preparation remain
+source-only. Neither builds nor storage work may overlap this timing stage.
+Five accepted before long groups and zero final-after long groups remain the
+current duration status.
+
 ## Six corrected-control noise processes completed — 2026-11-20 13:16 UTC
 
 The [actual control-only noise projection](checks/grpc-scratch-noise-004/README.md)
