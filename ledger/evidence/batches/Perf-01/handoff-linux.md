@@ -1,6 +1,47 @@
 # Perf-01 Linux x64 handoff
 
-## Latest recovery — 2026-11-20 07:43 UTC
+## Latest measured checkpoint — 2026-11-20 08:43 UTC
+
+The final-002 database stage completed from 07:47:12 to 08:37:38 UTC: all
+48 independent process commands and both comparison readers exited zero.
+The [actual database report](checks/final-002-database-results-001/README.md)
+preserves all 48 validated processes, 24 scope rows, 177,648 successful measured
+operations and 88,848 measured durable commits. Forty-five processes meet the
+service standard. The three correct but ineligible PostgreSQL C16 controls are
+direct repetition 2 and managed repetitions 0 and 2. All before/after samples
+meet the service standard. No sample was replaced or hidden.
+
+PostgreSQL C16 mean process p99 is 214.366439 to 188.279126 ms (-12.169495%),
+but the frozen A21 mean-latency decision is inconclusive for whole/cycle/page.
+SQLite whole mean is within the frozen noise band; mean process p99 is
+162.153094 to 179.764195 ms (+10.860786%). Its tail-regression risk remains
+explicit. SQLite final mean is 5.471690 times the eligible direct Rust reference.
+The PostgreSQL direct cohort contains a service miss, so its apparent aggregate
+gap is descriptive and cannot support an eligible ranking. These observations
+do not yet establish which retained changes benefit complete applications.
+
+The full 48-process projection completed at 08:39:05 UTC. Completed numerical
+journals were then [losslessly retained](checks/comparison-database-cold-retention-005/README.md):
+3,149,431,218 original bytes in 96,507,923 gzip bytes, with complete decoded hash
+verification before replacement. All small controls and original classifications
+remain. The actual archive manifest SHA-256 is
+`6294f7d3a5e58e8e4516202d9c0ea906e28652f43d0fc230d238ca1c75117065`.
+
+Final product source remains 0715ffb6 and package version remains
+`0.1.0-perf01.after.3`. The actual build checklist and nine affected functional
+gates were published and fetched back exactly at Plan commit
+`fbe38fa908e476b79c1b1e1b7bd5714b49902443`. The after-long publication gate
+passed after cache cleanup against current artifact bytes.
+
+Next: run the unchanged 54-process HTTP/gRPC cohort, 24-process codec cohort,
+after/direct capacity groups, then all five final after long groups. **Five of
+ten required long groups remain accepted; final after long credit is still zero.**
+Before long results remain reusable. Keep formal timing exclusive and perform
+reporting/retention between stages. The complete comparison projector needs
+the retained raw bytes restored before any later full replay; the already
+validated numerical checkpoint remains available independently.
+
+## Earlier recovery — 2026-11-20 07:43 UTC
 
 The original measurement workspace and all five accepted before long groups
 were recovered. The frozen kernel boot identity, CPU fingerprint, compiler bytes
