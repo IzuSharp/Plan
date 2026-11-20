@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 04:29 UTC
+## Current state — 2026-11-20 04:54 UTC
 
 **All five before long groups passed. Five of ten required long groups are
 accepted, totaling 9,010.718473445 seconds of credited effective load.** The first
@@ -51,8 +51,9 @@ fixed baseline processes and two of three candidate processes. The [diagnostic
 report][a18-diagnostic] retains every outcome and the source-supported race.
 The narrow test correction is published as
 `3db42f3131c72be217e49e386ba61ece7cee27fb`; its complete JIT, Native AOT and
-package gate passed at04:00:37.317440 UTC. Runtime implementation remains
-unchanged from R3, and the clean after checkout uses this current head.
+package gate passed at04:00:37.317440 UTC. At that checkpoint runtime
+implementation was unchanged from R3; the subsequent native correction below
+is included in the current final candidate.
 
 B19 then passed native, JIT and compiled-API checks but failed its AOT
 managed-tail fixture's immediate native-completion assertion. Test-only commit
@@ -72,13 +73,48 @@ and failed tasks, including the final join. Existing fault state is preserved.
 This is a correctness correction, with no claimed performance benefit.
 
 The complete fresh B17 Host gate passed at04:28:01.137436 UTC, including all19
-native tests, JIT and Native AOT. Fresh B19, B15 and B18 gates are running serially
-against the changed native Host. Independent B16 and A23 inputs did not change;
-their completed gates remain applicable. Both clean product checkouts and the
-after build recipe now use ada13b8. Its normal CI122 is in progress. Actual after
-package builds and all after measurements remain pending. The revised local
-after-long publication proof passed51 finite source/negative checks; this grants
-no business-load credit.
+native tests, JIT and Native AOT. Fresh B19, B15 and B18 also passed, finishing at
+04:31:15.875241,04:32:53.358305 and04:35:14.371373 UTC respectively. The
+[shutdown regression report][shutdown] preserves both earlier failures, the
+ordered RED result, the non-reproducing network diagnostic and all four fresh
+gates. Independent B16 and A23 inputs did not change; their completed gates
+remain applicable. Both clean product checkouts use ada13b8.
+
+CI122 completed successfully at04:45:12 UTC. The [canonical artifact audit][ci122]
+read all46,797,437 downloaded bytes and checked the actual source tree,
+canonical11 checks, the two new native shutdown regressions, fresh-SDK, Task04
+and Task07 results. The [separate full A20 audit][ci122-a20] read all9,642,395
+artifact bytes, checked48 command outcomes and96 log hashes, and confirmed
+ASan/UBSan/LSan plus20,000 completed fuzz inputs. Actual CI checkout
+`34ed067343298abfb78947f750730f7efb29c101` has the same tree
+`0d1b1ca390b582b1f2ebf004f7778c8f084a68a4` as ada13b8. The hosted artifacts
+expire on2026-12-04 at04:43:36 and04:29:36 UTC respectively; their portable
+numerical reports remain in Git. No sanitizer or required check was disabled.
+
+The complete nine-step after build ran from04:36:00.904295 to04:44:30.117702
+UTC; every command exited0. All actual packages and consumers bind the final
+ada13b8 source. The measured Server native SHA-256 is
+`7dd16c9f13c394f09e6c88b0f814110a0b1c002166257c02b66a0cb0a99d54b5`;
+PostgreSQL, SQLite and codec native bytes remain identical to before. The
+[after-build numerical checklist][after-build] records actual package,
+application, native and manifest hashes, and the unchanged five long-load
+configurations. It explicitly does not claim public availability of local
+operational helper source. The revised publication proof passed51 finite checks.
+
+All after performance measurements remain pending. The first comparison
+launcher description failed before starting any workload because a logical
+profile name was resolved to a nonexistent file. That failed preflight is
+retained; only launcher path resolution is being corrected, with frozen profile
+bytes, driver, matrix and acceptance limits unchanged. A separately reviewed
+lossless-storage helper passed11 finite boundary tests. Its actual execution
+finished at04:54:40.469433 UTC with exit0:484 explicit completed before
+numerical files,6,884,013,987 raw bytes, were preserved in200,931,346 verified
+gzip bytes. Every file was fully decompressed and hashed before removal of its
+original copy; all small controls remain in place. The local archive manifest
+SHA-256 is `b5d703dc1edf5b6c6f6ebe7d59fd80f55bd176c25237907d79b16b82614b67b1`.
+It preserves all original valid, invalid and interrupted classifications and
+gives no measurement credit. Actual available disk afterward was11,614,433,280
+bytes; database and application files were outside the storage selection.
 
 | Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
 | --- | ---: | ---: | ---: | ---: |
@@ -140,14 +176,15 @@ when pairing any subsequent result.
    processes. The existing220/60 capacity noise and144/40 long rates remain
    separate. The portable source/contract commit900adc6 and its passed
    CI44658571298 remain unchanged.
-3. Finish the final affected shared-adopter and canonical gates for the committed
-   R1–R3 candidates. The reviewed changes comprise lazy stream-disposal
-   waiting and one bounded post-result retirement retry; bounded initial JSON
-   storage and scoped weak gRPC writer reuse. Run affected ownership/concurrency,
-   package, JIT and Native AOT regressions and compare the measured layered costs.
-   Retain only changes supported by equivalent-load evidence.
-4. Build the final after package closure, keep the frozen application/client and
-   direct Rust controls, execute interleaved comparisons and capacity sweeps,
+3. Final affected shared-adopter and canonical gates passed, and the complete
+   final after package closure is built. The reviewed R1–R3 changes comprise
+   metadata reuse, lazy stream-disposal waiting and one bounded post-result
+   retirement retry, bounded initial JSON storage and scoped weak gRPC writer
+   reuse. Run the prepared layered probes and retain performance changes only
+   when equivalent-load evidence supports them. The native shutdown correction
+   is separately supported by correctness regressions.
+4. Keep the frozen application/client and direct Rust controls, execute
+   interleaved comparisons and capacity sweeps,
    then run all five after long groups at the unchanged accepted rates:
    PostgreSQL144/s, SQLite40/s, HTTP500 logical operations/s, gRPC115 calls/s,
    codec192 operations/s. All retain their original mixtures and resource/SLO
@@ -215,3 +252,8 @@ research-only phase text; no repository protections or required checks are waive
 [a18-diagnostic]: checks/a18-self-close-diagnostic-001/data-001/README.md
 
 [ci-canonical]: checks/ci121-canonical-001/README.md
+
+[ci122]: checks/ci122-canonical-001/README.md
+[ci122-a20]: checks/ci122-a20-001/README.md
+[shutdown]: checks/native-shutdown-functional-001/README.md
+[after-build]: checks/after-long-build-001/public-checklist.json
