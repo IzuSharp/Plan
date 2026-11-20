@@ -1,392 +1,113 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 00:13 UTC
+## Current state — 2026-11-20 01:59 UTC
 
-**3 of 10 required long groups are accepted**, all before optimization: HTTP,
-gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
-5,406.296300913 s.
-No C#/Rust product-runtime optimization has been applied and no product speedup
-is claimed. All five accepted before groups remain required before the first
-runtime optimization. The current user instruction authorizes this performance
-implementation task; older research-only wording remains historical.
+**All five before long groups passed. Five of ten required long groups are
+accepted, totaling 9,010.718473445 seconds of credited effective load.** No product
+runtime optimization has been applied and no performance improvement is claimed.
+All five final after groups, equivalent-load comparisons and final acceptance
+remain pending.
 
-The first codec before long attempt was interrupted by an execution connection
-reset. Its completed operation records cover only 1,021.572841888 s of measurement;
-196,142 measurement operations and 3,861 warmup operations are recorded. Operation
-199993 has no completion in the observed ID prefix. Recovery, final result,
-normal exit and drain are unavailable. It receives **zero duration credit**.
-Original files and the stale original supervisor receipt are unchanged. The
-separate audit is `checks/before-codec-long-interrupted-001/summary.json`.
-The independently reviewed codec attempt002 configuration is published at
-`f2dda486fd378519c3eab4c20f3bc81026be24e6`; all nine files were fetched and matched.
-The fresh full attempt actually completed at22:17:58.861155Z with driver and
-independent verifier exits0. All346005 measurement operations succeeded;
-credited effective duration is1802.104068505s. No partial durations were joined.
-The original retry supervisor receipt is
-`ROOT/perf01-run/before-codec-long-002-execution.json`, and its accepted verifier
-receipt is `ROOT/perf01-evidence/long/before/codec-002-verification.json`
-(SHA-256 `a49b986b50dd01d0e35265d3bfb892f665aeae0416d7f9747cddc2fd6ba38635`).
-The strict numerical report is complete under `checks/before-codec-long-002`;
-summary SHA-256 is `488fb6155d5f891fe1668c3bc4f9e92c259ffd4881d599c17592a2f70226acf7`.
-It preserves all32 partitions, four action/interface aggregates and30-second
-resource buckets. The producer's actual offline extraction exited0, and root
-reviewed the reporting source plus independently checked partition totals,
-aggregate byte/ratio arithmetic and all report-file hashes. Original raw files
-and acceptance are unchanged.
+| Before group | Credited effective seconds | Ordinary successes | Expected cancellation/deadline probes | Arrival p99 (ms) |
+| --- | ---: | ---: | ---: | ---: |
+| http | 1,802.091185499 | 856,000 | 45,051 | 260.565040 |
+| grpc | 1,802.101046909 | 196,880 | 10,363 | 152.456566 |
+| codec | 1,802.104068505 | 346,005 | 0 | 105.719745 |
+| postgresql | 1,802.212239616 | 259,526 | 0 | 207.259125 |
+| sqlite | 1,802.209932916 | 72,091 | 0 | 115.857606 |
 
-Database work is also incomplete. The original PG144/s long attempt had correct
-business/persistence results but invalid generator lag. A fixed-package 120 s
-automatic/deferred scheduler-GC pair passed 104 checks, with an observed memory
-cost. Subsequent deferred calibration consistently passed only 25/s and failed
-the unchanged 144/s long-selection gate; SQLite was not started. The measurement-
-only sampler candidate `b846bb43816c8a3515fcd1e7fb512f142a1a6be3` received actual
-independent source review against the seven published files at
-`77205c1e11e3a19082fa374502885f488078c401`. Core cancellation/lifetime handling
-passed. A subsequent two-file correction `583e9d70f6974b91d865fd67a9eb7dc9d27dacb1`
-passes the same conservative RSS window to the three generator roles.
-Root integrated the changes on current published parentd859 in the separate
-`Perf-01-db-observer-measured-linux/NativeWeave` worktree. Its actual local/public
-HEAD is `a3ce0f6295c535b0a81de95fc0f98aa19deb259c`, complete tree
-`eb6b61e7c159c343513f7a50359f1a6c09f8df77`. The full remote tree and all seven
-changed-file contents were checked equal. Ten finite tests and the whitespace
-check actually passed on this exact checkout at22:24:27Z; source/tree stayed
-unchanged and clean. The generator RSS follow-up was independently closed.
-See `checks/database-observer-offload-001/source-and-finite-checklist.json`.
-The local b846 lineage and remote772 tree differ in other verifier files; they
-are not the measured source identity. The fresh synchronous/threaded load pair
-actually completed against a3ce0f6 after independent source review. No new DB
-calibration or long acceptance was granted by that pair itself.
+Each accepted group passed complete correctness, recovery, idle and retirement
+checks. Warmup, calibration, verification and idle time are excluded from credited
+load. Failed or interrupted earlier attempts remain preserved with zero credit;
+partial durations were not joined. The [five-group checklist][five] contains the
+actual verification hashes and the latest SQLite numerical details.
 
-The reviewed observer diagnostic pair ran from22:54:00.025163Z to
-23:01:28.735570Z. Both driver processes, both offline cell audits and the final
-pair audit exited0. The actual supervisor receipt is
-`ROOT/perf01-run/database-observer-fixed-before-pair-001-execution.json` and the
-sibling `-supervision.jsonl` preserves progress. Receipt SHA-256 is
-`c64debb45b30388809373695dfda3e59714571debf3db8801b4672a54c7de796`.
-Final equality analysis SHA-256 is
-`bfca614ae18a47237df7f1fdea5daed54a364cd087a12118fc3937aaedee130d`.
-Both sides completed17282 measured operations,8641 cycles and8641 pages,
-with all expected row values matched. Independent durable totals were8777 per
-business table before recovery and8809 after32 recovery operations. Each idle
-observation covered60s; registered process cleanup passed without forced signals.
-Both original valid/SLO flags are true, with no invalid reasons. The
-configuration SHA-256 is
-`2f7a7149d3f8de59a90b1cd569032bb16a203957c4807062e8a5330c6f1368e0`,
-supervisor SHA-256 is
-`4a3a30d8b74c905b419ca6d71e8c059f6ea888dbbfa2b9aef58455c22e680d40`,
-and auditor SHA-256 is
-`f8013d23a12b5e0a4acb0e2befa800a10120353729330eaad59bc7e6b76bdd43`.
-The source preparation is local Planecd530cb, integrated as25bb6f8; its independent
-review is in `checks/database-observer-equivalence-001/preparation-001`.
-All48 input pins were checked and both sides use identical PG144/C16/120s
-before-product workloads with explicit synchronous/threaded observer policies.
-The synchronous/threaded arrival p99 values were68.575553/73.439022ms,
-maximum dispatch lag21.823064/15.139320ms, and successful throughput
-143.945136160/143.923746726op/s. Application sampled peak RSS was
-44982272/46891008B; scheduler peak RSS116379648/117608448B. Scheduler CPU
-was10.58/12.29s over119.490688952/118.921159540s sampling spans. Both
-deferred-GC policy scopes recorded zero cyclic collections and restored the
-original policy. This short pair did not reproduce the earlier timing failure
-and does not prove a product gain, memory neutrality or30-minute heap stability.
-It earns zero formal timing/long credit. The independent evidence review and
-strict numerical projection are complete under
-`checks/database-observer-equivalence-001/results-001`; public-summary SHA-256 is
-`46a3d151e66fff044ea6f082a4be0a03cd6956037e1bd982b904a0491c7904f2`.
-Root also independently cross-checked 283 reported scalar/resource fields.
-The threaded/deferred policy is adopted prospectively for fresh DB calibration
-and matching noise qualification only. It has no diagnostic failure whitelist:
-all three confirmation processes must pass the original validity and SLO gates.
-PG144/s and SQLite40/s long targets remain unchanged. The new portable
-calibration/noise source passed independent final source/configuration review.
-Source-002 checks actually passed68/68; root rechecked all26 private input pins.
-No calibration result or long credit is implied by those finite checks.
-The new public contract is `database-observer-policy-001.json`, SHA-256
-`98f8e537d87cac9de87cb2d1ae1150465a5c9a052333451f0772398b58ad58c3`.
-The actual private command configuration is
-`ROOT/perf01-run/database-observer-before-calibration-001-prepared-private.json`,
-SHA-256 `fbaee7021be73322b7a73d1169bace6b03679a87ecf36b66bd1700e8c7ec5df8`.
-The supervisor SHA-256 is
-`c411e2d998bfaa0278d9ef2092bff785f37bfa50c45a2e1b05c6da153e5201c1`.
-After exact public source/contract readback, the serial PostgreSQL then SQLite
-calibration actually ran from23:27:44.057296Z to23:49:21.299571Z. Both controller
-processes exited0 and both unchanged fixed-long-rate selection gates passed.
-The actual receipt is
-`ROOT/perf01-run/database-observer-before-calibration-001-execution.json`, SHA-256
-`04a052a4902d8b191ccb68d8c2a22b8632db37db33a1d51cfe14b786c145325c`.
-PostgreSQL confirmed220/s in three new60s processes,13201/13201 operations each,
-with p99 values124.763984/70.706392/391.044979ms. The240/s sample completed all
-operations but failed the500ms p99 standard;320/s was invalid for generator
-in-flight saturation and is not a server-capacity upper bound.
-SQLite confirmed60/s in three new60s processes,3601/3601 operations each,
-with p99 values377.839309/279.342387/287.805384ms. Its65/70/80/s samples completed
-the business operations but failed the original tail-latency standard.
-The exact selection/controller SHA-256 pairs are respectively
-`2070cae31ab0e72d69f1b02eea237dab7c3dc87f62b248c95cfef104d7528f43` /
-`4a87700447f84853ef68c2edbdf81a9cf76b45c1d8dd799e74b99a41edc73206`, and
-`5d9b6bbec0186503ddfdab3b9d21fedc95bd0fa5480841e4faba44036b24436f` /
-`6b06eea81b24cbec2e7b916dc8f0552182887771e20b3c681e53c3d6e4340831`.
+SQLite completed 72,091 operations at the frozen 40/s, concurrency16. Independent
+queries found 36,182 rows per table before recovery and36,214 afterward; all32
+recovery operations passed. The final idle observation lasted60.000160322s and
+normal consumer/database/server cleanup passed. Sampled application CPU was544s,
+30.183734% of one core, and sampled peak RSS43,560,960B. Surfaced BUSY/LOCKED and
+business retries were0. Internal busy-handler retry counts remain unavailable.
 
-The new source-bound noise helper then actually exited0 for both providers,
-reading the entire final triplets and verifying59 input pins per provider.
-It ran offline on CPU8 under the timing lock; no load was generated. The actual
-noise-execution receipt SHA-256 is
-`ba45fbd2141eae25b3896bb7f0fda00af8401a0a897f00e5e1f544e067f2b8a5` at
-`ROOT/perf01-run/database-observer-noise-001-execution.json`.
-Noise receipts are under
-`ROOT/perf01-evidence/noise/database-gc-deferred-threaded-v1`:
-`postgresql.json` SHA-256
-`1da887679a1e115070428d38c4069e35faacd6288f24c5854d6afefc64d697f1`, and
-`sqlite.json` SHA-256
-`69a4c8b909b1336fae7302944f2db176856a84addc96e85275b037009a405557`.
-The original max-minus-min process-mean rule gives mixed/cycle/page absolute
-noise bands of34.038735657/38.390880256/29.685931642ms for PostgreSQL and
-2.880008805/5.668907591/0.497168953ms for SQLite. The large PostgreSQL variation
-is retained without selecting a favorable subset. Relative noise remains zero.
-This is measurement qualification, not a product speedup or long credit.
-The strict actual-results projection is complete in
-`checks/database-observer-calibration-001/results-001`, public-summary SHA-256
-`c9bb4b25de321614e5ae55c709ddeeaa2238d6ade06f50d4bac52b1c654d566a`.
-Its four files passed independent source/numerical/public-field review. Root
-also independently compared2558 scalar/resource values against the actual24
-cell summaries and two noise receipts. All failed points remain in the report.
-The metadata-only projector read152 small inputs; its actual exit0 receipt
-retains the preliminary exit1 caused by an incorrect progress-state assumption.
-It did not rerun load or raw-row validation. SQLite surfaced BUSY/LOCKED and
-business retry counts were zero; internal busy-handler attempts remain unavailable.
-PG144/s and SQLite40/s long targets remain unchanged. Their new exact long
-configuration and independent review are complete; neither has started yet.
-The author preparation commit is `b780b4501f55979bc540acd2ae63a25d8c201772`,
-integrated locally as66ee4c2. The public amendment SHA-256 is
-`4a50ac89cf20dbea779579dbeb1793753fa739de4390525a68cc19b86c75c176`;
-supervisor `da4ffe3491e129f3b8cb82194798f36fdfb251abb648dd22fb468315d1000c35`,
-wrapper `0b9f67e0afe54a29ec0d85d8df5e6c51358ebf994d7db871425be975783adb47`.
-The actual private command file is
-`ROOT/perf01-run/database-observer-before-long-001-prepared-private.json`, SHA-256
-`fa595b6fda5193319ea5a688d2ee4dab397c254fb039a74b7ce163fc88518bce`.
-Finite source checks actually passed103/103, exit0, without executing a driver,
-supervisor/verifier main or raw replay. Independent final source/configuration
-review and root's separate source/argv review found no remaining blocker.
-See `checks/database-observer-long-source-001/independent-review.json`.
-The original full long verifier is retained, AND the restored-GC/threaded-observer
-contract; no diagnostic whitelist or original acceptance limit changes.
-Root will publish and read back the exact source/contract, then uniquely launch
-PostgreSQL followed by SQLite. The two authoritative execution receipts are
-`ROOT/perf01-run/before-postgresql-observer-002-long-execution.json` and
-`ROOT/perf01-run/before-sqlite-observer-001-long-execution.json`.
-Outputs and separate verification receipts use `postgresql-observer-002` and
-`sqlite-observer-001` under `ROOT/perf01-evidence/long/before`. Absence or a running
-receipt is not completion. These two groups remain uncredited until actual
-driver/combined-verifier success,1800s effective load and normal cleanup.
+The PostgreSQL wrapper initially compared the CLI duration with the driver's
+existing guarded, rounded schedule span. The exact correction preserves the
+original count, period, thresholds and raw files. Its54 finite checks,17 negative
+cases and full original-plus-observer re-verification passed. The original failed
+wrapper receipt is unchanged. See the [correction checklist][correction].
 
-The actual pair report and current recovery record were published at
-Plan `aaf82720133bc7408061731a64785a59da5de476`; all five files were fetched and
-matched, and Plan CI run44635783203 passed. The portable calibration source and
-contract were subsequently published at
-`1a5478c4c2009512d24e3a0d69ba0204da12796f`; all11 changed files were fetched
-and matched, and Plan CI run44637791448 passed at23:32:07Z. The actual24-cell
-calibration/noise numerical report, gRPC candidate source review and handoff were
-then published at `356ec64c10881004a65d357c7915667120743608`; all six files were
-fetched and matched, and Plan CI run44642610064 passed. Both PR bodies now reflect
-the completed qualification and unchanged3/10 long credit. A subsequent tool
-session reset lost in-memory orchestration state only: at00:06:03Z, root checked
-the retained sources, qualification/noise/readback receipts, before metadata and
-SDK, with the same boot hash. No formal load was active at that reset.
-The subsequent workspace-maintenance
-notice did not remove the checked source, pair evidence, before application,
-codec manifest, environment or SDK. The checked boot identity is unchanged.
+## Fixed identities and next work
 
-Automatic publication review rejected the full14-file source/configuration/test-
-receipt bundle because of extensive absolute workspace/toolchain/cache paths
-and operational metadata. No successful tree/commit/ref was returned for that
-attempt, and that payload is not retried through another encoding or channel.
-The materially narrower numerical workload/check checklist is published at
-Plan `0cd7d9b9cf86ab0587b9882f1de90b698e98b383` and was read back exactly.
-Reviewed local source and configuration remain unchanged and committed; the
-user-authorized local diagnostic continues. The full source-publication item is
-still open. The narrower public checklist commit0cd7d9b passed Plan CI
-run44632649728. The earlier codec report and integrated observer numerical checklist
-are published at `c1076ee564597451e5415c24eda5d95387ed7d18` with all seven files
-read back equal. Do not describe the blocked full bundle as retrievable remotely.
+The before product is main commit
+`ea5fa528035d025bd7a28698ee7c71194432236c`. The locked Design is
+`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`; repository toolchain and dependency
+versions remain fixed. The main implementation PR currently contains measurement
+and regression tooling at `d859b79eedb87dfc372be6c07e516d173c96124b`.
+The accepted database observer driver is separately published at
+`a3ce0f6295c535b0a81de95fc0f98aa19deb259c`. These tooling commits do not change the
+before product binaries. Preserve actual package and loaded-library identities
+when pairing any subsequent result.
 
-## Immutable inputs and workspace
+1. Finish the two database numerical/resource projections. Retain complete raw
+   records; remove an uncompressed duplicate only after verified lossless archive
+   restoration and byte-for-byte comparison.
+2. Before the first runtime edit, freeze three fresh independent60-second noise
+   processes at each existing database comparison anchor: PostgreSQL180/s and
+   SQLite50/s, concurrency16, with the adopted deferred scheduler GC and threaded
+   observer. Existing capacity noise at220/s and60/s does not apply to these
+   different configuration fingerprints. Formal before/after comparisons still
+   require their own fresh processes.
+3. Root integrates the independently source-reviewed R1–R3 candidates: successful
+   default metadata reuse and resolver reference ownership; lazy stream-disposal
+   waiting and one bounded post-result retirement retry; bounded initial JSON
+   storage and scoped weak gRPC writer reuse. Run affected ownership/concurrency,
+   package, JIT and Native AOT regressions and compare the measured layered costs.
+   Retain only changes supported by equivalent-load evidence.
+4. Build the final after package closure, keep the frozen application/client and
+   direct Rust controls, execute interleaved comparisons and capacity sweeps,
+   then run all five after long groups at the unchanged accepted rates:
+   PostgreSQL144/s, SQLite40/s, HTTP500 logical operations/s, gRPC115 calls/s,
+   codec192 operations/s. All retain their original mixtures and resource/SLO
+   limits.
+5. Publish the before/after/direct-Rust table, retained/reverted decisions,
+   remaining bottlenecks and exact ten long-run intervals. Complete required
+   checks and independent review, merge both PRs under repository rules, and
+   verify post-merge CI and the existing normally triggered preview.
 
-| Input | Exact identity |
-| --- | --- |
-| Before product main | `ea5fa528035d025bd7a28698ee7c71194432236c` |
-| Starting Plan main | `8afa0311f45ab8a8157fc45c51e95a0b17dd09f2` |
-| Locked Design | `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9` |
-| Original immutable drivers | `ce2a3c75cbd535490897d062b6cbb7c095408307` |
-| DB scheduler-GC wrapper | `0b2af54419ecf6a11ec83a45725b1c5fbbaeb0d0` |
-| Global freeze SHA-256 | `85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3` |
-| Adopted gRPC long amendment002 SHA-256 | `2c4d5a0a00cf2f763e4641043f7d6908319ea4d3e7fdbaf2760039bc6808b513` |
+## Evidence and boundaries
 
-The authoritative gRPC amendment hash is recorded in its own immutable file and
-published receipt; verify that file before execution. Do not reconstruct any
-command from a prose table. The same rule applies to all commands below.
+- [HTTP before long numerical report][http]
+- [gRPC before long numerical report][grpc]
+- [Codec before long report,32 partitions and resource series][codec]
+- [Database calibration:24 points and matched capacity-noise checks][database]
+- [Per-mode gRPC profiling][grpc-profile]
+- [Five-before acceptance checklist and SQLite results][five]
 
-Primary worktrees are `ROOT/.worktree/Perf-01-linux/{NativeWeave,Plan}`, branch
-`task/Perf-01-linux`. Before product and original drivers are respectively under
-`Perf-01-baseline-linux/NativeWeave` and `Perf-01-frozen-drivers-linux/NativeWeave`.
-The immutable GC-wrapper worktree is `Perf-01-db-generator-fix-linux/NativeWeave`.
-Root owns shared runtime integration and the only measurement queue.
+The current source studies map public C# through native bindings to the actual
+Rust engines. The [Wasmtime study](source-binding-wasmtime.md) and
+[csbindgen comparison](source-binding-csbindgen.md) distinguish read source from
+executed tests and record licensing; no third-party implementation is imported.
+gRPC remains identity-compression only. Independent codec results are not
+negotiated network-compression gains. Sampled resources are not allocation/CPU
+stack traces; unobservable counters are marked unavailable.
 
-All timing uses the existing `ROOT/perf01-evidence/timing.lock`: application and
-DB CPUs2,3, generator CPUs0,1, source/supervision CPU8. Long windows exclude other
-local work; builds/profiling never overlap formal timing. The frozen Linux x64
-host has nine virtual CPUs, EPYC9V74, kernel6.18.57. SHA-256 of **stripped** kernel
-boot-ID text remains `d19b8f888214efe7966ce4acd9313f5a8536f876c1e35f78201081604986df45`
-after this interruption. Physical-host scheduling and power controls are
-unavailable; no bare-metal isolation is claimed.
+Public synthetic numerical/checklist evidence is retained in Git while repository
+history is retained. The complete raw measurement records and operational
+controls remain in the measurement workspace; no remote full-raw archive is
+claimed. A broader operational publication was rejected by automatic review.
+This portable progress record omits those private control details and references
+only published project sources and numerical evidence.
 
-Source `ROOT/perf01-toolchain/env.sh`. Pinned versions are .NET SDK11.0.100,
-Rust1.100.0 and PostgreSQL18.0. The missing SDK was restored from the verified
-official archive; original dotnet SHA-256 remains
-`bb015c1dbaec79f69addde16893609baf880ccdc5931db354d40096769010e3e`.
-Previously measured standalone AOT binaries are unchanged. Original failures and
-recovery evidence remain separate. Do not replace pinned dependencies.
+[NativeWeave#19][native-pr] and [Plan#23][plan-pr] remain draft. Public domain
+package release and24h/72h tests remain separate deferred tasks. The user's
+current performance-implementation authorization supersedes historical
+research-only phase text; no repository protections or required checks are waived.
 
-## Accepted before long results
-
-| Group | Effective seconds | Recorded operations | Ordinary successful/s | p99 ms | Result |
-| --- | ---: | ---: | ---: | ---: | --- |
-| HTTP | 1802.091185499 | 901051, including45051 expected cancellations | 474.929480 | 260.565040 | Accepted; recovery32/32, idle60s and zero residual owners/requests |
-| gRPC115 | 1802.101046909 | 207243, including4145 cancel and6218 deadline probes | 109.246215 | 152.456566 | Accepted; recovery32/32, idle60s and all10 owner/request/queue gauges zero |
-| PostgreSQL | 0 credited | Earlier144/s long invalid generator lag | — | — | Replacement pending |
-| SQLite | 0 credited | No accepted before long | — | — | Pending |
-| Codec | 1802.104068505 | 346005, all successful | 191.994948 | 105.719745 | Accepted; recovery12/12, idle60.077663s and normal owner drain |
-
-HTTP dispatch UTC: 15:31:55.221462–16:01:57.321053. gRPC dispatch UTC:
-16:57:34.317798–17:27:36.421953, all on2026-11-19. Details and exact source,
-package/native identities are in `checks/before-http-long-001` and
-`checks/before-grpc-long-002`. Original gRPC128 failed with17 ResourceExhausted,
-5 unexpected cancellations and1 missing-header/terminal-response record; it is
-not rescued by a later steady portion. Its data remain immutable.
-
-Codec dispatch UTC is21:46:34.974014–22:16:37.078450 on2026-11-19; its actual
-dispatch span is1802.104435880s. The independent credit uses the smaller ordinary-
-operation lower bound. p50/p95/p99 are1.096052/27.814088/105.719745ms. Target CPU
-is1160.68s /64.405051% of one core; sampled target peak RSS is120487936B. Maximum
-dispatch lag is46.976085ms with zero over50ms. All3861 warmup and12 recovery
-operations also succeeded. Actual before004 native identity remains unchanged.
-
-All ten long segments must run at least1800 effective seconds with correctness,
-SLO, generator-lag, resource and drain gates. Warmup, recovery and idle do not
-count. The current total is3/10; all five after groups remain unstarted.
-
-## Immediate queue and ownership
-
-1. Publish the strict numerical report for the24 completed new database
-   calibration cells and both actual noise triplets. Preserve every failed or
-   invalid point separately; the6 final confirmations are not fresh comparison
-   processes and earn zero long credit.
-2. Complete and independently review the new source-bound database long
-   amendment and exact private command configuration. Use a3ce0f6, deferred GC,
-   threaded resource sampling, current before packages, PG144/SQLite40,C16,
-   duration1802,W16,recovery32,idle60, and all unchanged original gates. Run the
-   two new before segments serially only after source review and exact public
-   contract readback. Do not overwrite or relabel the original failed PG long.
-3. Preserve the four completed gRPC per-mode profiles from
-   `grpc-mode-profiles/commands.json` (SHA-256
-   `81921bd9809844d54214f29f398058b68c8c6561991b06ee11f2b8fdb530d5f0`).
-   The four before profiles completed at21:28:10Z with all16 command exits0 and
-   all323 calls per mode successful. Existing-reader validation passed with only
-   expected profiling ineligibility. After replication remains required; before
-   profiling is complete and adds no formal timing or long credit. See
-   `checks/grpc-modes-before-001`.
-4. Complete all remaining before longs. Only then apply small runtime candidates,
-   build actual after packages, run affected correctness/AOT gates, interleaved
-   before/after/direct-Rust comparisons and capacity sweeps, then all five after
-   longs using the same accepted drivers and fixed load configurations.
-
-## Actual diagnostic findings and candidate boundaries
-
-The before public `ZlibCodec.Descriptor.Inspect(null)` profile completed three
-independent processes of1,000,000 steady calls each: **2624 allocated B/call**;
-wall638.684064/614.873301/595.548022ns per call. It uses actual before packages
-and native mappings. The new test-only source is published in NativeWeave
-`d859b79eedb87dfc372be6c07e516d173c96124b`; CI44611817761 passed. This identifies
-an allocation candidate, not an after gain or a sampled allocation stack.
-
-The database calibration audit passed121 checks. Its40/s cell completed1201/1201
-operations but p99 was8464.161657ms and failed the service standard. The30/s and
-27/s cells were invalid for generator dispatch lag. A measured219.076152ms
-synchronous target sampler span overlaps a lag cluster; this supports testing
-observer offload, not an established explanation of all tail latency. Database
-execution, lock wait, pool wait and contemporaneous host steal/iowait attribution
-remain unavailable. The earlier120s deferred-GC pair increased sampled scheduler
-peak RSS by44.2578125MiB; do not call it memory-neutral.
-
-Reviewed runtime hypotheses are in the existing source notes: default Inspect
-cache after validation; resolver lifetime/OS-reference ownership; lazy typed-
-stream disposal waiter; bounded A07 retirement retry; bounded JSON initial
-buffer; exact-E weak gRPC encoder scratch reuse. Preserve explicit nondefault
-Inspect validation, cancellation, ownership, credit limits, thread safety and
-all public contracts. Root integrates shared code. Drop regressions/unproven
-complex changes. No runtime candidate has yet been applied.
-
-The existing profile limitations are explicit: no usable perf/ptrace allocation
-or CPU stacks. Source attribution and timing brackets are not stack samples.
-gRPC supports **identity only**; independent A17 codec numbers are not negotiated
-network-compression gains. Public domain-package release and24h/72h runs remain
-separate deferred tasks.
-
-## Evidence, publication and resume
-
-Public PRs: [NativeWeave#19](https://github.com/IzuSharp/NativeWeave/pull/19) and
-[Plan#23](https://github.com/IzuSharp/Plan/pull/23), both still draft. Public Plan
-checkpoint `a6616a1876de93395522e98f19bbe83099ef6f57` includes the gRPC mode
-numerical report and merge/preview review, following the reviewed codec retry
-atf2dda486, f2b2ca88,07226391,b46991bc andafcdc555. Its paired-integrity CI
-44623801574 passed at22:02:32Z; all six changed files were read back and matched.
-It also contains
-strict numerical Inspect and failed-DB-calibration summaries. Their fixed-commit
-contents were fetched successfully. It does not contain every newer local
-source or detailed audit. Inspect summary SHA-256 is
-`2dc5e7f7ecbb699c898aae2d6818587be951b40043f602cdbca2a46011e18693`;
-full local DB numeric audit SHA-256 is
-`f612890c0323e082f110d600e84248f56e0c9d02b439198886780798dd0caa50`.
-
-Raw and detailed controls remain under `ROOT/perf01-evidence`; original frozen
-commands, hashes, summaries, source and checklists are in this batch directory.
-Full raw archive publication and a mixed checkpoint were blocked by automatic
-scope review. Those payloads are not retried in another encoding/channel.
-Publish only genuinely narrower authorized synthetic numbers/checklists or
-reviewable task artifacts. Never upload process-registration tokens, TLS private
-keys, credentials or unrelated data. Do not describe local archives or orphan
-Git blobs as publicly retrievable artifacts. Original raw bytes are retained.
-
-At 23:06:41Z the five large inputs from the invalid original PG long attempt
-were retained in the already verified lossless archive, after a new complete
-byte-for-byte comparison against every uncompressed original and every pinned
-compressed/raw chunk hash. Only the uncompressed duplicate copies were removed;
-4,279,460,020 bytes were released. The original acceptance remains false and
-duration credit remains zero. Small original metadata and all other runs are
-unchanged. The local archive is
-`ROOT/.worktree/Perf-01-raw-archive-linux/Plan/ledger/evidence/batches/Perf-01/raw/before/postgresql-001-raw8m-001`;
-its manifest SHA-256 remains
-`8f4669483b3965599657513a06ca81a73a77a9ce0e9fd5a16e2df67a3285491d`.
-The actual retention receipt is
-`ROOT/perf01-run/invalid-pg-cold-retention-001.json`, SHA-256
-`335ddc02ca7cbf0ae39f1ebcde001de180eb35f4868275f907a81c61104e95e3`.
-Use the existing `pack_evidence.py restore --bundle <archive> --output <fresh>`
-before any future full raw replay of that failed run. This local retention does
-not establish remote recoverability. Free workspace space after retention was
-20,879,200,256 bytes; recheck before subsequent large builds or long runs.
-
-The previous full local handoff is preserved at
-`ROOT/perf01-run/handoff-before-scope-029.md`; immutable local commits retain
-all preparation history. This current handoff is a concise continuation record.
-On resume, inspect it, actual branch/PR heads and the original receipts first.
-Reuse an accepted30-minute group only when binaries, cases and configuration
-match. Never infer completion from a lost tool session or a stale running flag.
-
-Finish all required gates and independent technical review before ready/merge.
-Do not impersonate a separate GitHub approver, bypass protection, or publish
-unrelated releases. After authorized merges, confirm both repos' actual CI and
-the existing normal HelloWorld preview trigger. Deliver a brief Chinese result
-with measured before/after/Rust gaps, retained/reverted changes, all ten durations,
-actual commits and retrievable evidence; no completion is currently claimed.
-
-## Completed before gRPC mode profiling — 21:28:10Z
-
-The four ordinary modes each completed323 calls, with no unexpected errors or correctness failures; recovery, retirement and final zero gauges passed. Actual whole-server allocation observation rates were16.306950MiB/s unary,512.446451MiB/s server-stream,21.053005MiB/s client-stream and518.345020MiB/s duplex. Brackets were19.785026586/19.750669434/20.033393419/19.490230838s. They are whole-process sampled deltas, not exact bytes per call or stack attribution. Public projection source and numbers are in checks/grpc-modes-before-001; summary SHA-2565349d95853b31b72d2857cd313be76fcf94b9115c7ebfe711b5cc9a0c454674a. No product-runtime optimization or new long credit is claimed.
+[five]: checks/before-long-five-001/public-checklist.json
+[correction]: checks/database-observer-long-correction-002/public-checklist.json
+[http]: checks/before-http-long-001
+[grpc]: checks/before-grpc-long-002
+[codec]: checks/before-codec-long-002
+[database]: checks/database-observer-calibration-001/results-001
+[grpc-profile]: checks/grpc-modes-before-001
+[native-pr]: https://github.com/IzuSharp/NativeWeave/pull/19
+[plan-pr]: https://github.com/IzuSharp/Plan/pull/23
