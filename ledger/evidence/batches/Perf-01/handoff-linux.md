@@ -1,5 +1,45 @@
 # Perf-01 Linux x64 handoff
 
+## Six fresh ON noise processes completed; original bands frozen for comparison
+
+The actual noise owner completed from 2026-11-20T18:18:39.082109+00:00 to
+2026-11-20T18:22:28.356660+00:00. All 14 commands exited zero with clean process
+group and adopted-descendant retirement. All six distinct ON processes passed
+validity, service standards, correctness, recovery and drain; each recorded
+323 offered and successful calls. No generator invalidity was recorded. Both
+resource-unavailable lists are empty. Some tail ranges are broad and remain
+unchanged; no process was replaced or threshold tightened.
+
+The complete original noise index is
+`13cdfeaa09f02f0d4b6cb615ecc9d2fddd073b9c378968324392006634edf675`,
+and the final owner receipt is
+`29fa28aad3019fc88078ad58ab5a428ae8ff8a96f45c6c14a6bd56f81915438c`.
+The actual-input independent review is
+`bd276c8538c056e03a424f832ea9842a41a3ee8d7c8793247c1bf0b9214fc55b`.
+The exact three-file [public noise freeze](checks/grpc-weak-noise-001/README.md)
+passed separate literal review, receipt
+`127b464dd869dfc14fb1537d6e6746d1afa0be56bcfdca405b4d40d3bdf3a3cf`.
+It preserves all six processes, five A21 bands and eleven resource/tail ranges,
+with current policy `grpc-weak-001-prospective-001`. Publish and read back this
+complete-index identity before the 18-process ON/OFF/direct comparison. The
+comparison and fresh ON/OFF capacity pair remain unrun at this checkpoint;
+noise alone does not decide optional weak-cache retention.
+
+The actual weak OFF producers and corrected measurement binding002 remain
+unchanged. A narrow idle cache inventory is now running through the original
+finite owner for only the two new private external-package caches and four
+actual publish-bound AOT intermediate objects. Source selector SHA-256 is
+`263f1b9a15e44027df78703a12ac12885e5bd523e6d0fecf6343f1680e62e443`.
+Its actual selection and any cleanup require a later recorded review/freeze;
+no reclaimed-byte claim is made here. The preparation argv was corrected to
+the existing positional `apply` parser without changing the cleanup engine.
+
+Plan CI188 for public commit8595f695 completed successfully. Status-client
+runtime diagnosis, final DB phase producers and measurements, main DB/codec
+continuations, remaining capacities, final retention decision and final after
+long groups are still pending. **Five before / zero after long groups are
+accepted.** Both PRs remain draft; no final acceptance or merge is claimed.
+
 ## Corrected weak binding passed; six fresh ON noise processes are running
 
 The narrow correction received independent ACCEPT at Plan03de36e. The new
