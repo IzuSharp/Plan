@@ -1,5 +1,41 @@
 # Perf-01 Linux x64 handoff
 
+## Recovery execution resumed: baseline producers running
+
+The reviewed new build owner passed all three actual finite ownership fixtures
+at 19:43:09.709449–19:43:12.634338 UTC on 2026-11-20. Its execution is
+`548dce7313b67eec507bb271a7ba3a984ec18dd85213a1987087753bc6c21108`;
+source index is `c7526f08d3c50c6d58f7336adae6ebab5fb82b606cce140108a48f6b54b3d0ab`.
+See the [curated actual cases](checks/recovery-owner-fixtures-001/README.md)
+and [independent review](reviews/recovery-host-audit-001/build-owner-review.md).
+The earlier procfs admission failure remains preserved; it spawned no fixture
+child. Strict PPid enumeration replaces the unavailable children pseudo-file.
+
+The clean EA5 baseline eight-producer stage actually started at
+19:43:32.819494 UTC. Its native producer is running at this checkpoint. No
+producer completion, functional acceptance, measurement or long-duration credit
+is inferred from launch. The accepted orchestration is published under
+`diagnostics/recovery-build-001`; its indexed source remains frozen during the
+active build. Entry/per-producer disk guards are operational 16/8 GiB headroom,
+not changes to the application resource standard.
+
+The optional weak-OFF source has also been explicitly reconstructed, reviewed
+and published to experimental branch `task/Perf-01-recovery-grpc-off-linux` at
+`4ae2e15f4825a9b5237734444ff68b0b6d2c5aa4`. Its full tree
+`a8f33c1c07127d8e70642afeb84c3822fbf4565e` matches the one-file local preparation
+`0c67621f0d6cedca268f15e80fd75595d26b5094`; exact file/blob/branch readback and
+clean checkout alignment occurred before any OFF build. This is a new actual
+public commit, not recovery of the lost historical 963 artifacts. It remains
+unselected. The [source record](recovery/epoch-001/weak-off-source.json) and
+[source review](reviews/recovery-host-audit-001/source-deltas-review.md) preserve
+that distinction. Full fresh OFF native/package/consumer production is being
+prepared separately, avoiding special mixed-source native/managed admission.
+
+Recovery publication 106 is `d0a7f573bbd5d8a71d6b2d5d889ea52b5d66b6bf`.
+All nine configuration/audit/toolchain files, Git blobs and branch were read
+back exactly; both PR descriptions were updated and read back. CI191 is running.
+The prospective freeze is unchanged. All ten new long segments remain pending.
+
 ## Recovery epoch 001: public sources restored; fresh paired measurements required
 
 The execution service is available again, but the original measurement workspace
