@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Current state — 2026-11-20 00:01 UTC
+## Current state — 2026-11-20 00:13 UTC
 
 **3 of 10 required long groups are accepted**, all before optimization: HTTP,
 gRPC at 115 calls/s and codec attempt002. Their credited effective load totals
@@ -154,14 +154,44 @@ retains the preliminary exit1 caused by an incorrect progress-state assumption.
 It did not rerun load or raw-row validation. SQLite surfaced BUSY/LOCKED and
 business retry counts were zero; internal busy-handler attempts remain unavailable.
 PG144/s and SQLite40/s long targets remain unchanged. Their new exact long
-configuration and independent review are being prepared; neither has started.
+configuration and independent review are complete; neither has started yet.
+The author preparation commit is `b780b4501f55979bc540acd2ae63a25d8c201772`,
+integrated locally as66ee4c2. The public amendment SHA-256 is
+`4a50ac89cf20dbea779579dbeb1793753fa739de4390525a68cc19b86c75c176`;
+supervisor `da4ffe3491e129f3b8cb82194798f36fdfb251abb648dd22fb468315d1000c35`,
+wrapper `0b9f67e0afe54a29ec0d85d8df5e6c51358ebf994d7db871425be975783adb47`.
+The actual private command file is
+`ROOT/perf01-run/database-observer-before-long-001-prepared-private.json`, SHA-256
+`fa595b6fda5193319ea5a688d2ee4dab397c254fb039a74b7ce163fc88518bce`.
+Finite source checks actually passed103/103, exit0, without executing a driver,
+supervisor/verifier main or raw replay. Independent final source/configuration
+review and root's separate source/argv review found no remaining blocker.
+See `checks/database-observer-long-source-001/independent-review.json`.
+The original full long verifier is retained, AND the restored-GC/threaded-observer
+contract; no diagnostic whitelist or original acceptance limit changes.
+Root will publish and read back the exact source/contract, then uniquely launch
+PostgreSQL followed by SQLite. The two authoritative execution receipts are
+`ROOT/perf01-run/before-postgresql-observer-002-long-execution.json` and
+`ROOT/perf01-run/before-sqlite-observer-001-long-execution.json`.
+Outputs and separate verification receipts use `postgresql-observer-002` and
+`sqlite-observer-001` under `ROOT/perf01-evidence/long/before`. Absence or a running
+receipt is not completion. These two groups remain uncredited until actual
+driver/combined-verifier success,1800s effective load and normal cleanup.
 
 The actual pair report and current recovery record were published at
 Plan `aaf82720133bc7408061731a64785a59da5de476`; all five files were fetched and
 matched, and Plan CI run44635783203 passed. The portable calibration source and
 contract were subsequently published at
 `1a5478c4c2009512d24e3a0d69ba0204da12796f`; all11 changed files were fetched
-and matched, and Plan CI run44637791448 passed at23:32:07Z. The subsequent workspace-maintenance
+and matched, and Plan CI run44637791448 passed at23:32:07Z. The actual24-cell
+calibration/noise numerical report, gRPC candidate source review and handoff were
+then published at `356ec64c10881004a65d357c7915667120743608`; all six files were
+fetched and matched, and Plan CI run44642610064 passed. Both PR bodies now reflect
+the completed qualification and unchanged3/10 long credit. A subsequent tool
+session reset lost in-memory orchestration state only: at00:06:03Z, root checked
+the retained sources, qualification/noise/readback receipts, before metadata and
+SDK, with the same boot hash. No formal load was active at that reset.
+The subsequent workspace-maintenance
 notice did not remove the checked source, pair evidence, before application,
 codec manifest, environment or SDK. The checked boot identity is unchanged.
 
