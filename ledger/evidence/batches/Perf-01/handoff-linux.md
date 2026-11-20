@@ -1,5 +1,78 @@
 # Perf-01 Linux x64 handoff
 
+## Final protocol matrix complete; codec matrix active — 2026-11-20 15:51 UTC
+
+The final003 protocol stage completed **54/54 valid, service-eligible processes**
+from **15:04:48.381829 through 15:40:19.913169 UTC**. The actual owner exited
+successfully and retired its process group and adopted descendants. Receipt
+SHA-256 is `83dd461f4fb6e48f4dfe87ad9374c5cf9585e18ae8cd5236d6822923f451f100`.
+The [complete protocol checkpoint](checks/final-003-protocol-results-001/README.md)
+preserves all six profiles, fifteen ordinary scenarios and eighteen whole-profile
+resource rows. Its unchanged numerical projector completed successfully; an
+independent metadata audit reconciled 5,208 equality/provenance checks without
+raw replay. The audit receipt is
+`de4fe06ddcc8f6910317307829ab90db6a6a8d4553724dafc1f811726573c728`.
+The [public reproduction map](reproduction/workloads-001/README.md) supplies
+nine unchanged workload profiles, exact effective settings and relative public
+driver commands. It contains no private TLS material or host-specific paths.
+
+Original A21 process-mean decisions are **one improvement, seven within-band,
+seven inconclusive**. The improvement is HTTP/1.1 8 MiB download. Descriptive
+p99 means for that scenario changed from 91.93 to 80.58 ms (-12.35%); direct
+Rust was 37.03 ms. HTTP/1.1 1 MiB download changed from 10.81 to 11.92 ms
+(+10.31%), so the earlier iteration's larger gain is not a final003 claim.
+gRPC 64-byte unary p99 changed from 37.94 to 49.67 ms (+30.92%); its mean
+decision remains inconclusive. Duplex p99 changed from 250.7 to 186.5 ms
+(-25.61%), also with an inconclusive mean decision. These tails are descriptive,
+not new statistical significance tests. All other rows, including regressions,
+remain in the same report. Whole-profile CPU, RSS and GC are reported separately
+from scenario metrics.
+
+The actual final003 codec comparison started at **15:44:09.378452 UTC**.
+It uses the same frozen corpus, array/ownership interfaces, compression and
+decompression mix, worker counts, process interleaving and before/final/direct/
+.NET routes. The first before process completed; full resource eligibility
+remains for the existing complete reader. No completed codec matrix or final
+capacity/after-long result is claimed yet. Other local work remains source and
+small metadata preparation while this formal stage owns the timing resource.
+
+The DB before continuation's **two fresh producers both completed with exit 0**:
+reference at 15:41:20.318817 UTC and observer at 15:41:39.298988 UTC. All five
+reference SDK/JIT/AOT commands passed, and both process trees retired. The
+subsequent provenance gate failed at **15:41:40.191472 UTC** because it required
+a trailing slash in the sole NuGet package-folder key; the actual key names the
+correct isolated cache without that slash. The failed receipt
+`8436fdb91dab774af8d463d27a676cd1af4a7ba2663fecb45e8410ae088dbdc7`
+and all successful producer outputs remain unchanged. This is a binding-check
+failure, not a failed product build or a measured application result.
+
+A separate binding-only recovery has independent source approval at index
+`cf0290a4a23810d528f6d5f36ffd195d7314aaee93fc4ef567b3897daae9db04`.
+It has not executed. It accepts only the exact
+confined cache path with or without one final slash, revalidates all actual
+artifacts, and explicitly binds the original five successful prerequisites,
+the failed continuation owner's two successful producers, and a fresh zero-
+producer verification receipt. Neither old receipt will be rewritten or
+relabelled completed. The final four diagnostic producers and eight cells remain
+pending. Cache selectors and numeric projection must consume this explicit
+verification chain before use.
+
+The [actual build/admission freeze](checks/after-long-build-003/README.md) was
+published at Plan `6039e3b748f4aa7cc80be51a58cb23d2eb6c8e01` and fetched
+back exactly at **15:09:51.670 UTC**. The 6,005-byte long checklist remains
+`d0c968136840146954316b3ea107f675dc301e53bbd32fe486f6ac6d9eab1c99`;
+the separate actual readback proof is
+`9e073d2b280868fa6b9a9a56203f411b5ab8c7d027b92c4eb62d81b5372a5beb`.
+Plan CI183 passed. The [cleanup007 checklist](checks/compiler-cache-cleanup-007/README.md)
+has independent source/metadata acceptance and reports no newly executed tests.
+
+Both PRs remain draft. **Five before long groups are accepted; zero after long
+groups are credited.** Continue the active codec matrix, perform binding-only
+DB recovery and the remaining diagnostic/cache stages in an idle slot, obtain
+the fixed disk headroom through reviewed lossless retention, then complete the
+database matrix, all capacity queues and five final-after long groups. The
+original workload settings and required durations remain unchanged.
+
 ## Final-003 built and bound; formal protocol comparison resumed — 2026-11-20 15:08 UTC
 
 All nine final-003 producers completed successfully from actual product commit

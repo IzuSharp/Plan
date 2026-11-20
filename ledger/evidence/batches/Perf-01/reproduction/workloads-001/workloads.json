@@ -1,0 +1,688 @@
+{
+  "baseline_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "capacity": {
+    "calibration": {
+      "codec_rates": [
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024
+      ],
+      "concurrency": {
+        "codec": "1 and 2 dedicated workers; mixed capacity/long group uses 2. Four workers are a separate oversubscription stress, not an unannounced long-group change.",
+        "database": "1, 4, 8, 16 layering; mixed capacity/long group uses 16 client slots",
+        "protocols": "1, 4, 16, 32, 64 layering; capacity/long group uses 64 slots, four HTTP/2 connections, 32 streams/connection"
+      },
+      "confirmation_attempt_limit": 10,
+      "confirmation_fresh_processes": 3,
+      "confirmation_seconds": 60,
+      "database_rates": [
+        5,
+        10,
+        20,
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "extension_rule": "If all listed rates pass, extend by doubling until the first failed SLO/generator point or the finite one-million-observation bound. State any unbracketed capacity as a measured lower bound.",
+      "generator": "All three domain drivers use maximum100ms dispatch lag, prospectively20% of the unchanged500ms arrival-p99 service limit. Every arrival latency includes full planned-to-completion delay. CPU, lag distribution, offered/dispatched/admitted counts remain separate. Excess lag invalidates the cell; generator/host-limited failures never establish a server-capacity upper bound.",
+      "long_idle_seconds": 60,
+      "long_rate_rule": "80% of highest three-process consistently passing before rate, rounded down to an integer (at least 1). Cap at 500 operations/s because long observation accounting is finite. Record if this cap prevents a near-capacity claim.",
+      "protocol_rates": [
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024
+      ],
+      "refinement_rule": "Bisect highest passing / first failing rate bracket to width at most10% of passing rate, or adjacent integer rates when low<10. Confirm selected rate in three fresh60s processes; on failure step down10% and reconfirm, at most10 rounds.",
+      "short_idle_seconds": 5,
+      "stage_seconds": 30,
+      "warmup_and_recovery": "Driver-declared warmup and same-live-process low-rate recovery excluded from effective load time. Retain overload and recovery observations."
+    },
+    "codec": {
+      "action": "mixed",
+      "deadline_ms": 1000,
+      "idle_seconds": 5,
+      "inflight": 256,
+      "interface": "mixed",
+      "max_lag_ms": 100,
+      "queue": 64,
+      "recovery_rate": 1,
+      "recovery_seconds": 4,
+      "warmup_seconds": 5,
+      "workers": 2
+    },
+    "database": {
+      "concurrency": 16,
+      "idle_seconds": 5,
+      "protocol": "http1",
+      "recovery_requests": 16,
+      "resource_sampling_policy": "threaded",
+      "scenario": "mixed",
+      "scheduler_gc_policy": "deferred",
+      "stage": "short",
+      "warmup_requests": 16
+    },
+    "protocol": {
+      "concurrency": 64,
+      "grpc_profile": "profiles/grpc-capacity.json",
+      "http_profile": "profiles/http-capacity.json",
+      "idle_seconds": 5,
+      "recovery_calls": 32,
+      "warmup_calls": 24
+    },
+    "scope": "Existing sampled policy only. Actual passing/failing/refinement/confirmation cells and generator limitations come from the published results. No new scheduler or scoring implementation is supplied."
+  },
+  "chronology": [
+    "The immutable original freeze precedes product runtime changes.",
+    "gRPC long amendment002 fixes paired long rate at115/s, preserving the failed128/s attempt and the unexecuted001 amendment.",
+    "The accepted database observer policy uses deferred scheduler GC and threaded sampling with original rates, correctness and SLOs; historical B23 rates are not Perf-01 rates.",
+    "Codec fixed W2 uses241/s for67s and paired long192/s; old268/307/s proposals and384/s capacity remain separate history.",
+    "Current product2e3995df includes retained correctness fixes and forward-reverts the rejected three-file scratch candidate."
+  ],
+  "codec": {
+    "action": "mixed",
+    "action_weights": {
+      "compress": 50,
+      "decompress": 50
+    },
+    "checksum": "Adler32",
+    "cycle_length": 160,
+    "deadline_ms": 1000,
+    "decoded_limit": 4194304,
+    "driver": "tests/Perf01.Codec/driver.py",
+    "encoded_limit": 4259840,
+    "entropy_weights": {
+      "compressible": 50,
+      "pseudo_random": 50
+    },
+    "format": "zlib",
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "idle_seconds": 5,
+    "inflight": 256,
+    "interface": "mixed",
+    "interface_weights": {
+      "array": 50,
+      "owned": 50
+    },
+    "level": 6,
+    "managed_scope": "Valid-corpus isolated codec-call observations only; owned is an array-path alias; strict trailing/concatenated-input semantics and full arrival/ownership ranking are unavailable.",
+    "max_lag_ms": 100,
+    "minimum_successes_per_each_of_32_partitions": 100,
+    "minimum_successes_per_process": 16000,
+    "order_by_repetition": {
+      "0": [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ],
+      "1": [
+        "managed",
+        "direct",
+        "after",
+        "before"
+      ],
+      "2": [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ]
+    },
+    "queue": 64,
+    "raw_limit": 4194304,
+    "raw_sizes_bytes": [
+      256,
+      4096,
+      1048576,
+      4194304
+    ],
+    "recovery_rate": 1,
+    "recovery_seconds": 10,
+    "repetitions": [
+      0,
+      1,
+      2
+    ],
+    "routes": {
+      "after": "nativeweave",
+      "before": "nativeweave",
+      "direct": "direct-rust",
+      "managed": "managed-zlib"
+    },
+    "seed": 2654435769,
+    "service_cpus": [
+      2,
+      3
+    ],
+    "size_weights": [
+      50,
+      25,
+      20,
+      5
+    ],
+    "strata": [
+      {
+        "id": "w1",
+        "noise_binding": "codec_w1_noise",
+        "rate": 134,
+        "seconds": 120,
+        "workers": 1
+      },
+      {
+        "id": "w2",
+        "noise_binding": "codec_w2_noise",
+        "rate": 241,
+        "seconds": 67,
+        "workers": 2
+      }
+    ],
+    "warmup_seconds": 20
+  },
+  "database": {
+    "compact_observation": true,
+    "continue_classified_overload": true,
+    "driver": "tests/Perf01.Database/run.py",
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "historical_b23_workload_rates_used": false,
+    "idle_seconds": 5,
+    "max_p99_ms": 500,
+    "max_rss_mib": 256,
+    "mix": {
+      "cycle": 50,
+      "page": 50
+    },
+    "old_220_60_capacity_noise_reused_as_fixed_anchor": false,
+    "order_by_repetition": {
+      "0": [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ],
+      "1": [
+        "managed",
+        "direct",
+        "after",
+        "before"
+      ],
+      "2": [
+        "before",
+        "after",
+        "direct",
+        "managed"
+      ]
+    },
+    "page_rows": 100,
+    "protocol": "http1",
+    "providers": [
+      "postgresql",
+      "sqlite"
+    ],
+    "recovery_requests": 16,
+    "resource_sampling_policy": "threaded",
+    "route_mapping": {
+      "after": "nativeweave-aot-rust",
+      "before": "nativeweave-aot-rust",
+      "direct": "direct-rust",
+      "managed": "managed-aot"
+    },
+    "routes": [
+      "before",
+      "after",
+      "direct",
+      "managed"
+    ],
+    "scenario": "mixed",
+    "scheduler_gc_policy": "deferred",
+    "seed": 20261119,
+    "seed_rows": 128,
+    "service_cpus": [
+      2,
+      3
+    ],
+    "settings_inherited_from_b23": {
+      "chunk_bytes": 32768,
+      "cleanup_timeout_seconds": 60,
+      "content_reuse": "Identical fixed-seed bytes within one streaming profile; content-addressed reuse is 100% after its first upload.",
+      "diagnostic_snapshot_settle_ms": 1100,
+      "histogram_maximum_ns": 60000000000,
+      "histogram_resolution_ns": 1000,
+      "isa_profile": "portable-x86-64-default-no-host-native",
+      "max_attachment_bytes": 67108864,
+      "max_blob_bytes": 268435456,
+      "max_database_connections": 16,
+      "max_dispatch_lag_ms": 100,
+      "max_in_flight": 512,
+      "max_json_bytes": 1048576,
+      "max_uploads": 4,
+      "measurement_timeout_seconds": 30,
+      "os_cache": "Uncontrolled host page cache; cold denotes fresh application process and database, never a claim of dropped OS caches.",
+      "postgresql": {
+        "fsync": true,
+        "full_page_writes": true,
+        "isolation": "ReadCommitted",
+        "synchronous_commit": true,
+        "version": "18.0"
+      },
+      "process_cpu_count": 2,
+      "sqlite": {
+        "begin": "IMMEDIATE",
+        "busy_timeout_ms": 5000,
+        "foreign_keys": true,
+        "journal_mode": "wal",
+        "synchronous": "FULL"
+      },
+      "worker_policy": "Disabled during measured foreground cells; transactional outbox rows are independently checked. External consumer delivery throughput is not claimed."
+    },
+    "six_new_before_anchor_noise_processes_reused_as_formal_comparison": false,
+    "strata": [
+      {
+        "classification": "descriptive",
+        "concurrency": 1,
+        "id": "c1",
+        "rate": 5,
+        "repetitions": [
+          0
+        ],
+        "seconds": 60
+      },
+      {
+        "classification": "descriptive",
+        "concurrency": 4,
+        "id": "c4",
+        "rate": 20,
+        "repetitions": [
+          0
+        ],
+        "seconds": 20
+      },
+      {
+        "classification": "descriptive",
+        "concurrency": 8,
+        "id": "c8",
+        "rate": 40,
+        "repetitions": [
+          0
+        ],
+        "seconds": 20
+      },
+      {
+        "classification": "three_process_formal_comparison",
+        "concurrency": 16,
+        "id": "c16",
+        "rates": {
+          "postgresql": 180,
+          "sqlite": 50
+        },
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "seconds": 60
+      }
+    ],
+    "warmup_requests": 16
+  },
+  "final_product_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+  "final_product_tree": "246de1eb9368efbc62f46ce10c4a8a894d646152",
+  "kind": "workload-only-public-reproduction-map-001",
+  "limits": {
+    "application_rss_bytes": 268435456,
+    "arrival_p99_ns": 500000000,
+    "generator_dispatch_lag_ns": 100000000,
+    "unexpected_errors_maximum": 0
+  },
+  "long_groups": {
+    "codec": {
+      "action": "mixed",
+      "deadline_ms": 1000,
+      "idle_seconds": 60,
+      "inflight": 256,
+      "interface": "mixed",
+      "max_lag_ms": 100,
+      "period_ns": 5208333,
+      "planned_operations": 346005,
+      "queue": 64,
+      "rate_per_second": 192,
+      "recovery_rate": 1,
+      "recovery_seconds": 10,
+      "requested_seconds": 1802,
+      "warmup_seconds": 20,
+      "workers": 2
+    },
+    "grpc": {
+      "concurrency": 64,
+      "idle_seconds": 60,
+      "period_ns": 8695652,
+      "planned_operations": 207243,
+      "profile": "profiles/grpc-budget-profile-v2.json",
+      "profile_repository": "Plan",
+      "profile_sha256": "fcd529ae210b57a6c3030f7521127204f665f33978ec50d848d13259a7b697af",
+      "rate_per_second": 115,
+      "recovery_calls": 32,
+      "recovery_period_seconds": 0.25,
+      "requested_seconds": 1802,
+      "warmup_calls": 24
+    },
+    "http": {
+      "concurrency": 64,
+      "idle_seconds": 60,
+      "period_ns": 2000000,
+      "planned_operations": 901051,
+      "profile": "tests/Perf01.Protocols/profile-v1.json",
+      "profile_repository": "NativeWeave",
+      "profile_sha256": "b523306d177fe23a9c32025fdb97fa8efb422a182320a64d8f037905e31efa6a",
+      "rate_per_second": 500,
+      "recovery_calls": 32,
+      "recovery_period_seconds": 0.25,
+      "requested_seconds": 1802,
+      "warmup_calls": 24
+    },
+    "postgresql": {
+      "compact_observation": true,
+      "concurrency": 16,
+      "continue_classified_overload": true,
+      "idle_seconds": 60,
+      "period_ns": 6944444,
+      "planned_operations": 259526,
+      "protocol": "http1",
+      "rate_per_second": 144,
+      "recovery_period_seconds": 0.25,
+      "recovery_requests": 32,
+      "requested_seconds": 1802,
+      "resource_sampling_policy": "threaded",
+      "scenario": "mixed",
+      "scheduler_gc_policy": "deferred",
+      "seed": 20261119,
+      "warmup_requests": 16
+    },
+    "sqlite": {
+      "compact_observation": true,
+      "concurrency": 16,
+      "continue_classified_overload": true,
+      "idle_seconds": 60,
+      "period_ns": 25000000,
+      "planned_operations": 72091,
+      "protocol": "http1",
+      "rate_per_second": 40,
+      "recovery_period_seconds": 0.25,
+      "recovery_requests": 32,
+      "requested_seconds": 1802,
+      "resource_sampling_policy": "threaded",
+      "scenario": "mixed",
+      "scheduler_gc_policy": "deferred",
+      "seed": 20261119,
+      "warmup_requests": 16
+    }
+  },
+  "machine": {
+    "generator_cpu_ids": [
+      0,
+      1
+    ],
+    "physical_host_power_frequency_and_os_cache_control": "unavailable; fresh process/database does not mean flushed OS caches",
+    "platform": "linux-x64",
+    "serial_timing": true,
+    "service_and_database_cpu_ids": [
+      2,
+      3
+    ]
+  },
+  "new_workloads_created": false,
+  "performance_credit_seconds": 0,
+  "product_source_sha256": {
+    "src/Benchmarks.Domain/profile-v1.json": "760180de5a89760837e43a77676a6328fc792e0dfede1893558ae8c244332012",
+    "tests/Perf01.Codec/driver.py": "95e15eb609dc761e9de95bcef5b1bb84af9fcc3711ecdf5632ad6e34856c0165",
+    "tests/Perf01.Database/prepare_comparators.py": "013e04e1930bc8e69139e9db16df0f5a47803eb373706e6317cc30eb8ba946ab",
+    "tests/Perf01.Database/prepare_observer.py": "74bb0b55f00b7512fa73149344daae41f30faa05b44786eb7bfcb4fb8a55b3ae",
+    "tests/Perf01.Database/run.py": "ac981175be058512d65593b9dcd03ec00dcfcc363b030b183248c62063ff43fe",
+    "tests/Perf01.Protocols/adapter.py": "21254a039396e8de485d5729cc3a7236e4c12ae7b41a4427f703af86e3e77f69",
+    "tests/Perf01.Protocols/build-direct.py": "d7cc57670e364870ae20a872d03d572c3f8b91632d868535c717b0b5fedf807c",
+    "tests/Perf01.Protocols/build.py": "068e0f356ee8af3b18df3b5b480b5c3b94b3e296540727c95687ab21852682d3",
+    "tests/Perf01.Protocols/profile-v1.json": "b523306d177fe23a9c32025fdb97fa8efb422a182320a64d8f037905e31efa6a",
+    "tests/Perf01.Protocols/run.py": "ee5867cfd5c29b52595b96a69328fc612c88ebdd38fd5796ed7582102c4c49b4",
+    "tests/Reference.TaskService/package_probe.py": "e2da4b3d6828f82193d9b01488c7030515808b31fa7f53b3c6a99a4dff157fc2"
+  },
+  "protocol": {
+    "fixture_hash_source": "tests/Perf01.Protocols/run.py::fixture_hashes; deterministic payload bytes and SHA-256 from source; local TLS keys are generated/supplied privately.",
+    "grpc_compression": "identity",
+    "http_compression_gain_claimed": false,
+    "profiles": [
+      {
+        "concurrency": 4,
+        "group": "http",
+        "id": "http1-small",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/http1-small.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/http1-small.json",
+        "rate": 16,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 20,
+        "sha256": "a7ee3c4d324e3bcff797bc8718762f6a6f03faf19d21adca52b41a9fabaf597a"
+      },
+      {
+        "concurrency": 4,
+        "group": "http",
+        "id": "http2-small",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/http2-small.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/http2-small.json",
+        "rate": 16,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 20,
+        "sha256": "45e5e3e7c19d5eaaf123e7c98f4e60e36314a7ac2410f099a334e38d3a38cde9"
+      },
+      {
+        "concurrency": 4,
+        "group": "http",
+        "id": "http1-large",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/http1-large.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/http1-large.json",
+        "rate": 8,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 30,
+        "sha256": "0557cdc0f9d1898c49bcf58f7ffe051a218486583cf812f88288737c24c4390f"
+      },
+      {
+        "concurrency": 4,
+        "group": "http",
+        "id": "http2-large",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/http2-large.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/http2-large.json",
+        "rate": 8,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 30,
+        "sha256": "01a4f05ff0103aeba7739d3e70b6abfc0fc0601f109595f3b56dd9f1ff85b04e"
+      },
+      {
+        "concurrency": 4,
+        "group": "grpc",
+        "id": "grpc-unary",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/grpc-unary.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/grpc-unary.json",
+        "rate": 16,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 20,
+        "sha256": "88551fe7272de60c8686ab7a6b034c85af82b7dab3de8621c5c8be8ea612289f"
+      },
+      {
+        "concurrency": 4,
+        "group": "grpc",
+        "id": "grpc-streams",
+        "kind": "fixed-short",
+        "original_path": "ledger/evidence/batches/Perf-01/protocol-layered/grpc-streams.json",
+        "original_repository": "Plan",
+        "processes_per_role": 3,
+        "profile": "profiles/grpc-streams.json",
+        "rate": 16,
+        "repetitions": [
+          0,
+          1,
+          2
+        ],
+        "roles": [
+          "before",
+          "after",
+          "direct"
+        ],
+        "seconds": 20,
+        "sha256": "f47045770f3178267a767351016cf72aabf97a542dfb806d16f9ed63a64fd878"
+      },
+      {
+        "concurrency": 64,
+        "group": "grpc",
+        "id": "grpc-long",
+        "kind": "fixed-long",
+        "original_path": "ledger/evidence/batches/Perf-01/grpc-budget-profile-v2.json",
+        "original_repository": "Plan",
+        "profile": "profiles/grpc-budget-profile-v2.json",
+        "rate": 115,
+        "seconds": 1802,
+        "sha256": "fcd529ae210b57a6c3030f7521127204f665f33978ec50d848d13259a7b697af"
+      },
+      {
+        "concurrency": 64,
+        "group": "http",
+        "id": "http-capacity",
+        "kind": "existing-capacity-profile",
+        "original_path": "perf01-evidence/calibration/before-http-v5r1/profile-short.json",
+        "original_repository": null,
+        "profile": "profiles/http-capacity.json",
+        "sha256": "19490e76a164d65098868f3cd51d576ba8bc22a581a57b563dc27786a336ae16",
+        "source_transform": "Existing controller serialization of the corresponding long/base profile with timing.idle_seconds=5 only; exact original bytes copied."
+      },
+      {
+        "concurrency": 64,
+        "group": "grpc",
+        "id": "grpc-capacity",
+        "kind": "existing-capacity-profile",
+        "original_path": "perf01-evidence/calibration/before-grpc-v5r1/profile-short.json",
+        "original_repository": null,
+        "profile": "profiles/grpc-capacity.json",
+        "sha256": "42fb00a0571a5721b2b63144544471c103639530dbf8e5664bd7906d1866315b",
+        "source_transform": "Existing controller serialization of the corresponding long/base profile with timing.idle_seconds=5 only; exact original bytes copied."
+      }
+    ],
+    "same_before_client_for_all_roles": true,
+    "short_order_by_repetition": {
+      "0": [
+        "before",
+        "after",
+        "direct"
+      ],
+      "1": [
+        "direct",
+        "after",
+        "before"
+      ],
+      "2": [
+        "before",
+        "after",
+        "direct"
+      ]
+    }
+  },
+  "public_driver_checkout_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+  "schema_version": 1,
+  "source_control_sha256": {
+    "ledger/evidence/batches/Perf-01/after-long-contract-001.json": "89f14b69d07fbbb4d637e32a1ef1a75357a87fe6f20ad9fe0dfd8f506d75fb12",
+    "ledger/evidence/batches/Perf-01/comparison-capacity-execution-template-001.json": "fbc19b12ee761587fdb5c8ed02a4c99cbc4407dfb84e086d9958c8b6ad73f7fa",
+    "ledger/evidence/batches/Perf-01/database-observer-policy-001.json": "98f8e537d87cac9de87cb2d1ae1150465a5c9a052333451f0772398b58ad58c3",
+    "ledger/evidence/batches/Perf-01/frozen-execution-grpc-long-amendment-002.json": "2c4d5a0a00cf2f763e4641043f7d6908319ea4d3e7fdbaf2760039bc6808b513",
+    "ledger/evidence/batches/Perf-01/frozen-execution.json": "85061c4e01b28fc72a5b20519ce2d8c01d79cae271238ba36e0a3465b0b8f4a3",
+    "ledger/evidence/batches/Perf-01/prospective-policy.json": "0c7cd866b1ad0fc86d647e31dd1b6fe0b148d2e7ca54d83b7286cec09f11cafc",
+    "ledger/evidence/batches/Perf-01/protocol-layered/catalog.json": "1cbd2faff27e1158fef07b88740567a24711112e9b6b67947813a9cf10f4b787"
+  },
+  "status": "Prepared source/configuration documentation; publication/readback and results are separate. No execution performed by this preparation.",
+  "task": "Perf-01",
+  "toolchain": {
+    "measurement_python": "3.12.14",
+    "measurement_python_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "postgresql": "18.0",
+    "product_locks_sha256": {
+      "Cargo.lock": "c5ad34bfac8d387ca107e131b95db92974fdda2d7d186f6e0d84295466ff5a04",
+      "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+      "rust-toolchain.toml": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff"
+    },
+    "rust": "1.100.0",
+    "sdk": "11.0.100"
+  }
+}
