@@ -1,5 +1,98 @@
 # Perf-01 Linux x64 handoff
 
+## Completed HTTP and gRPC comparisons; gRPC regression retained — 2026-11-21 UTC
+
+At this checkpoint thirteen of sixteen formal scenes have completed, one
+SQLite C16 scene failed its frozen service standard, and the two untouched codec
+scenes are running serially under the same owner. No capacity stage has completed.
+**Accepted 30-minute segments remain 0/10; credited effective duration is zero.**
+The selected candidate is not accepted for delivery or merge.
+
+The measured roles remain baseline
+`ea5fa528035d025bd7a28698ee7c71194432236c`, candidate
+`2f40348c3db80a4fbee7a99e721b374a597b16df`, and common driver
+`2e3995df8d86583ee9443348276ca8d918056bfc`. Final-binding SHA-256 remains
+`8f8616f2932dd1c033309e177efa63429829f9ffa2b728a182406d943efdfa8d`.
+Original inputs, noise decisions, limits and failed evidence are unchanged.
+
+### Actual HTTP observations
+
+All four HTTP profiles completed: 36 independent processes, 90 process/case
+observations, ten aggregate cases and 76 finite owner commands. All commands
+exited zero and retired; the original correctness and service checks passed.
+All ten before/after mean decisions are within-band or inconclusive. No
+statistically supported HTTP latency gain is claimed.
+
+Observed whole-profile managed allocation rates fell 79.012304% / 79.018671%
+for the HTTP/1.1 / HTTP/2 small mixes and 44.369589% / 44.391756% for the
+respective 8 MiB mixes. These are resource observations, not per-case causal
+attribution or new significance tests. Adverse observations remain explicit:
+HTTP/2 tiny mean-process p99 rises 7.362738 → 15.087253 ms, HTTP/1.1 8 MiB
+upload p99 rises 49.607400 → 58.779180 ms, and HTTP/2 large download/upload
+means rise 4.028965% / 2.603341%.
+
+[HTTP comparison](recovery/epoch-002/comparison-http-001.md),
+[numeric projection](recovery/epoch-002/comparison-http-001.json),
+[source index](recovery/epoch-002/comparison-http-001.sources.json), and
+[independent review](recovery/epoch-002/comparison-http-001-review.md)
+preserve before/after/direct values, counts, bytes, CPU/RSS/GC, original
+decisions and exact package/native identities.
+
+### Actual gRPC regression
+
+Both gRPC profiles completed: 18 independent processes, 45 process/case
+observations, five aggregate cases and 38 exit-zero retired commands.
+The original server-stream mean decision is **regression**:
+**43.159840 → 51.431850 ms (+19.165987%)**. The original interval is
++4.354283 to +12.005806 ms against a 4.320883 ms noise band.
+Mean-process p99 rises 190.506705 → 221.094788 ms.
+Client-stream and duplex mean increases remain inconclusive; unary increases
+remain within their original wide noise bands. No result has been relabeled.
+
+Streaming whole-profile CPU rises 9.720373%; maximum-of-process-peak RSS rises
+54.578125 → 103.058594 MiB. Allocation is essentially unchanged
+(352.230419 → 351.615132 MiB/s). Resource and p99 changes are descriptive.
+The server-stream after/direct mean gap is 1791.689676%; the duplex gap is
+2121.133306%. These arithmetic gaps do not carry an invented direct-comparison
+noise test.
+
+[ gRPC comparison](recovery/epoch-002/comparison-grpc-001.md),
+[numeric projection](recovery/epoch-002/comparison-grpc-001.json),
+[source index](recovery/epoch-002/comparison-grpc-001.sources.json),
+[independent review](recovery/epoch-002/comparison-grpc-review-001.md), and
+[review checks](recovery/epoch-002/comparison-grpc-review-001.json)
+retain all adverse values. Recorded GrpcOK counts match successful calls and
+correctness/error counts are zero. These short ordinary profiles contain no
+deadline/cancel probes or separate protobuf/trailer verification flags.
+They do not expand the scope of the separately completed B18 functional tests.
+The implementation remains identity-only for gRPC payload compression; no
+network compression benefit is claimed.
+
+### Next execution and preservation
+
+The original SQLite C16 valid-but-service-failing sample remains preserved.
+Its independently reviewed managed diagnostic source is locally committed at
+`1839ab252d99abd711e958bda7ba5f5d2ab0c128` (before) and
+`48fbf2ea3e5a0b3aea3b535664cb573a41d4f02f` (after).
+Those diagnostic sources have not been restored, built or executed. After the
+current codec owner retires, use the existing finite owner and original
+role-specific precompiled natives to observe database operation, retirement
+and actual admission/release intervals. Source feasibility alone does not
+establish the SQLite or gRPC cause.
+
+Continue diagnosing the gRPC regression while preserving correctness fixes;
+do not accept the combined candidate from functional success alone. Any new
+selected product requires its actual build, binding and applicable equivalent
+measurements. Capacity and the ten frozen long segments remain outstanding.
+
+The public projections above are retained in Plan history while that history
+is retained; no automatic expiry is asserted. Current original bound evidence
+remains in the task workspace. Previously retrieved principal-binary archives
+remain valid, but they do not represent persistence of all newly produced raw
+series. Resource-series archival and retrieval still require their own actual
+evidence. Both PRs remain drafts. The preceding checkpoint and every historical
+failed/invalid result follow unchanged.
+
 ## Formal PostgreSQL result; SQLite C16 tail failure preserved — 2026-11-21 UTC
 
 The unchanged formal comparison queue has completed seven of sixteen scenes:

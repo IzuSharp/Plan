@@ -1,0 +1,224 @@
+{
+  "blocking_findings": [],
+  "capacity_credit": false,
+  "counts_and_semantics": {
+    "all_wire_status_maps_exactly_grpc_ok_success_counts": true,
+    "configured_concurrency": 4,
+    "correctness_failures": 0,
+    "expected_probe_rows": 0,
+    "independently_measured_simultaneous_h2_stream_count_available": false,
+    "intentional_cancellations": 0,
+    "intentional_deadlines": 0,
+    "payload_compression_implementation": "identity only; guide/source statement",
+    "per_request_negotiated_payload_compression_flag_available": false,
+    "separate_content_hash_verification_flags_available": false,
+    "separate_protobuf_verification_flags_available": false,
+    "separate_trailer_verification_flags_available": false,
+    "unexpected_errors": 0
+  },
+  "decision": "accepted-presentation-only",
+  "final_binding": {
+    "filename": "final-binding-004.json",
+    "sha256": "8f8616f2932dd1c033309e177efa63429829f9ffa2b728a182406d943efdfa8d"
+  },
+  "input_metadata": [
+    {
+      "comparison": {
+        "filename": "comparison.json",
+        "hash_origin": "Recorded by completed execution; not recomputed here.",
+        "sha256": "c544ae3300f5d1cf0f98753f499efe778c1143383c85c9d1d9555e70e7eaedc7"
+      },
+      "execution": {
+        "filename": "execution.json",
+        "hash_origin": "Computed from small completed execution metadata only.",
+        "sha256": "fb786077c81048d95e51b11a09b9aa4750769468c57ba6de2be7782617680b68"
+      },
+      "noise": {
+        "filename": "noise.json",
+        "sha256": "ce384d207b2285a1112107c24104b89bfd8edb65d5650695bd1e476861fae8a0"
+      },
+      "profile": "grpc-unary",
+      "reader_source_hashes": {
+        "a21_sha256": "a25dca7ca09c609bf6984050047b4bed752660bf6aa7f1c540cb113317b61b04",
+        "extractor_sha256": "a8cead371ceed5b2d6a865c1e6b113110005db7880af7566d5125f46429c032f",
+        "stream_reader_sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+      }
+    },
+    {
+      "comparison": {
+        "filename": "comparison.json",
+        "hash_origin": "Recorded by completed execution; not recomputed here.",
+        "sha256": "b30a662f0726a8c9f9222744dcc44f3c6e12acb034c3696ad6bb041a64ca3405"
+      },
+      "execution": {
+        "filename": "execution.json",
+        "hash_origin": "Computed from small completed execution metadata only.",
+        "sha256": "926c414b6a1d8989017398fb9804ac033daea4766564ac11d09dc3f867d0644c"
+      },
+      "noise": {
+        "filename": "noise.json",
+        "sha256": "eb73b055852b7c1a94de49c207369287dcff4d8151338978ac854ad5ea21e448"
+      },
+      "profile": "grpc-streams",
+      "reader_source_hashes": {
+        "a21_sha256": "a25dca7ca09c609bf6984050047b4bed752660bf6aa7f1c540cb113317b61b04",
+        "extractor_sha256": "a8cead371ceed5b2d6a865c1e6b113110005db7880af7566d5125f46429c032f",
+        "stream_reader_sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82"
+      }
+    }
+  ],
+  "interpretation_checks": [
+    "The original server-stream process-mean regression is retained; unary within_band and client/duplex inconclusive are not relabeled.",
+    "The original mean-noise rules are preserved. P99 and resource deltas remain descriptive; no after/direct noise test is invented.",
+    "P99 is the equal-weight mean of independent process p99 values, not a pooled percentile.",
+    "Successful calls, request/response messages and encoded/payload bytes retain original integer per-process counts and full-profile rate denominators. Null/zero-denominator deltas and direct managed-GC N/A are preserved.",
+    "CPU, allocation and gauges remain whole-profile observations; RSS headline is the maximum of process peaks, with the original mean peaks retained separately.",
+    "Recorded after-idle zeros are retained, without converting them into deadline/cancellation or cleanup-causality proof. Positive available permits are capacity, not outstanding owners.",
+    "Private operational paths/maps, PIDs, environment values, addresses and TLS certificate/key material are absent; original result/raw-file provenance appears as basename plus already-bound hash.",
+    "No measurement or new statistical acceptance is granted by this review. Formal capacity, long-duration acceptance and the retained SQLite C16 failure are separate."
+  ],
+  "kind": "independent-public-grpc-projection-review",
+  "long_segments_accepted": 0,
+  "measurement_source_index_sha256": "6b1d1e8ec6ee80271fdbbeb1c6d13909b92ca13c7a28cbc4fd4085f98f6a4c2c",
+  "original_case_findings": [
+    {
+      "after_mean_ms": 7.255127166666667,
+      "after_minus_direct_mean_percent": 257.9353306786388,
+      "before_mean_ms": 5.5686944218107,
+      "case": "grpc-unary|http2-tls|64|1",
+      "direct_mean_ms": 2.026937981481481,
+      "original_mean_change_percent": 30.28416747470967,
+      "original_noise_before_to_after": {
+        "baseline_id": "Perf-01/protocol/b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74/grpc-unary|http2-tls|64|1/0c29cc556b5e35dac98a0444a259e6700097c4504ff6087a65fc493b5df1439a",
+        "bootstrap_95_percent_interval_ns": [
+          84687.34362140018,
+          3384584.3436213993
+        ],
+        "decision": "within_band",
+        "effect_ns": 1686432.7448559674,
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "noise_band_ns": 7806482.86419753,
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "profile": "grpc-unary"
+    },
+    {
+      "after_mean_ms": 8.058587954451346,
+      "after_minus_direct_mean_percent": 202.2632854891817,
+      "before_mean_ms": 5.710155652173913,
+      "case": "grpc-unary|http2-tls|65536|1",
+      "direct_mean_ms": 2.6660823002070395,
+      "original_mean_change_percent": 41.127290486089656,
+      "original_noise_before_to_after": {
+        "baseline_id": "Perf-01/protocol/b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74/grpc-unary|http2-tls|65536|1/0c29cc556b5e35dac98a0444a259e6700097c4504ff6087a65fc493b5df1439a",
+        "bootstrap_95_percent_interval_ns": [
+          666883.592132506,
+          4294339.428571428
+        ],
+        "decision": "within_band",
+        "effect_ns": 2348432.3022774328,
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "noise_band_ns": 8169718.559006211,
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "profile": "grpc-unary"
+    },
+    {
+      "after_mean_ms": 25.427680015576325,
+      "after_minus_direct_mean_percent": 702.0064274195977,
+      "before_mean_ms": 23.288990093457944,
+      "case": "grpc-client|http2-tls|4096|32",
+      "direct_mean_ms": 3.1705082585669784,
+      "original_mean_change_percent": 9.183266056346321,
+      "original_noise_before_to_after": {
+        "baseline_id": "Perf-01/protocol/5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9/grpc-client|http2-tls|4096|32/a1c114b1a18fe174c1ce3347b8a5e645d3329a1b11810ceabf6f029c056414a0",
+        "bootstrap_95_percent_interval_ns": [
+          -65239.91277258471,
+          4342619.757009346
+        ],
+        "decision": "inconclusive",
+        "effect_ns": 2138689.9221183807,
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "noise_band_ns": 3945244.616822429,
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "profile": "grpc-streams"
+    },
+    {
+      "after_mean_ms": 70.64808087037038,
+      "after_minus_direct_mean_percent": 2121.133306490102,
+      "before_mean_ms": 60.97510393209877,
+      "case": "grpc-duplex|http2-tls|4096|32",
+      "direct_mean_ms": 3.1807222314814814,
+      "original_mean_change_percent": 15.863813777248055,
+      "original_noise_before_to_after": {
+        "baseline_id": "Perf-01/protocol/5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9/grpc-duplex|http2-tls|4096|32/a1c114b1a18fe174c1ce3347b8a5e645d3329a1b11810ceabf6f029c056414a0",
+        "bootstrap_95_percent_interval_ns": [
+          3331737.7191357985,
+          18250957.5
+        ],
+        "decision": "inconclusive",
+        "effect_ns": 9672976.938271604,
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "noise_band_ns": 8413232.527777784,
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "profile": "grpc-streams"
+    },
+    {
+      "after_mean_ms": 51.43184970679012,
+      "after_minus_direct_mean_percent": 1791.6896757422153,
+      "before_mean_ms": 43.159840320987655,
+      "case": "grpc-server|http2-tls|4096|32",
+      "direct_mean_ms": 2.7188312314814818,
+      "original_mean_change_percent": 19.165987001532002,
+      "original_noise_before_to_after": {
+        "baseline_id": "Perf-01/protocol/5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9/grpc-server|http2-tls|4096|32/a1c114b1a18fe174c1ce3347b8a5e645d3329a1b11810ceabf6f029c056414a0",
+        "bootstrap_95_percent_interval_ns": [
+          4354283.077160493,
+          12005806.447530866
+        ],
+        "decision": "regression",
+        "effect_ns": 8272009.385802463,
+        "method": "2000 seeded independent-process bootstrap resamples",
+        "noise_band_ns": 4320883.120370366,
+        "warning": "Small repetition counts limit statistical precision."
+      },
+      "profile": "grpc-streams"
+    }
+  ],
+  "performance_credit_seconds": 0,
+  "reviewed_files_sha256": {
+    "comparison-grpc-001.json": "0ac8f673eb6204331ed20168902e15a6dd84ac55994d201250b3452ee711016e",
+    "comparison-grpc-001.md": "9233961eb142305b570b34e66cc0bb03a60dc5d32c1bdb3a3cb7fc6d28977c60",
+    "comparison-grpc-001.sources.json": "aa3c9ac156c6e0c903a513e65d0d2b132138afe249c22df57281e5789cc2ce74"
+  },
+  "reviewer": "/root/perf01_evidence_audit",
+  "schema_version": 1,
+  "task": "Perf-01",
+  "verification": {
+    "aggregate_cases": 5,
+    "all_processes_eligible_and_reported_valid": true,
+    "all_processes_original_service_standard_met": true,
+    "arithmetic_checks": 360,
+    "build": false,
+    "cpu": 8,
+    "guide_hash_verified": true,
+    "metadata_and_source_only": true,
+    "mismatches": 0,
+    "new_noise_analysis": false,
+    "privacy_findings": [],
+    "process_case_observations": 45,
+    "profiles": 2,
+    "project_import": false,
+    "public_projection_file_hashes_verified": true,
+    "raw_or_binary_read_or_hash": false,
+    "remote_write": false,
+    "retained_field_comparisons": 3717,
+    "retired_exit_zero_command_summaries": 38,
+    "source_execution_and_comparison_metadata_hashes_verified": true,
+    "timing_lock": false,
+    "workload": false,
+    "workload_processes": 18
+  }
+}
