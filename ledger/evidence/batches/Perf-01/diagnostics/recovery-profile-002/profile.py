@@ -91,13 +91,17 @@ async def execute(run, profile, index):
                 ctx.pin(path, ctx.built[role]['files_sha256'].get(str(path)) or sha(path))
             (fallback / parts[0]).mkdir(exist_ok=True)
             (fallback / relative).symlink_to(folder, target_is_directory=True)
+        preparation_proxies = {name: os.environ[name] for name in
+            ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY',
+             'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy') if name in os.environ}
         run.record['inspect_preparation_cache'] = dict(role=role, codec_manifest_sha256=sha(producer),
             assets_sha256=sha(assets_path), source_cache=str(cache), fallback_view=str(fallback),
             external_packages=provenance, nativeweave_packages_in_fallback=False,
+            inherited_preparation_proxy_keys=sorted(preparation_proxies),
             original_fresh_writable_cache=True, restored_environment_before_probes=False)
         run.checkpoint()
         environment = ctx.environment
-        ctx.environment = dict(environment, NUGET_FALLBACK_PACKAGES=str(fallback))
+        ctx.environment = dict(environment, **preparation_proxies, NUGET_FALLBACK_PACKAGES=str(fallback))
         try:
             await run.command('inspect-prepare', [ctx.python, ctx.driver / 'tests/Perf01.InspectProfile/prepare.py',
                 '--codec-manifest', producer, '--codec-manifest-sha256', sha(producer), '--output', build], 1800, service=True)

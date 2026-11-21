@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "kind": "independent-inspect-preparation-proxy-source-addendum",
+  "verdict": "ACCEPT-exact-source-for-execution",
+  "reviewed_utc": "2026-11-21T03:31:41.311161+00:00",
+  "prepared_commit": "04d1a63d41f6a1d3cf42ba679494ff20361a6870",
+  "prior_preparation_commit": "c2478587e1fe46f5277cc2ccb133ce3d14b0d631",
+  "source_index_sha256": "43d088bace6f72d8e7fa59318aa9ae777d1020245b050173f415d135f13251bf",
+  "profile_caller_sha256": "d068a7bb4a6572d7f2ade52de335063f4da3ba3c8d48ecfded2f43db8ef060ad",
+  "prior_source_index_sha256": "ccea3bd075bbd088b5d013cd8f86ffdcbd8afdc4a882293aad2edb8df82e923d",
+  "permitted_inherited_key_names": [
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "NO_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "no_proxy"
+  ],
+  "proxy_values_read_by_review": false,
+  "proxy_values_in_added_receipt": false,
+  "scope": [
+    "Only inspect-prepare receives existing tool environment proxy values, when present.",
+    "No endpoint, credential, TLS bypass, source replacement, audit suppression or new environment value is introduced.",
+    "Original external-only fallback, fresh writable cache, copied same-role NativeWeave feed, native identities, owner, command arguments and timeouts remain.",
+    "The original ctx.environment object is restored in finally before all Inspect probes, including failed preparation.",
+    "Shared, PostgreSQL and protocol branches, all workload profiles, noise/capacity/long caller and timing settings are unchanged."
+  ],
+  "read_only_validation": {
+    "indexed_files_sha256_matched": 4,
+    "python_ast_parsed_without_import": true,
+    "original_Run_and_owner_receipt_paths_read": true,
+    "unchanged_command_receipts_record_environment_values": false
+  },
+  "execution_evidence": "The root observed a separate fallback-only NU1900 diagnostic restore failure and a proxy-inheriting successful diagnostic restore. This addendum does not independently audit or transfer those runtime results to the newly indexed profiler. Preserve original outcomes and require actual invocation receipts.",
+  "builds_restores_tests_profiles_or_loads_executed": false,
+  "performance_credit_seconds": 0,
+  "global_acceptance": false
+}

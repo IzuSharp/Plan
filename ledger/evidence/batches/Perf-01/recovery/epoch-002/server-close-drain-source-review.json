@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "kind": "independent-server-close-drain-source-review",
+  "verdict": "ACCEPT-exact-source-for-execution",
+  "reviewed_utc": "2026-11-21T03:44:40Z",
+  "base_commit": "ccff42c0df4141984ef9de497af7cd768753704a",
+  "first_candidate_commit": "57308b8ad875d3ec38f0655e76d1a5d2b4edd3ee",
+  "accepted_candidate_commit": "e2610a2b4eaab63cc83be95be445109e15644d4e",
+  "accepted_tree": "ec0aa6a54eea6f1fd30a9e7ebc3ca48614fca74f",
+  "changed_product_paths": [
+    "native/server/host/src/engine.rs",
+    "tests/Server.Diagnostics/Program.cs"
+  ],
+  "resolved_finding": {
+    "first_candidate_disposition": "REVISION-REQUESTED",
+    "issue": "The retired flag can precede live InputDiscard cleanup in gRPC undispatched-reset or late-body cleanup paths.",
+    "correction": "Require request.retired with Acquire and request.live_ops == 0 with Acquire after acceptor join; no host-wide or budget join.",
+    "amendment_independently_read": true
+  },
+  "reviewed_boundaries": {
+    "locks_held_across_new_await": false,
+    "waits_on_worker_join_or_close_operation": false,
+    "waits_on_host_wide_live_ops": false,
+    "waits_on_full_buffer_budget": false,
+    "http_and_grpc_queued_stop_paths_read": true,
+    "native_rejected_dispatch_retirement_read": true,
+    "startup_failure_and_deadline_paths_unchanged": true,
+    "escaped_chunk_budget_gate_preserved": true,
+    "final_request_handle_lease_ticket_gate_preserved": true,
+    "uncooperative_work_can_keep_disposal_pending": true
+  },
+  "new_test_scope": {
+    "protocols": ["HTTP/1.1", "HTTP/2"],
+    "transport": "real loopback cleartext sockets",
+    "tls_claim": false,
+    "exact_payload_bytes": 4,
+    "close_deadline_seconds": 2,
+    "nominal_gate_milliseconds": 250,
+    "actual_pre_deadline_pending_check": true,
+    "finish_success_and_zero_owner_checks": true,
+    "application_eof_check": true,
+    "single_success_activity_and_no_warning_check": true,
+    "original_sixteen_request_sample_unchanged": true
+  },
+  "limitations": [
+    "Source review does not establish runtime success or performance improvement.",
+    "Request-less TLS reload operations remain outside the new predicate; concurrent reload/shutdown is not claimed fixed.",
+    "A finite Close timeout still permits Pending while uncooperative admitted work exists.",
+    "H1 and H2 can retire transport bodies at different times; the new tests assert their common public close contract.",
+    "The managed invalid-state stack alone does not uniquely identify the native failure branch."
+  ],
+  "required_executor_evidence": [
+    "Actual old-native negative control with the new B20 fixture",
+    "Actual new-native B20 fixture and unchanged original sample results",
+    "Affected native and B17/B18/B19/B20 regression results bound to the new artifact"
+  ],
+  "read_only_validation": {
+    "exact_candidate_delta_read": true,
+    "final_worktree_clean": true,
+    "git_diff_check_passed": true,
+    "existing_input_cleanup_guard_regression_source_read": true
+  },
+  "builds_restores_tests_profiles_or_loads_executed": false,
+  "original_failure_records_preserved": true,
+  "performance_credit_seconds": 0,
+  "global_acceptance": false
+}

@@ -56,10 +56,19 @@ map; their existing same-role archive/sidecar/metadata bytes are pinned at this
 preparation and explicitly marked `archive_bound_by_build: false`. The caller
 does not claim a new signature validation or pristine-machine restore. The
 fallback is read-only from NuGet's perspective; only six external version
-directories are exposed for the current producer. The new caller downloads no
-dependencies, injects no proxy, and leaves audit, TLS and package sources intact.
-An unavailable audit endpoint can still make the unchanged restore fail;
-fallback package availability does not prove that NuGet performs no network I/O.
+directories are exposed for the current producer. The new caller performs no
+dependency download itself and leaves audit, TLS and package sources intact.
+Fallback package availability does not prove that NuGet performs no network I/O.
+
+The preparation command alone also inherits the ordinary tool-provided
+`HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and corresponding lowercase
+environment keys when present, as the original producer build environment did.
+It supplies no new endpoint, credential or route. Only inherited key names are
+recorded; their values are neither copied into this source nor written to the
+preparation receipt. This permits the unchanged NuGet audit request to use the
+existing network configuration instead of suppressing audit failures. The
+same `finally` restores the original runtime environment before every probe;
+formal measurements and other profile branches retain their original settings.
 
 The official [NuGet environment-variable reference](https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-environment-variables)
 and [fallback folder reference](https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file#fallbackpackagefolders-section)

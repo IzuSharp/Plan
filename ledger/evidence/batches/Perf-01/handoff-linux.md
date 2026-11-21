@@ -1,5 +1,54 @@
 # Perf-01 Linux x64 handoff
 
+## B20 close blocker preserved; reviewed repair under actual validation — 2026-11-21
+
+The broader Server regression terminated with a real B20 sample failure at
+03:20:20.938829 UTC. Its 25 earlier successful commands remain useful scoped
+results, but the complete run failed. The [B20 diagnostic record](recovery/epoch-002/b20-close-diagnostic-001/README.md)
+preserves that failure, an unsuccessful restore-only attempt, eight passing
+first-chance sample processes followed by a failing ninth, and a controlled
+close-versus-Finish failure. The controlled peer received the exact four-byte
+HTTP/1.1 response; releasing Finish 253.100 ms into a two-second graceful close
+still produced the invalid-state exception. Later zero-owner close completion
+does not make that admitted Finish successful.
+
+The [independent source review](recovery/epoch-002/server-close-drain-source-review.md)
+accepts the focused repair for actual validation. After acceptors drain, the
+runtime remains alive until every registered request is retired and its
+request-local live operation count is zero. The second condition preserves
+late gRPC input-discard work. The predicate does not wait for global Host
+operations or escaped payload budgets. The original finite close/cancellation
+rules remain in place. Two real-socket B20 gates cover HTTP/1.1 and HTTP/2.
+Requestless TLS reload races remain an explicitly unchanged limitation.
+
+The reviewed local commit is `e2610a2b4eaab63cc83be95be445109e15644d4e`.
+The exact same tree, `ec0aa6a54eea6f1fd30a9e7ebc3ca48614fca74f`, is now
+published as NativeWeave `fa93f328f964ac04729f3c99cf060e14602e43c2`; CI129
+has started. Root is running an identical-managed-fixture native A/B
+diagnostic. The original native has reproduced the expected gated failure;
+the repaired native is still being built at this checkpoint. No repaired
+fixture success or final functional acceptance is claimed here.
+
+Preserve the existing `ccff42c0…` producer/B18 receipts and their failed B20
+outcome. A fresh after build and separate final binding are being prepared;
+the valid EA5 before/common artifacts, immutable baseline admission, frozen
+2e common driver, workload configuration and resource policy remain fixed.
+No original receipt is overwritten or relabelled as the repaired candidate.
+
+The original Inspect preparer now also receives only the already provided
+standard proxy settings during restore, with restoration before the probe.
+The [narrow preparation review](recovery/epoch-002/inspect-preparation-proxy-review.md)
+records why the observed NU1900 restore failure required this preparation-only
+change. Current profile source index is
+`43d088bace6f72d8e7fa59318aa9ae777d1020245b050173f415d135f13251bf`.
+This is not an executed profile or a measurement environment change.
+
+Fresh layered profiles, 30 baseline noise processes, 126 comparison processes,
+15 core capacity controllers and all ten representative long segments remain
+pending. **Actual current long credit: 0/10.** The completion reminder remains
+conditioned on actual complete evidence, reviewed merges, post-merge CI and
+the normally triggered existing preview.
+
 ## Before/final B18 complete; active Server regression identified — 2026-11-21 03:18 UTC
 
 Both fresh product roles and common comparators have completed. The baseline
