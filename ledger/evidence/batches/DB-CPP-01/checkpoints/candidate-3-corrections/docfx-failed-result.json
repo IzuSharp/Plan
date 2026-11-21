@@ -1,0 +1,335 @@
+{
+  "task": "A13",
+  "rid": "linux-x64",
+  "status": "failed",
+  "checks": [
+    "exact compiled defaults/nullability/generics fail closed",
+    "missing XML summary/parameter/returns fail closed"
+  ],
+  "source_commit": "1d6935cdcfb381cc9ccd9ccc143d4bfaf1d4d690",
+  "source_dirty": true,
+  "failure": "docfx failed",
+  "commands": [
+    {
+      "label": "source",
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "96911d205a24a2dd2a0395c78ed4d17b66fa8df60344bb6c59799b8437de9d57",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-status",
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "e2160a9aea37d4843e95ccae938a68c827d33e103b44d17ad85eeaee3cdb63e2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "fixture-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "tests/Build.Integration/ApiFixture/ApiFixture.csproj",
+        "--locked-mode"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "stderr_sha256": "d7583bee0ee828ca3f8cde2706bb62db25edcfa58258fadbb24241a756dc354e"
+    },
+    {
+      "label": "fixture-build",
+      "command": [
+        "dotnet",
+        "build",
+        "tests/Build.Integration/ApiFixture/ApiFixture.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-p:UseSharedCompilation=false",
+        "-m:1",
+        "-nodeReuse:false"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "f19a0a944d39ebd8a766cc3f7f03d6b1e3ae8ddc8c6a77091294bcad9bbc2903",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tool-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "src/Build.Integration/ApiReference/ApiReference.csproj",
+        "--locked-mode"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "stderr_sha256": "d7583bee0ee828ca3f8cde2706bb62db25edcfa58258fadbb24241a756dc354e"
+    },
+    {
+      "label": "tool-build",
+      "command": [
+        "dotnet",
+        "build",
+        "src/Build.Integration/ApiReference/ApiReference.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-p:UseSharedCompilation=false",
+        "-m:1",
+        "-nodeReuse:false"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "4ac503093033c109fbd20ead493e3d6660b13de1f38625350a5fbd74824bbff9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compiled-positive",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 0,
+      "expected": "zero",
+      "stdout_sha256": "286ac1605fb66f7ac480d494537f001dff8fdcac2e38e1bc7e590e8c6a520a17",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "default-drift",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with expected:",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c910017ea9006362301f24e7fe675a95c8d20aaaf703b99d1dc64b1618e9fb89"
+    },
+    {
+      "label": "nullability-drift",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with expected:",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "84926f9504652bf22b1fa70adfbea8d7c86889ab830834456b9b6f4b36452557"
+    },
+    {
+      "label": "constraint-drift",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with expected:",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "f6bb49301d96d210927f0c931b6b66278727c4e0f00a26b2932b5d15f2413c83"
+    },
+    {
+      "label": "xml-parameter",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with XML parameter names differ",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "4371ac2302492e21ba1dfe69f43970ee5cd9e5d144b6c321d5cbf228fd1f09e6"
+    },
+    {
+      "label": "xml-returns",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with Missing XML returns",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "beba1ee7b9e452781046556da913cc0112298d1242aef37a3cc6504b43be6803"
+    },
+    {
+      "label": "xml-summary",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with Missing XML summary",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "683477125c7f03a181be66253f36ce11db090a5640b387591f38f9af58019f2c"
+    },
+    {
+      "label": "empty-param",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with XML parameter names differ",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "8ae067e9b6a22f6d6daf9061f7b3a0cbad0dbd493c1836cf6ddf01bd333e7d46"
+    },
+    {
+      "label": "empty-typeparam",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with Missing XML type parameter",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "339db7b40c3533857595978ab3529ba20156a4e7906e3117932b9747f3c4fc2d"
+    },
+    {
+      "label": "empty-returns",
+      "command": [
+        "dotnet",
+        "run",
+        "--project",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/src/Build.Integration/ApiReference/ApiReference.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave",
+        "/workspace/scratch/b938bf45c750/_validation/tools/dotnet-11.0.100",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/config.json",
+        "--write"
+      ],
+      "exit_code": 134,
+      "expected": "nonzero with Missing XML returns",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "7f47a9108515597fb927fb5e546a08e6ccb07bf1d58b9b7ce6a822514e66fa44"
+    },
+    {
+      "label": "docfx",
+      "command": [
+        "python3",
+        "src/Build.Integration/compose_docs.py",
+        "--config",
+        "tests/Build.Integration/api-fixture.json",
+        "--output",
+        "/workspace/scratch/b938bf45c750/.worktree/DB-CPP-01-linux/NativeWeave/artifacts/docfx-ci-debug-1d6935c/html"
+      ],
+      "exit_code": 1,
+      "expected": "zero",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "5038e443f4342c562f29eeefba3f571e8c922c9c3ba492219c4d273b4ba89670"
+    }
+  ],
+  "source_sha256": {
+    "src/Build.Integration/.config/dotnet-tools.json": "00c3e2c26625cd9ad0acbdf4f72ef963bec49a2a6d05165b7e8672b2da96f659",
+    "src/Build.Integration/ApiReference/ApiReference.csproj": "1968be2752bfc0e90f7699cb064c1a9f024c434e0daf357501caf521d27debfa",
+    "src/Build.Integration/ApiReference/Program.cs": "d4b2dcc1e0b84f74921e403ad05b628b54aec0bfe247716aa82d158f76aa2590",
+    "src/Build.Integration/ApiReference/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+    "src/Build.Integration/api/core.json": "ec28ed4346b4679bbea57dd9d5e2e42128d463fc786174d572c7d8a52f3e73ad",
+    "src/Build.Integration/api-reference.md": "02c22975ed26fa06966c467eb523a135f5dd7eb41ca1d8b063e062964a91175a",
+    "src/Build.Integration/compose_docs.py": "7b092bcddc4c8382ca095232bba0cb3e6868c3974a823c24c6b5418893f4223b",
+    "src/Build.Integration/design-inputs.json": "66aeb0343526018396544b99c98093a91f42edc6c3792148da79730c2e397c96"
+  }
+}
