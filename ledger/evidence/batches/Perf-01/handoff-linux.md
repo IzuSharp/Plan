@@ -1,5 +1,40 @@
 # Perf-01 Linux x64 handoff
 
+## Baseline B18 passed; selected-native regression caller ready — 2026-11-21 02:41 UTC
+
+The unchanged baseline native component and assembled B18 completed at
+02:28:03.448719 UTC. Both finite-owner commands exited zero and retired.
+Execution SHA-256:
+`eee3fe936c4df67e6374e284d4ea1c40fff288e8a6a9e00261e83d574252f57d`.
+The selected `ccff42c0df4141984ef9de497af7cd768753704a` after build began at
+02:28:22.686724 UTC and is still running at this checkpoint. Preserve its
+existing owner; no duplicate build or workload was started by the continuation.
+
+The [selected-native regression caller](diagnostics/recovery-regressions-002/README.md)
+and [independent review](recovery/epoch-002/server-regression-caller-review.md)
+bind source index
+`20ebc83402a1ded7fcec377ad82805edb597fd0f9291eb01015b0f9618620a38`.
+Its 29 existing outer commands cover B17 managed transport/retirement, the
+unchanged selected-native B15 verifier, B19 managed/API/package cancellation
+and drain, and B20 managed/API/sample/package diagnostic retirement. It takes
+the existing timing lock, validates both original eight-producer bindings and
+selects the after Server asset. It excludes native producer and cost modes.
+Source review passed; actual execution remains pending after the selected
+build and B18. Reuse this caller once rather than duplicate its B17/B19 subset.
+
+A [synthetic large-result reader check](recovery/epoch-002/large-result-reader-check.json)
+passed with a 68,157,649-byte JSON fixture. Selecting the old nested scenario
+object reproduces the streaming parser's oversized-value rejection; selecting
+only the corrected small metadata succeeds. The original full long verifier
+still owns all workload, correctness, duration and resource acceptance.
+This parser check contributes zero service or performance credit.
+
+The original controller remains responsible for serial profiles and formal
+measurement. The report adapter is being prepared separately. The current
+measurement admission is populated from the actual completed baseline/common/
+B18 receipts. All ten current before/final long segments remain outstanding:
+**0/10**. No historical duration was transferred.
+
 ## Before and common producers complete; B18 in progress — 2026-11-21 02:22 UTC
 
 The fresh EA5 baseline completed all eight owned producers at 02:06:40.950262
