@@ -1,0 +1,930 @@
+{
+  "before_repair": {
+    "classification": "before_repair_expected_failure",
+    "command_count": 1,
+    "commands": [
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "-p",
+          "nativeweave-server",
+          "finish_survives_close_after_network_join",
+          "--",
+          "--test-threads=1",
+          "--nocapture"
+        ],
+        "ended_utc": "2026-11-21T04:13:36.491926+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-red-001",
+            "relative_file": "control/native-close-regression-before-fix/receipt.json",
+            "sha256": "1f19d5c4a247829e1ff78abf2726ad8b131552f35e753f151b6912b4b32a3e3c"
+          },
+          {
+            "bundle": "server-close-native-red-001",
+            "relative_file": "control/native-close-regression-before-fix/stdout.log",
+            "sha256": "cb28954192e7625d0d01a0fd3427f8f1a77c54096d426d1bef393f908cd14c2b"
+          },
+          {
+            "bundle": "server-close-native-red-001",
+            "relative_file": "control/native-close-regression-before-fix/stderr.log",
+            "sha256": "bc3b215fc9caf57f2c81865efd3cd1002f7329df4877108fa75cc4a19778da1b"
+          }
+        ],
+        "exit_code": 101,
+        "label": "native-close-regression-before-fix",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "failed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:13:20.216246+00:00",
+        "test_harness_results": [
+          {
+            "failed": 2,
+            "filtered_out": 21,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "FAILED",
+            "passed": 0,
+            "raw_marker": "test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.02s",
+            "reported_harness_seconds": 0.02
+          }
+        ],
+        "timeout_seconds": 600
+      }
+    ],
+    "ended_utc": "2026-11-21T04:13:36.498198+00:00",
+    "execution": {
+      "bundle": "server-close-native-red-001",
+      "relative_file": "execution.json",
+      "sha256": "8f6bb4b33ef39b3ec47b2877b3aab39f9b34e4d109b8af441a94f45d18fbc7ba"
+    },
+    "failure_cleanup": {
+      "action": "Record the original absent terminal, then synthesize cancellation solely to retire the stranded test operation and remaining owners before asserting.",
+      "classification": "source_order_inference_and_preserved_test_source",
+      "only_runs_after_missing_terminal_and_worker_exit_observed": true,
+      "owner_registry_and_budget_checks_precede_final_assertion": true,
+      "separately_printed_budget_time_series": null,
+      "synthetic_cleanup_is_product_behavior": false,
+      "synthetic_terminal_overwrites_asserted_original_observation": false
+    },
+    "finite_runner_sha256": "df59ef10a22e598ce191bfdeeadb215d55e7a35c7a72918c98e855c370825758",
+    "local_plan_sha256": "d06cb5302e70fed51aadf87b7593276ccdae79c443d8cc39546f90f07f857f89",
+    "observed_regressions": [
+      {
+        "assertion_line": 577,
+        "assertion_relative_file": "native/server/host/src/tests.rs",
+        "content_length": 0,
+        "exit_code": 101,
+        "expected_terminal_encoded": 1,
+        "observed_terminal_encoded": 0,
+        "result": "failed_as_intended",
+        "terminal_encoding": "0 means absent; terminal callback stores native status + 1, so NW_OK + 1 equals 1",
+        "test": "actual_network_empty_body_finish_survives_close_after_network_join",
+        "worker_exited": true
+      },
+      {
+        "assertion_line": 577,
+        "assertion_relative_file": "native/server/host/src/tests.rs",
+        "content_length": 4,
+        "exit_code": 101,
+        "expected_terminal_encoded": 1,
+        "observed_terminal_encoded": 0,
+        "result": "failed_as_intended",
+        "terminal_encoding": "0 means absent; terminal callback stores native status + 1, so NW_OK + 1 equals 1",
+        "test": "actual_network_fixed_body_finish_survives_close_after_network_join",
+        "worker_exited": true
+      }
+    ],
+    "performance_credit_seconds": 0,
+    "source_files": [
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "sha256": "ca0734981bd3ce051a600f4bf279c44fff7cdb8b1f612988c36b1f7bcbeac013"
+      },
+      {
+        "relative_file": "native/server/host/src/tests.rs",
+        "sha256": "69fff46129011e433c85aa37bde176447cc7911f4bb2d73d2032f727f8a95d8b"
+      },
+      {
+        "relative_file": "Cargo.lock",
+        "sha256": "c5ad34bfac8d387ca107e131b95db92974fdda2d7d186f6e0d84295466ff5a04"
+      },
+      {
+        "relative_file": "rust-toolchain.toml",
+        "sha256": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff"
+      }
+    ],
+    "source_identity": {
+      "commit": "f5acae7096d6ffa832c63e1a73f52fa39406a20d",
+      "git_tree": "9982e94d6b4697b4c62aa0610fe4616790bf90f9",
+      "parents": [
+        "ccff42c0df4141984ef9de497af7cd768753704a"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "started_utc": "2026-11-21T04:13:20.143767+00:00",
+    "status": "failed",
+    "substitutes_for_selected_evidence": false,
+    "test_executable_hash_limitation": "The failed sequence did not publish a completed output hash inventory; no hash is inferred from a subsequently reused build directory.",
+    "test_executable_sha256": null
+  },
+  "checklist": [
+    {
+      "cases_failed": 2,
+      "exit_code": 101,
+      "item": "Preserve the pre-repair failure at its exact source commit and tree.",
+      "retired": true,
+      "status": "verified"
+    },
+    {
+      "item": "Preserve the original test-only patch and reconstruct its result source files.",
+      "status": "verified"
+    },
+    {
+      "item": "Retain missing-terminal observations before test-only failure cleanup.",
+      "observed_terminal_encoded": 0,
+      "status": "verified_from_output_and_source_order",
+      "worker_exited": true
+    },
+    {
+      "item": "Verify selected formatting and strict Clippy commands.",
+      "status": "completed_and_retired"
+    },
+    {
+      "failed": 0,
+      "item": "Verify the selected full native Debug suite.",
+      "passed": 23,
+      "status": "completed_and_retired"
+    },
+    {
+      "failed": 0,
+      "item": "Verify the selected full native Release suite.",
+      "passed": 23,
+      "status": "completed_and_retired"
+    },
+    {
+      "item": "Verify the selected Release native-library build.",
+      "sha256": "83b57ab59a43975c2396d069d782aeafe86c0ba2d0c94468fdf11800840f3388",
+      "status": "completed_and_retired"
+    },
+    {
+      "item": "Keep the earlier Notify variant separate from selected evidence.",
+      "status": "recorded_not_selected"
+    },
+    {
+      "item": "Confirm the final assembled C# application and domain packages.",
+      "status": "not_established_by_this_native_record"
+    },
+    {
+      "item": "Grant performance or long-running acceptance from native test results.",
+      "status": "not_granted"
+    }
+  ],
+  "conclusion": "The two added native close regressions failed before repair and passed in both complete Debug and Release suites for the separately measured selected polling repair.",
+  "earlier_notify_variant_not_selected": {
+    "built_native_library": {
+      "filename": "libnativeweave_server.so",
+      "identity_kind": "completed build-output hash, not loaded-module evidence",
+      "sha256": "4e8a5019f06eddd056cecc67e54ed5359cdbc9d42ce3c4ef9d879793886003d6"
+    },
+    "classification": "exploratory_notify_variant_not_selected",
+    "command_count": 5,
+    "commands": [
+      {
+        "argv_from_repository_root": [
+          "rustfmt",
+          "--edition",
+          "2024",
+          "--config",
+          "skip_children=true",
+          "--check",
+          "native/server/host/src/engine.rs",
+          "native/server/host/src/tests.rs"
+        ],
+        "ended_utc": "2026-11-21T04:15:30.514254+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/format/receipt.json",
+            "sha256": "2446977b4635a9ddb1cdc715bbeb5d8a4eb374398a1d1c90e85ba2252465198d"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/format/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/format/stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "exit_code": 0,
+        "label": "format",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:15:30.301388+00:00",
+        "timeout_seconds": 30
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "clippy",
+          "--locked",
+          "--offline",
+          "-p",
+          "nativeweave-server",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "ended_utc": "2026-11-21T04:15:34.929503+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/strict-clippy/receipt.json",
+            "sha256": "87cb5f75a3b90d71e264ec4217ebcb837dede0cf22b7bdcb005de3634da98dcf"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/strict-clippy/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/strict-clippy/stderr.log",
+            "sha256": "0ef544e8bbda11daec760bc14ed21178ae888eecd50c6d761041dd78fb7f34ca"
+          }
+        ],
+        "exit_code": 0,
+        "label": "strict-clippy",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:15:30.611188+00:00",
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "-p",
+          "nativeweave-server",
+          "--",
+          "--test-threads=1"
+        ],
+        "ended_utc": "2026-11-21T04:15:50.607657+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-debug/receipt.json",
+            "sha256": "5e1ddbfe7b2130d31c7ab87a978dea4f8b62bba07a9e5cab071f3fd9173f70aa"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-debug/stdout.log",
+            "sha256": "93c0ca9c7c2a364c16c957745292686ffea3c029abd27169a4f726bb033fc360"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-debug/stderr.log",
+            "sha256": "37dcd22da9cad09eed42712bf48e429ac3fce25d1c1cb2b5cb71e3402bf40952"
+          }
+        ],
+        "executed_test_binary": {
+          "identity_source": "printed test-binary path joined to the completed output hash inventory",
+          "repository_relative_file": "target/debug/build/nativeweave-server/16c54d0656deae3c/out/nativeweave_server-16c54d0656deae3c",
+          "sha256": "8880645f6ddf20ee6231ccb098775af6a96c8d051bab84f9830faab3c68ca2a0"
+        },
+        "exit_code": 0,
+        "label": "native-debug",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:15:35.012453+00:00",
+        "test_harness_results": [
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 23,
+            "raw_marker": "test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s",
+            "reported_harness_seconds": 0.45
+          },
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 0,
+            "raw_marker": "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+            "reported_harness_seconds": 0.0
+          }
+        ],
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "--release",
+          "-p",
+          "nativeweave-server",
+          "--",
+          "--test-threads=1"
+        ],
+        "ended_utc": "2026-11-21T04:18:11.294147+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-release/receipt.json",
+            "sha256": "a3b2f26383040cd820781acbfa997cf66212526229de7b51bb9631ed44095d16"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-release/stdout.log",
+            "sha256": "7bdba3e14b21bd51474d433cd144af61d87ba55ce98a39c5be9256bdc3259b94"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/native-release/stderr.log",
+            "sha256": "97bf839a358de020051a60207c4555bbeb8952b498f22ac14bffacf10aa2a60c"
+          }
+        ],
+        "executed_test_binary": {
+          "identity_source": "printed test-binary path joined to the completed output hash inventory",
+          "repository_relative_file": "target/release/build/nativeweave-server/fc3eb3f18cb5c4ad/out/nativeweave_server-fc3eb3f18cb5c4ad",
+          "sha256": "0b29d6d8ec3273ecfdc275baa4fd69353e810712e92d340ba68b940b3824d11b"
+        },
+        "exit_code": 0,
+        "label": "native-release",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:15:50.697724+00:00",
+        "test_harness_results": [
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 23,
+            "raw_marker": "test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.43s",
+            "reported_harness_seconds": 0.43
+          },
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 0,
+            "raw_marker": "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+            "reported_harness_seconds": 0.0
+          }
+        ],
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "build",
+          "--locked",
+          "--offline",
+          "--release",
+          "-p",
+          "nativeweave-server",
+          "--lib"
+        ],
+        "ended_utc": "2026-11-21T04:18:11.601674+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/release-native/receipt.json",
+            "sha256": "dbee12514f5a98efa883da9a89eb3a72947bf616050c828f53537d93bb4d1f99"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/release-native/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-green-001",
+            "relative_file": "control/release-native/stderr.log",
+            "sha256": "7a7bb64a28cdda9b91e6e27f41be455104d929b5d7ad6dd5beca75fc5a47f1f4"
+          }
+        ],
+        "exit_code": 0,
+        "label": "release-native",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:18:11.390984+00:00",
+        "timeout_seconds": 600
+      }
+    ],
+    "ended_utc": "2026-11-21T04:18:11.797702+00:00",
+    "execution": {
+      "bundle": "server-close-native-green-001",
+      "relative_file": "execution.json",
+      "sha256": "7ed15d92f94cac961f39c5b388e3aa3f6eb052bfe735b712eeb4211b74fb9a3c"
+    },
+    "finite_runner_sha256": "df59ef10a22e598ce191bfdeeadb215d55e7a35c7a72918c98e855c370825758",
+    "local_plan_sha256": "98258b2419aeebf611278c6bc13618f7dbc1186d28b01db6ce06c98d395ff22d",
+    "performance_credit_seconds": 0,
+    "source_files": [
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "sha256": "6641a428334cd0212cc69bce04cdafb0876d612a07c287981e4eaa6203b6a906"
+      },
+      {
+        "relative_file": "native/server/host/src/tests.rs",
+        "sha256": "69fff46129011e433c85aa37bde176447cc7911f4bb2d73d2032f727f8a95d8b"
+      },
+      {
+        "relative_file": "Cargo.lock",
+        "sha256": "c5ad34bfac8d387ca107e131b95db92974fdda2d7d186f6e0d84295466ff5a04"
+      },
+      {
+        "relative_file": "rust-toolchain.toml",
+        "sha256": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff"
+      }
+    ],
+    "source_identity": {
+      "commit": "d7131381b6b33da8bd8abaea305af7263c647ff0",
+      "git_tree": "4463245df94e89b4285f899f8673dabdd1ce4949",
+      "parents": [
+        "f5acae7096d6ffa832c63e1a73f52fa39406a20d"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "started_utc": "2026-11-21T04:15:30.188825+00:00",
+    "status": "diagnostic-completed",
+    "substitutes_for_selected_evidence": false
+  },
+  "epoch": "epoch-002",
+  "preserved_before_repair_test_patch": {
+    "base_source": {
+      "commit": "ccff42c0df4141984ef9de497af7cd768753704a",
+      "git_tree": "aa7b4d25886e64e71dbf57c75f9592af7b46d37a",
+      "parents": [
+        "2e3995df8d86583ee9443348276ca8d918056bfc"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "bytes": 11284,
+    "changed_files": [
+      "native/server/host/src/engine.rs",
+      "native/server/host/src/tests.rs"
+    ],
+    "copied_byte_for_byte_from_preserved_original": true,
+    "production_shutdown_behavior_changed_in_patch": false,
+    "reconstructed_files": [
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "sha256": "ca0734981bd3ce051a600f4bf279c44fff7cdb8b1f612988c36b1f7bcbeac013"
+      },
+      {
+        "relative_file": "native/server/host/src/tests.rs",
+        "sha256": "69fff46129011e433c85aa37bde176447cc7911f4bb2d73d2032f727f8a95d8b"
+      }
+    ],
+    "relative_file": "native-close-test-only-f5acae7.patch",
+    "result_source": {
+      "commit": "f5acae7096d6ffa832c63e1a73f52fa39406a20d",
+      "git_tree": "9982e94d6b4697b4c62aa0610fe4616790bf90f9",
+      "parents": [
+        "ccff42c0df4141984ef9de497af7cd768753704a"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "sha256": "74a0eff457c378aa5c37f7a806d95462bee5b9c8610f56dcb8367c934d4255b6",
+    "verification": "In-memory application of the preserved hunks to the exact base reconstructs both result source files byte-for-byte. This verification executed no product/test code."
+  },
+  "publication_scope": {
+    "evidence_paths": "relative to named preserved output bundles",
+    "machine_paths_or_environment_values_included": false,
+    "new_external_code_or_license_obligations_introduced": false,
+    "operational_maps_or_raw_logs_copied": false,
+    "public_raw_bundle_url": null,
+    "retention_claim": null,
+    "source_paths": "relative to IzuSharp/NativeWeave"
+  },
+  "record": "native-close-regression-001",
+  "record_kind": "existing_native_regression_execution_and_preserved_project_test_patch",
+  "schema_version": 1,
+  "scope_and_limits": {
+    "assembled_csharp_or_domain_package_confirmation_granted_by_this_record": false,
+    "full_perf01_acceptance_granted": false,
+    "loaded_selected_library_claimed": false,
+    "native_regression_correction_established_for_tested_ordering": true,
+    "new_workload_executed_to_prepare_this_record": false,
+    "original_16_request_b20_failure_proven_same_cause": false,
+    "performance_credit_seconds": 0,
+    "selected_native_debug_passed": 23,
+    "selected_native_release_passed": 23,
+    "selected_native_test_failures": 0,
+    "thirty_minute_acceptance_credit_added": 0
+  },
+  "selected": {
+    "built_native_library": {
+      "filename": "libnativeweave_server.so",
+      "identity_kind": "completed build-output hash, not loaded-module evidence",
+      "sha256": "83b57ab59a43975c2396d069d782aeafe86c0ba2d0c94468fdf11800840f3388"
+    },
+    "classification": "selected_native_regression",
+    "command_count": 5,
+    "commands": [
+      {
+        "argv_from_repository_root": [
+          "rustfmt",
+          "--edition",
+          "2024",
+          "--config",
+          "skip_children=true",
+          "--check",
+          "native/server/host/src/engine.rs",
+          "native/server/host/src/tests.rs"
+        ],
+        "ended_utc": "2026-11-21T04:20:50.757505+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/format/receipt.json",
+            "sha256": "8fc68b74650277be25735f3df90f4d70f8a011e1ea41bd07e81e7e1f6d08b05b"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/format/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/format/stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "exit_code": 0,
+        "label": "format",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:20:50.548115+00:00",
+        "timeout_seconds": 30
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "clippy",
+          "--locked",
+          "--offline",
+          "-p",
+          "nativeweave-server",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "ended_utc": "2026-11-21T04:20:55.021772+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/strict-clippy/receipt.json",
+            "sha256": "48f82649eeb698d1be6abf7f1b954f46767b4da949713eda9f1e4f4d3ab5faf8"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/strict-clippy/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/strict-clippy/stderr.log",
+            "sha256": "24c8113f235cf70e18e6a17c75a76ec04ed777d796262f555723fa12a430d488"
+          }
+        ],
+        "exit_code": 0,
+        "label": "strict-clippy",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:20:50.837605+00:00",
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "-p",
+          "nativeweave-server",
+          "--",
+          "--test-threads=1"
+        ],
+        "ended_utc": "2026-11-21T04:21:23.985879+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-debug/receipt.json",
+            "sha256": "36ace214d2ef552c739f7cf3e69e7e591d70465196dcb8aa7c4cd8884b8ff774"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-debug/stdout.log",
+            "sha256": "e2f97a954690d609a3cc734df3d2a37fdc39705b90ab32f5658b1cf2fe110264"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-debug/stderr.log",
+            "sha256": "d6d89a2f8c1280cd279a533f397364f403840a3579aef6cb974b0ceadf2e575c"
+          }
+        ],
+        "executed_test_binary": {
+          "identity_source": "printed test-binary path joined to the completed output hash inventory",
+          "repository_relative_file": "target/debug/build/nativeweave-server/16c54d0656deae3c/out/nativeweave_server-16c54d0656deae3c",
+          "sha256": "725b980a17ec49d5e8cd6b1b5cf9623dae28fa0aaab47ec04ea8b5bc6e2b4b4c"
+        },
+        "exit_code": 0,
+        "label": "native-debug",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:20:55.144171+00:00",
+        "test_harness_results": [
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 23,
+            "raw_marker": "test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.47s",
+            "reported_harness_seconds": 0.47
+          },
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 0,
+            "raw_marker": "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+            "reported_harness_seconds": 0.0
+          }
+        ],
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "--release",
+          "-p",
+          "nativeweave-server",
+          "--",
+          "--test-threads=1"
+        ],
+        "ended_utc": "2026-11-21T04:23:50.672503+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-release/receipt.json",
+            "sha256": "b583e74e708821ccbda93f591075bcbc295288e04547f220ad4646cac11197fa"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-release/stdout.log",
+            "sha256": "eb43c0f0bf7cdefea29ef462fc5381c78db6a8b19c0ff7d278c3c46985223577"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/native-release/stderr.log",
+            "sha256": "c593568c5b729c66f6be6aadf41e42d7b96b5706793d3b1525eaa56fa9dbaac3"
+          }
+        ],
+        "executed_test_binary": {
+          "identity_source": "printed test-binary path joined to the completed output hash inventory",
+          "repository_relative_file": "target/release/build/nativeweave-server/fc3eb3f18cb5c4ad/out/nativeweave_server-fc3eb3f18cb5c4ad",
+          "sha256": "d665437784a8ab3b1d539811b05ab7e9ccfc99ad9234714e27aeccc932960f67"
+        },
+        "exit_code": 0,
+        "label": "native-release",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:21:24.134014+00:00",
+        "test_harness_results": [
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 23,
+            "raw_marker": "test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s",
+            "reported_harness_seconds": 0.39
+          },
+          {
+            "failed": 0,
+            "filtered_out": 0,
+            "harness_seconds_are_not_performance_evidence": true,
+            "ignored": 0,
+            "measured": 0,
+            "outcome": "ok",
+            "passed": 0,
+            "raw_marker": "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+            "reported_harness_seconds": 0.0
+          }
+        ],
+        "timeout_seconds": 600
+      },
+      {
+        "argv_from_repository_root": [
+          "cargo",
+          "build",
+          "--locked",
+          "--offline",
+          "--release",
+          "-p",
+          "nativeweave-server",
+          "--lib"
+        ],
+        "ended_utc": "2026-11-21T04:23:51.041579+00:00",
+        "evidence": [
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/release-native/receipt.json",
+            "sha256": "127f6a3eef942f394105f5016acf9e5a03dcfc4e74f8554c2ba264a1a0b37076"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/release-native/stdout.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bundle": "server-close-native-selected-001",
+            "relative_file": "control/release-native/stderr.log",
+            "sha256": "765f1396d07f30f3a451cd3f9d9cad4e83c92c8e0aecf955ffc09061a6cf1e02"
+          }
+        ],
+        "exit_code": 0,
+        "label": "release-native",
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0,
+        "owner_status": "completed",
+        "retired": true,
+        "started_utc": "2026-11-21T04:23:50.832291+00:00",
+        "timeout_seconds": 600
+      }
+    ],
+    "ended_utc": "2026-11-21T04:23:51.246159+00:00",
+    "execution": {
+      "bundle": "server-close-native-selected-001",
+      "relative_file": "execution.json",
+      "sha256": "edd5e70c606e57573dc2df34d52f16512c013321400d139dd8664b596b630c9f"
+    },
+    "finite_runner_sha256": "df59ef10a22e598ce191bfdeeadb215d55e7a35c7a72918c98e855c370825758",
+    "local_plan_sha256": "e1ad0f1e2928b23f16b66c4de78d68f37b29f4e174d302803f04265a5dd790c1",
+    "performance_credit_seconds": 0,
+    "source_files": [
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "sha256": "06506c69331b448ce745211a83ceb9ce51a16201aaa85ab70f3a23738ffb1b29"
+      },
+      {
+        "relative_file": "native/server/host/src/tests.rs",
+        "sha256": "69fff46129011e433c85aa37bde176447cc7911f4bb2d73d2032f727f8a95d8b"
+      },
+      {
+        "relative_file": "Cargo.lock",
+        "sha256": "c5ad34bfac8d387ca107e131b95db92974fdda2d7d186f6e0d84295466ff5a04"
+      },
+      {
+        "relative_file": "rust-toolchain.toml",
+        "sha256": "d4580150cd6aec323fffc3d1b193cbbf262855081a3e1fb330c18b7ba8a98dff"
+      }
+    ],
+    "source_identity": {
+      "commit": "cad8acabfdb11dda9e365701cebceb8d12578f36",
+      "git_tree": "7f803d4f9e57fef1d8cfdef69c505d67f84614c9",
+      "parents": [
+        "483c3b8c80c1d2bfbbf8d1130eaef48239b9c853"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "started_utc": "2026-11-21T04:20:50.456597+00:00",
+    "status": "diagnostic-completed",
+    "substitutes_for_selected_evidence": false
+  },
+  "selected_product_repair": {
+    "formatted_parent": {
+      "commit": "483c3b8c80c1d2bfbbf8d1130eaef48239b9c853",
+      "git_tree": "4b1bd30cacad28e147437618f189a6f2d0412c5a",
+      "parents": [
+        "fa93f328f964ac04729f3c99cf060e14602e43c2"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "implementation": "poll the current-thread runtime after actual network joins until registered requests retire and live request operations complete",
+    "implementation_commit": {
+      "commit": "fa93f328f964ac04729f3c99cf060e14602e43c2",
+      "git_tree": "ec0aa6a54eea6f1fd30a9e7ebc3ca48614fca74f",
+      "parents": [
+        "ccff42c0df4141984ef9de497af7cd768753704a"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "poll_interval_milliseconds": 1,
+    "tested_commit_additions": "cfg(test) synchronization gate and the two regression cases",
+    "tested_source": {
+      "commit": "cad8acabfdb11dda9e365701cebceb8d12578f36",
+      "git_tree": "7f803d4f9e57fef1d8cfdef69c505d67f84614c9",
+      "parents": [
+        "483c3b8c80c1d2bfbbf8d1130eaef48239b9c853"
+      ],
+      "repository": "IzuSharp/NativeWeave"
+    },
+    "waits_for_close_operation_itself": false,
+    "waits_for_escaped_payload_budget": false
+  },
+  "selected_source_publication": {
+    "actual_readback": "Both changed files fetched from the exact public commit and content-compared byte-for-byte",
+    "commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+    "files": [
+      {
+        "blob_oid": "f4def150ac55c161645eb9c4ab0fc4cec1f9badb",
+        "exact_content_match": true,
+        "path": "native/server/host/src/engine.rs"
+      },
+      {
+        "blob_oid": "6f340290b917ccf6f14f887194fff28bdff8df98",
+        "exact_content_match": true,
+        "path": "native/server/host/src/tests.rs"
+      }
+    ],
+    "matches_tested_local_commit": "cad8acabfdb11dda9e365701cebceb8d12578f36",
+    "repository": "IzuSharp/NativeWeave",
+    "tree_sha": "7f803d4f9e57fef1d8cfdef69c505d67f84614c9"
+  },
+  "task": "Perf-01",
+  "test_scenario": {
+    "actual_io": "HTTP/1.1 TcpStream connection; complete status and payload checked",
+    "cases": [
+      {
+        "content_length": 0,
+        "name": "actual_network_empty_body_finish_survives_close_after_network_join"
+      },
+      {
+        "content_length": 4,
+        "name": "actual_network_fixed_body_finish_survives_close_after_network_join"
+      }
+    ],
+    "request_deadline_seconds": 20,
+    "synchronization": "cfg(test) gate reached after native acceptors and connections join; real Finish create/start is accepted before the gate releases",
+    "target_invariant": "An accepted Finish receives its successful terminal before the runtime can exit.",
+    "test_gate_timeout_seconds": 5,
+    "test_source_identical_across_three_roles": true,
+    "test_source_sha256": "69fff46129011e433c85aa37bde176447cc7911f4bb2d73d2032f727f8a95d8b"
+  },
+  "toolchain": {
+    "dependency_resolution": "repository lockfile; --locked --offline",
+    "public_source_material_copied": "NativeWeave project test patch only; no third-party source introduced",
+    "rust_channel": "1.100.0",
+    "source_file": "rust-toolchain.toml",
+    "unit_test_threads": 1
+  }
+}

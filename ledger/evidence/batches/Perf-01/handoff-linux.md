@@ -1,5 +1,34 @@
 # Perf-01 Linux x64 handoff
 
+## Selected close repair passed native regressions; final package rebuild active — 2026-11-21 04:39 UTC
+
+The selected source is now published as NativeWeave
+`2f40348c3db80a4fbee7a99e721b374a597b16df`, with tree
+`7f803d4f9e57fef1d8cfdef69c505d67f84614c9`. Its two changed files were
+retrieved from that exact commit and matched the tested local `cad8acab…`
+tree byte for byte. This preserves the published `483c3b8c…` request-tail
+drain repair and adds only the independently reviewed deterministic native
+regression gate and two cases.
+
+The [native regression evidence](recovery/epoch-002/native-close-regression-001/README.md)
+records the actual red result before repair, followed by **23/23 Debug and
+23/23 Release** tests on the selected tree. Formatting, strict Clippy and the
+Release library build also completed successfully. The selected execution
+ended at 04:23:51.246159 UTC; all commands retired with no remaining children.
+The separate Notify variant remains unselected. These results prove the
+constructed runtime-tail ordering, without claiming that the earlier B20
+sample or high-load TLS drain failures necessarily had the same cause.
+
+A fresh, locked after producer for this exact published commit started at
+04:29:55.627962 UTC in `build-004`, using separately bound after inputs and the
+reviewed `66cc5531…` fresh-after caller. Its native-stable step has completed;
+the producer is still running. Existing EA5 before/common proofs and baseline
+admission are unchanged, and the earlier ccff build/failure receipts remain
+preserved. The new candidate still requires its own completed package binding,
+B18 and full application/API/package regressions before final performance
+credit. Current long-test credit remains **0/10**; no timing result is inferred
+from the native regression passes.
+
 ## Baseline-matched close failure and deterministic native regression — 2026-11-21 04:24:04 UTC
 
 The [controlled same-source probe](recovery/epoch-002/server-close-tail-diagnostic-001/README.md)
@@ -21,8 +50,9 @@ The original failure receipt exited 101 and retired without remaining children.
 The complementary test-only integration is local NativeWeave
 `cad8acabfdb11dda9e365701cebceb8d12578f36`, based on published
 `483c3b8c80c1d2bfbbf8d1130eaef48239b9c853`. It preserves that published
-polling repair and its managed HTTP/1.1/HTTP/2 tests. At this checkpoint, strict
-Clippy and all 23 Debug native tests have passed; Release remains in progress.
+polling repair and its managed HTTP/1.1/HTTP/2 tests. At the 04:23:04 observation used to prepare this checkpoint, strict
+Clippy and all 23 Debug native tests had passed; Release was still in progress.
+The later completed result is recorded in the newer checkpoint above.
 A separate Notify-based diagnostic variant is not selected and supplies no
 final-version acceptance.
 

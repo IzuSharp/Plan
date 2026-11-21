@@ -1,0 +1,282 @@
+diff --git a/native/server/host/src/engine.rs b/native/server/host/src/engine.rs
+index 7224db1..c5a173f 100644
+--- a/native/server/host/src/engine.rs
++++ b/native/server/host/src/engine.rs
+@@ -79,6 +79,13 @@ pub struct Host {
+     pub worker_exited: AtomicBool,
+     pub native_joined: AtomicBool,
+     pub changed: Notify,
++    #[cfg(test)]
++    pub shutdown_tail_gate: Mutex<Option<ShutdownTailGate>>,
++}
++#[cfg(test)]
++pub struct ShutdownTailGate {
++    pub ready: std::sync::mpsc::SyncSender<()>,
++    pub release: std::sync::mpsc::Receiver<()>,
+ }
+ impl Host {
+     pub fn new(config: Config, dispatch: NwServerDispatchV1) -> Result<Arc<Self>> {
+@@ -118,6 +125,8 @@ impl Host {
+             worker_exited: AtomicBool::new(false),
+             native_joined: AtomicBool::new(false),
+             changed: Notify::new(),
++            #[cfg(test)]
++            shutdown_tail_gate: Mutex::new(None),
+         }))
+     }
+     pub fn reap(&self) {
+@@ -286,6 +295,18 @@ impl Host {
+         while let Some(result) = acceptors.join_next().await {
+             self.acceptor_finished(result);
+         }
++        #[cfg(test)]
++        {
++            // A test can queue a final request operation after actual network
++            // retirement and before this current-thread runtime can exit.
++            let gate = lock(&self.shutdown_tail_gate).take();
++            if let Some(gate) = gate {
++                gate.ready.send(()).expect("shutdown test observer");
++                gate.release
++                    .recv_timeout(Duration::from_secs(5))
++                    .expect("finite shutdown test release");
++            }
++        }
+         self.reap();
+     }
+     pub(crate) fn acceptor_finished(
+diff --git a/native/server/host/src/tests.rs b/native/server/host/src/tests.rs
+index 1c9571c..6f34029 100644
+--- a/native/server/host/src/tests.rs
++++ b/native/server/host/src/tests.rs
+@@ -8,7 +8,7 @@ use crate::{
+ };
+ use std::{
+     collections::HashSet,
+-    io::Write,
++    io::{Read, Write},
+     net::{Ipv4Addr, SocketAddr, TcpStream},
+     sync::{
+         Arc, RwLock,
+@@ -375,6 +375,222 @@ fn actual_network_normal_shutdown_keeps_success_state_under_acceptor_race() {
+         assert_eq!(host.callbacks.load(Ordering::Acquire), 0);
+     }
+ }
++
++fn late_finish_after_network_join(payload: &[u8]) {
++    use crate::engine::{OpResult, ShutdownTailGate, SideGuard};
++    let state = Box::<Notifications>::default();
++    let host = make(&state);
++    // The test controls close ordering, not the unrelated 40 ms route deadline.
++    lock(&host.routes).as_mut().unwrap()[0].timeout = Duration::from_secs(20);
++    let operation = start_op(&host, Job::Start, &state);
++    retire_op(operation);
++    let address = lock(&host.addresses)[0]
++        .1
++        .trim_start_matches("http://")
++        .trim_end_matches('/')
++        .to_owned();
++    let mut peer = TcpStream::connect(address).unwrap();
++    peer.set_read_timeout(Some(Duration::from_secs(5))).unwrap();
++    peer.write_all(b"GET /test HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
++        .unwrap();
++    until(|| state.ticket.load(Ordering::Acquire) != 0);
++    let server = Box::into_raw(Box::new(NwServer {
++        inner: host.clone(),
++    }));
++    let (mut raw_request, mut metadata) = (std::ptr::null_mut(), std::ptr::null_mut());
++    // SAFETY: the host and callback state remain live; both transferred owners
++    // are retained until dispatch, operation and native retirement below.
++    unsafe {
++        assert_eq!(
++            nw_server_request_take(
++                server,
++                state.ticket.load(Ordering::Acquire),
++                &mut raw_request,
++                &mut metadata,
++                std::ptr::null_mut()
++            ),
++            NW_OK
++        );
++    }
++    // SAFETY: raw_request is the transferred, live creator-owned request.
++    let request = unsafe { &*raw_request }.inner.clone();
++    let submit = |job| {
++        state.terminal.store(0, Ordering::Release);
++        let operation = OpState::new(host.clone(), Some(request.clone()), job).unwrap();
++        let raw = Box::into_raw(Box::new(NwServerOperation { inner: operation }));
++        let callbacks = NwOperationCallbacksV1 {
++            struct_size: 24,
++            flags: 0,
++            cookie: &*state as *const _ as usize,
++            on_terminal: Some(terminal),
++        };
++        // SAFETY: live operation plus callback state retained through retire;
++        // submission alone deliberately does not wait for terminal delivery.
++        assert_eq!(
++            // SAFETY: the callback root and live operation outlive this start.
++            unsafe { nw_server_operation_start(raw, &callbacks, std::ptr::null_mut()) },
++            NW_OK
++        );
++        raw
++    };
++    let wait_ok = |raw| {
++        until(|| state.terminal.load(Ordering::Acquire) != 0);
++        assert_eq!(state.terminal.load(Ordering::Acquire), NW_OK + 1);
++        raw
++    };
++    let mut headers = http::HeaderMap::new();
++    headers.insert(http::header::CONTENT_LENGTH, payload.len().into());
++    let begin = wait_ok(submit(Job::Begin(
++        request.clone(),
++        200,
++        headers,
++        SideGuard::acquire(&request.write_active).unwrap(),
++    )));
++    retire_op(begin);
++    if !payload.is_empty() {
++        let reserved = wait_ok(submit(Job::Reserve(
++            request.clone(),
++            0,
++            payload.len(),
++            SideGuard::acquire(&request.write_active).unwrap(),
++        )));
++        // SAFETY: completed live operation; this is the one typed result take.
++        let OpResult::Reservation(reservation) =
++            unsafe { &*reserved }.inner.operation.take_result().unwrap()
++        else {
++            panic!("body write reservation required");
++        };
++        retire_op(reserved);
++        let crate::engine::grpc::WriteToken::Body(token) = reservation.reservation else {
++            panic!("HTTP body token required");
++        };
++        let write = wait_ok(submit(Job::Write(
++            request.clone(),
++            token.prepare(payload).unwrap(),
++            payload.len(),
++            reservation.side,
++        )));
++        retire_op(write);
++    }
++    let mut response = Vec::new();
++    peer.read_to_end(&mut response).unwrap();
++    let split = response
++        .windows(4)
++        .position(|part| part == b"\r\n\r\n")
++        .unwrap()
++        + 4;
++    assert!(response.starts_with(b"HTTP/1.1 200"));
++    assert_eq!(&response[split..], payload);
++    until(|| request.body_done.load(Ordering::Acquire));
++    assert!(!request.dispatch_done.load(Ordering::Acquire));
++    assert_eq!(request.head.cancellation.load(Ordering::Acquire), 0);
++
++    let (ready_tx, ready_rx) = std::sync::mpsc::sync_channel(1);
++    let (release_tx, release_rx) = std::sync::mpsc::sync_channel(1);
++    *lock(&host.shutdown_tail_gate) = Some(ShutdownTailGate {
++        ready: ready_tx,
++        release: release_rx,
++    });
++    host.initiate_close();
++    ready_rx.recv_timeout(Duration::from_secs(5)).unwrap();
++    // The current-thread runtime is held immediately after its network joins.
++    // Queue Finish before releasing it. Dropping the runtime here loses the
++    // operation's terminal; the runtime must keep polling request tails.
++    state.terminal.store(0, Ordering::Release);
++    let mut finish = std::ptr::null_mut();
++    let callbacks = NwOperationCallbacksV1 {
++        struct_size: 24,
++        flags: 0,
++        cookie: &*state as *const _ as usize,
++        on_terminal: Some(terminal),
++    };
++    let empty_trailers = [0u8; 4];
++    // SAFETY: live taken request, empty synchronous trailer view, initialized
++    // owner output and callback root retained through operation retirement.
++    unsafe {
++        assert_eq!(
++            nw_server_response_finish_create(
++                raw_request,
++                NwBytesViewV1 {
++                    data: empty_trailers.as_ptr(),
++                    length: empty_trailers.len() as u64
++                },
++                &mut finish,
++                std::ptr::null_mut()
++            ),
++            NW_OK
++        );
++        assert_eq!(
++            nw_server_operation_start(finish, &callbacks, std::ptr::null_mut()),
++            NW_OK
++        );
++    }
++    assert_eq!(state.terminal.load(Ordering::Acquire), 0);
++    release_tx.send(()).unwrap();
++    until(|| {
++        state.terminal.load(Ordering::Acquire) != 0 || host.worker_exited.load(Ordering::Acquire)
++    });
++    let observed_terminal = state.terminal.load(Ordering::Acquire);
++    let observed_worker_exited = host.worker_exited.load(Ordering::Acquire);
++    if observed_terminal == 0 {
++        assert!(observed_worker_exited);
++        // This branch is test-only failure cleanup. The worker has exited, so
++        // no runtime job can publish the lost terminal. Preserve its absence
++        // above, then complete the owned operation so the failing regression
++        // can still release every callback/request owner before asserting.
++        // SAFETY: the live creator-owned operation and callback state remain
++        // retained; worker exit proves there is no executing native publisher.
++        unsafe { &*finish }
++            .inner
++            .complete(Err(ApiError::status(NW_CANCELED)));
++    } else if observed_terminal == NW_OK + 1 {
++        // SAFETY: the retained Finish owner published one successful void result.
++        assert_eq!(
++            // SAFETY: live completed typed operation and fixed optional error.
++            unsafe { nw_server_operation_take_void(finish, std::ptr::null_mut()) },
++            NW_OK
++        );
++    }
++    retire_op(finish);
++    let observed_cancellation = request.head.cancellation.load(Ordering::Acquire);
++    // SAFETY: completed dispatch and no active operation; creator owners are
++    // retired and released exactly once before joining the native worker.
++    unsafe {
++        assert_eq!(
++            nw_server_dispatch_complete(raw_request, NW_OK, std::ptr::null_mut()),
++            NW_OK
++        );
++        until(|| nw_server_request_try_retire(raw_request) == NW_OK);
++        nw_server_request_release(raw_request);
++        nw_server_metadata_release(metadata);
++    }
++    drop(request);
++    drop(peer);
++    close(&host, &state);
++    assert!(lock(&host.requests).is_empty());
++    assert_eq!(host.budget.snapshot(), (0, 0));
++    // SAFETY: worker, callbacks, operations, requests and byte owners joined.
++    unsafe {
++        assert_eq!(nw_server_try_retire(server), NW_OK);
++        nw_server_release(server);
++    }
++    assert_eq!(
++        observed_terminal,
++        NW_OK + 1,
++        "closing runtime lost a Finish operation accepted after the network joined; worker_exited={observed_worker_exited}"
++    );
++    assert_eq!(observed_cancellation, 0);
++}
++
++#[test]
++fn actual_network_empty_body_finish_survives_close_after_network_join() {
++    late_finish_after_network_join(b"");
++}
++
++#[test]
++fn actual_network_fixed_body_finish_survives_close_after_network_join() {
++    late_finish_after_network_join(b"body");
++}
+ #[test]
+ fn actual_network_host_fault_signals_and_joins_without_unload() {
+     let state = Box::<Notifications>::default();
