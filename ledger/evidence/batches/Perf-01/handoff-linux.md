@@ -1,5 +1,44 @@
 # Perf-01 Linux x64 handoff
 
+## Candidate producers complete; report presentation reviewed — 2026-11-21 02:51 UTC
+
+The selected candidate `ccff42c0df4141984ef9de497af7cd768753704a` completed
+all eight fresh owned producers at 02:43:32.641508 UTC. Every command exited
+zero and retired. Execution SHA-256:
+`a4abd107860ed9ca34edc71b45341cd3a68849e541ebaf25e6d5b44c7f77bc7a`;
+binding SHA-256:
+`a8aecb795307d49ea7d17fcc1440a57cde03304caac458c96164909803040597`.
+The exact after Server asset is
+`1f023b7506bde3f8c4a13b12de92e3e9503004ca3afc2d41a53bec17e44f1d97`.
+SQLite and PostgreSQL native hashes equal their current before-role hashes;
+managed/package identities remain role-specific.
+
+Functional-after began at 02:44:25.066185 UTC. At this checkpoint its toolchain,
+format, strict Clippy, leaf/core-host Debug and leaf/core-host Release checks
+have passed. No terminal native-component or assembled B18 result is asserted.
+The original controller retains serial execution ownership. The reviewed
+29-command selected-native regression caller remains available for one later
+run; this continuation has not duplicated those fixtures.
+
+The [presentation adapter](diagnostics/recovery-report-002/README.md) and
+[independent review](recovery/epoch-002/report-adapter-review.md) bind source
+index `00757dd85400382b4213bbb7c45a69026f0d4dc42f6223a6f100fa764219aa0e`.
+It preserves all 16 comparison slots, 15 core capacity roles and ten long
+slots, including missing/failed attempts. DB/protocol mean process percentiles
+and codec pooled percentiles remain explicitly distinct. It copies original
+A21 decisions and accepted long duration, without new measurement/statistical
+acceptance. Actual report generation awaits measured inputs.
+
+Identity-rich JSON/CSV and local failure paths are intermediate evidence.
+Public delivery requires a curated numeric projection and filename-plus-hash
+provenance under the existing freeze; operational maps and TLS material remain
+excluded. The exact public source/review is not an execution result.
+
+Plan CI206 passed on `b2f22150a0bd5dcbb08598c8a1413b41c3b0e1be`.
+All ten current before/final long segments remain outstanding: **0/10**.
+Profiles, before-only noise, interleaved comparisons, capacity and long work
+continue through the existing admitted original drivers and timing reservation.
+
 ## Baseline B18 passed; selected-native regression caller ready — 2026-11-21 02:36 UTC
 
 The unchanged baseline native component and assembled B18 completed at
