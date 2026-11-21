@@ -1,0 +1,329 @@
+{
+  "architecture": "x86_64",
+  "closure": "previous",
+  "commands": [
+    {
+      "argv": [
+        "dotnet",
+        "--version"
+      ],
+      "exitCode": 0,
+      "label": "sdk",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "restore",
+        "/tmp/nativeweave-b24-consumer-9ovphkpv/combined/Consumer.csproj",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exitCode": 0,
+      "label": "combined-restore",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "27e9b9cbee487b538dda1297deec195caa1aada92a157c2975d00c627bfb46c8"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "build",
+        "/tmp/nativeweave-b24-consumer-9ovphkpv/combined/Consumer.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-o",
+        "/tmp/nativeweave-b24-consumer-9ovphkpv/combined/jit-output",
+        "-p:UseSharedCompilation=false",
+        "-nr:false",
+        "-m:1"
+      ],
+      "exitCode": 0,
+      "label": "combined-build",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "9da6a21ef730ba7dd971dbb0ad42cae9e9c8009faa9d644ff91ce78f31d0bb48"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "/tmp/nativeweave-b24-consumer-9ovphkpv/combined/jit-output/B24Consumer.dll"
+      ],
+      "exitCode": 0,
+      "label": "combined-jit-sqlite",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "a3d1e888cd24b39dedb99553a0ce7eab2185aeba4444f56e959f13a7084c12cd"
+    },
+    {
+      "argv": [
+        "dotnet",
+        "/tmp/nativeweave-b24-consumer-9ovphkpv/combined/jit-output/B24Consumer.dll"
+      ],
+      "exitCode": 0,
+      "label": "combined-jit-postgresql",
+      "processExited": true,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "b31d8defd3c44bf9023c6ec0269c2d1d0c54012e9d73a27ec99f465ecf94a3f7"
+    }
+  ],
+  "consumer_environment": "pristine",
+  "graphs": {
+    "combined": {
+      "initialJit": [
+        {
+          "checks": [
+            "typed-entity-materialization",
+            "typed-native-database-roundtrip",
+            "typed-fluent-dto-query",
+            "only-selected-database-module",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "actual-database-native-mapping",
+            "database-local-owners-retired"
+          ],
+          "dynamicCodeSupported": true,
+          "nativeLibraries": [
+            {
+              "file": "libnw_database_sqlite.so",
+              "sha256": "a003326ce24eff467af1b88f40b03dcacf665fc71710db0ca85b29595471f0e9"
+            }
+          ],
+          "provider": "sqlite",
+          "schemaVersion": 1,
+          "task": "DB-Scope-01"
+        },
+        {
+          "checks": [
+            "typed-entity-materialization",
+            "typed-native-database-roundtrip",
+            "typed-fluent-dto-query",
+            "only-selected-database-module",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "only-selected-database-module",
+            "single-database-module-path",
+            "actual-database-native-mapping",
+            "database-local-owners-retired"
+          ],
+          "dynamicCodeSupported": true,
+          "nativeLibraries": [
+            {
+              "file": "libnw_database_postgresql.so",
+              "sha256": "47ccb6e5752e74140a104fb3e2bc2558290f180528a0691771b01df2c963e3a7"
+            }
+          ],
+          "provider": "postgresql",
+          "schemaVersion": 1,
+          "task": "DB-Scope-01"
+        }
+      ],
+      "initialProjectSha256": "ebb0c6255a93e70afe7c038ff31e19d16e4c80cd0a20c7d8165d5834230326cc",
+      "initialSourceSha256": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+      "nativeBefore": {
+        "database.postgresql": {
+          "facade": "NativeWeave.Database.PostgreSql",
+          "facadeVersion": "0.1.0-db-scope.1.1",
+          "record": "NativeWeave.database.postgresql.assets.json",
+          "recordSha256": "65e03f17887ab3e515a62a7cf0ddbea3a88e85987adb5c4d3bdfd034e53d9147",
+          "relativePath": "runtimes/linux-x64/native/libnw_database_postgresql.so",
+          "sha256": "47ccb6e5752e74140a104fb3e2bc2558290f180528a0691771b01df2c963e3a7"
+        },
+        "database.sqlite": {
+          "facade": "NativeWeave.Database.Sqlite",
+          "facadeVersion": "0.1.0-db-scope.1.1",
+          "record": "NativeWeave.database.sqlite.assets.json",
+          "recordSha256": "799ef0e8384769a1a1d96595955dd16e305abf2172287f975d51b1e9debe6bf8",
+          "relativePath": "runtimes/linux-x64/native/libnw_database_sqlite.so",
+          "sha256": "a003326ce24eff467af1b88f40b03dcacf665fc71710db0ca85b29595471f0e9"
+        }
+      },
+      "selectedPackages": {
+        "NativeWeave.Core": "0.1.0-db-scope.1.1",
+        "NativeWeave.Data": "0.1.0-db-scope.1.1",
+        "NativeWeave.Data.Streaming": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database.PostgreSql": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database.PostgreSql.Native": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database.Sqlite": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database.Sqlite.Native": "0.1.0-db-scope.1.1",
+        "NativeWeave.Database.Transactions": "0.1.0-db-scope.1.1",
+        "NativeWeave.Interop.Abi": "0.1.0-db-scope.1.1",
+        "NativeWeave.Query.Binding": "0.1.0-db-scope.1.1",
+        "NativeWeave.Query.Generator": "0.1.0-db-scope.1.1"
+      }
+    }
+  },
+  "historicalFaultSoakPerformanceRerun": false,
+  "host_rust_absence_before_isolation": {
+    "cargo": true,
+    "rustc": true,
+    "rustup": true
+  },
+  "image": "mcr.microsoft.com/dotnet/sdk:11.0.100-resolute-amd64@sha256:7913685c883a29dd8ba79da96172f5c6b29ed9be706ebe95935e3ef45f19c9c1",
+  "manifestSha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975",
+  "mode": "smoke",
+  "negativeCases": [],
+  "newDomainSignerAuthenticated": false,
+  "outside_source_tree": true,
+  "packagePayloadAudit": {
+    "NativeWeave.Core": {
+      "dependencies": {
+        "NativeWeave.Interop.Abi": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Core.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Data": {
+      "dependencies": {},
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Data.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Data.Streaming": {
+      "dependencies": {
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Data.Streaming.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Database": {
+      "dependencies": {
+        "NativeWeave.Core": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Data.Streaming": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Database.Transactions": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Query.Binding": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Database.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Database.PostgreSql": {
+      "dependencies": {
+        "NativeWeave.Core": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Database": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Database.PostgreSql.Native": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Query.Generator": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Database.PostgreSql.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Database.PostgreSql.Native": {
+      "dependencies": {},
+      "managedRuntimeAssemblies": [],
+      "nativeAssets": [
+        "runtimes/linux-x64/native/libnw_database_postgresql.so"
+      ]
+    },
+    "NativeWeave.Database.Sqlite": {
+      "dependencies": {
+        "NativeWeave.Core": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Database": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Database.Sqlite.Native": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Query.Generator": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Database.Sqlite.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Database.Sqlite.Native": {
+      "dependencies": {},
+      "managedRuntimeAssemblies": [],
+      "nativeAssets": [
+        "runtimes/linux-x64/native/libnw_database_sqlite.so"
+      ]
+    },
+    "NativeWeave.Database.Transactions": {
+      "dependencies": {
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Database.Transactions.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Interop.Abi": {
+      "dependencies": {},
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Interop.Abi.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Query.Binding": {
+      "dependencies": {
+        "NativeWeave.Data": "[0.1.0-db-scope.1.1]",
+        "NativeWeave.Interop.Abi": "[0.1.0-db-scope.1.1]"
+      },
+      "managedRuntimeAssemblies": [
+        "NativeWeave.Query.Binding.dll"
+      ],
+      "nativeAssets": []
+    },
+    "NativeWeave.Query.Generator": {
+      "dependencies": {},
+      "managedRuntimeAssemblies": [],
+      "nativeAssets": []
+    }
+  },
+  "packages": {
+    "NativeWeave.Core": "c13692cc3d05a051b601448300c932f001c0c447a96806936ce5a2f1ce5e36ff",
+    "NativeWeave.Data": "7642a8e5e2b53a2f7dc909896a57d0b6bfdf00a66b9362732fd0dc22f57b7800",
+    "NativeWeave.Data.Streaming": "2bad0d0bb88c7417377044d71ff4e473a2630e4fa7341efd15ecc1681229cc4e",
+    "NativeWeave.Database": "80f2133db5a53f8d2995f80e497fca8f78f1952a58389e9ec54812563e891195",
+    "NativeWeave.Database.PostgreSql": "b7018ed87ccffdab1dd03e794dd45d4db6e5c08636fc19d96c86bdcdd7c8b5fc",
+    "NativeWeave.Database.PostgreSql.Native": "ec1bc6d61930d5c0ce8d6e916793862867eecc5944f2fa9e859eda18115e81f7",
+    "NativeWeave.Database.Sqlite": "f5bcb1cb81443a591d548137c6dbd17d79da2c526dc1e5526351e91fa98ba7aa",
+    "NativeWeave.Database.Sqlite.Native": "35b0f1e389829c845aee6a84585390cfbcea348718a38b9e5079e1146e637805",
+    "NativeWeave.Database.Transactions": "97ec680c1c5bf07e1c806eb5d7f55dcec9670bbd03b9d998f0761514c8cf5b96",
+    "NativeWeave.Interop.Abi": "e820412ecddd207d44b04f3afee56d51bf3bef7d996a9ffa408d104e6747465a",
+    "NativeWeave.Query.Binding": "0b703a8073385700eb37a1313352152350fa3623f4dfedf5f2c34ff7379e25a2",
+    "NativeWeave.Query.Generator": "503414a035deadd5353044c628846617eec1ebdb1bf45e34424dc3f73f2a81d5"
+  },
+  "passed": true,
+  "pristine_machine": true,
+  "publicDomainReleaseAccepted": false,
+  "rid": "linux-x64",
+  "runtimeOnlyTransferExecuted": false,
+  "rust_absence_before_trap": {
+    "cargo": true,
+    "rustc": true,
+    "rustup": true
+  },
+  "rust_invocation_trap_fired": false,
+  "schemaVersion": 1,
+  "sourceInputs": {
+    "samples/api/packaging-domain/AddedModels.cs.template": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+    "samples/api/packaging-domain/Program.cs": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+    "src/Packaging.Domain/consume.py": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+    "src/Packaging.Domain/model.py": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+    "src/Packaging.Linux/linux_profile.py": "60aa114ba3c36055bc5778b37b57ce5b438fe03a485465f259e442e9dfbbd26e",
+    "tests/Packaging.Domain/consumer_cases.py": "00576b22637d78884a1e01c47cf4d679c5e7632ebe43d70228d0e4b8f7be94e3",
+    "tests/Packaging.Domain/negative_cases.py": "92e79d30c047d0de537d86e245c65d8ffc2af8bcab3e865fff321d4bca1d2a09",
+    "tests/Packaging.Domain/registry_cases.py": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+    "tests/Packaging.Domain/runtime_verify.py": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831"
+  },
+  "source_commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+  "task": "DB-Scope-01"
+}

@@ -77,4 +77,4 @@ Existing tests remain evidence only for their original commits. Every retained/c
 
 ## Evidence and stop condition
 
-Use `handoff-linux.md` after every durable checkpoint. `acceptance.json` begins pending and may advance only with actual command logs, source identities and independent review. Keep failed attempts as failed. Record final PR URLs, head/merge commits and exact run URLs. Stop after pruning, tests, reviews and merges pass; do not start performance work or another task.
+Use `handoff-linux.md` after every durable checkpoint. `acceptance.json` begins pending and may advance only with actual command logs, source identities and independent review. Keep failed attempts as failed. Record final PR URLs, head/merge commits and exact run URLs. Follow the observed postmerge lifecycle in [evidence-format.md](evidence-format.md): keep acceptance in_progress through delivered Plan PR24 and its actual main CI, then append the evidence-only accepted-delivery snapshot and separately check that followup PR/main CI. Stop after those pruning, tests, reviews and merge obligations pass; do not start performance work or another task.
