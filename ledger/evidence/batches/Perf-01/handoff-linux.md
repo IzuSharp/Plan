@@ -1,5 +1,30 @@
 # Perf-01 Linux x64 handoff
 
+## Workspace interruption and epoch 002 recovery — 2026-11-21 01:04 UTC
+
+The local worktrees, producer artifacts and raw epoch-001 records became
+unavailable during an approximately one-hour approval wait. The kernel boot
+identity is unchanged. A later system notice confirmed automated workspace
+pruning to recover space. Three public repositories
+have been restored. No missing binary or raw observation is reconstructed from
+its recorded hash. Current before/final long acceptance remains **0/10**.
+
+The exact retained weak comparison/review/source projection was successfully
+published at `42a71aa6ea28fdee0f1d21d5c839c14ce56413aa` after the user clarified
+the previous rejection was accidental. Eight file contents and blob identities
+passed remote readback. The weak reuse rejection stands as recorded; this
+publication does not restore its missing raw/binary closure or select a final
+product. The [epoch 002 freeze and recovery plan](recovery/epoch-002/README.md)
+retain the same EA5 baseline, common 2e driver, versions, workloads and SLOs.
+Fresh tool/build/noise identities and all ten long segments are required.
+
+Root is continuing the gRPC retained-owner investigation with diagnostic-only
+close snapshots; the [source diagnosis](recovery/epoch-001/grpc-retirement-source-001/README.md)
+was recovered byte-for-byte. No fix or causal reproduction has been claimed.
+A completion reminder now checks delivery status hourly and only notifies after
+the actual full acceptance, merges and post-merge checks complete. It runs no
+workloads and grants no acceptance.
+
 ## Weak comparison and capacity complete; shared retirement investigation — 2026-11-20 23:56 UTC
 
 All 18 fresh ON/OFF/direct fixed-load processes completed at 23:07:04 UTC,
