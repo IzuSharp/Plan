@@ -1,0 +1,112 @@
+{
+  "task": "Perf-01",
+  "kind": "actual-failed-service-standard-checkpoint",
+  "selected_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+  "execution_sha256": "66e8d576bfc4a339907ff0073a714468d6fec7baa76dbc78885b687a28209fcb",
+  "started_utc": "2026-11-21T07:13:08.568476+00:00",
+  "ended_utc": "2026-11-21T07:15:47.680431+00:00",
+  "failure": "RuntimeError: DB cell did not meet original comparison validity/service criteria",
+  "stage": "compare",
+  "group": "sqlite",
+  "scene": "c16",
+  "rate": 50,
+  "concurrency": 16,
+  "requested_seconds": 60,
+  "original_max_p99_ms": 500,
+  "rows": {
+    "before": {
+      "valid": true,
+      "invalid_reasons": [],
+      "qualifies_service_standard": true,
+      "offered": 3001,
+      "dispatched": 3001,
+      "successful": 3001,
+      "successful_per_second": 49.99706825005386,
+      "p50_ns": 20322757,
+      "p95_ns": 99533378,
+      "p99_ns": 232540914,
+      "business_retry_attempts": 0,
+      "provider_errors": {
+        "availability": "measured",
+        "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+        "observed_exceptions": 0,
+        "provider_code_counts": {},
+        "sqlite_busy": 0,
+        "sqlite_locked": 0
+      },
+      "durable_oracle": {
+        "attachments": 0,
+        "items": 1637,
+        "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+        "operations": 1637,
+        "outbox": 1637,
+        "passed": true,
+        "unique_blobs_verified": 0
+      },
+      "closed": {
+        "consumerResourcesReleased": true,
+        "consumerStatus": "Succeeded",
+        "databaseResourcesReleased": true,
+        "databaseStatus": "Succeeded",
+        "serverState": "Disposed"
+      },
+      "duration_valid": true,
+      "summary_sha256": "d4b09dcb7dd5564af3ccff25170f0bab5b3f8bcd0b6e07909518d4d34d7a0bc1"
+    },
+    "after": {
+      "valid": true,
+      "invalid_reasons": [],
+      "qualifies_service_standard": false,
+      "offered": 3001,
+      "dispatched": 3001,
+      "successful": 3001,
+      "successful_per_second": 49.830840266080095,
+      "p50_ns": 22429474,
+      "p95_ns": 132659480,
+      "p99_ns": 567131236,
+      "business_retry_attempts": 0,
+      "provider_errors": {
+        "availability": "measured",
+        "method": "Catch/log/rethrow observer; complete process stderr, including setup and recovery; primary result code = extended code & 255",
+        "observed_exceptions": 0,
+        "provider_code_counts": {},
+        "sqlite_busy": 0,
+        "sqlite_locked": 0
+      },
+      "durable_oracle": {
+        "attachments": 0,
+        "items": 1637,
+        "observer": "Separate SQLite/psql queries and direct immutable-file SHA-256",
+        "operations": 1637,
+        "outbox": 1637,
+        "passed": true,
+        "unique_blobs_verified": 0
+      },
+      "closed": {
+        "consumerResourcesReleased": true,
+        "consumerStatus": "Succeeded",
+        "databaseResourcesReleased": true,
+        "databaseStatus": "Succeeded",
+        "serverState": "Disposed"
+      },
+      "duration_valid": true,
+      "summary_sha256": "44bccdba7b42ff3bac4709db2c7f367a29fb2a88d38777df8d6f51faeb51cd04"
+    }
+  },
+  "commands": [
+    {
+      "label": "0-before",
+      "exit_code": 0,
+      "retired": true,
+      "receipt_sha256": "be75eda591c4dc3704f185fc5de7b381eafee51c2447a88f453bed19a6fac485"
+    },
+    {
+      "label": "0-after",
+      "exit_code": 0,
+      "retired": true,
+      "receipt_sha256": "304105fc9be673a0ff54b294bd0b874e4090087dbcf767d52d0c6234d346c834"
+    }
+  ],
+  "interpretation": "Actual valid measurement with failed tail-latency service standard; not a correctness failure, no generator-invalid flag. One process per role so no statistical regression attribution; original failure retained. No automatic retry or acceptance relabel. Formal queue stopped before direct/managed and other repetitions.",
+  "long_credit_seconds": 0
+}

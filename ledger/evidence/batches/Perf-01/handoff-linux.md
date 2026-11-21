@@ -1,5 +1,57 @@
 # Perf-01 Linux x64 handoff
 
+## Formal PostgreSQL result; SQLite C16 tail failure preserved — 2026-11-21 UTC
+
+The unchanged formal comparison queue has completed seven of sixteen scenes:
+all four PostgreSQL strata and SQLite c1/c4/c8. Its eighth scene stopped at
+the first after process because the original 500 ms p99 service standard
+was exceeded. No capacity or long interval has been accepted.
+
+The [four completed PostgreSQL comparisons](recovery/epoch-002/comparison-postgresql-001.md)
+have an [independent numeric/publication review](recovery/epoch-002/comparison-postgresql-001-review.md).
+At 180 arrivals/s and concurrency 16, page mean fell 10.346890 to 9.544302 ms
+(-7.756804%) and the original noise reader reports improvement. Whole mixed
+mean fell 23.365416 to 22.274810 ms (-4.667607%) but remains inconclusive;
+cycle also remains inconclusive. The after mixed mean remains 317.024035%
+above direct Rust. All adverse c1/c4/c8 observations are retained as
+single-process descriptive results. p99 is the mean of process percentiles;
+this interim resource table uses mean-of-peaks RSS, separately identified
+from the final adapter's maximum-of-peaks. These combined-version results
+do not isolate the contribution of an individual implementation change.
+
+The [SQLite C16 failure](recovery/epoch-002/comparison-sqlite-c16-failed-001.md)
+is an actual measurement-valid sample that failed its service standard:
+before p99 232.540914 ms, after p99 567.131236 ms. Both first processes
+offered/dispatched/completed 3,001 successful requests, observed zero
+BUSY/LOCKED exceptions and explicit business retries, passed independent
+durability checks and released consumer/database/server resources. Both
+owned commands exited zero and retired. The outer execution
+`66e8d576bfc4a339907ff0073a714468d6fec7baa76dbc78885b687a28209fcb`
+ended at 07:15:47.680431 UTC and correctly rejected the after result.
+No direct/managed or remaining repetition was executed in that scene.
+No failure has been relabeled or silently retried; the cause remains under
+investigation. The source, frozen load and 500 ms threshold are unchanged.
+
+All ten before-noise scenes had first been published at `31442e112060d5574ab49c51b1f2b96a4987411a`.
+The actual remote numeric readback is byte-exact; its real commit/tree/blob
+path was materialized locally without moving a ref. The unchanged formal
+caller passed the existing noise-publication gate. Plan CI
+[44875899390](https://github.com/IzuSharp/Plan/actions/runs/44875899390)
+passed that checkpoint. The final product is still
+`2f40348c3db80a4fbee7a99e721b374a597b16df`, common driver 2e, baseline EA5,
+with final binding `8f8616f2932dd1c033309e177efa63429829f9ffa2b728a182406d943efdfa8d`.
+
+The active timing owner has retired. Next: finish bounded diagnosis of the
+SQLite tail sample, preserve all failed records, then resume only the
+unexecuted work with fresh output identities where a rerun is justified.
+The remaining HTTP/gRPC/codec comparison slots, all fifteen role/domain
+capacity calibrations and all ten >=1,800-second effective-load intervals
+remain unaccepted. Actual long credit is **0/10 and zero seconds**.
+A data-only report template and capacity/long queues exist; none are evidence
+of execution. The public projections contain synthetic numbers and
+filename/hash provenance; full raw traces remain local pending the separate
+archive/readback stage. Both PRs remain drafts.
+
 ## All ten fresh before-noise scenes completed — 2026-11-21 UTC
 
 The [before-only noise record](recovery/epoch-002/noise-before-001/README.md)
