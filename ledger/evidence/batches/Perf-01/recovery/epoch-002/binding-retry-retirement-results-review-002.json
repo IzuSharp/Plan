@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "epoch-002",
+  "status": "accepted-completed-diagnostic-evidence-only",
+  "reviewer": "perf01_evidence_audit",
+  "review_scope": "Independent bounded source and completed scalar-result/receipt metadata review on CPU 8; no execution of product or diagnostic workload.",
+  "additive_receipt": {
+    "filename": "binding-retry-retirement-002/actual-artifact-and-scalar-summary-001.json",
+    "sha256": "8060373ae233f3fd5cc108025ce1ab0f1d48d481d390045663ed39f4a79ade04"
+  },
+  "actual_plans": [
+    {
+      "filename": "binding-retry-retirement-002/01-build-candidate.actual-001.json",
+      "sha256": "581f496430ce2f083f1ed9ffba19cfc3556fa3c8448eacb9cd9059098142b5e8",
+      "template_sha256": "b343e3d0f000f66ddaafe2f7f5225a2d6548ab672ade82b5a03dc6629dabdb13",
+      "output_globs_still_refer_to_retirement_001": true
+    },
+    {
+      "filename": "binding-retry-retirement-002/02-six-probes.actual-001.json",
+      "sha256": "f539562bc5e1b3864491a657c2869acc18c626de236d79ba9c20422254cddc08",
+      "template_sha256": "0ec6465943300e4b0eefd8b02596a969fe0654235ce1f7c306e1522ea4c7e648",
+      "output_globs_still_refer_to_retirement_001": true
+    }
+  ],
+  "execution_stages": [
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/execution.json",
+      "sha256": "3c94ef3d44bc5a5b07ec5bc65ba392e8e625b09a9e2bf88e92bcdf1542a5ab26",
+      "status": "diagnostic-completed",
+      "started_utc": "2026-11-21T10:40:28.633263+00:00",
+      "ended_utc": "2026-11-21T10:40:57.657777+00:00",
+      "finite_commands": 3,
+      "original_output_inventory_entries": 0,
+      "performance_credit_seconds": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/execution.json",
+      "sha256": "cf22e5e106cd2a8d0a137540fe95e55123d6ce682f7062a6e71a3c34a247465b",
+      "status": "diagnostic-completed",
+      "started_utc": "2026-11-21T10:43:19.002986+00:00",
+      "ended_utc": "2026-11-21T10:43:37.268886+00:00",
+      "finite_commands": 7,
+      "original_output_inventory_entries": 0,
+      "performance_credit_seconds": 0
+    }
+  ],
+  "frozen_recipe_source_index": {
+    "filename": "binding-retry-retirement-002/sources.json",
+    "sha256": "1f19611171491ff2ab7909f3d92f4511eff0db095327744869d7cbdce1662bc5"
+  },
+  "checks": {
+    "json_artifacts_directly_rehashed_from_additive": 14,
+    "binary_artifacts_checked_only_by_hash_maps": 4,
+    "driver_source_files_rehashed": 6,
+    "candidate_feed_package_identity_rows_crosschecked": 17,
+    "result_rows_recomputed": 6,
+    "calls_per_result": 1000,
+    "nonempty_native_operation_rows_per_result": 4000,
+    "finite_child_receipts_validated": 10,
+    "all_command_argv_equal_actual_plan": true,
+    "all_six_result_paths_and_role_executables_correct_for_002": true,
+    "all_six_loaded_native_path_and_digest_equal_role_pins": true,
+    "all_six_result_and_original_validation_values_equal": true,
+    "all_ten_children_exit_zero_retired_and_no_live_children": true,
+    "external_consumer_lock_rows_and_nativeweave_id_sets_equal": true,
+    "both_original_output_inventories_still_empty": true,
+    "original_001_failure_hashes_unchanged": true,
+    "all_original_002_template_hashes_unchanged": true
+  },
+  "numeric_scope": {
+    "arithmetic": "Arithmetic per-process means and nearest-rank observed quantiles only; no original A21 classification or performance acceptance inferred.",
+    "process_cpu": "Fixed-work process CPU milliseconds, not utilization or idle CPU.",
+    "allocation": "Loop allocation includes observer overhead; no RSS inference.",
+    "throughput": "No response rate or business throughput derived from the sum of call intervals.",
+    "variation": "Current process means vary from 2.3247342 to 6.0682121 ms across the three observed repetitions; no significance classification."
+  },
+  "limitations": [
+    "The earlier source-only review did not catch stale 001 output_globs; the miss and both original empty inventories are explicitly retained.",
+    "The 18-file identity observation was recorded after execution. It supplements rather than replaces the original receipts.",
+    "Four binary digests were crosschecked using already-recorded manifest/actual input maps. The reviewer did not hash/open binaries.",
+    "Instrumented serial scalar observations do not establish the cause of the formal SQLite-tail failure or provide EA5/direct Rust/A21/capacity/30-minute acceptance."
+  ],
+  "source_locations": [
+    {
+      "repository": "NativeWeave",
+      "commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+      "filename": "tests/Perf01.Shared/RetirementProbe/Program.cs",
+      "sha256": "d642d024ced08a2c5a6392e797b6de6ca904f59c7141e57ad0e5cf33a3fb3774",
+      "locations": {
+        "loop_and_cpu_allocation_gc_scope": "lines 29-49",
+        "source_release_and_loaded_native_hash_report": "lines 50-64",
+        "retirement_invariants_and_finish": "lines 95-108"
+      }
+    }
+  ],
+  "preserved_failure_evidence": [
+    {
+      "filename": "binding-retry-retirement-001/control-build-001/execution.json",
+      "sha256": "662cebcc653ca40dfbbb0974fe646d3d3df054c0d1fb72be0e738c1e493ae9ec"
+    },
+    {
+      "filename": "binding-retry-retirement-001/control-build-001/control/actual-a5748-package-prerequisite/receipt.json",
+      "sha256": "75505c850a6b7419619fd35e7e40ca7e03edd786782bdb1bff6850ebda11a0d4"
+    }
+  ],
+  "result_numeric_rows": [
+    {
+      "label": "01-current-sqlite-retirement-r1",
+      "role": "current",
+      "repetition": 1,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 2.3247342,
+      "public_call_p50_nearest_rank_ms": 0.2974,
+      "public_call_p99_nearest_rank_ms": 22.7482,
+      "public_call_sum_ms": 2324.7342,
+      "process_cpu_milliseconds": 457.226,
+      "allocated_bytes_including_observer": 17358888,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    },
+    {
+      "label": "02-candidate-sqlite-retirement-r1",
+      "role": "candidate",
+      "repetition": 1,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 0.8388759,
+      "public_call_p50_nearest_rank_ms": 0.2932,
+      "public_call_p99_nearest_rank_ms": 7.6759,
+      "public_call_sum_ms": 838.8759,
+      "process_cpu_milliseconds": 432.636,
+      "allocated_bytes_including_observer": 17358032,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    },
+    {
+      "label": "03-candidate-sqlite-retirement-r2",
+      "role": "candidate",
+      "repetition": 2,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 1.6963049000000001,
+      "public_call_p50_nearest_rank_ms": 0.4491,
+      "public_call_p99_nearest_rank_ms": 8.8409,
+      "public_call_sum_ms": 1696.3049,
+      "process_cpu_milliseconds": 523.937,
+      "allocated_bytes_including_observer": 17356888,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    },
+    {
+      "label": "04-current-sqlite-retirement-r2",
+      "role": "current",
+      "repetition": 2,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 4.408944099999999,
+      "public_call_p50_nearest_rank_ms": 0.503,
+      "public_call_p99_nearest_rank_ms": 28.8434,
+      "public_call_sum_ms": 4408.9441,
+      "process_cpu_milliseconds": 660.155,
+      "allocated_bytes_including_observer": 17361448,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    },
+    {
+      "label": "05-current-sqlite-retirement-r3",
+      "role": "current",
+      "repetition": 3,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 6.068212099999999,
+      "public_call_p50_nearest_rank_ms": 0.6723,
+      "public_call_p99_nearest_rank_ms": 28.5874,
+      "public_call_sum_ms": 6068.2121,
+      "process_cpu_milliseconds": 728.673,
+      "allocated_bytes_including_observer": 17359768,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    },
+    {
+      "label": "06-candidate-sqlite-retirement-r3",
+      "role": "candidate",
+      "repetition": 3,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 1.6826252,
+      "public_call_p50_nearest_rank_ms": 0.3347,
+      "public_call_p99_nearest_rank_ms": 11.909,
+      "public_call_sum_ms": 1682.6252,
+      "process_cpu_milliseconds": 446.364,
+      "allocated_bytes_including_observer": 17351768,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true
+    }
+  ],
+  "finite_child_receipts": [
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/actual-a5748-package-prerequisite/receipt.json",
+      "sha256": "bba8489419f133c6a177ad0ab26cec8d7029f91cf99abeff4c3a52913af89c84",
+      "label": "actual-a5748-package-prerequisite",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/candidate-shared-retirement-prepare/receipt.json",
+      "sha256": "f7689b28b0af7e7096dd52d00abfb0adfef18546cda97684c5ea830a339305eb",
+      "label": "candidate-shared-retirement-prepare",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/verify-original-shared-consumer-provenance/receipt.json",
+      "sha256": "63d684bba9acd49002cf50c11ac23023c71235710b7b3673f46352916354c2a6",
+      "label": "verify-original-shared-consumer-provenance",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/01-current-sqlite-retirement-r1/receipt.json",
+      "sha256": "7e582d09bf9ee204164418847480b687bc0900250541e1250b63d0e93e9c2c38",
+      "label": "01-current-sqlite-retirement-r1",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/02-candidate-sqlite-retirement-r1/receipt.json",
+      "sha256": "f44f3bb3f9484e47f883a7844d4f0920d070596ac1127ad6673f12d62d819bbc",
+      "label": "02-candidate-sqlite-retirement-r1",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/03-candidate-sqlite-retirement-r2/receipt.json",
+      "sha256": "13dbff23c8170d7fe0f80121fe82392130a8fd097af15e54735d88f9e57403eb",
+      "label": "03-candidate-sqlite-retirement-r2",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/04-current-sqlite-retirement-r2/receipt.json",
+      "sha256": "1ee6a6a98f3df0748fe526aa90f6f742f3c8f0e8b796c3116e028b6c329e210b",
+      "label": "04-current-sqlite-retirement-r2",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/05-current-sqlite-retirement-r3/receipt.json",
+      "sha256": "12cda533f456aef579e91816c6958c5b72e5e9de07e43e1c3caa41a985daeb3a",
+      "label": "05-current-sqlite-retirement-r3",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/06-candidate-sqlite-retirement-r3/receipt.json",
+      "sha256": "bc8ec1d6cef61febc19a065dc9f1ef3274499f84c1887d982b59272b54304e39",
+      "label": "06-candidate-sqlite-retirement-r3",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/verify-six-original-shared-results/receipt.json",
+      "sha256": "011bf1edfee615341da7d6309820cb9a43ea1fc59cf772e9aa3e6e3f556ca78e",
+      "label": "verify-six-original-shared-results",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    }
+  ],
+  "public_projection_prepared": {
+    "relative_directory": "binding-retry-retirement-002",
+    "source_index_sha256": "7dfc458ef30b1b7eb4ec623d4891d351f86339d3aa0173ceaef759150be5f4a4",
+    "files_sha256": {
+      "README.md": "bf7b023e0d69f14e6389df7aedd2f179aac4b2288fd60b70aaa67838c219aaa4",
+      "projection.json": "381e0ae712ee8f746c7e13d847ade87cbcd020b2d918c57d1fd4ff93922b26aa"
+    },
+    "status": "authored by this reviewer; root independent presentation review requested"
+  },
+  "performance_credit_seconds": 0,
+  "formal_timing_eligible": false,
+  "product_execution_by_reviewer": false,
+  "timing_lock_opened_by_reviewer": false
+}

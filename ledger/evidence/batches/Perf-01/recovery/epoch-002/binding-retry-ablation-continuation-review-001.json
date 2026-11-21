@@ -1,0 +1,80 @@
+{
+  "actual_execution": {
+    "all_commands_exit_zero_and_retired": true,
+    "completed_commands": 37,
+    "ended_utc": "2026-11-21T10:34:19.856176+00:00",
+    "evidence_file": "binding-retry-ablation-001/execution.json",
+    "performance_credit_seconds": 0,
+    "sha256": "c30dc379f6f37bb80981d42df38aba4b4a049b3ed64728c2fb68fc554205d1cf",
+    "started_utc": "2026-11-21T10:27:03.113522+00:00",
+    "status": "diagnostic-completed"
+  },
+  "actual_plan": {
+    "evidence_file": "binding-retry-001/protocol-ablation.actual-001.json",
+    "sha256": "60d08b3a6f2c22b3cb0ea334a7f6cba4efafedd1deb7e52e5c0e909356a642f5"
+  },
+  "blocking_findings": [],
+  "created_utc": "2026-11-21T10:49:35.480318+00:00",
+  "disposition": "accepted_completed_metadata_projection",
+  "execution_credit_from_review": 0,
+  "interpretation": [
+    "Original exact per-process percentiles are preserved; all 30 per-case means remain unavailable.",
+    "arrival_success_histogram_maximum_ns is a configured 60-second ceiling, not an observed maximum.",
+    "Paired percentages are descriptive; no A21/noise inference, pooling or new statistical algorithm.",
+    "Active sampled server CPU is not separately measured idle CPU; managed allocation/GC use the original first/last active samples.",
+    "Sampled zero/maximum gauges do not prove absence of transient allocation or missed peaks.",
+    "The two roles both contain ea006 buffer changes. Do not chain this result arithmetically with an earlier 2f-to-ea006 run.",
+    "Protocol results exercise Server only; no Database, EA5/direct-Rust, capacity, long-duration or final-retention claim."
+  ],
+  "kind": "independent-completed-binding-retry-tls-projection-review",
+  "method": {
+    "additional_profile_files_hash_checked": 2,
+    "all_12_count_recovery_close_and_zero_idle_gauges_checked": true,
+    "all_original_plan_workload_cli_values_checked": true,
+    "completed_json_files_hash_checked": 57,
+    "cpu": 8,
+    "existing_paired_arithmetic_checks": 75,
+    "literal_field_checks": 3032,
+    "raw_resource_request_or_binary_read_or_hash": false,
+    "resource_markdown_rows_checked": 12,
+    "selected_profile_configuration_subtrees_checked": 10,
+    "target_import_build_or_workload_execution": false
+  },
+  "performance_credit_seconds": 0,
+  "preserved_adverse_findings": [
+    "Server-stream p99 increases by 16.91% and 9.56% in replicates 1 and 2.",
+    "Active CPU rises in all six profile pairs by 1.397950639636428 to 2.304002245269107 percentage points of one core.",
+    "Unary after-idle RSS is higher in all three pairs; streaming after-idle RSS is mixed."
+  ],
+  "privacy": "Curated numeric/relative evidence filename/hash projection contains no operational paths, process IDs, environment maps, addresses or TLS material. Raw-file provenance does not assert raw payloads are committed beside the report.",
+  "report_commit": "00709dc79762fa00b0577d24f5d9984e42ff1dd6",
+  "report_files_sha256": {
+    "README.md": "a0181ce31ae4507d717dd214b99023f622d9a7009d3faa1ce55c69810a127fe9",
+    "projection.json": "cc91e39cf23a4e8e42f50ecfa076dc380e5ec52ad3d1ef77564547ca1e49d820"
+  },
+  "schema_version": 1,
+  "source_delta": {
+    "candidate_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+    "changed_files": [
+      "src/Data.NativeHost/NativeHost.cs",
+      "src/Server.Native/NativeHost.cs"
+    ],
+    "comparison_base_commit": "ea0067114346af4f13383f24df165456bcabe344",
+    "description": "Only the existing CallbackCoordinator retry-interval constructor argument becomes TimeSpan.FromMilliseconds(1); native/shared implementations and buffer writer remain unchanged.",
+    "patch_sha256": "c45127fae7d04da84c2bc3f14d6f5dcffdba55d0ef8ec2fbfc353e462441b10b",
+    "plan_candidate_index_sha256": "39ec40780fca362d45dec2bca9a11718cb960c87422d9309d27a19d7f388325d",
+    "plan_source_index_sha256": "df2ba8a9c894bba3f9f863da7a47e034426013ecf74e6528674eac3166ddb250"
+  },
+  "task": "Perf-01",
+  "verified_counts": {
+    "active_cpu_higher_profile_pairs": 6,
+    "finite_commands_exited_zero_and_retired": 37,
+    "fresh_processes": 12,
+    "measured_calls_each_process": 323,
+    "measured_successful_calls": 3876,
+    "p99_higher_pairs": 2,
+    "p99_lower_pairs": 13,
+    "paired_case_observations": 15,
+    "per_case_observations": 30
+  }
+}

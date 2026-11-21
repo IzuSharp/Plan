@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "epoch-002",
+  "kind": "completed-sqlite-scalar-diagnostic-public-projection",
+  "status": "diagnostic-results-checked-no-formal-performance-acceptance",
+  "identities": {
+    "current": {
+      "product_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+      "package_version": "0.1.0-perf01.recovery004.after.1",
+      "consumer_manifest": {
+        "filename": "build-004/after/shared-retirement/manifest.json",
+        "sha256": "58504163f57ecd95d403f417683082b6fdedb354a61e303e8c1af94bc1ea5a40"
+      },
+      "consumer_executable_basename": "NativeWeave.Data.NativeHost.Tests",
+      "consumer_executable_sha256": "7804b2281dbb49fb8ee4a571fd274a8057ea6e0ca05e507e90d4135d461e412f",
+      "binary_hash_verification_scope": "existing manifest and actual run input pin; no reviewer binary read"
+    },
+    "candidate": {
+      "product_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+      "package_version": "0.1.0-perf01.retry001.1",
+      "consumer_manifest": {
+        "filename": "binding-retry-retirement-002/candidate-consumer/manifest.json",
+        "sha256": "bcbf0dc9a996bcc5fdbee3b7630b2a91065526a4335ae8dd35118ccb4d9f9399"
+      },
+      "consumer_executable_basename": "NativeWeave.Data.NativeHost.Tests",
+      "consumer_executable_sha256": "dcba60831c9a0e632343818b6b3b693cceef6ab45934b9cb41fcfa5c4ee7ae71",
+      "binary_hash_verification_scope": "existing manifest, actual run input pin and additive artifact receipt; no reviewer binary read"
+    },
+    "common_driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "driver_source_sha256": {
+      "prepare.py": "da957655f5d24f1a874ac6a8d5cae94aa1bd207263f51e2e107e85d7d0ec7c3c",
+      "README.md": "0f4925806fc22d5cc86a3882ace8a55b51a595b3fa698a154094a2515507024e",
+      "PageProbe/PageProbe.csproj": "2157eab8c9b04a4c633e3641520e8dc32ee73d3e1e565ff19de847b3ec71b223",
+      "PageProbe/Program.cs": "fce67f25a6f775ea4e6f83df252bd4aceaa76cec49aa2114f2d64e63fa054704",
+      "RetirementProbe/Program.cs": "d642d024ced08a2c5a6392e797b6de6ca904f59c7141e57ad0e5cf33a3fb3774",
+      "RetirementProbe/RetirementProbe.csproj": "47c540d69a67aaf95bc22b91e22c1df7674387c3b72263f72cc8165d92b9002c"
+    },
+    "native_source_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+    "loaded_native_module_basename": "libnw_database_sqlite.so",
+    "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346",
+    "native_input_manifest": {
+      "filename": "build-004/after/native-stable/manifest.json",
+      "sha256": "ab586e7b970e7b3307a7de1e86daed10e45fcac757e4f31ea6c5d89535eaf884"
+    },
+    "candidate_package_manifest": {
+      "filename": "binding-retry-protocol-build-001/packages/manifest.json",
+      "sha256": "efefc111caa3fcd652548f524210b504487f118ce33095367e816e2ccfcc9b9b"
+    },
+    "candidate_package_provenance": {
+      "selected_feed_role": "previous",
+      "selected_version": "0.1.0-perf01.retry001.1",
+      "package_count": 17,
+      "managed_package_rows_from_candidate": 14,
+      "native_package_rows_from_current": 3
+    },
+    "external_lock_comparison": {
+      "filename": "binding-retry-retirement-002/consumer-lock-comparison.actual-001.json",
+      "sha256": "2c4bd20bb84c5b16a137483d66eea9b537175f395a04c98cb8fb1e406f062c19"
+    },
+    "external_lock_rows_exact": true,
+    "nativeweave_package_id_sets_exact": true,
+    "lock_role_note": "The receipt field before_lock_sha256 names the current2f consumer lock; it is not the frozen EA5 performance baseline."
+  },
+  "workload": {
+    "provider": "sqlite",
+    "sql": "SELECT CAST(1 AS BIGINT)",
+    "warmup_calls_per_process": 20,
+    "measured_calls_per_process": 1000,
+    "process_count": 6,
+    "process_order": "current/candidate; candidate/current; current/candidate",
+    "application_cpu_count": 2,
+    "max_connections": 2,
+    "max_batch_rows": 128,
+    "original_probe_observer_enabled": true,
+    "native_aot": true,
+    "configuration": "Release",
+    "rid": "linux-x64",
+    "aot_instruction_set": "x86-64-v2"
+  },
+  "statistics": {
+    "scope": "Arithmetic per-process means and nearest-rank observed quantiles only; no original A21 classification or performance acceptance inferred.",
+    "mean": "Arithmetic mean of the 1000 PublicCallMilliseconds values within each process.",
+    "quantiles": "Nearest rank within that same process: sorted index ceil(q * 1000) - 1.",
+    "process_cpu_milliseconds": "Process.TotalProcessorTime delta across the fixed 1000-call loop, not CPU utilization or idle CPU.",
+    "allocated_bytes_including_observer": "GC.GetTotalAllocatedBytes delta across the loop; includes observer overhead. Tracker/latency arrays, initialization, warmup, final drain, module hashing and serialization are outside these counters.",
+    "public_call_sum_ms": "Sum of call intervals, retained for audit; not an exact full-process or full-business elapsed time. No response rate or business throughput is derived.",
+    "gc_collections": "Per-process loop delta for generations 0, 1 and 2.",
+    "unavailable": [
+      "RSS",
+      "handles",
+      "threads",
+      "connections",
+      "queues",
+      "idle_duration",
+      "idle_CPU",
+      "post_close_resource_time_series",
+      "native_try_retire_pending_count",
+      "isolated_pool_or_physical_SQLite_lock_wait"
+    ],
+    "full_business_throughput": null,
+    "mean_process_p99_or_pooled_multi_process_p99": null,
+    "formal_noise_decision": null
+  },
+  "rows": [
+    {
+      "label": "01-current-sqlite-retirement-r1",
+      "role": "current",
+      "repetition": 1,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 2.3247342,
+      "public_call_p50_nearest_rank_ms": 0.2974,
+      "public_call_p99_nearest_rank_ms": 22.7482,
+      "public_call_sum_ms": 2324.7342,
+      "process_cpu_milliseconds": 457.226,
+      "allocated_bytes_including_observer": 17358888,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/01-current-sqlite-retirement-r1.result.json",
+        "sha256": "53960473af9982b222d5367c46c6c2213a3dce9a909d8dec398d620adfb3e08d"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/01-current-sqlite-retirement-r1/receipt.json",
+        "sha256": "7e582d09bf9ee204164418847480b687bc0900250541e1250b63d0e93e9c2c38",
+        "label": "01-current-sqlite-retirement-r1",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    },
+    {
+      "label": "02-candidate-sqlite-retirement-r1",
+      "role": "candidate",
+      "repetition": 1,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 0.8388759,
+      "public_call_p50_nearest_rank_ms": 0.2932,
+      "public_call_p99_nearest_rank_ms": 7.6759,
+      "public_call_sum_ms": 838.8759,
+      "process_cpu_milliseconds": 432.636,
+      "allocated_bytes_including_observer": 17358032,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/02-candidate-sqlite-retirement-r1.result.json",
+        "sha256": "4e6228a2fe436b29da15b37c47191cc4a7567e132f1cc042195cb60b11d355ba"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/02-candidate-sqlite-retirement-r1/receipt.json",
+        "sha256": "f44f3bb3f9484e47f883a7844d4f0920d070596ac1127ad6673f12d62d819bbc",
+        "label": "02-candidate-sqlite-retirement-r1",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    },
+    {
+      "label": "03-candidate-sqlite-retirement-r2",
+      "role": "candidate",
+      "repetition": 2,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 1.6963049000000001,
+      "public_call_p50_nearest_rank_ms": 0.4491,
+      "public_call_p99_nearest_rank_ms": 8.8409,
+      "public_call_sum_ms": 1696.3049,
+      "process_cpu_milliseconds": 523.937,
+      "allocated_bytes_including_observer": 17356888,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/03-candidate-sqlite-retirement-r2.result.json",
+        "sha256": "d297c8a6f163265e65b52c1b89b50ad9ea75b16cb62344bf86ed043176dece70"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/03-candidate-sqlite-retirement-r2/receipt.json",
+        "sha256": "13dbff23c8170d7fe0f80121fe82392130a8fd097af15e54735d88f9e57403eb",
+        "label": "03-candidate-sqlite-retirement-r2",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    },
+    {
+      "label": "04-current-sqlite-retirement-r2",
+      "role": "current",
+      "repetition": 2,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 4.408944099999999,
+      "public_call_p50_nearest_rank_ms": 0.503,
+      "public_call_p99_nearest_rank_ms": 28.8434,
+      "public_call_sum_ms": 4408.9441,
+      "process_cpu_milliseconds": 660.155,
+      "allocated_bytes_including_observer": 17361448,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/04-current-sqlite-retirement-r2.result.json",
+        "sha256": "15a354ed7a02b442e44f64d19e41a74572e57b648d502ff693969664aaaf39b7"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/04-current-sqlite-retirement-r2/receipt.json",
+        "sha256": "1ee6a6a98f3df0748fe526aa90f6f742f3c8f0e8b796c3116e028b6c329e210b",
+        "label": "04-current-sqlite-retirement-r2",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    },
+    {
+      "label": "05-current-sqlite-retirement-r3",
+      "role": "current",
+      "repetition": 3,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 6.068212099999999,
+      "public_call_p50_nearest_rank_ms": 0.6723,
+      "public_call_p99_nearest_rank_ms": 28.5874,
+      "public_call_sum_ms": 6068.2121,
+      "process_cpu_milliseconds": 728.673,
+      "allocated_bytes_including_observer": 17359768,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/05-current-sqlite-retirement-r3.result.json",
+        "sha256": "e3c45f5950f5454e04cb15dc8bc167409f81f7f25d0decc8d5b02ae78e4bdc91"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/05-current-sqlite-retirement-r3/receipt.json",
+        "sha256": "12cda533f456aef579e91816c6958c5b72e5e9de07e43e1c3caa41a985daeb3a",
+        "label": "05-current-sqlite-retirement-r3",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    },
+    {
+      "label": "06-candidate-sqlite-retirement-r3",
+      "role": "candidate",
+      "repetition": 3,
+      "calls": 1000,
+      "operations": 4000,
+      "public_call_mean_ms": 1.6826252,
+      "public_call_p50_nearest_rank_ms": 0.3347,
+      "public_call_p99_nearest_rank_ms": 11.909,
+      "public_call_sum_ms": 1682.6252,
+      "process_cpu_milliseconds": 446.364,
+      "allocated_bytes_including_observer": 17351768,
+      "gc_collections": [
+        8,
+        0,
+        0
+      ],
+      "source_released": true,
+      "result": {
+        "filename": "binding-retry-retirement-002/control-probes-001/06-candidate-sqlite-retirement-r3.result.json",
+        "sha256": "e3c003fe8c0096501ab37734bb75259ca2f68fe9b8c7a9421ad29f855e702685"
+      },
+      "command_receipt": {
+        "filename": "binding-retry-retirement-002/control-probes-001/control/06-candidate-sqlite-retirement-r3/receipt.json",
+        "sha256": "bc8ec1d6cef61febc19a065dc9f1ef3274499f84c1887d982b59272b54304e39",
+        "label": "06-candidate-sqlite-retirement-r3",
+        "exit_code": 0,
+        "retired": true,
+        "live_owned_after_count": 0,
+        "owner_children_after_count": 0
+      },
+      "loaded_native_module_basename": "libnw_database_sqlite.so",
+      "loaded_native_module_sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346"
+    }
+  ],
+  "correctness_and_retirement": {
+    "measured_scalar_calls": 6000,
+    "native_operation_observations": 24000,
+    "all_six_results_have_nonempty_native_operations": true,
+    "all_six_source_released": true,
+    "scalar_value_check": "The unchanged original probe requires every warmup and measured ScalarAsync value to equal 1; mismatch throws.",
+    "actual_retirement_check": "The unchanged probe requires Released, NativeQuiet, no RootLive, Controls, CallbackEntries or RetainedInputBytes at each observed retirement; Finish requires no active/incomplete observation.",
+    "finite_commands": 10,
+    "workload_processes": 6,
+    "all_ten_commands_exit_zero_and_retired": true,
+    "all_ten_command_receipts_have_no_live_owned_or_owner_children_after": true,
+    "separate_error_counter": null
+  },
+  "execution_stages": [
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/execution.json",
+      "sha256": "3c94ef3d44bc5a5b07ec5bc65ba392e8e625b09a9e2bf88e92bcdf1542a5ab26",
+      "status": "diagnostic-completed",
+      "started_utc": "2026-11-21T10:40:28.633263+00:00",
+      "ended_utc": "2026-11-21T10:40:57.657777+00:00",
+      "finite_commands": 3,
+      "original_output_inventory_entries": 0,
+      "performance_credit_seconds": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/execution.json",
+      "sha256": "cf22e5e106cd2a8d0a137540fe95e55123d6ce682f7062a6e71a3c34a247465b",
+      "status": "diagnostic-completed",
+      "started_utc": "2026-11-21T10:43:19.002986+00:00",
+      "ended_utc": "2026-11-21T10:43:37.268886+00:00",
+      "finite_commands": 7,
+      "original_output_inventory_entries": 0,
+      "performance_credit_seconds": 0
+    }
+  ],
+  "non_workload_command_receipts": [
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/actual-a5748-package-prerequisite/receipt.json",
+      "sha256": "bba8489419f133c6a177ad0ab26cec8d7029f91cf99abeff4c3a52913af89c84",
+      "label": "actual-a5748-package-prerequisite",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/candidate-shared-retirement-prepare/receipt.json",
+      "sha256": "f7689b28b0af7e7096dd52d00abfb0adfef18546cda97684c5ea830a339305eb",
+      "label": "candidate-shared-retirement-prepare",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/control/verify-original-shared-consumer-provenance/receipt.json",
+      "sha256": "63d684bba9acd49002cf50c11ac23023c71235710b7b3673f46352916354c2a6",
+      "label": "verify-original-shared-consumer-provenance",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/control/verify-six-original-shared-results/receipt.json",
+      "sha256": "011bf1edfee615341da7d6309820cb9a43ea1fc59cf772e9aa3e6e3f556ca78e",
+      "label": "verify-six-original-shared-results",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0
+    }
+  ],
+  "evidence_limitations": {
+    "original_001_package_precondition": {
+      "preserved": true,
+      "reason": "The first 001 metadata prerequisite incorrectly required the managed candidate source commit for all package rows. The three native package rows correctly retain the current2f source.",
+      "failed_before_consumer_build": true,
+      "exit_code": 1,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "filename": "binding-retry-retirement-001/control-build-001/execution.json",
+          "sha256": "662cebcc653ca40dfbbb0974fe646d3d3df054c0d1fb72be0e738c1e493ae9ec"
+        },
+        {
+          "filename": "binding-retry-retirement-001/control-build-001/control/actual-a5748-package-prerequisite/receipt.json",
+          "sha256": "75505c850a6b7419619fd35e7e40ca7e03edd786782bdb1bff6850ebda11a0d4"
+        }
+      ]
+    },
+    "stale_001_output_globs": {
+      "preserved": true,
+      "actual_002_plans": [
+        {
+          "filename": "binding-retry-retirement-002/01-build-candidate.actual-001.json",
+          "sha256": "581f496430ce2f083f1ed9ffba19cfc3556fa3c8448eacb9cd9059098142b5e8",
+          "template_sha256": "b343e3d0f000f66ddaafe2f7f5225a2d6548ab672ade82b5a03dc6629dabdb13",
+          "output_globs_still_refer_to_retirement_001": true
+        },
+        {
+          "filename": "binding-retry-retirement-002/02-six-probes.actual-001.json",
+          "sha256": "f539562bc5e1b3864491a657c2869acc18c626de236d79ba9c20422254cddc08",
+          "template_sha256": "0ec6465943300e4b0eefd8b02596a969fe0654235ce1f7c306e1522ea4c7e648",
+          "output_globs_still_refer_to_retirement_001": true
+        }
+      ],
+      "original_outer_outputs_sha256_empty": true,
+      "actual_002_command_arguments_and_inputs_checked": true,
+      "correction": "Executed002 plan output_globs still named001 and therefore original outer output inventories were empty. Commands, inputs, actual consumers and validation used002 correctly. This separate current observation pins the actual002 files; no original recipe, measured result, command receipt or execution was rewritten.",
+      "additive_receipt": {
+        "filename": "binding-retry-retirement-002/actual-artifact-and-scalar-summary-001.json",
+        "sha256": "8060373ae233f3fd5cc108025ce1ab0f1d48d481d390045663ed39f4a79ade04"
+      },
+      "additive_observed_utc": "2026-11-21T10:50:43.145184+00:00",
+      "additive_artifact_count": 18,
+      "review_directly_rehashed_json_artifact_count": 14,
+      "review_binary_map_only_count": 4
+    },
+    "previous_source_review_limitation": "The prior source-only review did not catch the stale 001 output collection patterns. It remains unchanged; this review documents the miss and the additive evidence boundary.",
+    "manifest_executed_false": "The consumer manifests describe the preparer, which builds but does not run the probe. The separate command receipts document the later six actual invocations."
+  },
+  "artifact_provenance": [
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/01-current-sqlite-retirement-r1.result.json",
+      "sha256": "53960473af9982b222d5367c46c6c2213a3dce9a909d8dec398d620adfb3e08d",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/02-candidate-sqlite-retirement-r1.result.json",
+      "sha256": "4e6228a2fe436b29da15b37c47191cc4a7567e132f1cc042195cb60b11d355ba",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/03-candidate-sqlite-retirement-r2.result.json",
+      "sha256": "d297c8a6f163265e65b52c1b89b50ad9ea75b16cb62344bf86ed043176dece70",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/04-current-sqlite-retirement-r2.result.json",
+      "sha256": "15a354ed7a02b442e44f64d19e41a74572e57b648d502ff693969664aaaf39b7",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/05-current-sqlite-retirement-r3.result.json",
+      "sha256": "e3c45f5950f5454e04cb15dc8bc167409f81f7f25d0decc8d5b02ae78e4bdc91",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/06-candidate-sqlite-retirement-r3.result.json",
+      "sha256": "e3c003fe8c0096501ab37734bb75259ca2f68fe9b8c7a9421ad29f855e702685",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/manifest.json",
+      "sha256": "bcbf0dc9a996bcc5fdbee3b7630b2a91065526a4335ae8dd35118ccb4d9f9399",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/consumer/packages.lock.json",
+      "sha256": "015d7c7ed34cfb2613f3176651e5783c016b6c71df53e051380a6308ae25a489",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/validation.json",
+      "sha256": "1abd37562d5058a1b0f323c66632e15c01090c378d36e837e7851a8326201e86",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-probes-001/execution.json",
+      "sha256": "cf22e5e106cd2a8d0a137540fe95e55123d6ce682f7062a6e71a3c34a247465b",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/control-build-001/execution.json",
+      "sha256": "3c94ef3d44bc5a5b07ec5bc65ba392e8e625b09a9e2bf88e92bcdf1542a5ab26",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/consumer-lock-comparison.actual-001.json",
+      "sha256": "2c4bd20bb84c5b16a137483d66eea9b537175f395a04c98cb8fb1e406f062c19",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/libnw_database_sqlite.so",
+      "sha256": "63f01de214b727a6b7c976902e7f508f568ac08629a64c0332d67da028295346",
+      "review_verification": "hash_map_crosscheck_only_no_binary_read"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/NativeWeave.Data.NativeHost.Tests.dbg",
+      "sha256": "ec1782340703c3b9b9e5be3453aa13a8116575311397e28863ef4ca782f63daa",
+      "review_verification": "hash_map_crosscheck_only_no_binary_read"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/NativeWeave.database.sqlite.assets.json",
+      "sha256": "dc6d8c7297ee6a97ea7aac17ff3c4cdc0b97baadba7a4fbe5a44d257cccbb707",
+      "review_verification": "actual_file_sha256_recomputed"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/NativeWeave.Data.NativeHost.Tests",
+      "sha256": "dcba60831c9a0e632343818b6b3b693cceef6ab45934b9cb41fcfa5c4ee7ae71",
+      "review_verification": "hash_map_crosscheck_only_no_binary_read"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/libnw_database_postgresql.so",
+      "sha256": "9ec17b5fe5fc675b35edef503d3eacf1597aa814879236bf5e97621c70fd3f65",
+      "review_verification": "hash_map_crosscheck_only_no_binary_read"
+    },
+    {
+      "filename": "binding-retry-retirement-002/candidate-consumer/aot/NativeWeave.database.postgresql.assets.json",
+      "sha256": "82d0078dc583a9cc0716126c7cb224ec3c0e074cff9b5a0c529f245e705301cb",
+      "review_verification": "actual_file_sha256_recomputed"
+    }
+  ],
+  "frozen_recipe_source_index": {
+    "filename": "binding-retry-retirement-002/sources.json",
+    "sha256": "1f19611171491ff2ab7909f3d92f4511eff0db095327744869d7cbdce1662bc5"
+  },
+  "interpretation": {
+    "observed": "Candidate process means, p99 values and fixed-work process CPU milliseconds are lower in each of the three corresponding pairs. Current process means vary substantially between repetitions.",
+    "causal_limit": "This narrow, instrumented, serial scalar observation does not isolate all scheduler or retirement mechanisms and does not establish the original SQLite business-tail failure cause.",
+    "comparison_scope": "Current2f versus candidatea5748. The candidate also contains the isolated gRPC buffer experiment; that path is not exercised by this database-only probe.",
+    "not_provided": [
+      "EA5 baseline comparison",
+      "direct Rust comparison",
+      "A21 noise classification",
+      "durable transaction or ORM business throughput",
+      "capacity qualification",
+      "30-minute acceptance",
+      "idle CPU or RSS evidence"
+    ]
+  },
+  "performance_credit_seconds": 0,
+  "formal_timing_eligible": false,
+  "new_workload_execution_by_reviewer": false,
+  "publication_boundary": "Explicit numeric, status, source-identity and relative filename/hash projection only. Operational maps, machine paths, process IDs, environment, database filenames and native timestamp observations are excluded."
+}

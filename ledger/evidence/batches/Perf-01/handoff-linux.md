@@ -1,5 +1,67 @@
 # Perf-01 Linux x64 handoff
 
+## Verified binding diagnostics and retrievable candidates — 2026-11-21 UTC
+
+The [checkpoint016](recovery/epoch-002/diagnostic-checkpoint-016.md) and
+[numeric checklist](recovery/epoch-002/diagnostic-checkpoint-016.json) add actual
+completed TLS, scalar and complete SQLite application evidence with independent
+reviews. Formal epoch-002 status remains **15/16 short scenes, 0/15 capacity
+executions and 0/10 accepted 30-minute segments** for current selected `2f40348c`.
+The preserved formal SQLite failure and gRPC regression are not replaced by
+these diagnostics. Both task PRs remain draft/unmerged.
+
+The [complete SQLite application diagnostic](recovery/epoch-002/binding-retry-application-recovered-001.md)
+compares current `2f40348c` with candidate `a5748ad4`, at the original 50/s,
+concurrency16, durable mixed workload. Six processes completed 18,006 operations,
+with independent durable-result and cleanup checks. Mean process-p99 fell from
+172.307494 to47.522623 ms, while mean measurement CPU time rose12.355% and short
+idle CPU rose from3.355638% to7.072850% of one core. These are descriptive
+candidate/current observations, not EA5/final or formal-noise results.
+The [independent review](recovery/epoch-002/binding-retry-application-recovered-review-001.md)
+retains the seven omitted outer preflight pins, their matching actual frozen
+hashes, and unavailable final-shutdown observations.
+
+The [TLS diagnostic](recovery/epoch-002/binding-retry-ablation-001/README.md)
+retains all twelve processes: p99 fell in13/15 paired case observations, with
+higher active CPU in all six profile pairs and two adverse server-stream pairs.
+The [six scalar processes](recovery/epoch-002/binding-retry-retirement-002/README.md)
+also have lower descriptive mean/p99/fixed-work CPU in all three pairs. Their
+earlier failed metadata prerequisite and stale output-glob collection limitation
+remain explicit; the additive identity receipt does not rewrite original records.
+
+[Actual A06/B18 reconciliation](recovery/epoch-002/callback-scan-executed-evidence-review-001.md)
+covers tested scan candidate `092e5e2`; corrected test-only `2c88e5d` has
+identical product bytes but is not falsely credited with executing those tests.
+The existing scan-candidate TLS diagnostic subsequently completed37 finite
+commands. Its independent numerical review and retention decision are separate.
+The scan candidate remains unselected. A smaller empty-coordinator guard is
+being considered separately; preserve the original active full scan and bind
+any new result to its own actual source/artifacts.
+
+[Experimental source publication](recovery/epoch-002/experimental-product-source-publication-001.json)
+provides retrievable identical-tree snapshots `543dbc44` (a5748), `091e2ed3`
+(092e/59eec) and `7b39ee14` (2c88), on isolated
+`task/Perf-01-binding-retry-linux` and `task/Perf-01-callback-scan-linux` branches.
+All11 changed-file version entries were remotely read back exactly. These source-publication operations did not move the selected product PR.
+The separate existing controller has since advanced draft NativeWeave PR19 to
+`92fafc9146b86515689e99e48ec2ad651738a242`, another identical-tree a5748 snapshot;
+the completed formal comparison still uses2f artifacts. Execution identities
+are not relabeled.
+
+The24 selected PostgreSQL C16 raw observation/event files have now been
+reversibly staged out after archive retrieval, full member verification and
+source rehash. Restore the exact pinned archive members before a raw reread;
+all other metadata/resources/oracles/binaries remain. The later staging receipt
+is in checkpoint016, updating checkpoint015's earlier storage observation.
+Public resource-series export still requires actual execution.
+
+Next executor: coordinate with the existing finite controller, finish the
+minimal candidate decision and affected original callback/async/data/server
+regressions, obtain matching final producers, then complete formal comparisons,
+capacity and all ten uninterrupted30-minute segments. Reuse verified completed
+diagnostics without duplicate workloads; do not relax existing thresholds or
+transfer long-run credit between incompatible artifacts.
+
 ## Resumed diagnostics and occupied-prefix candidate — 2026-11-21 UTC
 
 The recovered local continuation was ahead of the previous public checkpoint.
