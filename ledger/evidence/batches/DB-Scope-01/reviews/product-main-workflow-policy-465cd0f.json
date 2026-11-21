@@ -1,0 +1,263 @@
+{
+  "all_workflow_files": [
+    ".github/workflows/build.yml",
+    ".github/workflows/ci.yml",
+    ".github/workflows/security.yml"
+  ],
+  "blockers": [],
+  "checkout_binding": {
+    "build_ref": "inputs.source-commit || github.event.pull_request.head.sha || github.sha",
+    "credentials_persisted": false,
+    "frozen_design": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+    "frozen_plan": "8afa0311f45ab8a8157fc45c51e95a0b17dd09f2",
+    "main_push_result": "The caller supplies no source override, and a push has no PR head, so both use github.sha: the merged commit being checked.",
+    "security_ref": "inputs.source-commit || github.sha"
+  },
+  "created_utc": "2026-11-21T16:32:45.375375+00:00",
+  "evidence_and_candidate_policy": {
+    "always_steps": [
+      "Restore runner ownership of exported database evidence",
+      "Retain verification logs and evidence"
+    ],
+    "always_steps_are_failure_evidence_cleanup_only": true,
+    "artifact_missing_files_policy": "error",
+    "candidate_upload_requires_prior_success": true,
+    "local_release_semantics": "verify-task07 invokes release_cases.py with output under artifacts/db-scope/release. release_cases uses output/destination and local verification; publicDomainReleaseAccepted and newDomainSignerAuthenticated stay false.",
+    "merge_authorization_scope": "AGENTS.md explicitly states this batch creates candidates only and a merge does not authorize public database publication.",
+    "oidc_write_permission_present": false,
+    "package_write_permission_present": false,
+    "public_package_publication_command_in_workflows": false,
+    "public_package_release_workflow_present": false,
+    "retention_days": 14
+  },
+  "expected_main_push_jobs": [
+    {
+      "name": "build / Build, package and Native AOT",
+      "required_conclusion": "success",
+      "source_job": "build.yml:jobs.build"
+    },
+    {
+      "name": "security / CodeQL (csharp)",
+      "required_conclusion": "success",
+      "source_job": "security.yml:jobs.codeql matrix.language=csharp"
+    },
+    {
+      "name": "security / CodeQL (python)",
+      "required_conclusion": "success",
+      "source_job": "security.yml:jobs.codeql matrix.language=python"
+    },
+    {
+      "name": "security / Secret scan",
+      "required_conclusion": "success",
+      "source_job": "security.yml:jobs.secrets"
+    },
+    {
+      "condition": "github.event_name == 'pull_request'",
+      "name": "security / Dependency review",
+      "reason": "For the main merge push, github.event_name is push. This pre-existing PR-only dependency-diff job is therefore not applicable.",
+      "required_conclusion": "skipped",
+      "source_job": "security.yml:jobs.dependency-review"
+    },
+    {
+      "name": "Verify",
+      "required_conclusion": "success",
+      "source_job": "ci.yml:jobs.verify"
+    }
+  ],
+  "final_verify_policy": {
+    "codeql_fail_fast_false_meaning": "Both matrix languages can finish after one fails; this does not ignore the failed job.",
+    "continue_on_error_present": false,
+    "effect": "Both reusable workflow results must equal success. Failed, canceled, or skipped build/security results fail Verify; evidence retention cannot convert an upstream failure into success.",
+    "needs": [
+      "build",
+      "security"
+    ],
+    "required_shell_assertions": [
+      "test \"$BUILD_RESULT\" = success",
+      "test \"$SECURITY_RESULT\" = success"
+    ],
+    "runs_even_after_upstream_failure": "if: always()"
+  },
+  "kind": "immutable-merged-source-main-workflow-policy-audit",
+  "limitations": [
+    "No network requests or CI polling were performed. No future main CI outcome is inferred from the reviewed PR CI.",
+    "No build, test, database, package publication, source edit or Plan edit was performed.",
+    "This source-policy receipt explains the single normal PR-only job skip on push. Acceptance must still observe the exact merged-source main run and all remaining successful jobs."
+  ],
+  "mandatory_build_gates": [
+    {
+      "command": "python3 eng/build.py verify --version \"$PACKAGE_VERSION\"",
+      "failure_propagation": "eng/build.py run() raises on any nonzero child result; finally blocks only export evidence.",
+      "required_behavior": [
+        "disposable real PostgreSQL configured",
+        "initial committed clean source and pinned public API standard hash",
+        "DB scope verifier and retained tooling unit checks",
+        "cargo fmt --check",
+        "cargo clippy workspace/all-targets/locked with -D warnings",
+        "cargo test workspace/release/locked",
+        "both native database profiles",
+        "locked .NET solution restore and Release build",
+        "dotnet format --verify-no-changes",
+        "retained composed Core API docs and database regression runner",
+        "candidate package creation",
+        "outside-source lifecycle and business JIT/AOT PackageReference consumers",
+        "actual ordinary package consumer/closure/guards",
+        "diff check and unchanged final source/lock identities"
+      ],
+      "step": "Verify database workspaces, API, regressions and actual package JIT/AOT consumers"
+    },
+    {
+      "command": "bash eng/verify-task04-linux.sh",
+      "failure_propagation": "set -euo pipefail in outer and inner shell.",
+      "required_behavior": [
+        "actual retained Core package checks with --require-baseline",
+        "minimum CPU gate with --require-baseline",
+        "runtime-only transferred Core outputs with --require-tool-absence"
+      ],
+      "step": "Verify retained Core package closure and minimum CPU/runtime transfer"
+    },
+    {
+      "command": "bash eng/verify-task07-linux.sh",
+      "failure_propagation": "set -euo pipefail in outer and inner shell; explicit exit 1 on unexpected Rust tools.",
+      "required_behavior": [
+        "required prepared database manifest",
+        "release-result guard checks",
+        "fixed SDK image rejects pre-existing cargo/rustc/rustup",
+        "actual release recovery/full candidate consumption/rollback in pristine SDK",
+        "only verified AOT transfer outputs enter fixed runtime image",
+        "runtime-only verifier and actual image inspect receipts"
+      ],
+      "step": "Verify database release recovery, no-Rust SDK consumption and runtime-only transfer"
+    },
+    {
+      "command": "git diff --exit-code",
+      "occurrences_in_build_workflow": 3,
+      "required_conclusion": "success",
+      "step": "Source and dependency drift"
+    }
+  ],
+  "reviewed_files": {
+    ".github/workflows/build.yml": {
+      "bytes": 5616,
+      "git_blob": "1ea11d5f501e877bf81479842992f846c6d08bd2",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a"
+    },
+    ".github/workflows/ci.yml": {
+      "bytes": 819,
+      "git_blob": "8ad9a359f91dff6b1106e28acc8f3a23df40fb31",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "e31069da4d20c46aca4315f4aabd65f6cc41cdc160baefb711bb37798e1395fb"
+    },
+    ".github/workflows/security.yml": {
+      "bytes": 2241,
+      "git_blob": "73ceed4a50f27c52f992cbcf5792a5407cf40ec0",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "23d0b7826b26f7ca44af15067d69df2e8c0be69bf560f6afce089300ec2abc9b"
+    },
+    "AGENTS.md": {
+      "bytes": 2470,
+      "git_blob": "e2ace990c1c12eccd92d93ac0ad45840bef098f3",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "2892db6779bbe7b6ec6b7cc727764a1aea346a47db58ee46903799ee20600f19"
+    },
+    "eng/build.py": {
+      "bytes": 9383,
+      "git_blob": "ce85de159519d167414912400aaf5f79c6533eb2",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded"
+    },
+    "eng/verify-task04-linux.sh": {
+      "bytes": 1218,
+      "git_blob": "d35a0b20df24f0b839fcb9b410199a774ad22b49",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "fce00c72ccdae997edc0d40667f60ffb24e899475408597219d3c4401bded098"
+    },
+    "eng/verify-task07-linux.sh": {
+      "bytes": 2110,
+      "git_blob": "9392d57ae1c75aa1d4b1f6d845d015a43d001575",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e"
+    },
+    "tests/Packaging.Domain/release_cases.py": {
+      "bytes": 13166,
+      "git_blob": "588b84c20add0d2b09c2b3d50489a5a85b24970d",
+      "identical_to_reviewed_candidate": true,
+      "sha256": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f"
+    }
+  },
+  "reviewer": "/root/design_scope",
+  "schema_version": 1,
+  "scope": "Read-only source-policy audit of every workflow present in the merged tree and the directly invoked acceptance entrypoints. This is not observation or acceptance of any postmerge CI run.",
+  "security_gates": {
+    "codeql": "Pinned init/analyze actions for both csharp and python with build-mode none; both analyses remain required.",
+    "dependency_review_PR_behavior": "When event is pull_request, pinned dependency-review-action runs and fails on severity high; comments are disabled.",
+    "secret_scan": "Pinned Gitleaks container scans full Git history with redacted output; nonzero exit is not suppressed."
+  },
+  "skip_policy": {
+    "allowed_skipped_jobs_on_main_push": [
+      "security / Dependency review"
+    ],
+    "applies_only_to_event": "push",
+    "dependency_review_entire_file_unchanged_since_fresh_main": true,
+    "does_not_allow_PR_dependency_review_skip": true,
+    "fresh_main_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "fresh_main_security_sha256": "23d0b7826b26f7ca44af15067d69df2e8c0be69bf560f6afce089300ec2abc9b",
+    "other_skips_accepted": false
+  },
+  "source": {
+    "commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+    "merge_parents": [
+      "ea5fa528035d025bd7a28698ee7c71194432236c",
+      "7255040b9501a1898d008c793f9b1777d8394d65"
+    ],
+    "repository": "IzuSharp/NativeWeave",
+    "reviewed_pr_head": "7255040b9501a1898d008c793f9b1777d8394d65",
+    "same_tree_as_reviewed_pr_head": true,
+    "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+  },
+  "status": "passed",
+  "task": "DB-Scope-01",
+  "workflow_triggers": [
+    {
+      "automatic_on_main_push": true,
+      "called_workflows": [
+        ".github/workflows/build.yml",
+        ".github/workflows/security.yml"
+      ],
+      "name": "CI",
+      "path": ".github/workflows/ci.yml",
+      "path_filters": false,
+      "triggers": {
+        "merge_group": true,
+        "pull_request": "all",
+        "push_branches": [
+          "main",
+          "codex/**"
+        ],
+        "workflow_dispatch": true
+      }
+    },
+    {
+      "automatic_on_main_push": false,
+      "invoked_by_main_ci": true,
+      "name": "Linux database candidate",
+      "path": ".github/workflows/build.yml",
+      "triggers": {
+        "workflow_call": true
+      }
+    },
+    {
+      "automatic_on_main_push": false,
+      "invoked_by_main_ci": true,
+      "name": "Security",
+      "path": ".github/workflows/security.yml",
+      "schedule_note": "The scheduled/manual Security workflow is separate from automatic main-push CI.",
+      "triggers": {
+        "schedule": "31 7 * * 1",
+        "workflow_call": true,
+        "workflow_dispatch": true
+      }
+    }
+  ]
+}
