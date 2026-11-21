@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-CPP-01",
+  "recordedUtc": "2026-11-21T22:37:01.843Z",
+  "reviewer": "/root/linux_capabilities",
+  "source": {
+    "commit": "1d6935cdcfb381cc9ccd9ccc143d4bfaf1d4d690",
+    "tree": "e1949554a18fc18139501009c7fb5fecf07824f8",
+    "baseCommit": "b383c130903daba059c364ff0615d80798da1a3f",
+    "clean": true,
+    "diffSha256": "6760c4ece712936e643e7c6896c20ab28a1696346fa7630b05c9b2b02dae2be4",
+    "changedFiles": {
+      ".github/workflows/build.yml": "ace6ef78fe2b1cf8f256110fee06a60d7687b43601b6a3aea724d2b5815a6711",
+      "eng/build.py": "13b4f185fa0da513bf73a440756c5cc99a7929453e6ea4819753757b6996e5a1",
+      "eng/database_regressions.py": "852ff8b442bd68614080812f5201005beb85c91f51c636d26957d2c8f08f6b63",
+      "eng/verify-cpp-clean.sh": "b7f46d828bad137a943e353f2d74ddbc1df78b5e937b6c1982ddaaf814c66a66",
+      "eng/verify-cpp-sanitizers.sh": "f2be75f51e47ff5fe7404513ca656cb57d65e7fb6a67564174a482461927ec71",
+      "eng/verify-task04-linux.sh": "ba114d8767f2feb5e0090cf7885b6ec8d17a22eba9945eff8d00467f59dad267",
+      "native/cpp/include/nw/host.hpp": "33191450fb225b3963fd0c193e954c5b2447b58c9016c10a0cc56f588c6b762e",
+      "native/cpp/src/host.cpp": "c0548dc7a957bd574bc323151615d8ee8a7591ef2100690043fe2d92cbe1bd15",
+      "native/cpp/tests/codec_roundtrip.cpp": "ba5198cf67e82299ac13083899d330dfa3d36dab1344de6ca8e35b0e8b1a4c12",
+      "native/cpp/tests/host_review_tests.cpp": "736e0015d2bed722c8516e4c7be20eaef156afadc9916d4eefca066386aa421a",
+      "native/cpp/tests/ported-tests.md": "0f1fb9e69830b72b0282db731a15a8833e5e5cec7fc29204ed69f25ae9bf4011",
+      "native/cpp/tests/streaming_tests.cpp": "e49aa595a2813f10257d9ba004a50a8da451a1910ccf033a01f6efb4a4d1f656",
+      "samples/api/packaging-domain/Program.cs": "77dacfc28857b203b9fbfdd4b659c46a427ea122372cf00d78c9b168529f4e01",
+      "samples/api/packaging-domain/README.md": "72f0c0b47073f67b53be18a4df934beea187f06415a039bb1858b4fa8a5dbadf",
+      "tests/Interop.Negotiation/verify.py": "0ed1706db53de02592795488b17d1998330ca74e8a1c18af76c9fc9874a9c9aa",
+      "tests/Packaging.Domain/runtime_verify.py": "014affad0b683195d7a2fcccce3a0db93c2fff3705f4c315b54c48ae1b5563c0",
+      "tests/Packaging.Linux/minimum_cpu.py": "9d44673e3cc24475cb38cd1ed5d94b3758c9134cb0b8d92885780053edbf2cd9",
+      "tests/Packaging.Linux/test_profile.py": "827640453d171bd7b9330a978206cc8ec1bbec774c47eec94bc3d48155b34c2e"
+    }
+  },
+  "scope": "Read-only technical review of all 18 changed files relative to the first C++ candidate; current CI observation. No local managed compilation.",
+  "authorshipDisclosure": "This agent authored the Source pending-counter narrow fix. Its independent technical reviewer was /root/upstream_cpp_research. The current commit's three affected file hashes exactly match the reviewed and targeted-tested development snapshot. The remaining delta was reviewed independently by this agent.",
+  "findings": [],
+  "checks": [
+    {
+      "name": "Cursor completion and owner retirement",
+      "status": "reviewed_no_blocker",
+      "basis": "Completion predicate and publication use the same independent mutex. The worker resets its Cursor owner before publishing. Snapshot reports retirement only after the ticket completes. Existing time and immediate-zero resource assertions remain."
+    },
+    {
+      "name": "Source operation retirement",
+      "status": "independently_reviewed_by_upstream_cpp_research",
+      "basis": "Pending increments/decrements and the join predicate share Source::mutex. Final DbOperation owner release paths are outside that lock. Real-owner test controls the predicate/wait gap; old unlocked-decrement mutation is rejected."
+    },
+    {
+      "name": "Session and Transaction waits",
+      "status": "reviewed_no_blocker",
+      "basis": "Session retired and Transaction primary_ready, retired, and phase deadlines are updated under the mutex used by their condition-variable waits. No additional analogous lost-notification window found."
+    },
+    {
+      "name": "Retained B07 fallibility assertions",
+      "status": "reviewed_no_blocker",
+      "basis": "Compared immutable Rust fallibility.rs at 465cd0f: all twelve exact identity mutations and eight extreme offset/length/tag/null mutations are retained; 24 explicit refusals include field and count capacity, provider identity and JSON capacity. Removed SeaQuery/chrono private adapters are explicitly distinguished in the mapping."
+    },
+    {
+      "name": "Real PostgreSQL administration gates",
+      "status": "reviewed_no_blocker",
+      "basis": "Release and sanitizer runners use the existing isolated cluster harness and the actual nw_administration_tests binary. Exceptions and nonzero process exit remain failures."
+    },
+    {
+      "name": "Fresh native-builder versus pristine SDK evidence",
+      "status": "reviewed_no_blocker",
+      "basis": "Fresh-image run invokes local verifier honestly, requires success and Rust absence, binds the receipt hash, and exports local-consumer evidence. Separate strict pristine SDK gate remains unchanged."
+    },
+    {
+      "name": "Pinned compiler and cache selection",
+      "status": "reviewed_no_blocker",
+      "basis": "CPU probe/profile tests require locked Clang executable hash. CPU probe records real path/version/triple. Offline SDK cache fallback matches Directory.Build.props when NUGET_PACKAGES is absent."
+    },
+    {
+      "name": "CI NameError and receipt task identity",
+      "status": "reviewed_no_blocker",
+      "basis": "shlex is imported at module scope. DB-CPP-01 sample receipt, runtime verifier and existing packaging model task tags now agree; business assertions and public API/ABI declarations are unchanged by this delta."
+    }
+  ],
+  "performedThisPass": [
+    "Confirmed exact commit, tree and clean worktree",
+    "Read full 18-file diff and relevant surrounding call paths",
+    "Read immutable original Rust codec fallibility tests",
+    "Parsed all changed Python files with ast.parse",
+    "Ran bash -n on all changed shell scripts",
+    "Ran git diff --check on the committed delta",
+    "Verified three Source-fix files match the prior recorded SHA-256 values"
+  ],
+  "priorTargetedValidation": {
+    "receipt": "/workspace/scratch/b938bf45c750/_validation/logs/source-notification-review.json",
+    "sourceHashesMatch": true,
+    "releaseSeconds": 3.23,
+    "asanUbsanSeconds": 3.27,
+    "negativeControl": "/workspace/scratch/b938bf45c750/_validation/source-notification-negative/result.json",
+    "qualification": "Tests were run before publication on an identical three-file development snapshot. This does not claim a new committed-candidate execution or replace CI. Local ASan used detect_leaks=0; CI retains detect_leaks=1."
+  },
+  "ci": {
+    "runId": 44957450975,
+    "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44957450975",
+    "headVerifiedByCommitWorkflowLookup": true,
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "id": 137008591040,
+        "name": "build / Build, package and Native AOT",
+        "status": "in_progress",
+        "conclusion": null,
+        "currentSteps": [
+          {
+            "number": 9,
+            "name": "Prepare pinned PostgreSQL tools for real TLS and process fault oracles"
+          }
+        ],
+        "failedSteps": []
+      },
+      {
+        "id": 137008591201,
+        "name": "security / Secret scan",
+        "status": "completed",
+        "conclusion": "success",
+        "currentSteps": [],
+        "failedSteps": []
+      },
+      {
+        "id": 137008591303,
+        "name": "security / CodeQL (csharp)",
+        "status": "completed",
+        "conclusion": "success",
+        "currentSteps": [],
+        "failedSteps": []
+      },
+      {
+        "id": 137008591306,
+        "name": "security / CodeQL (python)",
+        "status": "completed",
+        "conclusion": "success",
+        "currentSteps": [],
+        "failedSteps": []
+      },
+      {
+        "id": 137008591335,
+        "name": "security / Dependency review",
+        "status": "completed",
+        "conclusion": "success",
+        "currentSteps": [],
+        "failedSteps": []
+      }
+    ],
+    "acceptance": "pending; no claim of successful native, managed, AOT, packaging, sanitizer, pristine SDK or fresh native-image execution for this run"
+  },
+  "conclusion": "No new blocking finding within the reviewed delta. Product acceptance and merge remain conditional on the required CI and end-to-end results."
+}
