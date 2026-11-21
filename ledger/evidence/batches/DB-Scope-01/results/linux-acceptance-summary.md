@@ -49,3 +49,8 @@ The evidence ZIP is `739861abfcfa60ca684f8f988a4f678d56a23969d5dd0c6830af200d88a
 Source review, CI execution and independent evidence review remain distinct. Agent reviews are technical reviews and do not impersonate a second GitHub approval account. Failed, cancelled and development/local-only attempts retain their original identities in the handoff and failures directory. Only the accessible Linux execution host was inspected and cleaned; no inaccessible-host claim is made.
 
 Final delivery is governed by the exact PR/head/main receipts in [acceptance.json](../acceptance.json) and the current [handoff](../handoff-linux.md). Performance work remains deferred, and no new ORM feature, hosting wrapper or public package release is included.
+
+
+## Observed Design and implementation delivery
+
+Design [PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) merged as `8298dc4128b745cf1809bad0c3cf02c45eb7f522`; its current and historical main workflows44923513282/44923513318 passed. Product [PR20](https://github.com/IzuSharp/NativeWeave/pull/20) merged as `465cd0f90e6af05ec50eb581156240377cf0825b`; complete [main CI44924918463](https://github.com/IzuSharp/NativeWeave/actions/runs/44924918463) passed. Each merged tree exactly equals the tested/reviewed candidate tree. Main CI metadata is separate from the downloaded PR-candidate artifacts and is not relabeled as an independent second artifact review. Plan's final delivery state remains governed by acceptance.json and the observed postmerge policy.
