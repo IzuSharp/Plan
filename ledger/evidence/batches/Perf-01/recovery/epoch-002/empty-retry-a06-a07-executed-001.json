@@ -1,0 +1,108 @@
+{
+  "task": "Perf-01",
+  "kind": "completed-unselected-component-regression",
+  "source_commit": "08d716ed2eab448a1a890cb579d086c131613291",
+  "source_tree": "c95491f4c7b86703d0d4f697eb185cd4f5fc1a47",
+  "source_dirty": false,
+  "source_unchanged": true,
+  "selected": false,
+  "retrievable_source_snapshot": "3afbebf97352bc9ddbbc13e2bd1adefee339c4cb",
+  "execution_identity_is_not_snapshot_commit": true,
+  "started_utc": "2026-11-21T11:47:01.836190+00:00",
+  "ended_utc": "2026-11-21T11:49:47.846570+00:00",
+  "plan_sha256": "6e1a1aed51f6246e1be4a3ff50f11cb03bbe59e0852f959aa05cbcddca07090b",
+  "execution_sha256": "6538641383ebbb2822e3874e4146a5487445d4e8e0a319fd16aa7e4d9835f221",
+  "common_original_finite_runner_sha256": "df59ef10a22e598ce191bfdeeadb215d55e7a35c7a72918c98e855c370825758",
+  "source_union_count": 103,
+  "a06": {
+    "result_sha256": "f3ca6ff16d0c7967c64843f00f984171e8488e064c0ec66f0378811ff29a4036",
+    "outer_receipt_sha256": "f0f16fcae0054baa74fe911a54b1210a0086736e3be922b305e617373d9dba8d",
+    "passed": true,
+    "jit_assertions": 6332,
+    "aot_assertions": 6333,
+    "native_unit_tests_passed": 5,
+    "native_unit_tests_total": 5,
+    "commands": 35,
+    "exit_zero_commands": 32,
+    "expected_negative_commands": 3,
+    "normal_owners_per_process": 43,
+    "gc_races_per_process": 32,
+    "normal_pending": 0,
+    "normal_active": 0,
+    "normal_roots": 0,
+    "expected_negative_outcomes": [
+      {
+        "kind": "InvalidUco",
+        "mode": "JIT",
+        "exit_code": -6,
+        "exception": "InvalidProgramException",
+        "invalid_callback_body_entered": false
+      },
+      {
+        "kind": "InvalidUco",
+        "mode": "Native AOT",
+        "exit_code": -6,
+        "exception": "InvalidProgramException",
+        "invalid_callback_body_entered": false
+      },
+      {
+        "kind": "invalid-signature-compile",
+        "exit_code": 1,
+        "diagnostic": "CS8894"
+      }
+    ],
+    "observed_owned_process_identities": 74,
+    "outer_exit_code": 0,
+    "outer_retired": true,
+    "final_live_owned_processes": 0,
+    "final_owner_children": 0,
+    "cleanup_signals": 0
+  },
+  "a07": {
+    "result_sha256": "8920220fb4e135f83ace921d7ae0e0546649d036dc6d27135951a55f7af170c7",
+    "outer_receipt_sha256": "4f91b9d564ee80332b249731d5beb6823be5a3b99dba2d83fdb1963cca1232e8",
+    "passed": true,
+    "jit_assertions": 355,
+    "aot_assertions": 356,
+    "native_unit_tests_passed": 4,
+    "native_unit_tests_total": 4,
+    "commands": 39,
+    "exit_zero_commands": 39,
+    "normal_native_owners_created_per_process": 59,
+    "normal_native_owners_released_per_process": 59,
+    "normal_live_owners": 0,
+    "normal_input_bytes": 0,
+    "normal_result_owners": 0,
+    "lost_wake_product_regression": true,
+    "fault_processes": 6,
+    "fault_assertions": {
+      "jit": 3,
+      "aot": 4
+    },
+    "fault_scope_note": "Each original isolated fault process intentionally retains one native owner and reports retirement_reported_success=false. Indeterminate-start and callback-then-reject also retain 3 input bytes and one context root; retire-fault is poisoned. These expected isolation outcomes are not normal-path cleanup and are not represented as successful native retirement.",
+    "observed_owned_process_identities": 65,
+    "outer_exit_code": 0,
+    "outer_retired": true,
+    "final_live_owned_processes": 0,
+    "final_owner_children": 0,
+    "cleanup_signals": 0
+  },
+  "independent_review": {
+    "reviewer": "perf01_delivery_review",
+    "method": "Read-only review of original completed plan/results/outer receipts, selected bounded stdout/stderr and original verifier source; no workload or verifier was executed by the reviewer.",
+    "matched_named_file_hashes": 32,
+    "selected_stdout_stderr_files": 26,
+    "source_hash_union_matches_plan": true,
+    "original_verifier_end_of_run_rehash_confirmed": true,
+    "blocking_factual_or_binding_issue_found": false,
+    "local_new_review_files_written_during_metadata_freeze": false
+  },
+  "acceptance": {
+    "formal_comparison_credit": 0,
+    "capacity_credit": 0,
+    "accepted_long_segments": 0,
+    "performance_credit_seconds": 0,
+    "final_7e_domain_validation": false,
+    "b04_empty_experiment_executed": false
+  }
+}

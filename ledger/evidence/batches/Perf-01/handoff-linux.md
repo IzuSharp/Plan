@@ -1,5 +1,47 @@
 # Perf-01 Linux x64 handoff
 
+## Continuation reconciled; final candidate CI passed — 2026-11-21 UTC
+
+The selected minimal candidate remains NativeWeave
+`7e7732cd7ee40aec319961d328f38b593a4af5da`. Its
+[CI44900482037](https://github.com/IzuSharp/NativeWeave/actions/runs/44900482037)
+completed successfully: all seven jobs, including Build/package/Native AOT,
+A20, four security checks and final Verify. This source CI result does not
+replace the pending measured package producer and domain acceptance.
+
+The original execution owner remains the sole owner of storage reclamation,
+fresh005 production and the existing formal 16/15/10 queues. This continuation
+has stopped additional experimental execution and local JSON/config writes
+during that owner's metadata freeze. No duplicate B04 plan was created.
+The original after-input validator requires `products.after.commit=null`;
+the selected commit is supplied through `--selected-final-sha`. The unchanged
+EA5 before-only noise records can be reused within their exact existing
+admission, source, execution and public-readback identities.
+
+[Recovered prefix TLS evidence](recovery/epoch-002/callback-prefix-tls-recovered-001.md)
+and its [independent review](recovery/epoch-002/callback-prefix-tls-recovered-review-001.md)
+now preserve all twelve processes and 37 retired commands. Client-stream and
+duplex mean-of-process p99 rose32.983% and24.392%, respectively, with every
+corresponding pair adverse. Prefix is unretained despite lower CPU. Actual
+sources remain a5748/092e, not final7e or original-main.
+
+The isolated empty guard is also unselected. Its already completed
+[original A06/A07 verification](recovery/epoch-002/empty-retry-a06-a07-executed-001.md)
+ran against actual08d from11:47:01.836190 through11:49:47.846570 UTC.
+Both outer verifiers passed and their process trees retired; the report
+separately preserves the original negative cases and six A07 fault-quarantine
+semantics. It provides zero formal, capacity or long-run credit and is not
+relabeled as final7e domain validation. Exact-tree
+[source snapshot3afbebf9](https://github.com/IzuSharp/NativeWeave/commit/3afbebf97352bc9ddbbc13e2bd1adefee339c4cb)
+is retrievable on `task/Perf-01-empty-retry-linux`; publication does not
+change the actual execution identity.
+
+The [checkpoint016 remote readback receipt](recovery/epoch-002/diagnostic-checkpoint-016.remote-readback.json)
+records all23 changed files retrieved byte for byte at Plan55849ce3; that
+commit's CI44900187467 passed. This is a separate publication fact, not part
+of the component review's32-file audit. Preserve all earlier evidence and
+the previous owner's exact cleanup/producer gates below.
+
 ## Minimal candidate selected; one active execution owner — 2026-11-21 UTC
 
 The active continuation selected NativeWeave

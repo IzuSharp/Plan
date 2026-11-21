@@ -1,0 +1,90 @@
+{
+  "blocking_findings": [],
+  "capacity_acceptance": false,
+  "checks": {
+    "clean_exact_checkout": true,
+    "coordinated_callback_class_byte_equal": true,
+    "git_diff_check": true,
+    "native_asyncoperation_host_constructors_and_public_api_unchanged": true,
+    "no_2c88_test_changes": true,
+    "no_scan_limit_state": true,
+    "original_a06_a07_b04_sources_unchanged": true,
+    "original_active_full_scan_byte_equal": true,
+    "reserve_release_dispose_byte_equal": true
+  },
+  "concurrency_reasoning": {
+    "empty_observation": "Count reads _count under the same gate used by Reserve and Release; zero denotes no occupied slot at that instant.",
+    "empty_then_reserve": "A later reservation retains the original immediate Signal path. If its scheduling attempt is rejected, dirty/retry state and the admitted slot survive for a later nonempty timer tick.",
+    "lost_wake_and_lock_order": "No dirty/scheduled protocol, context lifetime, slot release, nested lock order or callback-under-reservation-lock behavior changes.",
+    "release_or_dispose_during_retry": "A prior positive Count snapshot only enters the unchanged full scan. Releasing the last slot can leave extra null checks; closure still rejects new reservations and stops the timer only once closing and empty.",
+    "timing_caveat": "A reservation just after the empty check can miss this timer pass even if the former full scan might have reached it. It may wait for a subsequent tick after rejection; the configured period is not a strict wall-clock scheduling bound."
+  },
+  "cost_limits": [
+    "One extra reservation-gate acquisition per nonempty timer tick; active scan still examines full capacity.",
+    "Live Server retains its control slot from NativeHost construction until retirement, so this guard normally cannot skip its idle scans.",
+    "DataSource can be empty between operation retirements; any CPU reduction and latency effect require equivalent actual measurement."
+  ],
+  "diff": {
+    "candidate_sha256": "4d2f79814b425b5ead5ea2918c021cd3f29910c396c026a801967eb5af968ada",
+    "deletions": 0,
+    "file": "src/Interop.Callbacks/CallbackCoordinator.cs",
+    "guard": "if (Count == 0) return;",
+    "insertions": 2,
+    "other_inserted_line": "blank",
+    "parent_sha256": "92cf43c5933c7be627640c2387f37b1bedcfdd8353c946232fa22ca47e1ddc27",
+    "remove_only_insertion_recovers_parent_bytes": true
+  },
+  "disposition": "accepted-isolated-source-experiment-only",
+  "execution_scope": {
+    "binary_or_cache_scan": false,
+    "build_restore_test_or_load_executed": false,
+    "project_xml_parsed": true,
+    "source_and_git_metadata_only": true,
+    "target_imported": false,
+    "timing_lock_opened": false
+  },
+  "existing_B04_route": {
+    "aot_consumer": "<fresh Native AOT NativeWeave.Data.NativeHost.Tests executable>",
+    "aot_lock": "tests/Data.NativeHost/packages.linux-x64.aot.lock.json",
+    "asset_properties": [
+      "NativeWeaveSqliteAssetPath",
+      "NativeWeavePostgresAssetPath"
+    ],
+    "consumer_timeout_seconds": 180,
+    "jit_consumer": "dotnet <Release net11.0 NativeWeave.Data.NativeHost.Tests.dll>",
+    "jit_lock": "tests/Data.NativeHost/packages.lock.json",
+    "native_diagnostic_export": "nw_db_diagnostic_count_v1 is unconditionally exported in native/database/host/src/abi.rs.",
+    "native_engine_rebuild_required_by_route": false,
+    "postgres_start_stop": "Original isolated TCP cluster; pg_ctl stop in finally after consumer launch; finite outer owner remains necessary.",
+    "project": "tests/Data.NativeHost/NativeWeave.Data.NativeHost.Tests.csproj",
+    "require_aot_argument_supported": false,
+    "runner": "tests/Data.NativeHost/run.py",
+    "runner_options": [
+      "--postgres-bin",
+      "--output",
+      "--",
+      "consumer command"
+    ],
+    "runtime": "linux-x64",
+    "runtime_native_identities_require_actual_receipts": true
+  },
+  "functional_acceptance": false,
+  "github_approval": false,
+  "kind": "independent-empty-only-callback-retry-source-review",
+  "long_acceptance_seconds": 0,
+  "parent_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+  "performance_acceptance": false,
+  "reviewed_commit": "08d716ed2eab448a1a890cb579d086c131613291",
+  "reviewed_tree": "c95491f4c7b86703d0d4f697eb185cd4f5fc1a47",
+  "schema_version": 1,
+  "source_sha256": {
+    "tests/Data.NativeHost/NativeWeave.Data.NativeHost.Tests.csproj": "98ca1c0860b5996e3f8be74b6a1c04d6fd4d4b8c425699c78b86ffa204ad9ab1",
+    "tests/Data.NativeHost/Program.cs": "e54abd4bd87b20f1011db3561f190240beb937e04071481327a844832538c9cd",
+    "tests/Data.NativeHost/run.py": "083197dcaa37345c4215e433cf2faf8c55b5ffea699e89a3723073ca6ff881db",
+    "tests/Interop.Async/Program.cs": "a581eaaf15c47e376e0cb6f8c5012ba32ae4adc0c2375884bd085674d13444f0",
+    "tests/Interop.Async/verify.py": "d4ee3be8da7079e627ddee176b90b544a9b4a619494620fa28fe01941b492be4",
+    "tests/Interop.Callbacks/Program.cs": "aff1c550741953186b3cc5e5f79083d161e3a08c35a33c2aeb110b6f91dfe21a",
+    "tests/Interop.Callbacks/verify.py": "652471f04b63cf882350a03e7a4c4b272b6fd56d652f636bc4e419d0138b24f2"
+  },
+  "task": "Perf-01"
+}
