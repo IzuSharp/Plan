@@ -9,7 +9,7 @@
 - Same published-C10 packages have independently verified four lifecycle cells, four business cells,32 finite fault executions, three Fluent/DTO graphs with ten runtime results and24 guards. See [actual local component review](results/candidate10-local-package-components/review.json). The original local /tmp-full attempt remains failed; its separate unchanged-source Domain retry passed. This is not complete formatter/pristine/runtime-only CI acceptance.
 - **Final product CI:** [44919645468](https://github.com/IzuSharp/NativeWeave/actions/runs/44919645468), exact candidate10. Four security jobs passed; the full build/regression/package job was still running at this checkpoint. No PR has been merged yet. Plan [PR24](https://github.com/IzuSharp/Plan/pull/24) remains the active evidence record.
 - No local build or PostgreSQL execution remains active. A task-scoped read-only observer is waiting for the final CI result. Active evidence validator: v3 contract SHA256 `b3f550e5c78f0a225b0d7318d7d6e2cbf3ccc81670eaba2f2ef3ac432dba7ae6`, unchanged validator SHA256 `5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751`.
-- Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json), `delivery-graph.json.current_execution`, and the following next actions. Historical execution details follow for audit, not restart instructions.
+- Read [plan.md](plan.md), the [historical baseline checkpoint](baseline.json), [current/final acceptance identities](acceptance.json), `delivery-graph.json.current_execution`, and the following next actions. acceptance.json is authoritative for the current candidate; historical execution details and baseline records are audit history, not restart instructions.
 
 ## Completed stop/cleanup
 
