@@ -5,6 +5,7 @@ import copy
 import json
 from pathlib import Path
 import re
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH = ROOT / "ledger/evidence/batches/DB-Scope-01"
@@ -64,6 +65,20 @@ def main():
     graph = json.loads((ROOT / "delivery-graph.json").read_text())
     acceptance = json.loads((BATCH / "acceptance.json").read_text())
     validate(graph, acceptance, args.require_complete)
+    baseline = graph["current_execution"]["source_main"]["Plan"]
+    original = json.loads(subprocess.check_output(
+        ["git", "show", baseline + ":delivery-graph.json"], cwd=ROOT, text=True))
+    historical = {key: value for key, value in graph.items() if key != "current_execution"}
+    assert historical == original, "Historical delivery graph was changed"
+    preserved = ["research-graph.json", "documentation-graph.json", "source-driven-baseline.json",
+                 "research-tasks", "documentation-tasks", "tasks", "fragments", "schemas"]
+    changed = subprocess.check_output(["git", "diff", "--name-only", baseline, "--", *preserved],
+                                      cwd=ROOT, text=True).strip()
+    assert not changed, "Historical graph/packet/schema inputs changed: " + changed
+    evidence_changes = subprocess.check_output(["git", "diff", "--name-only", baseline, "--", "ledger"],
+                                               cwd=ROOT, text=True).splitlines()
+    assert all(path.startswith("ledger/evidence/batches/DB-Scope-01/") for path in evidence_changes), \
+        "An existing historical evidence record was changed"
     for field in ("plan", "handoff", "acceptance"):
         assert (ROOT / graph["current_execution"][field]).is_file()
     for filename in ("README.md", "CURRENT-PHASE.md", "AGENTS.md", "task-index.md", "acceptance-register.md"):
