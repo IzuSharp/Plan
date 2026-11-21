@@ -1,0 +1,138 @@
+{
+  "build_or_load_executed_by_reviewer": false,
+  "capacity_arithmetic": [
+    {
+      "nominal_slot_reads_per_second_at_10ms": 425800,
+      "nominal_slot_reads_per_second_at_1ms": 4258000,
+      "scope": "default per source",
+      "slots": 4258
+    },
+    {
+      "nominal_slot_reads_per_second_at_10ms": 921800,
+      "nominal_slot_reads_per_second_at_1ms": 9218000,
+      "scope": "maximum accepted per source",
+      "slots": 9218
+    },
+    {
+      "nominal_slot_reads_per_second_at_10ms": 417800,
+      "nominal_slot_reads_per_second_at_1ms": 4178000,
+      "scope": "TaskService main source",
+      "slots": 4178
+    },
+    {
+      "nominal_slot_reads_per_second_at_10ms": 410400,
+      "nominal_slot_reads_per_second_at_1ms": 4104000,
+      "scope": "TaskService consumer source",
+      "slots": 4104
+    },
+    {
+      "nominal_slot_reads_per_second_at_10ms": 828200,
+      "nominal_slot_reads_per_second_at_1ms": 8282000,
+      "scope": "TaskService combined",
+      "slots": 8282
+    }
+  ],
+  "change": "SourceResources constructs the existing coordinator with TimeSpan.FromMilliseconds(1) instead of the default 10 ms.",
+  "changed_paths": [
+    "src/Data.NativeHost/NativeHost.cs"
+  ],
+  "disposition": "Suitable for the controlled diagnostic experiment; not retained or performance-accepted.",
+  "github_approval": false,
+  "kind": "source-only-database-retry-parameter-review",
+  "observations": {
+    "async_operation_unchanged": true,
+    "extra_signal_not_restored": true,
+    "global_timer_scan_overlap_guard_exists": false,
+    "idle_empty_open_source_still_scans": true,
+    "native_unchanged": true,
+    "new_lock_order_added": false,
+    "per_context_work_item_coalescing_unchanged": true,
+    "shared_coordinator_unchanged": true,
+    "timer_dispose_joins_in_progress_callbacks": false
+  },
+  "parent_commit": "ea0067114346af4f13383f24df165456bcabe344",
+  "performance_credit_seconds": 0,
+  "product_commit": "3ee5b3eead4b31e50051b324653286f558e71b08",
+  "related_diagnostic": {
+    "bytes": 235750,
+    "filename": "sqlite-tail-hold-supplement-003.json",
+    "sha256": "5eb4e0c63f5364b5748c336fe9064dcccd7ea214fb73a35765bdb70369c78ed3"
+  },
+  "retention_prerequisites": [
+    "Original six interleaved scalar profiles with unchanged workload and noise rules.",
+    "Real PostgreSQL and SQLite application correctness and affected ownership/cancel/close regressions.",
+    "Actual CPU and idle observations at identical capacities, plus post-drain release.",
+    "Do not claim maximum-capacity or bounded timer-scan overlap from source or small fixtures alone."
+  ],
+  "review_document": {
+    "bytes": 7068,
+    "filename": "database-retry-1ms-source-review-001.md",
+    "sha256": "c1ede0d99689752047c74febb842b4633988743de648e2e19a894c7498bfdb6e"
+  },
+  "reviewed_utc": "2026-11-21T10:03:52.302168+00:00",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 10273,
+      "filename": "NativeHost.cs",
+      "path": "src/Data.NativeHost/NativeHost.cs",
+      "sha256": "7de9034ae7067085a4dec5cea6af78e0f551c405722335ce77250f58fba7dded"
+    },
+    {
+      "bytes": 13841,
+      "filename": "DataSource.cs",
+      "path": "src/Data.NativeHost/DataSource.cs",
+      "sha256": "9b48ad8053fd7bd1211022695f6a898a242fa7c9eec77927ad43acd0196770b1"
+    },
+    {
+      "bytes": 8239,
+      "filename": "DatabaseOptions.cs",
+      "path": "src/Data.NativeHost/DatabaseOptions.cs",
+      "sha256": "b60c38044a3490ada43137cfa61d41a2ff73c40c94d55998ce99309b7c5787be"
+    },
+    {
+      "bytes": 5740,
+      "filename": "CallbackCoordinator.cs",
+      "path": "src/Interop.Callbacks/CallbackCoordinator.cs",
+      "sha256": "92cf43c5933c7be627640c2387f37b1bedcfdd8353c946232fa22ca47e1ddc27"
+    },
+    {
+      "bytes": 26459,
+      "filename": "AsyncOperation.cs",
+      "path": "src/Interop.Async/AsyncOperation.cs",
+      "sha256": "cc5dc3815a9db4e7e6ecb381f3ec561c7f6dd901d738601895cfed6aa6aea60c"
+    },
+    {
+      "bytes": 6670,
+      "filename": "ServiceConfiguration.cs",
+      "path": "src/Reference.TaskService/ServiceConfiguration.cs",
+      "sha256": "35d2415eec723a861e46e7221db92b94226b23bd6c6740ac943742093865fcf7"
+    },
+    {
+      "bytes": 30589,
+      "filename": "Program.cs",
+      "path": "tests/Interop.Async/Program.cs",
+      "sha256": "a581eaaf15c47e376e0cb6f8c5012ba32ae4adc0c2375884bd085674d13444f0"
+    },
+    {
+      "bytes": 17540,
+      "filename": "Program.cs",
+      "path": "tests/Interop.Callbacks/Program.cs",
+      "sha256": "aff1c550741953186b3cc5e5f79083d161e3a08c35a33c2aeb110b6f91dfe21a"
+    },
+    {
+      "bytes": 17956,
+      "filename": "Program.cs",
+      "path": "tests/Data.NativeHost/Program.cs",
+      "sha256": "e54abd4bd87b20f1011db3561f190240beb937e04071481327a844832538c9cd"
+    }
+  ],
+  "task": "Perf-01",
+  "upstream_timer_source": {
+    "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+    "git_blob_sha1": "19d152d6153bd465454787248fc3acff81efef3b",
+    "observed_scope": "TimerQueueTimer.Fire increments callback count and invokes outside the queue lock; no serialization of repeated callbacks.",
+    "path": "src/runtime/src/libraries/System.Private.CoreLib/src/System/Threading/Timer.cs",
+    "repository": "dotnet/dotnet"
+  }
+}

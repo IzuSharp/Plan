@@ -1,0 +1,116 @@
+{
+  "algorithm_review": {
+    "conclusion": "Clip each operation segment to the same Begin-exit to Commit-exit proxy; union overlaps before summation; preserve uncovered and cross-segment overlap; nearest-rank quantiles of per-create values; shares use summed proxy durations, not load wall time.",
+    "per_create_clipping_and_selection_source_lines": "83-165",
+    "summary_source_lines": "60-80",
+    "union_source_lines": "45-57"
+  },
+  "analyzer": {
+    "filename": "analyze_hold.py",
+    "method": "manual source review and Python AST parse only",
+    "sha256": "4c27afc0e6135d0524d087db3fcaa47a5e3a89d9aae19624664e21d93f620527"
+  },
+  "analyzer_import_or_execution": false,
+  "blocking_findings": [],
+  "checks": {
+    "bounded_derived_arithmetic_and_markdown_checks": 54,
+    "clock": "eight exact indexed upstream Git blobs independently fetched and read; small runtime and SDK version metadata rechecked; unchanged common driver clock/child-launch source reviewed",
+    "prior_identity_carry_forward": "reviewed against unchanged analysis-002",
+    "privacy": "no machine paths, process identifiers, environment values, addresses or TLS material introduced"
+  },
+  "created_utc": "2026-11-21T10:19:49.520273+00:00",
+  "disposition": "accepted_source_and_completed_derived_metadata_only",
+  "kind": "independent-sqlite-hold-supplement-review",
+  "new_workload_execution": false,
+  "performance_credit_seconds": 0,
+  "publication": "Accepted additive public diagnostic projection; original traces, failed attempts, formal result and frozen admission remain unchanged.",
+  "raw_trace_read_or_rehash": false,
+  "retained_limits": [
+    "One diagnostic process per role; no repetition/noise inference or formal acceptance.",
+    "Managed transaction-span proxy is not physical SQLite lock ownership.",
+    "Take-to-retirement includes taking/materialization, native quiescence and continuation; no timer-tick or TryRetire(Pending) attribution.",
+    "No identity join from an external business cycle to a trace request.",
+    "Original formal SQLite p99 567.131236 ms failure remains unaccepted; diagnostic cycle p99 increases from 207.031034 to 227.100834 ms.",
+    "Four unscoped startup operations per role are retained; recorder completeness does not imply all operations were scoped."
+  ],
+  "reviewed_files": [
+    {
+      "filename": "sqlite-tail-hold-supplement-003.sources.json",
+      "sha256": "d22669405042f20c549db5d4d17813cec4f5992050dcdfaa33a26be15eae94ba"
+    },
+    {
+      "filename": "sqlite-tail-hold-supplement-003.md",
+      "sha256": "1eb4a96f31324308b995574c33b507f90dff2c3388be0e3542169630faaa1f1e"
+    },
+    {
+      "filename": "sqlite-tail-hold-supplement-003.json",
+      "sha256": "5eb4e0c63f5364b5748c336fe9064dcccd7ea214fb73a35765bdb70369c78ed3"
+    },
+    {
+      "filename": "sqlite-tail-diagnostic-analysis-002.json",
+      "sha256": "b51259c3d178cd030c1c0ae2b57ad15aa3caf627017cc6173aa4959ecefd1ec9"
+    }
+  ],
+  "schema_version": 1,
+  "task": "Perf-01",
+  "upstream_blobs_independently_read": [
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "1d50b7cadca77188fbf49e580099c4811245bf95",
+      "observed_scope": "Imports shared CoreLib source at line 546.",
+      "path": "src/runtime/src/coreclr/nativeaot/System.Private.CoreLib/src/System.Private.CoreLib.csproj",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "20e1c8c05c4912fbff80ee612f3207d8505d9899",
+      "observed_scope": "Unix group includes Stopwatch.Unix and Interop.GetTimestamp.",
+      "path": "src/runtime/src/libraries/System.Private.CoreLib/src/System.Private.CoreLib.Shared.projitems",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "bb96e6f17e1cc7977bac210088cbb787450dcfa6",
+      "observed_scope": "GetTimestamp calls Interop.Sys.GetTimestamp; frequency 1e9.",
+      "path": "src/runtime/src/libraries/System.Private.CoreLib/src/System/Diagnostics/Stopwatch.Unix.cs",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "6a01db94332420fbd5bfb5d6e5b1726c32956094",
+      "observed_scope": "LibraryImport SystemNative_GetTimestamp.",
+      "path": "src/runtime/src/libraries/Common/src/Interop/Unix/System.Native/Interop.GetTimestamp.cs",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "edb6dccdfc27fb83e7ea0e4a0efe8a637be085f4",
+      "observed_scope": "SystemNative_GetTimestamp returns minipal_hires_ticks.",
+      "path": "src/runtime/src/native/libs/System.Native/pal_time.c",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+      "git_blob_sha1": "8949ff775a981c48ab5791ae3347bed5df5bcea5",
+      "observed_scope": "Linux CLOCK_MONOTONIC converted to nanoseconds.",
+      "path": "src/runtime/src/native/minipal/time.c",
+      "repository": "dotnet/dotnet"
+    },
+    {
+      "commit": "2abcf904b8dac8c999d2b3aac76681abb333798a",
+      "git_blob_sha1": "acd1842056af4316731361645b17dc1ff2ef4ef0",
+      "observed_scope": "Monotonic branch reports actual selected clock and returns nanoseconds.",
+      "path": "Python/pytime.c",
+      "repository": "python/cpython",
+      "tag": "v3.12.14"
+    },
+    {
+      "commit": "2abcf904b8dac8c999d2b3aac76681abb333798a",
+      "git_blob_sha1": "59078263571f7ec20a8b6a37e24074a18bff7de8",
+      "observed_scope": "time.monotonic_ns exposes monotonic clock as nanoseconds.",
+      "path": "Modules/timemodule.c",
+      "repository": "python/cpython",
+      "tag": "v3.12.14"
+    }
+  ]
+}

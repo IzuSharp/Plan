@@ -1,5 +1,50 @@
 # Perf-01 Linux x64 handoff
 
+## Reviewed adverse experiments and new binding candidate — 2026-11-21 UTC
+
+The [diagnostic checkpoint](recovery/epoch-002/diagnostic-checkpoint-015.md) and
+[numeric checklist](recovery/epoch-002/diagnostic-checkpoint-015.json) record actual
+completed diagnostics, hashes and retention. The formal status remains
+**15/16 short scenes, 0/15 capacity executions, 0/10 accepted 30-minute segments**.
+The original SQLite C16 p99 failure and gRPC server-stream mean regression remain
+preserved. Neither NativeWeave PR #19 nor Plan PR #23 is ready to merge.
+
+The [buffer-only gRPC ablation](recovery/epoch-002/grpc-buffer-ablation-001/README.md)
+completed twelve real TLS cells and 37 retired commands. Allocation and streaming
+CPU fell, but every server-stream/client-stream p99 pair and all six after-idle
+RSS pairs worsened. Candidate `ea006711` remains isolated and unselected.
+[Independent review](recovery/epoch-002/grpc-buffer-ablation-review-001.md)
+checked 2,072 literal and 45 arithmetic values; means absent from original
+metadata remain unavailable.
+
+The [SQLite measurement-window supplement](recovery/epoch-002/sqlite-tail-hold-supplement-003.md)
+adds the previously missing transaction-span decomposition. It preserves the
+earlier complete-lifecycle analysis and adverse diagnostic cycle p99.
+[Independent review](recovery/epoch-002/sqlite-tail-hold-supplement-review-003.md)
+accepted the clock/window and clipped-interval analysis. The observed 65–66%
+take-to-retirement share is a managed proxy, not physical lock time or proof
+that the coordinator timer caused it.
+
+The isolated two-constructor candidate `a5748ad4` uses the already supported
+1 ms retry interval in Data and Server, with shared/native ownership code
+unchanged. Its [source review](recovery/epoch-002/binding-retry-1ms-source-review-002.md)
+retains the timer-scan/overlap and idle-CPU risks. The original supplied-native
+B18 verifier has now passed: 1,036 JIT / 1,037 AOT assertions, fresh independent
+package consumption, source `a5748ad4`, native `2f40348c` with actual Server
+SHA-256 `8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0`.
+Its single outer command retired. No timing or retention decision is inferred.
+The next executor step is its reviewed isolated package/application producer
+and unchanged TLS/scalar diagnostic loads. Root remains the sole executor;
+agents review source and completed metadata only.
+
+Resource projection fixtures completed **22/22**, with the original helper
+unchanged and the earlier failed fixture preserved. The completed PostgreSQL
+C16 raw archive has been saved and retrieved to a distinct destination;
+all 25 member hashes match. Original raw files are still present. Exact
+archive/file/version identifiers, checksum and retention policy are in the
+numeric checklist. Public resource-series export remains pending.
+
+
 ## Codec comparisons completed; diagnostics remain open — 2026-11-21 UTC
 
 Fifteen of sixteen formal comparison scenes have completed for the currently

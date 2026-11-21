@@ -1,0 +1,126 @@
+{
+  "build_or_load_executed_by_reviewer": false,
+  "candidate_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+  "complete_changed_paths_from_original": [
+    "src/Data.NativeHost/NativeHost.cs",
+    "src/Server.Native/NativeHost.cs"
+  ],
+  "complete_changed_paths_from_parent": [
+    "src/Server.Native/NativeHost.cs"
+  ],
+  "disposition": "No blocking source defect found in parameter-only change; suitable for controlled verification, not selected or performance-accepted.",
+  "github_approval": false,
+  "kind": "source-only-binding-retry-parameter-review",
+  "new_statistical_acceptance": false,
+  "observations": {
+    "async_operation_code_unchanged": true,
+    "extra_signal_not_restored": true,
+    "global_coordinator_code_unchanged": true,
+    "global_timer_scan_overlap_guard_exists": false,
+    "grpc_serialized_message_write_retirement_joins": [
+      "protocol reservation",
+      "native message write"
+    ],
+    "native_code_unchanged": true,
+    "new_lock_order_added": false,
+    "open_idle_host_still_scans_full_capacity": true,
+    "per_context_work_items_coalesced": true,
+    "server_existing_close_poll_ms": 5,
+    "server_scope_includes_http_and_other_protocols": true
+  },
+  "original_base_commit": "ea0067114346af4f13383f24df165456bcabe344",
+  "parent_commit": "3ee5b3eead4b31e50051b324653286f558e71b08",
+  "performance_credit_seconds": 0,
+  "prior_database_review": {
+    "bytes": 5215,
+    "filename": "database-retry-1ms-source-review-001.json",
+    "sha256": "dda40e4bc30db9458840d28d41b36ec72b25f3640203b4de59dae8098af9e953"
+  },
+  "review_document": {
+    "bytes": 6328,
+    "filename": "binding-retry-1ms-source-review-002.md",
+    "sha256": "9e03f24598d254959a6da6a6eef88737e7cf7459058f6ee0e721e5e0046ddc9a"
+  },
+  "reviewed_utc": "2026-11-21T10:10:04.036654+00:00",
+  "schema_version": 1,
+  "source_default_capacity_arithmetic": {
+    "combined_nominal_slot_reads_per_second_10ms": 1087500,
+    "combined_nominal_slot_reads_per_second_1ms": 10875000,
+    "reference_two_database_sources_plus_default_server_slots": 10875,
+    "scope": "Source-derived arithmetic at requested periods; no actual runtime frequency, CPU or outstanding timer-callback bound.",
+    "server_coordinator_slots": 2593,
+    "server_max_active_requests": 256,
+    "server_nominal_slot_reads_per_second_10ms": 259300,
+    "server_nominal_slot_reads_per_second_1ms": 2593000
+  },
+  "sources": [
+    {
+      "bytes": 10273,
+      "filename": "NativeHost.cs",
+      "path": "src/Data.NativeHost/NativeHost.cs",
+      "sha256": "7de9034ae7067085a4dec5cea6af78e0f551c405722335ce77250f58fba7dded"
+    },
+    {
+      "bytes": 27641,
+      "filename": "NativeHost.cs",
+      "path": "src/Server.Native/NativeHost.cs",
+      "sha256": "c6dc599773a1542a36175c36fff5615ae6b2d4e9c37565a188fc455391035938"
+    },
+    {
+      "bytes": 5740,
+      "filename": "CallbackCoordinator.cs",
+      "path": "src/Interop.Callbacks/CallbackCoordinator.cs",
+      "sha256": "92cf43c5933c7be627640c2387f37b1bedcfdd8353c946232fa22ca47e1ddc27"
+    },
+    {
+      "bytes": 26459,
+      "filename": "AsyncOperation.cs",
+      "path": "src/Interop.Async/AsyncOperation.cs",
+      "sha256": "cc5dc3815a9db4e7e6ecb381f3ec561c7f6dd901d738601895cfed6aa6aea60c"
+    },
+    {
+      "bytes": 16737,
+      "filename": "NativeTransport.cs",
+      "path": "src/Protocols.Grpc/NativeTransport.cs",
+      "sha256": "883b9bc64dd3f5b57bc6d8ac6ed92f858bd33a278d38358bba40faea7ee0bb0b"
+    },
+    {
+      "bytes": 24805,
+      "filename": "NativeRequest.cs",
+      "path": "src/Server.Native/NativeRequest.cs",
+      "sha256": "fcc63a4e2253bcab7024d6de0728bc6731b86660b9026b4af70c2bf9faedbfbd"
+    },
+    {
+      "bytes": 41865,
+      "filename": "Contracts.cs",
+      "path": "src/Server.Application/Contracts.cs",
+      "sha256": "43adaf87817bf536fb142f34c05a24e56eda14068b0781c37dd3fa0c157599dc"
+    },
+    {
+      "bytes": 21266,
+      "filename": "Configuration.cs",
+      "path": "src/Server.Application/Configuration.cs",
+      "sha256": "ae2c9cffdca535e8593c7a172d8803bcf317649678b5e5223606955189ca1e6e"
+    },
+    {
+      "bytes": 3909,
+      "filename": "Shared.cs",
+      "path": "tests/Perf01.Protocols/Shared.cs",
+      "sha256": "7cdf4d7cb1adf5a6ece590559297088991140edd2e706bbd62d06472e86642da"
+    },
+    {
+      "bytes": 6670,
+      "filename": "ServiceConfiguration.cs",
+      "path": "src/Reference.TaskService/ServiceConfiguration.cs",
+      "sha256": "35d2415eec723a861e46e7221db92b94226b23bd6c6740ac943742093865fcf7"
+    }
+  ],
+  "task": "Perf-01",
+  "tracked_working_tree_clean_when_read": true,
+  "upstream_timer_source": {
+    "commit": "297acf930fb0f5c07fd4e51d78e521b4ad2e5d1f",
+    "git_blob_sha1": "19d152d6153bd465454787248fc3acff81efef3b",
+    "path": "src/runtime/src/libraries/System.Private.CoreLib/src/System/Threading/Timer.cs",
+    "repository": "dotnet/dotnet"
+  }
+}
