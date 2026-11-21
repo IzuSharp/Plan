@@ -1,0 +1,180 @@
+diff --git a/src/Interop.Callbacks/CallbackCoordinator.cs b/src/Interop.Callbacks/CallbackCoordinator.cs
+index dbce832..168431a 100644
+--- a/src/Interop.Callbacks/CallbackCoordinator.cs
++++ b/src/Interop.Callbacks/CallbackCoordinator.cs
+@@ -11,6 +11,7 @@ internal sealed class CallbackCoordinator : IDisposable
+     private readonly Timer _timer;
+     private bool _closing;
+     private int _count;
++    private int _scanLimit;
+ 
+     internal CallbackCoordinator(int capacity, TimeSpan? retryInterval = null)
+     {
+@@ -34,6 +35,7 @@ internal int Reserve(CoordinatedCallback context)
+                 if (_slots[i] is not null) continue;
+                 _slots[i] = context;
+                 _count++;
++                if (i >= _scanLimit) _scanLimit = i + 1;
+                 return i;
+             }
+         }
+@@ -49,6 +51,8 @@ internal void Release(int slot, CoordinatedCallback context)
+                 throw new InvalidOperationException("A callback cleanup slot has a different owner.");
+             _slots[slot] = null;
+             _count--;
++            if (slot + 1 == _scanLimit)
++                while (_scanLimit > 0 && _slots[_scanLimit - 1] is null) _scanLimit--;
+             stopTimer = _closing && _count == 0;
+         }
+         if (stopTimer) _timer.Dispose();
+@@ -56,9 +60,13 @@ internal void Release(int slot, CoordinatedCallback context)
+ 
+     private void Retry()
+     {
++        // Snapshot the occupied prefix, including holes. A new tail reservation
++        // keeps its normal Signal path and is included in the next timer scan.
++        int limit;
++        lock (_gate) limit = _scanLimit;
+         // Read one slot at a time: no per-tick array/list allocation and no calls
+         // into the context while holding the coordinator's reservation gate.
+-        for (int i = 0; i < _slots.Length; i++)
++        for (int i = 0; i < limit; i++)
+         {
+             CoordinatedCallback? context;
+             lock (_gate) context = _slots[i];
+diff --git a/tests/Interop.Callbacks/Program.cs b/tests/Interop.Callbacks/Program.cs
+index 033de5d..bed5d1e 100644
+--- a/tests/Interop.Callbacks/Program.cs
++++ b/tests/Interop.Callbacks/Program.cs
+@@ -9,9 +9,11 @@ internal sealed class ManualScheduler : ICallbackScheduler
+     internal int Reject;
+     internal int Accepted;
+     internal int MaximumQueued;
++    internal Action? BeforeAccept;
+     public bool TryQueue(IThreadPoolWorkItem item)
+     {
+         if (Interlocked.Decrement(ref Reject) >= 0) return false;
++        BeforeAccept?.Invoke();
+         _queue.Enqueue(item);
+         Interlocked.Increment(ref Accepted);
+         MaximumQueued = Math.Max(MaximumQueued, _queue.Count);
+@@ -33,6 +35,14 @@ internal static class Program
+ {
+     private static int s_assertions;
+     private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(15);
++    private sealed class CoordinatorProbe(ICallbackScheduler scheduler) : CoordinatedCallback(scheduler)
++    {
++        internal int Runs;
++        internal Exception? Fault;
++        internal void Finish() => CompleteScheduling();
++        protected override void Process() => Interlocked.Increment(ref Runs);
++        protected override void SchedulingFault(Exception error) => Fault = error;
++    }
+     private static void Check(bool value, string message)
+     {
+         Interlocked.Increment(ref s_assertions);
+@@ -253,6 +263,95 @@ private static async Task NativeSourceAndControlDrain()
+         Check(coordinator.Count == 0, "Coordinator closed without removing drained reservation.");
+     }
+ 
++    private static async Task SparseCoordinatorRetryAndReuse()
++    {
++        using var coordinator = new CallbackCoordinator(4, TimeSpan.FromMilliseconds(1));
++        var scheduler = new ManualScheduler();
++        var probes = Enumerable.Range(0, 4).Select(_ => new CoordinatorProbe(scheduler)).ToArray();
++        int[] slots = probes.Select(coordinator.Reserve).ToArray();
++        Check(slots.SequenceEqual([0, 1, 2, 3]), "Coordinator reservations did not use the available slots.");
++        for (int i = 1; i <= 2; i++)
++        {
++            probes[i].Finish();
++            coordinator.Release(slots[i], probes[i]);
++        }
++        Check(coordinator.Count == 2, "Sparse reservations lost their live owners.");
++        scheduler.Reject = 1;
++        probes[3].Signal();
++        await Until(() => probes[3].Runs == 1, scheduler);
++        Check(probes[3].SchedulingRejections == 1 && probes[3].Fault is null,
++            "A tail reservation beyond live Count lost its rejected-scheduling retry.");
++        probes[3].Finish();
++        coordinator.Release(slots[3], probes[3]);
++        scheduler.Reject = 1;
++        probes[0].Signal();
++        await Until(() => probes[0].Runs == 1, scheduler);
++        Check(probes[0].SchedulingRejections == 1 && probes[0].Fault is null,
++            "Removing the tail stopped the remaining reservation's retry.");
++        probes[0].Finish();
++        coordinator.Release(slots[0], probes[0]);
++        Check(coordinator.Count == 0, "Sparse reservations did not drain.");
++
++        var reused = new CoordinatorProbe(scheduler);
++        int reusedSlot = coordinator.Reserve(reused);
++        Check(reusedSlot == 0, "An empty coordinator did not reuse its first slot.");
++        scheduler.Reject = 1;
++        reused.Signal();
++        coordinator.Dispose();
++        await Until(() => reused.Runs == 1, scheduler);
++        Check(coordinator.Count == 1 && reused.SchedulingRejections == 1 && reused.Fault is null,
++            "Closing stopped retries for an already admitted reservation.");
++        try
++        {
++            coordinator.Reserve(new CoordinatorProbe(scheduler));
++            throw new Exception("Closed coordinator admitted a new reservation.");
++        }
++        catch (ObjectDisposedException) { }
++        reused.Finish();
++        coordinator.Release(reusedSlot, reused);
++        Check(coordinator.Count == 0 && scheduler.MaximumQueued == 1,
++            "Reused reservation did not release or duplicated queued work.");
++    }
++
++    private static async Task CoordinatorReservationDuringRetry()
++    {
++        using var coordinator = new CallbackCoordinator(4, TimeSpan.FromMilliseconds(1));
++        using var entered = new ManualResetEventSlim(false);
++        using var proceed = new ManualResetEventSlim(false);
++        var blocked = new ManualScheduler
++        {
++            Reject = 1,
++            BeforeAccept = () =>
++            {
++                entered.Set();
++                if (!proceed.Wait(TimeSpan.FromSeconds(30)))
++                    throw new TimeoutException("Controlled retry was not released.");
++            }
++        };
++        var head = new CoordinatorProbe(blocked);
++        int headSlot = coordinator.Reserve(head);
++        head.Signal();
++        await Until(() => entered.IsSet);
++        var scheduler = new ManualScheduler { Reject = 1 };
++        var tail = new CoordinatorProbe(scheduler);
++        Task<int> reservation = Task.Run(() => coordinator.Reserve(tail));
++        int tailSlot;
++        try { tailSlot = await reservation.WaitAsync(Timeout); }
++        finally { proceed.Set(); }
++        Check(headSlot == 0 && tailSlot == 1,
++            "Retry held the reservation gate while invoking a context.");
++        tail.Signal();
++        await Until(() => head.Runs == 1, blocked);
++        await Until(() => tail.Runs == 1, scheduler);
++        Check(head.Fault is null && tail.Fault is null && tail.SchedulingRejections == 1,
++            "A reservation added during an earlier retry scan lost its next retry.");
++        head.Finish();
++        coordinator.Release(headSlot, head);
++        tail.Finish();
++        coordinator.Release(tailSlot, tail);
++        Check(coordinator.Count == 0, "Concurrent scan/reservation test retained a slot.");
++    }
++
+     private static async Task DecisionAdmittedBeforeClosureFailsClosed()
+     {
+         using var coordinator = new CallbackCoordinator(1);
+@@ -321,6 +420,8 @@ private static async Task Main(string[] args)
+         await RegistrationFailureAndCapacity();
+         await BoundedQueueAndRetry();
+         await NativeSourceAndControlDrain();
++        await SparseCoordinatorRetryAndReuse();
++        await CoordinatorReservationDuringRetry();
+         await DecisionAdmittedBeforeClosureFailsClosed();
+         await ConcurrentStopGcAndCookieReuse();
+         GC.Collect(); GC.WaitForPendingFinalizers();

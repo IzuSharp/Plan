@@ -1,5 +1,101 @@
 # Perf-01 Linux x64 handoff
 
+## Resumed diagnostics and occupied-prefix candidate — 2026-11-21 UTC
+
+The recovered local continuation was ahead of the previous public checkpoint.
+Do not repeat the completed 1 ms retry producer, twelve TLS cells, six scalar
+processes or six full SQLite application processes. The currently selected
+formal comparison remains **15/16 short scenes, 0/15 capacity runs and 0/10
+accepted 30-minute segments**. Neither paired PR is ready to merge. The original
+SQLite C16 567.131236 ms service failure and gRPC server-stream mean regression
+remain preserved.
+
+### Completed retry-interval evidence
+
+The [TLS comparison](recovery/epoch-002/binding-retry-ablation-001/README.md)
+records all twelve fresh cells and 37 exit-zero retired commands, comparing
+buffer-only ea006 with a5748 (the existing 1 ms Data/Server retry interval).
+Thirteen of fifteen paired case p99 observations decreased; two server-stream
+p99 observations increased. Active CPU rose in all six profile pairs.
+The [independent review](recovery/epoch-002/binding-retry-ablation-review-001.md)
+also derives the original post-recovery-to-after-idle CPU brackets: candidate
+CPU is 1.80–3.00 percentage points of one core higher in all six pairs.
+Those brackets include phase-boundary/observation overhead; they are not an
+isolated timer measurement.
+
+The [SQLite scalar review](recovery/epoch-002/binding-retry-sqlite-scalar-001/README.md)
+preserves six completed instrumented serial processes, 6,000 correct public
+calls and 24,000 operation observations, all released and retired. Current2f
+versus a5748 p99 pairs are 22.7482 → 7.6759, 28.8434 → 8.8409 and
+28.5874 → 11.9090 ms. This is not the EA5/final business comparison.
+
+The subsequent original-application SQLite diagnostic completed all six
+C16 processes and its original final verifier at 11:03:10.257880 UTC:
+seven exit-zero retired commands. All six processes completed 3,001 successful
+business operations with zero observed BUSY/LOCKED exceptions or explicit
+retries, passed the independent persisted-state oracle, met the unchanged
+service standard and drained. Current2f whole p99 is approximately 152–187 ms
+versus 47–48 ms for a5748; CPU increased. Its [complete original-result projection and independent verification](recovery/epoch-002/binding-retry-sqlite-application-001/README.md)
+retain the per-process latency, active/idle CPU, RSS, durability and loaded hashes. Execution SHA-256:
+`d4283ad89fd634114c287424d1987c26fcd93f5c251eb3771847a2a15c77ae79`.
+No failed sample, threshold or original driver was replaced; all these runs
+remain diagnostic and earn no formal capacity or long-duration credit.
+
+### New occupied-prefix experiment
+
+The two-file shared coordinator/test delta is fixed at local source
+`092e5e2c74d7419772f2455a2922ae4238f389de`, parent a5748. Its
+[independent source review](recovery/epoch-002/callback-prefix-source-review-001.md)
+covers sparse slots, tail reuse, overlap, closing and late completion. It
+limits periodic scanning to the occupied array prefix while preserving
+the existing reservation, completion and native retirement rules.
+
+The [actual A06 verification](recovery/epoch-002/callback-prefix-functional-001/README.md)
+passed 6,343 JIT / 6,344 Native AOT assertions, the original native/API checks
+and expected negative tests. The [actual supplied-native B18 verification](recovery/epoch-002/callback-prefix-b18-001/README.md)
+passed 1,036 JIT / 1,037 Native AOT assertions and all 25 independent package
+commands, including ordinary application edits reusing the same native library.
+Both outer commands exited zero and retired, with no remaining owned children.
+
+The exact tree `cebf4fde46b529b1ec92fc6134e33ed09c36fc4f` was published on
+the separate NativeWeave experimental branch `task/Perf-01-callback-linux`
+as [8a97ac887e9e045c2cd7b4795a341f4ca8abb002](https://github.com/IzuSharp/NativeWeave/commit/8a97ac887e9e045c2cd7b4795a341f4ca8abb002).
+All ten changed files were retrieved and matched their source contents and
+Git blobs. The public and local commits have identical trees and distinct
+commit metadata; the tested source is not relabeled. Main PR19 remains at2f. The earlier measured a5748 tree is separately
+preserved as public [92fafc9146b86515689e99e48ec2ad651738a242](https://github.com/IzuSharp/NativeWeave/commit/92fafc9146b86515689e99e48ec2ad651738a242)
+on `task/Perf-01-retry-linux`; its eight changed files were also read back
+byte-for-byte. This preserves the measured retry-only state before prefix scanning.
+
+The [prepared prefix experiment](diagnostics/callback-prefix-001/README.md)
+and [independent adapter review](recovery/epoch-002/callback-prefix-adapter-review-001.md)
+retain the original supplied-native/B24 producer and twelve TLS-cell
+predicates. The exact parent a5748 and new092e roles both use actual native2f;
+mixed provenance is explicit. The candidate B24/application producer completed all three commands and
+retired (execution SHA-256
+`e49d2aee17f03c071223e020198ea7eb8c6059994c979c8c3a625dbef1a25b01`).
+The unchanged twelve-cell comparison completed at 11:20:53.711270 UTC with all
+37 commands exit-zero and retired. Actual plan SHA-256 is
+`d57bf508fa4a0f7567086722cdaab639ea1b923725458c64e4853e35b77814c5`;
+terminal execution SHA-256 is
+`b66210f8c27ed70c44dad68d90d1bf58544713c0e5529d749adbb40e1ec7e08e`.
+The timing lock was subsequently independently acquired and released. The
+original metadata projection and independent performance review are underway;
+completion is not a retention decision. Shared async/extension regression,
+final selection, matching ordinary producers, formal comparison/capacity and
+all ten actual long segments remain outstanding.
+
+### Retention and continuation
+
+Curated numerical/source/review files remain in Plan Git history while that
+history is retained. New complete raw/binary archival is being prepared; this
+checkpoint does not claim an archive upload or readback that has not completed.
+Original local raw data, packages, binaries and failure records remain intact.
+Root is the sole build/load owner. Agents prepare source and review completed
+evidence; no competing timed load is allowed. Preserve all old attempts and
+use fresh output directories. Public domain-package releases and 24h/72h
+tests remain separate deferred work.
+
 ## Reviewed adverse experiments and new binding candidate — 2026-11-21 UTC
 
 The [diagnostic checkpoint](recovery/epoch-002/diagnostic-checkpoint-015.md) and

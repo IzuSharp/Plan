@@ -1,0 +1,4973 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "publication_safe": true,
+  "scope": "Completed isolated callback retry-interval ablation, ea006 versus a5748, over the same precompiled native Server. Completed original metadata only; no new raw-data reader, formal A21 comparison, original EA5/direct-Rust server gap, database, capacity, long-run or public-release acceptance.",
+  "execution": {
+    "evidence_file": "binding-retry-ablation-001/execution.json",
+    "sha256": "c30dc379f6f37bb80981d42df38aba4b4a049b3ed64728c2fb68fc554205d1cf",
+    "status": "diagnostic-completed",
+    "started_utc": "2026-11-21T10:27:03.113522+00:00",
+    "ended_utc": "2026-11-21T10:34:19.856176+00:00",
+    "completed_commands": 37,
+    "all_commands_exit_zero_and_retired": true,
+    "performance_credit_seconds": 0
+  },
+  "actual_plan": {
+    "evidence_file": "binding-retry-001/protocol-ablation.actual-001.json",
+    "sha256": "60d08b3a6f2c22b3cb0ea334a7f6cba4efafedd1deb7e52e5c0e909356a642f5"
+  },
+  "builds": {
+    "current": {
+      "evidence_file": "grpc-buffer-protocol-build-001/protocols/build.json",
+      "sha256": "234f2c0c6a6aa6013de05eb603a85dbba230a53e456b62d30ccd996b00ff6e5e",
+      "product_source_commit": "ea0067114346af4f13383f24df165456bcabe344",
+      "driver_source_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+      "toolchain": {
+        "aot": true,
+        "configuration": "Release",
+        "dotnet_sha256": "bb015c1dbaec79f69addde16893609baf880ccdc5931db354d40096769010e3e",
+        "isa": "x86-64-v2",
+        "sdk": "11.0.100"
+      },
+      "selected_artifact": "Perf01.ProtocolServer",
+      "selected_artifact_sha256": "50b0efa9118107b9f63092670c37831e40532322daa0a2f4e254ef2032dd67c1",
+      "package_version": "0.1.0-perf01.grpcbuf001.1",
+      "native_source_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+      "native_source_commit_basis": "Explicit dual-source metadata; original 2f native producer reused unchanged",
+      "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+      "selected_package_archives_sha256": {
+        "nativeweave.core.0.1.0-perf01.grpcbuf001.1.nupkg": "b19f2f7b1e832c3fe785bc3f545608a28cd63fff3c3fbdc1c70a595a07fb9253",
+        "nativeweave.interop.abi.0.1.0-perf01.grpcbuf001.1.nupkg": "c2534acd1d8ba68a5ac4ad6ad91175c87216d57fcb70ee4e1903843e225021e7",
+        "nativeweave.server.generator.0.1.0-perf01.grpcbuf001.1.nupkg": "69e4c8f75200429ea3b15eb5386e75f2c49f8878fb4317f50a7ed6e910a4348e",
+        "nativeweave.server.grpc.0.1.0-perf01.grpcbuf001.1.nupkg": "25b1921963e6af704d032d996813c635a883329c9341c2bc63af85b501f45122",
+        "nativeweave.server.native.0.1.0-perf01.grpcbuf001.1.nupkg": "28694cf64a7f600942215556ecc151c4026850a01d71b85442ed65a80b3ee8fb",
+        "nativeweave.server.0.1.0-perf01.grpcbuf001.1.nupkg": "a7bb8d8341a6f213b223b9fac6b9b6dafb7c775a82c0cdd7487ea241cf57f703"
+      },
+      "producer_manifests_sha256": {
+        "NativeWeave/tests/Perf01.GrpcBuffer/sources.json": "53b4cfde23341cffe2eedd8a13e6c2d866320d6c4868cda2c4c4404411ac1b9a",
+        "NativeWeave/tests/Perf01.Protocols/build.py": "068e0f356ee8af3b18df3b5b480b5c3b94b3e296540727c95687ab21852682d3",
+        "Plan/ledger/evidence/batches/Perf-01/diagnostics/grpc-buffer-experiment-001/build_protocol.py": "c0a65956caa78ca29fb5ebd4b8d6b12f4b3f6c761b6aa1f03fb7d9d99ac0fe5b",
+        "build-004/after/native-stable/manifest.json": "ab586e7b970e7b3307a7de1e86daed10e45fcac757e4f31ea6c5d89535eaf884",
+        "grpc-buffer-protocol-build-001/packages/manifest.json": "5120592ba55ea5dd079dd366c98f51e69d3ce11bd38c4e1051d2473190c3e608",
+        "grpc-buffer-protocol-build-001/packages/previous/closure.json": "6b07f2110a6c57187d3d107961f7535d4618af4a32e8c340e7a2c3f60ed94240",
+        "grpc-buffer-protocol-build-001/packages/source-inventory.json": "2bb8320af91b89c5c302816b970bee264c224d86b0177d3549ff7166295a66a6"
+      },
+      "driver_source_sha256": {
+        "Client/Client.csproj": "2b6d79767c3b2ec270955c245a3e6a72c44f7229088a938af53e8372ef17f57c",
+        "Client/Program.cs": "6bfc40c993b7f02ffd4406606d78b692c298482cc786717cdd05316688a4ea4d",
+        "Server/Program.cs": "c525bca37e6047ae42e412b9bb77efdb1d8f8e387b560b932fa20b641eb6ea03",
+        "Server/Server.csproj": "4f8aaec78139e1df0a4aa8e31e621ca476399dd0d5d38e4586726c4888b44fe8",
+        "Shared.cs": "7cdf4d7cb1adf5a6ece590559297088991140edd2e706bbd62d06472e86642da",
+        "perf01.proto": "b0278bd239f5d85a691ff34441ecbff4a345b1dc9b25b51c667304526c07bf12"
+      }
+    },
+    "candidate": {
+      "evidence_file": "binding-retry-protocol-build-001/protocols/build.json",
+      "sha256": "2cee61846e4389b8f16c8da50c26472e7e7010a7a8a2c0979fb77d05946b6b61",
+      "product_source_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+      "driver_source_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+      "toolchain": {
+        "aot": true,
+        "configuration": "Release",
+        "dotnet_sha256": "bb015c1dbaec79f69addde16893609baf880ccdc5931db354d40096769010e3e",
+        "isa": "x86-64-v2",
+        "sdk": "11.0.100"
+      },
+      "selected_artifact": "Perf01.ProtocolServer",
+      "selected_artifact_sha256": "3474259aaf6106691dd42febd7a7df19ea0b07c9ce6303a34dd752b58c8bd407",
+      "package_version": "0.1.0-perf01.retry001.1",
+      "native_source_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+      "native_source_commit_basis": "Explicit dual-source metadata; original 2f native producer reused unchanged",
+      "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+      "selected_package_archives_sha256": {
+        "nativeweave.core.0.1.0-perf01.retry001.1.nupkg": "7eae127205b7b419abe31294f3d47ef50b8049d0cbc4079edee6e964ec1984e1",
+        "nativeweave.interop.abi.0.1.0-perf01.retry001.1.nupkg": "3cc2f6d7128329f7c491c2b49ce77814395190c069ae15238aa82dbb52b166e5",
+        "nativeweave.server.generator.0.1.0-perf01.retry001.1.nupkg": "ed6a1b38782182ab66627b23cca0cbff04231dc83bcf2a94b4129523f4ecf076",
+        "nativeweave.server.grpc.0.1.0-perf01.retry001.1.nupkg": "d313279dc1627d3a0ce2cb291239bd12d63b41bfb7f8e25c37e31ddca25f601b",
+        "nativeweave.server.native.0.1.0-perf01.retry001.1.nupkg": "c5c1943be3db76657183d772e50720ae8fa7ae4f4c91460487e40e232684bf53",
+        "nativeweave.server.0.1.0-perf01.retry001.1.nupkg": "db88eedc77c1daab68d94e791bf89c2eba1e349a6a584890106e87abe3769afd"
+      },
+      "producer_manifests_sha256": {
+        "NativeWeave/tests/Perf01.Protocols/build.py": "068e0f356ee8af3b18df3b5b480b5c3b94b3e296540727c95687ab21852682d3",
+        "Plan/ledger/evidence/batches/Perf-01/diagnostics/binding-retry-001/build_protocol.py": "f8a81d5a5354b2d67673e0a2ec09c2cde758c67b34bb570a482266ddf2af6862",
+        "Plan/ledger/evidence/batches/Perf-01/diagnostics/binding-retry-001/candidate-sources.json": "39ec40780fca362d45dec2bca9a11718cb960c87422d9309d27a19d7f388325d",
+        "binding-retry-protocol-build-001/packages/manifest.json": "efefc111caa3fcd652548f524210b504487f118ce33095367e816e2ccfcc9b9b",
+        "binding-retry-protocol-build-001/packages/previous/closure.json": "ef2a7fbb152f1ef3ab4f0156ea3be3f9059047a6e40462f4f23761250a1bc590",
+        "binding-retry-protocol-build-001/packages/source-inventory.json": "cc8b7e5d1f81fe62c7ed3ccedf2cfdb310214301fe0c8ca6303116fba7abb68e",
+        "build-004/after/native-stable/manifest.json": "ab586e7b970e7b3307a7de1e86daed10e45fcac757e4f31ea6c5d89535eaf884"
+      },
+      "driver_source_sha256": {
+        "Client/Client.csproj": "2b6d79767c3b2ec270955c245a3e6a72c44f7229088a938af53e8372ef17f57c",
+        "Client/Program.cs": "6bfc40c993b7f02ffd4406606d78b692c298482cc786717cdd05316688a4ea4d",
+        "Server/Program.cs": "c525bca37e6047ae42e412b9bb77efdb1d8f8e387b560b932fa20b641eb6ea03",
+        "Server/Server.csproj": "4f8aaec78139e1df0a4aa8e31e621ca476399dd0d5d38e4586726c4888b44fe8",
+        "Shared.cs": "7cdf4d7cb1adf5a6ece590559297088991140edd2e706bbd62d06472e86642da",
+        "perf01.proto": "b0278bd239f5d85a691ff34441ecbff4a345b1dc9b25b51c667304526c07bf12"
+      }
+    },
+    "common_client": {
+      "evidence_file": "build-002/before/protocols/build.json",
+      "sha256": "e370010281c70d5622e22a8becb24cc576c760567a6f0eb98878c0ce46aa4a2a",
+      "product_source_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+      "driver_source_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+      "toolchain": {
+        "aot": true,
+        "configuration": "Release",
+        "dotnet_sha256": "bb015c1dbaec79f69addde16893609baf880ccdc5931db354d40096769010e3e",
+        "isa": "x86-64-v2",
+        "sdk": "11.0.100"
+      },
+      "selected_artifact": "Perf01.ProtocolClient",
+      "selected_artifact_sha256": "ae59038f6d83b0cdc60677f5d65f50f06298b53a168bee65f73a6599d7832f8e",
+      "package_version": "0.1.0-perf01.recovery002.before.1",
+      "scope": "Only this independent client was selected; its baseline server/native was not executed in this experiment."
+    }
+  },
+  "profiles": {
+    "unary": {
+      "plan_file": "ledger/evidence/batches/Perf-01/reproduction/workloads-001/profiles/grpc-unary.json",
+      "sha256": "88551fe7272de60c8686ab7a6b034c85af82b7dab3de8621c5c8be8ea612289f",
+      "grpc_mix": [
+        {
+          "bytes": 64,
+          "messages": 1,
+          "scenario": "grpc-unary",
+          "weight": 1
+        },
+        {
+          "bytes": 65536,
+          "messages": 1,
+          "scenario": "grpc-unary",
+          "weight": 1
+        }
+      ],
+      "client": {
+        "http2_connections": 4,
+        "queue_capacity": 1024,
+        "timeout_seconds": 20
+      },
+      "server": {
+        "chunk_bytes": 32768,
+        "managed_payload_bytes": 67108864,
+        "max_active_requests": 256,
+        "max_connections": 512,
+        "max_http2_streams_per_connection": 32,
+        "max_json_bytes": 1048576,
+        "max_message_bytes": 1048576,
+        "max_queued_requests": 128,
+        "max_stream_bytes": 67108864,
+        "native_payload_bytes": 67108864,
+        "request_timeout_seconds": 30,
+        "retained_bytes_per_request": 67108864,
+        "shutdown_timeout_seconds": 30
+      },
+      "timing": {
+        "cleanup_timeout_ns": 120000000000,
+        "histogram_maximum_ns": 60000000000,
+        "histogram_resolution_ns": 1000,
+        "idle_seconds": 5,
+        "max_dispatch_lag_ns": 100000000,
+        "max_in_flight": 1024,
+        "recovery_period_seconds": 0.25,
+        "recovery_requests": 32,
+        "timeout_ns": 25000000000,
+        "warmup_requests": 24
+      },
+      "compression": "identity-only; no HTTP automatic decompression or negotiated gRPC compression",
+      "service_standard": {
+        "arrival_p99_maximum_ms": 500,
+        "native_managed_payload_bytes_maximum": 67108864,
+        "native_payload_bytes_maximum": 67108864,
+        "unexpected_error_rate_maximum": 0.0,
+        "whole_process_rss_bytes_maximum": 268435456
+      },
+      "configured_duration_seconds": 20,
+      "configured_arrival_rate_per_second": 16,
+      "configured_client_concurrency": 4
+    },
+    "streams": {
+      "plan_file": "ledger/evidence/batches/Perf-01/reproduction/workloads-001/profiles/grpc-streams.json",
+      "sha256": "f47045770f3178267a767351016cf72aabf97a542dfb806d16f9ed63a64fd878",
+      "grpc_mix": [
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-server",
+          "weight": 1
+        },
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-client",
+          "weight": 1
+        },
+        {
+          "bytes": 4096,
+          "messages": 32,
+          "scenario": "grpc-duplex",
+          "weight": 1
+        }
+      ],
+      "client": {
+        "http2_connections": 4,
+        "queue_capacity": 1024,
+        "timeout_seconds": 20
+      },
+      "server": {
+        "chunk_bytes": 32768,
+        "managed_payload_bytes": 67108864,
+        "max_active_requests": 256,
+        "max_connections": 512,
+        "max_http2_streams_per_connection": 32,
+        "max_json_bytes": 1048576,
+        "max_message_bytes": 1048576,
+        "max_queued_requests": 128,
+        "max_stream_bytes": 67108864,
+        "native_payload_bytes": 67108864,
+        "request_timeout_seconds": 30,
+        "retained_bytes_per_request": 67108864,
+        "shutdown_timeout_seconds": 30
+      },
+      "timing": {
+        "cleanup_timeout_ns": 120000000000,
+        "histogram_maximum_ns": 60000000000,
+        "histogram_resolution_ns": 1000,
+        "idle_seconds": 5,
+        "max_dispatch_lag_ns": 100000000,
+        "max_in_flight": 1024,
+        "recovery_period_seconds": 0.25,
+        "recovery_requests": 32,
+        "timeout_ns": 25000000000,
+        "warmup_requests": 24
+      },
+      "compression": "identity-only; no HTTP automatic decompression or negotiated gRPC compression",
+      "service_standard": {
+        "arrival_p99_maximum_ms": 500,
+        "native_managed_payload_bytes_maximum": 67108864,
+        "native_payload_bytes_maximum": 67108864,
+        "unexpected_error_rate_maximum": 0.0,
+        "whole_process_rss_bytes_maximum": 268435456
+      },
+      "configured_duration_seconds": 20,
+      "configured_arrival_rate_per_second": 16,
+      "configured_client_concurrency": 4
+    }
+  },
+  "fixed_execution": {
+    "service_cpus": [
+      2,
+      3
+    ],
+    "generator_cpus": [
+      0,
+      1
+    ],
+    "controller_cpu": 8,
+    "sequential_cells": true,
+    "role_order_by_replicate": [
+      [
+        "current",
+        "candidate"
+      ],
+      [
+        "candidate",
+        "current"
+      ],
+      [
+        "current",
+        "candidate"
+      ]
+    ],
+    "transport": "Actual independent client to native service over HTTP/2 and TLS with the same certificate identity; identity compression only. Certificate/key data and paths are omitted."
+  },
+  "prerequisite_b18": {
+    "result": {
+      "evidence_file": "binding-retry-b18-001/assembled/result.json",
+      "sha256": "23f939f59d90f05b5b54f7b9f0d923d39916a7ac946a1f42ec40a45d756ccd95"
+    },
+    "execution": {
+      "evidence_file": "binding-retry-b18-001/execution.json",
+      "sha256": "942bae1086541f74d4ec734392c6b27db3b56baca8050d3184ce34abba849455"
+    },
+    "status": "passed",
+    "managed_source_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+    "native_source_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+    "supplied_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+    "jit": {
+      "assertions": 1036,
+      "managed_retirements": 598,
+      "dynamic_code_supported": true
+    },
+    "aot": {
+      "assertions": 1037,
+      "managed_retirements": 595,
+      "dynamic_code_supported": false
+    },
+    "accepted_component_native_sha256": "83b57ab59a43975c2396d069d782aeafe86c0ba2d0c94468fdf11800840f3388",
+    "accepted_component_scope": "Reused component-test evidence; this distinct native binary was not the supplied/loaded experiment Server."
+  },
+  "mean_latency": {
+    "availability": "unavailable",
+    "reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used."
+  },
+  "observations": [
+    {
+      "label": "unary-0-current",
+      "profile": "unary",
+      "replicate": 0,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-0-current/result.json",
+      "sha256": "0e5b2d7c8c30289222970997ae1cdfba204a1c91fffe15079d077c69ea7a61d3",
+      "plan_sha256": "e67a9e49cf39d08b06acaf99cf3cbe8d38f10517ee58d58658e9b24bde5fd26d",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.047346656760674,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.0995218144653625,
+          "cpu_seconds": 0.21,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21766144,
+          "rss_bytes_last": 21557248,
+          "rss_bytes_maximum": 21766144,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.8325363574422708,
+          "cpu_seconds": 0.35,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52903936,
+          "rss_bytes_last": 53891072,
+          "rss_bytes_maximum": 55521280,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.9424472695417393,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23429120,
+          "rss_bytes_last": 23437312,
+          "rss_bytes_maximum": 23437312,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 3.5603563516021266,
+          "cpu_seconds": 0.68,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 72065024,
+          "rss_bytes_last": 37867520,
+          "rss_bytes_maximum": 74760192,
+          "socket_count_maximum": 6,
+          "threads_first": 11,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 30,
+        "gen1_delta": 18,
+        "gen2_delta": 16,
+        "managed_allocated_bytes_delta": 197297912,
+        "managed_committed_bytes_maximum": 75128832,
+        "managed_heap_bytes_maximum": 70659424
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:27:05.862921+00:00",
+        "end_utc": "2026-11-21T10:27:25.990860+00:00",
+        "first_dispatch_utc": "2026-11-21T10:27:05.863115+00:00",
+        "last_dispatch_utc": "2026-11-21T10:27:25.988466+00:00",
+        "elapsed_ns": 20127938089,
+        "actual_dispatch_span_ns": 20125351623,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74678272,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 36974592,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 37974016,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:27:25.992037+00:00",
+        "end_utc": "2026-11-21T10:27:34.159052+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.048514422276252,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.048514422276252,
+            "request_payload_mib_per_second": 0.0004912423353440095,
+            "response_messages_per_second": 8.048514422276252,
+            "response_payload_mib_per_second": 0.0004912423353440095
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2617626,
+            "p90": 13004554,
+            "p95": 21660156,
+            "p99": 33030766,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.998832234484423,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.998832234484423,
+            "request_payload_mib_per_second": 0.49992701465527645,
+            "response_messages_per_second": 7.998832234484423,
+            "response_payload_mib_per_second": 0.49992701465527645
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3411808,
+            "p90": 10673986,
+            "p95": 17039585,
+            "p99": 32514866,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "unary-0-candidate",
+      "profile": "unary",
+      "replicate": 0,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-0-candidate/result.json",
+      "sha256": "8c4e5698bd92e5998628479f1404681533870654b192cc3be09200f06aefa94b",
+      "plan_sha256": "53c8fdb329b5d237d887b7f70b4536ae2d26f261e9dcba389dbadb9fb5435247",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.04063488558349,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.1495842357558481,
+          "cpu_seconds": 0.22,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21770240,
+          "rss_bytes_last": 21561344,
+          "rss_bytes_maximum": 21770240,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.619868695837786,
+          "cpu_seconds": 0.31,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52998144,
+          "rss_bytes_last": 53993472,
+          "rss_bytes_maximum": 55189504,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.8360612623678895,
+          "cpu_seconds": 0.16,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23404544,
+          "rss_bytes_last": 23412736,
+          "rss_bytes_maximum": 23412736,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 5.486652034289275,
+          "cpu_seconds": 1.05,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 72368128,
+          "rss_bytes_last": 38047744,
+          "rss_bytes_maximum": 74903552,
+          "socket_count_maximum": 6,
+          "threads_first": 11,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 28,
+        "gen1_delta": 16,
+        "gen2_delta": 14,
+        "managed_allocated_bytes_delta": 197334864,
+        "managed_committed_bytes_maximum": 83517440,
+        "managed_heap_bytes_maximum": 70663888
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 2239882,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 1
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:27:41.669728+00:00",
+        "end_utc": "2026-11-21T10:28:01.806088+00:00",
+        "first_dispatch_utc": "2026-11-21T10:27:41.670004+00:00",
+        "last_dispatch_utc": "2026-11-21T10:28:01.797304+00:00",
+        "elapsed_ns": 20136360082,
+        "actual_dispatch_span_ns": 20127299852,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74907648,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 37167104,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 38150144,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:28:01.807287+00:00",
+        "end_utc": "2026-11-21T10:28:09.972785+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.045148146948994,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.045148146948994,
+            "request_payload_mib_per_second": 0.0004910368742034298,
+            "response_messages_per_second": 8.045148146948994,
+            "response_payload_mib_per_second": 0.0004910368742034298
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2645008,
+            "p90": 12332437,
+            "p95": 14547362,
+            "p99": 18136317,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.9954867386344946,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.9954867386344946,
+            "request_payload_mib_per_second": 0.4997179211646559,
+            "response_messages_per_second": 7.9954867386344946,
+            "response_payload_mib_per_second": 0.4997179211646559
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3363405,
+            "p90": 13793992,
+            "p95": 15383853,
+            "p99": 20407152,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "unary-1-current",
+      "profile": "unary",
+      "replicate": 1,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-1-current/result.json",
+      "sha256": "bc2bec25d2c02940c666d5100721b88a8c515d8458f2e12c15ebfb8b7ea082bd",
+      "plan_sha256": "62eec7736fdc8e7a057a269f89d7949b8cf0281797576935fe054b71d66786a5",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.047696211070033,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.0477711564894718,
+          "cpu_seconds": 0.2,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21766144,
+          "rss_bytes_last": 21557248,
+          "rss_bytes_maximum": 21766144,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.6764338503831548,
+          "cpu_seconds": 0.32,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52695040,
+          "rss_bytes_last": 53772288,
+          "rss_bytes_maximum": 55283712,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.890605483016051,
+          "cpu_seconds": 0.17,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23425024,
+          "rss_bytes_last": 23433216,
+          "rss_bytes_maximum": 23433216,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 3.562421932064204,
+          "cpu_seconds": 0.68,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71319552,
+          "rss_bytes_last": 37629952,
+          "rss_bytes_maximum": 74518528,
+          "socket_count_maximum": 6,
+          "threads_first": 12,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 29,
+        "gen1_delta": 17,
+        "gen2_delta": 16,
+        "managed_allocated_bytes_delta": 194853816,
+        "managed_committed_bytes_maximum": 74932224,
+        "managed_heap_bytes_maximum": 70682664
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 2239882,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:28:53.560159+00:00",
+        "end_utc": "2026-11-21T10:29:13.687659+00:00",
+        "first_dispatch_utc": "2026-11-21T10:28:53.560508+00:00",
+        "last_dispatch_utc": "2026-11-21T10:29:13.686202+00:00",
+        "elapsed_ns": 20127499658,
+        "actual_dispatch_span_ns": 20125693306,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74534912,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 35827712,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 36814848,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:29:13.687666+00:00",
+        "end_utc": "2026-11-21T10:29:21.856673+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.048689740536673,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.048689740536673,
+            "request_payload_mib_per_second": 0.0004912530359214278,
+            "response_messages_per_second": 8.048689740536673,
+            "response_payload_mib_per_second": 0.0004912530359214278
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2696392,
+            "p90": 36263059,
+            "p95": 40629560,
+            "p99": 41817799,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.99900647053336,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.99900647053336,
+            "request_payload_mib_per_second": 0.499937904408335,
+            "response_messages_per_second": 7.99900647053336,
+            "response_payload_mib_per_second": 0.499937904408335
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3421545,
+            "p90": 33490251,
+            "p95": 37749714,
+            "p99": 39467495,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "unary-1-candidate",
+      "profile": "unary",
+      "replicate": 1,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-1-candidate/result.json",
+      "sha256": "82293d7cff57ac3cd2f16ac95a994687a402e681c469d80dcc8bb3763bd82561",
+      "plan_sha256": "f3b4d9e47e40956c2f41fd47e87f58297049652b6c4b96560cb540e98d78651f",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.047711461080336,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.0479483803682694,
+          "cpu_seconds": 0.2,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21770240,
+          "rss_bytes_last": 21561344,
+          "rss_bytes_maximum": 21770240,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.8339096656444716,
+          "cpu_seconds": 0.35,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 53026816,
+          "rss_bytes_last": 54079488,
+          "rss_bytes_maximum": 55201792,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.9431535423314426,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23408640,
+          "rss_bytes_last": 23416832,
+          "rss_bytes_maximum": 23416832,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 5.501728996933415,
+          "cpu_seconds": 1.05,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71974912,
+          "rss_bytes_last": 37666816,
+          "rss_bytes_maximum": 74878976,
+          "socket_count_maximum": 6,
+          "threads_first": 12,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 30,
+        "gen1_delta": 17,
+        "gen2_delta": 16,
+        "managed_allocated_bytes_delta": 197313024,
+        "managed_committed_bytes_maximum": 76050432,
+        "managed_heap_bytes_maximum": 71644024
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 3289487,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:28:17.384876+00:00",
+        "end_utc": "2026-11-21T10:28:37.512356+00:00",
+        "first_dispatch_utc": "2026-11-21T10:28:17.385070+00:00",
+        "last_dispatch_utc": "2026-11-21T10:28:37.510722+00:00",
+        "elapsed_ns": 20127480531,
+        "actual_dispatch_span_ns": 20125651701,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74883072,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 36749312,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 37736448,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:28:37.513510+00:00",
+        "end_utc": "2026-11-21T10:28:45.698792+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.048697389148652,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.048697389148652,
+            "request_payload_mib_per_second": 0.000491253502755655,
+            "response_messages_per_second": 8.048697389148652,
+            "response_payload_mib_per_second": 0.000491253502755655
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2565017,
+            "p90": 10996371,
+            "p95": 12606875,
+            "p99": 16516502,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.999014071931684,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.999014071931684,
+            "request_payload_mib_per_second": 0.4999383794957302,
+            "response_messages_per_second": 7.999014071931684,
+            "response_payload_mib_per_second": 0.4999383794957302
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3406964,
+            "p90": 11341342,
+            "p95": 14349725,
+            "p99": 19151882,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "unary-2-current",
+      "profile": "unary",
+      "replicate": 2,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-2-current/result.json",
+      "sha256": "3db76d44c9397427630161e2a6eb5d04fe4b24c70fd3bc90a8cfc6567c4e679b",
+      "plan_sha256": "f8868056fd319c3a2579718fee80f7440fab1d1988d5671dd1470967177b09cd",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.047715876548548,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.3079318325407647,
+          "cpu_seconds": 0.25,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21770240,
+          "rss_bytes_last": 21561344,
+          "rss_bytes_maximum": 21770240,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.7787872922554402,
+          "cpu_seconds": 0.34,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52670464,
+          "rss_bytes_last": 54128640,
+          "rss_bytes_maximum": 55189504,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 1.150980012635873,
+          "cpu_seconds": 0.22,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23429120,
+          "rss_bytes_last": 23437312,
+          "rss_bytes_maximum": 23437312,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 3.4529400379076187,
+          "cpu_seconds": 0.66,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71585792,
+          "rss_bytes_last": 37629952,
+          "rss_bytes_maximum": 74575872,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 30,
+        "gen1_delta": 17,
+        "gen2_delta": 16,
+        "managed_allocated_bytes_delta": 197258880,
+        "managed_committed_bytes_maximum": 81420288,
+        "managed_heap_bytes_maximum": 70665664
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 2239882,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:29:29.388489+00:00",
+        "end_utc": "2026-11-21T10:29:49.515965+00:00",
+        "first_dispatch_utc": "2026-11-21T10:29:29.388679+00:00",
+        "last_dispatch_utc": "2026-11-21T10:29:49.514427+00:00",
+        "elapsed_ns": 20127474993,
+        "actual_dispatch_span_ns": 20125748524,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74526720,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 36265984,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 37249024,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:29:49.516170+00:00",
+        "end_utc": "2026-11-21T10:29:57.610915+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.048699603717848,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.048699603717848,
+            "request_payload_mib_per_second": 0.000491253637922232,
+            "response_messages_per_second": 8.048699603717848,
+            "response_payload_mib_per_second": 0.000491253637922232
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2457697,
+            "p90": 14369720,
+            "p95": 26484784,
+            "p99": 41572814,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.999016272830701,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.999016272830701,
+            "request_payload_mib_per_second": 0.49993851705191883,
+            "response_messages_per_second": 7.999016272830701,
+            "response_payload_mib_per_second": 0.49993851705191883
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3304578,
+            "p90": 14775232,
+            "p95": 24426033,
+            "p99": 36922452,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "unary-2-candidate",
+      "profile": "unary",
+      "replicate": 2,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/unary-2-candidate/result.json",
+      "sha256": "05ed0ee518d59ef6c2396586b2b8562c2174120f712f62b1989fc9c79d01419e",
+      "plan_sha256": "41f0a712950785b4ff45a50bad4865d9be4d139c34bc4dbf4d783b50ac235524",
+      "comparison_identity_sha256": "b1b8e613b3d9665a8859f90aa2e8371370e3cdc00f121ba98dc41cd43ea6fc74",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.048243075244176,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 0.9435347499759765,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21770240,
+          "rss_bytes_last": 21561344,
+          "rss_bytes_maximum": 21770240,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 1.6249765138475152,
+          "cpu_seconds": 0.31,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52727808,
+          "rss_bytes_last": 53514240,
+          "rss_bytes_maximum": 54943744,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.7862789583133138,
+          "cpu_seconds": 0.15,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23412736,
+          "rss_bytes_last": 23420928,
+          "rss_bytes_maximum": 23420928,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 5.2942783193096465,
+          "cpu_seconds": 1.01,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 72187904,
+          "rss_bytes_last": 38010880,
+          "rss_bytes_maximum": 75071488,
+          "socket_count_maximum": 6,
+          "threads_first": 11,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 30,
+        "gen1_delta": 17,
+        "gen2_delta": 16,
+        "managed_allocated_bytes_delta": 197309832,
+        "managed_committed_bytes_maximum": 81420288,
+        "managed_heap_bytes_maximum": 70680032
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:30:05.145797+00:00",
+        "end_utc": "2026-11-21T10:30:25.272611+00:00",
+        "first_dispatch_utc": "2026-11-21T10:30:05.145961+00:00",
+        "last_dispatch_utc": "2026-11-21T10:30:25.271094+00:00",
+        "elapsed_ns": 20126813788,
+        "actual_dispatch_span_ns": 20125132286,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 1,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 74964992,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 36610048,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 37597184,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:30:25.273726+00:00",
+        "end_utc": "2026-11-21T10:30:33.398230+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 64,
+          "offered": 162,
+          "dispatched": 162,
+          "admitted": 162,
+          "calls": 162,
+          "business_successful_calls": 162,
+          "business_successful_per_second": 8.048964019162714,
+          "outcomes": {
+            "ok": 162
+          },
+          "wire_statuses": {
+            "GrpcOK": 162
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 11016,
+            "request_messages": 162,
+            "request_payload_bytes": 10368,
+            "response_encoded_bytes": 11016,
+            "response_messages": 162,
+            "response_payload_bytes": 10368
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 8.048964019162714,
+            "request_payload_mib_per_second": 0.0004912697765602242,
+            "response_messages_per_second": 8.048964019162714,
+            "response_payload_mib_per_second": 0.0004912697765602242
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 2458079,
+            "p90": 5703067,
+            "p95": 7496425,
+            "p99": 13980063,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 162
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "scenario": "grpc-unary",
+          "protocol": "http2-tls",
+          "configured_messages": 1,
+          "configured_payload_bytes": 65536,
+          "offered": 161,
+          "dispatched": 161,
+          "admitted": 161,
+          "calls": 161,
+          "business_successful_calls": 161,
+          "business_successful_per_second": 7.999279056081463,
+          "outcomes": {
+            "ok": 161
+          },
+          "wire_statuses": {
+            "GrpcOK": 161
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 10552262,
+            "request_messages": 161,
+            "request_payload_bytes": 10551296,
+            "response_encoded_bytes": 10552262,
+            "response_messages": 161,
+            "response_payload_bytes": 10551296
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 7.999279056081463,
+            "request_payload_mib_per_second": 0.4999549410050914,
+            "response_messages_per_second": 7.999279056081463,
+            "response_payload_mib_per_second": 0.4999549410050914
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 3067877,
+            "p90": 5999833,
+            "p95": 7631030,
+            "p99": 10204512,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 161
+        }
+      ]
+    },
+    {
+      "label": "streams-0-current",
+      "profile": "streams",
+      "replicate": 0,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-0-current/result.json",
+      "sha256": "58a7bac33e322978cb7ba94d035cd283136b52b413e44baef02cc2df5fffaabf",
+      "plan_sha256": "3dfb577b307a2e64dee97b4a89b4985730afc717e4401f735e4d4150be10365b",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.030162508618652,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 0.9953004589685739,
+          "cpu_seconds": 0.19,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21762048,
+          "rss_bytes_last": 21553152,
+          "rss_bytes_maximum": 21762048,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 4.871733825477756,
+          "cpu_seconds": 0.93,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52285440,
+          "rss_bytes_last": 52817920,
+          "rss_bytes_maximum": 52817920,
+          "socket_count_maximum": 4,
+          "threads_first": 13,
+          "threads_last": 13,
+          "threads_maximum": 13
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.8381477549209043,
+          "cpu_seconds": 0.16,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23408640,
+          "rss_bytes_last": 23420928,
+          "rss_bytes_maximum": 23420928,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 6.967103212780017,
+          "cpu_seconds": 1.33,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71999488,
+          "rss_bytes_last": 54898688,
+          "rss_bytes_maximum": 72282112,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 101,
+        "gen1_delta": 2,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 202419024,
+        "managed_committed_bytes_maximum": 49762304,
+        "managed_heap_bytes_maximum": 45677880
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 548,
+        "nativeweave.server.payload.native.bytes": 5530393,
+        "nativeweave.server.requests.active": 2,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 1
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:30:41.676948+00:00",
+        "end_utc": "2026-11-21T10:31:01.826463+00:00",
+        "first_dispatch_utc": "2026-11-21T10:30:41.677124+00:00",
+        "last_dispatch_utc": "2026-11-21T10:31:01.802891+00:00",
+        "elapsed_ns": 20149515005,
+        "actual_dispatch_span_ns": 20125767905,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 4,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73711616,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53911552,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54915072,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 36,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:31:01.827576+00:00",
+        "end_utc": "2026-11-21T10:31:10.869402+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.310301512143021,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 169.92964838857668,
+            "request_payload_mib_per_second": 0.6637876890178777,
+            "response_messages_per_second": 5.310301512143021,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 20880503,
+            "p90": 83543220,
+            "p95": 114974807,
+            "p99": 161900622,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.359930498237816,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.5177759436101,
+            "request_payload_mib_per_second": 0.669991312279727,
+            "response_messages_per_second": 171.5177759436101,
+            "response_payload_mib_per_second": 0.669991312279727
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 39135264,
+            "p90": 133999737,
+            "p95": 182032045,
+            "p99": 289784124,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.359930498237816,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.359930498237816,
+            "request_payload_mib_per_second": 0.020937228508741468,
+            "response_messages_per_second": 171.5177759436101,
+            "response_payload_mib_per_second": 0.669991312279727
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 12813007,
+            "p90": 111170015,
+            "p95": 143082436,
+            "p99": 267572712,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    },
+    {
+      "label": "streams-0-candidate",
+      "profile": "streams",
+      "replicate": 0,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-0-candidate/result.json",
+      "sha256": "3d7c456f071be65faa0bc5d10e08155bf83121447b75556586de220225d80e93",
+      "plan_sha256": "dacffd9e5a9aac30f63304d1ccd4a858162902992d2cdb6b1402cc76f8a2ac11",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.03494812316642,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 0.9434062439258396,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21770240,
+          "rss_bytes_last": 21565440,
+          "rss_bytes_maximum": 21770240,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 5.083911425600358,
+          "cpu_seconds": 0.97,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 54435840,
+          "rss_bytes_last": 52633600,
+          "rss_bytes_maximum": 54435840,
+          "socket_count_maximum": 4,
+          "threads_first": 11,
+          "threads_last": 12,
+          "threads_maximum": 12
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.7337604119423198,
+          "cpu_seconds": 0.14,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23412736,
+          "rss_bytes_last": 23420928,
+          "rss_bytes_maximum": 23420928,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 9.067182233287236,
+          "cpu_seconds": 1.73,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71938048,
+          "rss_bytes_last": 54853632,
+          "rss_bytes_maximum": 72134656,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 97,
+        "gen1_delta": 2,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 197364072,
+        "managed_committed_bytes_maximum": 49766400,
+        "managed_heap_bytes_maximum": 45282224
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:31:18.617147+00:00",
+        "end_utc": "2026-11-21T10:31:38.760648+00:00",
+        "first_dispatch_utc": "2026-11-21T10:31:18.617472+00:00",
+        "last_dispatch_utc": "2026-11-21T10:31:38.743047+00:00",
+        "elapsed_ns": 20143501402,
+        "actual_dispatch_span_ns": 20125574919,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 3,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73887744,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53866496,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54870016,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:31:38.760624+00:00",
+        "end_utc": "2026-11-21T10:31:47.170436+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.311886839562869,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 169.98037886601182,
+            "request_payload_mib_per_second": 0.6639858549453587,
+            "response_messages_per_second": 5.311886839562869,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 8150720,
+            "p90": 20953895,
+            "p95": 45756862,
+            "p99": 81760493,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.3615306418017745,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.56898053765678,
+            "request_payload_mib_per_second": 0.6701913302252218,
+            "response_messages_per_second": 171.56898053765678,
+            "response_payload_mib_per_second": 0.6701913302252218
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 16518884,
+            "p90": 41456615,
+            "p95": 75647821,
+            "p99": 88266848,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.3615306418017745,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.3615306418017745,
+            "request_payload_mib_per_second": 0.02094347906953818,
+            "response_messages_per_second": 171.56898053765678,
+            "response_payload_mib_per_second": 0.6701913302252218
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 10153284,
+            "p90": 52299693,
+            "p95": 130852418,
+            "p99": 174548479,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    },
+    {
+      "label": "streams-1-current",
+      "profile": "streams",
+      "replicate": 1,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-1-current/result.json",
+      "sha256": "88619dca2d2d580fbdf1030af547e3b0e2c2c24d48a037b265161a9a3a83c6b9",
+      "plan_sha256": "76d9c434bd2d60a5e92be2d521812b293e49fd1f339fd49c3226261b350dfec8",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.047019564590443,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 0.9431117346842947,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21757952,
+          "rss_bytes_last": 21549056,
+          "rss_bytes_maximum": 21757952,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 5.0299292516495715,
+          "cpu_seconds": 0.96,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 52510720,
+          "rss_bytes_last": 52912128,
+          "rss_bytes_maximum": 52912128,
+          "socket_count_maximum": 4,
+          "threads_first": 12,
+          "threads_last": 12,
+          "threads_maximum": 12
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.6811362528275462,
+          "cpu_seconds": 0.13,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23412736,
+          "rss_bytes_last": 23416832,
+          "rss_bytes_maximum": 23416832,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 6.8113625282754615,
+          "cpu_seconds": 1.3,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71897088,
+          "rss_bytes_last": 55058432,
+          "rss_bytes_maximum": 72339456,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 100,
+        "gen1_delta": 2,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 201604432,
+        "managed_committed_bytes_maximum": 49762304,
+        "managed_heap_bytes_maximum": 45511944
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 3289487,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:32:32.189962+00:00",
+        "end_utc": "2026-11-21T10:32:52.318311+00:00",
+        "first_dispatch_utc": "2026-11-21T10:32:32.190164+00:00",
+        "last_dispatch_utc": "2026-11-21T10:32:52.315890+00:00",
+        "elapsed_ns": 20128348364,
+        "actual_dispatch_span_ns": 20125725910,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 4,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73588736,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53760000,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54763520,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 13,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 35,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:32:52.319450+00:00",
+        "end_utc": "2026-11-21T10:33:01.063327+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.3158857381150995,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 170.10834361968318,
+            "request_payload_mib_per_second": 0.6644857172643874,
+            "response_messages_per_second": 5.3158857381150995,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 12278407,
+            "p90": 60215871,
+            "p95": 83114816,
+            "p99": 115815148,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.365566913237671,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.69814122360546,
+            "request_payload_mib_per_second": 0.6706958641547088,
+            "response_messages_per_second": 171.69814122360546,
+            "response_payload_mib_per_second": 0.6706958641547088
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 44159359,
+            "p90": 109544906,
+            "p95": 134090383,
+            "p99": 256791595,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.365566913237671,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.365566913237671,
+            "request_payload_mib_per_second": 0.02095924575483465,
+            "response_messages_per_second": 171.69814122360546,
+            "response_payload_mib_per_second": 0.6706958641547088
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 22984994,
+            "p90": 78593322,
+            "p95": 106342037,
+            "p99": 164731012,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    },
+    {
+      "label": "streams-1-candidate",
+      "profile": "streams",
+      "replicate": 1,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-1-candidate/result.json",
+      "sha256": "e650864633db4e8c31fc55e96396dae9623afa69252fdb2629dd2c2cebc47a29",
+      "plan_sha256": "f6ead7980bf15549b3677ab0a44ee2f0799231876345ccd429c304bbb13419ee",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.042935104641952,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.1001302312898615,
+          "cpu_seconds": 0.21,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21766144,
+          "rss_bytes_last": 21557248,
+          "rss_bytes_maximum": 21766144,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 5.186328233223634,
+          "cpu_seconds": 0.99,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 54366208,
+          "rss_bytes_last": 52666368,
+          "rss_bytes_maximum": 54366208,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 12,
+          "threads_maximum": 12
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.9429687696770243,
+          "cpu_seconds": 0.18,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23404544,
+          "rss_bytes_last": 23412736,
+          "rss_bytes_maximum": 23412736,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 9.115364773544568,
+          "cpu_seconds": 1.74,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71929856,
+          "rss_bytes_last": 54689792,
+          "rss_bytes_maximum": 72065024,
+          "socket_count_maximum": 6,
+          "threads_first": 12,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 96,
+        "gen1_delta": 1,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 195409192,
+        "managed_committed_bytes_maximum": 49766400,
+        "managed_heap_bytes_maximum": 45519320
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:31:55.003942+00:00",
+        "end_utc": "2026-11-21T10:32:15.137415+00:00",
+        "first_dispatch_utc": "2026-11-21T10:31:55.004111+00:00",
+        "last_dispatch_utc": "2026-11-21T10:32:15.129520+00:00",
+        "elapsed_ns": 20133472952,
+        "actual_dispatch_span_ns": 20125409079,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 2,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73691136,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53702656,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54706176,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 35,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:32:15.138540+00:00",
+        "end_utc": "2026-11-21T10:32:23.941610+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.314532681723494,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 170.06504581515182,
+            "request_payload_mib_per_second": 0.6643165852154368,
+            "response_messages_per_second": 5.314532681723494,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 6842170,
+            "p90": 18042513,
+            "p95": 31505903,
+            "p99": 57051082,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.3642012114592275,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.65443876669528,
+            "request_payload_mib_per_second": 0.6705251514324034,
+            "response_messages_per_second": 171.65443876669528,
+            "response_payload_mib_per_second": 0.6705251514324034
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 16918750,
+            "p90": 33249320,
+            "p95": 36522743,
+            "p99": 52933048,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.3642012114592275,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.3642012114592275,
+            "request_payload_mib_per_second": 0.020953910982262607,
+            "response_messages_per_second": 171.65443876669528,
+            "response_payload_mib_per_second": 0.6705251514324034
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 11773598,
+            "p90": 28065048,
+            "p95": 34310610,
+            "p99": 192588790,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    },
+    {
+      "label": "streams-2-current",
+      "profile": "streams",
+      "replicate": 2,
+      "role": "current",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-2-current/result.json",
+      "sha256": "539bd1679ee9ab5f062f83986884a4cbffca7fa8934efc444e8a395cca17c0d6",
+      "plan_sha256": "76fff2acd5745a033a6a761ae7fea1137934e1f81bcdbe20c8aaa255601989cc",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.009268791287766,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 1.0949702248176012,
+          "cpu_seconds": 0.22,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21766144,
+          "rss_bytes_last": 21557248,
+          "rss_bytes_maximum": 21766144,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 5.474851124088008,
+          "cpu_seconds": 1.1,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 54218752,
+          "rss_bytes_last": 52432896,
+          "rss_bytes_maximum": 54218752,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 11,
+          "threads_maximum": 11
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.8461133555408739,
+          "cpu_seconds": 0.17,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23400448,
+          "rss_bytes_last": 23412736,
+          "rss_bytes_maximum": 23412736,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 7.6647915737232095,
+          "cpu_seconds": 1.54,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 71876608,
+          "rss_bytes_last": 54919168,
+          "rss_bytes_maximum": 72396800,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 13,
+          "threads_maximum": 13
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 100,
+        "gen1_delta": 2,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 202431856,
+        "managed_committed_bytes_maximum": 49762304,
+        "managed_heap_bytes_maximum": 45525488
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 2240906,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:33:09.165877+00:00",
+        "end_utc": "2026-11-21T10:33:29.341689+00:00",
+        "first_dispatch_utc": "2026-11-21T10:33:09.166541+00:00",
+        "last_dispatch_utc": "2026-11-21T10:33:29.291823+00:00",
+        "elapsed_ns": 20175812163,
+        "actual_dispatch_span_ns": 20125282327,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 4,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73568256,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53932032,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54935552,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 12,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 35,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:33:29.342730+00:00",
+        "end_utc": "2026-11-21T10:33:38.291543+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.303380063986968,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 169.708162047583,
+            "request_payload_mib_per_second": 0.662922507998371,
+            "response_messages_per_second": 5.303380063986968,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 15341772,
+            "p90": 55414894,
+            "p95": 69784376,
+            "p99": 139696556,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.352944363650399,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.29421963681276,
+            "request_payload_mib_per_second": 0.6691180454562998,
+            "response_messages_per_second": 171.29421963681276,
+            "response_payload_mib_per_second": 0.6691180454562998
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 45291006,
+            "p90": 139832116,
+            "p95": 160653928,
+            "p99": 271723930,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.352944363650399,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.352944363650399,
+            "request_payload_mib_per_second": 0.02090993892050937,
+            "response_messages_per_second": 171.29421963681276,
+            "response_payload_mib_per_second": 0.6691180454562998
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 21566530,
+            "p90": 76663520,
+            "p95": 94912322,
+            "p99": 178615140,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    },
+    {
+      "label": "streams-2-candidate",
+      "profile": "streams",
+      "replicate": 2,
+      "role": "candidate",
+      "evidence_file": "binding-retry-ablation-001/cells/streams-2-candidate/result.json",
+      "sha256": "3eaa0837d259ee8363e0a13b9e320bfb7c9da0090b49d3ca5f50843843c58f35",
+      "plan_sha256": "bf36394f7b9b4c9361f70720564b4e8d4b6944edeed0bd167396fca5d79160fd",
+      "comparison_identity_sha256": "5e9b3f403400a0a7c13e9d2b1d691e349fcb158f5334e18bbc2fa900749aaba9",
+      "valid": true,
+      "service_standard_met": true,
+      "invalid_reasons": [],
+      "offered": 323,
+      "actually_dispatched": 323,
+      "successful": 323,
+      "success_per_second": 16.044252989568974,
+      "outcome_counts": {
+        "ok": 323
+      },
+      "resources": {
+        "adapter": {
+          "cpu_percent_one_core": 0.995330069675336,
+          "cpu_seconds": 0.19,
+          "fd_count_maximum": 17,
+          "rss_bytes_first": 21766144,
+          "rss_bytes_last": 21557248,
+          "rss_bytes_maximum": 21766144,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "client": {
+          "cpu_percent_one_core": 5.290965107221523,
+          "cpu_seconds": 1.01,
+          "fd_count_maximum": 11,
+          "rss_bytes_first": 54439936,
+          "rss_bytes_last": 52744192,
+          "rss_bytes_maximum": 54439936,
+          "socket_count_maximum": 4,
+          "threads_first": 10,
+          "threads_last": 12,
+          "threads_maximum": 12
+        },
+        "controller": {
+          "cpu_percent_one_core": 0.7334011039713003,
+          "cpu_seconds": 0.14,
+          "fd_count_maximum": 13,
+          "rss_bytes_first": 23404544,
+          "rss_bytes_last": 23412736,
+          "rss_bytes_maximum": 23412736,
+          "socket_count_maximum": 2,
+          "threads_first": 1,
+          "threads_last": 1,
+          "threads_maximum": 1
+        },
+        "server": {
+          "cpu_percent_one_core": 9.062742213359638,
+          "cpu_seconds": 1.73,
+          "fd_count_maximum": 15,
+          "rss_bytes_first": 72040448,
+          "rss_bytes_last": 54980608,
+          "rss_bytes_maximum": 72286208,
+          "socket_count_maximum": 6,
+          "threads_first": 10,
+          "threads_last": 12,
+          "threads_maximum": 12
+        }
+      },
+      "managed_gc": {
+        "gen0_delta": 96,
+        "gen1_delta": 1,
+        "gen2_delta": 1,
+        "managed_allocated_bytes_delta": 196134296,
+        "managed_committed_bytes_maximum": 49766400,
+        "managed_heap_bytes_maximum": 45518696
+      },
+      "native_gauges_maximum": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 274,
+        "nativeweave.server.payload.native.bytes": 3289487,
+        "nativeweave.server.requests.active": 1,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "after_idle_gauges": {
+        "nativeweave.server.callbacks.failed": 0,
+        "nativeweave.server.diagnostics.dropped": 0,
+        "nativeweave.server.diagnostics.queue.bytes": 0,
+        "nativeweave.server.diagnostics.queue.entries": 0,
+        "nativeweave.server.payload.managed.bytes": 0,
+        "nativeweave.server.payload.native.bytes": 0,
+        "nativeweave.server.requests.active": 0,
+        "nativeweave.server.requests.queued": 0,
+        "nativeweave.server.requests.rejected": 0,
+        "nativeweave.server.requests.retiring": 0
+      },
+      "measurement_window": {
+        "start_utc": "2026-11-21T10:33:46.077639+00:00",
+        "end_utc": "2026-11-21T10:34:06.209458+00:00",
+        "first_dispatch_utc": "2026-11-21T10:33:46.077837+00:00",
+        "last_dispatch_utc": "2026-11-21T10:34:06.203056+00:00",
+        "elapsed_ns": 20131819176,
+        "actual_dispatch_span_ns": 20125219248,
+        "scheduled_active_ns": 20125000000
+      },
+      "maximum_client_calls_in_progress": 3,
+      "retirement": {
+        "status": "passed",
+        "errors_count": 0,
+        "closed": {
+          "pending_requests": 0,
+          "retained_managed_bytes": 0,
+          "retained_native_bytes": 0,
+          "state": "Disposed",
+          "status": "Completed"
+        },
+        "loaded_server_native_sha256": "8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0",
+        "after_idle_resources": {
+          "counters": {
+            "all_thread_stacks_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "child_process_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "kernel_socket_bytes": {
+              "value": null,
+              "unit": "bytes",
+              "availability": "unknown"
+            },
+            "main_thread_stack_bytes": {
+              "value": 135168,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "mapped_code_bytes": {
+              "value": 3174400,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "peak_rss_bytes": {
+              "value": 73945088,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "private_working_set_bytes": {
+              "value": 53993472,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "rss_bytes": {
+              "value": 54996992,
+              "unit": "bytes",
+              "availability": "measured"
+            },
+            "threads": {
+              "value": 11,
+              "unit": "count",
+              "availability": "measured"
+            }
+          },
+          "fd_count": 11,
+          "socket_count": 2,
+          "descriptor_scan_misses": 0
+        },
+        "resource_sample_count": 34,
+        "idle_owner_and_request_gauges_receded": true
+      },
+      "recovery": {
+        "status": "passed",
+        "calls": 32,
+        "start_utc": "2026-11-21T10:34:06.210595+00:00",
+        "end_utc": "2026-11-21T10:34:14.519668+00:00",
+        "failures": []
+      },
+      "scenarios": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "scenario": "grpc-client",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 107,
+          "dispatched": 107,
+          "admitted": 107,
+          "calls": 107,
+          "business_successful_calls": 107,
+          "business_successful_per_second": 5.314969256606441,
+          "outcomes": {
+            "ok": 107
+          },
+          "wire_statuses": {
+            "GrpcOK": 107
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14048458,
+            "request_messages": 3424,
+            "request_payload_bytes": 14024704,
+            "response_encoded_bytes": 7704,
+            "response_messages": 107,
+            "response_payload_bytes": 0
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 170.0790162114061,
+            "request_payload_mib_per_second": 0.6643711570758051,
+            "response_messages_per_second": 5.314969256606441,
+            "response_payload_mib_per_second": 0.0
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 7506707,
+            "p90": 18409111,
+            "p95": 22383929,
+            "p99": 71932751,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 107
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "scenario": "grpc-duplex",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.364641866481267,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 14179752,
+            "request_messages": 3456,
+            "request_payload_bytes": 14155776,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 171.66853972740054,
+            "request_payload_mib_per_second": 0.6705802333101584,
+            "response_messages_per_second": 171.66853972740054,
+            "response_payload_mib_per_second": 0.6705802333101584
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 18749387,
+            "p90": 51477444,
+            "p95": 61020379,
+            "p99": 177234114,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "scenario": "grpc-server",
+          "protocol": "http2-tls",
+          "configured_messages": 32,
+          "configured_payload_bytes": 4096,
+          "offered": 108,
+          "dispatched": 108,
+          "admitted": 108,
+          "calls": 108,
+          "business_successful_calls": 108,
+          "business_successful_per_second": 5.364641866481267,
+          "outcomes": {
+            "ok": 108
+          },
+          "wire_statuses": {
+            "GrpcOK": 108
+          },
+          "correctness_failures": 0,
+          "intentional_cancel": 0,
+          "intentional_deadline": 0,
+          "successful_business_totals": {
+            "request_encoded_bytes": 442908,
+            "request_messages": 108,
+            "request_payload_bytes": 442368,
+            "response_encoded_bytes": 14179752,
+            "response_messages": 3456,
+            "response_payload_bytes": 14155776
+          },
+          "successful_business_rates": {
+            "request_messages_per_second": 5.364641866481267,
+            "request_payload_mib_per_second": 0.02095563229094245,
+            "response_messages_per_second": 171.66853972740054,
+            "response_payload_mib_per_second": 0.6705802333101584
+          },
+          "arrival_mean_ns": null,
+          "arrival_mean_unavailable_reason": "Original result metadata records exact percentiles/counts but no latency sum or mean. Raw request records were not re-read; histogram midpoints were not used.",
+          "arrival_success_percentiles_ns": {
+            "p50": 10459426,
+            "p90": 43614987,
+            "p95": 76541756,
+            "p99": 195697666,
+            "p99.9": null
+          },
+          "arrival_success_histogram_maximum_ns": 60000000000,
+          "arrival_success_count": 108
+        }
+      ]
+    }
+  ],
+  "descriptive_pairs": [
+    {
+      "profile": "unary",
+      "replicate": 0,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 197297912,
+          "candidate": 197334864,
+          "candidate_minus_current": 36952,
+          "candidate_minus_current_percent": 0.01872903753791373
+        },
+        "cpu_percent_one_core": {
+          "current": 3.5603563516021266,
+          "candidate": 5.486652034289275,
+          "candidate_minus_current": 1.9262956826871482,
+          "candidate_minus_current_percent": 54.104013544046886
+        },
+        "rss_bytes_maximum": {
+          "current": 74760192,
+          "candidate": 74903552,
+          "candidate_minus_current": 143360,
+          "candidate_minus_current_percent": 0.19175980714442253
+        },
+        "rss_bytes_last": {
+          "current": 37867520,
+          "candidate": 38047744,
+          "candidate_minus_current": 180224,
+          "candidate_minus_current_percent": 0.4759329367225527
+        },
+        "after_idle_rss_bytes": {
+          "current": 37974016,
+          "candidate": 38150144,
+          "candidate_minus_current": 176128,
+          "candidate_minus_current_percent": 0.46381188652788263
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "current_arrival_p99_ns": 33030766,
+          "candidate_arrival_p99_ns": 18136317,
+          "candidate_minus_current_arrival_p99_ns": -14894449,
+          "candidate_minus_current_arrival_p99_percent": -45.092653921498524,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "current_arrival_p99_ns": 32514866,
+          "candidate_arrival_p99_ns": 20407152,
+          "candidate_minus_current_arrival_p99_ns": -12107714,
+          "candidate_minus_current_arrival_p99_percent": -37.23747162298009,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    },
+    {
+      "profile": "unary",
+      "replicate": 1,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 194853816,
+          "candidate": 197313024,
+          "candidate_minus_current": 2459208,
+          "candidate_minus_current_percent": 1.262078439356815
+        },
+        "cpu_percent_one_core": {
+          "current": 3.562421932064204,
+          "candidate": 5.501728996933415,
+          "candidate_minus_current": 1.9393070648692108,
+          "candidate_minus_current_percent": 54.437882481413475
+        },
+        "rss_bytes_maximum": {
+          "current": 74518528,
+          "candidate": 74878976,
+          "candidate_minus_current": 360448,
+          "candidate_minus_current_percent": 0.4837025229483867
+        },
+        "rss_bytes_last": {
+          "current": 37629952,
+          "candidate": 37666816,
+          "candidate_minus_current": 36864,
+          "candidate_minus_current_percent": 0.09796451507565038
+        },
+        "after_idle_rss_bytes": {
+          "current": 36814848,
+          "candidate": 37736448,
+          "candidate_minus_current": 921600,
+          "candidate_minus_current_percent": 2.5033377837116153
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "current_arrival_p99_ns": 41817799,
+          "candidate_arrival_p99_ns": 16516502,
+          "candidate_minus_current_arrival_p99_ns": -25301297,
+          "candidate_minus_current_arrival_p99_percent": -60.50365539324535,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "current_arrival_p99_ns": 39467495,
+          "candidate_arrival_p99_ns": 19151882,
+          "candidate_minus_current_arrival_p99_ns": -20315613,
+          "candidate_minus_current_arrival_p99_percent": -51.4742904255768,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    },
+    {
+      "profile": "unary",
+      "replicate": 2,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 197258880,
+          "candidate": 197309832,
+          "candidate_minus_current": 50952,
+          "candidate_minus_current_percent": 0.02583001586544545
+        },
+        "cpu_percent_one_core": {
+          "current": 3.4529400379076187,
+          "candidate": 5.2942783193096465,
+          "candidate_minus_current": 1.8413382814020278,
+          "candidate_minus_current_percent": 53.32667990718499
+        },
+        "rss_bytes_maximum": {
+          "current": 74575872,
+          "candidate": 75071488,
+          "candidate_minus_current": 495616,
+          "candidate_minus_current_percent": 0.6645795573131213
+        },
+        "rss_bytes_last": {
+          "current": 37629952,
+          "candidate": 38010880,
+          "candidate_minus_current": 380928,
+          "candidate_minus_current_percent": 1.012299989115054
+        },
+        "after_idle_rss_bytes": {
+          "current": 37249024,
+          "candidate": 37597184,
+          "candidate_minus_current": 348160,
+          "candidate_minus_current_percent": 0.9346822080492633
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-unary/http2-tls/64",
+          "current_arrival_p99_ns": 41572814,
+          "candidate_arrival_p99_ns": 13980063,
+          "candidate_minus_current_arrival_p99_ns": -27592751,
+          "candidate_minus_current_arrival_p99_percent": -66.37210317300148,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-unary/http2-tls/65536",
+          "current_arrival_p99_ns": 36922452,
+          "candidate_arrival_p99_ns": 10204512,
+          "candidate_minus_current_arrival_p99_ns": -26717940,
+          "candidate_minus_current_arrival_p99_percent": -72.36231223213453,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    },
+    {
+      "profile": "streams",
+      "replicate": 0,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 202419024,
+          "candidate": 197364072,
+          "candidate_minus_current": -5054952,
+          "candidate_minus_current_percent": -2.49727120510175
+        },
+        "cpu_percent_one_core": {
+          "current": 6.967103212780017,
+          "candidate": 9.067182233287236,
+          "candidate_minus_current": 2.100079020507218,
+          "candidate_minus_current_percent": 30.14278612458281
+        },
+        "rss_bytes_maximum": {
+          "current": 72282112,
+          "candidate": 72134656,
+          "candidate_minus_current": -147456,
+          "candidate_minus_current_percent": -0.20400068000226668
+        },
+        "rss_bytes_last": {
+          "current": 54898688,
+          "candidate": 54853632,
+          "candidate_minus_current": -45056,
+          "candidate_minus_current_percent": -0.08207117809445647
+        },
+        "after_idle_rss_bytes": {
+          "current": 54915072,
+          "candidate": 54870016,
+          "candidate_minus_current": -45056,
+          "candidate_minus_current_percent": -0.08204669202655329
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "current_arrival_p99_ns": 161900622,
+          "candidate_arrival_p99_ns": 81760493,
+          "candidate_minus_current_arrival_p99_ns": -80140129,
+          "candidate_minus_current_arrival_p99_percent": -49.49958067486609,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "current_arrival_p99_ns": 289784124,
+          "candidate_arrival_p99_ns": 88266848,
+          "candidate_minus_current_arrival_p99_ns": -201517276,
+          "candidate_minus_current_arrival_p99_percent": -69.54048179671844,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "current_arrival_p99_ns": 267572712,
+          "candidate_arrival_p99_ns": 174548479,
+          "candidate_minus_current_arrival_p99_ns": -93024233,
+          "candidate_minus_current_arrival_p99_percent": -34.765964101750406,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    },
+    {
+      "profile": "streams",
+      "replicate": 1,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 201604432,
+          "candidate": 195409192,
+          "candidate_minus_current": -6195240,
+          "candidate_minus_current_percent": -3.072968157763516
+        },
+        "cpu_percent_one_core": {
+          "current": 6.8113625282754615,
+          "candidate": 9.115364773544568,
+          "candidate_minus_current": 2.304002245269107,
+          "candidate_minus_current_percent": 33.82586429227174
+        },
+        "rss_bytes_maximum": {
+          "current": 72339456,
+          "candidate": 72065024,
+          "candidate_minus_current": -274432,
+          "candidate_minus_current_percent": -0.379366966762924
+        },
+        "rss_bytes_last": {
+          "current": 55058432,
+          "candidate": 54689792,
+          "candidate_minus_current": -368640,
+          "candidate_minus_current_percent": -0.6695432227347121
+        },
+        "after_idle_rss_bytes": {
+          "current": 54763520,
+          "candidate": 54706176,
+          "candidate_minus_current": -57344,
+          "candidate_minus_current_percent": -0.10471204188481675
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "current_arrival_p99_ns": 115815148,
+          "candidate_arrival_p99_ns": 57051082,
+          "candidate_minus_current_arrival_p99_ns": -58764066,
+          "candidate_minus_current_arrival_p99_percent": -50.73953365754884,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "current_arrival_p99_ns": 256791595,
+          "candidate_arrival_p99_ns": 52933048,
+          "candidate_minus_current_arrival_p99_ns": -203858547,
+          "candidate_minus_current_arrival_p99_percent": -79.38676770164537,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "current_arrival_p99_ns": 164731012,
+          "candidate_arrival_p99_ns": 192588790,
+          "candidate_minus_current_arrival_p99_ns": 27857778,
+          "candidate_minus_current_arrival_p99_percent": 16.911070758188508,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    },
+    {
+      "profile": "streams",
+      "replicate": 2,
+      "metrics": {
+        "managed_allocated_bytes_delta": {
+          "current": 202431856,
+          "candidate": 196134296,
+          "candidate_minus_current": -6297560,
+          "candidate_minus_current_percent": -3.110953050788607
+        },
+        "cpu_percent_one_core": {
+          "current": 7.6647915737232095,
+          "candidate": 9.062742213359638,
+          "candidate_minus_current": 1.397950639636428,
+          "candidate_minus_current_percent": 18.23859952603208
+        },
+        "rss_bytes_maximum": {
+          "current": 72396800,
+          "candidate": 72286208,
+          "candidate_minus_current": -110592,
+          "candidate_minus_current_percent": -0.15275813295615276
+        },
+        "rss_bytes_last": {
+          "current": 54919168,
+          "candidate": 54980608,
+          "candidate_minus_current": 61440,
+          "candidate_minus_current_percent": 0.11187350835322196
+        },
+        "after_idle_rss_bytes": {
+          "current": 54935552,
+          "candidate": 54996992,
+          "candidate_minus_current": 61440,
+          "candidate_minus_current_percent": 0.11184014315538324
+        }
+      },
+      "cases": [
+        {
+          "case_key": "grpc-client/http2-tls",
+          "current_arrival_p99_ns": 139696556,
+          "candidate_arrival_p99_ns": 71932751,
+          "candidate_minus_current_arrival_p99_ns": -67763805,
+          "candidate_minus_current_arrival_p99_percent": -48.50785655732272,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-duplex/http2-tls",
+          "current_arrival_p99_ns": 271723930,
+          "candidate_arrival_p99_ns": 177234114,
+          "candidate_minus_current_arrival_p99_ns": -94489816,
+          "candidate_minus_current_arrival_p99_percent": -34.774197473148575,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        },
+        {
+          "case_key": "grpc-server/http2-tls",
+          "current_arrival_p99_ns": 178615140,
+          "candidate_arrival_p99_ns": 195697666,
+          "candidate_minus_current_arrival_p99_ns": 17082526,
+          "candidate_minus_current_arrival_p99_percent": 9.563873476794857,
+          "current_arrival_mean_ns": null,
+          "candidate_arrival_mean_ns": null
+        }
+      ]
+    }
+  ],
+  "arithmetic_note": "Percentages are 100 * (candidate - current) / current for the same replicate/profile. Descriptive differences only; no new statistical classification or A21 noise judgement. Percentiles were copied from original exact-sample metadata; no request samples or histogram bins were reprocessed.",
+  "recommendation": {
+    "decision": "Keep a5748 as a promising scheduling experiment, with explicit CPU and server-stream p99 tradeoffs. It is not yet a retained final product.",
+    "reasons": [
+      "Candidate p99 is lower in 13 of 15 paired case observations: all unary, client-stream and duplex pairs, and one server-stream pair. Two server-stream p99 pairs are higher.",
+      "Active sampled server CPU is higher in all six profile pairs. The absolute rise is about 1.40 to 2.30 percentage points of one core.",
+      "Allocation and RSS stay in the same order as the current buffer implementation. After-idle RSS is slightly higher in all three unary pairs and mixed for streams.",
+      "All twelve cells passed original correctness/service/recovery/drain predicates and all thirty-seven finite commands retired. This does not classify statistical significance or prove high-load/long-run behavior."
+    ],
+    "source_based_unmeasured_costs": [
+      "Only existing coordinator constructor arguments change from the 10 ms default to 1 ms; callback state machine, native sources and per-message buffer code are unchanged.",
+      "More frequent timer callbacks still scan the full fixed coordinator capacity. No timer-frequency, per-scan CPU or idle-CPU attribution is present in these result summaries; a scan-bound optimization remains a separate unimplemented hypothesis.",
+      "The Data.NativeHost argument also changes in this commit but this protocol workload does not execute database operations and grants no database evidence.",
+      "Both roles retain the same extra buffer-grant/reap/growth behavior from ea006; this comparison does not isolate or eliminate those inherited costs."
+    ],
+    "required_before_later_retention_claim": "Keep cleanup and original error/resource/tail criteria, decide whether the measured active-CPU cost warrants a separately reviewed small experiment, then use actual same-commit native/full producers and unchanged formal EA5 comparison plus capacity and long acceptance."
+  },
+  "unavailable": [
+    "Per-process mean arrival latency in the unchanged completed result schema",
+    "Observed maximum latency: histogram.maximum_ns is only the configured cap",
+    "Exact timer invocations, retry scan lengths, memcpy/FFI counts and native allocation totals",
+    "Separately computed idle-phase CPU in the original summaries",
+    "Actual simultaneous HTTP/2 streams: configured caps and client calls are different quantities",
+    "Database results, direct-Rust server or original EA5 server gap in this protocol ablation",
+    "Capacity and thirty-minute acceptance for this candidate"
+  ],
+  "commands": [
+    {
+      "label": "actual-prerequisites",
+      "evidence_file": "binding-retry-ablation-001/control/actual-prerequisites/receipt.json",
+      "sha256": "4c8d18c553747edb7edbf85028bf14633a2801a20be56137475cf2a69e2f7450",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:03.171537+00:00",
+      "ended_utc": "2026-11-21T10:27:03.280563+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "b9d0fe357cb3df6f51a5da7fe25c5808a99afe6f2bd06a2cafa52d64e35e0ee4"
+      }
+    },
+    {
+      "label": "unary-0-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-current-prepare/receipt.json",
+      "sha256": "c0286323ff4ca361a4ca3982cf870c4d834b455e89ef3b6717cce7979a0385a5",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:03.304375+00:00",
+      "ended_utc": "2026-11-21T10:27:04.921761+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "39312e9b4d399c16418314a700d1837395a03a6a169abb4003c7ed0e462103f4"
+      }
+    },
+    {
+      "label": "unary-0-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-current-run/receipt.json",
+      "sha256": "04c88fc28636d369f4ee9aef48a15d225189f0495990737d2d436f5aa09197b1",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:04.946012+00:00",
+      "ended_utc": "2026-11-21T10:27:39.272792+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "89dbf38ccebe4ffb1e3548632e0132ce91c6a962a90dc8cf04be889cb64fc973"
+      }
+    },
+    {
+      "label": "unary-0-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-current-original-result-predicates/receipt.json",
+      "sha256": "a3f0aa011b4f678f3759053b3eb5f472670f739f5b7aea7489a188a79691107b",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:39.309707+00:00",
+      "ended_utc": "2026-11-21T10:27:39.416457+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "84e6ec46c2b34110307ec556ba5ee184bcfa0e8a53f9629b9858637a3cfb8122"
+      }
+    },
+    {
+      "label": "unary-0-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-candidate-prepare/receipt.json",
+      "sha256": "e9453f44931ceac22d0cead11a28e31ae0af025e7ad5c4d07cd80026f2fdf51b",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:39.439717+00:00",
+      "ended_utc": "2026-11-21T10:27:40.754415+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "7267c6f886ea740d824870829005c0a9a4a1d37773d4bd65837139a8a0b2a327"
+      }
+    },
+    {
+      "label": "unary-0-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-candidate-run/receipt.json",
+      "sha256": "f5a017666c7f19840107905ddfd6c162477c4dae454ad842d28f7a1e98d231fe",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:27:40.778792+00:00",
+      "ended_utc": "2026-11-21T10:28:15.083469+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "88268c14ae55df1bae88ec483250722fe78d269522a95915b818619a26c3f734"
+      }
+    },
+    {
+      "label": "unary-0-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-0-candidate-original-result-predicates/receipt.json",
+      "sha256": "a545fe0b0b2aa601612a6e0eefe5bc544ecb620d68b8b3579dcb8c2b33dd1ee9",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:15.130031+00:00",
+      "ended_utc": "2026-11-21T10:28:15.236418+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "3285aff2f619ba43c7532214183c3a329a801b90db094706ba9186254d46dca2"
+      }
+    },
+    {
+      "label": "unary-1-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-candidate-prepare/receipt.json",
+      "sha256": "137c58bb628babde5c790060ec5738f29e2b4074824802403c4a19728fe1aa12",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:15.259739+00:00",
+      "ended_utc": "2026-11-21T10:28:16.586788+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "d43a06e7e14c79fc02919fe802decd75b1391cad8a8bc3a75f16ebdd59043f13"
+      }
+    },
+    {
+      "label": "unary-1-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-candidate-run/receipt.json",
+      "sha256": "504e958e3b40b41e6a2dc5a74aadc3e9b10236da58c7f0e15acae37ef935de6a",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:16.613315+00:00",
+      "ended_utc": "2026-11-21T10:28:50.892621+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "874c885c4c747883c5effb7aae0f3026344521285677ea5dafb454790d57adc4"
+      }
+    },
+    {
+      "label": "unary-1-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-candidate-original-result-predicates/receipt.json",
+      "sha256": "ed45eb5496627db0a9dd3326ac1a36fbc9fffe96ee62aa95fb24d1e526494c27",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:50.934534+00:00",
+      "ended_utc": "2026-11-21T10:28:51.041488+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "afc60a72a487715ab84c1da97352f52615bcf6a0c98e2b89402e63940eae4acb"
+      }
+    },
+    {
+      "label": "unary-1-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-current-prepare/receipt.json",
+      "sha256": "0095d469ecbb960f8ab38f430dc5815318796bc7ee61b0a3659fc53a8c0ce772",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:51.065934+00:00",
+      "ended_utc": "2026-11-21T10:28:52.383219+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "c8b3e09566d9fc20883c48791d55d541c9250a8f8cb52831784bf95cd55d3d4b"
+      }
+    },
+    {
+      "label": "unary-1-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-current-run/receipt.json",
+      "sha256": "e5ced851719ea89e8847caddb05566244b118c00b294b540c762263f6f29ed2f",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:28:52.407364+00:00",
+      "ended_utc": "2026-11-21T10:29:26.957972+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "92d4f852f8dc2d1cc9a988d9c13bd83a749c0c57bd8c8eaee2d08b61a4214b18"
+      }
+    },
+    {
+      "label": "unary-1-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-1-current-original-result-predicates/receipt.json",
+      "sha256": "7d0b06a838ff5184565369a0941dc93b1b184e040348614abee1f127761e88c8",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:29:27.006233+00:00",
+      "ended_utc": "2026-11-21T10:29:27.112792+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "5b1aeb2cfe69e9eebfad4052de13a3dda599b93b92dc0583f716d5adbffd6a70"
+      }
+    },
+    {
+      "label": "unary-2-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-current-prepare/receipt.json",
+      "sha256": "a25ef311c039b60f53ed5c9b49da86fba159e06900af223c1ee7e03453078cb8",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:29:27.136635+00:00",
+      "ended_utc": "2026-11-21T10:29:28.475326+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8b6ea7f34109a5522dc9cfe925099352940b20f34e061529ce8f6266ff247c33"
+      }
+    },
+    {
+      "label": "unary-2-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-current-run/receipt.json",
+      "sha256": "f2ad593e46e3082b2307150fa64fe9ba2248a83a96b70bf87fe8a1d1bc4ebb8e",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:29:28.513427+00:00",
+      "ended_utc": "2026-11-21T10:30:02.781067+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "9fb00b4ca97fe48a2a515d4a401b1eb2d64e476fc2812d52fe278a7dee1ff938"
+      }
+    },
+    {
+      "label": "unary-2-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-current-original-result-predicates/receipt.json",
+      "sha256": "0c8a1bade6825d02947b0cb7b4b977ac1d4b0eb6207e33e1d50a56b347bc80a3",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:02.812381+00:00",
+      "ended_utc": "2026-11-21T10:30:02.924656+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "ab46063e68b7777ee09f05bf880c2032b730858d3072c3a12e25b22a025fb774"
+      }
+    },
+    {
+      "label": "unary-2-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-candidate-prepare/receipt.json",
+      "sha256": "4037c3b5f599736bba5c4d168d3d1238ebf27672513b69a7166227e9dc6f4ff1",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:02.948366+00:00",
+      "ended_utc": "2026-11-21T10:30:04.262442+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "5fabb1632ed7a5821e27ed2fc6d172d73babf89b9921acb143ff65f0a25f2007"
+      }
+    },
+    {
+      "label": "unary-2-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-candidate-run/receipt.json",
+      "sha256": "0ec838a6c04786779455d1c8663a17cb2cd8006b73b4ef330122e49721f38efe",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:04.285473+00:00",
+      "ended_utc": "2026-11-21T10:30:38.525155+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "4fc93b0d7db156681bb18b09b8e6eddc1f902b9fdbc76c34ea768696a09204ee"
+      }
+    },
+    {
+      "label": "unary-2-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/unary-2-candidate-original-result-predicates/receipt.json",
+      "sha256": "a7d1904d99a99f8da147596832a1263e66b1fbc5107920f6fb4a303dbc65ba35",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:38.566782+00:00",
+      "ended_utc": "2026-11-21T10:30:38.680621+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "5d280c9b720e99331dfd2100dcee0ea9a47114bb88f7f432c0f714023c9dd935"
+      }
+    },
+    {
+      "label": "streams-0-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-current-prepare/receipt.json",
+      "sha256": "e10859c0f2e9a0c0d04e215945ea3a0420e6ca51d1b122bb5cddf0d90c469568",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:38.704884+00:00",
+      "ended_utc": "2026-11-21T10:30:40.024375+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "01b684dc7ab43cf62a0664f75088a76c1d83c71e2ae68712655663b0eef834c3"
+      }
+    },
+    {
+      "label": "streams-0-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-current-run/receipt.json",
+      "sha256": "e45572627fcbc492719d0dc2d99bd3e2e4ac87000c20577e87e6ec06f0073ab0",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:30:40.050901+00:00",
+      "ended_utc": "2026-11-21T10:31:16.019234+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "b8cf9677dca210c1b97a95dc69cec73618f4c5745bd69bf73ee07316ab0dff79"
+      }
+    },
+    {
+      "label": "streams-0-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-current-original-result-predicates/receipt.json",
+      "sha256": "ad609ec2d0e08edc333b069b6f10cbfdbea717d7df63dc1044428a76bf9ef7c6",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:16.061969+00:00",
+      "ended_utc": "2026-11-21T10:31:16.168577+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "d10eaa3d01c3dac30ff2ebf21f66267e2e75fbce3b6d915b55319b6afebd68fb"
+      }
+    },
+    {
+      "label": "streams-0-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-candidate-prepare/receipt.json",
+      "sha256": "904587e27374496a584ac105869461e7ef88ed6a47f742606f967dc8c92f30e8",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:16.195717+00:00",
+      "ended_utc": "2026-11-21T10:31:17.517191+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "ff03f26d4de98428c75de9b4dd6bfcdbd0ab011c15d8c1c745c7cd9fa1d23f01"
+      }
+    },
+    {
+      "label": "streams-0-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-candidate-run/receipt.json",
+      "sha256": "cf754e62d24208835a479ff67a6ee125289275dd2ef2e07f8f9f9729f678adda",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:17.542745+00:00",
+      "ended_utc": "2026-11-21T10:31:52.314488+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "44cc858db337246685f9179e92459c16f20bcc8888b9c95d81b677b543501fb1"
+      }
+    },
+    {
+      "label": "streams-0-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-0-candidate-original-result-predicates/receipt.json",
+      "sha256": "4dd22335caf4df0a06b6b111b3674d478a1e8f9afd3ca3a379f9352835cd928e",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:52.359055+00:00",
+      "ended_utc": "2026-11-21T10:31:52.468495+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8fc9f3ae77bae71c5239cd3ce129a3696b08a9cc737633762733dc521d34a7c8"
+      }
+    },
+    {
+      "label": "streams-1-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-candidate-prepare/receipt.json",
+      "sha256": "b52b02c22445b7664125ed0d23f1e048df6ea8df4cf2613717880cafea6ae2c3",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:52.492882+00:00",
+      "ended_utc": "2026-11-21T10:31:53.714352+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "f021cc99c83eba9b950a54f6e71dff5920bb869e3a56906386d88c0a204c481a"
+      }
+    },
+    {
+      "label": "streams-1-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-candidate-run/receipt.json",
+      "sha256": "8f45a0e9fc86de83a2bb15caaf2802f5a239d5e74dcbe2753d0dc94fecb69619",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:31:53.738759+00:00",
+      "ended_utc": "2026-11-21T10:32:29.060845+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "87b6f7110f860b119441b17241b12d26257b339e915b0a368241080535099aba"
+      }
+    },
+    {
+      "label": "streams-1-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-candidate-original-result-predicates/receipt.json",
+      "sha256": "8196c5e3b71ece1f40545069691d7ac4dca373732026d17246042fc6aa107f7a",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:32:29.098400+00:00",
+      "ended_utc": "2026-11-21T10:32:29.204346+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8a0894ae336c792a10159b156c78365a481899ffd6328540fcf1d3b9aed5058d"
+      }
+    },
+    {
+      "label": "streams-1-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-current-prepare/receipt.json",
+      "sha256": "3a0bb18ee229798fb3e73b00dc9a859cd06cf17ed49196cede82114bf56acdec",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:32:29.227485+00:00",
+      "ended_utc": "2026-11-21T10:32:30.551178+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "6fd65f29f0bf7c37bc881685a0a91a8d23492a3c14882334763056eaf0e941d4"
+      }
+    },
+    {
+      "label": "streams-1-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-current-run/receipt.json",
+      "sha256": "72d6bb7fd4f89fe1b19bcbedfc952ca8a42f9b31d46aa26569d0bc0f8226515a",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:32:30.578100+00:00",
+      "ended_utc": "2026-11-21T10:33:06.132700+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "056aba3f1c686d9c69f0360e4e69d93f3a0ee373bf2f43e67d2dd43e1646be1d"
+      }
+    },
+    {
+      "label": "streams-1-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-1-current-original-result-predicates/receipt.json",
+      "sha256": "018b46d7ad8684c2596c52da387a2c92a5a5d2ef7da736b1d18488779345a166",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:06.158839+00:00",
+      "ended_utc": "2026-11-21T10:33:06.268358+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "5e662c2b72dcd6c662bab5de8664bca7dd1fa3e41992319e5f93842f2c93bc79"
+      }
+    },
+    {
+      "label": "streams-2-current-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-current-prepare/receipt.json",
+      "sha256": "db8a4230c1db247173eceeae0d317ed11495cf9007fb75502d39cfbd61d4e831",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:06.291440+00:00",
+      "ended_utc": "2026-11-21T10:33:07.512620+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "ba2ca49df33db1cd07a917eb5a806e78df71eee1f3b19b59fab30b025271b9bc"
+      }
+    },
+    {
+      "label": "streams-2-current-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-current-run/receipt.json",
+      "sha256": "8b2fdc7a66682a488422999fc111e7675f215a802328ec39489f12b93fbd009f",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:07.541814+00:00",
+      "ended_utc": "2026-11-21T10:33:43.472439+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "09f6f69035917f704c8956cc36dc4a34ed0a7d193b89e6525e5f66bc8c8369f3"
+      }
+    },
+    {
+      "label": "streams-2-current-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-current-original-result-predicates/receipt.json",
+      "sha256": "c60a76f127575872da664483bc8d2c5790088cbdb8de87176db1cd428a325030",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:43.515095+00:00",
+      "ended_utc": "2026-11-21T10:33:43.624427+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "25371020c141d2dfd6620886ff6ca371c2357ff7db18242e036f22308c4a2c54"
+      }
+    },
+    {
+      "label": "streams-2-candidate-prepare",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-candidate-prepare/receipt.json",
+      "sha256": "511320f2f3cc1b9e510508c95d95dcf51d5f9cc054a966eefc53fdc96c8b32cb",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:43.649143+00:00",
+      "ended_utc": "2026-11-21T10:33:44.871692+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "3a06694a34b9387de87deb4af72b19740cb75e6dd01ae448758364c22cbd09bb"
+      }
+    },
+    {
+      "label": "streams-2-candidate-run",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-candidate-run/receipt.json",
+      "sha256": "8563a2d1f08c71d28caf62dadf4f6a781b0749937af2e211f4d3e9ad5919cc37",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:33:44.897702+00:00",
+      "ended_utc": "2026-11-21T10:34:19.652876+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "de828cf10d97060f1336b73c57c8901d062f615d5c4eb67bfd4a19c6b3fa5fc6"
+      }
+    },
+    {
+      "label": "streams-2-candidate-original-result-predicates",
+      "evidence_file": "binding-retry-ablation-001/control/streams-2-candidate-original-result-predicates/receipt.json",
+      "sha256": "403bc22fa0f86ceeb8f8b8c0e464cfdf4a1f312b84e99514888570fda18a046e",
+      "status": "completed",
+      "exit_code": 0,
+      "retired": true,
+      "started_utc": "2026-11-21T10:34:19.695219+00:00",
+      "ended_utc": "2026-11-21T10:34:19.809911+00:00",
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "log_sha256": {
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "ed40609b7161968c13abfa732d87c49cdf2298ebb48b840cf888dca3a8d68cad"
+      }
+    }
+  ],
+  "raw_evidence_note": "Evidence file names are relative to execution evidence root epoch-002; explicit NativeWeave/Plan prefixes identify repository sources. They identify immutable original receipts/results and do not assert raw files are committed here. The orchestrator owns durable archival/publication mapping.",
+  "histogram_bound_note": "arrival_success_histogram_maximum_ns is the configured histogram upper bound copied from original histogram.maximum_ns, not an observed maximum latency.",
+  "source_delta": {
+    "candidate_commit": "a5748ad4e03825e3da7706d074887952da6c2d43",
+    "comparison_base_commit": "ea0067114346af4f13383f24df165456bcabe344",
+    "plan_source_index_sha256": "df2ba8a9c894bba3f9f863da7a47e034426013ecf74e6528674eac3166ddb250",
+    "plan_candidate_index_sha256": "39ec40780fca362d45dec2bca9a11718cb960c87422d9309d27a19d7f388325d",
+    "patch_sha256": "c45127fae7d04da84c2bc3f14d6f5dcffdba55d0ef8ec2fbfc353e462441b10b",
+    "changed_files": [
+      "src/Data.NativeHost/NativeHost.cs",
+      "src/Server.Native/NativeHost.cs"
+    ],
+    "description": "Only the existing CallbackCoordinator retry-interval constructor argument becomes TimeSpan.FromMilliseconds(1); native/shared implementations and buffer writer remain unchanged."
+  },
+  "candidate_build_execution": {
+    "evidence_file": "binding-retry-protocol-build-001/execution.json",
+    "sha256": "9f52a404b882aff313fe49cf64e5648fe4f9d257c14aea467801e6c92940b676"
+  }
+}
