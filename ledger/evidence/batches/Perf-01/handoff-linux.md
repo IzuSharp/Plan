@@ -1,5 +1,51 @@
 # Perf-01 Linux x64 handoff
 
+## Weak comparison and capacity complete; shared retirement investigation — 2026-11-20 23:56 UTC
+
+All 18 fresh ON/OFF/direct fixed-load processes completed at 23:07:04 UTC,
+with 5,814 ordinary successes; every cell was valid and met the service standard.
+The actual comparison index is
+`ce145c98e585c19180c00e76536dc25ff1df9d3253f305831d5989c6530e37ee`.
+The subsequent resource screen
+`9c968657aae3b7d45d218393144222b7bbfbc263922225b0389e31add7e2636e`
+records four predeclared vetoes against optional weak reuse. Whole stream-profile
+mean process-peak RSS was 44.28125 MiB higher with ON despite lower allocation and
+CPU. The [readable comparison and numerical samples](recovery/epoch-001/weak-comparison-001/README.md)
+include the direct Rust reference and exact aggregation definitions.
+
+Both original capacity controllers completed and retired. ON's highest sampled
+rate passing three independent 60-second confirmations was 216/s, finishing at
+23:24:36 UTC. OFF confirmed 208/s, finishing at 23:36:08 UTC. The final bracket
+widths were 24/s and 16/s, respectively; an exact 8/s capacity advantage is not
+established. All 16 ON and 12 OFF cells, including failures, remain recorded.
+The [independent review](recovery/epoch-001/weak-comparison-001/independent-review.md)
+accepts the evidence and rejects optional weak reuse. It does not grant final
+correctness clearance or select 4ae as the final product.
+
+ON's third 240/s confirmation was invalid. Client operation 9628, a cancellation
+probe, reported missing expected initial headers; this is not proof of protobuf
+payload corruption. Separately, idle/final observations retained one retiring
+request and 92,096 native bytes, and the original server drain timed out without
+a close record. The ON/OFF patch does not change cancellation/retirement code.
+The current logs cannot identify the retained request or prove that it belongs
+to operation 9628. A shared native retirement investigation is therefore active
+before final selection. An isolated test-only worktree completed 100,000 concurrent-completion
+iterations on the unchanged OFF product implementation without a detected miss
+(3.34 seconds of test execution; finite owner exit 0 and clean retirement). This
+focused test does not reproduce the TLS/cancellation workload or exclude a rare
+ordering or late-publication problem. No repair or causal reproduction is claimed.
+The [source follow-up](recovery/epoch-001/weak-source-followup-001/README.md) records
+allocation alternatives and the separate missing-header status-classification
+limitation; neither changes the failed sample or grants acceptance.
+
+A control-service runtime replacement occurred during OFF calibration. The
+original measurement session continued, with unchanged process identities and
+boot, resource sampling spanning the event, both original locks held, and final
+exit 0/clean retirement. No duplicate load was started. Public noise checkpoint
+`abc974b50552e07fe4a44b5c0e711f6fabec4abc` passed exact six-file readback and CI199;
+both draft PR progress descriptions were updated and read back. Main profiling,
+main comparison/capacity and all ten new 30-minute segments remain outstanding.
+
 ## Fresh weak ON noise and resource ranges — 2026-11-20 22:41 UTC
 
 The first six recovery weak-ON noise processes completed at 22:36:06 UTC. All
