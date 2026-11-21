@@ -3,7 +3,7 @@
 ## Current checkpoint
 
 - Active task: **DB-Scope-01**, Linux x64; branch `task/DB-Scope-01-linux` in all three repositories.
-- Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning is in progress. **Product edits have not started.**
+- Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning checkpoint is complete and [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) exists. **Product and packaging pruning is now in progress.**
 - Continue from this file and the DB-Scope-01 PRs. Do not delete this new workspace, repeat completed cleanup, resume Perf-01, or relabel historical evidence.
 - Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json) and `delivery-graph.json.current_execution`.
 
@@ -19,15 +19,16 @@ Only the current Linux execution host is exposed in this session. No other Linux
 - Design: `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`.
 - Product: `ea5fa528035d025bd7a28698ee7c71194432236c`.
 - Local task root: `/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/`.
-- New validation tools/caches will be prepared under `_validation/`; they are not old Perf-01 artifacts.
+- Fresh validation tools/caches are under `_validation/`; they are not old Perf-01 artifacts.
 
 ## Next actions
 
-1. Verify/publish initial Plan and create Plan PR; record URL/commit here.
-2. Prune Design current authority and preserve historical acceptance gates.
-3. Prune product, migrate unique mixed database tests, reconcile packaging and CI.
-4. Run real provider regressions and all four independent package JIT/AOT cells.
-5. Review, merge required PRs, check merged-main CI, update final evidence, then stop.
+1. Continue product pruning and preserve unique database assertions from mixed reference/end-to-end tests; reconcile default build, packaging, CI and documentation.
+2. Confirm current/frozen Design CI for published correction `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3` without changing archived bytes.
+3. Run retained Rust/C# and real PostgreSQL/SQLite regressions, then all four external PackageReference JIT/AOT cells.
+4. Copy actual task logs/results into this batch and bind passed claims using [evidence-format.md](evidence-format.md); keep pending or failed rows honest.
+5. Complete independent review and required PR checks; merge normally and observe exact merged-main CI for all three delivered PRs.
+6. Append the observed Plan postmerge receipt in an evidence-only followup record, finalize acceptance without self-referencing a future commit, and stop.
 
 ## Plan-first and validation environment checkpoint
 
@@ -38,3 +39,17 @@ Fresh official .NET 11.0.100, Rust/Cargo 1.100.0, Clang 19.1.7 and PostgreSQL 18
 ## Initial CI failure retained
 
 [Initial Plan CI44903409175](https://github.com/IzuSharp/Plan/actions/runs/44903409175) passed current scope validation and historical graph checks, then correctly rejected the changed workflow as differing from an old acceptance-bound input (`Plan:.github/workflows/native-slices-final-check.yml`). No check was suppressed. The workflow now runs the complete original historical gate list against immutable Plan `8afa0311f45ab8a8157fc45c51e95a0b17dd09f2` and Design `c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`, while current scope plus preservation validation runs on the actual PR head. This avoids treating historical approval as acceptance of new workflow bytes.
+
+## Design-before-product checkpoint
+
+Design local commit `68c011c6bf78387a8103ee0bc91a845d17434083` and published commit `1d40ddffd11dde731dc5792d0ff9a05883e819cc` share exact tree `9b61c35cbf29497b81f28015a46b810954a2e33e`. [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) contains the current database scope and frozen historical separation. The local scope check verified 22 active documents, 24 archived specifications, the twelve-package closure, retained source paths and six rejection controls. This is Design structure/source evidence, not product execution.
+
+Product edits were released only after that Design checkpoint. Database Host and all existing database capabilities remain required; product and packaging agents now work on their disjoint implementation scopes.
+
+Initial Design current-scope CI [44904378111](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44904378111) passed the scope check but failed its blanket whitespace check on an original archived trailing blank line. Historical acceptance CI [44904378087](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44904378087) passed. Correction local commit `54d886dba6b47f4e889a81bdf79ae9d5b07b6fc8`, tree `6beeba6a7a82c5059cfab42bcaf9282f21f2bc99`, preserves archived bytes: the validator first proves each exact frozen blob, then excludes only those proven archive paths from whitespace checking. All current files and other additions remain checked. Its local combined scope/whitespace check passed. Published correction `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3` has the same exact tree; current/frozen CI is pending observation.
+
+## Evidence binding and honest closeout
+
+`acceptance.json` now uses evidence schema version 1. A passed claim requires a structured reference to a real task receipt and hashed raw logs/results/reviews, with exact source commit/tree identities matching the candidate. Final PR records require URL, actual head/merge identities and source-bound completed-success CI receipts. The verifier includes in-memory controls for missing files, receipt/artifact hash changes, source mismatch, incomplete merged PRs, wrong CI commits/branches, unfinished required checks and changed merged trees. Both partial and final accepted shapes are exercised using in-memory positive fixtures. These synthetic controls are not product evidence.
+
+Keep acceptance `in_progress` through the Plan PR merge. After its actual merged-main CI is observed, an evidence-only followup can append that receipt and mark the delivered three-PR snapshot accepted. The receipt binds the already observed Plan merge, never the future commit containing the receipt. The containing followup's own CI is checked separately; this avoids circular hashes or predicting a future success.
