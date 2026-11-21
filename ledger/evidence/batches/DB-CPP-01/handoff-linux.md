@@ -1,6 +1,6 @@
 # DB-CPP-01 Linux handoff
 
-## Current state: candidate 4 frozen; clean production and full acceptance rerun in progress
+## Current state: candidate 4 passed the original suite; independent full review found two additional ABI incompatibilities
 
 The owner authorized the database-only Rust-to-C++ migration, tests, three-repository documentation, PRs and normal merges. DB-API-01 and DB-Perf-01 are separate and not started. No migration acceptance is claimed.
 
@@ -54,7 +54,7 @@ The product candidate contains `native/cpp` Contracts, Interop, scalar codecs, q
 
 ## Next work
 
-Candidate 4 is `7ad56394a8a119202cfee5088406c5459f4cc6f0`, tree `0bd369df2dabf2391c2c9b508757fdb2a5948afb`. Complete fresh clean-source production, the full original regression, the new same-source four-cell comparison, clean Linux build/package/runtime and CI LeakSanitizer from that frozen commit. Record source-bound review, normal product/Plan merges and exact merged-main CI. Update acceptance only with hash-bound complete evidence; the migration is still in progress. The previous source-bound passes and failures remain preserved and do not attest candidate 4.
+Candidate 4 is `7ad56394a8a119202cfee5088406c5459f4cc6f0`, tree `0bd369df2dabf2391c2c9b508757fdb2a5948afb`. Its complete original suite and fresh four-cell comparison passed, but independent full-source review and actual old/new ABI probes found relation/CRUD deadline-origin and relation-capacity classification differences. A fifth, narrow Host-adapter correction is now authorized in the product worktree. Preserve all candidate4 native/package/evidence outputs; use separate development build paths. Complete that correction, replay the frozen probes, freeze a new commit and rerun source-bound production, behavior, required CI and normal merge gates. No passed result from an earlier source attests the next candidate.
 
 ## Corrected candidate and Design merge
 
@@ -130,3 +130,15 @@ The fresh `migration-compare-final-3` reference and candidate phases both passed
 Full pinned Clang format/tidy passed on the same clean commit. The complete locked solution restore and Release build passed with zero warnings/errors (build 135.87 seconds). The original retained suite is now running from its new output directory and independently owned PG18 server. These completed gates do not substitute for remaining original regressions, CI LeakSanitizer, clean-image/release/runtime gates or normal merges.
 
 Plan correction checkpoint `e4d1c8a9e6700b5afa6ce365fa650f066050144a` passed [CI 44962936476](https://github.com/IzuSharp/Plan/actions/runs/44962936476), including the current progress verifier and unchanged historical gates. The full product run remains separately required.
+
+## Candidate 4 original regression passed, but full review blocks acceptance
+
+The complete root-local `eng/database_regressions.py` finished all 56 commands successfully in 641.12 seconds from clean, stable product `7ad56394` / tree `0bd369df`. Its isolated PostgreSQL 18 server was stopped. All five composed suites (Data.NativeHost, Data.Migrations, Data.Materialization, Query.Fluent and Orm.Relations) passed JIT/AOT; original component, API/XML and generator gates also passed. [The exact source-bound receipt](receipts/candidate4-retained-regressions.json) retains the aggregate and safe component results.
+
+Independent non-author full-source review then found two omitted Rust Host-adapter behaviors in `native/database/relations/host.rs`. Relation/CRUD command timeout starts at the original create/admission point and subtracts elapsed time before worker execution; C++ started a fresh full timeout at the worker. The relation Host additionally performs four capacity checks before projection lookup, whereas C++ exposed the private binding's argument error. The published nine-file review was explicitly incremental; it was never a complete implementation review. New [complete review records](reviews/candidate4-complete/runtime-build-review.json) and [blocked receipt](receipts/candidate4-review-blocked.json) retain the findings, authorship/coverage boundaries and absence of final acceptance.
+
+The outside-tree frozen-input probe has now actually reproduced both differences on SQLite and PostgreSQL: 8 scenarios × 2 providers × 2 implementations, 32 separate processes. A mutation created with a 100 ms timeout and started after 300 ms returns old Timeout (status12/domain17474/code8), with zero independently persisted parent rows; candidate4 succeeds and writes one. Delayed relation load likewise times out in Rust but returns a cursor in candidate4. A valid 9136-byte parent-key wire over the 8192-byte limit returns old capacity (13/17474/6) but candidate4 binding failure (3/17474/11); combining it with an unknown projection also proves the original capacity-before-projection order. Four control scenarios agree. Every process finishes with six zero native resource counts. Diagnostic execution completed successfully, but compatibility is false; raw result SHA-256 is `e50f5831e0ca19418309d89cd94b786a2a10dc47f87d6fa94d5a12fb22085cd7` under `ROOT/_validation/relation-adapter-review-1/matrix`.
+
+All candidate4 inputs and original outputs are retained. Product source editing was allowed only after the original suite ended and the independent reader froze its native libraries/manifests/ABI/metadata. The narrow fix must preserve the distinct raw-SQL/Fluent timeout origin, private binding error semantics, public C# and C ABI, all resource limits and existing assertions. Even a green candidate4 CI cannot remove these actual behavioral blockers.
+
+The frozen candidate4 relation/CRUD diagnostic and non-author coverage are preserved in [the diagnostic manifest](checkpoints/candidate-4/relation-adapter-diagnostic/manifest.json) and [complete-review coverage](reviews/candidate4-complete/coverage-blocked.json). Execution completion is distinct from its false compatibility result.

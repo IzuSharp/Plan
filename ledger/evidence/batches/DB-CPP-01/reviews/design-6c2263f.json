@@ -1,0 +1,99 @@
+{
+  "schema_version": 2,
+  "task": "DB-CPP-01",
+  "recorded_utc": "2026-11-21T23:49:15.429629+00:00",
+  "passed": true,
+  "sources": {
+    "NativeWeave-Design": {
+      "commit": "6c2263f485b18c8f7ff362781dba8d565444c8b8",
+      "tree": "8dbb89bb028be6f0f910f43daa3042c1a84289ac"
+    }
+  },
+  "reviewer": "/root/query_migration",
+  "authorship_disclosure": "Non-author reviewer from the same execution team. /root/upstream_cpp_research authored the initial Design decision and /root published/integrated later checkpoint refinements. I authored product query/mutations and consumers and supplied implementation findings; I did not edit any of these eight Design files. This is not an external review or another GitHub identity.",
+  "scope": {
+    "kind": "complete_database_cpp_design_delta",
+    "baseline": "8298dc4128b745cf1809bad0c3cf02c45eb7f522",
+    "files_read_in_full": {
+      ".github/workflows/public-api-design.yml": "4f6533c2abb1c1f055e11dab89c0ce0fbdc752b1a8a702be0dda9161c1e5122b",
+      "AGENTS.md": "45511abd0dba89a4fc4325200da552ee0a0f37e90097f7b3ac7c150f9e20c784",
+      "CURRENT-PHASE.md": "62ffa9d9b68764550aa34c487585374f961a810a8285da29c06e2e155added80",
+      "README.md": "f66429a71e2d5e12205acbb8eef1611b91cdb5eae21520b98cafd6c5c86d94f9",
+      "docs/database/cpp-migration.json": "ae86177a44ad2f8dcf7e40bea849771e50b349efa8173dac386527ed492f0a07",
+      "docs/database/cpp-migration.md": "94ce5d7f712073008c64d131e4f4b38507465314a08fb4f5b431c6f4313f53d9",
+      "docs/decisions/ADR-0006-database-cpp-native.md": "9a6a12e18ade6fa3ed46eba780f5dd8063ff4a27ca5c78e38a8fd995dc3afd32",
+      "tools/verify_cpp_migration.py": "5fd495cb35dfb1c7f8fa9f0499067ce67490eedc1bbff1c19c072b8d6b5d2336"
+    },
+    "patch_sha256": "3be5d514ef2cb6fc382f1cb199a341a58548294d0f7f4d99399e77e9862cd7b0",
+    "current_product_alignment": {
+      "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+      "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+    }
+  },
+  "blocking_findings": [],
+  "checks": [
+    {
+      "name": "Authority, scope and source ordering",
+      "basis": "Plan94ade5e6/PR26 precedes decision and first product implementation; the three merged starting SHA values are fixed. DB-API-01, DB-Perf-01, HTTP/gRPC hosting, Qt/QML and added ORM/public release work remain outside scope. The previous Rust mandate is explicitly superseded without rewriting historical acceptance."
+    },
+    {
+      "name": "Implementation decision matches current product",
+      "basis": "C++20 runtime metadata/AST, direct libpq18.0 asynchronous row execution, SQLite3.51.3 prepared statements, fixed native ABI/db-wire and C# DTO/query boundaries match the candidate4 source. Reference frameworks remain reference-only. PostgreSQL ordinary stop drains rather than newly canceling its enclosing transaction; the locked libpq default patch and thirteen Host environment refusals are stated accurately."
+    },
+    {
+      "name": "Toolchain and dependencies",
+      "basis": "Clang23.1.5, static Linux libc++/libc++abi, separate Release/ASan build trees, exact selected dependency versions/notices and Windows clang-cl/macOS SDK conventions match product lock/presets. Only Linux x64 execution is claimed in scope."
+    },
+    {
+      "name": "Checkpoint versus final acceptance",
+      "basis": "The first checkpoint b383c130 tree4bd509e remains that actual Git tree. Lock SHA dca7f396 remains byte-identical in candidate4. All three documents and JSON say the checkpoint is not final acceptance and Plan owns subsequent corrections and tests. It is valid for the Design checkpoint to name b383 while the current product is7ad; do not relabel b383 as the final product."
+    },
+    {
+      "name": "Historical preservation and document gate",
+      "basis": "The original scope manifest and both historical gate files are byte-identical. The protected contracts/API/history/review/verification/experiment trees have no delta. New verify_cpp_migration checks this overlay and runs the original gate at detached8298dc4 with check=True; it does not claim product execution, CI sanitizers or package success."
+    }
+  ],
+  "preserved_historical_files_sha256": {
+    "docs/current-scope.json": "e4355d61d210e26b90e31f06970b7a9628cfdea917c4dbd25321a7800284c851",
+    "tools/verify_db_scope.py": "35e852439be95a313ec54f68fc87e75f19ae359e4021dabbff9c702255c759ce",
+    "tools/verify_db_scope_history.py": "2d3e4d8ff66662279d0bc57631c1d5b62f3f9ad28b1cf316f8f0e97d6dd97ada"
+  },
+  "first_checkpoint": {
+    "repository": "https://github.com/IzuSharp/NativeWeave",
+    "pr": "https://github.com/IzuSharp/NativeWeave/pull/21",
+    "commit": "b383c130903daba059c364ff0615d80798da1a3f",
+    "tree": "4bd509e639f9779092f5d037c7690a57cf8a28d4",
+    "dependency_lock_path": "native/dependencies.lock.json",
+    "dependency_lock_sha256": "dca7f396bce6f438e5ed3a41dcbeeab8d350f8653f43cd60c753713a2758bb55",
+    "native_presets": [
+      "linux-x64-release",
+      "linux-x64-asan-ubsan"
+    ],
+    "meaning": "First published implementation checkpoint, not final product acceptance. Plan records later corrections, final sources, actual tests and merges."
+  },
+  "observed_design_ci": {
+    "evidence_origin": "Already retrieved raw GitHub API observations in Plan; this pass did not query the network or rerun CI.",
+    "pr_head_runs": [
+      44956346986,
+      44956346889
+    ],
+    "merged_main_runs": [
+      44956543416,
+      44956543440
+    ],
+    "observed_conclusions": "All four stored run objects and all listed jobs report success on their exact heads.",
+    "merge_commit": "de1f4796dc199250b405ea99f2129d611f17b1f6",
+    "merge_relation_limit": "Local Design checkout has tested6c2263f; the de1f4796 commit object is not present locally. The merged PR/run relation is from preserved raw API; the matching merged tree is recorded in Plan merged-main receipt rather than independently recomputed here."
+  },
+  "validation_this_pass": {
+    "new_tests_or_builds": false,
+    "repository_source_changes": false,
+    "whole_eight_file_diff_read": true
+  },
+  "limits": [
+    "A document verifier and this Design review do not accept runtime behavior.",
+    "This review binds tested Design6c2263f; merged-main acceptance is independently bound to de1f4796 and actual CI by Plan.",
+    "The existing product checkpoint is deliberately an initial implementation marker; final product7ad and any later revision require their own source-bound product review/evidence."
+  ],
+  "conclusion": "No blocking finding in the complete eight-file Design migration delta, with preserved public/historical contracts and an honest first-checkpoint boundary. It remains compatible with candidate4 implementation decisions; product acceptance is separate."
+}

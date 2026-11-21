@@ -1,0 +1,246 @@
+{
+  "schema_version": 2,
+  "kind": "composite-technical-review-coverage",
+  "passed": false,
+  "product_acceptance": false,
+  "recorded_utc": "2026-11-21T23:55:24.925791+00:00",
+  "sources": {
+    "NativeWeave": {
+      "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+      "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+    },
+    "NativeWeave-Design": {
+      "commit": "6c2263f485b18c8f7ff362781dba8d565444c8b8",
+      "tree": "8dbb89bb028be6f0f910f43daa3042c1a84289ac"
+    }
+  },
+  "reviewer": "/root/query_migration (coverage synthesis; individual source reviewers below)",
+  "authorship_disclosure": "Different agents in the same task and implementation team performed the stated non-author reviews. No record claims external organizational independence, another GitHub identity, or universal test/source audit. The primary product modules now have source-bound non-author coverage; overlapping self-authored local hunks and scoped exclusions remain explicitly disclosed in each component.",
+  "components": [
+    {
+      "id": "product-runtime-build",
+      "path": "_validation/final-technical-review/product-runtime-build-review.json",
+      "sha256": "0e6b9c3aba6ae24a59fe296b51d4e4f79e67fca57b2d821cde279d74ca631d20",
+      "passed": false,
+      "sources": {
+        "NativeWeave": {
+          "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+          "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+        }
+      },
+      "reviewer": "/root/query_migration",
+      "authorship_disclosure": "Non-author code review within the same multi-agent execution team, not an external or different GitHub account. /root wrote the initial Host/provider/ABI and production build/package integration; /root/upstream_cpp_research wrote contracts/scalar/administration and later transaction/stream/admission corrections; /root/linux_capabilities wrote interop and test/CMake integration. I wrote query/mutations, the Query/SQLite bridges and Migration.Cpp consumer/probes. My small prior edits in host_abi.cpp were limited to query-error/codec registration conversion; those lines require the separate non-author query/ABI review. I reviewed the rest of host_abi.cpp here and disclose that overlap rather than calling all ABI edits non-author work.",
+      "scope": {
+        "kind": "complete_current_production_modules_and_build_contract_review",
+        "description": "Read the entire listed six production header/source pairs and host_abi.cpp at candidate4, including initial port content and later corrections. Read the listed complete principal producer/package/CI files and the complete regression correspondence. This closes initial production-module coverage beyond the nine-file candidate4 delta; it is not a claim that every line of every test, third-party source, removed Rust file or unchanged managed implementation was independently audited.",
+        "production_files_read_in_full": {
+          "native/cpp/include/nw/contracts.hpp": "6580a7fe89ede75bf2d8852b0487d7585efaa51a9bb74963c4cbe02474422031",
+          "native/cpp/include/nw/scalar.hpp": "a67ddb9226010b25c477366c058824e6e35c0b1df7511526fce938f31a337820",
+          "native/cpp/include/nw/interop.hpp": "373740c1db2952c7eedae9ffb444772d70675143d4951dde32cc5d1beefab871",
+          "native/cpp/include/nw/provider.hpp": "82ca8ad2cb37d2af68d1e3fc1048165b612f48af8a6995b754134b8136ef33da",
+          "native/cpp/include/nw/host.hpp": "9bb84cd6502304a2d4de4ec38187cf1b1c1d66dc4b41c8b4b1839a0e74bc48fd",
+          "native/cpp/include/nw/administration.hpp": "f1865e88b70bc0f6813c38f4c81e279dbcd7497ffb423131616d7c8a86905309",
+          "native/cpp/src/contracts.cpp": "d39dc1f7119db2d41aca2f1a33057be8b60fd280c401875b95921f841a932554",
+          "native/cpp/src/scalar.cpp": "013e89bc6294b2df684d431bb7bacdf3856eed75c9b50e7b547146e0aa3c4329",
+          "native/cpp/src/interop.cpp": "65dd345b8a12da827c59ea4c1e87ad8b4917f9f21dc2690db6d9cc71f35d633d",
+          "native/cpp/src/provider.cpp": "ff2a99f8dfa0a1dcc995735f0c2980fd5aec7efef26c69333416b442c887794f",
+          "native/cpp/src/host.cpp": "eb1c23c0e0bc87b0f2f647dae17fcfaaf4f4d132b1dbef2c22298993d8a5c536",
+          "native/cpp/src/administration.cpp": "32d284ec6147070f5b2267ec6dc0c00a765a404531d0b6a836ff5beba612030d",
+          "native/cpp/src/host_abi.cpp": "5ad1306ca28f1d673488b5320e92797dcd10bb009d4d08620f121c72611e7d08"
+        },
+        "build_and_boundary_files_read": {
+          "CMakeLists.txt": "bdb2bc2491e4c4446ab99f05e23de73c64155f07bace1336c0994f5beec0beda",
+          "CMakePresets.json": "0fa0956b1159e7c88a9d04e067963b0fac26d4790a81c000938b12ee78a3e4a5",
+          "native/dependencies.lock.json": "dca7f396bce6f438e5ed3a41dcbeeab8d350f8653f43cd60c753713a2758bb55",
+          "native/cpp/exports.map": "9ab71cd819c654829ce175e938ecd94054874aa9bf0838a0e58f5d578ece6b3e",
+          "native/cpp/patches/libpq-explicit-configuration.patch": "a6c33133d9900b5bd6460245331ad7d9a8b256786dcd1bd927b5491b52921ddd",
+          "eng/build.py": "13b4f185fa0da513bf73a440756c5cc99a7929453e6ea4819753757b6996e5a1",
+          "eng/task07_native.py": "dd7d8d018be888a180adc257a15c01d5a2ab6531903466f89e75f3f9e0238193",
+          "eng/cpp_toolchain.py": "bcbb3f2b19f7963195af3cc2b0b97c27f16297ce07b29d0fb5bb847ce96337aa",
+          "eng/postgres-tools.sh": "9e1a09feb3b6ffe2a9f9c4554e30af273eb33c30643983c53eb0d4188d532250",
+          "eng/check_native.py": "6c8d0acf2e70bb954c34cf36769ae7543a2f674de6eae24aaae10590b0b6dd16",
+          "eng/verify-cpp-clean.sh": "b7f46d828bad137a943e353f2d74ddbc1df78b5e937b6c1982ddaaf814c66a66",
+          "eng/verify-cpp-sanitizers.sh": "d2922ba553b677efcd3ce129245774d8d5efe10d2867a493c0099fed69fec382",
+          ".github/workflows/build.yml": "17ecaaae09f1568b75ded9489288c46c7d82748eaccecae4c462c77409a528b2",
+          ".pre-commit-config.yaml": "a0412ecb7b580b75105f4c788b788d347e582c8e8ef37798bc3a513c4acc5fba",
+          ".clang-format": "b9d71311bd387a6d13766877f19fc1a7613bb7a360f05ed8d24e6c95ef7fcc2e",
+          ".clang-tidy": "07b53b9811f7246a8da3a6bf3edd55cda1d06bac5017347b075ac678bcf8ca44",
+          ".gitattributes": "b87623889cc8e696cac196b54e97323fa9387eb4b79fd8e182fc89b8bc803624",
+          ".gitignore": "f67bd9b0a66263415c99103a42109332084f6907f849cac487fddb24371cce38",
+          "native/cpp/tests/CMakeLists.txt": "ca87dc3ec7cec989674081be48942e420041e9e2f9ce7716d0ed81dd62a31865",
+          "native/cpp/tests/ported-tests.md": "e2fd554b988583db31b131ebb628357673c62db00d9f07d44b3d186bfaf39fe3",
+          "src/Packaging.Domain/inventory.py": "eeabc746df923ae5b0c7616f9ccaec01c4e48d7426be6fa4b81f2be0a35b0e27",
+          "src/Packaging.Domain/prepare.py": "21b8d0e62ac758ad0dea031d1649937ef99bb79ad4c9a3883636b3d769ae2902",
+          "src/Packaging.Domain/model.py": "aea928bac7660f99bd44084b03d0e15a2afd6669252684bcb35708a5c343e692",
+          "src/Data.Postgres/NativeWeave.Database.PostgreSql.csproj": "11a5ed1bae4377ddcb706fcc70dc9c552daf0b6d58477fa2369299b44f8fe161",
+          "src/Data.Sqlite/NativeWeave.Database.Sqlite.csproj": "f6a385a794ad1c1f644a708bb588c6450d2ff75686a3f9534d0bd815a1a3c808",
+          "src/Build.Integration/ApiReference/Program.cs": "d4b2dcc1e0b84f74921e403ad05b628b54aec0bfe247716aa82d158f76aa2590",
+          "docs/guides/cpp-native.md": "945f3756c9ba16c7ce0ac2ed4d455be06c4e99ecc62e82777395df2a03a9f1de"
+        },
+        "own_module_exclusion": [
+          "native/cpp/include/nw/query.hpp",
+          "native/cpp/src/query.cpp",
+          "native/cpp/include/nw/mutations.hpp",
+          "native/cpp/src/mutations.cpp",
+          "tests/Migration.Cpp",
+          "native/cpp/tests/fixtures/sqlite.cpp",
+          "native/cpp/tests/fixtures/query_binding.cpp"
+        ],
+        "own_modules_non_author_review": "Separate source-bound review requested from /root/upstream_cpp_research and /root/linux_capabilities. This record alone does not certify their completion."
+      },
+      "blocking_findings": [
+        {
+          "id": "RELATION_MUTATION_TOTAL_TIMEOUT",
+          "severity": "blocking",
+          "status": "static_confirmed_actual_probe_pending",
+          "baseline": "native/database/relations/host.rs:175,213,269,292",
+          "candidate": "native/cpp/src/host_abi.cpp:704-709,735-745; native/cpp/src/host.cpp:1171-1179",
+          "finding": "Rust includes synchronous admission, Created-to-Start and queue time in relation/mutation command timeout; current C++ passes the full timeout to Session::execute and starts it at worker execution. A delayed created write may execute after the reference total deadline."
+        },
+        {
+          "id": "RELATION_HOST_CAPACITY_PREFLIGHT",
+          "severity": "blocking",
+          "status": "static_confirmed_actual_probe_pending",
+          "baseline": "native/database/relations/host.rs:176-190",
+          "candidate": "native/cpp/src/host_abi.cpp:704; native/cpp/src/mutations.cpp:440-443",
+          "finding": "Rust Host rejects oversized canonical parent keys/arity/nodes/depth with DOMAIN_ERROR/code6 before projection lookup. Current adapter directly calls pure compile_relation, which rejects these as INVALID_ARGUMENT/code11 and allows projection evaluation to precede the Host capacity check."
+        }
+      ]
+    },
+    {
+      "id": "query-mutations-adjacent-abi",
+      "path": "_validation/final-query-mutation-review-7ad/review.json",
+      "sha256": "33400de393b2bd03e177c02f7b7d44605d2756e62cf8e8aaa91568414b290e4a",
+      "passed": false,
+      "sources": {
+        "NativeWeave": {
+          "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+          "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+        }
+      },
+      "reviewer": "/root/upstream_cpp_research",
+      "authorship_disclosure": "Same-team child-agent review, not an external institutional review. /root/query_migration authored the four primary query/mutations files; this reviewer did not author or edit them. This reviewer authored Contracts and multiple earlier Host transaction/stream/admission/input-budget portions; those supporting files are not presented as independent approval of the reviewer's own implementation. The B14 public Host entry adapters and their timeout/capacity omissions are separately reviewed against the immutable Rust source.",
+      "scope": "Complete line-by-line read of all four primary headers/sources, plus selected surrounding Host/C ABI integration and the complete fixed Rust B14 Host adapter. This is source review, not an assertion that the whole migration, provider internals, C# suite, packages, CI or merge gates passed.",
+      "blocking_findings": [
+        {
+          "baseline_locations": [
+            "native/database/relations/host.rs: nw_db_relation_load_create_v1 (admitted at175, remaining timeout at213)",
+            "native/database/relations/host.rs: nw_db_mutation_create_v1 (admitted at269, remaining timeout at292)"
+          ],
+          "basis": "source comparison; independently confirmed by /root/query_migration; actual old/new public-ABI reproduction is delegated and not claimed in this record",
+          "candidate_locations": [
+            "native/cpp/src/host_abi.cpp: nw_db_relation_load_create_v1",
+            "native/cpp/src/host_abi.cpp: nw_db_mutation_create_v1",
+            "native/cpp/src/host.cpp: Session::execute"
+          ],
+          "id": "B14-CREATE-TIME-TOTAL-DEADLINE",
+          "impact": "A relation load or CRUD operation held in Created beyond its configured command duration can still dispatch SQL in candidate7ad, whereas the fixed Rust adapter reaches Session::execute with zero remaining duration and returns NW_TIMEOUT/code8 before dispatch. This includes queue time after Start.",
+          "minimal_correction": "Capture the original per-entry admission instant and timeout at the matching Rust locations; saturating-subtract elapsed monotonic time in the two operation closures before Session::execute. Preserve cancellation-before-timeout priority, mutation bulk progress, and existing raw-SQL/Fluent timeout origin.",
+          "necessary_regression": "Use actual public C ABI operations with copied metadata and values: hold valid relation and mutation Created handles beyond the duration, then Start; require timeout8, deterministic gate retirement and independent SQL proof of no mutation. Include immediate-start success. Do not implement an alternate fake operation state machine.",
+          "observation": "The Rust B14 adapters capture a monotonic admission instant during creation, then subtract all elapsed creation/start/queue time immediately before Session::execute. Candidate7ad passes the full timeout into Session::execute, which starts a new deadline at worker execution. DbOperation admission_deadline is not a command-budget adjustment.",
+          "severity": "blocking",
+          "status": "open"
+        },
+        {
+          "baseline_locations": [
+            "native/database/relations/host.rs: nw_db_relation_load_create_v1, Host capacity preflight before relation.load and projection lookup"
+          ],
+          "basis": "complete fixed Rust relation Host adapter compared to candidate7ad; actual public-ABI reproduction is delegated and not claimed here",
+          "candidate_locations": [
+            "native/cpp/src/host_abi.cpp: nw_db_relation_load_create_v1",
+            "native/cpp/src/mutations.cpp: compile_relation limits/deadline validation"
+          ],
+          "id": "B14-RELATION-HOST-CAPACITY-PREFLIGHT",
+          "impact": "Valid registered relation/model/projection inputs under a smaller source limit can change their public error category from ResourceLimit to binding invalid-argument. Combined over-limit plus wrong-projection cases also lose the original preflight priority.",
+          "minimal_correction": "Restore the four Host preflight conditions after borrowing the key and before projection lookup/compile_relation, using bounded or overflow-safe arity arithmetic. Retain the existing private compile_relation validation and its original binding error mapping.",
+          "necessary_regression": "Actual public C ABI rejections for finite key/arity/node/depth limits, zero output and no operation/SQL admission; include a wrong-projection combined case to retain priority. Validate exact supported boundary successes where representable.",
+          "observation": "The Rust Host rejects key bytes above the source binding byte limit, key arity above the parameter limit, arity*3 above the node limit, and depth below2 with Error::capacity (NW_DOMAIN_ERROR/code6). Candidate7ad omits this Host preflight and falls through to the private binding compiler, whose corresponding invalid condition maps to NW_INVALID_ARGUMENT/code11. Candidate projection lookup also precedes the missing Host preflight.",
+          "severity": "blocking",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "id": "migration-consumer-verifiers",
+      "path": "_validation/reviews/7ad5639-migration-evidence-review-schema2.json",
+      "sha256": "ce37993cf0a24a456cb33ae7cbe3ee12f2f135a744f6b56c9bfcb39a42d9d764",
+      "passed": true,
+      "sources": {
+        "NativeWeave": {
+          "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+          "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+        }
+      },
+      "reviewer": "/root/linux_capabilities",
+      "authorship_disclosure": "A different agent in the same implementation team, not an external organizational reviewer. The Migration.Cpp consumer/controller, Query/SQLite verifier paths and the root-owned package identity/build wrapper were authored by other team members. This reviewer authored C++ Interop/fixtures, multiple Core/B01/B02/A15 verifier migrations and parts of native test integration. These are not independently reviewed by this document. The new native-input-postgresql invocation in eng/database_regressions.py was authored by this reviewer; /root/query_migration independently reviewed that wiring. This document does not self-certify that hunk.",
+      "scope": "Complete migration comparison driver/reference loader/public-ABI probe/business Consumer; retained Query.Binding, Query.Native and SQLite verifier entrypoints; outer failure/source-evidence propagation. Not a full implementation review.",
+      "blocking_findings": []
+    },
+    {
+      "id": "design",
+      "path": "_validation/final-technical-review/design-review.json",
+      "sha256": "dc87b6a786a093b96e7cbfc42fc8b2522bf2ef8ff11ee8f5ef9354e1534f7762",
+      "passed": true,
+      "sources": {
+        "NativeWeave-Design": {
+          "commit": "6c2263f485b18c8f7ff362781dba8d565444c8b8",
+          "tree": "8dbb89bb028be6f0f910f43daa3042c1a84289ac"
+        }
+      },
+      "reviewer": "/root/query_migration",
+      "authorship_disclosure": "Non-author reviewer from the same execution team. /root/upstream_cpp_research authored the initial Design decision and /root published/integrated later checkpoint refinements. I authored product query/mutations and consumers and supplied implementation findings; I did not edit any of these eight Design files. This is not an external review or another GitHub identity.",
+      "scope": {
+        "kind": "complete_database_cpp_design_delta",
+        "baseline": "8298dc4128b745cf1809bad0c3cf02c45eb7f522",
+        "files_read_in_full": {
+          ".github/workflows/public-api-design.yml": "4f6533c2abb1c1f055e11dab89c0ce0fbdc752b1a8a702be0dda9161c1e5122b",
+          "AGENTS.md": "45511abd0dba89a4fc4325200da552ee0a0f37e90097f7b3ac7c150f9e20c784",
+          "CURRENT-PHASE.md": "62ffa9d9b68764550aa34c487585374f961a810a8285da29c06e2e155added80",
+          "README.md": "f66429a71e2d5e12205acbb8eef1611b91cdb5eae21520b98cafd6c5c86d94f9",
+          "docs/database/cpp-migration.json": "ae86177a44ad2f8dcf7e40bea849771e50b349efa8173dac386527ed492f0a07",
+          "docs/database/cpp-migration.md": "94ce5d7f712073008c64d131e4f4b38507465314a08fb4f5b431c6f4313f53d9",
+          "docs/decisions/ADR-0006-database-cpp-native.md": "9a6a12e18ade6fa3ed46eba780f5dd8063ff4a27ca5c78e38a8fd995dc3afd32",
+          "tools/verify_cpp_migration.py": "5fd495cb35dfb1c7f8fa9f0499067ce67490eedc1bbff1c19c072b8d6b5d2336"
+        },
+        "patch_sha256": "3be5d514ef2cb6fc382f1cb199a341a58548294d0f7f4d99399e77e9862cd7b0",
+        "current_product_alignment": {
+          "commit": "7ad56394a8a119202cfee5088406c5459f4cc6f0",
+          "tree": "0bd369df2dabf2391c2c9b508757fdb2a5948afb"
+        }
+      },
+      "blocking_findings": []
+    }
+  ],
+  "blocking_findings": [
+    {
+      "id": "RELATION_MUTATION_TOTAL_TIMEOUT",
+      "status": "confirmed_by_actual_dual_provider_public_abi",
+      "old_behavior": "100ms command limit, Created held for at least300ms: mutation and relation terminal NW_TIMEOUT12/domain17474/code8; no new parent row",
+      "candidate4_behavior": "Both succeed. Mutation reports affected1 and the independent SQL connection sees one committed row.",
+      "public_abi_probe": "_validation/relation-adapter-review-1/matrix/result.json",
+      "public_abi_probe_sha256": "e50f5831e0ca19418309d89cd94b786a2a10dc47f87d6fa94d5a12fb22085cd7"
+    },
+    {
+      "id": "RELATION_HOST_CAPACITY_PREFLIGHT",
+      "status": "confirmed_by_actual_dual_provider_public_abi",
+      "old_behavior": "Canonical9136B key under8192B limit rejects synchronously DOMAIN_ERROR13/domain17474/code6, also when projection is unknown",
+      "candidate4_behavior": "Valid projection rejects INVALID_ARGUMENT3/code11. Unknown projection wins first with INVALID_ARGUMENT3/code0. Outputs are null.",
+      "public_abi_probe": "_validation/relation-adapter-review-1/matrix/result.json",
+      "public_abi_probe_sha256": "e50f5831e0ca19418309d89cd94b786a2a10dc47f87d6fa94d5a12fb22085cd7"
+    }
+  ],
+  "execution_scope": {
+    "diagnostic_completed": true,
+    "compatibility_passed": false,
+    "independent_processes": 32,
+    "paired_cases": 16,
+    "same_inputs": true,
+    "different_pairs": 8,
+    "all_six_native_counts_zero": true,
+    "server_stopped": true
+  },
+  "public_api_findings": "Normative public headers/signatures are byte-identical to baseline and existing database C# source/test declarations are unchanged. That declaration compatibility does not excuse the two behavioral ABI gaps.",
+  "previous_results": "The nine-file candidate4 delta review and four-cell package comparisons retain their original finite passing results. This full review and new diagnostic are separate blocking evidence; none of those earlier bytes are rewritten. Root separately reports the full retained suite passed56 commands; this composite does not relabel it failed or infer universal behavior from it.",
+  "merge_relation": "Design review binds the tested6c source. Merge de1f4796 relationship is supplied by saved raw PR/run/jobs and Plan receipts; this agent does not claim a locally available merge Git object.",
+  "conclusion": "BLOCKED. Full current production module/build and separate consumer/design source reviews are now organized without presenting delta-only review as full review. Two additional compatibility gaps were discovered and reproduced. A corrective product source, same-probe replay, required candidate tests/CI and normal merge remain necessary."
+}
