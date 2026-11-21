@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "task": "DB-CPP-01",
+  "kind": "sanitized-development-correction-export",
+  "created_utc": "2026-11-21T23:38:01.078250+00:00",
+  "base_product_commit": "3e49cee95d206468a32c94f0a3b98e923f02acbf",
+  "formal_candidate_acceptance": false,
+  "export_policy": {
+    "source": "NativeWeave eng/build.py::export_fixture_results",
+    "source_sha256": "13b4f185fa0da513bf73a440756c5cc99a7929453e6ea4819753757b6996e5a1",
+    "private_keys_removed": [
+      "argv",
+      "command",
+      "config",
+      "configuration",
+      "connection_string",
+      "connectionstring",
+      "cursor_key",
+      "cursorkey",
+      "database",
+      "password",
+      "secret"
+    ],
+    "additional_redaction": "unnecessary Git author email addresses",
+    "deduplicated_stdout": [
+      "codec aot-native uses jit-native content hash",
+      "ASan PostgreSQL mode uses Release content hash"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "receipt.json",
+      "sha256": "1e687ff5e567760936e463b38701a2f9105b827be731b37ad39459d6577b58ae",
+      "bytes": 5197,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/input-admission-review/result.json",
+        "sha256": "770a91fd70047e2ca48ba287eef16de1b726fdaf7fde9312f9739384a17e110c",
+        "bytes": 4872
+      }
+    },
+    {
+      "path": "negative-controls.json",
+      "sha256": "4a33ce5b5035ec89e470fbe40c2974fb1e48a6faf36261ce005ef4d218cd0cb2",
+      "bytes": 1392,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/input-admission-review/negative/result.json",
+        "sha256": "30e91407ef7a3491bdd8d47061da31ceb2fb07c1044526993fdd830774bcd046",
+        "bytes": 1207
+      }
+    },
+    {
+      "path": "codec-replay.json",
+      "sha256": "11e18197b9d51f6e52ba71e327221102278986f26ea2a5d8528598ef118e7b0a",
+      "bytes": 3662,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/result.json",
+        "sha256": "257d675976e6c25ebe8ebedeb949b53d657d7a9c0dda28353a27e58666256cb9",
+        "bytes": 3395
+      }
+    },
+    {
+      "path": "native/release-ctest.json",
+      "sha256": "22e1f6bacbb9378fc58b379c4ddc7339ce1964f8a2c71327c72331e109a2016e",
+      "bytes": 930,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/release-ctest.log",
+        "sha256": "f929b9323d475e2769ae852ee65a52d97ca6685f752ea5c545b8ae403da44185",
+        "bytes": 759
+      }
+    },
+    {
+      "path": "native/asan-ubsan-ctest.json",
+      "sha256": "cdaccc340bf3a138acf1c349c508e63fe1ef2bc6f2e85b1c485858d94cb6cc9f",
+      "bytes": 937,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/asan-ubsan-ctest.log",
+        "sha256": "9e1e4c6cd4f98b8db02c4f9b65bffbc7214007745c789cc84c4314c6f98a9d86",
+        "bytes": 766
+      }
+    },
+    {
+      "path": "codec-logs/jit-encode.json",
+      "sha256": "833e534e462652063dd96f0802f7143947f87493e170e8be67020760e22e1886",
+      "bytes": 296,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/jit-encode.log",
+        "sha256": "818092d135f9dd3a7b5c874b8f2e3c75b9b8c613b00bbb5251325eaec0756b82",
+        "bytes": 142
+      }
+    },
+    {
+      "path": "codec-logs/jit-native.json",
+      "sha256": "0e0c4f3dcdb55cb936c7bb3481a3035947a9bd5e3321a6964a850fc767ee356a",
+      "bytes": 680,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/jit-native.log",
+        "sha256": "57978de0e6c143552a0ae589893ee8e981073f3cd5549ea40a5d2ca62cc5093d",
+        "bytes": 522
+      }
+    },
+    {
+      "path": "codec-logs/jit-verify.json",
+      "sha256": "a92a79baf8eda6438e7a0bcaf81500ba65e9e5d80460e5328e5b4a4c9cdb82e2",
+      "bytes": 336,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/jit-verify.log",
+        "sha256": "e5d709c0f8478423d29ead0db5aea4288791cc877bcfc8acb7bc29abea2a7a14",
+        "bytes": 181
+      }
+    },
+    {
+      "path": "codec-logs/aot-encode.json",
+      "sha256": "ec8b69b9ea200159aa18ba675ce73a470e1aa15c1300132150600a3003103d79",
+      "bytes": 297,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/aot-encode.log",
+        "sha256": "82f9676ddca523ef3895178eddea8aa2a333e447b49da1d749838a03adfd1d15",
+        "bytes": 143
+      }
+    },
+    {
+      "path": "codec-logs/aot-verify.json",
+      "sha256": "87efb0169e861551a9aeecfadb137918ccbd0d540f2fbe377a0bcba7288048a7",
+      "bytes": 337,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/input-admission-review/codecs/aot-verify.log",
+        "sha256": "2ad13148b21e2745f777448c91b615476a2eb43ca8b85ce7c28ff19d32538fe3",
+        "bytes": 182
+      }
+    },
+    {
+      "path": "ci-wiring.json",
+      "sha256": "1c058ca4ecf4b4e5b02229b053e4e3480ec86738aefdac37ad7140bd6110833b",
+      "bytes": 3792,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/logs/candidate4-input-wiring.json",
+        "sha256": "48aea108cee92caac4e3232000b71c0e14640b5478fa1d91e5b6d82c7a5d595e",
+        "bytes": 3541
+      }
+    },
+    {
+      "path": "native/postgresql-input-mode.json",
+      "sha256": "b36ecb81ec55758f2bbce42d8a8a573561a48bf54962eb5ee9f669d853b3ff25",
+      "bytes": 190,
+      "transformation": "safe text wrapper; original stdout appears once, no server/startup/build transcript",
+      "original": {
+        "path": "_validation/logs/input-wiring-release-pg/consumer.log",
+        "sha256": "8e766835528cc319b96003f1d0a51eaa6a5bc6c1ded64588030b84ed3dadc32a",
+        "bytes": 37
+      }
+    },
+    {
+      "path": "public-abi/fixed-replay.json",
+      "sha256": "0ca537d18b1e77923240cb68252bf1f89940d3387963c981d42791262c1c4b8f",
+      "bytes": 22863,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/result.json",
+        "sha256": "59defa05f3fe23132d1596c9601c07840d223fe02d946f448371d306b6857be2",
+        "bytes": 28525
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/postgresql-field-11.json",
+      "sha256": "3e180c548585882fb5bf8cc44e29c236c173ca1e134db6c991ad7c8740cf1be3",
+      "bytes": 1005,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/postgresql-field-11.json",
+        "sha256": "85eef19158752ea2ee67528ed522940f6788dcbc258c15660ba26b4c32ccb46f",
+        "bytes": 820
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/postgresql-field-12.json",
+      "sha256": "b2d3aa7cbc7179c11bfe731b0a89b149ae217a7e6108eac03922f6ec338551fd",
+      "bytes": 997,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/postgresql-field-12.json",
+        "sha256": "a0a19b6b29e10b368d4f99d9d862216d76b64245def019d990fe1c15f6d7a6d5",
+        "bytes": 812
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-empty-exact.json",
+      "sha256": "31b81a9f7501c651b3e99296e4d04e3611ddf22d45f3762ee378a503052db44f",
+      "bytes": 940,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-empty-exact.json",
+        "sha256": "590ee7da91c2e971e3ac7e5f4f3baf7ab8838359ccba8c3d6895210c02487a2a",
+        "bytes": 757
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-empty-minus-one.json",
+      "sha256": "d4a466ffa774ce9119ca0e396800c5c4f73bafc3dbe7072c6a87e26eb712f4d3",
+      "bytes": 952,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-empty-minus-one.json",
+        "sha256": "81c9b8b02f8d807e911c2ee633fa3010b2188566498c14065c3d8854ef81c73b",
+        "bytes": 769
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-stream-missing-small-batch.json",
+      "sha256": "7c04fd8707da35c3378db68e0330348659ff7b53b453233957c4739083df89a5",
+      "bytes": 964,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-stream-missing-small-batch.json",
+        "sha256": "95529bb81a8cb425d650a270ac05470970e1a677930615afb9c043c2d4f058dc",
+        "bytes": 781
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-stream-missing.json",
+      "sha256": "abcc8dac03bd15ae2d5381edcfc15fb6f1e353b9e8788eb0a4f71a0b75daf157",
+      "bytes": 954,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-stream-missing.json",
+        "sha256": "5aa0480aabdce2ee3e23f7b457a5a4d99ead0100426e727408c3f4cf633fe484",
+        "bytes": 771
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-stream-valid-small-batch.json",
+      "sha256": "c72e07dd1760b78559510b1be3985e898db370079d10b7773a8de73519f8e879",
+      "bytes": 962,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-stream-valid-small-batch.json",
+        "sha256": "ff5fad728495c09a3decf391f6e0ae22d6a885d192b00f4d550a5d60c75ee9da",
+        "bytes": 779
+      }
+    },
+    {
+      "path": "public-abi/fixed-cases/sqlite-stream-valid.json",
+      "sha256": "298049b18de484f1c40f571f6d130e8e707e15a229b36894ed05fb2a4c92c223",
+      "bytes": 952,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/sqlite-stream-valid.json",
+        "sha256": "868b33fa86093a7d4df1cdf8537f2ef54632cc48308885ada8356da8e9e380de",
+        "bytes": 769
+      }
+    },
+    {
+      "path": "source3/postgresql-difference.json",
+      "sha256": "3fa778e68e2de286b669bfd78b75c98a5ee1c48834053cc1acf0e698fa337f7d",
+      "bytes": 5109,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-review-1/result.json",
+        "sha256": "a85e3212078b5ca27cd8ad0b663538367337110ccc1a01e45b0a93867efe17d6",
+        "bytes": 4718
+      }
+    },
+    {
+      "path": "source3/postgresql-cases/cpp-source3-field-11.json",
+      "sha256": "b014dea4043955efb0e631e878f7f153f5cc7db217938a9b34ca9f9e2ea46021",
+      "bytes": 997,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-review-1/cpp-source3-field-11.json",
+        "sha256": "ba62b3cccfe3d27586d8cba348bbe039f84f98ce0adcfdc874a9446e34c103ad",
+        "bytes": 812
+      }
+    },
+    {
+      "path": "source3/postgresql-cases/cpp-source3-field-12.json",
+      "sha256": "8e858dc7213a084b89ab4bbb9b712a9c4f05d9b6ebb3139eb8d4445303bbae4f",
+      "bytes": 997,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-review-1/cpp-source3-field-12.json",
+        "sha256": "027a298817227904a3f02adee827ac3f169bf71974c5ebebd9a34b86b59ed91e",
+        "bytes": 812
+      }
+    },
+    {
+      "path": "source3/postgresql-cases/rust-field-11.json",
+      "sha256": "b49ed8cfbbeb91c5f28e856ce0ce1edb8fc041f8da895dc8fb1ac3d78742f507",
+      "bytes": 1005,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-review-1/rust-field-11.json",
+        "sha256": "ef43c86d92a3f917d2c02e718ad65526688b1f220576aae1d18b644692a9c36e",
+        "bytes": 820
+      }
+    },
+    {
+      "path": "source3/postgresql-cases/rust-field-12.json",
+      "sha256": "9f56f045884159b72777b078b361f1d8fc5b3263184506cda6e4ca849bca8efe",
+      "bytes": 997,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/parameter-budget-review-1/rust-field-12.json",
+        "sha256": "4ca9e00531f40b72da28d5e3201036e54116a302ce4aede4c41671f03ed47511",
+        "bytes": 812
+      }
+    },
+    {
+      "path": "source3/sqlite-difference.json",
+      "sha256": "35701a9f37f3de119ad217ed2c8d8d96428795fecd2fc064cfeba2e5a35db2f9",
+      "bytes": 13107,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/result.json",
+        "sha256": "e3c89f693b023825d6218fbffe7a8ec4c979cbadefdb12a4ebd1f7ec6de8902e",
+        "bytes": 12292
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-empty-exact.json",
+      "sha256": "085fe4dcd8501698d28117d3dc8206ff43330ec9b7785c1fae1832d3fc28c75e",
+      "bytes": 940,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-empty-exact.json",
+        "sha256": "04c91d7f19974c0c7a5a99b41c129e5612e2348d9ba6a3ef8744c455dad596d8",
+        "bytes": 757
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-empty-minus-one.json",
+      "sha256": "edc7151fac083e2aa6aded20a08fe8d432f21c3f000e6dcea2b8d592da01db0d",
+      "bytes": 944,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-empty-minus-one.json",
+        "sha256": "278e2c0e9790f015d80c41389e3e5bebaa606ad1bdea2b0eb63cf0793cda40ca",
+        "bytes": 761
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-stream-missing-small-batch.json",
+      "sha256": "b4bd250be77c66bafe65b877e91297af2615e3ce5d0f069b17ebb7e73875be6e",
+      "bytes": 965,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-stream-missing-small-batch.json",
+        "sha256": "2f18296a3c3076f2cec6c3018116bfc1e0fc04c17192b3d4ba4cb0ed36256059",
+        "bytes": 782
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-stream-missing.json",
+      "sha256": "7779ba8d00e6d4c400b39427d3ae68f6a0af7b6117013a99eda4dab5f791f115",
+      "bytes": 954,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-stream-missing.json",
+        "sha256": "465b9d021077413b3af98f0d7e86e7b84b6cea3ab284d1f8779142664916f0bc",
+        "bytes": 771
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-stream-valid-small-batch.json",
+      "sha256": "a0af5fa21dd5f34fa4f7f260e127a836dbd2c64c0b0dbf340cd496d7d462c1bc",
+      "bytes": 963,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-stream-valid-small-batch.json",
+        "sha256": "e2fec4018198dc8c64802ae82aed87cc443ab67a1e972368c865023e347b9bf8",
+        "bytes": 780
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/cpp-source3-stream-valid.json",
+      "sha256": "053821a069d8bd47370b5b528dbfcf7ede054636e55a57e40c658018792fbdc0",
+      "bytes": 947,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/cpp-source3-stream-valid.json",
+        "sha256": "431a02c34d2802015445f7713f52c32219656f69f00ed7336523a8f04daa9351",
+        "bytes": 764
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-empty-exact.json",
+      "sha256": "7c01bcfcf51a53c56f64f89d2c041ffad750b4c6934c7079e418d60828aa411a",
+      "bytes": 940,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-empty-exact.json",
+        "sha256": "e2bdc2a133ccfffe0f237267b9055c59e094fc3df813b9b7713cdb0771b01fae",
+        "bytes": 757
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-empty-minus-one.json",
+      "sha256": "1bc6d89042029ca3d169a2514b2288c06d27cdf6c0345cda3803e624b8b5a7f6",
+      "bytes": 952,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-empty-minus-one.json",
+        "sha256": "243f4dd7593d8923aa4a368c4bf4727b028997cd422f9aa32df6c0a8db795bcb",
+        "bytes": 769
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-stream-missing-small-batch.json",
+      "sha256": "2b7f50b9efef4f6398eea3941469d2f2e206d050cb0cc415c178237f1af2d2bd",
+      "bytes": 964,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-stream-missing-small-batch.json",
+        "sha256": "7af58d74dccd6edcdc941fdac8cbb13c63d5778eac3a632aee18b5b60a164859",
+        "bytes": 781
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-stream-missing.json",
+      "sha256": "c8a8cd50989f8cb4a153533f5183169d92e8c822ac545780966675a7cdcc115e",
+      "bytes": 954,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-stream-missing.json",
+        "sha256": "3eb077f8fe78daa2f5347c6a451878f628d341cb146b31ed9e5000d17474a83c",
+        "bytes": 771
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-stream-valid-small-batch.json",
+      "sha256": "afcd01fe1900371afcfa723ad3447768938b241a147922625ed875f940bab98f",
+      "bytes": 962,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-stream-valid-small-batch.json",
+        "sha256": "ce6d7898d9157f1c1c2b01d00ac0d752ca4f3075e04d08b0c39edee1b47de080",
+        "bytes": 779
+      }
+    },
+    {
+      "path": "source3/sqlite-cases/rust-stream-valid.json",
+      "sha256": "a1293f210296d6eeea0fd5ef873d4bacaad147674505bbe3a19788eafea374b4",
+      "bytes": 952,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/sqlite-input-review-2/rust-stream-valid.json",
+        "sha256": "e18c0aa5b563bcdccadb2d738ac669dc10e5af0d03dbabb79344e2111899a4b0",
+        "bytes": 769
+      }
+    },
+    {
+      "path": "git-transport/review.json",
+      "sha256": "b2af1e7cf3003049fe29b0fe4132f496939999d68f0faa3b3c7b278c4a777849",
+      "bytes": 4452,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/clean-image-audit-3e49cee/review.json",
+        "sha256": "b6b570d4ca5580d95d14bd9134c0cd1b11fce44a6c43d18a0e496afddd81a0a1",
+        "bytes": 4169
+      }
+    },
+    {
+      "path": "git-transport/shallow.json",
+      "sha256": "5356139aebde1c7c399904c0fb2088e6785539cdf4f9ec8c725360bc0e84cf99",
+      "bytes": 5786,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/clean-image-audit-3e49cee/result.json",
+        "sha256": "3f524e0640a282db5e9b834fba4ad40c602ebafdf216c72fe57443cad3cf9e17",
+        "bytes": 7568
+      }
+    },
+    {
+      "path": "git-transport/full-history.json",
+      "sha256": "8e4921865f470e3e3b4c2b4a0ba872b5dfa5435a92d931690930f0c6bf460f5e",
+      "bytes": 4516,
+      "transformation": "safe JSON wrapper: remove private keys/raw argv; redact database URIs and unnecessary email",
+      "original": {
+        "path": "_validation/clean-image-audit-3e49cee/full-history-result.json",
+        "sha256": "9ed3ccb06480848c04e554fd33abf5654749115a73634c00b0e91c2173dc442d",
+        "bytes": 6099
+      }
+    },
+    {
+      "path": "source3/managed-failure.json",
+      "sha256": "1e7a612b621325163594cdccda78324a973facf481c85642109b7e94094a0038",
+      "bytes": 655,
+      "transformation": "two exact failure lines; all remaining original log lines omitted explicitly",
+      "original": {
+        "path": ".worktree/DB-CPP-01-linux/NativeWeave/artifacts/db-scope/regressions-local-3e49cee95d20-complete-workspace/logs/Orm.Relations-jit.log",
+        "sha256": "696d96509cd6f496a040731fa12067aec9bd890f75d3a5302e314f3cda32e5e8",
+        "bytes": 1266
+      }
+    },
+    {
+      "path": "review.md",
+      "sha256": "46ea125414012cbafb0131349e04f3d57ee9f065f9e870aaf6c1faa00d4d730b",
+      "bytes": 6671,
+      "transformation": "exact unchanged independent review",
+      "original": {
+        "path": "_validation/parameter-budget-fixed-development-1/review.md",
+        "sha256": "46ea125414012cbafb0131349e04f3d57ee9f065f9e870aaf6c1faa00d4d730b",
+        "bytes": 6671
+      }
+    },
+    {
+      "path": "README.md",
+      "sha256": "3a8f68d8ea95160a66b1dacddef857c3db9df03bea6676b4af96f466861aa522",
+      "bytes": 3049,
+      "transformation": "generated explanatory text"
+    },
+    {
+      "path": "advisory-lock-mitigation.md",
+      "sha256": "02a64f0855e37f895d680b61565b4d2c6768bde7d28470ba776588bb254bc6a0",
+      "bytes": 3654,
+      "transformation": "generated explanatory text"
+    },
+    {
+      "path": "verify-export.py",
+      "sha256": "767a53f4a5f3067aadc7aae569d3cb9ad596af92048fc2740de8bee0518df19a",
+      "bytes": 6824,
+      "transformation": "generated explanatory text"
+    }
+  ]
+}

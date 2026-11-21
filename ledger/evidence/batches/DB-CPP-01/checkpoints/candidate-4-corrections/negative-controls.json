@@ -1,0 +1,32 @@
+{
+  "sanitized": true,
+  "source_artifact_sha256": "30e91407ef7a3491bdd8d47061da31ceb2fb07c1044526993fdd830774bcd046",
+  "data": {
+    "baseCommit": "3e49cee95d206468a32c94f0a3b98e923f02acbf",
+    "sourceDirty": true,
+    "sourceFiles": {
+      "native/cpp/src/host.cpp": "eb1c23c0e0bc87b0f2f647dae17fcfaaf4f4d132b1dbef2c22298993d8a5c536",
+      "native/cpp/src/provider.cpp": "ff2a99f8dfa0a1dcc995735f0c2980fd5aec7efef26c69333416b442c887794f",
+      "native/cpp/tests/host_review_tests.cpp": "ae46828bd3c7c7d8c42c480155b1f9dbc4def24850501834fed15bc6d946d5fe"
+    },
+    "negativeControls": [
+      {
+        "name": "physical-grant",
+        "exitCode": 1,
+        "expectedFailure": "actual operation terminal category differs",
+        "negativeRejected": true,
+        "mutantSha256": "eceeb629cd1f29f777850c7b49cd0818bff70eb781265863d9794fb9a1ae86d8",
+        "output": "host review failure: actual operation terminal category differs\n"
+      },
+      {
+        "name": "provider-width",
+        "exitCode": 1,
+        "expectedFailure": "canonical parameter bytes bypassed the provider storage-width limit",
+        "negativeRejected": true,
+        "mutantSha256": "1e028b2de5cb3c952ddc79bea5ef0228f850aabe298263d57e60060b236a76ed",
+        "output": "host review failure: canonical parameter bytes bypassed the provider storage-width limit\n"
+      }
+    ],
+    "passed": true
+  }
+}
