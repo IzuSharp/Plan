@@ -1,5 +1,44 @@
 # Perf-01 Linux x64 handoff
 
+## Fresh layered profiles completed; formal before-only noise is running — 2026-11-21 UTC
+
+The [actual layered comparison](recovery/epoch-002/layered-profile-comparison-004.md)
+and its [numeric projection](recovery/epoch-002/layered-profile-comparison-004.json)
+now cover all 13 diagnostic profiles per role. Baseline remains
+`ea5fa528035d025bd7a28698ee7c71194432236c`; selected final remains
+`2f40348c3db80a4fbee7a99e721b374a597b16df`, under the same
+`2e3995df8d86583ee9443348276ca8d918056bfc` application/measurement driver.
+The 26 profile invocations include 44 owned finite commands: 42 exited zero,
+and both PostgreSQL cycle producers exited one because their generators
+reached the in-flight limit. Every owned command retired with no live owners
+or children. The two invalid loads remain failed evidence, not noise samples.
+
+Repeated public Inspect allocated 2,624 before and zero after calling-thread
+bytes per lookup in all three processes. Typed pages allocated 12.26% fewer
+managed bytes per page, but one-process wall time increased by 28.92% for
+SQLite and 86.42% for PostgreSQL. HTTP JSON's whole-profile approximate
+managed allocation rate fell from 32.452 to 0.892 MiB/s. gRPC allocation was
+essentially unchanged, with server-stream and duplex still around 513–520
+MiB/s. These are diagnostic observations; process count, timing brackets,
+validation work and counter availability are stated in the report. They do
+not establish formal significance, direct-Rust gaps or a retained-change
+performance decision.
+
+The original before-only noise queue started at the end of profiling. Its
+PostgreSQL c16 triplet completed with all three processes valid, each issuing
+and succeeding on all 10,801 offered operations and passing its independent
+durability and shutdown checks. The SQLite triplet was running at this
+checkpoint; its first two processes each completed all 3,001 offered
+operations with zero observed provider errors and business retries. No
+measurement rate, concurrency, generator mask, service standard or failure
+rule was changed to obtain these results.
+
+Root remains the sole measurement executor. After all ten noise scenes
+complete, the exact original numeric projections will be published and
+actually read back before the 16 interleaved comparisons. Capacity and the
+ten matched long segments still follow their frozen gates.
+**Current accepted long-test credit remains 0/10.**
+
 ## Full selected Server regression passed; fresh layered profiling started — 2026-11-21
 
 The selected `2f40348c3db80a4fbee7a99e721b374a597b16df` Server asset completed

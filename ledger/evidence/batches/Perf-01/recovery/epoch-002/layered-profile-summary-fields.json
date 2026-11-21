@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "kind": "source-only-layered-profile-field-map",
+  "execution_performed": false,
+  "target_modules_imported": false,
+  "new_statistics_algorithm": false,
+  "formal_timing_eligible": false,
+  "performance_credit_seconds": 0,
+  "actual_comparison_rows": [],
+  "bindings": {
+    "driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "before_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "selected_final_commit": "2f40348c3db80a4fbee7a99e721b374a597b16df",
+    "profiling_source_index_sha256": "6e0a16a6b4f84afc811b559dcdb1d62bfb32032c59bd3bd6aa030a0e778a4b42",
+    "profiling_plan_sha256": "45c1a8faa86fdfa17fe9c6912a2e3cb523db42d4db241a1dd6e67c9f9817c37f",
+    "measurement_source_index_sha256": "6b1d1e8ec6ee80271fdbbeb1c6d13909b92ca13c7a28cbc4fd4085f98f6a4c2c",
+    "before_admission_sha256": "56725c0a0167e04bb021210d879b6616f85523705bc19bd04bc11e2cbb42d380",
+    "final_binding_sha256": "8f8616f2932dd1c033309e177efa63429829f9ffa2b728a182406d943efdfa8d",
+    "final_profile_queue_sha256": "9d2289f8557fd638c42e7f830141cfc0e3b39aae83e0f4c978c1e53276488e16"
+  },
+  "profiles": {
+    "inspect": "inspect",
+    "page-sqlite": "page",
+    "page-postgresql": "page",
+    "retirement-sqlite": "retirement",
+    "retirement-postgresql": "retirement",
+    "postgresql-cycle": "postgresql-application",
+    "postgresql-page": "postgresql-application",
+    "http-tiny": "protocol",
+    "http-json": "protocol",
+    "grpc-unary": "protocol",
+    "grpc-server": "protocol",
+    "grpc-client": "protocol",
+    "grpc-duplex": "protocol"
+  },
+  "common_execution_fields": [
+    "role", "scene", "status", "started_utc", "ended_utc", "admission_sha256",
+    "profiling_source_index_sha256", "profiling_plan_sha256", "measurement_source_index_sha256",
+    "build_proofs", "final_binding", "selected_final_commit", "commands", "cells",
+    "formal_timing_eligible", "duration_credit_seconds"
+  ],
+  "groups": {
+    "inspect": {
+      "file": "cell/inspect-{process_index}.json",
+      "processes": 3,
+      "copy": [
+        "status", "error", "completed_measured_calls", "completed_warmup_calls", "completed_batches",
+        "stopwatch_frequency", "first_inspect", "warmup", "samples", "server_gc", "gc_latency_mode",
+        "affinity_before", "affinity_after", "product_commit", "profile_source_commit", "executable_sha256",
+        "manifest_sha256", "codec_manifest_sha256", "loaded_native_sha256"
+      ],
+      "arithmetic_per_process": {
+        "measured_calls": "sum(samples[].calls); require equality to completed_measured_calls",
+        "measured_wall_seconds": "sum(samples[].wall_stopwatch_ticks) / stopwatch_frequency",
+        "measured_wall_ns_per_call": "sum(samples[].wall_stopwatch_ticks) * 1e9 / stopwatch_frequency / completed_measured_calls",
+        "calling_thread_allocated_bytes": "sum(samples[].calling_thread_allocated_bytes)",
+        "calling_thread_allocated_bytes_per_call": "sum(samples[].calling_thread_allocated_bytes) / completed_measured_calls",
+        "process_cpu_seconds": "sum(samples[].process_cpu_time_span_ticks) / 1e7",
+        "gen0_collections": "sum(samples[].gen0_collections)",
+        "gen1_collections": "sum(samples[].gen1_collections)",
+        "gen2_collections": "sum(samples[].gen2_collections)"
+      },
+      "scope": "Measured batches only; first load and warmup separate. Calling-thread allocation, wider process CPU bracket. No process pooling or percentile synthesis.",
+      "unavailable": ["RSS", "native allocated bytes", "post-idle resource series"]
+    },
+    "page": {
+      "file": "cell/result.json",
+      "copy": [
+        "Status", "FailureType", "Provider", "RequestedPages", "CompletedPages", "RowsPerPage",
+        "CompletedWarmupPages", "MeasurementStartUtc", "MeasurementEndUtc", "ElapsedTicks",
+        "StopwatchFrequency", "FullPageTicks", "ProcessManagedAllocatedBytes", "ManagedBytesPerCompletedPage",
+        "ProcessCpuMilliseconds", "GcCollections", "SeedCommitted", "SeedTransactionReleased",
+        "SeedSessionReleased", "PageSessionReleased", "CleanupSessionReleased", "SourceReleased",
+        "TableDropped", "DynamicCodeSupported", "CpuAffinity", "ExecutableSha256", "BuildManifestSha256",
+        "LoadedNativeModules", "FixtureSha256"
+      ],
+      "arithmetic": {
+        "completed_rows": "CompletedPages * RowsPerPage",
+        "wall_seconds": "ElapsedTicks / StopwatchFrequency",
+        "wall_ns_per_page": "ElapsedTicks * 1e9 / StopwatchFrequency / CompletedPages",
+        "process_cpu_seconds": "ProcessCpuMilliseconds / 1000"
+      },
+      "scope": "Full serial typed public query, DTO/list materialization, cleanup and exact validation. Allocation/CPU include runtime work. No new per-page percentile calculation.",
+      "unavailable": ["RSS", "pool wait", "pure database duration", "native allocated bytes"]
+    },
+    "retirement": {
+      "file": "cell/result.json",
+      "copy": [
+        "Provider", "Calls", "StopwatchFrequency", "PublicCallMilliseconds", "NativeOperations",
+        "ManagedAllocatedBytesIncludingObserver", "ProcessCpuMilliseconds", "GcCollections",
+        "SourceReleased", "LoadedNativeModules", "Scope"
+      ],
+      "native_operation_fields": ["Start", "StartReturned", "Terminal", "BeforeTake", "Retired"],
+      "arithmetic": {
+        "public_call_time_sum_ms": "sum(PublicCallMilliseconds[])",
+        "instrumented_mean_public_call_ms": "sum(PublicCallMilliseconds[]) / Calls",
+        "managed_allocated_bytes_per_call_including_observer": "ManagedAllocatedBytesIncludingObserver / Calls",
+        "observed_native_operation_count": "length(NativeOperations)",
+        "process_cpu_seconds": "ProcessCpuMilliseconds / 1000"
+      },
+      "scope": "Public-call time sum is not an outer elapsed window. Observer instrumentation remains included. Native operations are not a count of every FFI crossing. Do not subtract absent/zero/unordered endpoints.",
+      "unavailable": ["outer wall window", "RSS", "pending retirement count", "native allocated bytes"]
+    },
+    "postgresql-application": {
+      "file": "cell/summary.json",
+      "copy": [
+        "valid", "supervision", "invalid_reasons", "offered", "dispatched", "successful", "observation_seconds",
+        "successful_per_second", "planned_load_seconds", "actual_dispatch_span_seconds", "p50_ns", "p95_ns",
+        "p99_ns", "outcomes", "by_kind", "resources", "generator_resources", "provider_errors",
+        "business_retry_attempts", "classified_error_counts", "durable_oracle", "closed", "loaded_files", "phases"
+      ],
+      "measurement_resource_fields": [
+        "cpu_seconds", "cpu_percent_one_core", "cpu_span_seconds", "rss_peak_bytes", "fd_peak_count",
+        "socket_peak_count", "samples", "cpu_samples", "error_samples", "cpu_unavailable_reason"
+      ],
+      "observer_file": "cell/postgres-profile-summary.json",
+      "observer_copy": [
+        "wait_observer_passed", "load_statement_logging_observed", "statement_observations",
+        "unparsed_duration_lines", "activity_snapshots", "backend_wait_samples", "missing_files", "unavailable"
+      ],
+      "statement_fields": [
+        "phase", "protocol_step", "sql_first_line", "observations", "total_server_elapsed_ms",
+        "mean_server_elapsed_ms", "p50_ms", "p95_ms", "p99_ms"
+      ],
+      "wait_fields": ["phase", "state", "wait_event_type", "wait_event", "samples"],
+      "scope": "Producer application arrival percentiles/rate and sampled process resources. Keep statement groups intact. Concurrent server durations and sampled waits cannot be subtracted from application wall or multiplied into exact wait durations.",
+      "unavailable": ["managed allocated bytes", "GC", "per-request lock time", "pool wait", "pure database CPU"]
+    },
+    "protocol": {
+      "file": "cell/diagnostic-reader.json",
+      "copy": [
+        "reported_status", "reported_valid", "eligible", "issues", "measurement_window", "build",
+        "result_sha256", "inputs_sha256", "scenarios", "resources"
+      ],
+      "scenario_fields": [
+        "key", "scenario", "protocol", "configured_payload_bytes", "configured_messages", "expected_probe",
+        "offered", "dispatched", "admitted", "client_calls", "successful_calls", "successful_logical_checks",
+        "correctness_failures", "unexpected_errors", "intentional_cancellations", "intentional_deadlines",
+        "controller_outcomes", "client_outcomes", "wire_statuses", "successful_totals", "raw_observed_totals", "metrics"
+      ],
+      "metrics_fields": [
+        "arrival_mean_ns", "arrival_p50_ns", "arrival_p95_ns", "arrival_p99_ns", "successful_calls_per_second",
+        "logical_checks_per_second", "request_messages_per_second", "response_messages_per_second",
+        "request_payload_bytes_per_second", "response_payload_bytes_per_second",
+        "request_encoded_bytes_per_second", "response_encoded_bytes_per_second"
+      ],
+      "whole_process_resource_fields": [
+        "cpu_seconds", "cpu_percent_one_core", "rss_bytes_maximum", "threads_maximum", "fd_count_maximum", "socket_count_maximum"
+      ],
+      "resource_sections": [
+        "processes", "managed_gc", "managed_gc_status", "managed_gc_observation", "native_gauges_maximum", "after_idle_gauges"
+      ],
+      "expected_only_issue": "Profiling-only cell cannot establish a timing comparison",
+      "scope": "Original reader scenario counts/percentiles/rates, whole-profile window denominator. Resource and approximate GC snapshot brackets remain whole-profile. No exact bytes/call or per-scenario CPU attribution; identity-only gRPC compression.",
+      "unavailable": ["per-scenario CPU/RSS/GC", "exact allocation per call/message", "native allocated bytes"]
+    }
+  },
+  "rules": [
+    "Keep before and selected-final actual execution identity bindings; the queue is not proof of completion.",
+    "Preserve failures and missing fields as failure/N/A; a zero denominator does not produce zero cost.",
+    "Keep three Inspect process rows and original per-scenario protocol rows; no new pooled percentile, significance or noise verdict.",
+    "No result from a historical commit may populate the selected-final row.",
+    "Public output uses filenames and hashes; raw local path maps and TLS material remain private.",
+    "No formal timing, capacity or long-duration credit is inferred from profiles."
+  ],
+  "schema_observations": {
+    "before-inspect/execution.json": "bfdd60225591425b78839eba74201c85fcd88a7f690f6750821cfe361945f277",
+    "before-inspect/inspect-0.json": "ece841c157814035ec957d6c4177994cadcea69c28c2ee78c24f3f8d4ce4169e",
+    "before-inspect/inspect-1.json": "38d6c9e20241159cc8d8dfcafecaea9fba42aac9fb448d237c9177dbbec563d2",
+    "before-inspect/inspect-2.json": "67901224d41b5191b050ec870b555f0796f490029d8dbd703a93f139aa7ee832",
+    "before-page-sqlite/execution.json": "76e8ad158546d0699cc7f85102036d3e1617a28766543b031ea1780a9c6424ee",
+    "before-page-sqlite/result.json": "09fb550a2b3f05de36c2edab35e765c49819d90d10980c60c2460f0710a35418"
+  },
+  "additional_sources_read_sha256": {
+    "Plan/ledger/evidence/batches/Perf-01/protocol_compare.py": "a8cead371ceed5b2d6a865c1e6b113110005db7880af7566d5125f46429c032f",
+    "NativeWeave/tests/Perf01.Database/perf01_resources.py": "25063ca25eafabf6f70ab4069186382c0f6292da53b5200644f61e2a8fdf6b4c"
+  }
+}
