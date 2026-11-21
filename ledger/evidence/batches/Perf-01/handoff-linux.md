@@ -1,5 +1,46 @@
 # Perf-01 Linux x64 handoff
 
+## Before and common producers complete; B18 in progress — 2026-11-21 02:22 UTC
+
+The fresh EA5 baseline completed all eight owned producers at 02:06:40.950262
+UTC; the common 2e comparator/corpus producers completed all three commands at
+02:14:36.133935 UTC. Every command exited zero and retired. The
+[before build projection](recovery/epoch-002/built-before-001/README.md) binds the
+selected 17 B24 archives, three stable native assets and nine principal consumer
+identities. The [common projection](recovery/epoch-002/built-common-001/README.md)
+binds actual direct Rust/managed executables, the common before AOT client and
+all eight fixed codec cases. These are fresh actual binaries, not historical
+hash substitutes.
+
+Two narrow user-owned binary archives were saved and retrieved. Their archive
+digests and all 82 payload member hashes matched; the
+[readback receipt](recovery/epoch-002/built-principal-archives-001/README.md)
+records names, sizes, exact identities and retention. Source/curated evidence
+remains in Git. Private operational maps, environment files, TLS material and
+complete build caches are excluded from these backups.
+
+The published [measurement caller review](recovery/epoch-002/measurement-caller-review.md)
+accepts source index `a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b`,
+which uses the original streaming metadata reader and complete long verifier.
+A parallel unexecuted source variant and its review remain historical; the
+public source is selected before any measurement admission. The
+[profiling source review](recovery/epoch-002/profiling-source-review.md) accepts
+the separate original-probe caller. Neither review is execution evidence.
+The current core capacity scope is 15 controllers: five groups each for before,
+after and direct Rust. Equivalent managed routes also participate in the fixed
+comparison; the original optional two managed DB capacity routes do not create
+an additional mandatory long gate.
+
+Baseline B18 began at 02:15:08.867358 UTC and remains in progress. The native
+component format, strict Clippy, leaf/core-host Debug and leaf Release checks
+have passed; no completed assembled JIT/AOT result is claimed yet. Current
+candidate `ccff42c0df4141984ef9de497af7cd768753704a` has all seven CI128 jobs
+completed successfully, including Verify; exact artifact/source audit is in
+progress. Its local after build, affected functional checks, fresh profiles,
+noise/comparison/capacity and all ten long segments still remain. Current long
+credit is **0/10**. The immutable baseline admission will be populated only
+from completed before/common/B18 receipts; final binding is separate.
+
 ## Continued original build; large-result reader reviewed — 2026-11-21 02:12 UTC
 
 The original epoch-002 baseline build 002 completed at 02:06:40.950262 UTC:
