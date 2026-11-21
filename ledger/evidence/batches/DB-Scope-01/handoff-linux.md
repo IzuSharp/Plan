@@ -1,15 +1,27 @@
 # DB-Scope-01 Linux handoff
 
-## Current checkpoint
+## Current checkpoint — delivered snapshot accepted
 
-- Active task: **DB-Scope-01**, Linux x64, branch `task/DB-Scope-01-linux`; Perf-01 is terminated. Preserve all three current checkouts and current evidence.
-- Required order was followed: old PR closure/cleanup → initial Plan PR24 at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a` → current Design → product pruning. Source pruning and product acceptance review are complete.
-- **Tested product candidate10:** `7255040b9501a1898d008c793f9b1777d8394d65`, tree `5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b`, [PR20](https://github.com/IzuSharp/NativeWeave/pull/20). Its complete CI [44919645468](https://github.com/IzuSharp/NativeWeave/actions/runs/44919645468), all six jobs, required regressions and external consumers passed. PR20 is now normally merged as `465cd0f90e6af05ec50eb581156240377cf0825b`, with identical tested/merged tree. Exact [main CI44924918463](https://github.com/IzuSharp/NativeWeave/actions/runs/44924918463) completed successfully; all required build/security/final Verify jobs and steps passed, with only the unchanged PR-only Dependency review skip. No older candidate described below should be resumed.
-- **Design delivered:** tested head `3d1b4d5d80b8e3d8790481276a8333c0d2a25754`, merged as `8298dc4128b745cf1809bad0c3cf02c45eb7f522` by [PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14), identical tree `74f886a74a38d0478d1c4b4a22ea17383dfd0424`. Both exact main workflows44923513318/44923513282 passed and were independently reviewed.
-- Final CI evidence was authenticated by GitHub ZIP digest/size, then independently rehashed. The unchanged semantic validator passed2,959 predicates/17 sections; the separate workspace review verified all56 regression gates,86 Rust tests and668 source-hash comparisons. Exact original JSON exports and reviewer limitations are committed under `results/candidate10-final-ci-semantic/` and `results/candidate10-final-ci-regressions/`.
-- **Acceptance:** twelve of fourteen claims passed: eleven product execution/consumer claims and independent review. The global three-repository PR-check and merged-main-CI claims remain pending until actual Plan delivery. Overall state is `in_progress`; only the Plan normal merge/exact main CI and evidence-only acceptance record remain. The product and Design records now bind actual successful PR-head and merged-main CI, with identical tested/merged trees.
-- No local build, database, load test, timer or auto-push is active. Final product CI containers stopped successfully. No performance optimization, new feature/wrapper or public package publication is authorized in this batch.
-- Read the [Linux acceptance summary](results/linux-acceptance-summary.md), [plan](plan.md), [acceptance](acceptance.json) and `delivery-graph.json.current_execution`. The [baseline](baseline.json) and older sections below preserve historical checkpoint identities, including failed/cancelled/local-only attempts.
+**DB-Scope-01 has completed its three-repository Linux x64 delivery.** All fourteen source-bound claims in [acceptance.json](acceptance.json) pass, and all seven current execution phases are complete. Perf-01 remains terminated; performance optimization is outside this batch.
+
+| Repository | Delivered PR | Tested/reviewed head | Actual merge |
+|---|---|---|---|
+| NativeWeave-Design | [PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) | `3d1b4d5d80b8e3d8790481276a8333c0d2a25754` | `8298dc4128b745cf1809bad0c3cf02c45eb7f522` |
+| NativeWeave | [PR20](https://github.com/IzuSharp/NativeWeave/pull/20) | `7255040b9501a1898d008c793f9b1777d8394d65` | `465cd0f90e6af05ec50eb581156240377cf0825b` |
+| Plan | [PR24](https://github.com/IzuSharp/Plan/pull/24) | `c0068e00d67ee04d79d0d14785eb5aa81075b5d6` | `d35bf8e9dd556e7aa11265a3dae7e1f32f778633` |
+
+Each actual merge has the same tree as its tested/reviewed head. Design main runs [44923513282](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44923513282) and [44923513318](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44923513318), product main [44924918463](https://github.com/IzuSharp/NativeWeave/actions/runs/44924918463), and Plan main [44928611963](https://github.com/IzuSharp/Plan/actions/runs/44928611963) were all observed successful. Exact PR-head checks also passed and are bound separately in acceptance.json.
+
+| Ordinary outside-source NuGet consumer | JIT | Native AOT |
+|---|---|---|
+| PostgreSQL | Passed | Passed |
+| SQLite | Passed | Passed |
+
+The actual typed Fluent/DTO consumers, real data and independent SQL checks, twelve-package dependency closure, publish directories and loaded native-library identities all passed. Genuine SDK consumption without Rust and runtime-only execution without SDK/compilers passed. Database Host and all implemented database capabilities remain; removed Server/gRPC/MCP/demo products do not enter the package or runtime closure. See the [complete Linux acceptance summary](results/linux-acceptance-summary.md).
+
+This file is an **evidence-only followup** for the already observed delivered snapshot above. It does not claim CI for its own future containing commit. Its own technical review, PR checks, normal merge and exact main CI are checked separately and linked from the [Plan PR24 discussion](https://github.com/IzuSharp/Plan/pull/24). See the resume/stop rule below before doing any further work.
+
+Preserve the three DB-Scope-01 checkouts and all current evidence. No local build, database, load test, timer or automatic push is active. Do not clear this new workspace, resume older candidates, alter historical deliveries or begin performance work. The [baseline](baseline.json) and the chronological sections below retain their original checkpoint identities and failures.
 
 ## Completed stop/cleanup
 
@@ -25,12 +37,11 @@ Only the current Linux execution host is exposed in this session. No other Linux
 - Local task root: `/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/`.
 - Fresh validation tools/caches are under `_validation/`; they are not old Perf-01 artifacts.
 
-## Next actions
+## Resume and final stop
 
-1. Product and Design delivery are complete: PR20 merge465cd0f/mainCI44924918463 and PR14 merge8298dc4/both main workflows passed with exact tested trees. Their actual results and source-bound receipts are now in Plan. Do not repeat their merges, source edits or product tests.
-2. Complete final Plan PR24 source/evidence review and its exact published-head CI, then merge normally with an expected-head check and observe the exact Plan main commit CI. Keep overall acceptance in_progress until that observation. Preserve normal protections, licenses, required checks and reviewer identities.
-3. After observed Plan main CI, append an evidence-only followup recording the already delivered three-PR snapshot as accepted. Check that followup's own PR/main CI separately; do not predict a future containing commit's CI or create a circular hash.
-4. Report final PR/commit locations and the four PostgreSQL/SQLite JIT/AOT consumer outcomes briefly, then stop. Performance work,30-minute load, new ORM features, hosting wrappers and public package releases remain outside this batch.
+1. The three delivered PRs and their required head/main CI above are complete. Do not repeat product/design edits, tests or merges.
+2. Inspect the evidence-only followup linked from Plan PR24. If its normal merge and exact merged-main CI already succeeded, DB-Scope-01 is finished: stop. Otherwise complete only that record's technical review, exact-head checks, normal merge and exact main CI. This file never predicts that future result or starts another recursive evidence-record commit.
+3. Report the closed old PRs, removed/retained scope, four PostgreSQL/SQLite JIT/AOT results and final PR/commit links briefly. Do not start performance optimization, a 30-minute load test, a new ORM feature, a hosting wrapper or public package publication.
 
 ## Plan-first and validation environment checkpoint
 
@@ -278,3 +289,10 @@ Exact main run44924918463 was observed completed/success on465cd0f90e6af05ec50eb
 The main artifact digests are recorded as GitHub-declared metadata only: evidence14716397735/e71a27bd6a649a78c75ea1e8a917273338e1b9a604def4713c6c8e17c70572a2 and candidate14715983822/7a7982ccda96d3a5d7f3f4b00713a8668ae5548ec189419e3c22af5493248a11. These new main archives were not downloaded or independently reexecuted. Actual product semantic acceptance remains bound to the independently downloaded/reviewed C10 PR artifacts and the identical merge tree; the separate main CI validates that merge through the same required gates. No earlier archive or source identity was substituted.
 
 Planb7e31e1 checkpoint CI44925467618 passed before this final main-result integration. Twelve product/review claims remain passed; the two global three-repository CI claims wait for the delivered Plan merge.
+
+
+## Delivered Plan merge observed; accepted snapshot recorded
+
+Plan PR24 was normally merged with expected head `c0068e00d67ee04d79d0d14785eb5aa81075b5d6` after its independent technical review and complete PR CI44928013016 passed. Actual merge `d35bf8e9dd556e7aa11265a3dae7e1f32f778633` has the same `2b63ba34e3498ad688efd05a08844ff9b3c1de14` tree. Main CI44928611963 was then observed completed/success at 2026-11-21T17:18:24Z. Current scope/evidence checks, both exact historical checkouts and all unchanged historical provenance/graph gates passed. Raw head/main metadata, source-bound receipts and the complete immutable Plan delivery-head review are now included in this evidence-only record.
+
+Only after those actual observations were all fourteen acceptance claims and all seven current phases marked complete. The accepted record binds the delivered Plan PR24 head/merge, not the containing followup's future Git hash. The followup's own review and CI are checked separately through the normal PR process, with the final observed result linked from Plan PR24. No required gate, protection, license or approval identity changed; failed/cancelled/development/local-only attempts and historical records retain their original meanings.

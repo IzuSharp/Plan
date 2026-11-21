@@ -6,7 +6,7 @@ The owner authorized DB-Scope-01 on 2026-11-21: stop Perf-01, retain the Postgre
 
 The three legacy graphs, 114 packets, prior source-driven baseline, original acceptance bindings and delivered Task-01 through Task-07 evidence remain historical. Do not alter them to invent acceptance or resume removed components. Current acceptance requires new source-bound DB-Scope-01 evidence; unchanged historical gates run against their exact original inputs.
 
-**Observed delivery checkpoint:** final candidate10 CI44919645468 and independent source/runtime evidence reviews passed; all eleven product checks plus independent review are source-bound in acceptance.json. Design PR14 and product PR20 are merged with their exact tested trees; every required main check passed. Plan delivery review/merge and its exact main CI, followed by the evidence-only accepted-delivery record, remain in progress. See the [Linux acceptance summary](ledger/evidence/batches/DB-Scope-01/results/linux-acceptance-summary.md).
+**Delivered snapshot accepted:** Design PR14, product PR20 and Plan PR24 are merged with their exact tested trees and successful required main CI. All fourteen source-bound acceptance claims and seven execution phases are complete. This evidence-only record checks its own PR/main CI separately and does not predict that result. See the [Linux acceptance summary](ledger/evidence/batches/DB-Scope-01/results/linux-acceptance-summary.md) and [handoff](ledger/evidence/batches/DB-Scope-01/handoff-linux.md). Stop after the record checks; performance work remains deferred.
 
 ## Historical planning text (superseded for current product scope)
 

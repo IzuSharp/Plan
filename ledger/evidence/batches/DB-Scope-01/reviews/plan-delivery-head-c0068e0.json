@@ -1,0 +1,1395 @@
+{
+  "schema_version": 1,
+  "task": "DB-Scope-01",
+  "reviewer": "/root/product_scope",
+  "reviewed_at_utc": "2026-11-21T17:06:34.923889+00:00",
+  "review_kind": "Independent technical review of final root-authored Plan delivery-head delta",
+  "status": "passed",
+  "unresolved_blockers": [],
+  "source": {
+    "repository": "IzuSharp/Plan",
+    "commit": "c0068e00d67ee04d79d0d14785eb5aa81075b5d6",
+    "tree": "2b63ba34e3498ad688efd05a08844ff9b3c1de14"
+  },
+  "prior_review": {
+    "plan_commit": "07f8ded8f05ebbb0770d54634246b57ba7b2f5c3",
+    "path": "ledger/evidence/batches/DB-Scope-01/reviews/plan-product-acceptance-integration-07f8ded.json",
+    "sha256": "dc47fd7cd33615e7ac0e909f772b3ae6dedeff7197b4f8aab6762e0ada935077",
+    "copied_report_byte_identical": true,
+    "unchanged_reviewed_inputs": 126
+  },
+  "authorship_boundary": "Reviewer authored earlier product pruning/reference-fixture work, necessary test repairs and the separate C10 regression evidence review. This review evaluates root-authored Plan integration/delta, source/CI/artifact identity mapping and preservation. It does not independently approve the reviewer's own regression-review implementation, and it is not a second GitHub account approval.",
+  "delta": {
+    "changed_files": 20,
+    "modified_files": 9,
+    "added_files": 11,
+    "paths": [
+      "AGENTS.md",
+      "CURRENT-PHASE.md",
+      "README.md",
+      "acceptance-register.md",
+      "ledger/evidence/batches/DB-Scope-01/acceptance.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/44924918463/final-ci-observation.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-artifacts.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-jobs.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-observation.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-run.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-observations.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-receipt.json",
+      "ledger/evidence/batches/DB-Scope-01/ci/product-merge-465cd0f-observation.json",
+      "ledger/evidence/batches/DB-Scope-01/handoff-linux.md",
+      "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-independent-reviews.json",
+      "ledger/evidence/batches/DB-Scope-01/results/linux-acceptance-summary.md",
+      "ledger/evidence/batches/DB-Scope-01/reviews/ci-receipt-helper-review-timing-addendum.json",
+      "ledger/evidence/batches/DB-Scope-01/reviews/plan-product-acceptance-integration-07f8ded.json",
+      "ledger/evidence/batches/DB-Scope-01/reviews/product-main-workflow-policy-465cd0f.json",
+      "task-index.md"
+    ],
+    "no_product_or_repository_gate_edits_in_delta": true
+  },
+  "product_merge_binding": {
+    "tested_commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+    "merged_commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+    "tested_and_merged_tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b",
+    "normal_parents": [
+      "ea5fa528035d025bd7a28698ee7c71194432236c",
+      "7255040b9501a1898d008c793f9b1777d8394d65"
+    ],
+    "exact_git_tree_and_parents_independently_checked": true,
+    "changed_paths": [],
+    "closed_merged_pr20_matches_metadata": true
+  },
+  "product_main_ci": {
+    "run_id": 44924918463,
+    "source_commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+    "source_tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b",
+    "event": "push",
+    "branch": "main",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 136908801340,
+        "name": "build / Build, package and Native AOT",
+        "conclusion": "success",
+        "successful_steps": 23
+      },
+      {
+        "id": 136908801419,
+        "name": "security / Secret scan",
+        "conclusion": "success",
+        "successful_steps": 5
+      },
+      {
+        "id": 136908801433,
+        "name": "security / CodeQL (csharp)",
+        "conclusion": "success",
+        "successful_steps": 8
+      },
+      {
+        "id": 136908801485,
+        "name": "security / CodeQL (python)",
+        "conclusion": "success",
+        "successful_steps": 8
+      },
+      {
+        "id": 136908802332,
+        "name": "security / Dependency review",
+        "conclusion": "skipped",
+        "successful_steps": 0
+      },
+      {
+        "id": 136917476666,
+        "name": "Verify",
+        "conclusion": "success",
+        "successful_steps": 3
+      }
+    ],
+    "successful_applicable_jobs": 5,
+    "only_normally_skipped_job": "security / Dependency review",
+    "skip_condition": "github.event_name == 'pull_request'",
+    "security_workflow_identical_to_fresh_main": true,
+    "all_23_build_steps_successful": true,
+    "eight_required_acceptance_steps": [
+      "Verify database workspaces, API, regressions and actual package JIT/AOT consumers",
+      "Reject generated source or dependency drift",
+      "Verify retained Core package closure and minimum CPU/runtime transfer",
+      "Reject shared packaging source or dependency drift",
+      "Verify database release recovery, no-Rust SDK consumption and runtime-only transfer",
+      "Reject database packaging source or dependency drift",
+      "Retain verification logs and evidence",
+      "Retain the exact verified database candidate"
+    ],
+    "raw_run_jobs_match_strict_receipt_observations": true,
+    "raw_metadata_byte_identical_to_original_authenticated_capture": true,
+    "metadata_authorship": "Captured by /root/old_task_inventory; this reviewer reconciled the captured bytes and immutable Git objects without a new network request.",
+    "receipt_path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-receipt.json",
+    "receipt_sha256": "180b75ef65ac88bab357a2ec8fe13d242b55aa84958e87ee18606adcf10583c2",
+    "workflow_policy_source_hashes": {
+      ".github/workflows/build.yml": {
+        "bytes": 5616,
+        "git_blob": "1ea11d5f501e877bf81479842992f846c6d08bd2",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a"
+      },
+      ".github/workflows/ci.yml": {
+        "bytes": 819,
+        "git_blob": "8ad9a359f91dff6b1106e28acc8f3a23df40fb31",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "e31069da4d20c46aca4315f4aabd65f6cc41cdc160baefb711bb37798e1395fb"
+      },
+      ".github/workflows/security.yml": {
+        "bytes": 2241,
+        "git_blob": "73ceed4a50f27c52f992cbcf5792a5407cf40ec0",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "23d0b7826b26f7ca44af15067d69df2e8c0be69bf560f6afce089300ec2abc9b"
+      },
+      "AGENTS.md": {
+        "bytes": 2470,
+        "git_blob": "e2ace990c1c12eccd92d93ac0ad45840bef098f3",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "2892db6779bbe7b6ec6b7cc727764a1aea346a47db58ee46903799ee20600f19"
+      },
+      "eng/build.py": {
+        "bytes": 9383,
+        "git_blob": "ce85de159519d167414912400aaf5f79c6533eb2",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded"
+      },
+      "eng/verify-task04-linux.sh": {
+        "bytes": 1218,
+        "git_blob": "d35a0b20df24f0b839fcb9b410199a774ad22b49",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "fce00c72ccdae997edc0d40667f60ffb24e899475408597219d3c4401bded098"
+      },
+      "eng/verify-task07-linux.sh": {
+        "bytes": 2110,
+        "git_blob": "9392d57ae1c75aa1d4b1f6d845d015a43d001575",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e"
+      },
+      "tests/Packaging.Domain/release_cases.py": {
+        "bytes": 13166,
+        "git_blob": "588b84c20add0d2b09c2b3d50489a5a85b24970d",
+        "identical_to_reviewed_candidate": true,
+        "sha256": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f"
+      }
+    }
+  },
+  "artifact_identity_boundaries": {
+    "pr_run": 44919645468,
+    "pr_source": "7255040b9501a1898d008c793f9b1777d8394d65",
+    "main_run": 44924918463,
+    "main_source": "465cd0f90e6af05ec50eb581156240377cf0825b",
+    "reviewed_pr_evidence_and_package_receipts_unchanged": true,
+    "downloaded_pr_artifact_bytes_not_relabelled_as_main": true,
+    "main_artifacts": [
+      {
+        "id": 14716397735,
+        "name": "nativeweave-evidence-44924918463-1",
+        "github_declared_bytes": 35817487,
+        "github_declared_sha256": "e71a27bd6a649a78c75ea1e8a917273338e1b9a604def4713c6c8e17c70572a2",
+        "run_id": 44924918463,
+        "source_commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+        "branch": "main",
+        "expired": false,
+        "downloaded": false,
+        "archive_bytes_independently_verified": false
+      },
+      {
+        "id": 14715983822,
+        "name": "nativeweave-database-linux-44924918463-1",
+        "github_declared_bytes": 6720409,
+        "github_declared_sha256": "7a7982ccda96d3a5d7f3f4b00713a8668ae5548ec189419e3c22af5493248a11",
+        "run_id": 44924918463,
+        "source_commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+        "branch": "main",
+        "expired": false,
+        "downloaded": false,
+        "archive_bytes_independently_verified": false
+      }
+    ],
+    "main_archive_download_or_independent_byte_review_claimed": false,
+    "identical_source_tree_and_new_successful_main_execution_established": true
+  },
+  "helper_review_timing_correction": {
+    "original_review_path": "ledger/evidence/batches/DB-Scope-01/reviews/design-merged-main-ci-review.json",
+    "original_review_sha256": "f3f20c6a19342ada44fef0381dfea9135a8a590376e0252f83c7d70ece0c0e8d",
+    "original_review_unchanged": true,
+    "addendum_path": "ledger/evidence/batches/DB-Scope-01/reviews/ci-receipt-helper-review-timing-addendum.json",
+    "addendum_sha256": "1409d62dd8c440466e77fda47e0b47edda9d11fdae80cd10342e116d3af177f1",
+    "captured_helper_sha256": "36531433415548dfb9160e3862b70e8cf9136799dfe379a93ce29e103021894b",
+    "captured_helper_already_has_exact_jobs_steps_and_merge_metadata_checks": true,
+    "earlier_unhashed_read_not_fabricated": true,
+    "tested_to_merge_tree_equality_remains_separate_git_proof": true,
+    "helper_not_executed_by_this_review": true,
+    "root_reported_rerun_not_independently_reexecuted": true,
+    "unchanged_design_main_receipt_sha256": "2994e79ef73f97ee7848aa528abb1bd8613b45a630aa5b14bb55b53b512533e5",
+    "updated_independent_review_envelope_sha256": "2e89532d216e5fdfa858a720685b8a6ee95782a4a3504984281fe8605e115985",
+    "acceptance_reference_updated_exactly": true
+  },
+  "acceptance_state": {
+    "state": "in_progress",
+    "passed_claims": [
+      "csharp_workspace",
+      "dependency_and_loaded_asset_closure",
+      "independent_review",
+      "no_consumer_rust_invocations",
+      "postgresql_package_aot",
+      "postgresql_package_jit",
+      "postgresql_regression",
+      "retained_api_and_format",
+      "rust_workspace",
+      "sqlite_package_aot",
+      "sqlite_package_jit",
+      "sqlite_regression"
+    ],
+    "pending_claims": [
+      "merged_main_ci",
+      "required_pr_checks"
+    ],
+    "both_product_design_pr_records_have_head_and_main_receipts": true,
+    "plan_delivery_or_future_containing_commit_ci_claimed": false,
+    "evidence_only_followup_policy_preserved": true
+  },
+  "preservation": {
+    "original_failure_files_unchanged": 72,
+    "all_prior_failed_cancelled_development_result_identities_preserved": true,
+    "historical_graphs_packets_and_current_gate_unchanged": true,
+    "five_entrypoint_historical_bodies_unchanged": true,
+    "handoff_prior_history_preserved_and_new_observations_appended": true,
+    "human_result_summary_previous_bytes_preserved_before_delivery_append": true,
+    "warning_limitations_and_no_publication_no_performance_boundary_unchanged": true
+  },
+  "current_gate": {
+    "command": [
+      "python3",
+      "tools/verify_db_scope.py"
+    ],
+    "source_commit": "c0068e00d67ee04d79d0d14785eb5aa81075b5d6",
+    "exit_code": 0,
+    "structural_validation": "passed",
+    "scope_negative_controls": 5,
+    "evidence_negative_controls": 10,
+    "all_controls_in_memory": true,
+    "product_acceptance": "in_progress"
+  },
+  "receipt_hash_checks": [
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-ci-workspaces-and-regressions.json",
+      "sha256": "48ff14d4fc5bec506d4a61016b5839398b6563db49b3843bfc740ac77b0b3049",
+      "sources": {
+        "NativeWeave": {
+          "commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+          "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-ci-packages-and-runtime.json",
+      "sha256": "4818877cbb5584a29751a3ce4e83e8a4f4009ffa5e8a423ad9b9025bf954a9d0",
+      "sources": {
+        "NativeWeave": {
+          "commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+          "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-independent-reviews.json",
+      "sha256": "2e89532d216e5fdfa858a720685b8a6ee95782a4a3504984281fe8605e115985",
+      "sources": {
+        "NativeWeave": {
+          "commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+          "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+        },
+        "NativeWeave-Design": {
+          "commit": "3d1b4d5d80b8e3d8790481276a8333c0d2a25754",
+          "tree": "74f886a74a38d0478d1c4b4a22ea17383dfd0424"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/design-pr-head-receipt.json",
+      "sha256": "d3561e60ac5bcc38f57f02ec9ff0ff8dc7960103fc1a6491ae2f975d86932b26",
+      "sources": {
+        "NativeWeave-Design": {
+          "commit": "3d1b4d5d80b8e3d8790481276a8333c0d2a25754",
+          "tree": "74f886a74a38d0478d1c4b4a22ea17383dfd0424"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-design-merged-main-8298dc4128b7-receipt.json",
+      "sha256": "2994e79ef73f97ee7848aa528abb1bd8613b45a630aa5b14bb55b53b512533e5",
+      "sources": {
+        "NativeWeave-Design": {
+          "commit": "8298dc4128b745cf1809bad0c3cf02c45eb7f522",
+          "tree": "74f886a74a38d0478d1c4b4a22ea17383dfd0424"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-pr-head-7255040b9501-receipt.json",
+      "sha256": "974b8e792ed56cd7a02412a0117e4ea3e41d16d7c0d1b239be6f892fc06362c1",
+      "sources": {
+        "NativeWeave": {
+          "commit": "7255040b9501a1898d008c793f9b1777d8394d65",
+          "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+        }
+      }
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-receipt.json",
+      "sha256": "180b75ef65ac88bab357a2ec8fe13d242b55aa84958e87ee18606adcf10583c2",
+      "sources": {
+        "NativeWeave": {
+          "commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+          "tree": "5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b"
+        }
+      }
+    }
+  ],
+  "artifact_hash_checks": [
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/review.json",
+      "sha256": "656c0e750124ef22b29c19ca087dcb6505993f19d28099b569d79125a3e9f85b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-commands.json",
+      "sha256": "8915eb77ee94192b8ac1609fa0c99110b392f1b2f3c0fa6b57191247489cf3d3"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Abstractions/summary.json",
+      "sha256": "06d49d08fcfd673fd559e8181e8b3f240bb6d4a47bc678a8fb4ea587f9fde071"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Codecs/summary.json",
+      "sha256": "a7f54b19f5c53b444965f0b2c03e73f6d363b7ab06e3b6f56b1f0850ad61a2b9"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Materialization/aot-results/result.json",
+      "sha256": "718ed3dbf0642774170f2ec830c1d1cff8810d90216949aaff70d69cb47f54e3"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Materialization/jit/result.json",
+      "sha256": "de62c31cb1feaaef8ca7ee09d8e1cf69821a5ba980cad0b75fa71c7d5277ddd0"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Migrations/process-aot/summary.json",
+      "sha256": "28e001701f6cf39b3aa8682029370c8ff5387c28ceb4da928559bb0d35f53f87"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Migrations/process-jit/summary.json",
+      "sha256": "3bc98de1b2b83b331aeb1f5003fb299abc6d219ea897c74d259f7946a153dc64"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Postgres/summary.json",
+      "sha256": "ecf6f7f3987283947342964b05d6953ec6221ab47db093786b0d9df9f2739147"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Sqlite/result.json",
+      "sha256": "8a9e2d4106e9c218921c5cb264524ed9e2174a73953a635bfe22749e838f7086"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Streaming/summary.json",
+      "sha256": "91048b38ec4fe6c41811bf6e7a8be60e5a70721671055c6828c3fb5bed24b8cc"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Transactions/result.json",
+      "sha256": "a7150972e78be563d92cb7fb58c1485dcf2a66ccc354889dd54570cd08558004"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Interop.Execution/result.json",
+      "sha256": "84f5d88696f2e8183c74db460be4c45ce9f563535953be4276d867026678a18b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Interop.Negotiation/result.json",
+      "sha256": "6b0f590270d4b4375148b94c88211e10a986d7ff02d88d8ebae70f3f53e40e2d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/aot-results/result.json",
+      "sha256": "4071fb924243e9e9005f3a9e67b725c5a4a14540b42b71cb4f6aedb8ca16870b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/jit/result.json",
+      "sha256": "de501f549e56b03c0e39f483a093938cd95b870c4f8664b168ac830f8713e264"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/status.json",
+      "sha256": "b2c4e39b9780915c297e3d8ad81ecdeffe0f4cadc1653cf3b873cae3ba44a0e4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Fluent/aot-results/result.json",
+      "sha256": "c22da29af3746e8c086f5c02534ff93f329f8312e45de3534c040a25c0cd3998"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Fluent/jit/result.json",
+      "sha256": "a1bb97807f3cf250c54ed97a384c8c5c6b4b0736cc3e3941d0294f5a73a2fcaa"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/aot-results/result.json",
+      "sha256": "f60a07093c9b65b901ce18c9651366f472907ba441ce1627a7619a7307c3cecd"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/jit/result.json",
+      "sha256": "912198cfe7999e3f703481e6103ab6d9c95db5043866c4ad0280f1e6753464e6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/status.json",
+      "sha256": "9c5c7969f87ff906417b4eba4e7209d8b04001a3dbaf7f5a30493d549d9212e7"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/api-tool/html/result.json",
+      "sha256": "fe268b37992400a97325796628d99b8c75d644da4f60d38d1ce195a7aa4611f8"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/api-tool/result.json",
+      "sha256": "104696c29e9bba4b8de7cfed96986b16165a35c8302093d368065c7b53175b5c"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/result.json",
+      "sha256": "82fdec26c828c8665d71b544e03a8ca7c4fe5382a3ccbd9aa3f0da29d5b4a2b0"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-result.json",
+      "sha256": "931c1faadefb24d5c312b64e37aa67c3ccbfc945634b75867b3c76a1e965309f"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/verification.json",
+      "sha256": "0159a290cd4d00fcc8102a0afc53dc54294d2a486c852b9ebabf3ca58264a445"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports-index.json",
+      "sha256": "5025269cd2d118b339ef018f1a961e1b5ec15b417aa4b81f714fa983f0096ab0"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/source-hash-checks.json",
+      "sha256": "35094571c9da74947d9409810edeb760d68cc97fb61dc73369b0213a5f7adcb9"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/final-review.json",
+      "sha256": "e9d85d0a1c0757347f55379455efaa545bda1f16d693098a5f817ccea88cf1a4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/index.json",
+      "sha256": "1113ea6f4a38ec74144adaafc3b3af849118275f98df9bc552d684662a78b136"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-candidate/candidate/release.json",
+      "sha256": "0e0f5fcb5481b71003a87bf10f584faddf9cf1e3e2c3f127341550b61f2fb14f"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-candidate/manifest.json",
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/progress.json",
+      "sha256": "e65a306202901859aa5e014143fe4b1e45fe358b7422809cbf2adf302da973cf"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/faults/receipt.json",
+      "sha256": "4b354522cbc5d9a4b6c68a9a3041924934632754452f59ff41555f9b1e835d1d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/postgres-oracles/result.json",
+      "sha256": "44630092caa84aff9f1655e639d464ff0bfb03427ae9b709a6c34db24c5fa5bd"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/result.json",
+      "sha256": "6e456f4c95659d60c2c130d3f682b752aee9ec6728c211ec52a97308fc4f0280"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/verify/receipt.json",
+      "sha256": "45d8f2e02f2618522fa961ff5e249dde953e35caabbb02fbbc7e7816e7ef1698"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/faults/receipt.json",
+      "sha256": "a344bedecb2c64e3e78626abdea226615b5114d1d888bece95352bbe7e1e04a5"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/postgres-oracles/result.json",
+      "sha256": "c92b8981a13a4b59e5288f94b7fc1ce720eb053d8e428af7c5960bf20a0970a4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/result.json",
+      "sha256": "c08ccd4a73be96c2a52e3d0aa02414b150af740466e20a0c345187d0aeedbd6f"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/verify/receipt.json",
+      "sha256": "27fbc5de6d935b6ac2379aec8f3e3f5f71cf3b81eb6ec658292d0a736a2f7b87"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/faults/receipt.json",
+      "sha256": "be135e4f491688c385066a0e9944a33d85c376cf3a1fd7d83485aeab63f8cc30"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/reference/result.json",
+      "sha256": "e0f6996c0f494807016e85a5b3a82ec17c860265f65b830744a61f39a735fea5"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/reference/verify/receipt.json",
+      "sha256": "2fd2f3b12d515ff037f5daa3b1243064e9bc1cd18647c39231f5dac6275c7fe8"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/faults/receipt.json",
+      "sha256": "135924b89e10b243ad69620cb88a78927b50a3b982cff423ce3952b5c28a4b21"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/reference/result.json",
+      "sha256": "3e18bc4cdcf73627f90c9d1d17c46235701de35447b4e7504d6c9f4b076de412"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/reference/verify/receipt.json",
+      "sha256": "3d0290cec8cfac757fc3d2575feb094ceda67d52216498cb61b28776040f806b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/progress.json",
+      "sha256": "87456cd8abd96d46dbd49034c5d711bbe460370fcc331beb0c69bc4c0466a09c"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-aot/independent-sql.json",
+      "sha256": "ddec4a0893c76ecf0d9e34f1ed9903b0f8707b340b3a82723d7880464f3e21b6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-aot/receipt.json",
+      "sha256": "8caf1755d8cc963c0057284b7cca965fdc6781bafc291b19b1b1b46570030a17"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-jit/independent-sql.json",
+      "sha256": "ddec4a0893c76ecf0d9e34f1ed9903b0f8707b340b3a82723d7880464f3e21b6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-jit/receipt.json",
+      "sha256": "3ff046ea93d04d5ecc8fec2596a7fb93dbdbe461b26a5cd22ab606046329ea8b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-aot/independent-sql.json",
+      "sha256": "3a51e3484d4b12fbe8e99861a48dcfc8cc4bd4046616de0ac407ba562c7fee08"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-aot/receipt.json",
+      "sha256": "38075f183a64d9d5660e4002a5f646f78ea5a05887d1caf6168a0cdd18f3d8ca"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-jit/independent-sql.json",
+      "sha256": "3a51e3484d4b12fbe8e99861a48dcfc8cc4bd4046616de0ac407ba562c7fee08"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-jit/receipt.json",
+      "sha256": "0bd4c88cddbfce10ca171424a8c52df97fe4764cec32a75734df36ba8ad72fd4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/evidence/images.json",
+      "sha256": "d0656f11d9f3ca9478b819ae8a66036c0b469ea1301f5fa6e1918bb39d788c5d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/local-consumer/evidence/index.json",
+      "sha256": "2a523ad0c0a5fdfd25977df4a7e2f6513125ff1e9d081e92d1cef57825113c26"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/local-consumer/evidence/receipt.json",
+      "sha256": "179ac12ff4fafe54bdd0640d1734b26978c78b22af6cd260e00c83e3239293f6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/native-build/manifest.json",
+      "sha256": "813c2061b55c74b5587f77fbdf437478165bd5877c090af0cc1eff7a7f7e493c"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/candidate/closure.json",
+      "sha256": "cbbb4b554c5fd1356dfb8050395a881369779fe7af62b1129c32cea1c97c8cd4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/candidate/release.json",
+      "sha256": "0e0f5fcb5481b71003a87bf10f584faddf9cf1e3e2c3f127341550b61f2fb14f"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/evidence-index.json",
+      "sha256": "a736afd8ecbf909a980cf0eddfa593a7e03ba4124980e0820fff38c1f69a631d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/manifest.json",
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native/database.postgresql.json",
+      "sha256": "bbd73af7f8b4ff7aea7c5a14c8b0ce3b0257ebf2b89b1070c3abdbb51ab72801"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native/database.sqlite.json",
+      "sha256": "1308e109a6d5575e885b15e2c299a52d8f30afd5505246c8f5ef490d996369eb"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native-build-input.json",
+      "sha256": "9313d35dbdaf8ad4478cdc76a3646ad988c53c01998fc4306a16918977a9d85a"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/previous/closure.json",
+      "sha256": "c86ea324a79eae6d27c5570e968226b94472f4be32be01b4b6c2892be08f80c2"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/previous/release.json",
+      "sha256": "bc9db5512457471ea8bf548bc604ba931335d3ba66ff0c7eeca634b18f035bad"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/source-inventory.json",
+      "sha256": "76b4af7cb84c74a45b2bb71243090d933612febb642087a3baeb90867873ae69"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/manifest.json",
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/index.json",
+      "sha256": "afa64930778426c2e72acd79a53fd0a2e2a515d26dcc9f5d6a3e90bc8c483fb8"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/receipt.json",
+      "sha256": "b8faf639fbbef9639c9861827fb711e15a5b3ba0034ad7f132f38970f6e58ac2"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/runtime-transfer-manifest.json",
+      "sha256": "842681e357b1fc08052f2c9afe2b4f8652f464d985b15a2dbaff3857283c15e4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination.receipt.json",
+      "sha256": "b8faf639fbbef9639c9861827fb711e15a5b3ba0034ad7f132f38970f6e58ac2"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/evidence-index.json",
+      "sha256": "6caf5deb96a1234e4bb49a0607816bcc1fab57ea65dfb99ad7f81df235ebfbef"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination/index.json",
+      "sha256": "3539c681153db58a46c8b02650b06e1e853d107000e2865b33096e6ac0ed0568"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination/receipt.json",
+      "sha256": "5f42304430caaa7d8ef41aa14327556dfe957d5df155d9f809c86c7c848e13c2"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination.receipt.json",
+      "sha256": "5f42304430caaa7d8ef41aa14327556dfe957d5df155d9f809c86c7c848e13c2"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/result.json",
+      "sha256": "bd619648fcc6970585148da2ef8685d1efc98225179cdcffbe6aa169f589c12d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination/index.json",
+      "sha256": "e8122f8e06f2fffc7dadb831a737d56341327424f680617ce1e00d6de14b13fb"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination/receipt.json",
+      "sha256": "0610404ecfcde96d4d6d80a884002936fb3581e3a9d8f8e174f4576399965a13"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination.receipt.json",
+      "sha256": "0610404ecfcde96d4d6d80a884002936fb3581e3a9d8f8e174f4576399965a13"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/runtime/evidence/receipt.json",
+      "sha256": "92ee66897be89154f1d7f37d5c5e95fafae1aa88969b32c42171969db6fa248b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/verification.json",
+      "sha256": "0159a290cd4d00fcc8102a0afc53dc54294d2a486c852b9ebabf3ca58264a445"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/candidate-download-receipt.json",
+      "sha256": "73d7356cf1fa21520472b4e03ebc8ade93fea920ddb8f3274be5f28d144ddaed"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/evidence-download-receipt.json",
+      "sha256": "4c4187e0f3f1285bb2cc2b5a08a8a1ee3f8f896621b2a2ee1fe9dce8115ad410"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/final-ci-observation.json",
+      "sha256": "14bc8205f1bbbbdbc5613343e699a23fcc814d6cfac89ea5da70d5fd50743703"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-artifacts.json",
+      "sha256": "f0da857a0a6744736556c9f5f6832b43557a73263fae61611e8ddb6933c474e6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-jobs.json",
+      "sha256": "aac051deeaedd6c0d4f7ce38a5483b9819a7aa0d339f4c8c239b36e813bfedf5"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-run.json",
+      "sha256": "c08acbb54572d83ec81019239590d342612f9173c4e36bb2a9f174c3378881c9"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reproduction/expected-contract.v3-override-feed-12421060.json",
+      "sha256": "b3f550e5c78f0a225b0d7318d7d6e2cbf3ccc81670eaba2f2ef3ac432dba7ae6"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reproduction/verify_receipts.py",
+      "sha256": "5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/artifact-binding-review.json",
+      "sha256": "f3275b4f9c290c49eb1dc08e00f4854d2fb7c483ee135f7b5e14823e988d5f70"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/candidate10-source-applicability.json",
+      "sha256": "0e7e6767f2071ea396b62597994952f8dad9a03d234dd37250d8310a396b364c"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/evidence-validator-schema-review.json",
+      "sha256": "d5cb37f33add05ac26cbe42614de99f9f5734542aef7a0f73b889eee3eb0454e"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/semantic-review-attempt1.json",
+      "sha256": "709079ed021e3a644e37556469965b9f44feb38c95ca37d651d14b318a3799e8"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/design-final-source-review.json",
+      "sha256": "e37edd26313789e5817d5b9f30ebcf74aab5c17e661ccfd16780df3eefabb231"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/design-merged-main-ci-review.json",
+      "sha256": "f3f20c6a19342ada44fef0381dfea9135a8a590376e0252f83c7d70ece0c0e8d"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/candidate10-final-source-review.json",
+      "sha256": "6153c4ab9f9309178a224a77e49b191929f374d7d19e04156758daf484c11511"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/candidate10-override-feed-review.json",
+      "sha256": "a7d3f19074168ac3428eb36f5be0c7b37034153453135bebc4aee6e51e2cabc5"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/candidate9-final-source-review.json",
+      "sha256": "5cc4d635dbfd757ab869ec4158d77d0db0a605c438e37fec0c14687a2912ea4a"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/candidate7-final-source-review.json",
+      "sha256": "101ab1c14e4b1e12da17f182d3ba98e0bafbe576a0bee64f522a9318f8625083"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/final-review.json",
+      "sha256": "e9d85d0a1c0757347f55379455efaa545bda1f16d693098a5f817ccea88cf1a4"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/review.json",
+      "sha256": "656c0e750124ef22b29c19ca087dcb6505993f19d28099b569d79125a3e9f85b"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/reviews/ci-receipt-helper-review-timing-addendum.json",
+      "sha256": "1409d62dd8c440466e77fda47e0b47edda9d11fdae80cd10342e116d3af177f1"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/design-pr-head-observation.json",
+      "sha256": "05ba541f2b38c3807485e2cb4f24e9b971a6250a517b26fcb94a5f10e9e7dbed"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-design-merged-main-8298dc4128b7-observations.json",
+      "sha256": "9f74deb12ea750ca58bd9615479521a00538983d861800b58be0cc70ddf80064"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-pr-head-7255040b9501-observations.json",
+      "sha256": "e383ddd8b8d2116c63e07df0cc5f33c3fdb856d7a1af501f92febdbcf9d09ecf"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-observations.json",
+      "sha256": "f76f979dcd68554f90d04279d5a8a4cd041b2981d35a289e836fbad9aef101d0"
+    }
+  ],
+  "exact_plan_file_hashes": {
+    "AGENTS.md": {
+      "sha256": "09dc6c7c4f44e14007364d4d544dccc4bc5b342e715605432cda302a7502cd48",
+      "bytes": 6596
+    },
+    "CURRENT-PHASE.md": {
+      "sha256": "91b48a44fcab6a149ec64bb576972dd45078c0201a28120ef1d780e3518dab3f",
+      "bytes": 4257
+    },
+    "README.md": {
+      "sha256": "b2dc956adeb949d528adcc3810889a30e4bf90b5ff5f268eb16a204e99f6983e",
+      "bytes": 9243
+    },
+    "acceptance-register.md": {
+      "sha256": "e0d45aacb1a677eccd8b73eea890cdb782e1125aa7683a84f6eecd46b8f0abfc",
+      "bytes": 6025
+    },
+    "delivery-graph.json": {
+      "sha256": "e7c57754d7741df4c8c53099031b880f0367c98fb152bc489861e03aff583687",
+      "bytes": 697970
+    },
+    "ledger/evidence/batches/DB-Scope-01/acceptance.json": {
+      "sha256": "c95747334e90918468cb7a8954f414a2598e3a283f0b6434b380c0b5be042152",
+      "bytes": 10884
+    },
+    "ledger/evidence/batches/DB-Scope-01/baseline.json": {
+      "sha256": "78107c76ed0c1e0ec4e8d6cf0710569c0f2e18be413559b2563f3f6a652cbcca",
+      "bytes": 1186
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/candidate-download-receipt.json": {
+      "sha256": "73d7356cf1fa21520472b4e03ebc8ade93fea920ddb8f3274be5f28d144ddaed",
+      "bytes": 3661
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/evidence-download-receipt.json": {
+      "sha256": "4c4187e0f3f1285bb2cc2b5a08a8a1ee3f8f896621b2a2ee1fe9dce8115ad410",
+      "bytes": 225823
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/final-ci-observation.json": {
+      "sha256": "14bc8205f1bbbbdbc5613343e699a23fcc814d6cfac89ea5da70d5fd50743703",
+      "bytes": 7911
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/github-artifacts.json": {
+      "sha256": "f0da857a0a6744736556c9f5f6832b43557a73263fae61611e8ddb6933c474e6",
+      "bytes": 1695
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/github-jobs.json": {
+      "sha256": "aac051deeaedd6c0d4f7ce38a5483b9819a7aa0d339f4c8c239b36e813bfedf5",
+      "bytes": 10766
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44919645468/github-run.json": {
+      "sha256": "c08acbb54572d83ec81019239590d342612f9173c4e36bb2a9f174c3378881c9",
+      "bytes": 14894
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44924918463/final-ci-observation.json": {
+      "sha256": "67962d350c990a163c85086e58f1468de401fa9f53a54683fcee6eec122fe7e8",
+      "bytes": 6143
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-artifacts.json": {
+      "sha256": "5fbe2bc2a389e75bdb440a4343fb4ff26a03eee5633236a6cb1a5990b42fc524",
+      "bytes": 1659
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-jobs.json": {
+      "sha256": "891bb469a1ad59366240d1bdffc7a53e918ec7b720942cc32699ceb2be321a4e",
+      "bytes": 19821
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-observation.json": {
+      "sha256": "e16d76465ffa52c740051a260c7347824d9aa1476d728df27c31dd20e5f6718f",
+      "bytes": 46884
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/44924918463/github-run.json": {
+      "sha256": "7eeb63a58654579424fd44faf378b64118d72f8b6291891104444b578f474ded",
+      "bytes": 14607
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/design-pr-head-observation.json": {
+      "sha256": "05ba541f2b38c3807485e2cb4f24e9b971a6250a517b26fcb94a5f10e9e7dbed",
+      "bytes": 51734
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/design-pr-head-receipt.json": {
+      "sha256": "d3561e60ac5bcc38f57f02ec9ff0ff8dc7960103fc1a6491ae2f975d86932b26",
+      "bytes": 1405
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-design-merged-main-8298dc4128b7-observations.json": {
+      "sha256": "9f74deb12ea750ca58bd9615479521a00538983d861800b58be0cc70ddf80064",
+      "bytes": 40145
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-design-merged-main-8298dc4128b7-receipt.json": {
+      "sha256": "2994e79ef73f97ee7848aa528abb1bd8613b45a630aa5b14bb55b53b512533e5",
+      "bytes": 1386
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-observations.json": {
+      "sha256": "f76f979dcd68554f90d04279d5a8a4cd041b2981d35a289e836fbad9aef101d0",
+      "bytes": 46989
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-merged-main-465cd0f90e6a-receipt.json": {
+      "sha256": "180b75ef65ac88bab357a2ec8fe13d242b55aa84958e87ee18606adcf10583c2",
+      "bytes": 1206
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-pr-head-7255040b9501-observations.json": {
+      "sha256": "e383ddd8b8d2116c63e07df0cc5f33c3fdb856d7a1af501f92febdbcf9d09ecf",
+      "bytes": 28476
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/nativeweave-pr-head-7255040b9501-receipt.json": {
+      "sha256": "974b8e792ed56cd7a02412a0117e4ea3e41d16d7c0d1b239be6f892fc06362c1",
+      "bytes": 1051
+    },
+    "ledger/evidence/batches/DB-Scope-01/ci/product-merge-465cd0f-observation.json": {
+      "sha256": "0de2616f2126449f36bda0e48f9a80988b9031f9d85c70078900eb25547bdc4c",
+      "bytes": 25230
+    },
+    "ledger/evidence/batches/DB-Scope-01/cleanup-final-pr-observation.json": {
+      "sha256": "7ed61f27a566824ba37d74100296f35949fcb83c84f6a7caae26126abe54817f",
+      "bytes": 774
+    },
+    "ledger/evidence/batches/DB-Scope-01/cleanup-linux.json": {
+      "sha256": "82b86381e387b891a86369f81184c1fbe135eb20d639e9a12c66bec4d8f06d0a",
+      "bytes": 4416
+    },
+    "ledger/evidence/batches/DB-Scope-01/evidence-format.md": {
+      "sha256": "96c17d069ac644adfcf98834660cf8f81258c196fa16db10c6565b10efea8d40",
+      "bytes": 6320
+    },
+    "ledger/evidence/batches/DB-Scope-01/evidence-schema.json": {
+      "sha256": "36abf420af2178a37799465854812e122cea3b92fb1ff8e12d7a61bf4d83d91c",
+      "bytes": 5899
+    },
+    "ledger/evidence/batches/DB-Scope-01/handoff-linux.md": {
+      "sha256": "2e8c028a91a39d4e0105a3b354d37c1b46ba572f8e87b3c7eb0f0883dc79160e",
+      "bytes": 59036
+    },
+    "ledger/evidence/batches/DB-Scope-01/plan.md": {
+      "sha256": "9c0069ab7866475e90759be4a472fbe8d566d07a4929f71ab4be8244e18d980e",
+      "bytes": 12817
+    },
+    "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-ci-packages-and-runtime.json": {
+      "sha256": "4818877cbb5584a29751a3ce4e83e8a4f4009ffa5e8a423ad9b9025bf954a9d0",
+      "bytes": 20796
+    },
+    "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-ci-workspaces-and-regressions.json": {
+      "sha256": "48ff14d4fc5bec506d4a61016b5839398b6563db49b3843bfc740ac77b0b3049",
+      "bytes": 10192
+    },
+    "ledger/evidence/batches/DB-Scope-01/receipts/candidate10-independent-reviews.json": {
+      "sha256": "2e89532d216e5fdfa858a720685b8a6ee95782a4a3504984281fe8605e115985",
+      "bytes": 2746
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/review.json": {
+      "sha256": "656c0e750124ef22b29c19ca087dcb6505993f19d28099b569d79125a3e9f85b",
+      "bytes": 57404
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports-index.json": {
+      "sha256": "5025269cd2d118b339ef018f1a961e1b5ec15b417aa4b81f714fa983f0096ab0",
+      "bytes": 8563
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-commands.json": {
+      "sha256": "8915eb77ee94192b8ac1609fa0c99110b392f1b2f3c0fa6b57191247489cf3d3",
+      "bytes": 10615
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Abstractions/summary.json": {
+      "sha256": "06d49d08fcfd673fd559e8181e8b3f240bb6d4a47bc678a8fb4ea587f9fde071",
+      "bytes": 814
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Codecs/summary.json": {
+      "sha256": "a7f54b19f5c53b444965f0b2c03e73f6d363b7ab06e3b6f56b1f0850ad61a2b9",
+      "bytes": 516
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Materialization/aot-results/result.json": {
+      "sha256": "718ed3dbf0642774170f2ec830c1d1cff8810d90216949aaff70d69cb47f54e3",
+      "bytes": 1226
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Materialization/jit/result.json": {
+      "sha256": "de62c31cb1feaaef8ca7ee09d8e1cf69821a5ba980cad0b75fa71c7d5277ddd0",
+      "bytes": 1227
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Migrations/process-aot/summary.json": {
+      "sha256": "28e001701f6cf39b3aa8682029370c8ff5387c28ceb4da928559bb0d35f53f87",
+      "bytes": 3220
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Migrations/process-jit/summary.json": {
+      "sha256": "3bc98de1b2b83b331aeb1f5003fb299abc6d219ea897c74d259f7946a153dc64",
+      "bytes": 3662
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Postgres/summary.json": {
+      "sha256": "ecf6f7f3987283947342964b05d6953ec6221ab47db093786b0d9df9f2739147",
+      "bytes": 472
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Sqlite/result.json": {
+      "sha256": "8a9e2d4106e9c218921c5cb264524ed9e2174a73953a635bfe22749e838f7086",
+      "bytes": 31633
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Streaming/summary.json": {
+      "sha256": "91048b38ec4fe6c41811bf6e7a8be60e5a70721671055c6828c3fb5bed24b8cc",
+      "bytes": 589
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Data.Transactions/result.json": {
+      "sha256": "a7150972e78be563d92cb7fb58c1485dcf2a66ccc354889dd54570cd08558004",
+      "bytes": 17496
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Interop.Execution/result.json": {
+      "sha256": "84f5d88696f2e8183c74db460be4c45ce9f563535953be4276d867026678a18b",
+      "bytes": 21845
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Interop.Negotiation/result.json": {
+      "sha256": "6b0f590270d4b4375148b94c88211e10a986d7ff02d88d8ebae70f3f53e40e2d",
+      "bytes": 40143
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/aot-results/result.json": {
+      "sha256": "4071fb924243e9e9005f3a9e67b725c5a4a14540b42b71cb4f6aedb8ca16870b",
+      "bytes": 977
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/jit/result.json": {
+      "sha256": "de501f549e56b03c0e39f483a093938cd95b870c4f8664b168ac830f8713e264",
+      "bytes": 976
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Binding/status.json": {
+      "sha256": "b2c4e39b9780915c297e3d8ad81ecdeffe0f4cadc1653cf3b873cae3ba44a0e4",
+      "bytes": 2302
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Fluent/aot-results/result.json": {
+      "sha256": "c22da29af3746e8c086f5c02534ff93f329f8312e45de3534c040a25c0cd3998",
+      "bytes": 1893
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Fluent/jit/result.json": {
+      "sha256": "a1bb97807f3cf250c54ed97a384c8c5c6b4b0736cc3e3941d0294f5a73a2fcaa",
+      "bytes": 1893
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/aot-results/result.json": {
+      "sha256": "f60a07093c9b65b901ce18c9651366f472907ba441ce1627a7619a7307c3cecd",
+      "bytes": 2154
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/jit/result.json": {
+      "sha256": "912198cfe7999e3f703481e6103ab6d9c95db5043866c4ad0280f1e6753464e6",
+      "bytes": 2155
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/Query.Native/status.json": {
+      "sha256": "9c5c7969f87ff906417b4eba4e7209d8b04001a3dbaf7f5a30493d549d9212e7",
+      "bytes": 4783
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/api-tool/html/result.json": {
+      "sha256": "fe268b37992400a97325796628d99b8c75d644da4f60d38d1ce195a7aa4611f8",
+      "bytes": 34919
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/api-tool/result.json": {
+      "sha256": "104696c29e9bba4b8de7cfed96986b16165a35c8302093d368065c7b53175b5c",
+      "bytes": 42147
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-evidence/result.json": {
+      "sha256": "82fdec26c828c8665d71b544e03a8ca7c4fe5382a3ccbd9aa3f0da29d5b4a2b0",
+      "bytes": 12530
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/regression-result.json": {
+      "sha256": "931c1faadefb24d5c312b64e37aa67c3ccbfc945634b75867b3c76a1e965309f",
+      "bytes": 11687
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/safe-exports/verification.json": {
+      "sha256": "0159a290cd4d00fcc8102a0afc53dc54294d2a486c852b9ebabf3ca58264a445",
+      "bytes": 811
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-regressions/source-hash-checks.json": {
+      "sha256": "35094571c9da74947d9409810edeb760d68cc97fb61dc73369b0213a5f7adcb9",
+      "bytes": 143562
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/final-review.json": {
+      "sha256": "e9d85d0a1c0757347f55379455efaa545bda1f16d693098a5f817ccea88cf1a4",
+      "bytes": 20741
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/index.json": {
+      "sha256": "1113ea6f4a38ec74144adaafc3b3af849118275f98df9bc552d684662a78b136",
+      "bytes": 31558
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-candidate/candidate/release.json": {
+      "sha256": "0e0f5fcb5481b71003a87bf10f584faddf9cf1e3e2c3f127341550b61f2fb14f",
+      "bytes": 86476
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-candidate/manifest.json": {
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975",
+      "bytes": 18926
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/progress.json": {
+      "sha256": "e65a306202901859aa5e014143fe4b1e45fe358b7422809cbf2adf302da973cf",
+      "bytes": 29772
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/faults/receipt.json": {
+      "sha256": "4b354522cbc5d9a4b6c68a9a3041924934632754452f59ff41555f9b1e835d1d",
+      "bytes": 17139
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/postgres-oracles/result.json": {
+      "sha256": "44630092caa84aff9f1655e639d464ff0bfb03427ae9b709a6c34db24c5fa5bd",
+      "bytes": 3324
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/result.json": {
+      "sha256": "6e456f4c95659d60c2c130d3f682b752aee9ec6728c211ec52a97308fc4f0280",
+      "bytes": 8175
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-aot/reference/verify/receipt.json": {
+      "sha256": "45d8f2e02f2618522fa961ff5e249dde953e35caabbb02fbbc7e7816e7ef1698",
+      "bytes": 3983
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/faults/receipt.json": {
+      "sha256": "a344bedecb2c64e3e78626abdea226615b5114d1d888bece95352bbe7e1e04a5",
+      "bytes": 18557
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/postgres-oracles/result.json": {
+      "sha256": "c92b8981a13a4b59e5288f94b7fc1ce720eb053d8e428af7c5960bf20a0970a4",
+      "bytes": 3324
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/result.json": {
+      "sha256": "c08ccd4a73be96c2a52e3d0aa02414b150af740466e20a0c345187d0aeedbd6f",
+      "bytes": 8175
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/postgresql-jit/reference/verify/receipt.json": {
+      "sha256": "27fbc5de6d935b6ac2379aec8f3e3f5f71cf3b81eb6ec658292d0a736a2f7b87",
+      "bytes": 3982
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/faults/receipt.json": {
+      "sha256": "be135e4f491688c385066a0e9944a33d85c376cf3a1fd7d83485aeab63f8cc30",
+      "bytes": 10838
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/reference/result.json": {
+      "sha256": "e0f6996c0f494807016e85a5b3a82ec17c860265f65b830744a61f39a735fea5",
+      "bytes": 4835
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-aot/reference/verify/receipt.json": {
+      "sha256": "2fd2f3b12d515ff037f5daa3b1243064e9bc1cd18647c39231f5dac6275c7fe8",
+      "bytes": 3983
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/faults/receipt.json": {
+      "sha256": "135924b89e10b243ad69620cb88a78927b50a3b982cff423ce3952b5c28a4b21",
+      "bytes": 12257
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/reference/result.json": {
+      "sha256": "3e18bc4cdcf73627f90c9d1d17c46235701de35447b4e7504d6c9f4b076de412",
+      "bytes": 4835
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-business/rows/sqlite-jit/reference/verify/receipt.json": {
+      "sha256": "3d0290cec8cfac757fc3d2575feb094ceda67d52216498cb61b28776040f806b",
+      "bytes": 3982
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/progress.json": {
+      "sha256": "87456cd8abd96d46dbd49034c5d711bbe460370fcc331beb0c69bc4c0466a09c",
+      "bytes": 22988
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-aot/independent-sql.json": {
+      "sha256": "ddec4a0893c76ecf0d9e34f1ed9903b0f8707b340b3a82723d7880464f3e21b6",
+      "bytes": 708
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-aot/receipt.json": {
+      "sha256": "8caf1755d8cc963c0057284b7cca965fdc6781bafc291b19b1b1b46570030a17",
+      "bytes": 2844
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-jit/independent-sql.json": {
+      "sha256": "ddec4a0893c76ecf0d9e34f1ed9903b0f8707b340b3a82723d7880464f3e21b6",
+      "bytes": 708
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/postgresql-jit/receipt.json": {
+      "sha256": "3ff046ea93d04d5ecc8fec2596a7fb93dbdbe461b26a5cd22ab606046329ea8b",
+      "bytes": 2843
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-aot/independent-sql.json": {
+      "sha256": "3a51e3484d4b12fbe8e99861a48dcfc8cc4bd4046616de0ac407ba562c7fee08",
+      "bytes": 787
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-aot/receipt.json": {
+      "sha256": "38075f183a64d9d5660e4002a5f646f78ea5a05887d1caf6168a0cdd18f3d8ca",
+      "bytes": 2709
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-jit/independent-sql.json": {
+      "sha256": "3a51e3484d4b12fbe8e99861a48dcfc8cc4bd4046616de0ac407ba562c7fee08",
+      "bytes": 787
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/database-lifecycle/rows/sqlite-jit/receipt.json": {
+      "sha256": "0bd4c88cddbfce10ca171424a8c52df97fe4764cec32a75734df36ba8ad72fd4",
+      "bytes": 2708
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/evidence/images.json": {
+      "sha256": "d0656f11d9f3ca9478b819ae8a66036c0b469ea1301f5fa6e1918bb39d788c5d",
+      "bytes": 7926
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/local-consumer/evidence/index.json": {
+      "sha256": "2a523ad0c0a5fdfd25977df4a7e2f6513125ff1e9d081e92d1cef57825113c26",
+      "bytes": 428
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/local-consumer/evidence/receipt.json": {
+      "sha256": "179ac12ff4fafe54bdd0640d1734b26978c78b22af6cd260e00c83e3239293f6",
+      "bytes": 71518
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/native-build/manifest.json": {
+      "sha256": "813c2061b55c74b5587f77fbdf437478165bd5877c090af0cc1eff7a7f7e493c",
+      "bytes": 20361
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/candidate/closure.json": {
+      "sha256": "cbbb4b554c5fd1356dfb8050395a881369779fe7af62b1129c32cea1c97c8cd4",
+      "bytes": 5529
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/candidate/release.json": {
+      "sha256": "0e0f5fcb5481b71003a87bf10f584faddf9cf1e3e2c3f127341550b61f2fb14f",
+      "bytes": 86476
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/evidence-index.json": {
+      "sha256": "a736afd8ecbf909a980cf0eddfa593a7e03ba4124980e0820fff38c1f69a631d",
+      "bytes": 83145
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/manifest.json": {
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975",
+      "bytes": 18926
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native-build-input.json": {
+      "sha256": "9313d35dbdaf8ad4478cdc76a3646ad988c53c01998fc4306a16918977a9d85a",
+      "bytes": 16736
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native/database.postgresql.json": {
+      "sha256": "bbd73af7f8b4ff7aea7c5a14c8b0ce3b0257ebf2b89b1070c3abdbb51ab72801",
+      "bytes": 207441
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/native/database.sqlite.json": {
+      "sha256": "1308e109a6d5575e885b15e2c299a52d8f30afd5505246c8f5ef490d996369eb",
+      "bytes": 195242
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/previous/closure.json": {
+      "sha256": "c86ea324a79eae6d27c5570e968226b94472f4be32be01b4b6c2892be08f80c2",
+      "bytes": 5529
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/previous/release.json": {
+      "sha256": "bc9db5512457471ea8bf548bc604ba931335d3ba66ff0c7eeca634b18f035bad",
+      "bytes": 86476
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/evidence/source-inventory.json": {
+      "sha256": "76b4af7cb84c74a45b2bb71243090d933612febb642087a3baeb90867873ae69",
+      "bytes": 30131
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/prepared/manifest.json": {
+      "sha256": "d4a15fe9f25bf59b7d5706ab6d3ba8a3c406e1e049c671150377b4eec0893975",
+      "bytes": 18926
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination.receipt.json": {
+      "sha256": "b8faf639fbbef9639c9861827fb711e15a5b3ba0034ad7f132f38970f6e58ac2",
+      "bytes": 71429
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/index.json": {
+      "sha256": "afa64930778426c2e72acd79a53fd0a2e2a515d26dcc9f5d6a3e90bc8c483fb8",
+      "bytes": 428
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/receipt.json": {
+      "sha256": "b8faf639fbbef9639c9861827fb711e15a5b3ba0034ad7f132f38970f6e58ac2",
+      "bytes": 71429
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/candidate-destination/runtime-transfer-manifest.json": {
+      "sha256": "842681e357b1fc08052f2c9afe2b4f8652f464d985b15a2dbaff3857283c15e4",
+      "bytes": 11069
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/evidence-index.json": {
+      "sha256": "6caf5deb96a1234e4bb49a0607816bcc1fab57ea65dfb99ad7f81df235ebfbef",
+      "bytes": 2338
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination.receipt.json": {
+      "sha256": "5f42304430caaa7d8ef41aa14327556dfe957d5df155d9f809c86c7c848e13c2",
+      "bytes": 12816
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination/index.json": {
+      "sha256": "3539c681153db58a46c8b02650b06e1e853d107000e2865b33096e6ac0ed0568",
+      "bytes": 219
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/previous-destination/receipt.json": {
+      "sha256": "5f42304430caaa7d8ef41aa14327556dfe957d5df155d9f809c86c7c848e13c2",
+      "bytes": 12816
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/result.json": {
+      "sha256": "bd619648fcc6970585148da2ef8685d1efc98225179cdcffbe6aa169f589c12d",
+      "bytes": 3822
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination.receipt.json": {
+      "sha256": "0610404ecfcde96d4d6d80a884002936fb3581e3a9d8f8e174f4576399965a13",
+      "bytes": 12816
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination/index.json": {
+      "sha256": "e8122f8e06f2fffc7dadb831a737d56341327424f680617ce1e00d6de14b13fb",
+      "bytes": 219
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/release/evidence/rollback-destination/receipt.json": {
+      "sha256": "0610404ecfcde96d4d6d80a884002936fb3581e3a9d8f8e174f4576399965a13",
+      "bytes": 12816
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/db-scope/runtime/evidence/receipt.json": {
+      "sha256": "92ee66897be89154f1d7f37d5c5e95fafae1aa88969b32c42171969db6fa248b",
+      "bytes": 7134
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-evidence/verification.json": {
+      "sha256": "0159a290cd4d00fcc8102a0afc53dc54294d2a486c852b9ebabf3ca58264a445",
+      "bytes": 811
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/candidate-download-receipt.json": {
+      "sha256": "73d7356cf1fa21520472b4e03ebc8ade93fea920ddb8f3274be5f28d144ddaed",
+      "bytes": 3661
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/evidence-download-receipt.json": {
+      "sha256": "4c4187e0f3f1285bb2cc2b5a08a8a1ee3f8f896621b2a2ee1fe9dce8115ad410",
+      "bytes": 225823
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/final-ci-observation.json": {
+      "sha256": "14bc8205f1bbbbdbc5613343e699a23fcc814d6cfac89ea5da70d5fd50743703",
+      "bytes": 7911
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-artifacts.json": {
+      "sha256": "f0da857a0a6744736556c9f5f6832b43557a73263fae61611e8ddb6933c474e6",
+      "bytes": 1695
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-jobs.json": {
+      "sha256": "aac051deeaedd6c0d4f7ce38a5483b9819a7aa0d339f4c8c239b36e813bfedf5",
+      "bytes": 10766
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/raw-json/ci-metadata/github-run.json": {
+      "sha256": "c08acbb54572d83ec81019239590d342612f9173c4e36bb2a9f174c3378881c9",
+      "bytes": 14894
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reproduction/expected-contract.v3-override-feed-12421060.json": {
+      "sha256": "b3f550e5c78f0a225b0d7318d7d6e2cbf3ccc81670eaba2f2ef3ac432dba7ae6",
+      "bytes": 15776
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reproduction/verify_receipts.py": {
+      "sha256": "5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751",
+      "bytes": 63914
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/artifact-binding-review.json": {
+      "sha256": "f3275b4f9c290c49eb1dc08e00f4854d2fb7c483ee135f7b5e14823e988d5f70",
+      "bytes": 4432
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/candidate10-source-applicability.json": {
+      "sha256": "0e7e6767f2071ea396b62597994952f8dad9a03d234dd37250d8310a396b364c",
+      "bytes": 6148
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/evidence-validator-schema-review.json": {
+      "sha256": "d5cb37f33add05ac26cbe42614de99f9f5734542aef7a0f73b889eee3eb0454e",
+      "bytes": 3529
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/candidate10-final-ci-semantic/reviews/semantic-review-attempt1.json": {
+      "sha256": "709079ed021e3a644e37556469965b9f44feb38c95ca37d651d14b318a3799e8",
+      "bytes": 14472
+    },
+    "ledger/evidence/batches/DB-Scope-01/results/linux-acceptance-summary.md": {
+      "sha256": "40601fa9f0ddb302eeb72febd2edf93602af37e07cde8bc68b7d11028f0ec241",
+      "bytes": 7300
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/candidate10-final-source-review.json": {
+      "sha256": "6153c4ab9f9309178a224a77e49b191929f374d7d19e04156758daf484c11511",
+      "bytes": 38762
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/candidate10-override-feed-review.json": {
+      "sha256": "a7d3f19074168ac3428eb36f5be0c7b37034153453135bebc4aee6e51e2cabc5",
+      "bytes": 7781
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/candidate7-final-source-review.json": {
+      "sha256": "101ab1c14e4b1e12da17f182d3ba98e0bafbe576a0bee64f522a9318f8625083",
+      "bytes": 42685
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/candidate9-final-source-review.json": {
+      "sha256": "5cc4d635dbfd757ab869ec4158d77d0db0a605c438e37fec0c14687a2912ea4a",
+      "bytes": 45421
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/ci-receipt-helper-review-timing-addendum.json": {
+      "sha256": "1409d62dd8c440466e77fda47e0b47edda9d11fdae80cd10342e116d3af177f1",
+      "bytes": 3782
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/design-final-source-review.json": {
+      "sha256": "e37edd26313789e5817d5b9f30ebcf74aab5c17e661ccfd16780df3eefabb231",
+      "bytes": 3451
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/design-merged-main-ci-review.json": {
+      "sha256": "f3f20c6a19342ada44fef0381dfea9135a8a590376e0252f83c7d70ece0c0e8d",
+      "bytes": 7259
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/plan-product-acceptance-integration-07f8ded.json": {
+      "sha256": "dc47fd7cd33615e7ac0e909f772b3ae6dedeff7197b4f8aab6762e0ada935077",
+      "bytes": 126766
+    },
+    "ledger/evidence/batches/DB-Scope-01/reviews/product-main-workflow-policy-465cd0f.json": {
+      "sha256": "6f9c881454a723658a4e9c1bd09a4d79b694a4f64d11856526e2bef8bec89959",
+      "bytes": 11278
+    },
+    "task-index.md": {
+      "sha256": "e9e34c02ce53f2d2d6190e10aa3e3a195d7673014cd5e830b446aca599e96658",
+      "bytes": 12615
+    },
+    "tools/verify_db_scope.py": {
+      "sha256": "306105fe2980dd856d8c99d270ffaa0ae6ea93a6e9d0a7afb3aa03ca49042bc8",
+      "bytes": 23267
+    }
+  },
+  "execution_scope": {
+    "repository_edits": 0,
+    "product_builds_or_tests": 0,
+    "database_processes_started": 0,
+    "pushes_or_merges": 0,
+    "new_network_requests": 0,
+    "plan_worktree_remained_clean_at_exact_head": true,
+    "final_plan_head_ci_not_claimed_by_this_report": true
+  },
+  "suggested_technical_review_summary": "Independent Plan delivery-head review passed on c0068e00/tree2b63ba34 with no blockers. Actual product main run44924918463 binds merge465cd0f and the unchanged tested tree; all five applicable jobs and all23 build steps succeeded, with only the unchanged PR-only Dependency review skip. PR artifact acceptance remains distinct from main metadata-only artifact observations. The timing addendum preserves its original report and updates the exact receipt reference. Twelve claims pass; global Plan delivery remains pending/in_progress. Current structural/evidence gate and15 negative controls passed. This is an agent technical review, not a second-account GitHub approval."
+}
