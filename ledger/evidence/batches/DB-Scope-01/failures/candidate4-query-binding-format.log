@@ -1,0 +1,14 @@
+$ ["cargo", "fmt", "--manifest-path", "tests/Query.Binding/native/Cargo.toml", "--", "--check"]
+Diff in /workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Binding/native/src/tests.rs:950:
+     for profile in [Profile::Sqlite, Profile::PostgreSql] {
+         let c = Context::new(profile);
+         let mut q = c.query();
+-        q.clause(22, &control(6, vec![field(1, 3, 0u64.to_le_bytes().to_vec())])).unwrap();
++        q.clause(
++            22,
++            &control(6, vec![field(1, 3, 0u64.to_le_bytes().to_vec())]),
++        )
++        .unwrap();
+         c.select(&mut q);
+         assert_eq!(q.seal(0).unwrap().timeout_ns, 0);
+     }
