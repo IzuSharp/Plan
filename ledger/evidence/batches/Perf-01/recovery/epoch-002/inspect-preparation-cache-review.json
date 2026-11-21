@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "kind": "independent-inspect-preparation-source-review",
+  "verdict": "ACCEPT-exact-source-for-execution",
+  "prepared_commit": "c2478587e1fe46f5277cc2ccb133ce3d14b0d631",
+  "profile_source_index_sha256": "ccea3bd075bbd088b5d013cd8f86ffdcbd8afdc4a882293aad2edb8df82e923d",
+  "profile_caller_sha256": "55fddb02388c06d5b0c4ddfa46c5dbc13f037825b29a4521398d09fe3a787763",
+  "measurement_source_index_sha256": "a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b",
+  "reviewed_utc": "2026-11-21T03:17:54.368498+00:00",
+  "read_only_actual_role_identities": {
+    "before": {
+      "assets_sha256": "d2483c9d3d0b26d9c4efcf72ef16a78248dc38b69cbfc66987fa3fd745c3bad6",
+      "external_packages": [
+        {
+          "package": "microsoft.aspnetcore.app.runtime.linux-x64/11.0.0",
+          "sha256": "3f4bdd1255f9ccf02a3ad22656e165bd86e9f0179f18d88cf0fc7de02b230593",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "microsoft.dotnet.ilcompiler/11.0.0",
+          "sha256": "0df6f4c0f2d38cc206a0646110bfd8aaa748c71af4ca4fe67d41d88caa71ba1a",
+          "archive_bound_by_build": true
+        },
+        {
+          "package": "microsoft.net.illink.tasks/11.0.0",
+          "sha256": "5222303e533aa1e27baf757e65e8af3a67463b85bf8aef69c70d9af75e41422f",
+          "archive_bound_by_build": true
+        },
+        {
+          "package": "microsoft.netcore.app.runtime.linux-x64/11.0.0",
+          "sha256": "458f0a7e0de107e4c08b3f375b920cd9427bbb5463870187b5f8afff0eb8664f",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "microsoft.netcore.app.runtime.nativeaot.linux-x64/11.0.0",
+          "sha256": "7d425fde097698274bbf5ecc162acbee7dbb41ba7072152cae869bdb2eb6c1d0",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "runtime.linux-x64.microsoft.dotnet.ilcompiler/11.0.0",
+          "sha256": "77d250cce60e92c8bebfa78d341e435e136c825fb0c16efa67ceeaafb5ef7d6f",
+          "archive_bound_by_build": true
+        }
+      ],
+      "count": 6,
+      "prior_bound_count": 3
+    },
+    "after": {
+      "assets_sha256": "631730ebd5d759a0c47afda7d839a9cf167157cd943b94cdf70e3992e109d868",
+      "external_packages": [
+        {
+          "package": "microsoft.aspnetcore.app.runtime.linux-x64/11.0.0",
+          "sha256": "3f4bdd1255f9ccf02a3ad22656e165bd86e9f0179f18d88cf0fc7de02b230593",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "microsoft.dotnet.ilcompiler/11.0.0",
+          "sha256": "0df6f4c0f2d38cc206a0646110bfd8aaa748c71af4ca4fe67d41d88caa71ba1a",
+          "archive_bound_by_build": true
+        },
+        {
+          "package": "microsoft.net.illink.tasks/11.0.0",
+          "sha256": "5222303e533aa1e27baf757e65e8af3a67463b85bf8aef69c70d9af75e41422f",
+          "archive_bound_by_build": true
+        },
+        {
+          "package": "microsoft.netcore.app.runtime.linux-x64/11.0.0",
+          "sha256": "458f0a7e0de107e4c08b3f375b920cd9427bbb5463870187b5f8afff0eb8664f",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "microsoft.netcore.app.runtime.nativeaot.linux-x64/11.0.0",
+          "sha256": "7d425fde097698274bbf5ecc162acbee7dbb41ba7072152cae869bdb2eb6c1d0",
+          "archive_bound_by_build": false
+        },
+        {
+          "package": "runtime.linux-x64.microsoft.dotnet.ilcompiler/11.0.0",
+          "sha256": "77d250cce60e92c8bebfa78d341e435e136c825fb0c16efa67ceeaafb5ef7d6f",
+          "archive_bound_by_build": true
+        }
+      ],
+      "count": 6,
+      "prior_bound_count": 3
+    }
+  },
+  "checks": [
+    "Each role bound assets file names its sole codec consumer cache; selected package paths are confined and not aliases.",
+    "Exactly six external package/version folders per role; all actual archive hashes checked. Three are previously build-bound, three are exact-version runtime-download entries with new local snapshots.",
+    "NativeWeave package names are excluded; the unchanged original preparer copies and verifies the role project packages into its own feed and keeps a fresh writable cache.",
+    "Only the preparation child receives NUGET_FALLBACK_PACKAGES, with the old environment restored in finally before probes.",
+    "All other profile branches, original process owner, source-index admission, workloads, counts, timing and loaded-native checks remain unchanged.",
+    "Four current source-indexed file hashes match and caller parses as Python AST; no target module imported."
+  ],
+  "official_sources_read": [
+    {
+      "url": "https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-environment-variables",
+      "finding": "NUGET_FALLBACK_PACKAGES names global fallback folders."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file#fallbackpackagefolders-section",
+      "finding": "Existing global/fallback package matches are considered before package sources; no download is needed for a match."
+    }
+  ],
+  "limits": [
+    "No new restore, build, probe, profile, service or formal load was executed by this review.",
+    "This is existing-cache reuse, not a pristine-machine restore or new package-signature validation. Runtime pack snapshots were not in the original resolved-library map.",
+    "Archive/sidecar/metadata pinning is not a new complete extracted-payload inventory; original producer and actual restore/output/native identity checks retain their separate scope.",
+    "NuGet audit and other networking remain unchanged and may still fail; preserve the first actual result and failure logs."
+  ],
+  "runtime_execution_credit": false,
+  "performance_credit_seconds": 0,
+  "global_acceptance": false
+}

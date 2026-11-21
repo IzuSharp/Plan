@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "status": "source-prepared-not-executed",
+  "kind": "new-layered-diagnostic-plan",
+  "historical_wrapper_restored": false,
+  "historical_credit_transferred": false,
+  "formal_timing_eligible": false,
+  "duration_credit_seconds": 0,
+  "original_driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+  "baseline_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+  "selected_final_commit": null,
+  "execution": {
+    "one_profile_per_invocation": true,
+    "fresh_processes_and_outputs": true,
+    "outer_controller_cpus": [8],
+    "service_and_shared_probe_cpus": [2, 3],
+    "protocol_generator_cpus": [0, 1],
+    "postgresql_application_affinity": "Original profiler inherits CPUs2,3 for the whole diagnostic process tree, including its generator and wait observer. It has no generator-mask CLI option.",
+    "exclusion": "Hold the actual build admission's exclusive reservation before Context artifact reads and until all commands/readers retire. Protocol child uses the distinct admitted timing lock.",
+    "owner": "Unchanged recovery-build-001/owner.py through recovery-measure-002 Run.command",
+    "result_root": "A fresh profiles-001 sibling of the admitted formal output directory",
+    "after_rule": "Require the separate explicit selected-final binding and its actual after build/B18 receipts; baseline admission remains immutable."
+  },
+  "profiles": {
+    "inspect": {
+      "kind": "inspect",
+      "roles": ["before", "after"],
+      "processes": 3,
+      "warmup_calls": 10000,
+      "batches": 10,
+      "calls_per_batch": 100000,
+      "preparation": "Original InspectProfile.prepare.py creates one new package-only AOT consumer from the role's bound codec manifest; no product or native rebuild."
+    },
+    "page-sqlite": {
+      "kind": "shared", "roles": ["before", "after"],
+      "probe": "page", "provider": "sqlite", "count": 1000
+    },
+    "page-postgresql": {
+      "kind": "shared", "roles": ["before", "after"],
+      "probe": "page", "provider": "postgresql", "count": 1000
+    },
+    "retirement-sqlite": {
+      "kind": "shared", "roles": ["before", "after"],
+      "probe": "retirement", "provider": "sqlite", "count": 1000
+    },
+    "retirement-postgresql": {
+      "kind": "shared", "roles": ["before", "after"],
+      "probe": "retirement", "provider": "postgresql", "count": 1000
+    },
+    "postgresql-cycle": {
+      "kind": "postgresql-application", "roles": ["before", "after", "direct", "managed"],
+      "protocol": "http1", "scenario": "cycle", "rate": 180,
+      "seconds": 20, "concurrency": 16, "wait_sample_ms": 100
+    },
+    "postgresql-page": {
+      "kind": "postgresql-application", "roles": ["before", "after", "direct", "managed"],
+      "protocol": "http1", "scenario": "page", "rate": 180,
+      "seconds": 20, "concurrency": 16, "wait_sample_ms": 100
+    },
+    "http-tiny": {
+      "kind": "protocol", "group": "http", "roles": ["before", "after", "direct"],
+      "profile": "protocol-layered/tiny-allocation-control.json",
+      "rate": 32, "seconds": 20, "concurrency": 4
+    },
+    "http-json": {
+      "kind": "protocol", "group": "http", "roles": ["before", "after", "direct"],
+      "profile": "protocol-layered/json-allocation.json",
+      "rate": 32, "seconds": 20, "concurrency": 4
+    },
+    "grpc-unary": {
+      "kind": "protocol", "group": "grpc", "roles": ["before", "after", "direct"],
+      "profile": "grpc-mode-profiles/unary.json",
+      "rate": 16, "seconds": 20, "concurrency": 4
+    },
+    "grpc-server": {
+      "kind": "protocol", "group": "grpc", "roles": ["before", "after", "direct"],
+      "profile": "grpc-mode-profiles/server-stream.json",
+      "rate": 16, "seconds": 20, "concurrency": 4
+    },
+    "grpc-client": {
+      "kind": "protocol", "group": "grpc", "roles": ["before", "after", "direct"],
+      "profile": "grpc-mode-profiles/client-stream.json",
+      "rate": 16, "seconds": 20, "concurrency": 4
+    },
+    "grpc-duplex": {
+      "kind": "protocol", "group": "grpc", "roles": ["before", "after", "direct"],
+      "profile": "grpc-mode-profiles/duplex.json",
+      "rate": 16, "seconds": 20, "concurrency": 4
+    }
+  },
+  "interpretation": {
+    "purpose": "Locate boundary/materialization/retirement/wait and whole-process allocation costs before judging changes using separate formal equivalent workloads.",
+    "postgresql_application_rate": "180/s and C16 reuse the public fixed-load envelope; the separate cycle/page mix, 20s duration and added observers make these new diagnostic cells, not copies of prior measurements.",
+    "shared_parameters": "Original probe constants remain unchanged: page100rows,20warmup,MaxConnections1,128rows/65536bytes; retirement20warmup,MaxConnections2,128batchrows.",
+    "protocol_client": "The actual before-produced client is selected for every protocol role, including direct Rust.",
+    "compression": "Original profile identity-only semantics; no negotiated compression benefit is asserted.",
+    "unavailable": ["Per-request pool wait", "Exact per-request database lock time", "Native allocation stacks/bytes", "Exact copy/FFI/pin counts", "Exact async wakeup and context-switch attribution", "Retirement Pending count"]
+  }
+}

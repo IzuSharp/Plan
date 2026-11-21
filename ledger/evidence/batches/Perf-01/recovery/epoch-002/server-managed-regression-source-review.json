@@ -1,0 +1,50 @@
+{
+  "task": "Perf-01",
+  "epoch": "recovery-002",
+  "verdict": "ACCEPT",
+  "scope": "Prepared B17/B19 managed Release JIT and Native AOT subset caller; source only",
+  "prepared_commit": "1b2f68e3fea07861ee17bb116907b993adcf2aa7",
+  "source_index_sha256": "718fe0df5e02568b9db4010cfdeca58505a31ccc7bd41c512d83622351243a60",
+  "caller_sha256": "cfd6c5a1fa5529dd34d5b1884f4300bab2dd444e10f4f76f975003a2621c850f",
+  "required_measurement_source_index_sha256": "a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b",
+  "required_build_source_index_sha256": "268d10b6b058f6c599fc1128b8a2a7ad7949f723d842647756e542ba70756795",
+  "selected_product_commit": "ccff42c0df4141984ef9de497af7cd768753704a",
+  "common_driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+  "source_validation": {
+    "caller_files": 3,
+    "selected_product_files": 21,
+    "common_files": 2,
+    "all_indexed_files_match": true,
+    "python_ast_files": 5
+  },
+  "planned_scope": {
+    "source_setup_commands": 2,
+    "managed_commands": 12,
+    "total_owned_commands": 14,
+    "runtime_fixtures": 4,
+    "new_native_builds": 0,
+    "b17_runtime_timeout_seconds": 90,
+    "b19_command_timeout_seconds": 600,
+    "b19_minimum_jit_assertions": 230,
+    "b19_matching_aot_assertions_required": true,
+    "native_mapping_owner_start_identity_checked_before_and_after": true,
+    "missing_mapping_fails_closed": true,
+    "original_owner_unchanged": true
+  },
+  "blocking_findings": [],
+  "execution_credit": {
+    "target_imports": 0,
+    "builds": 0,
+    "tests": 0,
+    "profiles": 0,
+    "timed_loads": 0,
+    "duration_seconds": 0,
+    "long_segments": 0
+  },
+  "limitations": [
+    "Prepared source only; actual selected build and B18 admission must pass at invocation.",
+    "Subset does not replay complete native-producing B17 or B19 verifiers.",
+    "One actual mapping observation is not a continuous mapping or resource audit.",
+    "Raw process, control, environment and TLS records remain local; any public projection must preserve the narrow scope."
+  ]
+}

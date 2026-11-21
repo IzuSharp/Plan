@@ -1,0 +1,607 @@
+{
+  "a20": {
+    "all_exit_codes_in_original_expected_exit": true,
+    "commands": {
+      "commands": 48,
+      "exit_counts": {
+        "0": 40,
+        "1": 2,
+        "42": 2,
+        "43": 2,
+        "77": 2
+      },
+      "individual_log_hashes_checked": 96,
+      "nonzero_commands": [
+        {
+          "exit": 43,
+          "label": "jit-quarantine-child"
+        },
+        {
+          "exit": 42,
+          "label": "jit-stale-cookie-child"
+        },
+        {
+          "exit": 43,
+          "label": "aot-quarantine-child"
+        },
+        {
+          "exit": 42,
+          "label": "aot-stale-cookie-child"
+        },
+        {
+          "exit": 77,
+          "label": "oracle-negative-original"
+        },
+        {
+          "exit": 77,
+          "label": "oracle-negative-minimized"
+        },
+        {
+          "exit": 1,
+          "label": "fatal-invalid-pointer"
+        },
+        {
+          "exit": 1,
+          "label": "fatal-wrong-release"
+        }
+      ]
+    },
+    "finite_orders_each": 72,
+    "fuzzer_runs": 20000,
+    "generator": "splitmix64-a20-v1",
+    "instrumented": "C serialized-input decoder, independent oracles and fatal-child driver; AddressSanitizer, UndefinedBehaviorSanitizer and leak checks",
+    "jit_assertions": 8925,
+    "native_aot_assertions": 8925,
+    "not_instrumented": [
+      "stable Rust libraries",
+      "CLR",
+      "Native AOT runtime"
+    ],
+    "passed": true,
+    "preparation_only": false,
+    "receipt_sha256": "f668b4cf043d00b87c7c8e25d12712b5f781c175842e96073263822bf40bb3fb",
+    "scope_limits": [
+      "Windows",
+      "all weak-memory schedules",
+      "unbounded liveness",
+      "full FFI sanitizer coverage",
+      "whole-product acceptance",
+      "pristine package consumption",
+      "performance or memory improvement"
+    ],
+    "seed": "0a20c0dec0ffee001",
+    "source_commit": "8e99af18004909e3080551fb4a99998b393eb2ba",
+    "source_unchanged": true,
+    "timeouts": 0
+  },
+  "audited_utc": "2026-11-21T02:28:57.263087+00:00",
+  "canonical": {
+    "checks": [
+      "rustfmt",
+      "clippy",
+      "rust-tests",
+      "locked-restore",
+      "managed-build",
+      "dotnet-format",
+      "source-interop-tests",
+      "compiled-api-and-xml",
+      "nuget-layout",
+      "isolated-package-consumer",
+      "native-aot-run"
+    ],
+    "consumer_receipts_pristineMachine": [
+      false,
+      false
+    ],
+    "container_rust_absent_before_build": true,
+    "database_provider_profile_logs": "cargo build only; not full managed database verifier execution",
+    "exact_candidate_manifest_sha256": "e2c3a5b1e36b14669db305df66a0c38ba0756c9d5a66c5b5a751135ed6f96c1a",
+    "exact_candidate_scope": "NativeWeave.HelloWorld 0.1.0-preview.1 only; not the B24 domain closure",
+    "exact_package_checks": [
+      "outer SHA256SUMS",
+      "embedded manifest byte equality",
+      "embedded native content hash"
+    ],
+    "hello_and_interop_jit_and_native_aot_executed": true,
+    "native_sha256": "763c704c05b61d8f1d7689f60da094b46cb25403951d83b528893228d464e985",
+    "observed_new_regressions": [
+      "grpc_reaper_finishes_metadata_cleanup_after_both_completion_flags",
+      "grpc_reaper_waits_for_input_cleanup_before_releasing_metadata",
+      "completed_acceptor_outcomes_preserve_stop_and_fault_semantics",
+      "actual_network_normal_shutdown_keeps_success_state_under_acceptor_race"
+    ],
+    "package_sha256": "750e0354f5a598c203a0ed05dc0f2a0f2645de10cc3b527fc0e986433b9dd429",
+    "receipt_status": "passed",
+    "rust_workspace_release_locked_tests_passed": true,
+    "server_rust_tests_failed": 0,
+    "server_rust_tests_passed": 21
+  },
+  "downloaded_artifacts": [
+    {
+      "artifact_id": 14686876847,
+      "bytes": 46773027,
+      "completed_utc": "2026-11-21T02:20:44.679245+00:00",
+      "expires_at": "2026-12-05T02:10:03Z",
+      "sha256": "19eccfbaa414cf9ed0a6ac5752f2cb8ee7ca7961d2dd6b229c69402b25585380",
+      "started_utc": "2026-11-21T02:20:38.673574+00:00",
+      "status": "downloaded-and-hash-verified"
+    },
+    {
+      "artifact_id": 14686570099,
+      "bytes": 9643621,
+      "completed_utc": "2026-11-21T02:20:46.843955+00:00",
+      "expires_at": "2026-12-05T01:50:11Z",
+      "sha256": "735f350c4b717d9bf77e8f5c89de5cb7f3ce05850cfa332e3b7c5912d2b0ba4e",
+      "started_utc": "2026-11-21T02:20:44.699691+00:00",
+      "status": "downloaded-and-hash-verified"
+    },
+    {
+      "artifact_id": 14686916752,
+      "bytes": 321976,
+      "completed_utc": "2026-11-21T02:20:47.248558+00:00",
+      "expires_at": "2026-12-05T02:10:08Z",
+      "sha256": "a4de5dbed3794b86b1474772c9f5ddf9c11a784d87b4bd15086bc087590b8e53",
+      "started_utc": "2026-11-21T02:20:46.845601+00:00",
+      "status": "downloaded-and-hash-verified"
+    }
+  ],
+  "formal_thirty_minute_credit_from_this_audit": 0,
+  "limits": [
+    "No new build, test, import of workload modules, profile or timed load was run for this audit.",
+    "Passing solution build and domain package consumers do not imply the full per-domain managed verification suites ran.",
+    "The current CI entrypoints do not run full B17/B18/B19, ORM/database, or codec managed verifiers; applicable fresh local gates remain separate.",
+    "The B24 grpc/mcp graphs establish actual packaged consumer calls, not the complete protocol/lifecycle matrix.",
+    "CI source-content equivalence does not establish equality of local Perf-01 produced packages or loaded native binaries.",
+    "No performance comparison, capacity acceptance, or thirty-minute measurement credit is granted by CI.",
+    "Artifact retention is limited to the recorded GitHub expiry; retrieve by run and artifact ID before that date."
+  ],
+  "receipt_sha256": {
+    "consumer-result.json": "444b90e107c614eadf85d065c47cfe23e45ec27d729698c20c163f5399f757a1",
+    "pristine-consumer.json": "ecda5123ae4ec684ec206979a65ecaa08244bd9c3cfb03e3534373021f9b74f3",
+    "task04/A14/ci/result.json": "fbc91a5587a511c27adaa8ac945c7655297b18358129b6bd6ac4b18a77f4f539",
+    "task04/A14/minimum-cpu/result.json": "d2c8d0cc72d647777e4e452be3bade143af8fb50ccee59f0a36544a2f82acf81",
+    "task04/A16/build-cases/result.json": "8445164e4c6125e1b429047db0a75f7f460cb7c56a6d4e64a6409d16701db85e",
+    "task04/A16/consumer/result.json": "5016abeb1227916fce3fcf1b735d64ab000b66544d3dc6c91fbdafec6c907bd7",
+    "task04/runtime/a14.json": "589c92cc83cef3965abc30ab745eccf271e10bff481658983cf52de88b2e3369",
+    "task04/runtime/a16.json": "6b697b3e16268fb356e7a36db0d2eebeb5a2bf8bf5dc5aec40211bdffe7ca4a2",
+    "task07/B24/native-build/manifest.json": "1f327158b8179fa12a32b132d88319cb6b5d342da6c0ec28ba0cda99351402c5",
+    "task07/B24/prepared/manifest.json": "02279b9759a3021c92db3b6fbf7a84ef3616f5e8990f0c665e592750fe4c29ef",
+    "task07/B24/release/evidence/candidate-destination/receipt.json": "740c13453d233ced5545cfe55806378ea3e3e6f50c87ab7e578b90e736a8f10e",
+    "task07/B24/release/evidence/previous-destination/receipt.json": "c5a39027dd1bab14ff5c129935c35860867d376a0b3c954274807f68de225080",
+    "task07/B24/release/evidence/result.json": "b98ca1564197b4230e77a9eedb26c32d7a08eab7521575859b917265ece27948",
+    "task07/B24/release/evidence/rollback-destination/receipt.json": "d36cff1b9f45e460b524d14364969d00a85ab5e85ba2f362cab593013a9e17b3",
+    "task07/B24/runtime/evidence/receipt.json": "2b5dcadf59f16584ffc87e963078716e94b62eec576ae4195c7ecb8fdac63b51",
+    "verification.json": "b9a81fad207944e00ab53964070a537d13f4ba0ba4d31244d53729057fcb1950"
+  },
+  "run": {
+    "attempt": 1,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 136686288801,
+        "name": "A20 ownership and sanitizers"
+      },
+      {
+        "conclusion": "success",
+        "id": 136686288910,
+        "name": "security / Dependency review"
+      },
+      {
+        "conclusion": "success",
+        "id": 136686288934,
+        "name": "build / Build, package and Native AOT"
+      },
+      {
+        "conclusion": "success",
+        "id": 136686289031,
+        "name": "security / Secret scan"
+      },
+      {
+        "conclusion": "success",
+        "id": 136686289087,
+        "name": "security / CodeQL (python)"
+      },
+      {
+        "conclusion": "success",
+        "id": 136686289162,
+        "name": "security / CodeQL (csharp)"
+      },
+      {
+        "conclusion": "success",
+        "id": 136692949735,
+        "name": "Verify"
+      }
+    ],
+    "queried_head": "ccff42c0df4141984ef9de497af7cd768753704a",
+    "repository": "IzuSharp/NativeWeave",
+    "run_id": 44852311109,
+    "run_number": 128,
+    "status": "completed",
+    "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44852311109"
+  },
+  "schema_version": 1,
+  "scope": "CI 128 retained-artifact audit; no new workload execution",
+  "source_identity": {
+    "ci_checkout": "8e99af18004909e3080551fb4a99998b393eb2ba",
+    "ci_checkout_git_tree": null,
+    "commit_message": "Merge ccff42c0df4141984ef9de497af7cd768753704a into ea5fa528035d025bd7a28698ee7c71194432236c",
+    "complete_path_and_content_hash_set_equals_head": true,
+    "entrypoint_content_sha256": {
+      ".github/workflows/build.yml": "bcda84e1264cb96d332e9c2e97eddaffa1131288756a423cfcf0ff34bcfccf98",
+      ".github/workflows/ci.yml": "51c7cea3e37a44d4cf867854c10d6d2cb209a173c01ef4d7113d48fce9d0c21d",
+      "eng/build.py": "11ac8f0c0232cf909af543ed1cedb83968fbc4ed174a203dc0facbf54d73daa5",
+      "eng/verify-task04-linux.sh": "6d90f1e85d9c0d71d74076fef4e5bab60648cbb0a2f029359a82881193900b1c",
+      "eng/verify-task07-linux.sh": "014666d502e288ee6a247f8ba286ee6702c760e76f4de433bcaf83b88d28a0d6",
+      "tests/Verification.Interop/verify.py": "fdbacb5c28dab933a46e12bd57c225e6b2c6e0425ea3f4260dbec41d61708d38"
+    },
+    "head_git_tree": "aa7b4d25886e64e71dbf57c75f9592af7b46d37a",
+    "source_inventory_canonical_json_sha256": "290cf8bb795fed98fb3144803d43e2d925bfe27943d29565747105bf4c24ccd3",
+    "tracked_file_count": 1496,
+    "tree_limit": "The merge Git object/tree was not exposed by the retrieved commit response or artifact manifests. No mode/tree-object equality is claimed."
+  },
+  "task": "Perf-01",
+  "task04": {
+    "a14": {
+      "command_summary": {
+        "commands": 45,
+        "exit_counts": {
+          "-6": 1,
+          "0": 44
+        },
+        "individual_log_hashes_checked": 90,
+        "nonzero_commands": [
+          {
+            "exit": -6,
+            "label": "missing-native"
+          }
+        ]
+      },
+      "components": [
+        "A01",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07"
+      ],
+      "native_aot_runtime_transfer_cases": 6,
+      "passed": true,
+      "runtime_tool_absence": {
+        "cargo": true,
+        "cc": true,
+        "clang": true,
+        "dotnet": true,
+        "gcc": true,
+        "rustc": true,
+        "rustup": true
+      }
+    },
+    "a16": {
+      "build_cases": 17,
+      "build_cases_passed": 17,
+      "command_summary": {
+        "commands": 17,
+        "exit_counts": {
+          "-6": 2,
+          "0": 13,
+          "1": 2
+        },
+        "individual_log_hashes_checked": 34,
+        "nonzero_commands": [
+          {
+            "exit": -6,
+            "label": "missing-output-record"
+          },
+          {
+            "exit": -6,
+            "label": "tampered-native"
+          },
+          {
+            "exit": 1,
+            "label": "warnings-enabled-hard-error"
+          },
+          {
+            "exit": 1,
+            "label": "warnings-suppressed-hard-error"
+          }
+        ]
+      },
+      "passed": true,
+      "runtime_tool_absence": {
+        "cargo": true,
+        "cc": true,
+        "clang": true,
+        "dotnet": true,
+        "gcc": true,
+        "rustc": true,
+        "rustup": true
+      },
+      "runtime_transfer_passed": true
+    },
+    "minimum_cpu": {
+      "commands": 10,
+      "consumer_cases": 6,
+      "cpu_model": "Nehalem",
+      "execution_mode": "qemu-user CPU emulation",
+      "passed": true,
+      "physical_cpu_certification": false
+    }
+  },
+  "task07_b24": {
+    "candidate": {
+      "command_summary": {
+        "commands": 54,
+        "exit_counts": {
+          "0": 46,
+          "1": 8
+        },
+        "individual_log_hashes_checked": 0,
+        "nonzero_commands": [
+          {
+            "exit": 1,
+            "label": "negative-missing-output-record"
+          },
+          {
+            "exit": 1,
+            "label": "negative-runtime-native-hash"
+          },
+          {
+            "exit": 1,
+            "label": "negative-override-visible-build"
+          },
+          {
+            "exit": 1,
+            "label": "negative-override-suppressed-build"
+          },
+          {
+            "exit": 1,
+            "label": "negative-missing-native-leaf-restore"
+          },
+          {
+            "exit": 1,
+            "label": "negative-task-missing-selected-domain-native"
+          },
+          {
+            "exit": 1,
+            "label": "negative-task-unsupported-domain-rid"
+          },
+          {
+            "exit": 1,
+            "label": "negative-task-domain-native-hash-before-compile"
+          }
+        ]
+      },
+      "graphs": {
+        "combined": {
+          "edited_jit_executions": 2,
+          "initial_jit_executions": 2,
+          "native_aot_executions": 2,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": true
+        },
+        "grpc": {
+          "edited_jit_executions": 0,
+          "initial_jit_executions": 1,
+          "native_aot_executions": 1,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": false
+        },
+        "mcp": {
+          "edited_jit_executions": 0,
+          "initial_jit_executions": 1,
+          "native_aot_executions": 1,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": false
+        },
+        "postgresql": {
+          "edited_jit_executions": 0,
+          "initial_jit_executions": 1,
+          "native_aot_executions": 1,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": false
+        },
+        "server": {
+          "edited_jit_executions": 0,
+          "initial_jit_executions": 1,
+          "native_aot_executions": 1,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": false
+        },
+        "sqlite": {
+          "edited_jit_executions": 0,
+          "initial_jit_executions": 1,
+          "native_aot_executions": 1,
+          "offline_after_restore": true,
+          "ordinary_entity_dto_handler_additions": false
+        }
+      },
+      "historical_fault_soak_performance_rerun": false,
+      "mode": "full",
+      "negative_cases": [
+        {
+          "name": "actual-domain-bootstrap-incompatible-abi",
+          "passed": true
+        },
+        {
+          "name": "missing-domain-output-record",
+          "passed": true
+        },
+        {
+          "name": "runtime-native-content-tamper",
+          "passed": true
+        },
+        {
+          "name": "override-visible",
+          "passed": true
+        },
+        {
+          "name": "override-suppressed",
+          "passed": true
+        },
+        {
+          "name": "missing-exact-native-leaf-at-restore",
+          "passed": true
+        },
+        {
+          "name": "valid-domain-task-control",
+          "passed": true
+        },
+        {
+          "name": "missing-selected-domain-native",
+          "passed": true
+        },
+        {
+          "name": "unsupported-domain-rid",
+          "passed": true
+        },
+        {
+          "name": "domain-native-hash-before-compile",
+          "passed": true
+        }
+      ],
+      "outside_source_tree": true,
+      "pristine_machine": true,
+      "runtime_only_transfer_executed_in_this_receipt": false,
+      "selected_native_sha256": {
+        "database.postgresql": "47ccb6e5752e74140a104fb3e2bc2558290f180528a0691771b01df2c963e3a7",
+        "database.sqlite": "b5e650ce1bbb4c4b034e59f00a9f8c67ae104268df7e2b01a87ea3ea442434f9",
+        "server": "c097860854ce2143f874eaf714addc776a703dd02e9ac4df6327e15b6e62ed03"
+      }
+    },
+    "candidate_version": "0.1.0-task07.44852311109.1.2",
+    "new_domain_signer_authenticated": false,
+    "prepared_candidate_packages": 17,
+    "prepared_previous_packages": 17,
+    "previous_and_rollback": {
+      "previous": {
+        "combined_jit_executions": 2,
+        "command_summary": {
+          "commands": 5,
+          "exit_counts": {
+            "0": 5
+          },
+          "individual_log_hashes_checked": 0,
+          "nonzero_commands": []
+        },
+        "mode": "smoke"
+      },
+      "rollback": {
+        "combined_jit_executions": 2,
+        "command_summary": {
+          "commands": 5,
+          "exit_counts": {
+            "0": 5
+          },
+          "individual_log_hashes_checked": 0,
+          "nonzero_commands": []
+        },
+        "mode": "smoke"
+      }
+    },
+    "previous_version": "0.1.0-task07.44852311109.1.1",
+    "public_domain_release_accepted": false,
+    "receipt_only_retention": "B24 destination index explicitly retains receipt and identity hashes only. Individual command stdout/stderr and runtime payload are not in this artifact; the recorded command hashes were read, not rehashed from absent logs.",
+    "release_cases": [
+      {
+        "name": "partial-domain-publication-unadvertised",
+        "passed": true
+      },
+      {
+        "name": "resume-and-actual-previous-consumption",
+        "passed": true
+      },
+      {
+        "name": "matching-existing-closure-readback",
+        "passed": true
+      },
+      {
+        "name": "candidate-upgrade-and-actual-full-consumption",
+        "passed": true
+      },
+      {
+        "name": "complete-previous-closure-fresh-process-rollback",
+        "passed": true
+      },
+      {
+        "name": "live-process-rollback-rejected",
+        "passed": true
+      },
+      {
+        "name": "partial-rollback-rejected",
+        "passed": true
+      },
+      {
+        "name": "wrong-source-rollback-rejected",
+        "passed": true
+      },
+      {
+        "name": "same-native-version-conflict-rejected",
+        "passed": true
+      },
+      {
+        "name": "unsigned-domain-repository-signature-rejected",
+        "passed": true
+      },
+      {
+        "name": "signature-scope",
+        "passed": true
+      }
+    ],
+    "separate_runtime_transfer": {
+      "cases": [
+        {
+          "graph": "combined",
+          "passed": true,
+          "process_exited": true,
+          "provider": "sqlite"
+        },
+        {
+          "graph": "combined",
+          "passed": true,
+          "process_exited": true,
+          "provider": "postgresql"
+        },
+        {
+          "graph": "grpc",
+          "passed": true,
+          "process_exited": true,
+          "provider": "none"
+        },
+        {
+          "graph": "mcp",
+          "passed": true,
+          "process_exited": true,
+          "provider": "none"
+        },
+        {
+          "graph": "postgresql",
+          "passed": true,
+          "process_exited": true,
+          "provider": "postgresql"
+        },
+        {
+          "graph": "server",
+          "passed": true,
+          "process_exited": true,
+          "provider": "none"
+        },
+        {
+          "graph": "sqlite",
+          "passed": true,
+          "process_exited": true,
+          "provider": "sqlite"
+        }
+      ],
+      "passed": true,
+      "tool_absence": {
+        "cargo": true,
+        "cc": true,
+        "clang": true,
+        "dotnet": true,
+        "rustc": true,
+        "rustup": true
+      }
+    }
+  }
+}

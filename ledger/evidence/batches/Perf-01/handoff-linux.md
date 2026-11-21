@@ -1,5 +1,67 @@
 # Perf-01 Linux x64 handoff
 
+## Before/final B18 complete; active Server regression identified — 2026-11-21 03:18 UTC
+
+Both fresh product roles and common comparators have completed. The baseline
+is `ea5fa528035d025bd7a28698ee7c71194432236c`; the selected candidate is
+`ccff42c0df4141984ef9de497af7cd768753704a`, using the same frozen common
+application/measurement source `2e3995df8d86583ee9443348276ca8d918056bfc`.
+The [before B18 projection](recovery/epoch-002/functional-before-001/README.md)
+records 308 JIT and 309 AOT assertions. The [actual final B18 projection](recovery/epoch-002/functional-after-001/README.md)
+records 948 JIT / 578 managed retirements and 949 AOT / 580 retirements,
+completed at 02:57:51.290847 UTC. Each original native and assembled owner exited
+zero and retired. Counts reflect their respective original fixtures; they are
+not performance denominators. All independent original and DTO/Handler-edited
+consumers retain their respective precompiled native identities.
+
+The [actual final build](recovery/epoch-002/built-after-001/README.md) binds all
+17 B24 archives and principal executables. Its narrow binary backup was saved,
+retrieved and checked against the archive and all 61 payload member hashes at
+02:54:39.406245 UTC. The [CI128 artifact audit](recovery/epoch-002/ci128-audit-001/README.md)
+records actual seven-job success and the exact downloaded candidate/source
+closure, including the limits of omitted receipt-only logs. This supplies
+functional/build evidence, not measured performance or long-test credit.
+
+The [selected source applicability map](recovery/epoch-002/final-candidate-source-map.md)
+identifies the affected Server lifecycle boundaries. During resumption, the
+already active broader 29-command regression controller was located: it began
+at 03:10:51.975911 UTC under source index
+`20ebc83402a1ded7fcec377ad82805edb597fd0f9291eb01015b0f9618620a38`.
+At the 03:16 observation, 14 commands had completed and retired; the actual
+active command was B19 AOT publish. B17 JIT/AOT, B15 selected-native, B19 JIT/API
+and B19 AOT restore had passed. B20 was a future planned group, not the active
+command. The existing owner keeps the exclusive reservation; no duplicate
+fixture or measurement is started. Its terminal outcome remains unclaimed.
+
+The separate scoped invocation's interrupted empty-cache restore remains in
+the [interruption observation](recovery/epoch-002/server-regression-001-interruption.json).
+Its [cache correction review](recovery/epoch-002/server-dependency-cache-review.md)
+now covers the complete project-reference closure, but that corrected subset
+has not run: one integration preflight rejected an omitted reviewed plan file,
+and the next preflight correctly refused the occupied reservation. Neither
+started a fixture. Reuse the broader completed current-candidate results when
+available instead of duplicating the scoped recipe.
+
+The [Inspect preparation review](recovery/epoch-002/inspect-preparation-cache-review.md)
+accepts external-only same-role fallback for the original diagnostic preparer,
+source index `ccea3bd075bbd088b5d013cd8f86ffdcbd8afdc4a882293aad2edb8df82e923d`.
+The original project feed, fresh writable cache, locked restore and probe are
+retained; no NativeWeave package enters the fallback. Environment restoration
+precedes the actual probe. This source review is not an executed profile.
+
+Current immutable admission SHA-256 is
+`56725c0a0167e04bb021210d879b6616f85523705bc19bd04bc11e2cbb42d380`;
+separate final binding is
+`a57f2b4c7111db36ae336b522391b6a6b5d449167feb39588459dbafd622fed4`.
+Both were populated from completed actual receipts. The formal measurement
+source index remains `a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b`.
+The [reporting field map](recovery/epoch-002/reporting-map.md) supplements the
+already published presentation adapter. Fresh layered profiles, all 30
+before-only noise processes, 126 comparison processes, 15 core capacity
+controllers and all ten long segments remain pending. Long credit is **0/10**.
+Plan CI207 passed on public `c03584aecb743756cb1db1e9ba81274e93d71de9`;
+its report/regression source and checkpoint history are preserved.
+
 ## Candidate producers complete; report presentation reviewed — 2026-11-21 02:51 UTC
 
 The selected candidate `ccff42c0df4141984ef9de497af7cd768753704a` completed
