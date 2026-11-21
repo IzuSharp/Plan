@@ -3,10 +3,10 @@
 ## Current checkpoint
 
 - Active task: **DB-Scope-01**, Linux x64; branch `task/DB-Scope-01-linux` in all three repositories.
-- Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning checkpoint is complete and [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) exists. **Product and packaging pruning is now in progress.**
+- Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning checkpoint is complete and [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) exists. **Product pruning is committed and [product PR20](https://github.com/IzuSharp/NativeWeave/pull/20) is open. Formal clean-source Linux regression execution is in progress.**
 - Continue from this file and the DB-Scope-01 PRs. Do not delete this new workspace, repeat completed cleanup, resume Perf-01, or relabel historical evidence.
 - Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json) and `delivery-graph.json.current_execution`.
-- Dependency correction: the initial `Generators.Model` retention was incorrect. This Plan update is ready for publication; current Design must be corrected before the additional orphan generator/analyzer/native-build/artificial-packaging deletions begin.
+- Dependency correction completed in order: Plan `d74f6bc` → Design `2a8a300` → orphan code/guard migration `19252c6`, now included in the published product candidate. Query.Generator and actual database binding generation are retained.
 
 ## Completed stop/cleanup
 
@@ -24,12 +24,11 @@ Only the current Linux execution host is exposed in this session. No other Linux
 
 ## Next actions
 
-1. Publish the dependency-audit Plan correction, then update/publish current Design and record its checkpoint. Only then prune the newly identified orphan generic tooling and migrate its relevant guards to real database candidates. Continue the already authorized product pruning and unique database regressions.
-2. Confirm current/frozen Design CI for published correction `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3` without changing archived bytes.
-3. Run retained Rust/C# and real PostgreSQL/SQLite regressions, then all four external PackageReference JIT/AOT cells.
-4. Copy actual task logs/results into this batch and bind passed claims using [evidence-format.md](evidence-format.md); keep pending or failed rows honest.
-5. Complete independent review and required PR checks; merge normally and observe exact merged-main CI for all three delivered PRs.
-6. Append the observed Plan postmerge receipt in an evidence-only followup record, finalize acceptance without self-referencing a future commit, and stop.
+1. Continue formal attempt1 from the clean published product `26328245e69560192e23071a6bba24aa57a3b2fd` (tree `b9074932ece04e4350f7784cb7b79e1ff452266d`), using `_validation/logs/formal-attempt-1.log`. The active command is `../_validation/with-postgres.sh python3 -u eng/build.py verify --design ../_validation/frozen-design --plan ../_validation/frozen-plan`. Do not launch another wrapper against the same PGDATA.
+2. Inspect actual regression/package failures, retain failed attempts, and make only necessary scope regression repairs. New candidate identities require corresponding source-bound evidence; never overwrite a completed attempt.
+3. Execute retained Core/minimum CPU checks locally where applicable; exact-head CI supplies the declared Ubuntu baseline, genuinely no-Rust SDK image and runtime-only transfer.
+4. Bind actual logs/results and independent reviews using evidence-format.md. Keep all four external PackageReference JIT/AOT cells pending until actual execution validates data and native mappings.
+5. Complete required head CI, independent reviews and normal Design/product/Plan merges. Observe exact merged-main CI, then append the honest Plan postmerge closeout receipt and stop.
 
 ## Plan-first and validation environment checkpoint
 
@@ -60,3 +59,14 @@ Keep acceptance `in_progress` through the Plan PR merge. After its actual merged
 The initial Plan row and Design map wrongly retained `src/Generators.Model`. The [immutable fresh-main audit](dependency-audit.json) enumerates actual project references and hashes the inspected inputs. Database static generation is `Query.Generator`; the native binding generator is the existing Query.Binding script/signature inventory. Generic Generators.Model/CSharp/Rust/Metadata and Analyzers have no database runtime or package dependency. Generic Build.Integration native tooling serves proof profiles; retain its actual API documentation tool/checks. Packaging.Release retains its real release engine, MSBuild task/targets and API check; move unique artificial conformance-package guard cases onto real database packages before retiring that fixture.
 
 This is source inspection only. Plan parent before this correction is published `012324e22f51b2308a5f1fb64e2399fe60f04168`; Design parent is published `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3`. Plan correction publication is pending; Design correction and the additional orphan code pruning are held in that order. Existing original-scope implementation remains in progress. Historical evidence bytes are unchanged.
+
+## Integrated product checkpoint and independent review repairs
+
+- Design final candidate: `3d1b4d5d80b8e3d8790481276a8333c0d2a25754`, tree `74f886a74a38d0478d1c4b4a22ea17383dfd0424`, PR14. Earlier scope-correction head2a8 passed all current/historical workflows; final documentation ownership correction now has its own CI run.
+- Product first candidate: `26328245e69560192e23071a6bba24aa57a3b2fd`, tree `b9074932ece04e4350f7784cb7b79e1ff452266d`, PR20. Transported local c16d135 has the identical tree; formal execution uses the published identity.
+- 668 changed paths remove owned servers/protocols/proof/demo products and orphan generic tooling. Cargo removes55 dependencies, adds none, and preserves241 retained versions/checksums. Retained database/runtime/public API/ABI sources are unchanged from the fresh main; required Core friend assembly entries are pruned.
+- Mixed database fixtures now directly execute ordinary C# business queries. The default package matrix includes both independent PostgreSQL conflict/COMMIT-loss oracles, lifecycle/nullability checks, and finite provider/filesystem/outbox crash/recovery cases in every runtime/provider row. No listener, performance tuning or 30-minute load test is introduced.
+- Independent review restored the unique equal-created_at composite-keyset traversal and valid-cursor tamper/tenant/principal checks. It also replaced broad evidence copying with selected sanitized result JSON bound to original raw-file hashes; private configuration and raw argv remain local. The canary test passed.
+- Actual preliminary source smoke results exist under `_validation` and are explicitly not candidate-package acceptance. Initial filesystem smoke failures were retained and repaired by a bounded fixture read/write loop; actual SQLite ENOSPC provider13 and both providers' corrected interruption cases passed. Formal candidate execution reruns them.
+- Shared packaging keeps all applicable guards: schema/JSON/closure/RID/CPU/ABI/path/native selection,14 release/recovery cases, and actual local unlisted NuGet V3 exact-version restore. The artificial packaging product is removed. The actual PackageClosure API/XML and Core A01–A08 verification remain in the default gates.
+- Local environment is Debian13 Linux x64; local Rust traps do not claim a pristine machine or the Ubuntu24.04 baseline. GitHub's unchanged declared Linux row is required for those additional claims. The old HelloWorld public publisher is retired; new database packages are local candidates only.
