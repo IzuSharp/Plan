@@ -64,6 +64,9 @@ jobs:
           fetch-depth: 0
           path: NativeWeave-Design
           persist-credentials: false
+      - name: Verify current database scope and acceptance state
+        working-directory: Plan
+        run: python3 tools/verify_db_scope.py
       - name: Verify provenance and existing graph gates; no native rerun
         working-directory: Plan
         run: |

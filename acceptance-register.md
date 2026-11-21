@@ -1,3 +1,13 @@
+# DB-Scope-01 — current database product scope
+
+The owner authorized DB-Scope-01 on 2026-11-21: stop Perf-01, retain the PostgreSQL/SQLite strong-typed Fluent ORM with Rust SeaQuery/SQLx and Native AOT, remove NativeWeave-owned Server/gRPC/MCP and non-database engines/demos, run real Linux consumers, review and merge, then stop. Ordinary C# applications choose their own hosting; no new HTTP/gRPC wrapper or ORM feature is in scope.
+
+**Start here:** [current execution plan](ledger/evidence/batches/DB-Scope-01/plan.md), [Linux handoff](ledger/evidence/batches/DB-Scope-01/handoff-linux.md), [acceptance](ledger/evidence/batches/DB-Scope-01/acceptance.json), and `delivery-graph.json.current_execution`. These supersede older phase/authorization/product-scope statements. Database Host remains part of the database execution layer. Performance optimization and 30-minute load tests are deferred.
+
+The three legacy graphs, 114 packets, prior source-driven baseline, original acceptance bindings and delivered Task-01 through Task-07 evidence remain historical. Do not alter them to invent acceptance or resume removed components. Current acceptance requires new source-bound DB-Scope-01 evidence; unchanged historical gates run against their exact original inputs.
+
+## Historical planning text (superseded for current product scope)
+
 # Acceptance Register and Evidence Boundaries
 
 The three graphs and the Design registry determine the current actual state; see ledger/reviews/D32.md and verification/completion.json for summaries. The historical 10 Research partial / 24 Research planned and 4 Documentation partial / 28 Documentation draft counts were only takeover records; they must neither obscure the pre-existing 17 complete triplets and 16 specifications nor automatically count them as accepted.
