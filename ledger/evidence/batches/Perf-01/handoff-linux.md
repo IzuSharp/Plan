@@ -1,5 +1,40 @@
 # Perf-01 Linux x64 handoff
 
+## Final B18 passed and exact binary backup verified; full Server regression active — 2026-11-21
+
+The selected `2f40348c3db80a4fbee7a99e721b374a597b16df` package/native role
+completed [actual B18 validation](recovery/epoch-002/functional-after-004/README.md)
+at 04:58:01.056596 UTC. Execution
+`ce45385d9e5727840b38912404099cd6eb02f731357f3a2161494312bb9f3ac1`
+binds **948 JIT assertions / 577 managed retirements** and **949 Native AOT
+assertions / 580 retirements**, all four gRPC shapes over actual HTTP/2 + TLS,
+API/XML and independent package consumption. Ordinary proto/DTO/Handler edits
+continue to reuse the actual selected Server native
+`8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0`.
+Both outer commands exited zero and retired. The component command selected
+nine gRPC host tests per build mode; its filtered scope is distinct from the
+separate full 23/23 native suite already recorded.
+
+A separate actual final binding now ties the new after inputs, producer and B18
+to the unchanged original baseline admission. No old ccff B18 count or package
+identity is reused. The selected principal [archive readback](recovery/epoch-002/built-after-004/archive-readback.json)
+also completed: 61 payload files plus public identity, 99,629,060 archive bytes,
+SHA-256 `654758eac5e7c31f6c8273ad057f65cc1ed026e95ab52b9cf4bb01e70cf09d19`.
+The persisted bytes were actually retrieved and matched the verified original.
+Provider identities and operational source maps remain private.
+
+The new full29 Server caller actually started at 05:01:03.936455 UTC. B17's six
+JIT/AOT commands have completed and B15 is in progress at the latest observed
+checkpoint. All 29 commands and their final result checks remain required;
+the previous ccff partial run supplies no replacement credit.
+
+The [exact candidate CI audit](recovery/epoch-002/ci-selected-004.md) records
+seven successful jobs and eight successful commit check runs. CI's PR merge
+tree matches the selected source tree. Both PRs remain drafts pending actual
+functional and performance acceptance. Fresh layered profiles, before-only
+noise publication, equivalent comparisons, capacity and all ten long intervals
+are next. **Current long-test credit remains 0/10.**
+
 ## Final selected eight-producer build completed; actual B18 in progress — 2026-11-21
 
 All eight fresh producers for selected NativeWeave
