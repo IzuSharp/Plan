@@ -6,6 +6,7 @@
 - Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning checkpoint is complete and [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) exists. **Product and packaging pruning is now in progress.**
 - Continue from this file and the DB-Scope-01 PRs. Do not delete this new workspace, repeat completed cleanup, resume Perf-01, or relabel historical evidence.
 - Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json) and `delivery-graph.json.current_execution`.
+- Dependency correction: the initial `Generators.Model` retention was incorrect. This Plan update is ready for publication; current Design must be corrected before the additional orphan generator/analyzer/native-build/artificial-packaging deletions begin.
 
 ## Completed stop/cleanup
 
@@ -23,7 +24,7 @@ Only the current Linux execution host is exposed in this session. No other Linux
 
 ## Next actions
 
-1. Continue product pruning and preserve unique database assertions from mixed reference/end-to-end tests; reconcile default build, packaging, CI and documentation.
+1. Publish the dependency-audit Plan correction, then update/publish current Design and record its checkpoint. Only then prune the newly identified orphan generic tooling and migrate its relevant guards to real database candidates. Continue the already authorized product pruning and unique database regressions.
 2. Confirm current/frozen Design CI for published correction `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3` without changing archived bytes.
 3. Run retained Rust/C# and real PostgreSQL/SQLite regressions, then all four external PackageReference JIT/AOT cells.
 4. Copy actual task logs/results into this batch and bind passed claims using [evidence-format.md](evidence-format.md); keep pending or failed rows honest.
@@ -53,3 +54,9 @@ Initial Design current-scope CI [44904378111](https://github.com/IzuSharp/Native
 `acceptance.json` now uses evidence schema version 1. A passed claim requires a structured reference to a real task receipt and hashed raw logs/results/reviews, with exact source commit/tree identities matching the candidate. Final PR records require URL, actual head/merge identities and source-bound completed-success CI receipts. The verifier includes in-memory controls for missing files, receipt/artifact hash changes, source mismatch, incomplete merged PRs, wrong CI commits/branches, unfinished required checks and changed merged trees. Both partial and final accepted shapes are exercised using in-memory positive fixtures. These synthetic controls are not product evidence.
 
 Keep acceptance `in_progress` through the Plan PR merge. After its actual merged-main CI is observed, an evidence-only followup can append that receipt and mark the delivered three-PR snapshot accepted. The receipt binds the already observed Plan merge, never the future commit containing the receipt. The containing followup's own CI is checked separately; this avoids circular hashes or predicting a future success.
+
+## Dependency correction checkpoint — generic tooling
+
+The initial Plan row and Design map wrongly retained `src/Generators.Model`. The [immutable fresh-main audit](dependency-audit.json) enumerates actual project references and hashes the inspected inputs. Database static generation is `Query.Generator`; the native binding generator is the existing Query.Binding script/signature inventory. Generic Generators.Model/CSharp/Rust/Metadata and Analyzers have no database runtime or package dependency. Generic Build.Integration native tooling serves proof profiles; retain its actual API documentation tool/checks. Packaging.Release retains its real release engine, MSBuild task/targets and API check; move unique artificial conformance-package guard cases onto real database packages before retiring that fixture.
+
+This is source inspection only. Plan parent before this correction is published `012324e22f51b2308a5f1fb64e2399fe60f04168`; Design parent is published `02e8eabc8fcb81d61fc9b6468fe099acae17f2b3`. Plan correction publication is pending; Design correction and the additional orphan code pruning are held in that order. Existing original-scope implementation remains in progress. Historical evidence bytes are unchanged.

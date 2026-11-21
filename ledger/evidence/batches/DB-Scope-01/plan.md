@@ -22,12 +22,29 @@ All checkouts use `task/DB-Scope-01-linux` under `ROOT/.worktree/DB-Scope-01-lin
 | --- | --- |
 | Data sources, pools and sessions | `src/Data.NativeHost`, both provider projects, `native/database/host`, `postgres`, `sqlite`; Database Host is retained execution, not a server |
 | Transactions, migrations, parameter binding | `src/Data.Transactions`, `Data.Migrations`, `Data.Codecs`, `Query.Binding`; corresponding `native/database` crates and regression suites |
-| Strongly typed Fluent, static models and DTOs | `src/Query.Fluent`, `Query.Native`, `Query.Generator`, `Data.Materialization`, `Generators.Model`; SeaQuery native compiler and static mapping/generator checks |
+| Strongly typed Fluent, static models and DTOs | `src/Query.Fluent`, `Query.Native`, `Query.Generator`, `Data.Materialization`; SeaQuery native compiler and database static mapping/generator checks |
 | Relations and CRUD | `src/Orm.Relations`, `native/database/relations`, relational/concurrency regressions |
 | Streaming, cancellation, errors and disposal | `src/Data.Streaming`, Core-owned Interop ABI/async/callback/error/execution/lifetime/memory/negotiation modules and native interop dependencies |
-| Precompiled native asset consumption and AOT | Core, Interop.Abi, database packages, retained Build.Integration/Packaging.Linux/Packaging.Release/compatibility helpers used by real DB packaging gates |
+| Precompiled native asset consumption and AOT | Core, Interop.Abi, database packages, actual APIReference/compose_docs/Core documentation checks, Packaging.Linux/Packaging.Release/compatibility helpers reached by real DB packaging gates |
 
 The public provider projects reference Database/Core/Data and the static query generator; they do not reference Server. `NativeWeave.Database.csproj` compiles the existing Query.Native, Query.Fluent, Orm.Relations, Data.Migrations and Data.Materialization implementations. Its Rust Host composes the database crates and SeaQuery/SQLx. Keep this composition and every implemented database capability. Common components are retained by dependency and regression need, not by their generic names.
+
+## Dependency audit correction — generic tooling
+
+The initial Plan/Design inventory incorrectly listed `Generators.Model` as database model generation. The [fresh-main dependency audit](dependency-audit.json) records exact source hashes and every incoming project reference to the generic generator/analyzer families. Database static models use `src/Query.Generator`; database native prototypes use `tests/Query.Binding/generate.py` with `native/database/binding/signatures-v1.json`. No Data/Query/Orm project or retained twelve-package producer depends on `Generators.Model`, `Generators.CSharp` (including Metadata), `Generators.Rust` or the generic `Analyzers` product. Their remaining consumers are their own samples/tests and proof fixtures.
+
+Remove those orphan generic generator/analyzer products, their exclusive tests/samples/docs/locks and solution/API-documentation configurations. Keep `Query.Generator`, its diagnostics and actual database generator tests. Standard SDK/compiler analyzers and the retained database API/documentation checks still run. This correction removes no database model, DTO, binding or runtime capability.
+
+Split generic tool directories by actual use:
+
+| Area | Keep for the database product | Retire after equivalent relevant guards are connected |
+| --- | --- | --- |
+| Build.Integration | `ApiReference`, `compose_docs.py`, `api/core.json`, API fixture data/project and `tests/Build.Integration/verify_docs.py` | `build_native.py`, generic `NativeWeave.Build.targets`, proof native profiles/fixtures/sample and generator/analyzer/metadata documentation configurations |
+| Packaging.Release | `release.py`, `BuildTasks`, `buildTransitive`, `tests/Packaging.Release/ApiCheck` and safeguards used by real Packaging.Domain | Artificial `prepare.py`, conformance package consumer/native/sample and their obsolete default CI path |
+
+Migrate the artificial package fixture's unique checks to the real database candidates before deleting its harness: invalid/duplicate closure schema and JSON, nonexact dependency edges, unsupported RID/CPU baseline, malformed ABI/identity, source/output traversal, missing/duplicate selected native files, hash drift before compile/build, duplicate native basenames, plus applicable publication/recovery safeguards. Run those assertions through the retained actual MSBuild packaging task and database release path. This is moving the checks to the product being shipped, not waiving a failing check.
+
+The correction follows the same order as the batch: publish this Plan update, record the matching current Design checkpoint, then delete the newly identified orphan code and reconnect the retained guards. Existing authorized product pruning may continue; these additional orphan deletions wait for both checkpoints. Record the checkpoints in the handoff and `delivery-graph.json.current_execution.scope_refinements`. Historical generator/tooling acceptance remains unchanged historical evidence.
 
 ## Remove and reconcile
 
