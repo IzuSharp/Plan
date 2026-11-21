@@ -1,5 +1,41 @@
 # Perf-01 Linux x64 handoff
 
+## Final selected eight-producer build completed; actual B18 in progress — 2026-11-21
+
+All eight fresh producers for selected NativeWeave
+`2f40348c3db80a4fbee7a99e721b374a597b16df` completed at
+04:44:34.942956 UTC with exit zero and full process retirement. The actual
+[build projection](recovery/epoch-002/built-after-004/README.md) binds execution
+`1eaf0d0a11a533a48be024c07ede85fa29fbc8799ba35c5848469138d1bdf76d`
+and binding
+`106c531683c46cce5090359583e96a424f651507f758bbd03a463766190f8bef`.
+The actual packaged Server native SHA-256 is
+`8b726c39ec30003479aeb5b28015fcb97ee5350246a9d7b1bcd7b4ee696f78c0`;
+it is not inferred from the native unit-test build. SQLite and PostgreSQL
+native hashes remain equal to the original before role. External package
+pairing was checked in this build execution: 45 rows, eight consumer groups,
+12 distinct external package/version identities.
+
+Selected B18 functional execution actually started at 04:45:11.063866 UTC and
+is still running. One preceding invocation supplied an incomplete admission
+hash and was rejected before fixture/output creation; the immutable admission
+and all caller sources stayed unchanged. The corrected call uses the original
+frozen hash. This preflight supplies no test or performance credit.
+
+The separate [full29 caller](diagnostics/recovery-regressions-003/README.md)
+and [independent review](recovery/epoch-002/full29-caller-003-review.md) are
+ready. Source index `9e58869e…` reuses all 29 original recipes and actual role
+admission. Its B20 result loop observes the selected source's 122 JIT/AOT
+assertions, including six new checks for each of H1/H2; Debug defaults remains
+five. The rest of the collector is unchanged. No full29 execution is claimed
+until the actual final B18/binding prerequisites complete.
+
+The selected NativeWeave CI run 44866071462 and Plan checkpoint run
+44867200869 both completed successfully. Required final application checks,
+layered profiles, noise publication, comparisons, capacity and all ten long
+intervals remain outstanding. **Current long-test credit: 0/10.** No producer,
+source review or CI success is a timing result.
+
 ## Selected close repair passed native regressions; final package rebuild active — 2026-11-21 04:39 UTC
 
 The selected source is now published as NativeWeave
