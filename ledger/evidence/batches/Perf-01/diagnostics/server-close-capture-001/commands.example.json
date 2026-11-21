@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "kind": "diagnostic-only-owner-recipes",
+  "maximum_fresh_sample_processes": 10,
+  "build": {
+    "label": "build-startup-hook",
+    "argv": ["DOTNET_FROM_BOUND_B18", "build", "STAGED_HOOK_SOURCE/Perf01.ServerClose.StartupHook.csproj", "--configuration", "Release", "--output", "FRESH_DIAGNOSTIC_OUTPUT/hook", "--disable-build-servers", "--no-incremental", "-p:RestoreLockedMode=true", "-p:UseSharedCompilation=false", "-m:1"],
+    "cwd": "STAGED_HOOK_SOURCE",
+    "timeout_seconds": 180,
+    "environment_overrides": {}
+  },
+  "sample": {
+    "label": "sample-00-through-09",
+    "argv": ["DOTNET_FROM_BOUND_B18", "EXISTING_AFTER_SAMPLE/server-diagnostics.dll", "--local"],
+    "cwd": "EXISTING_SELECTED_AFTER_PRODUCT",
+    "timeout_seconds": 90,
+    "environment_overrides": {
+      "DOTNET_STARTUP_HOOKS": "FRESH_DIAGNOSTIC_OUTPUT/hook/Perf01.ServerClose.StartupHook.dll"
+    }
+  },
+  "source_only": true,
+  "performance_credit_seconds": 0
+}

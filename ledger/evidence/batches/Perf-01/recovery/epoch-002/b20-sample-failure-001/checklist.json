@@ -1,0 +1,1015 @@
+{
+  "schema_version": 1,
+  "task": "Perf-01",
+  "epoch": "epoch-002",
+  "record": "b20-sample-failure-001",
+  "record_kind": "sanitized_existing_execution_and_source_review",
+  "status": "failed_functional_sequence_incomplete",
+  "identities": {
+    "product_repository": "IzuSharp/NativeWeave",
+    "selected_product_commit": "ccff42c0df4141984ef9de497af7cd768753704a",
+    "frozen_baseline_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "common_driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+    "runner_source_index_sha256": "20ebc83402a1ded7fcec377ad82805edb597fd0f9291eb01015b0f9618620a38",
+    "selected_native_asset": {
+      "filename": "libnativeweave_server.so",
+      "sha256": "1f023b7506bde3f8c4a13b12de92e3e9503004ca3afc2d41a53bec17e44f1d97",
+      "binding_kind": "selected_build_input_and_immediately_before_execution_inventory",
+      "loaded_module_process_trace_claimed": false
+    }
+  },
+  "sequence": {
+    "evidence_bundle_name": "server-regressions-002",
+    "started_utc": "2026-11-21T03:10:51.975911+00:00",
+    "ended_utc": "2026-11-21T03:20:20.938829+00:00",
+    "planned_outer_commands": 29,
+    "passed_outer_commands": 25,
+    "failed_outer_commands": 1,
+    "failed_command_ordinal": 26,
+    "not_run_outer_commands": 3,
+    "outer_commands_are_not_assertion_counts": true,
+    "execution_record": {
+      "bundle_relative_file": "control/execution.json",
+      "sha256": "6d8afc03415a5ea736c8e7a5ae6cf5ea1f75d2446b3abc3f96d82987852e3b46"
+    }
+  },
+  "failed_sample": {
+    "command_from_product_root": [
+      "dotnet",
+      "samples/api/server-diagnostics/bin/Debug/net11.0/server-diagnostics.dll",
+      "--local"
+    ],
+    "configuration": "Debug",
+    "started_utc": "2026-11-21T03:20:20.627964+00:00",
+    "ended_utc": "2026-11-21T03:20:20.936688+00:00",
+    "exit_code": -6,
+    "retired": true,
+    "live_owned_after_count": 0,
+    "owner_children_after_count": 0,
+    "stderr_exception_type": "System.InvalidOperationException",
+    "stderr_message": "Explicit diagnostic listener did not run.",
+    "stderr_source_file": "samples/api/server-diagnostics/Program.cs",
+    "stderr_source_line": 42,
+    "stderr_stack_scope": "final sample assertion only; not the earlier server-side exception",
+    "stdout_events": {
+      "observed_total": 5,
+      "expected_failure_route_5xx": 4,
+      "unexpected_hello_route_2xx": 1,
+      "protocol": "HTTP/1.1",
+      "category": "application_failure",
+      "observed_lines": [
+        "Server request failed: application_failure; route=/failure; protocol=HTTP/1.1; status_class=5xx.",
+        "Server request failed: application_failure; route=/failure; protocol=HTTP/1.1; status_class=5xx.",
+        "Server request failed: application_failure; route=/failure; protocol=HTTP/1.1; status_class=5xx.",
+        "Server request failed: application_failure; route=/failure; protocol=HTTP/1.1; status_class=5xx.",
+        "Server request failed: application_failure; route=/hello/{name}; protocol=HTTP/1.1; status_class=2xx."
+      ]
+    },
+    "internal_counters": {
+      "activities": null,
+      "measurements": null,
+      "warnings_Count": null,
+      "availability": "not printed; the final success line was not reached"
+    }
+  },
+  "preceding_b20_markers": [
+    {
+      "label": "b20-actual-debug",
+      "observed_stdout_marker": "B20 actual diagnostics: 5 assertions, dynamic=True, configuration=Debug.",
+      "assertions": 5,
+      "dynamic": true,
+      "configuration": "Debug"
+    },
+    {
+      "label": "b20-actual-jit",
+      "observed_stdout_marker": "B20 actual diagnostics: 110 assertions, dynamic=True, configuration=Release.",
+      "assertions": 110,
+      "dynamic": true,
+      "configuration": "Release"
+    },
+    {
+      "label": "b20-sample-debug-disabled",
+      "observed_stdout_marker": "Rust Host complete; explicit_local=False; activities=0; measurements=0.",
+      "activities": 0,
+      "measurements": 0
+    }
+  ],
+  "source_inferences": {
+    "classification": "control_flow_inference_from_reaching_line_42_not_separate_runtime_telemetry",
+    "relative_file": "samples/api/server-diagnostics/Program.cs",
+    "response_status_guards": {
+      "configured_iterations": 16,
+      "inference": "All earlier per-response status guards returned without throwing.",
+      "printed_actual_success_count": null,
+      "response_content_validation_claimed": false
+    },
+    "close_and_disposal": {
+      "inference": "CloseAsync returned; the guard requiring Completed and zero pending/native/managed owners did not throw; awaited DisposeAsync returned before line 42.",
+      "separately_printed_close_result": null,
+      "separately_printed_owner_snapshot": null
+    }
+  },
+  "cause_review": {
+    "status": "unconfirmed_source_candidate",
+    "candidate": "Close can drain Hyper connections and acceptors after the client receives a fixed-length body but before managed response Finish runs; runtime teardown can make the later operation return NW_INVALID_STATE.",
+    "error_mapping": "ServerError.Create(4) produces InvalidOperationException; ServerDiagnostics.Category maps it to application_failure, while the committed status can remain 2xx.",
+    "essential_source_exists_in_baseline": true,
+    "baseline_execution_reproduced_in_this_record": false,
+    "observed_server_exception_stack_captured": false,
+    "introduced_by_candidate_claimed": false,
+    "candidate_frequency_change_established": false,
+    "existing_test_gap": "The current B20 fixed-length case awaits native framing and Activity completion before close, so it does not exercise close-before-Finish.",
+    "function_comparisons": [
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "symbol": "Host::start runtime lifetime",
+        "slice_start_literal": "    pub fn start(",
+        "slice_end_literal_excluded": "    async fn run(",
+        "identical_between_versions": true,
+        "utf8_sha256": "7556377fc78651cd024df07b64e71c740532a5c50272176c19fbdfebd8b64e77"
+      },
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "symbol": "Host::accept connection drain",
+        "slice_start_literal": "    async fn accept(",
+        "slice_end_literal_excluded": "    async fn serve<",
+        "identical_between_versions": true,
+        "utf8_sha256": "c9ab1cf2cf3e003fafe32ac3bc0f3a28c26efe5dca5438a48a19051f48383fd7"
+      },
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "symbol": "OpState::execute runtime admission",
+        "slice_start_literal": "    pub fn execute(",
+        "slice_end_literal_excluded": "    async fn run_job(",
+        "identical_between_versions": true,
+        "utf8_sha256": "a705816a5121d6ef78d6d891162bd337f473485ef32e959d5febba85769b4766"
+      },
+      {
+        "relative_file": "native/server/host/src/engine.rs",
+        "symbol": "Job::Finish match arm",
+        "slice_start_literal": "                Job::Finish(",
+        "slice_end_literal_excluded": "                Job::Start | Job::Close",
+        "identical_between_versions": true,
+        "utf8_sha256": "61829eac5b3cbc2457d9d4d904360242f51f03226ef1de5363439a80c4827f30"
+      }
+    ]
+  },
+  "acceptance": {
+    "current_epoch_accepted_30_minute_runs": 0,
+    "required_before_after_30_minute_runs": 10,
+    "performance_credit_seconds": 0,
+    "historical_credit_transferred": false,
+    "full_29_command_sequence_passed": false,
+    "new_execution_performed_to_prepare_this_record": false
+  },
+  "checklist": [
+    {
+      "item": "Preserve the failed command and its original outcome.",
+      "status": "recorded",
+      "basis": "receipt and exact stdout/stderr hashes"
+    },
+    {
+      "item": "Identify prior passing commands and remaining unrun commands.",
+      "status": "recorded",
+      "basis": "25 completed receipts, one failed receipt, three absent receipts matching the planned order"
+    },
+    {
+      "item": "Distinguish log-event counts from unavailable internal counters.",
+      "status": "recorded",
+      "basis": "failed sample stdout omits its final counter line"
+    },
+    {
+      "item": "Capture the actual exception behind the unexpected 2xx diagnostic.",
+      "status": "not_established_by_this_record"
+    },
+    {
+      "item": "Run a controlled close-before-Finish probe with matching baseline and candidate assets.",
+      "status": "not_established_by_this_record"
+    },
+    {
+      "item": "Complete B20 AOT publish, AOT execution and package-consumer commands.",
+      "status": "not_run_in_this_sequence"
+    },
+    {
+      "item": "Accept all ten current-epoch representative 30-minute runs.",
+      "status": "0_of_10_at_this_checkpoint"
+    }
+  ],
+  "outer_commands": [
+    {
+      "ordinal": 1,
+      "label": "b17-jit-restore",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:10:57.590633+00:00",
+      "ended_utc": "2026-11-21T03:11:10.448264+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-jit-restore/receipt.json",
+          "sha256": "5da0af6340ecb8d393778fc14946ab67c848a13aa178ab79c605b52cf3c979b6"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-restore/stdout.log",
+          "sha256": "3ffde7478394ff361e52c7ad19296bfcf9b13dc9f8fb911bc007666a35e79611"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-restore/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 2,
+      "label": "b17-jit-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:11:10.966822+00:00",
+      "ended_utc": "2026-11-21T03:11:37.321608+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-jit-build/receipt.json",
+          "sha256": "cc4aff0b7f7eeb19eb6bf76075a6df28d7512a0aa5cc2b282bb265e3764398d8"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-build/stdout.log",
+          "sha256": "52283f3e416ee5dfbf87710a10d565f545d67263986e030b9f54da856cd1ef2b"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 3,
+      "label": "b17-jit-execute",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:11:37.887917+00:00",
+      "ended_utc": "2026-11-21T03:11:39.007688+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-jit-execute/receipt.json",
+          "sha256": "8887e19c055bef26c8bc8c0ab32ce3caf726d84f17f3a8db1fcc0c05ca3b6206"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-execute/stdout.log",
+          "sha256": "de97cb2b6f5a7354c67dbfcffb0d2ddc613d690bbe0179bd7f423957878f7697"
+        },
+        {
+          "bundle_relative_file": "control/b17-jit-execute/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 4,
+      "label": "b17-aot-restore",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:11:39.805557+00:00",
+      "ended_utc": "2026-11-21T03:11:50.503910+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-aot-restore/receipt.json",
+          "sha256": "6ccb3160da9c2c453536754f83082bdca88c481f9ecb0af58f219bf2e914e0d0"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-restore/stdout.log",
+          "sha256": "7693d3d4446f3f684467f5d3078b1d8b539686cd0faa999500b1be1a3c99de39"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-restore/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 5,
+      "label": "b17-aot-publish",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:11:51.052769+00:00",
+      "ended_utc": "2026-11-21T03:12:33.600830+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-aot-publish/receipt.json",
+          "sha256": "42a15690a1b941d0276ccb5105b0fad4c56296c8ec88dd92b16dadd4de5df592"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-publish/stdout.log",
+          "sha256": "269fa8a6be224a8d26562790650734768ddb8f5c267ad83f8f3dc1e14f79dd96"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-publish/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 6,
+      "label": "b17-aot-execute",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:12:34.159786+00:00",
+      "ended_utc": "2026-11-21T03:12:35.009837+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b17-aot-execute/receipt.json",
+          "sha256": "ce28428b48e29ae03f575c7bad6524fecca4c7aaced653e19cf1da13b9e9ceba"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-execute/stdout.log",
+          "sha256": "f6a3b547233125ca60be534b173100472c9aa5377705203498a8a041e65d5ba9"
+        },
+        {
+          "bundle_relative_file": "control/b17-aot-execute/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 7,
+      "label": "b15-selected-native",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:12:35.645793+00:00",
+      "ended_utc": "2026-11-21T03:15:14.542820+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b15-selected-native/receipt.json",
+          "sha256": "1f47d06f45829776531f4c2efedbcd2a4c09ff14552b339d4b2bef17694466b9"
+        },
+        {
+          "bundle_relative_file": "control/b15-selected-native/stdout.log",
+          "sha256": "d84170fff271d9d703717bb19306afa2f035ca6e40fdaf7841157fe3c8a3fd5d"
+        },
+        {
+          "bundle_relative_file": "control/b15-selected-native/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 8,
+      "label": "b19-restore-jit",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:15:15.115221+00:00",
+      "ended_utc": "2026-11-21T03:15:16.550502+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-restore-jit/receipt.json",
+          "sha256": "bbf8753752a9c3afdab5e441677f9da1fdeaed01db3340832ea16d7d680f8483"
+        },
+        {
+          "bundle_relative_file": "control/b19-restore-jit/stdout.log",
+          "sha256": "aafc82a1ed4da15274d9c38b6b047769ca8045f4d89ec39e7b878dcfddbd7bb0"
+        },
+        {
+          "bundle_relative_file": "control/b19-restore-jit/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 9,
+      "label": "b19-build-jit",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:15:17.075885+00:00",
+      "ended_utc": "2026-11-21T03:16:01.540434+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-build-jit/receipt.json",
+          "sha256": "e2a784fe882527cd931be268851f39e2ddfb549ae8fd7bcafaaec1e68ed19249"
+        },
+        {
+          "bundle_relative_file": "control/b19-build-jit/stdout.log",
+          "sha256": "fe42da261d73496c642f65c19f103adabcf86bf92b1d5c8941ca9e0a0b2a4207"
+        },
+        {
+          "bundle_relative_file": "control/b19-build-jit/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 10,
+      "label": "b19-actual-jit",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:02.135017+00:00",
+      "ended_utc": "2026-11-21T03:16:03.864158+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-actual-jit/receipt.json",
+          "sha256": "6e7263d419c16b2212d7ab5aaaf0cb893f0b81674a070bf84daf2e8466b93e55"
+        },
+        {
+          "bundle_relative_file": "control/b19-actual-jit/stdout.log",
+          "sha256": "ab8c94df6fe98e5a3e41eb1660178e6f7ff2ec6b11a6109c263a08d1fe2bef83"
+        },
+        {
+          "bundle_relative_file": "control/b19-actual-jit/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 11,
+      "label": "b19-api-restore",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:04.461267+00:00",
+      "ended_utc": "2026-11-21T03:16:05.377796+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-api-restore/receipt.json",
+          "sha256": "f5525e5d5f51ddb5e7058408cb60d7614d4933d0c56f7f84054c5aadeb61ec71"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-restore/stdout.log",
+          "sha256": "b44a7caffb4ece9d62579388a5d88306e4fd22e02e39b1c18b1c23cf1a23b031"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-restore/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 12,
+      "label": "b19-api-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:06.177082+00:00",
+      "ended_utc": "2026-11-21T03:16:09.375349+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-api-build/receipt.json",
+          "sha256": "eeb6b81f0f26c360efcb7428c0a21343a6bb4b9f4eaaffd131e775fa2a3ca94f"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-build/stdout.log",
+          "sha256": "38dffc68f2c3c8b61f7e66085cdc74e92ae9197772f952150c9c9a0b2494ecde"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 13,
+      "label": "b19-api-exact",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:10.159834+00:00",
+      "ended_utc": "2026-11-21T03:16:10.880606+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-api-exact/receipt.json",
+          "sha256": "52fdbca2bec71e48ae570abaee57d0d67f240b231e975d0f329fb5da022998a5"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-exact/stdout.log",
+          "sha256": "c671f602759142ba9b39a3acfe69e0ae30f0d60366bd5af7a2d50f69ea477a30"
+        },
+        {
+          "bundle_relative_file": "control/b19-api-exact/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 14,
+      "label": "b19-restore-aot",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:11.450278+00:00",
+      "ended_utc": "2026-11-21T03:16:13.090998+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-restore-aot/receipt.json",
+          "sha256": "0760eafcf0b3af562925e3a2d8bf29a879f1a76f0278e727282dbfc66c3a56cb"
+        },
+        {
+          "bundle_relative_file": "control/b19-restore-aot/stdout.log",
+          "sha256": "78bfea3466292601c32e520db2f196cbfc5dd2afaa1d960b956a7528aea15ead"
+        },
+        {
+          "bundle_relative_file": "control/b19-restore-aot/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 15,
+      "label": "b19-publish-aot",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:16:13.614847+00:00",
+      "ended_utc": "2026-11-21T03:17:34.704715+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-publish-aot/receipt.json",
+          "sha256": "c4ad08fc4f839381582f4438afc122fdea98f88d60e31fbc8f2287595cd24ae8"
+        },
+        {
+          "bundle_relative_file": "control/b19-publish-aot/stdout.log",
+          "sha256": "887e74f84f995a2fc9c1de5ce438d66543d5a6e0f95cf454e2454d6211f81078"
+        },
+        {
+          "bundle_relative_file": "control/b19-publish-aot/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 16,
+      "label": "b19-actual-aot",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:17:35.498832+00:00",
+      "ended_utc": "2026-11-21T03:17:36.211819+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-actual-aot/receipt.json",
+          "sha256": "4373c02c53aa9f6c7e3ebf7e7e84d101e42dc44559dd3a9e4b583b46f7252c2b"
+        },
+        {
+          "bundle_relative_file": "control/b19-actual-aot/stdout.log",
+          "sha256": "c1710ccc6aafdf4a22ce27a930d35f8b5656e68fba21a12c19a491fdb5da19e8"
+        },
+        {
+          "bundle_relative_file": "control/b19-actual-aot/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 17,
+      "label": "b19-package-consumer",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:17:36.808264+00:00",
+      "ended_utc": "2026-11-21T03:19:26.634784+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b19-package-consumer/receipt.json",
+          "sha256": "9886cb2f96eafcc51eed3ce52a54d389c598c86ab363cf6b0835f80c9f54370f"
+        },
+        {
+          "bundle_relative_file": "control/b19-package-consumer/stdout.log",
+          "sha256": "e1ac75115ed5631b1c0376ebd0e7585a012607346fbd72f46536baa2fd787104"
+        },
+        {
+          "bundle_relative_file": "control/b19-package-consumer/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 18,
+      "label": "b20-managed-debug-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:19:27.522532+00:00",
+      "ended_utc": "2026-11-21T03:19:52.645471+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-managed-debug-build/receipt.json",
+          "sha256": "c21d070ca6be94c07a6703dde839305647d44fe5d8e3fa96f1d1d286faac5656"
+        },
+        {
+          "bundle_relative_file": "control/b20-managed-debug-build/stdout.log",
+          "sha256": "1eb8b1701db320a111f766667d6d829fdcb3cf0383e69b1367056484abffbffa"
+        },
+        {
+          "bundle_relative_file": "control/b20-managed-debug-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 19,
+      "label": "b20-actual-debug",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:19:53.205436+00:00",
+      "ended_utc": "2026-11-21T03:19:53.518017+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-actual-debug/receipt.json",
+          "sha256": "a020741f6231d3ca1eab152d97a6c9a3647bfe7a8959c661ea001b010b617ee6"
+        },
+        {
+          "bundle_relative_file": "control/b20-actual-debug/stdout.log",
+          "sha256": "5d60fd7dcad30ded6848ed86c3858e15d6af3121bf962aec2f41bdf8526565b4"
+        },
+        {
+          "bundle_relative_file": "control/b20-actual-debug/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 20,
+      "label": "b20-managed-release-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:19:54.347878+00:00",
+      "ended_utc": "2026-11-21T03:20:03.231505+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-managed-release-build/receipt.json",
+          "sha256": "f15e2d77353a1413ea8b421f1d2dcd3cfe906ace4f2de6aecf12a24bd22d00ee"
+        },
+        {
+          "bundle_relative_file": "control/b20-managed-release-build/stdout.log",
+          "sha256": "6ae7b6756e22d29826643fc762af1e4f1e63fb38de3d96eaa85e0e8561750117"
+        },
+        {
+          "bundle_relative_file": "control/b20-managed-release-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 21,
+      "label": "b20-actual-jit",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:20:03.772888+00:00",
+      "ended_utc": "2026-11-21T03:20:07.682346+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-actual-jit/receipt.json",
+          "sha256": "7d36409899f57706fdde3be1eca4b9057651939e66929d157a7a4d91a470928e"
+        },
+        {
+          "bundle_relative_file": "control/b20-actual-jit/stdout.log",
+          "sha256": "12fb21de349d7e9e27c8acc8ad28f15ca5f77e7e2ee5dcbcf648b82683f84569"
+        },
+        {
+          "bundle_relative_file": "control/b20-actual-jit/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 22,
+      "label": "b20-api-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:20:08.314075+00:00",
+      "ended_utc": "2026-11-21T03:20:11.762408+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-api-build/receipt.json",
+          "sha256": "1f8c3dfa64779d9acd468e82829caab06e45e3940ea87be9e260c89ca07d023c"
+        },
+        {
+          "bundle_relative_file": "control/b20-api-build/stdout.log",
+          "sha256": "bf09b3f67b6649626c33f9585c37cd2d3691fc342081b3e4483a907d82bb0c2d"
+        },
+        {
+          "bundle_relative_file": "control/b20-api-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 23,
+      "label": "b20-api-public-xml",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:20:12.319724+00:00",
+      "ended_utc": "2026-11-21T03:20:12.642176+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-api-public-xml/receipt.json",
+          "sha256": "0b5b717d1fd98bee43b28b77bfcf6bcf6116e9781f5d687a6a9a0d8d53a79526"
+        },
+        {
+          "bundle_relative_file": "control/b20-api-public-xml/stdout.log",
+          "sha256": "fb4d3d828ab94142f67b7f7a655053be4d9e07e6b47ef7c0ad7ae20daf49312d"
+        },
+        {
+          "bundle_relative_file": "control/b20-api-public-xml/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 24,
+      "label": "b20-sample-debug-build",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:20:13.318853+00:00",
+      "ended_utc": "2026-11-21T03:20:19.195629+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-sample-debug-build/receipt.json",
+          "sha256": "88486f7004045d504dff72e072f858a81b9789a0fa3dcecd5f51e0cb890025d5"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-build/stdout.log",
+          "sha256": "fd30289563769b60f7d965b0fffd1ccf57dae8c7c53324b81ad132cf6f7597bf"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-build/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 25,
+      "label": "b20-sample-debug-disabled",
+      "result": "passed",
+      "started_utc": "2026-11-21T03:20:19.760808+00:00",
+      "ended_utc": "2026-11-21T03:20:20.073312+00:00",
+      "exit_code": 0,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-sample-debug-disabled/receipt.json",
+          "sha256": "373a34fab3d99ea34ebc7a560cda6ee45218e03c02fa502d6aa54e7da456a9f7"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-disabled/stdout.log",
+          "sha256": "54b3d127dd5972de999d73102fc34b25c71f687b26fb2a1c1ec7da14afcda80e"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-disabled/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "ordinal": 26,
+      "label": "b20-sample-debug-explicit-local",
+      "result": "failed",
+      "started_utc": "2026-11-21T03:20:20.627964+00:00",
+      "ended_utc": "2026-11-21T03:20:20.936688+00:00",
+      "exit_code": -6,
+      "retired": true,
+      "live_owned_after_count": 0,
+      "owner_children_after_count": 0,
+      "evidence": [
+        {
+          "bundle_relative_file": "control/b20-sample-debug-explicit-local/receipt.json",
+          "sha256": "e9b72509f0c8b8147caf1c52da19902158fc9a18c8c544c112dfdbee70f4fe7d"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-explicit-local/stdout.log",
+          "sha256": "0a722e5d0a517077e94d6de92414509c948198b258d11e89c4bb298722306f2b"
+        },
+        {
+          "bundle_relative_file": "control/b20-sample-debug-explicit-local/stderr.log",
+          "sha256": "b92ca5d346f884da28a3c1f5cd0ba5bbbf20228acceb3af67ccec06de80d163a"
+        }
+      ]
+    },
+    {
+      "ordinal": 27,
+      "label": "b20-publish-aot",
+      "result": "not_run"
+    },
+    {
+      "ordinal": 28,
+      "label": "b20-actual-aot",
+      "result": "not_run"
+    },
+    {
+      "ordinal": 29,
+      "label": "b20-package-consumer",
+      "result": "not_run"
+    }
+  ],
+  "product_source_files": [
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "samples/api/server-diagnostics/Program.cs",
+      "selected_sha256": "65b29c33814812de4fbb28b840358da5722751660eac0cfa45021c652273ab8a",
+      "baseline_sha256": "65b29c33814812de4fbb28b840358da5722751660eac0cfa45021c652273ab8a",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "samples/api/server-diagnostics/server-diagnostics.csproj",
+      "selected_sha256": "262fa23d9c8914c19e472a68a224b6b3cb5cd310186b175957f557c02adf2627",
+      "baseline_sha256": "262fa23d9c8914c19e472a68a224b6b3cb5cd310186b175957f557c02adf2627",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Application/Application.cs",
+      "selected_sha256": "eaf1e380456976e90b4525ec65d8496815345ed38a2dd4016c5e46dc503def0c",
+      "baseline_sha256": "eaf1e380456976e90b4525ec65d8496815345ed38a2dd4016c5e46dc503def0c",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Application/Response.cs",
+      "selected_sha256": "af1a7a6752b05387577e747f6782e7e2d0a85b47f1f5e18186d107fd47b89dcb",
+      "baseline_sha256": "88712e5031d390888d8f49180f5bbd5f56c9a0d7a589cf8dd249d475b6e958cc",
+      "identical_between_versions": false
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Application/Results.cs",
+      "selected_sha256": "620fbd138f5b359d6d828f958e82bbdf786404f32af5182f69c4db0ca1186c40",
+      "baseline_sha256": "620fbd138f5b359d6d828f958e82bbdf786404f32af5182f69c4db0ca1186c40",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Diagnostics/ServerDiagnostics.cs",
+      "selected_sha256": "bae9959176409c1e54d08e1739f5259a6f3049be33f16b58e3acccf03ace2c2f",
+      "baseline_sha256": "bae9959176409c1e54d08e1739f5259a6f3049be33f16b58e3acccf03ace2c2f",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Native/NativeCodec.cs",
+      "selected_sha256": "52e0af0d3edc79d259f89424cfa8705b1a08e052ca7122a6c8c4cb0324cf855f",
+      "baseline_sha256": "52e0af0d3edc79d259f89424cfa8705b1a08e052ca7122a6c8c4cb0324cf855f",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Native/NativeHost.cs",
+      "selected_sha256": "6d6e51018f097df25ae384395625c6a85cf7457e17e4e66672d7ba23a420a893",
+      "baseline_sha256": "fda02efe719af6e56c04674a89a1c7f1349788b8c5c175c6e985d62c15af0740",
+      "identical_between_versions": false
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "src/Server.Native/NativeRequest.cs",
+      "selected_sha256": "fcc63a4e2253bcab7024d6de0728bc6731b86660b9026b4af70c2bf9faedbfbd",
+      "baseline_sha256": "2ac13d3950f73f5868b7e5d64a73f20841d3c906808f780e9853ad560a54e224",
+      "identical_between_versions": false
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "tests/Server.Diagnostics/Program.cs",
+      "selected_sha256": "20bf5143a03c21a2d4b59a816ede40e22a775e166c6aa4628cfd65b4e1892cb1",
+      "baseline_sha256": "20bf5143a03c21a2d4b59a816ede40e22a775e166c6aa4628cfd65b4e1892cb1",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "native/server/host/src/engine.rs",
+      "selected_sha256": "b5823395c4a0da7af34f16b58ce34e824087c9ad5ecd438f7f5ce0ad9339bd9e",
+      "baseline_sha256": "541b0a8cd5a5015ea2c1be96e5498a895f0cc3e836b9e8f36d9cdad4720e4245",
+      "identical_between_versions": false
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "native/server/host/src/exports.rs",
+      "selected_sha256": "c8e09d537e4ce84e74089e77d6d2c131064f3f13d371e2094718c17c8b747bee",
+      "baseline_sha256": "c8e09d537e4ce84e74089e77d6d2c131064f3f13d371e2094718c17c8b747bee",
+      "identical_between_versions": true
+    },
+    {
+      "repository": "IzuSharp/NativeWeave",
+      "relative_file": "native/server/streaming/src/lib.rs",
+      "selected_sha256": "d06b771227c384276f521f6e8920c4997272b41c35da147c09d4d72a969c0b2c",
+      "baseline_sha256": "d06b771227c384276f521f6e8920c4997272b41c35da147c09d4d72a969c0b2c",
+      "identical_between_versions": true
+    }
+  ],
+  "runner_source_files": [
+    {
+      "repository": "IzuSharp/Plan",
+      "relative_file": "ledger/evidence/batches/Perf-01/diagnostics/recovery-regressions-002/sources.json",
+      "sha256": "20ebc83402a1ded7fcec377ad82805edb597fd0f9291eb01015b0f9618620a38"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "relative_file": "ledger/evidence/batches/Perf-01/diagnostics/recovery-regressions-002/run.py",
+      "sha256": "d4620fd8e133eb2c639b80499f18a2018dd4426a86ccd4c7aa95fe1a2e1e86cb"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "relative_file": "ledger/evidence/batches/Perf-01/diagnostics/recovery-regressions-002/recipes.py",
+      "sha256": "ceeffe11d8a59888c5a3b5d61289c8609b2e7fcfa618ab82c539fcba594a6b7b"
+    },
+    {
+      "repository": "IzuSharp/Plan",
+      "relative_file": "ledger/evidence/batches/Perf-01/diagnostics/recovery-regressions-002/results.py",
+      "sha256": "710f3cb12344c15aaba61f8c913f0c05a40b2fbdad434f4a8f263fcfc0d843a8"
+    }
+  ],
+  "binary_inventory": {
+    "bundle_relative_file": "inventories/b20-sample-debug-explicit-local.json",
+    "sha256": "64f80c1d27d4c0242af444f45c3aa87173d165ab3e0b29f49c73dbe8f3d49b0a",
+    "phase": "immediately-before-execution",
+    "selected_entries": [
+      {
+        "repository_relative_file": "samples/api/server-diagnostics/bin/Debug/net11.0/NativeWeave.Server.dll",
+        "sha256": "6394326c0b9fd19d33b11e0482ecfe520825ab9d50757ee72ab58f7e630d6015"
+      },
+      {
+        "repository_relative_file": "samples/api/server-diagnostics/bin/Debug/net11.0/NativeWeave.server.assets.json",
+        "sha256": "9d502e4d3752206a058e8552dfd1efa92a43b70e84b4513413989c32a826e0d3"
+      },
+      {
+        "repository_relative_file": "samples/api/server-diagnostics/bin/Debug/net11.0/runtimes/linux-x64/native/libnativeweave_server.so",
+        "sha256": "1f023b7506bde3f8c4a13b12de92e3e9503004ca3afc2d41a53bec17e44f1d97"
+      },
+      {
+        "repository_relative_file": "samples/api/server-diagnostics/bin/Debug/net11.0/server-diagnostics.dll",
+        "sha256": "6ebe2e855306a7ac50317229543385ab974dc6354ba1e3095479987ad6f9920a"
+      }
+    ]
+  },
+  "publication_scope": {
+    "repository_relative_source_paths_only": true,
+    "bundle_relative_evidence_paths_only": true,
+    "original_receipts_or_logs_copied": false,
+    "original_artifact_hashes_identify_bytes_with_original_fields_intact": true,
+    "environment_maps_included": false,
+    "machine_paths_included": false,
+    "transport_configuration_material_included": false,
+    "preserved_raw_bundle_public_url": null,
+    "retention_claim": null
+  }
+}

@@ -1,5 +1,45 @@
 # Perf-01 Linux x64 handoff
 
+## Baseline-matched close failure and deterministic native regression — 2026-11-21 04:24:04 UTC
+
+The [controlled same-source probe](recovery/epoch-002/server-close-tail-diagnostic-001/README.md)
+ran once on each actual EA5 and ccff package/native role. Both received the exact
+four-byte response, entered CompleteAsync with no request cancellation, then
+reported the same invalid-state exception and one 2xx application_failure.
+Both later completed zero-owner Close, Dispose and owned-process retirement.
+This establishes a baseline defect in that controlled ordering; it does not
+by itself establish the cause of the original sixteen-request sample failure.
+The separate ten-process first-chance attempt captured nothing and remains
+inconclusive. Original failed regression credit remains 25 passed / 1 failed /
+3 unexecuted, as preserved in its [full checklist](recovery/epoch-002/b20-sample-failure-001/README.md).
+
+Two additional native real-TCP cases hold the runtime immediately after its
+actual network joins, enqueue Finish, then release the test-only gate. Both
+failed before the repair with an exited worker and no terminal notification;
+fixture teardown released the original owners before the failing assertion.
+The original failure receipt exited 101 and retired without remaining children.
+The complementary test-only integration is local NativeWeave
+`cad8acabfdb11dda9e365701cebceb8d12578f36`, based on published
+`483c3b8c80c1d2bfbbf8d1130eaef48239b9c853`. It preserves that published
+polling repair and its managed HTTP/1.1/HTTP/2 tests. At this checkpoint, strict
+Clippy and all 23 Debug native tests have passed; Release remains in progress.
+A separate Notify-based diagnostic variant is not selected and supplies no
+final-version acceptance.
+
+The [independent current-role caller review](recovery/epoch-002/current-role-callers-review.md)
+accepts source indices measurement `6b1d1e8e…`, profile `6e0a16a6…`,
+fresh-after `66cc5531…` and report `06ef0a96…` for subsequent execution.
+Before/common keep their original build inputs and proofs. Fresh after inputs
+must independently bind those same original prerequisites. The earlier report
+adapter `00757dd8…` cannot admit the new after shape and is not selected.
+These are source reviews and prepared queues, not measurement results.
+
+No final after package is relabelled from ccff. Preserve all existing receipts,
+finish the selected repair's actual regression/build/binding, then use the
+unchanged baseline admission and workloads. Current long-test credit remains
+**0/10**. Profiles, before-only noise, equivalent comparisons, capacity and all
+ten current long intervals remain required.
+
 ## B20 close blocker preserved; reviewed repair under actual validation — 2026-11-21
 
 The broader Server regression terminated with a real B20 sample failure at

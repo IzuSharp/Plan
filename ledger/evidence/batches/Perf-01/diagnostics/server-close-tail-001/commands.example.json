@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "source-only-unrun",
+  "substitutions_are_local_only": true,
+  "roles": {
+    "before": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "after": "ccff42c0df4141984ef9de497af7cd768753704a"
+  },
+  "build": {
+    "label": "server-close-tail-{role}-build",
+    "cwd": "{fresh_role_diagnostic_product_worktree}",
+    "timeout_seconds": 180,
+    "argv": [
+      "{pinned_dotnet}", "build",
+      "samples/api/server-close-tail/server-diagnostics.csproj",
+      "-c", "Debug", "-p:RestoreLockedMode=true", "--disable-build-servers",
+      "-m:1", "-p:BuildInParallel=false", "-p:UseSharedCompilation=false",
+      "-p:NativeWeaveServerAssetPath={receipt_bound_role_native_server}"
+    ],
+    "environment_overrides": { "DOTNET_STARTUP_HOOKS": "" }
+  },
+  "run": {
+    "label": "server-close-tail-{role}-run-{attempt}",
+    "cwd": "{fresh_role_diagnostic_product_worktree}",
+    "timeout_seconds": 90,
+    "argv": [
+      "{pinned_dotnet}",
+      "{fresh_role_diagnostic_product_worktree}/samples/api/server-close-tail/bin/Debug/net11.0/server-diagnostics.dll"
+    ],
+    "environment_overrides": { "DOTNET_STARTUP_HOOKS": "{existing_verified_startup_hook_dll}" }
+  }
+}
