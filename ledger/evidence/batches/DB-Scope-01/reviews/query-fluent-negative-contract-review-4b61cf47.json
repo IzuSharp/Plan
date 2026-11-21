@@ -1,0 +1,548 @@
+{
+  "schema": "db-scope-source-review-v1",
+  "task": "DB-Scope-01",
+  "reviewer": "design_scope",
+  "review_kind": "independent static contract and exact-diff review",
+  "result": "passed-static-no-blocker",
+  "runtime_executed_by_reviewer": false,
+  "authorship_disclosure": "Reviewer authored DB-Scope Design pruning and the two current provider guides, but did not author the frozen c62 Design contracts, Query.Fluent negative assertion correction, or reviewed production runtime paths.",
+  "source": {
+    "repository": "IzuSharp/NativeWeave",
+    "reviewed_local_commit": "4b61cf471fa90cc3e00798daf3293b6dcdba69ff",
+    "reviewed_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "publication_status": "Local author commit; remote publication not verified by this review.",
+    "prior_candidate_commit": "7ae0c583e7bdf99e8bd29320cfc74e8cce6e9f41",
+    "prior_candidate_tree": "f10ff192c840c6c9f2673168a147ea1d764a7e2b",
+    "fresh_main_commit": "ea5fa528035d025bd7a28698ee7c71194432236c"
+  },
+  "exact_delta": {
+    "paths": [
+      "tests/Query.Fluent/Program.cs"
+    ],
+    "before_sha256": "51655719872ed57f901a4090996302ebe341aef7f5c462114fb21763d896db7d",
+    "after_sha256": "bcfa85032dfe4049ca98b39b541f7ddb7c34bbfc889bf32d99ba51bb29dfb990",
+    "before_equals_fresh_main": true,
+    "one_exact_replacement_proved": true,
+    "old_statement": "using (var withoutTransaction = Q()) await ThrowsAsync<DatabaseException>(() => withoutTransaction.ForUpdate().SelectAll().ToListAsync());",
+    "new_statement": "using (var withoutTransaction = Q()) await ThrowsAsync<InvalidOperationException>(() => withoutTransaction.ForUpdate().SelectAll().ToListAsync());",
+    "unchanged_oracles": [
+      "SQLite row-lock capability rejection",
+      "positive PostgreSQL explicit transaction row lock and rollback",
+      "all other assertions and negative expected types",
+      "Fluent call under the corrected assertion",
+      "production runtime and API declarations"
+    ]
+  },
+  "finding": {
+    "classification": "Pre-existing test expected-type mismatch; no DB-Scope runtime regression.",
+    "mapping_chain": [
+      "Row-lock execution checks active explicit transaction before rendering or dispatch.",
+      "Missing active transaction returns Error.state with status NW_INVALID_STATE (4), database reason8, domain0x4442.",
+      "HostFailure only maps status DOMAIN_ERROR (13) in database domain to DatabaseException.",
+      "Other statuses reach NativeError.Create; NW_INVALID_STATE maps to InvalidOperationException."
+    ],
+    "do_not_generalize": "Database DOMAIN_ERROR reason8 remains DatabaseException(InvalidState); status4 and domain reason8 are different fields."
+  },
+  "frozen_contracts": [
+    {
+      "path": "docs/contracts/error-v0.1.md",
+      "sections": [
+        "section2 status4 INVALID_STATE versus status13 DOMAIN_ERROR",
+        "section5 managed mapping"
+      ],
+      "finding": "Invalid state maps to an API state exception; domain errors map to provider/domain exceptions.",
+      "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+      "sha256": "f110fba00ee2479c8a12648ecc1fbb592ca45866e1e25dc31b5445a694b95bd4"
+    },
+    {
+      "path": "docs/api/interop.md",
+      "sections": [
+        "managed failure table around line127"
+      ],
+      "finding": "Invalid sequencing maps to InvalidOperationException.",
+      "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+      "sha256": "2b32e5c2dcdfe78dd0b39014949a88bf91d6b2d011f8d75117e00507ecae4b74"
+    },
+    {
+      "path": "docs/api/database.md",
+      "sections": [
+        "error taxonomy around line210",
+        "ForUpdate around lines609-611",
+        "domain reason mapping around lines245-250"
+      ],
+      "finding": "ForUpdate requires an active explicit transaction. Database reason8 applies to DOMAIN_ERROR mapping and does not override Core INVALID_STATE.",
+      "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+      "sha256": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea"
+    }
+  ],
+  "reviewed_production_sources": [
+    {
+      "path": "native/database/host/src/abi.rs",
+      "sha256": "2c3a7f9c9d140189b6f6920b52a918e55d003761a4ab9a62a40bed071b27783c",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/host/src/error.rs",
+      "sha256": "a4efc405e7d29e853f20d48752c093eeb65b545eee4ac94a8b5558c6896fa354",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/host/src/session.rs",
+      "sha256": "c22fb27b364222f8bbaf8335adfaaa57453281e42ecaea2590e558cfcddfd3ec",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/host/src/sql.rs",
+      "sha256": "80d0557ba882428ebd24513fcdd1ed53c43803b04be1fb7b3a4c505b41298e55",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/query/src/lib.rs",
+      "sha256": "2b708be6ac04b9095539a7b2a0a88c802277529a476b1591bc7f2d668e5c0062",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/query/src/plan.rs",
+      "sha256": "c61239a8a06f6959a776eb02c5997ca5f7913939e698d8c54dac57758c3e5a6c",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/binding/src/lib.rs",
+      "sha256": "52c878a9acd4434f0ce0f535fa6e81b1a16fa0831fc6a7ff5ae62f6400ea8f2e",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/binding/src/arena.rs",
+      "sha256": "19acffdd9fdfb23917c5591f816395de79510937ea539931d11573a61e4e6402",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "native/database/binding/src/clauses.rs",
+      "sha256": "7c37cff38fbc92d4d5d312f5c33e3ce4a6dd093777efce03f377cd645718f4f2",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Data.NativeHost/NativeHost.cs",
+      "sha256": "ef7f1d08b60785539f2d5277918e103a8923bb9a67168b687cab0f1a7100a6f5",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Data.NativeHost/DatabaseOptions.cs",
+      "sha256": "b60c38044a3490ada43137cfa61d41a2ff73c40c94d55998ce99309b7c5787be",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Interop.Errors/NativeError.cs",
+      "sha256": "8e30dc71b3060e673ec4bc425b8938dc23f5f706c749bbe7fcd187da5a6c24e7",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Fluent/Query.cs",
+      "sha256": "8166599aea66777aaf404f0568a4d008d6718826ceff1293794b95f6190f9234",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Fluent/QueryContext.cs",
+      "sha256": "30670cbe53079a13a2bee6993654cf4115130b2441c206276507d40e210a6306",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Fluent/Projections.cs",
+      "sha256": "54bc89ddc43030a0fea3833dbacaaec29e8038f1e224371d588d0c1ef93fe66c",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Fluent/Expressions.cs",
+      "sha256": "5ac2bf65bf9ce43e62719792dbb9694087308daf22972ca2f12fbb5a783bea29",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Fluent/Terminals.cs",
+      "sha256": "b04e1f00a1b9462dd164cd2ac3b03045d102fdddce5ca4a2812052eab4e7afe7",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Binding/QueryBinding.cs",
+      "sha256": "5214de78700bb00e51400071be721a2f9e133877098688e99c2a99ce95dbb916",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Query.Binding/Owners.cs",
+      "sha256": "a0ed6512b85e42cbf73206c027868305dca528b17c425e13fc22ec7c8368a88a",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    },
+    {
+      "path": "src/Data.Streaming/TypedStream.cs",
+      "sha256": "b3bc0ea7bbba003fbf4119030aaaadeb4052cf8144e5731f8b57849f4205d72a",
+      "identical_to_fresh_main": true,
+      "identical_to_candidate6": true
+    }
+  ],
+  "negative_assertion_audit": {
+    "throws_call_count": 30,
+    "additional_exception_pattern_checks": 1,
+    "all_negative_type_assertion_sites_classified": true,
+    "additional_mismatch_found": false,
+    "inventory": [
+      {
+        "line": 66,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => q.Take(1));"
+      },
+      {
+        "line": 67,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => q.SelectAll());"
+      },
+      {
+        "line": 72,
+        "expected_type": "ArgumentException",
+        "source_line": "Throws<ArgumentException>(() => q.Skip(1)); Throws<InvalidOperationException>(() => q.ThenBy(Models.Id)); Throws<ArgumentOutOfRangeException>(() => q.Take(-1));"
+      },
+      {
+        "line": 72,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<ArgumentException>(() => q.Skip(1)); Throws<InvalidOperationException>(() => q.ThenBy(Models.Id)); Throws<ArgumentOutOfRangeException>(() => q.Take(-1));"
+      },
+      {
+        "line": 72,
+        "expected_type": "ArgumentOutOfRangeException",
+        "source_line": "Throws<ArgumentException>(() => q.Skip(1)); Throws<InvalidOperationException>(() => q.ThenBy(Models.Id)); Throws<ArgumentOutOfRangeException>(() => q.Take(-1));"
+      },
+      {
+        "line": 76,
+        "expected_type": "ArgumentException",
+        "source_line": "using (var q = Q()) { q.OrderBy(Models.Id, SortDirection.Descending); Throws<ArgumentException>(() => q.SeekAfter(Models.Id, 1L)); }"
+      },
+      {
+        "line": 91,
+        "expected_type": "MappingFailure",
+        "source_line": "Throws<MappingFailure>(() => q.LeftJoin(Models.Children, \"aborted\", on => { expiredCallback = on; expired = on.Right(Models.ParentId); throw new MappingFailure(); }));"
+      },
+      {
+        "line": 92,
+        "expected_type": "ArgumentException",
+        "source_line": "Throws<ArgumentException>(() => expired.IsNull());"
+      },
+      {
+        "line": 93,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => expiredCallback.Left(Models.Id));"
+      },
+      {
+        "line": 94,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => expiredCallback.Right(Models.ParentId));"
+      },
+      {
+        "line": 96,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => expiredCallback.Left(Models.Id));"
+      },
+      {
+        "line": 97,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => expiredCallback.Right(Models.ParentId));"
+      },
+      {
+        "line": 135,
+        "expected_type": "DatabaseException",
+        "source_line": "using (var q = Q()) Check(Throws<DatabaseException>(() => q.Column(Models.Name).Collate(\"injected\")).Kind == DatabaseErrorKind.UnsupportedCapability, \"Unregistered collation structured rejection\");"
+      },
+      {
+        "line": 145,
+        "expected_type": "ArgumentException",
+        "source_line": "using (var q = Q()) { q.GroupBy(q.Column(Models.Id)); Throws<ArgumentException>(() => q.SelectAll().Prepare()); Check((await q.Select(q.Column(Models.Id)).ToListAsync()).Count == 3, \"Invalid grouped projection rejects before sealing and recovers\"); }"
+      },
+      {
+        "line": 190,
+        "expected_type": "ArgumentException",
+        "source_line": "Throws<ArgumentException>(() => prepared.ToListAsync(session));"
+      },
+      {
+        "line": 191,
+        "expected_type": "ArgumentException",
+        "source_line": "using var second = Q(); var extra = second.Parameter(\"extra\", Codecs.Int64); Throws<ArgumentException>(() => prepared.ToListAsync(session, values.Set(extra, 0L)));"
+      },
+      {
+        "line": 198,
+        "expected_type": "ArgumentException",
+        "source_line": "Throws<ArgumentException>(() => q.Select(q.ParameterValue(one)).Combine(right));"
+      },
+      {
+        "line": 204,
+        "expected_type": "ArgumentException",
+        "source_line": "Throws<ArgumentException>(() => q.Where(other.Column(Models.Id).Equal(0L)));"
+      },
+      {
+        "line": 205,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => default(SqlExpression<long>).Equal(0L));"
+      },
+      {
+        "line": 206,
+        "expected_type": "InvalidOperationException",
+        "source_line": "Throws<InvalidOperationException>(() => default(QuerySelection<long>).ToSql());"
+      },
+      {
+        "line": 218,
+        "expected_type": "InvalidOperationException",
+        "source_line": "using (var q = Q()) { await ThrowsAsync<InvalidOperationException>(() => q.SelectAll().SingleAsync()); }"
+      },
+      {
+        "line": 221,
+        "expected_type": "InvalidOperationException",
+        "source_line": "using (var q = Q()) { var sequence = q.OrderBy(Models.Id).SelectAll().AsAsyncEnumerable(); await using var e = sequence.GetAsyncEnumerator(); Check(await e.MoveNextAsync(), \"One-shot lazy enumeration\"); Throws<InvalidOperationException>(() => sequence.GetAsyncEnumerator()); }"
+      },
+      {
+        "line": 222,
+        "expected_type": "OperationCanceledException",
+        "source_line": "using (var q = Q()) { using var canceled = new CancellationTokenSource(); canceled.Cancel(); await ThrowsAsync<OperationCanceledException>(() => q.SelectAll().ToListAsync(canceled.Token)); }"
+      },
+      {
+        "line": 223,
+        "expected_type": "ObjectDisposedException",
+        "source_line": "using (var q = Q()) { q.Dispose(); Throws<ObjectDisposedException>(() => q.Take(1)); }"
+      },
+      {
+        "line": 224,
+        "expected_type": "TimeoutException",
+        "source_line": "using (var q = Q()) await ThrowsAsync<TimeoutException>(() => q.WithTimeout(TimeSpan.Zero).SelectAll().ToListAsync());"
+      },
+      {
+        "line": 230,
+        "expected_type": "MappingFailure",
+        "source_line": "Check(ReferenceEquals(failure, await ThrowsAsync<MappingFailure>(() => q.Select(projection).ToListAsync())), \"Fluent constructor error retains original exception after retirement\");"
+      },
+      {
+        "line": 242,
+        "expected_type": "ObjectDisposedException",
+        "source_line": "Throws<ObjectDisposedException>(() => q.Context.PublishPlan(plan));"
+      },
+      {
+        "line": 254,
+        "expected_type": "DatabaseCapabilityException",
+        "source_line": "{ using var q = Q(); Throws<DatabaseCapabilityException>(() => q.ForUpdate()); }"
+      },
+      {
+        "line": 257,
+        "expected_type": "InvalidOperationException",
+        "source_line": "using (var withoutTransaction = Q()) await ThrowsAsync<InvalidOperationException>(() => withoutTransaction.ForUpdate().SelectAll().ToListAsync());"
+      },
+      {
+        "line": 262,
+        "expected_type": "DatabaseException",
+        "source_line": "using (var q = Q()) Check(Throws<DatabaseException>(() => q.DeleteAsync()).Kind == DatabaseErrorKind.UnsupportedCapability, \"Unfiltered native DELETE rejection\");"
+      }
+    ],
+    "groups": [
+      {
+        "lines": [
+          66,
+          67
+        ],
+        "behavior": "Sealed query mutation and reselection",
+        "expected": "InvalidOperationException",
+        "basis": [
+          "src/Query.Fluent/QueryContext.cs:Enter/Seal"
+        ]
+      },
+      {
+        "lines": [
+          72,
+          76
+        ],
+        "behavior": "Unordered offset, missing prior ThenBy order, negative Take, descending SeekAfter",
+        "expected": "ArgumentException / InvalidOperationException / ArgumentOutOfRangeException / ArgumentException",
+        "basis": [
+          "src/Query.Fluent/Query.cs:Order/Take/Skip/SeekAfter"
+        ]
+      },
+      {
+        "lines": [
+          91,
+          92,
+          93,
+          94,
+          96,
+          97
+        ],
+        "behavior": "Original join callback exception, invalidated provisional expression, completed callback proxies",
+        "expected": "MappingFailure preserved; stale expression ArgumentException; callback scope InvalidOperationException",
+        "basis": [
+          "src/Query.Fluent/Query.cs:Join catch/finally",
+          "src/Query.Fluent/Projections.cs:JoinCallbackScope.Check",
+          "native/database/binding/src/clauses.rs:invalidate_alias_expressions",
+          "native/database/binding/src/arena.rs:index",
+          "native/database/binding/src/lib.rs:invalid",
+          "src/Interop.Errors/NativeError.cs:InvalidArgument"
+        ]
+      },
+      {
+        "lines": [
+          135,
+          262
+        ],
+        "behavior": "Unregistered collation and unfiltered mutation",
+        "expected": "DatabaseException with UnsupportedCapability",
+        "basis": [
+          "native/database/binding/src/clauses.rs:text operation allowlist",
+          "native/database/binding/src/arena.rs:seal root-only filter",
+          "native/database/binding/src/lib.rs:unsupported",
+          "src/Query.Fluent/QueryContext.cs:Run NotSupported mapping"
+        ],
+        "note": "These are explicit Fluent BindingFailure.NotSupported domain conversions and must not be blanket-changed with the row-lock admission assertion."
+      },
+      {
+        "lines": [
+          145
+        ],
+        "behavior": "Nonaggregated projection outside GROUP BY keys",
+        "expected": "ArgumentException before sealing; recovery preserved",
+        "basis": [
+          "native/database/query/src/plan.rs:NativeQuery.seal",
+          "native/database/query/src/lib.rs:invalid",
+          "src/Interop.Errors/NativeError.cs:InvalidArgument"
+        ]
+      },
+      {
+        "lines": [
+          190,
+          191,
+          198
+        ],
+        "behavior": "Missing and extra prepared parameters; composed name collision",
+        "expected": "ArgumentException",
+        "basis": [
+          "src/Query.Fluent/QueryContext.cs:ParameterDefinition.Encode",
+          "src/Query.Fluent/Terminals.cs:PreparedQuery.Stream",
+          "native/database/binding/src/arena.rs:merge_parameter",
+          "src/Interop.Errors/NativeError.cs:InvalidArgument"
+        ]
+      },
+      {
+        "lines": [
+          204,
+          205,
+          206
+        ],
+        "behavior": "Cross-query expression and default expression/selection",
+        "expected": "ArgumentException; InvalidOperationException; InvalidOperationException",
+        "basis": [
+          "src/Query.Fluent/QueryContext.cs:Same",
+          "src/Query.Fluent/Expressions.cs:Owner",
+          "src/Query.Fluent/Terminals.cs:Owner"
+        ]
+      },
+      {
+        "lines": [
+          212
+        ],
+        "behavior": "Cross-thread reentrant composition admission",
+        "expected": "DatabaseException with ConcurrentUse",
+        "basis": [
+          "src/Query.Fluent/QueryContext.cs:Enter"
+        ],
+        "assertion_form": "Checked exception pattern outside Throws helpers"
+      },
+      {
+        "lines": [
+          218,
+          221
+        ],
+        "behavior": "Single cardinality and repeated one-shot enumeration",
+        "expected": "InvalidOperationException",
+        "basis": [
+          "src/Data.Streaming/TypedStream.cs:SingleAsync/CreateEnumerator"
+        ]
+      },
+      {
+        "lines": [
+          222,
+          224
+        ],
+        "behavior": "Pre-canceled token and zero total command deadline",
+        "expected": "OperationCanceledException; TimeoutException",
+        "basis": [
+          "src/Data.Streaming/TypedStream.cs:MoveAsync cancellation guard",
+          "src/Query.Fluent/Query.cs:WithTimeout",
+          "native/database/host/src/sql.rs:rendered timeout",
+          "native/database/host/src/session.rs:execute zero timeout NW_TIMEOUT",
+          "src/Interop.Errors/NativeError.cs:Timeout"
+        ]
+      },
+      {
+        "lines": [
+          223,
+          242
+        ],
+        "behavior": "Disposed query mutation and dispose-between-seal-and-publication",
+        "expected": "ObjectDisposedException",
+        "basis": [
+          "src/Query.Fluent/QueryContext.cs:Enter/PublishPlan"
+        ],
+        "preserved_oracle": "Late native plan must be closed at line243."
+      },
+      {
+        "lines": [
+          230
+        ],
+        "behavior": "Typed DTO constructor/materializer failure",
+        "expected": "Exact original MappingFailure object after cleanup",
+        "basis": [
+          "src/Data.Streaming/TypedStream.cs:MoveAsync catch cleanup and rethrow"
+        ],
+        "preserved_oracle": "ReferenceEquals identity remains required."
+      },
+      {
+        "lines": [
+          254
+        ],
+        "behavior": "SQLite provider row-lock capability guard",
+        "expected": "DatabaseCapabilityException",
+        "basis": [
+          "src/Query.Fluent/Query.cs:ForUpdate",
+          "src/Data.NativeHost/DatabaseOptions.cs:Require"
+        ]
+      },
+      {
+        "lines": [
+          257
+        ],
+        "behavior": "PostgreSQL row-lock execution without active explicit transaction",
+        "expected": "InvalidOperationException",
+        "basis": [
+          "native/database/host/src/abi.rs:nw_db_execute_create_v1 row-lock admission",
+          "native/database/host/src/error.rs:Error.state",
+          "src/Data.NativeHost/NativeHost.cs:HostFailure.Create",
+          "src/Interop.Errors/NativeError.cs:InvalidState"
+        ],
+        "change": "Only this expected type changed."
+      }
+    ]
+  },
+  "limitations": [
+    "No product build, test, database command, package consumer, JIT or AOT execution was run by this reviewer.",
+    "This receipt approves only the static one-line expected-type correction and applicability of unchanged exception mappings.",
+    "Actual Fluent and Relations JIT/AOT plus remaining regression and final package/CI acceptance remain the executing agents responsibility and require their own source-bound receipts."
+  ]
+}
