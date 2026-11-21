@@ -1,0 +1,57 @@
+{
+  "diagnostic": {
+    "anchor_sharing_and_full_metadata_predicate_separate": true,
+    "base_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "busy_not_reported_as_empty": true,
+    "clear_counter_after_all_four_clears": true,
+    "commit": "04dd3380da9f2f9203fc0baa223c4fd96b524754",
+    "files_sha256": {
+      "native/protocols/grpc/src/call.rs": "c9c918190661536f137f1b37c7d69d444bd239e2e22737ccb42632e6f5500586",
+      "native/server/host/src/engine.rs": "c7ee8325ad5d8354f4d5792217ba69edad028a2301137c9719ba0722cb77d008"
+    },
+    "formal_measurement_eligible": false,
+    "non_atomic_snapshot_documented": true,
+    "registry_guard_dropped_before_stderr": true,
+    "release_or_admission_predicates_changed": false
+  },
+  "epoch": "recovery-002",
+  "independent_review": {
+    "blocking_findings": [],
+    "scope": "Formatted diagnostic instrumentation and deterministic regression premises only. No execution result, causal reproduction, repair acceptance or performance credit.",
+    "verdict": "ACCEPT"
+  },
+  "limitations": [
+    "Counter and per-field observations are non-atomic; equal before/after counts do not exclude an in-progress clear or publication.",
+    "Only host state 2 attempts a snapshot; a busy registry can prevent per-request detail.",
+    "The diagnostic increments a counter on cleanup and must not be treated as an unchanged product performance binary.",
+    "These two tests construct a missed-notification postcondition; their source does not identify the cause or request identity of the historical retained-owner sample.",
+    "Actual test-owner receipts and later repair evidence are separate and were not reviewed here."
+  ],
+  "performance_credit_seconds": 0,
+  "reviewed_utc": "2026-11-21T01:34:41.425697+00:00",
+  "reviewer_execution": {
+    "builds": false,
+    "services_or_timing_loads": false,
+    "source_reads_only": true,
+    "target_imports": false,
+    "tests": false
+  },
+  "schema_version": 1,
+  "task": "Perf-01",
+  "tests": {
+    "base_commit": "4ae2e15f4825a9b5237734444ff68b0b6d2c5aa4",
+    "commit": "a607fc723807f777a51a8efff1838ebbf6efe228",
+    "explicit_teardown_asserts_zero_quota_and_retiring": true,
+    "file": "native/protocols/grpc/host_tests.rs",
+    "names": [
+      "grpc_reaper_finishes_metadata_cleanup_after_both_completion_flags",
+      "grpc_reaper_waits_for_input_cleanup_before_releasing_metadata"
+    ],
+    "postconditions_captured_before_explicit_teardown": true,
+    "product_runtime_unchanged_in_commit": true,
+    "real_input_discard_guard_exercises_live_ops": true,
+    "real_retirement_gate_used": true,
+    "sha256": "a2bfbeb9ff341d10d520473a9b45122cd012570be3364ac33f286c8008c0747b",
+    "test_kind": "Deterministic constructed-state/postcondition regressions; not a scheduling reproduction."
+  }
+}

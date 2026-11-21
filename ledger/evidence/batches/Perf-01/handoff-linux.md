@@ -1,5 +1,43 @@
 # Perf-01 Linux x64 handoff
 
+## Native retirement repair reviewed; fresh build underway — 2026-11-21 01:59 UTC
+
+The two constructed gRPC cleanup regressions failed on the unchanged runtime;
+the repaired native Server suite passed **21/21**, with actual finite-owner
+retirement and no remaining children. The [independent repair review](recovery/epoch-002/retirement-repair-review.md)
+and [preserved actual observations](recovery/epoch-002/retirement-regression-001/README.md)
+retain the failed-before result and exact tested binary/source identities.
+Public NativeWeave PR19 now contains `ccff42c0df4141984ef9de497af7cd768753704a`,
+whose tree exactly matches locally tested `7bc9ea5`. Three file contents/blob IDs
+and the branch were read back. The earlier ON network failure's cause remains
+unproved; assembled B18/AOT/TLS and measured overhead are still required.
+Optional weak reuse is removed under the completed epoch-001 resource vetoes.
+The [native writer loan source study](diagnostics/grpc-native-writer-feasibility-001/README.md)
+defers that more complex alternative because pin lifetime and E-sized retained
+native storage still need semantic/resource proof. No loan implementation or
+performance claim was introduced.
+
+The [restored tool identities](recovery/epoch-002/toolchain-identities.json) and
+[reviewed populated inputs](recovery/epoch-002/build-input-review.md) preserve
+EA5 as baseline, common driver 2e and the unchanged epoch-002 workload freeze.
+The first before build lost its execution session and both timing/Cargo locks
+were observed free; its original records have no terminal outcome. The
+[interruption observation](recovery/epoch-002/build-001-interruption.json)
+retains that uncertainty without success credit. A fresh second attempt started
+at 01:52:44.559771 UTC with new output/control and baseline directories; only
+those destinations and explanatory text changed. At this checkpoint it remains
+in progress. Its eight original producers and original finite owner are unchanged.
+
+A durable user-owned archive of both actual native regression binaries was
+saved, materialized again and verified byte-for-byte, with all four member hashes
+checked. This narrowly scoped archive contains no operational maps or key material.
+Public curated data remains in Git; full private control maps remain unpublished.
+Plan publication116 `e6da496e11e2c8d0d40f671ddad7483fad681434` passed exact six-file
+readback and CI201. Native CI128 is running; its A20 ownership/sanitizer job has
+passed. Neither CI nor these native tests grants application performance credit.
+All **ten current before/final 30-minute segments remain outstanding (0/10)**.
+The existing completion reminder remains conditional on complete actual delivery.
+
 ## Workspace interruption and epoch 002 recovery — 2026-11-21 01:04 UTC
 
 The local worktrees, producer artifacts and raw epoch-001 records became
