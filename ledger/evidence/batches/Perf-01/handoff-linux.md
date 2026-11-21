@@ -1,5 +1,63 @@
 # Perf-01 Linux x64 handoff
 
+## Minimal candidate selected; one active execution owner — 2026-11-21 UTC
+
+The active continuation selected NativeWeave
+[7e7732cd7ee40aec319961d328f38b593a4af5da](https://github.com/IzuSharp/NativeWeave/commit/7e7732cd7ee40aec319961d328f38b593a4af5da),
+tree `55c3926a6963f5276de24e35314a2c8678c61f90`, for the next formal build.
+Remote comparison and content/blob readback confirm exactly two changed lines
+above cleanup-corrected 2f: explicit 1 ms retry periods in Data and Server host
+constructors. The shared coordinator, its 10 ms default, AsyncOperation and the
+original gRPC writer/contracts are unchanged.
+
+Both the per-message writer and occupied-prefix scan experiments are
+**unretained**. Buffer-only has all three server-stream and client-stream p99
+pairs adverse despite allocation savings; the conditional retry experiment
+does not prove the writer's incremental benefit at 1 ms. Prefix has all three
+client-stream and all three duplex p99 pairs adverse, with only a small CPU
+saving. Independent reviewers support the smaller candidate. No further
+empty-coordinator/prefix/writer experiment is selected for this continuation.
+All experimental branches and observations remain historical evidence.
+
+The original selected2f formal attempt remains 15/16 short scenes, 0/15 capacity
+runs and 0/10 accepted current-artifact 30-minute segments. **None of these
+counts is transferred to the new 7e7732 candidate.** Its fresh005 producer has
+not run yet. Prepared input `build-inputs-005.json` has SHA-256
+`e6086ead43bef7faa370e8bb892ee4fd81e3d243331f179db94c1c74ae78261c`.
+The active owner will update the clean fresh005 worktree, run unchanged
+recovery-after-003 producers/B18, original B04/B17 consumers, then the existing
+16/15/10 formal queues. Before/common/noise and all workload/resource/retirement
+gates remain unchanged. The unused broad prefix regression recipe stays
+unexecuted.
+
+The preceding92fa CI44899283230 passed solution compilation, A20 and security,
+then failed formatting in the experimental WriterBuffers fixture at lines44/45;
+later functional gates did not run. That failure is preserved. The writer
+rejection was selected from performance evidence, and restores every original
+fixture rather than weakening a gate. New candidate CI44900482037 is running.
+Plan checkpoint63ec3d58 CI44898974439 passed.
+
+Twenty-one completed-diagnostic archives have now been saved and downloaded
+separately: 128,686,740 compressed bytes, 379 original members plus21 identity
+manifests, all re-read and hashed. Distinct readback completed at
+2026-11-21T11:37:46.754745 UTC. Archive execution SHA-256 is
+`62ff9208f0ec2b8bcba11e834588fb7f184a78c9606232a5f4a1cff3c9d4e80e`;
+archive verification SHA-256 is
+`7c85b37998af3eb3a2d682aa187b51855e16ebf4ee4b852c2576680fb086254a`.
+These cover completed retry TLS/scalar/C16 and A06 principals; the new prefix
+TLS set is outside that frozen archive. Original files in this archival scope
+were not deleted. Exact retrieval identities will follow in the next evidence
+checkpoint. Preserve the separate checkpoint016 PostgreSQL staging record.
+
+The sole execution owner is currently reclaiming only reviewed, unbound,
+reconstructible inactive compiler/extraction copies. All measured binaries,
+NativeWeave package families, package archives, raw evidence and references
+remain protected. The ROOT metadata set is temporarily frozen for the exact
+inventory/recheck/unlink; other reviewers should avoid local JSON/config writes
+or competing builds/loads until that owner releases it. The original timing.lock
+continues to arbitrate execution. Preserve this decision and the existing
+controller rather than starting another candidate or repeating completed load.
+
 ## Verified binding diagnostics and retrievable candidates — 2026-11-21 UTC
 
 The [checkpoint016](recovery/epoch-002/diagnostic-checkpoint-016.md) and
