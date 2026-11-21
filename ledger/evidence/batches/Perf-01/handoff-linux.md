@@ -1,5 +1,44 @@
 # Perf-01 Linux x64 handoff
 
+## Paused after repository closure and runtime replacement — 2026-11-21 UTC
+
+Both task PRs were closed without merging at approximately 12:11 UTC.
+Their project-owner comments explicitly terminate Perf-01 in favor of
+DB-Scope-01: [NativeWeave PR19](https://github.com/IzuSharp/NativeWeave/pull/19#issuecomment-7062385421)
+and [Plan PR23](https://github.com/IzuSharp/Plan/pull/23#issuecomment-7062388062).
+That repository direction conflicts with the originating conversation's
+request to continue Perf-01. This continuation stops runtime work, preserves
+the closed PR state and asks for scope clarification. It starts neither
+another performance run nor DB-Scope-01 implementation.
+
+At 12:12:15 UTC the executor was observed replaced: both scratch roots were
+empty, the old epoch-002 and canonical worktrees were absent, and the host
+boot identity changed. No cache unlink or proposed hardlink operation had
+run. The unchanged host-bound admission cannot qualify the replacement host.
+Do not reuse the previous before-only noise here or reconstruct missing
+receipts from their remembered hashes.
+
+The selected source remains NativeWeave7e7732, with seven passing CI jobs.
+Its local005 producer and final B04/B17/B18/performance acceptance had not run.
+Historical product2f remains15/16 short scenes,0/15 capacity and0/10 accepted
+current-artifact30-minute segments; no count transfers to7e or the new host.
+
+The [historical closeout](recovery/epoch-002/closeout-001/closeout-runtime-and-scope-001.md)
+preserves the actual interruption, selection and diagnostic limitations.
+All21 retained diagnostic archives were fetched again on the replacement host
+and checked at2026-11-21T12:21:23.902912Z:379 original members plus21 identity
+manifests,128,686,740 compressed bytes and662,573,236 payload bytes.
+The [exact retrieval index](recovery/epoch-002/closeout-001/completed-diagnostics-retention-001.json)
+and [complete member identities](recovery/epoch-002/closeout-001/completed-diagnostics-members-001.json)
+are now committed. All400 members matched. Scope excludes the later prefix
+TLS raw set and a complete runnable old environment. This is preservation,
+with zero performance/duration credit and no new retention guarantee.
+
+Preserve the chronological entries below as historical observations. Their
+earlier active-owner, pending-build and noise-reuse instructions are superseded
+by this pause and host replacement.
+
+
 ## Continuation reconciled; final candidate CI passed — 2026-11-21 UTC
 
 The selected minimal candidate remains NativeWeave
