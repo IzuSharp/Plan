@@ -1,0 +1,108 @@
+{
+  "task": "DB-Scope-01",
+  "review": "independent candidate4 guides and CI evidence export interim static review",
+  "observed_at": "2026-11-21T13:45:16.471554+00:00",
+  "source_base_commit": "c0b810eb512c8907798a79842dac8eb1d4c6d55f",
+  "working_tree_dirty": true,
+  "guide_sha256": {
+    "docs/guides/data-sqlite.md": "2c3ef9a570d0ff34fb201f4facc39abfd7102cf4968670ae8957529a255be994",
+    "docs/guides/data-postgres.md": "9e46e76780cac92340b8e7ad6e7441ef3233ef6bc5e4f85c4247816958e1c556"
+  },
+  "root_evidence_delta_sha256": {
+    "eng/build.py": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded",
+    ".github/workflows/build.yml": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a",
+    "tests/Tooling/test_evidence.py": "56184a082eabbb125209853aa5ed41307d58c012b75a4b867e34118ee692d195"
+  },
+  "checks": {
+    "sqlite_provider_semantics_preserved": true,
+    "postgres_provider_semantics_preserved": true,
+    "postgres_parent_retirement_preserved": true,
+    "sqlite_public_inventory_count": 32,
+    "postgres_public_inventory_count": 15,
+    "relative_links": [
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "data-nativehost.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "../../src/Data.NativeHost/DatabaseOptions.cs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "../../native/database/host/src/query.rs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "../../native/database/host/src/abi.rs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "packaging-domain.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "../../src/Data.Sqlite/api-reference.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-sqlite.md",
+        "href": "../verification.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "data-nativehost.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "../../src/Data.Postgres/api-reference.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "../../src/Data.NativeHost/DatabaseOptions.cs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "../../native/database/host/src/query.rs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "../../native/database/host/src/abi.rs",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "packaging-domain.md",
+        "exists": true
+      },
+      {
+        "guide": "docs/guides/data-postgres.md",
+        "href": "../verification.md",
+        "exists": true
+      }
+    ],
+    "64_oracle_runtime_file_changes": []
+  },
+  "findings": [],
+  "evidence_export_review": [
+    "Regression run still raises on nonzero exit. The finally block exports receipts before that failure propagates; pack and success summary remain unreachable on regression failure.",
+    "The narrow basename whitelist now covers terminal result.json, summary.json and status.json; recursive private-key/URI sanitizer and excluded directories are unchanged.",
+    "CI uploads only sanitized regression-evidence plus the existing bounded orchestration artifacts.",
+    "Private-canary test adds nested summary/status cases and checks retained failed outcome/completed count/original input hash. Root executed these tests; reviewer did not rerun them."
+  ],
+  "limitations": [
+    "Provider helper/test/runner author validation remains in progress; this receipt does not approve their final delta.",
+    "No source edits, builds or runtime tests performed by reviewer in this review stage.",
+    "Targeted dirty-source execution cannot substitute for clean published candidate4 full acceptance."
+  ]
+}

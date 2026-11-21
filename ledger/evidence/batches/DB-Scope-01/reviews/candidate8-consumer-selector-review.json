@@ -1,0 +1,381 @@
+{
+  "actual_consumer_project_audit": {
+    "additional_retained_examples": [
+      "QueryFluent.Sample and Materialization.Consumer are used by retained verify.py drivers with -r linux-x64 and PublishAot=true",
+      "Reference.TaskService.Sample retains both sqlite/full profiles; it is not invoked by the current eng/build.py or database_regressions.py matrix"
+    ],
+    "already_correct": [
+      "ApiProbe uses PublishAot-only packages.linux-x64.aot.lock.json",
+      "QueryGenerator.Sample has plural fallback before singular selector",
+      "Packaging.Domain project() generates PublishAot-only packages.linux-x64.aot.lock.json"
+    ],
+    "mandatory_pipeline": [
+      "ApiProbe.csproj via tests/Verification.EndToEnd/api_probe.py",
+      "Reference.TaskService.csproj via tests/Reference.TaskService/package_probe.py",
+      "Packaging.Domain generated Consumer.csproj for sqlite/postgresql/combined, reused by release and rollback verification"
+    ],
+    "projects": [
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database",
+          "NativeWeave.Database.Sqlite",
+          "NativeWeave.Database.PostgreSql"
+        ],
+        "lock_selectors": [
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).aot.lock.json"
+          }
+        ],
+        "path": "samples/api/query-fluent/QueryFluent.Sample.csproj",
+        "sha256": "adb113cd26e400f240421f4bbe9c3afadf1e7fa17d7990291fb24535ca656644"
+      },
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database.Sqlite"
+        ],
+        "lock_selectors": [
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).aot.lock.json"
+          }
+        ],
+        "path": "samples/api/query-generator/QueryGenerator.Sample.csproj",
+        "sha256": "f4e15bc271507dc096aafb2a27c1056e8dd7d9ff370e3d4113d955ed9ed0a643"
+      },
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database.Sqlite",
+          "NativeWeave.Database.PostgreSql"
+        ],
+        "lock_selectors": [
+          {
+            "condition": null,
+            "path": "$(MSBuildProjectDirectory)/packages.$(ReferenceProfile).lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(ReferenceProfile).$(RuntimeIdentifiers).aot.lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(ReferenceProfile).$(RuntimeIdentifier).aot.lock.json"
+          }
+        ],
+        "path": "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+        "sha256": "ed748a4138944ac7277c78732eca961d84262e7ad62ac7c0b1f2d0dd6b49cf3d"
+      },
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database.Sqlite",
+          "NativeWeave.Database.PostgreSql"
+        ],
+        "lock_selectors": [
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).aot.lock.json"
+          }
+        ],
+        "path": "src/Reference.TaskService/Reference.TaskService.csproj",
+        "sha256": "a9a4fb30dcc5c201a700f0669f950b47871b9ce52345f3115abf6f7ad3dfce54"
+      },
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database.Sqlite",
+          "NativeWeave.Database.PostgreSql"
+        ],
+        "lock_selectors": [
+          {
+            "condition": "'$(PublishAot)' == 'true'",
+            "path": "$(MSBuildProjectDirectory)/packages.linux-x64.aot.lock.json"
+          }
+        ],
+        "path": "src/Verification.EndToEnd/ApiProbe/ApiProbe.csproj",
+        "sha256": "3873813ece3f355b5f1c44b6e505afb5c04802814f44e35f337299f2d82cce1a"
+      },
+      {
+        "direct_nativeweave_references": [
+          "NativeWeave.Database",
+          "NativeWeave.Database.Sqlite",
+          "NativeWeave.Database.PostgreSql"
+        ],
+        "lock_selectors": [
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json"
+          },
+          {
+            "condition": "'$(PublishAot)' == 'true' and '$(RuntimeIdentifier)' != ''",
+            "path": "$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).aot.lock.json"
+          }
+        ],
+        "path": "tests/Data.Materialization/consumer/Materialization.Consumer.csproj",
+        "sha256": "0fee8eab6fb413a2d795986e74cd38c6f21588d4a4e29a8fd3e601992711589d"
+      }
+    ],
+    "tracked_nativeweave_packagereference_project_count": 6
+  },
+  "author_property_evaluation_review": {
+    "all_exit_codes_zero": true,
+    "all_recorded_lock_names_match_intended_selection": true,
+    "evaluation_count": 20,
+    "executor": "product_scope",
+    "modes": [
+      "ordinary",
+      "plural",
+      "singular",
+      "both"
+    ],
+    "package_consumer_acceptance": false,
+    "path": "_validation/package-consumer-lock-selectors/result.json",
+    "project_hashes_match_reviewed_commit": true,
+    "reference_profiles": [
+      "sqlite",
+      "full"
+    ],
+    "runtime_or_build_executed": false,
+    "sha256": "0bbc8ff43db429e23638b404857ff6a8157011b5679fe75bad9cc753834128b9"
+  },
+  "authorship_disclosure": "Reviewer did not author these four project edits or their controller code. Reviewer previously authored two provider guides and DB-Scope Design pruning. The MSBuild property evaluations were executed by product_scope, not by this reviewer.",
+  "exact_changes": [
+    {
+      "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+      "after_sha256": "a9a4fb30dcc5c201a700f0669f950b47871b9ce52345f3115abf6f7ad3dfce54",
+      "before_sha256": "70fb9e117faee50f20708deefbf282c9adbc3b0f8e2a89c2a098a5dc850c80a9",
+      "only_added_plural_selector": true,
+      "path": "src/Reference.TaskService/Reference.TaskService.csproj",
+      "singular_selector_remains_later": true
+    },
+    {
+      "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(ReferenceProfile).$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+      "after_sha256": "ed748a4138944ac7277c78732eca961d84262e7ad62ac7c0b1f2d0dd6b49cf3d",
+      "before_sha256": "57b8ebc0f7d9adcff4e74f60402e9900a8bc8feb7bd7a566448abaac3e521536",
+      "only_added_plural_selector": true,
+      "path": "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+      "singular_selector_remains_later": true
+    },
+    {
+      "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+      "after_sha256": "adb113cd26e400f240421f4bbe9c3afadf1e7fa17d7990291fb24535ca656644",
+      "before_sha256": "8124935d692ffb1b854649f46b30dc7c77ace8e62f557efc4f82879cfd683a82",
+      "only_added_plural_selector": true,
+      "path": "samples/api/query-fluent/QueryFluent.Sample.csproj",
+      "singular_selector_remains_later": true
+    },
+    {
+      "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+      "after_sha256": "0fee8eab6fb413a2d795986e74cd38c6f21588d4a4e29a8fd3e601992711589d",
+      "before_sha256": "5585b83aa2d589804778dfcc48a8b304cae997673bf354ce52c076aacd54985c",
+      "only_added_plural_selector": true,
+      "path": "tests/Data.Materialization/consumer/Materialization.Consumer.csproj",
+      "singular_selector_remains_later": true
+    }
+  ],
+  "limitations": [
+    "Reviewer ran no MSBuild, restore, build, package or database commands.",
+    "The author evaluation receipt proves property selection only; it is not a package-consumer runtime acceptance receipt.",
+    "Candidate8 fresh native/package/consumer execution and final full CI acceptance remain pending."
+  ],
+  "observed_candidate7_failure": {
+    "aot_locked_restore_exit_code": 0,
+    "aot_resolve_exit_code": 0,
+    "copied_aot_consumer_lock_filenames": [
+      "packages.lock.json"
+    ],
+    "inference": "The existing controller requires packages.linux-x64.aot.lock.json after successful restore; the sole ordinary filename is consistent with the singular-only selector failing during the plural restore evaluation.",
+    "progress_path": "_validation/attempts/formal-7-7e050cdd/consumers/database-business/progress.json",
+    "runtime_row_count": 0,
+    "sha256": "338f97c47e3c4e24b3503fa38c880efc1833b21dc4217ac8b844d77400bca065",
+    "source_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53"
+  },
+  "predicate_contract": {
+    "all_34_hashes_still_match": true,
+    "changed_paths_intersect_34_inputs": [],
+    "contract_sha256": "d354b80b5c14f325d883d083d150d66c6f85875a350fbf6946c4da20d9c7bd88",
+    "modified": false,
+    "validator_sha256": "5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751"
+  },
+  "preserved_gates": [
+    "Both candidate resolve with --use-lock-file and subsequent --locked-mode restore remain unchanged.",
+    "The controller still copies and hashes the required AOT lock file rather than accepting the ordinary lock as a substitute.",
+    "PackageReference allowlist, project/import rejection, isolated NuGet cache, exact package/version/archive hashes, native byte equality and metadata source inventories remain unchanged.",
+    "The complete consumer runtime row/oracle definitions, generated packaging predicates, release/rollback checks, and Rust absence checks remain unchanged."
+  ],
+  "result": "passed-static-no-blocker",
+  "review_kind": "independent source and exact-diff review of retained PackageReference AOT lock selectors",
+  "reviewed_unchanged_controller_sources_sha256": {
+    "eng/build.py": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded",
+    "eng/database_regressions.py": "9b1d3521f12767b2944d1e85b7ae207eb2398b14ef1f0348f60dcad26e9b03fb",
+    "src/Packaging.Domain/consume.py": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+    "tests/Data.Materialization/verify.py": "02b95ad27d7d4f5b49fd1ac30c65ed77b449eba4acc823d9cf01e7542e8bb1d0",
+    "tests/Packaging.Domain/consumer_cases.py": "715da0c4dc82a75ec2eab73047cffc92f69e1faec26ef6726daba7f9ac7c1363",
+    "tests/Packaging.Domain/release_cases.py": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+    "tests/Query.Fluent/verify.py": "429d2c9b931d37a2ea2b4f310a5505544be19d831eb50d028d7fc3531b2900c0",
+    "tests/Reference.TaskService/package_probe.py": "91df18f29c38896031c4b7bf91f6d4feab9504c8090442f5f449f67d1dca21d3",
+    "tests/Verification.EndToEnd/api_probe.py": "c6ba8e4fbd582a856dc0f7c8053661a74766acdfbe2ebf584b3bd4b2f86073bd"
+  },
+  "reviewer": "design_scope",
+  "schema": "db-scope-source-review-v1",
+  "semantics": {
+    "ordinary_jit": "PublishAot condition is false, preserving default packages.lock.json and the reference sample profile-specific ordinary filename.",
+    "plural_restore": "For the admitted single linux-x64 RID, PublishAot=true with RuntimeIdentifiers=linux-x64 now selects the same AOT filename the controller preserves.",
+    "reference_profile": "Both sqlite/full reference sample filenames retain ReferenceProfile.",
+    "scope_limit": "Linux x64 only; this review does not add or claim multi-RID packaging support.",
+    "singular_publish": "The unchanged RuntimeIdentifier selector remains later in the same PropertyGroup and wins when both properties are set."
+  },
+  "source": {
+    "previous_published_candidate": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "publication_status": "Local candidate8; later remote identity must be separately bound.",
+    "repository": "IzuSharp/NativeWeave",
+    "reviewed_local_commit": "244ff96af3927b4001cd2724f41ee9b350ceb02c",
+    "reviewed_tree": "a6381b0258f0951e6f299c675cb4e5be98fc5d12"
+  },
+  "task": "DB-Scope-01",
+  "tracked_locks": {
+    "all_bytes_unchanged_from_candidate7": true,
+    "count": 129,
+    "sha256": {
+      "samples/api/data-abstractions/packages.lock.json": "310b023e199a46fa0dbea12d5c15c95ab6c2e7d1c3a936491003e2c745352477",
+      "samples/api/data-codecs/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "samples/api/data-migrations/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "samples/api/data-nativehost/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "samples/api/data-postgres/packages.linux-x64.aot.lock.json": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "samples/api/data-postgres/packages.lock.json": "38d2c81402230a297bdbc16b0bab5acc41c0de39e8222878b90b583d62e93700",
+      "samples/api/data-sqlite/packages.lock.json": "d570622b18540ff798feb521e9e2d48d68d93a1a017db2c9cc720d750eaa784f",
+      "samples/api/data-streaming/packages.lock.json": "e3a9b7defeee896bd1c7758a4ea93b881f44205a95d4c4b90f954ebe5fc773b3",
+      "samples/api/data-transactions/packages.lock.json": "be6af9561577bb71dba34a7f08cfdd8fe5d955a47f6cea93fdc04b6fa34fda13",
+      "samples/api/interop-abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+      "samples/api/interop-abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+      "samples/api/interop-async/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-async/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/interop-callbacks/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-callbacks/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/interop-errors/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-errors/packages.lock.json": "eac88de8339426c8a0cafdef5f9bc9d39597346a2a028e2ae8de7c51e3b31f87",
+      "samples/api/interop-execution/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-execution/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/interop-lifetime/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-lifetime/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/interop-memory/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-memory/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/interop-negotiation/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/interop-negotiation/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/orm-relations/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "samples/api/query-binding/packages.linux-x64.aot.lock.json": "608ed0b094bd5e3ab032237f705da65dfa1e176fd2b045f19553cc8668cdf9d3",
+      "samples/api/query-binding/packages.lock.json": "b4ff1f421b0a0a8907ca190a312340453909d25692972b65142184e2a885853b",
+      "samples/api/verification-compatibility/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "samples/api/verification-compatibility/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "samples/api/verification-interop/packages.linux-x64.aot.lock.json": "3249cf283993dd0327a081a32e5cc993ba4c7025a3fc8e6db37221023ec81d89",
+      "samples/api/verification-interop/packages.lock.json": "dba76890404df1266b9fd1899c660712d3766be02e659ebf786042b0e1d55a31",
+      "src/Build.Integration/ApiReference/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "src/Data.Abstractions/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "src/Data.Abstractions/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "src/Data.Codecs/packages.linux-x64.aot.lock.json": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+      "src/Data.Codecs/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "src/Data.NativeHost/DependencyInjection/packages.linux-x64.aot.lock.json": "7985de47db9d0b103a2e2bd5d68376ad2233f5fd8c52c4d36fd637cac7343909",
+      "src/Data.NativeHost/DependencyInjection/packages.lock.json": "3dfaecc281b8bf32b5554f323501c23b1eea3cad900ab01636101ab12bce1b13",
+      "src/Data.NativeHost/packages.linux-x64.aot.lock.json": "27f124ece2a0432ffa84d6fb7c4adae9c5058c6e879f7796b06011330b23ad56",
+      "src/Data.NativeHost/packages.lock.json": "345dee5b7f5a1dedc3f4212b846346db825f08be9b921cbbb18e2451f60f3689",
+      "src/Data.Postgres/packages.linux-x64.aot.lock.json": "7985de47db9d0b103a2e2bd5d68376ad2233f5fd8c52c4d36fd637cac7343909",
+      "src/Data.Postgres/packages.lock.json": "3dfaecc281b8bf32b5554f323501c23b1eea3cad900ab01636101ab12bce1b13",
+      "src/Data.Sqlite/packages.linux-x64.aot.lock.json": "7985de47db9d0b103a2e2bd5d68376ad2233f5fd8c52c4d36fd637cac7343909",
+      "src/Data.Sqlite/packages.lock.json": "3dfaecc281b8bf32b5554f323501c23b1eea3cad900ab01636101ab12bce1b13",
+      "src/Data.Streaming/packages.linux-x64.aot.lock.json": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+      "src/Data.Streaming/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "src/Data.Transactions/packages.linux-x64.aot.lock.json": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+      "src/Data.Transactions/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "src/Interop.Abi/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "src/Interop.Abi/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "src/NativeWeave.Core/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+      "src/NativeWeave.Core/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+      "src/Packaging.Release/BuildTasks/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "src/Query.Binding/packages.linux-x64.aot.lock.json": "7e601aee2de295bfdac09e161714700f9d946d656ced7df1df1c574c4cfb3634",
+      "src/Query.Binding/packages.lock.json": "f251bec3bf9030fbd10eee576b3aafa808cb0ee4dd5310c8443856362a60557d",
+      "src/Query.Generator/packages.lock.json": "28c220ab80802828730b1e956d9918311e40f7fb67da3b872f613e91dca662b9",
+      "src/Verification.Interop/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "src/Verification.Interop/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Build.Integration/ApiFixture/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "tests/Data.Abstractions/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Abstractions/packages.linux-x64.aot.lock.json": "e6054b8a2fee7ae29f59072b13abbcb0322363f9c06d3ef7863daba7d9ba98cb",
+      "tests/Data.Abstractions/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "tests/Data.Codecs/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Codecs/packages.linux-x64.aot.lock.json": "5ee1e467c4d8f3018f32ee8395c6fb655e2e859791c338438ac3243d82d55dba",
+      "tests/Data.Codecs/packages.lock.json": "9eed1aa3d596d30b7b47eda6155493186002ffeb76c25b0f748af93e38ab75af",
+      "tests/Data.Materialization/packages.linux-x64.aot.lock.json": "83d26eaa026aac949044df1c26a4cf44c3b80c4893800320e292a1f56ca43e24",
+      "tests/Data.Materialization/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "tests/Data.Migrations/packages.linux-x64.aot.lock.json": "83d26eaa026aac949044df1c26a4cf44c3b80c4893800320e292a1f56ca43e24",
+      "tests/Data.Migrations/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "tests/Data.NativeHost/packages.linux-x64.aot.lock.json": "56060df4195df951d4db32914186cb5776a2ffc49c1d06523db544afeed2ab91",
+      "tests/Data.NativeHost/packages.lock.json": "ed6abe4fbef34ee7539b6c18e3fb3205784685bf00390ed3a78b90760ad5965d",
+      "tests/Data.Postgres/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Postgres/packages.linux-x64.aot.lock.json": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "tests/Data.Postgres/packages.lock.json": "38d2c81402230a297bdbc16b0bab5acc41c0de39e8222878b90b583d62e93700",
+      "tests/Data.Sqlite/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Sqlite/packages.linux-x64.aot.lock.json": "72ba396f7020517a3c1e5decd176d9b1c476dbc13f32c4f35cfe3d68728f3014",
+      "tests/Data.Sqlite/packages.lock.json": "d570622b18540ff798feb521e9e2d48d68d93a1a017db2c9cc720d750eaa784f",
+      "tests/Data.Streaming/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Streaming/packages.linux-x64.aot.lock.json": "18f96daf27c07f5e4979ccdb21e0cc9395e92c4eb815fe2233c919bf78cd6665",
+      "tests/Data.Streaming/packages.lock.json": "e3a9b7defeee896bd1c7758a4ea93b881f44205a95d4c4b90f954ebe5fc773b3",
+      "tests/Data.Transactions/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Data.Transactions/packages.linux-x64.aot.lock.json": "33c7c7f0869ccdf98a1fcb7b9e154707710da0d8cbb8c25022bfc8a85ed41c91",
+      "tests/Data.Transactions/packages.lock.json": "be6af9561577bb71dba34a7f08cfdd8fe5d955a47f6cea93fdc04b6fa34fda13",
+      "tests/Interop.Abi/packages.linux-x64.aot.lock.json": "256219dafb41cb4aed95f52547bb56815edb0e5dcdcd7e700d3665abf28a895c",
+      "tests/Interop.Abi/packages.lock.json": "7528977eddf7ab33772b99831f3bcd589da81ff345e3aa6f5ed4d29cdd59e8a3",
+      "tests/Interop.Async/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Async/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Async/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Callbacks/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Callbacks/InvalidUco/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "tests/Interop.Callbacks/InvalidUco/packages.lock.json": "7a9dcf0668aa0df645a311c86688e8c8c0597d36938fbff9b6f35299425573a2",
+      "tests/Interop.Callbacks/InvalidUcoCompile/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Callbacks/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Callbacks/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Errors/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Errors/InvalidUco/packages.linux-x64.aot.lock.json": "cf826cf343732c901a23a69465397583e0cc747846dd2500d1cf168382b86030",
+      "tests/Interop.Errors/InvalidUco/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Errors/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Errors/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Execution/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Execution/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Execution/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Lifetime/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Lifetime/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Lifetime/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Memory/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Memory/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Memory/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Interop.Negotiation/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Interop.Negotiation/packages.linux-x64.aot.lock.json": "ae79a900eff7df26e7b7eab98500a38e237c0081326cbcb8cfc9633085ccfdb4",
+      "tests/Interop.Negotiation/packages.lock.json": "63947b57b22390c17eb68dd579da28159f806c058bcaefb455f609d90d9ef228",
+      "tests/Orm.Relations/packages.linux-x64.aot.lock.json": "83d26eaa026aac949044df1c26a4cf44c3b80c4893800320e292a1f56ca43e24",
+      "tests/Orm.Relations/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "tests/Packaging.Release/ApiCheck/packages.lock.json": "8dfe47b89104a104f4ec45fe42f8181f0c9e7ccaadee261c051da8525c25caab",
+      "tests/Query.Binding/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Query.Binding/packages.linux-x64.aot.lock.json": "608ed0b094bd5e3ab032237f705da65dfa1e176fd2b045f19553cc8668cdf9d3",
+      "tests/Query.Binding/packages.lock.json": "b4ff1f421b0a0a8907ca190a312340453909d25692972b65142184e2a885853b",
+      "tests/Query.Fluent/ApiCheck/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Query.Fluent/packages.linux-x64.aot.lock.json": "83d26eaa026aac949044df1c26a4cf44c3b80c4893800320e292a1f56ca43e24",
+      "tests/Query.Fluent/packages.lock.json": "6a33ad148c44f2a0ab2e48fe21a67a93406503273a20b76bd4a72c18593b00f8",
+      "tests/Query.Generator/ApiCheck/packages.lock.json": "9f3ad5bb20101787e4835d52c31069b3ad09b21760367735521b0331d4a58efc",
+      "tests/Query.Generator/packages.lock.json": "d5a968a0fda99829bcb7c1979608965ee0076e3bc75fbaada3dd294f4312f6dc",
+      "tests/Query.Native/packages.linux-x64.aot.lock.json": "608ed0b094bd5e3ab032237f705da65dfa1e176fd2b045f19553cc8668cdf9d3",
+      "tests/Query.Native/packages.lock.json": "b4ff1f421b0a0a8907ca190a312340453909d25692972b65142184e2a885853b",
+      "tests/Verification.Compatibility/ApiConsumer/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Verification.Compatibility/ApiFixture/packages.lock.json": "b3c5e4a8ca8e8e9b867124355fd997226d6a45ef7924fb06460bf389050392c5",
+      "tests/Verification.Interop/packages.linux-x64.aot.lock.json": "3249cf283993dd0327a081a32e5cc993ba4c7025a3fc8e6db37221023ec81d89",
+      "tests/Verification.Interop/packages.lock.json": "dba76890404df1266b9fd1899c660712d3766be02e659ebf786042b0e1d55a31"
+    }
+  }
+}

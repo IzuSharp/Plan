@@ -1,0 +1,253 @@
+{
+  "task": "DB-Scope-01",
+  "reviewer": "/root/old_task_inventory",
+  "role": "Independent reviewer of the API baseline/reference and whitespace-rendering repair; reviewer did not author repaired product files",
+  "recorded_at": "2026-11-21T13:26:14.955827+00:00",
+  "source_commit": "de8aac44c7040f4fa26d7c1320555d03d9523bd6",
+  "source_tree": "545ea5da6ca07b5cc66b0b1fc3b52bb83a12f887",
+  "repair_commit": "0aa9b1b306828205ae2c414b04fa794a17d720bc",
+  "status": "passed",
+  "findings": [
+    {
+      "id": "DBS-API-02",
+      "severity": "blocking existing strict API gate",
+      "area": "PostgreSQL provider",
+      "error": "Three existing B04 composition symbols absent from component baseline: Create, builder-extension type and UsePostgreSql.",
+      "evidence": "postgres.stderr",
+      "status": "resolved",
+      "resolution_commit": "0aa9b1b306828205ae2c414b04fa794a17d720bc"
+    },
+    {
+      "id": "DBS-API-03",
+      "severity": "blocking existing strict API gate",
+      "area": "SQLite provider",
+      "error": "Three existing B04 composition symbols absent from component baseline: Create, builder-extension type and UseSqlite.",
+      "evidence": "sqlite.stderr",
+      "status": "resolved",
+      "resolution_commit": "0aa9b1b306828205ae2c414b04fa794a17d720bc"
+    },
+    {
+      "id": "DBS-API-04",
+      "severity": "blocking formal source-identity gate",
+      "area": "Migrations reference",
+      "error": "Exact frozen-design API/XML passes, but current api.py regenerates tracked 155-symbol reference to actual432 symbols, which would dirty the source during formal execution.",
+      "evidence": "reference-comparison.json",
+      "generated_files": "migrations/generated-reference/database.{json,md}",
+      "status": "resolved",
+      "resolution_commit": "0aa9b1b306828205ae2c414b04fa794a17d720bc"
+    },
+    {
+      "id": "DBS-API-05",
+      "severity": "current documentation drift",
+      "area": "Database Host reference",
+      "error": "Exact frozen-design API/XML passes, but tracked reference contains62 symbols vs actual432; existing retained generation produces the complete integrated reference.",
+      "evidence": "reference-comparison.json",
+      "generated_files": "database-host/generated-reference/database.{json,md}",
+      "status": "resolved",
+      "resolution_commit": "0aa9b1b306828205ae2c414b04fa794a17d720bc"
+    }
+  ],
+  "baseline_preservation": [
+    {
+      "component": "Data.Abstractions",
+      "original_count": 132,
+      "repaired_count": 149,
+      "added_ids": [
+        "M:NativeWeave.Data.ConcurrencyConflictException.#ctor(System.String,System.Int64,System.Int64)",
+        "M:NativeWeave.Data.WeaveColumnAttribute.#ctor(System.String)",
+        "M:NativeWeave.Data.WeaveIgnoreAttribute.#ctor",
+        "M:NativeWeave.Data.WeaveKeyAttribute.#ctor",
+        "M:NativeWeave.Data.WeaveTableAttribute.#ctor(System.String)",
+        "M:NativeWeave.Data.WeaveVersionAttribute.#ctor",
+        "P:NativeWeave.Data.ConcurrencyConflictException.ActualRows",
+        "P:NativeWeave.Data.ConcurrencyConflictException.ExpectedRows",
+        "P:NativeWeave.Data.WeaveColumnAttribute.Generated",
+        "P:NativeWeave.Data.WeaveTableAttribute.DescriptorName",
+        "P:NativeWeave.Data.WeaveTableAttribute.Schema",
+        "T:NativeWeave.Data.ConcurrencyConflictException",
+        "T:NativeWeave.Data.WeaveColumnAttribute",
+        "T:NativeWeave.Data.WeaveIgnoreAttribute",
+        "T:NativeWeave.Data.WeaveKeyAttribute",
+        "T:NativeWeave.Data.WeaveTableAttribute",
+        "T:NativeWeave.Data.WeaveVersionAttribute"
+      ],
+      "existing_records_unchanged": true,
+      "all_entries_exact_projection_of_frozen_design": true,
+      "checker_non_string_literal_code_unchanged": false,
+      "checker_logic_change_scope": "Whitespace rendering loop only; signature/XML/extra/missing-member validation unchanged; verified with actual exact gate."
+    },
+    {
+      "component": "Data.Postgres",
+      "original_count": 12,
+      "repaired_count": 15,
+      "added_ids": [
+        "M:NativeWeave.Database.PostgreSql.PostgreSqlDataSource.Create(System.String,System.Action{NativeWeave.Database.PostgreSql.PostgreSqlOptions})",
+        "M:NativeWeave.Database.PostgreSql.PostgreSqlDataSourceBuilderExtensions.UsePostgreSql(NativeWeave.Database.DataSourceBuilder,System.String,System.Action{NativeWeave.Database.PostgreSql.PostgreSqlOptions})",
+        "T:NativeWeave.Database.PostgreSql.PostgreSqlDataSourceBuilderExtensions"
+      ],
+      "existing_records_unchanged": true,
+      "all_entries_exact_projection_of_frozen_design": true,
+      "checker_non_string_literal_code_unchanged": true
+    },
+    {
+      "component": "Data.Sqlite",
+      "original_count": 29,
+      "repaired_count": 32,
+      "added_ids": [
+        "M:NativeWeave.Database.Sqlite.SqliteDataSource.Create(System.String,System.Action{NativeWeave.Database.Sqlite.SqliteOptions})",
+        "M:NativeWeave.Database.Sqlite.SqliteDataSourceBuilderExtensions.UseSqlite(NativeWeave.Database.DataSourceBuilder,System.String,System.Action{NativeWeave.Database.Sqlite.SqliteOptions})",
+        "T:NativeWeave.Database.Sqlite.SqliteDataSourceBuilderExtensions"
+      ],
+      "existing_records_unchanged": true,
+      "all_entries_exact_projection_of_frozen_design": true,
+      "checker_non_string_literal_code_unchanged": true
+    }
+  ],
+  "runtime_declaration_sources_unchanged_from_fresh_main": [
+    "src/Data.Abstractions/BoundedJsonEncoding.cs",
+    "src/Data.Abstractions/Codecs.cs",
+    "src/Data.Abstractions/DbWire.cs",
+    "src/Data.Abstractions/Errors.cs",
+    "src/Data.Abstractions/Metadata.cs",
+    "src/Data.Abstractions/Rows.cs",
+    "src/Data.Abstractions/SqlCommand.cs",
+    "src/Data.Abstractions/Values.cs",
+    "src/Data.Abstractions/WireSchema.g.cs",
+    "src/Data.NativeHost/Providers/PostgreSql/PostgreSqlHostFactory.cs",
+    "src/Data.NativeHost/Providers/Sqlite/SqliteHostFactory.cs",
+    "src/Data.Postgres/PostgreSqlConfiguration.cs",
+    "src/Data.Postgres/PostgreSqlEngineProfile.cs",
+    "src/Data.Postgres/PostgreSqlOptions.cs",
+    "src/Data.Sqlite/SqliteConfiguration.cs",
+    "src/Data.Sqlite/SqliteDataSource.cs",
+    "src/Data.Sqlite/SqliteOptions.cs",
+    "src/Orm.Relations/Bulk.cs",
+    "src/Orm.Relations/BulkAdmission.cs",
+    "src/Orm.Relations/BulkErrorPayload.cs",
+    "src/Orm.Relations/BulkValues.cs",
+    "src/Orm.Relations/ConcurrencyConflictException.cs",
+    "src/Orm.Relations/ConflictTarget.cs",
+    "src/Orm.Relations/Crud.cs",
+    "src/Orm.Relations/MutationEncoding.cs",
+    "src/Orm.Relations/Relations.cs",
+    "src/Query.Generator/Runtime/Attributes.cs"
+  ],
+  "renderer_review": [
+    {
+      "path": "src/Data.Migrations/reference/database.json",
+      "reference": "pre-whitespace independent compiled generation",
+      "change": "none",
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63"
+    },
+    {
+      "path": "src/Data.Migrations/reference/database.md",
+      "reference": "pre-whitespace independent compiled generation",
+      "change": "trailing whitespace only",
+      "sha256": "4f6a16b4237b8818db6d905b9d2fddfcaa06f58de51d457972136c117850cc0b"
+    },
+    {
+      "path": "src/Data.NativeHost/reference/database.json",
+      "reference": "pre-whitespace independent compiled generation",
+      "change": "none",
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63"
+    },
+    {
+      "path": "src/Data.NativeHost/reference/database.md",
+      "reference": "pre-whitespace independent compiled generation",
+      "change": "trailing whitespace only",
+      "sha256": "c3824403aecdf054b6e405167c87105f3cf9705f6e12925017f2c49404c07d72"
+    },
+    {
+      "path": "src/Orm.Relations/reference/data.md",
+      "reference": "5498e971a75df8f6b3b007ec2479cc9d751387c8",
+      "change": "trailing whitespace only",
+      "sha256": "198ab1c99b1317148bbaa9e23c176da762f8de553b19f4497f352a44743347a6"
+    },
+    {
+      "path": "src/Orm.Relations/reference/database.md",
+      "reference": "5498e971a75df8f6b3b007ec2479cc9d751387c8",
+      "change": "trailing whitespace only",
+      "sha256": "5e4a4f7e9d7655ac3c443355c62e9d98720a0f44a8cf1947d27aeac4cd32d1c6"
+    },
+    {
+      "path": "src/Build.Integration/ApiReference/Program.cs",
+      "signature_and_XML_validation_regions_unchanged": true,
+      "rendering_change_manually_reviewed": "Add separator only if normalized XML-element content is nonempty; Data checker also updates generated document prose."
+    },
+    {
+      "path": "tests/Data.Abstractions/ApiCheck/Program.cs",
+      "signature_and_XML_validation_regions_unchanged": true,
+      "rendering_change_manually_reviewed": "Add separator only if normalized XML-element content is nonempty; Data checker also updates generated document prose."
+    }
+  ],
+  "repaired_files_sha256": {
+    "src/Build.Integration/ApiReference/Program.cs": "f1bf90c132c9c20744d347235c0c1ac59a14bbdd1df985930c79426a7bdbd068",
+    "src/Data.Abstractions/api-reference.md": "e5d920735334a1e8b8143829e91707f70670cbaca8dadd70c03e4b84d5cb50e3",
+    "src/Data.Abstractions/public-api.expected.json": "57bf3c98da9955bba1293ac7b6a8eab22364e35c904c2f4d161d861b2a949e4a",
+    "src/Data.Migrations/reference/database.json": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+    "src/Data.Migrations/reference/database.md": "4f6a16b4237b8818db6d905b9d2fddfcaa06f58de51d457972136c117850cc0b",
+    "src/Data.NativeHost/reference/database.json": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+    "src/Data.NativeHost/reference/database.md": "c3824403aecdf054b6e405167c87105f3cf9705f6e12925017f2c49404c07d72",
+    "src/Data.Postgres/api-reference.md": "2311d682e019243ff7f153b4438f50d9868d9a138af23ca3ec1740e1b5a5b6e9",
+    "src/Data.Postgres/downstream-composition.json": "3434475795809930aa23f44c837894a9f1531e155967aa9ba3004b597c43abb2",
+    "src/Data.Postgres/public-api.expected.json": "2c5035b345c9a155b458474ccb28c558aba3aa2b21a9bb087577b6fed9930496",
+    "src/Data.Sqlite/api-reference.md": "b91272f936575b783e3eec671c7a12f675a57c093044727a534576e5448533a4",
+    "src/Data.Sqlite/host-composition.expected.json": "50da9b80d6a2195286052c3e38a6f7a14704f565e0469496c305ec0b8613c14b",
+    "src/Data.Sqlite/public-api.expected.json": "8be25f466ddcd85c4e19dcbce66e2ad3f6c84331c6da0c9d9dfab38fca5111c3",
+    "src/Orm.Relations/reference/data.md": "198ab1c99b1317148bbaa9e23c176da762f8de553b19f4497f352a44743347a6",
+    "src/Orm.Relations/reference/database.md": "5e4a4f7e9d7655ac3c443355c62e9d98720a0f44a8cf1947d27aeac4cd32d1c6",
+    "tests/Data.Abstractions/ApiCheck/Program.cs": "f3655a6c29fb709671c057de6f5ab0010f806d0c6d14b2f41ae8362d2bb2b727",
+    "tests/Data.Abstractions/verify.py": "cc03c8f501a1089cd4b8b24f51fd2e68fff11c00c657ac4332f6df829e191f8b",
+    "tests/Data.Postgres/ApiCheck/Program.cs": "78ac7ccd48738e1d49d563aee86c9223b30a162ce5005191676d72fb3a9aa372",
+    "tests/Data.Postgres/verify.py": "f774df0cc3f57e44f90fd27bd7b284c8950b96c8d969f990572286e99d7eec14",
+    "tests/Data.Sqlite/ApiCheck/Program.cs": "756aae2e4bfefb12e7cf57ed7aadf59f7f9a5c7845f1763e0982bacea12879d2",
+    "tests/Data.Sqlite/verify.py": "3644c03ceae469f296def84116bcc6ba874ef4972dd49b309be1a39db32acbfc"
+  },
+  "independent_exact_gate_rerun": {
+    "passed": true,
+    "count": 6,
+    "all_generated_reference_files_equal": 14,
+    "no_trailing_whitespace": true,
+    "clean_source_before_and_after": true
+  },
+  "remaining_scope": "This is independent source/API regression review, not full database/JIT/AOT candidate acceptance. Full formal candidate3 and required CI remain owned by root.",
+  "abi_inventory_review": {
+    "commit": "de8aac44c7040f4fa26d7c1320555d03d9523bd6",
+    "finding": null,
+    "delta": "Removes only the already-deleted Directory.Build.targets path from provenance input hashing; no runtime, ABI signature or assertion change."
+  },
+  "supporting_artifacts": [
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/api-integration-audit/summary.json",
+      "sha256": "7443d0bf948296e0b58737a86111adb601d3df64edf8e0fa4f0dfa3b2306b1b7"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/api-integration-audit/repair-review-in-progress.json",
+      "sha256": "40eff0be677799838a933e2965c4ed962a71ac8e054336dd59c3a7427f108901"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/api-integration-audit/rendering-delta-review.json",
+      "sha256": "5613001890b5cb685a1faa57be4100ff7a2d7af7179d52d0dc872b4bc0ebcfbf"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/api-integration-audit/shared-emitter-output-inventory.json",
+      "sha256": "2ad4acf4294f6e5fe018efc6fbec168aa3630aaf8a92fae984ddbf1dbcc64065"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/api-integration-audit/postrepair-0aa9b1b/results.json",
+      "sha256": "f840be99667c4a9b3781463ba5b53a1d730119975df3c00d55b1023074e5a247"
+    }
+  ],
+  "published_source_confirmation": {
+    "recorded_at": "2026-11-21T13:26:32.349649+00:00",
+    "published_commit": "c0b810eb512c8907798a79842dac8eb1d4c6d55f",
+    "published_tree": "545ea5da6ca07b5cc66b0b1fc3b52bb83a12f887",
+    "reviewed_commit": "de8aac44c7040f4fa26d7c1320555d03d9523bd6",
+    "reviewed_tree": "545ea5da6ca07b5cc66b0b1fc3b52bb83a12f887",
+    "actual_git_diff_exit_code": 0,
+    "all_21_reviewed_file_hashes_match_published_commit": true,
+    "scoped_ABI_inventory_change_same_bytes": true,
+    "observed_local_HEAD": "c0b810eb512c8907798a79842dac8eb1d4c6d55f",
+    "review_type": "Static independent review plus recorded exact compiled API/XML/reference gate execution on an identical tree; full candidate database runtime acceptance remains pending."
+  }
+}

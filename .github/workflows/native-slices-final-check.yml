@@ -47,25 +47,27 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - name: Read exact current Design input
-        id: input
+      - name: Verify current database scope and preserved historical records
         working-directory: Plan
-        run: |
-          python3 - <<'PY'
-          import json,os,re
-          b=json.load(open('source-driven-baseline.json'));sha=b['design_merge_commit']
-          assert re.fullmatch('[0-9a-f]{40}',sha)
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('design_sha='+sha+'\n')
-          PY
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        run: python3 tools/verify_db_scope.py
+      - name: Check out the immutable historical Plan acceptance input
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/Plan
+          ref: 8afa0311f45ab8a8157fc45c51e95a0b17dd09f2
+          fetch-depth: 0
+          path: historical/Plan
+          persist-credentials: false
+      - name: Check out its immutable Design input
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: IzuSharp/NativeWeave-Design
-          ref: ${{ steps.input.outputs.design_sha }}
+          ref: c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
           fetch-depth: 0
-          path: NativeWeave-Design
+          path: historical/NativeWeave-Design
           persist-credentials: false
-      - name: Verify provenance and existing graph gates; no native rerun
-        working-directory: Plan
+      - name: Run every unchanged historical provenance and graph gate
+        working-directory: historical/Plan
         run: |
           python3 tools/verify_public_api_history.py
           python3 tools/verify_public_api_plan.py
@@ -96,10 +98,11 @@ jobs:
           name: research-assets-plan-integrity
           retention-days: 30
           path: |
-            Plan/verification/*.json
-            Plan/verification/public-api-history/**
-            Plan/ledger/checkpoints/research-assets-migration.json
-            Plan/ledger/checkpoints/logical-admission-r07.json
-            Plan/ledger/checkpoints/source-lifecycle-2026-11-13.json
-            Plan/verification/source-lifecycle-reviews/**
-            Plan/source-driven-baseline.json
+            historical/Plan/verification/*.json
+            historical/Plan/verification/public-api-history/**
+            historical/Plan/ledger/checkpoints/research-assets-migration.json
+            historical/Plan/ledger/checkpoints/logical-admission-r07.json
+            historical/Plan/ledger/checkpoints/source-lifecycle-2026-11-13.json
+            historical/Plan/verification/source-lifecycle-reviews/**
+            historical/Plan/source-driven-baseline.json
+            Plan/ledger/evidence/batches/DB-Scope-01/

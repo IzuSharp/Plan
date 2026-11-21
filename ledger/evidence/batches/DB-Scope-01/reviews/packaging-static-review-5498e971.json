@@ -1,0 +1,148 @@
+{
+  "commands_from_prior_source": {
+    "applicability": "All test and shell-script inputs under review are byte-identical to the prior source; the six control-flow tests and two bash syntax checks were not rerun. They do not constitute product runtime acceptance.",
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "tests/Packaging.Domain/test_release_results.py"
+        ],
+        "exit_code": 0,
+        "label": "release-control-flow-tests",
+        "stderr_sha256": "fcc79679fd61f1821d24f3ba295f934745f885f074c5b2c3ab08cb808510d5e9",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "bash",
+          "-n",
+          "eng/verify-task04-linux.sh"
+        ],
+        "exit_code": 0,
+        "label": "task04-shell-syntax",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "bash",
+          "-n",
+          "eng/verify-task07-linux.sh"
+        ],
+        "exit_code": 0,
+        "label": "task07-shell-syntax",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "source_commit": "26328245e69560192e23071a6bba24aa57a3b2fd"
+  },
+  "confirmed": [
+    "The graph has exactly 12 retained database package IDs; both provider facades and native leaves plus seven reused shared packages and the database assembly have exact dependencies. Payload validation checks complete nuspec edges, no added framework references, expected runtime assemblies and exact native paths.",
+    "Candidate preparation validates clean native build metadata, Cargo lock/input hashes, successful compiler-artifact messages, selected provider profiles, archive checksums/licenses and ELF policy. Existing common package archives are copied byte-for-byte into the candidate closure.",
+    "Three outside-tree consumer graphs use ordinary exact PackageReference items and isolated caches. Real restored archive hashes and SDK-resolved graph identities are checked, Rust tools are absent or PATH-isolated before rejecting traps are installed, and offline managed edits/AOT publish retain native hashes. Runtime receipts reconcile /proc/self/maps library hashes.",
+    "The unchanged retained MSBuild task runs through transitive targets before compilation/publication and writes build/publish asset records. Migrated negative fixtures invoke the actual packed task with positive controls, suppressed NuGet-warning overrides, missing leaf/selected native, malformed metadata, wrong RID/CPU, exact-edge mismatch, duplicate identity/native, hash changes and path traversal.",
+    "Release recovery invokes real consumer subprocesses for previous smoke, candidate full JIT/AOT and a new previous rollback process. It validates the exact 14 required case names before final success. Publication withholds the catalog until all immutable destination bytes and complete consumption match; wrong source/RID, live processes, partial closure, unknown builder, wrong provenance, immutable-version conflicts and unsigned signature checks reject.",
+    "Six independently run tests passed for payload exclusions and incomplete-result behavior on failure, interruption and final evidence-index failure. These tests intentionally stub product/release boundaries and are not runtime product acceptance.",
+    "verify-task04 and verify-task07 shell scripts parse successfully; workflow invokes both as normal fail-fast steps. Task07 executes the pinned no-Rust SDK container and a distinct runtime-dependencies-only container with no .NET/Rust/compiler tools. Their outputs must pass actual provider checks.",
+    "PACK-01 is resolved on the published correction tree; the other previously reviewed packaging inputs are byte-identical to the original review."
+  ],
+  "correction_review": {
+    "bounded_msbuild": "Root restore remains --locked-mode; root build remains --no-restore. Both now use -m:1, -nr:false and UseSharedCompilation=false; restore also uses --disable-parallel. No gate was removed or configured to ignore failure.",
+    "final_gate": "Before source-inventory.json and manifest.json emission, prepare.py requires final HEAD to equal initial HEAD, clean tracked/untracked git status, and every captured file hash to equal the original snapshot.",
+    "sample_documentation": "The README generates secrets.token_bytes(32), creates a new mode-0600 file using O_EXCL, and prints only its path.",
+    "secret_scan_exception": "The .gitleaksignore file contains exactly one historical commit/path/rule/line fingerprint for the deterministic bytes(range(32)) fixture. No rule-wide or path-wide exception is introduced.",
+    "source_inventory": "The emitted source-inventory.json contains the original prebuild hash snapshot.",
+    "source_snapshot": "The tracked source inventory and SHA-256 values are captured before native inventory validation and managed restore/build.",
+    "unchanged_previously_reviewed_files": [
+      ".github/workflows/build.yml",
+      "eng/task07_native.py",
+      "eng/verify-task04-linux.sh",
+      "eng/verify-task07-linux.sh",
+      "samples/api/packaging-domain/AddedModels.cs.template",
+      "samples/api/packaging-domain/Program.cs",
+      "src/Packaging.Domain/consume.py",
+      "src/Packaging.Domain/inventory.py",
+      "src/Packaging.Domain/model.py",
+      "src/Packaging.Release/BuildTasks/PackageClosure.cs",
+      "src/Packaging.Release/buildTransitive/NativeWeave.Packaging.targets",
+      "src/Packaging.Release/release.py",
+      "tests/Packaging.Domain/consumer_cases.py",
+      "tests/Packaging.Domain/negative_cases.py",
+      "tests/Packaging.Domain/registry_cases.py",
+      "tests/Packaging.Domain/release_cases.py",
+      "tests/Packaging.Domain/runtime_verify.py",
+      "tests/Packaging.Domain/test_release_results.py"
+    ],
+    "validation_kind": "Read-only source/control-flow inspection. No source mutation, concurrent-commit experiment or additional package construction was performed."
+  },
+  "findings": [
+    {
+      "id": "PACK-01",
+      "impact": "Candidate provenance may name a different committed source; no evidence that the intentionally interrupted first formal attempt produced such a package.",
+      "location": "main: initial source-commit capture and final-source-state gate",
+      "path": "src/Packaging.Domain/prepare.py",
+      "priority": "P2",
+      "reason": "main records git rev-parse HEAD before managed builds; its final guard asks only git status. A concurrent clean commit can pass that final guard while the emitted source-inventory and managed binaries belong wholly or partly to another commit. Unlike eng/task07_native.py, this entry point never compares final HEAD with its captured source identity.",
+      "recommended_fix": "Require final git rev-parse HEAD to equal the captured source before manifest emission, preserving the clean-state guard. Keep the execution workspace immutable for the entire build.",
+      "resolution": "Prebuild source snapshot plus final HEAD, clean-state and SHA-256 equality gates reject source changes before final provenance manifest emission.",
+      "resolution_commit": "5498e971a75df8f6b3b007ec2479cc9d751387c8",
+      "status": "resolved",
+      "title": "A clean HEAD change during package construction can retain the old sourceCommit",
+      "validation": "Static control-flow proof; no source mutation or real package construction was attempted during this read-only review."
+    }
+  ],
+  "github_approval": false,
+  "outcome": "passed_for_scoped_independent_technical_review",
+  "product_files_mutated": false,
+  "reviewed_utc": "2026-11-21T13:07:44.148110+00:00",
+  "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory",
+  "runtime_acceptance": {
+    "actual_14_case_receipt_reviewed": false,
+    "actual_pristine_sdk_receipt_reviewed": false,
+    "actual_runtime_only_receipt_reviewed": false,
+    "formal_attempt_1": "Root reports intentional exit130 before package production for required security documentation correction.",
+    "formal_attempt_2": "Root reports the source-bound formal attempt started on this published commit; its package, JIT/AOT, pristine-container, 14-case release and runtime-only receipts have not been reviewed in this static receipt.",
+    "reason": "This is static independent review plus six control-flow/payload unit tests; actual final candidate/container receipts remain mandatory.",
+    "status": "pending"
+  },
+  "schema_version": 1,
+  "scope": "Database package preparation/provenance, exact closure, actual external PackageReference consumers, retained MSBuild guards, migrated A16 negatives, local release recovery and runtime-only CI wiring. Excludes my authored mixed reference/API fixtures and root build.py implementation. Correction review additionally covers the bounded MSBuild scheduling delta and exact README/security-fingerprint delta; no broader claim of independent review of root build.py is made.",
+  "source": {
+    "commit": "5498e971a75df8f6b3b007ec2479cc9d751387c8",
+    "repository": "IzuSharp/NativeWeave",
+    "tree": "9e8d98499e5394ab3f314c295eb3c7d903fd3b17"
+  },
+  "source_sha256": {
+    ".github/workflows/build.yml": "7ba356e899e5721e53e3104b2ccda1038f7a083283895bc6829f7e975a515d70",
+    ".gitleaksignore": "f376f30330d14a0b854c1a751e6952e3e780165032fb396559400e97a28cf2df",
+    "eng/build.py": "c738d8910cdaa89b20605890d8e5a780584f89a33e97ebfda71a4814075367fd",
+    "eng/task07_native.py": "2d7364b31fd08aaf167786c0a2aad35e747cd0138d354f1c1ee1f690a121dda7",
+    "eng/verify-task04-linux.sh": "fce00c72ccdae997edc0d40667f60ffb24e899475408597219d3c4401bded098",
+    "eng/verify-task07-linux.sh": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e",
+    "samples/api/packaging-domain/AddedModels.cs.template": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+    "samples/api/packaging-domain/Program.cs": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+    "samples/api/reference-taskservice/README.md": "0e9442d17487a8dd0a6628512284d8efa361ecb3c02b245df4a2c621e167151e",
+    "src/Packaging.Domain/consume.py": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+    "src/Packaging.Domain/inventory.py": "518b2479e13b25d53e783214537da73500fbceb324f9208bd83a6bd37dbbbdff",
+    "src/Packaging.Domain/model.py": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+    "src/Packaging.Domain/prepare.py": "72c6b4bcd11d1716416e6e8e294626567b5aec7d59fc4e4b73f42f13bfd481ed",
+    "src/Packaging.Release/BuildTasks/PackageClosure.cs": "74db56973f28020085b77fd084b3af83e68802728f6e84897efc6b7cc6653c0c",
+    "src/Packaging.Release/buildTransitive/NativeWeave.Packaging.targets": "23fdb5958aba7c93bc67dbcc0bdca5b8ef0616b74c1f40660dd85d1cfd3caa1b",
+    "src/Packaging.Release/release.py": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+    "tests/Packaging.Domain/consumer_cases.py": "715da0c4dc82a75ec2eab73047cffc92f69e1faec26ef6726daba7f9ac7c1363",
+    "tests/Packaging.Domain/negative_cases.py": "211f4cfa386a66f5de36d4aa28f20867907ce33d87ee2326f4f74ec2b4fa059f",
+    "tests/Packaging.Domain/registry_cases.py": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+    "tests/Packaging.Domain/release_cases.py": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+    "tests/Packaging.Domain/runtime_verify.py": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831",
+    "tests/Packaging.Domain/test_release_results.py": "c7bd8045183b8fd43022c96293b04517f467355196c8fa73c2f2f434110e74c4"
+  },
+  "supersedes": {
+    "path": "packaging-static-review-26328245.json",
+    "reason": "PACK-01 provenance guard corrected; original failed review retained unchanged.",
+    "sha256": "70a0f9666b2d3a3121e9e33c1e3eaba47fb1a0c06edca1606e3a8aad62486b1a",
+    "source_commit": "26328245e69560192e23071a6bba24aa57a3b2fd"
+  },
+  "task": "DB-Scope-01",
+  "unresolved_findings": []
+}

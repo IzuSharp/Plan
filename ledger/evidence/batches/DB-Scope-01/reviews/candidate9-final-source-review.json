@@ -1,0 +1,812 @@
+{
+  "schema_version": 1,
+  "task": "DB-Scope-01",
+  "platform": "linux-x64",
+  "review_kind": "independent_technical_source_review_chain_applicability",
+  "reviewer": "/root/old_task_inventory",
+  "observed_at_utc": "2026-11-21T15:22:13.920501+00:00",
+  "sources": {
+    "NativeWeave": {
+      "commit": "3614ef79c0f21cd1a4d42413ac25e04c27904d96",
+      "tree": "4100a7ca2a94f6c2a9d7a8edf252f33081575d38"
+    }
+  },
+  "source_commit": "3614ef79c0f21cd1a4d42413ac25e04c27904d96",
+  "source_tree": "4100a7ca2a94f6c2a9d7a8edf252f33081575d38",
+  "observed_fetch_head": "3614ef79c0f21cd1a4d42413ac25e04c27904d96",
+  "source_clean": true,
+  "pull_request": "https://github.com/IzuSharp/NativeWeave/pull/20",
+  "status": "no_unresolved_blockers_in_reviewed_source_delta_scope",
+  "outcome": "passed_for_scoped_static_applicability_only",
+  "blocking_source_review_findings": [],
+  "runtime_acceptance": "current_published_candidate_full_execution_and_CI_require_separate_evidence",
+  "prior_review_chain": {
+    "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/candidate7-final-source-review.json",
+    "sha256": "101ab1c14e4b1e12da17f182d3ba98e0bafbe576a0bee64f522a9318f8625083",
+    "source_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "source_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "original_file_preserved": true,
+    "candidate6_link_and_all18_earlier_inputs_reverified": true,
+    "original_limits_preserved": [
+      "This extends source review applicability and inspects scoped author receipts; it is not a GitHub/human approval or merge authorization.",
+      "The original independent packaging review remains attributed to product_scope; the consolidator does not independently approve its own packaging implementation.",
+      "Actual targeted execution belongs to local4b61 at the identical tree; it is not relabeled as execution of the published7e05 commit.",
+      "Candidate6 remains failed. Its successful individual cells are not promoted to a full candidate7 pass.",
+      "Current full Rust/C# regression, package JIT/AOT consumers, pristine SDK/runtime-only execution, required PR checks and merged-main CI require their own exact-source evidence.",
+      "Any later source tree change requires applicable review updates."
+    ]
+  },
+  "publication_binding": {
+    "reviewed_local_candidate8_commit": "244ff96af3927b4001cd2724f41ee9b350ceb02c",
+    "reviewed_local_candidate8_tree": "a6381b0258f0951e6f299c675cb4e5be98fc5d12",
+    "reviewed_local_candidate9_commit": "7d9bcdb76648a263d2a8a182e6970e645ddf963d",
+    "reviewed_local_candidate9_tree": "4100a7ca2a94f6c2a9d7a8edf252f33081575d38",
+    "observed_published_commit": "3614ef79c0f21cd1a4d42413ac25e04c27904d96",
+    "observed_published_tree": "4100a7ca2a94f6c2a9d7a8edf252f33081575d38",
+    "local_candidate9_and_published_tree_identical": true,
+    "empty_local_candidate9_to_published_diff": true
+  },
+  "complete_delta_coverage": {
+    "base_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "base_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "final_commit": "3614ef79c0f21cd1a4d42413ac25e04c27904d96",
+    "final_tree": "4100a7ca2a94f6c2a9d7a8edf252f33081575d38",
+    "exact_changed_paths": [
+      "samples/api/query-fluent/QueryFluent.Sample.csproj",
+      "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+      "src/Reference.TaskService/Reference.TaskService.csproj",
+      "tests/Data.Materialization/consumer/Materialization.Consumer.csproj",
+      "tests/Packaging.Domain/consumer_cases.py"
+    ],
+    "changed_path_count": 5,
+    "uncovered_paths": [],
+    "complete_git_diff_sha256": "96b9a8100502d7ffcb37b07ebb3f81defca56c1a293f512c5081ce2c10e41c00",
+    "candidate7_to_local8_paths": [
+      "src/Reference.TaskService/Reference.TaskService.csproj",
+      "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+      "samples/api/query-fluent/QueryFluent.Sample.csproj",
+      "tests/Data.Materialization/consumer/Materialization.Consumer.csproj"
+    ],
+    "local8_to_local9_paths": [
+      "tests/Packaging.Domain/consumer_cases.py"
+    ],
+    "production_csharp_rust_runtime_api_or_abi_sources_changed": false,
+    "tracked_lock_files_changed": false
+  },
+  "independent_selector_review": {
+    "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/package-consumer-lock-review-244ff96a.json",
+    "sha256": "4d342ca3df1aa7a4e39a872136005908afb2c7726442d93ab07ee8f9ac3b0574",
+    "reviewer": "design_scope",
+    "result": "passed-static-no-blocker",
+    "authorship_disclosure": "Reviewer did not author these four project edits or their controller code. Reviewer previously authored two provider guides and DB-Scope Design pruning. The MSBuild property evaluations were executed by product_scope, not by this reviewer.",
+    "exact_project_changes": [
+      {
+        "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+        "after_sha256": "a9a4fb30dcc5c201a700f0669f950b47871b9ce52345f3115abf6f7ad3dfce54",
+        "before_sha256": "70fb9e117faee50f20708deefbf282c9adbc3b0f8e2a89c2a098a5dc850c80a9",
+        "only_added_plural_selector": true,
+        "path": "src/Reference.TaskService/Reference.TaskService.csproj",
+        "singular_selector_remains_later": true,
+        "exact_single_added_line_independently_confirmed": true,
+        "final_git_and_worktree_hash_match": true
+      },
+      {
+        "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(ReferenceProfile).$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+        "after_sha256": "ed748a4138944ac7277c78732eca961d84262e7ad62ac7c0b1f2d0dd6b49cf3d",
+        "before_sha256": "57b8ebc0f7d9adcff4e74f60402e9900a8bc8feb7bd7a566448abaac3e521536",
+        "only_added_plural_selector": true,
+        "path": "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj",
+        "singular_selector_remains_later": true,
+        "exact_single_added_line_independently_confirmed": true,
+        "final_git_and_worktree_hash_match": true
+      },
+      {
+        "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+        "after_sha256": "adb113cd26e400f240421f4bbe9c3afadf1e7fa17d7990291fb24535ca656644",
+        "before_sha256": "8124935d692ffb1b854649f46b30dc7c77ace8e62f557efc4f82879cfd683a82",
+        "only_added_plural_selector": true,
+        "path": "samples/api/query-fluent/QueryFluent.Sample.csproj",
+        "singular_selector_remains_later": true,
+        "exact_single_added_line_independently_confirmed": true,
+        "final_git_and_worktree_hash_match": true
+      },
+      {
+        "added_line": "<NuGetLockFilePath Condition=\"'$(PublishAot)' == 'true' and '$(RuntimeIdentifiers)' != ''\">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifiers).aot.lock.json</NuGetLockFilePath>",
+        "after_sha256": "0fee8eab6fb413a2d795986e74cd38c6f21588d4a4e29a8fd3e601992711589d",
+        "before_sha256": "5585b83aa2d589804778dfcc48a8b304cae997673bf354ce52c076aacd54985c",
+        "only_added_plural_selector": true,
+        "path": "tests/Data.Materialization/consumer/Materialization.Consumer.csproj",
+        "singular_selector_remains_later": true,
+        "exact_single_added_line_independently_confirmed": true,
+        "final_git_and_worktree_hash_match": true
+      }
+    ],
+    "semantics": {
+      "ordinary_jit": "PublishAot condition is false, preserving default packages.lock.json and the reference sample profile-specific ordinary filename.",
+      "plural_restore": "For the admitted single linux-x64 RID, PublishAot=true with RuntimeIdentifiers=linux-x64 now selects the same AOT filename the controller preserves.",
+      "reference_profile": "Both sqlite/full reference sample filenames retain ReferenceProfile.",
+      "scope_limit": "Linux x64 only; this review does not add or claim multi-RID packaging support.",
+      "singular_publish": "The unchanged RuntimeIdentifier selector remains later in the same PropertyGroup and wins when both properties are set."
+    },
+    "preserved_gates": [
+      "Both candidate resolve with --use-lock-file and subsequent --locked-mode restore remain unchanged.",
+      "The controller still copies and hashes the required AOT lock file rather than accepting the ordinary lock as a substitute.",
+      "PackageReference allowlist, project/import rejection, isolated NuGet cache, exact package/version/archive hashes, native byte equality and metadata source inventories remain unchanged.",
+      "The complete consumer runtime row/oracle definitions, generated packaging predicates, release/rollback checks, and Rust absence checks remain unchanged."
+    ],
+    "all129_lock_hashes_reverified_from_candidate7_to_final": true,
+    "author_property_evaluation": {
+      "all_exit_codes_zero": true,
+      "all_recorded_lock_names_match_intended_selection": true,
+      "evaluation_count": 20,
+      "executor": "product_scope",
+      "modes": [
+        "ordinary",
+        "plural",
+        "singular",
+        "both"
+      ],
+      "package_consumer_acceptance": false,
+      "path": "_validation/package-consumer-lock-selectors/result.json",
+      "project_hashes_match_reviewed_commit": true,
+      "reference_profiles": [
+        "sqlite",
+        "full"
+      ],
+      "runtime_or_build_executed": false,
+      "sha256": "0bbc8ff43db429e23638b404857ff6a8157011b5679fe75bad9cc753834128b9",
+      "attribution": "Existing product_scope property evaluations; no evaluation or restore was rerun here."
+    },
+    "original_limits": [
+      "Reviewer ran no MSBuild, restore, build, package or database commands.",
+      "The author evaluation receipt proves property selection only; it is not a package-consumer runtime acceptance receipt.",
+      "Candidate8 fresh native/package/consumer execution and final full CI acceptance remain pending."
+    ]
+  },
+  "independent_output_isolation_review": {
+    "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/package-jit-output-review-7d9bcdb7.json",
+    "sha256": "2cfd01c250ee7b50e1760d2507e0dc975eaab00e3d0b924c7e612dd6a9becf66",
+    "reviewer": "design_scope",
+    "result": "passed-static-no-blocker",
+    "authorship_disclosure": "Root authored the product controller correction. This reviewer authored the separate scratch receipt validator; no independent re-approval of that validator is claimed. Earlier validator schema review remains attributed to old_task_inventory.",
+    "exact_delta": {
+      "after_sha256": "00576b22637d78884a1e01c47cf4d679c5e7632ebe43d70228d0e4b8f7be94e3",
+      "before_sha256": "715da0c4dc82a75ec2eab73047cffc92f69e1faec26ef6726daba7f9ac7c1363",
+      "changed_functions": [
+        "consume_graph"
+      ],
+      "changes": [
+        "Assign jit to directory/jit-output before the ordinary build.",
+        "Pass -o jit to ordinary build and combined managed-edit build.",
+        "Add one explanatory comment."
+      ],
+      "only_two_exact_replacements_proved": true,
+      "path": "tests/Packaging.Domain/consumer_cases.py",
+      "production_runtime_api_abi_package_dependency_changes": false
+    },
+    "exact_two_replacements_reverified": true,
+    "only_changed_function": "consume_graph",
+    "unchanged_function_source_hashes_verified": [
+      {
+        "function": "__init__",
+        "sha256": "7224077173a5aad71ead4b4c8b0cc6b317191aee8a21b8aa6eaeb0bac614c82e",
+        "source_segment_identical": true
+      },
+      {
+        "function": "compiler_diagnostics",
+        "sha256": "a6a6472a34c4ae38298f3c24d31c453ef5858bbb8fd0076d4940bf353364171f",
+        "source_segment_identical": true
+      },
+      {
+        "function": "config",
+        "sha256": "89ab421cdfabcbf7c67e59026ef069a5bd46649905a4669e125c28df4f93d6f2",
+        "source_segment_identical": true
+      },
+      {
+        "function": "environment_for",
+        "sha256": "2adc466df456499c806b4793564be90a08c075c29508ca2eacb22dac06e1392f",
+        "source_segment_identical": true
+      },
+      {
+        "function": "execute",
+        "sha256": "d88742a81da1814a60b6d2d04a0588d963c83038d7a6b7ea7d070b9d2ab397ee",
+        "source_segment_identical": true
+      },
+      {
+        "function": "finish",
+        "sha256": "cb2d7c65f2ad02fccb64ce85943fc538a8f43a53f2506b341966c0ac37f7edea",
+        "source_segment_identical": true
+      },
+      {
+        "function": "flush",
+        "sha256": "95d50f186f87f9a3a2fd0b2d7653501f583b8c2e3b84324fa2d490fadbeeabbc",
+        "source_segment_identical": true
+      },
+      {
+        "function": "isolate_environment",
+        "sha256": "a75e05863087103b98c76ec0c21e367e9e00e304f52ef2577c0e45229e702768",
+        "source_segment_identical": true
+      },
+      {
+        "function": "main",
+        "sha256": "70ae70bcc7e270e525ab0b5b373e4b2c5e7fc4a8a52e11247186cf93a8e89a34",
+        "source_segment_identical": true
+      },
+      {
+        "function": "native_identity",
+        "sha256": "1657e247cc2f08451540b45ab220567191dfd1681341c71da8b76127bc351115",
+        "source_segment_identical": true
+      },
+      {
+        "function": "project",
+        "sha256": "a3a945aafb1911ae21fd2bacf4102dc6471cb817883d52222084f15aac45d063",
+        "source_segment_identical": true
+      },
+      {
+        "function": "required_checks",
+        "sha256": "47d71957972e63f904235c7e17adde616f3ac80571c1824eb293e8c1a2d634e7",
+        "source_segment_identical": true
+      },
+      {
+        "function": "run",
+        "sha256": "343a82f768c239fe9773e20220501c87de0c5b089c08e33a10f2ab952c39e308",
+        "source_segment_identical": true
+      },
+      {
+        "function": "selected_record",
+        "sha256": "ab4d2e8d4b001213740632cddd73789190f32a0ddc9e6b9082221db6971bb0f9",
+        "source_segment_identical": true
+      },
+      {
+        "function": "template",
+        "sha256": "b95febc98575bd59b8e197ba52a11c8980c1a2d9ddae3df532a9f73c9468b15a",
+        "source_segment_identical": true
+      },
+      {
+        "function": "validate_graph",
+        "sha256": "da88655e39365c76275ed5151141aa0468bd676743a0377b95a3722c5be54239",
+        "source_segment_identical": true
+      },
+      {
+        "function": "visit",
+        "sha256": "4f2c49977578c7dccb2f79ef0a99f9db67808e2a936e2aca14cba0febad9f514",
+        "source_segment_identical": true
+      }
+    ],
+    "unchanged_downstream_hashes_verified": {
+      "samples/api/packaging-domain/AddedModels.cs.template": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+      "samples/api/packaging-domain/Program.cs": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+      "src/Packaging.Domain/consume.py": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+      "src/Packaging.Domain/model.py": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+      "src/Packaging.Release/release.py": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+      "tests/Packaging.Domain/negative_cases.py": "211f4cfa386a66f5de36d4aa28f20867907ce33d87ee2326f4f74ec2b4fa059f",
+      "tests/Packaging.Domain/registry_cases.py": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+      "tests/Packaging.Domain/release_cases.py": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+      "tests/Packaging.Domain/runtime_verify.py": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831"
+    },
+    "preserved_checks": [
+      "native_identity is byte-identical, including exact recursive .so path-set equality, asset record field/hash equality, selected graph assembly membership and tooling leak rejection.",
+      "Initial JIT, managed-edit JIT and post-AOT JIT recheck all use the same explicit jit variable; nativeBefore/nativeAfter comparisons remain unchanged.",
+      "Both source restore/validation steps, offline NuGet configuration, no-restore build/publish flags and package/native bytes remain unchanged.",
+      "execute is byte-identical: actual typed Fluent/DTO/lifecycle assertions, provider selection, AOT dynamic-code witness and actual mapped-library hash must still pass.",
+      "All command labels, receipt schema fields, package graph choices, negative IDs and transfer manifest keys remain unchanged."
+    ],
+    "downstream_audit": {
+      "negatives": "run_negatives receives the unchanged published AOT directory. ABI/hash rejection uses its executable and native files; owned-edge/missing-leaf fixtures use separate project/cache paths; closure-task checks use obj/project.assets.json and the cache. No hardcoded JIT bin path is consumed.",
+      "receipt_validator": "Predicates inspect labels, exact source/package/native mappings, semantic results and transfer files, not bin/Release/net11.0. Only this reviewed emitter source hash needs rebinding; no acceptance predicate changes.",
+      "release_rollback": "Previous and rollback smoke and candidate full consumption invoke the same consumer controller; smoke returns only after the actual JIT row and native identity check, so it follows jit-output automatically. All 14 release/recovery cases are unchanged.",
+      "runtime_only": "Transfer is still built solely from self.output/runtime-transfer/graph, with unchanged exact file set, executable/native hashes, ELF audit and provider witnesses. Runtime verifier neither reads nor transfers JIT output."
+    },
+    "original_limits": [
+      "Reviewer ran no product tests, package builds/restores, databases or runtime processes.",
+      "No pending successful consumer or CI outputs were fabricated or accepted.",
+      "A diagnostic replay using this controller with candidate8 package bytes has two source identities and cannot satisfy the final exact-source receipt gate.",
+      "Final acceptance must use a single published candidate source identity with corresponding fresh producer and complete consumer/CI evidence."
+    ]
+  },
+  "final_reviewed_source_hashes": {
+    ".github/workflows/build.yml": {
+      "sha256": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    ".gitleaksignore": {
+      "sha256": "f376f30330d14a0b854c1a751e6952e3e780165032fb396559400e97a28cf2df",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "docs/guides/data-postgres.md": {
+      "sha256": "9e46e76780cac92340b8e7ad6e7441ef3233ef6bc5e4f85c4247816958e1c556",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "docs/guides/data-sqlite.md": {
+      "sha256": "2c3ef9a570d0ff34fb201f4facc39abfd7102cf4968670ae8957529a255be994",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/build.py": {
+      "sha256": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/database_regressions.py": {
+      "sha256": "9b1d3521f12767b2944d1e85b7ae207eb2398b14ef1f0348f60dcad26e9b03fb",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/task07_native.py": {
+      "sha256": "2d7364b31fd08aaf167786c0a2aad35e747cd0138d354f1c1ee1f690a121dda7",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "eng/verify-task04-linux.sh": {
+      "sha256": "fce00c72ccdae997edc0d40667f60ffb24e899475408597219d3c4401bded098",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "eng/verify-task07-linux.sh": {
+      "sha256": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "samples/api/data-postgres/Program.cs": {
+      "sha256": "0e9d30244935385d6f5f8fa661b13526145cdccd2d750376c71ac6d1eb07b5f2",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "samples/api/data-postgres/packages.linux-x64.aot.lock.json": {
+      "sha256": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "samples/api/packaging-domain/AddedModels.cs.template": {
+      "sha256": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "samples/api/packaging-domain/Program.cs": {
+      "sha256": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "samples/api/query-fluent/QueryFluent.Sample.csproj": {
+      "sha256": "adb113cd26e400f240421f4bbe9c3afadf1e7fa17d7990291fb24535ca656644",
+      "review": "reviews/package-consumer-lock-review-244ff96a.json",
+      "reviewer": "design_scope"
+    },
+    "samples/api/reference-taskservice/README.md": {
+      "sha256": "0e9442d17487a8dd0a6628512284d8efa361ecb3c02b245df4a2c621e167151e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "samples/api/reference-taskservice/Reference.TaskService.Sample.csproj": {
+      "sha256": "ed748a4138944ac7277c78732eca961d84262e7ad62ac7c0b1f2d0dd6b49cf3d",
+      "review": "reviews/package-consumer-lock-review-244ff96a.json",
+      "reviewer": "design_scope"
+    },
+    "src/Build.Integration/ApiReference/Program.cs": {
+      "sha256": "f1bf90c132c9c20744d347235c0c1ac59a14bbdd1df985930c79426a7bdbd068",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Abstractions/api-reference.md": {
+      "sha256": "e5d920735334a1e8b8143829e91707f70670cbaca8dadd70c03e4b84d5cb50e3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Abstractions/public-api.expected.json": {
+      "sha256": "57bf3c98da9955bba1293ac7b6a8eab22364e35c904c2f4d161d861b2a949e4a",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Migrations/reference/database.json": {
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Migrations/reference/database.md": {
+      "sha256": "4f6a16b4237b8818db6d905b9d2fddfcaa06f58de51d457972136c117850cc0b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.NativeHost/DependencyInjection/NativeWeave.Database.DependencyInjection.csproj": {
+      "sha256": "adb087ada6f203e921f4f7bcb274d92178d7d15249b5f48982426d31aac8be60",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "src/Data.NativeHost/reference/database.json": {
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.NativeHost/reference/database.md": {
+      "sha256": "c3824403aecdf054b6e405167c87105f3cf9705f6e12925017f2c49404c07d72",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/api-reference.md": {
+      "sha256": "2311d682e019243ff7f153b4438f50d9868d9a138af23ca3ec1740e1b5a5b6e9",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/downstream-composition.json": {
+      "sha256": "3434475795809930aa23f44c837894a9f1531e155967aa9ba3004b597c43abb2",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/public-api.expected.json": {
+      "sha256": "2c5035b345c9a155b458474ccb28c558aba3aa2b21a9bb087577b6fed9930496",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/api-reference.md": {
+      "sha256": "b91272f936575b783e3eec671c7a12f675a57c093044727a534576e5448533a4",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/host-composition.expected.json": {
+      "sha256": "50da9b80d6a2195286052c3e38a6f7a14704f565e0469496c305ec0b8613c14b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/public-api.expected.json": {
+      "sha256": "8be25f466ddcd85c4e19dcbce66e2ad3f6c84331c6da0c9d9dfab38fca5111c3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Orm.Relations/reference/data.md": {
+      "sha256": "198ab1c99b1317148bbaa9e23c176da762f8de553b19f4497f352a44743347a6",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Orm.Relations/reference/database.md": {
+      "sha256": "5e4a4f7e9d7655ac3c443355c62e9d98720a0f44a8cf1947d27aeac4cd32d1c6",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Packaging.Domain/consume.py": {
+      "sha256": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/inventory.py": {
+      "sha256": "518b2479e13b25d53e783214537da73500fbceb324f9208bd83a6bd37dbbbdff",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/model.py": {
+      "sha256": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/prepare.py": {
+      "sha256": "72c6b4bcd11d1716416e6e8e294626567b5aec7d59fc4e4b73f42f13bfd481ed",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Packaging.Release/BuildTasks/PackageClosure.cs": {
+      "sha256": "74db56973f28020085b77fd084b3af83e68802728f6e84897efc6b7cc6653c0c",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Release/buildTransitive/NativeWeave.Packaging.targets": {
+      "sha256": "23fdb5958aba7c93bc67dbcc0bdca5b8ef0616b74c1f40660dd85d1cfd3caa1b",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Release/release.py": {
+      "sha256": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Reference.TaskService/BlobStore.cs": {
+      "sha256": "e1fc4dae357efb7b05dce546ea7a403b5642c2397c2750fe7dd8d3eabd93c64c",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/DatabaseService.cs": {
+      "sha256": "11f3ff4856974dca05344e415fec9bd0cd38bb109f8d34d15334bb42a5cfd087",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/FixtureCases.cs": {
+      "sha256": "7529dab611991e94e1b1622466cf24b08a9b28fce80a5bbf7eac9c7a8868893a",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/Maintenance.cs": {
+      "sha256": "4e1ad45cf465ab00670cd8ceecfaad13466128410ea6ace70966dac4f2b36181",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/OutboxWorker.cs": {
+      "sha256": "099e21259781acff9b843fbf7cf97038610394d220c954dbe5d93e5a28ef8405",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/Program.cs": {
+      "sha256": "81faeddf10fa3aeb8727729f8456f5aa7336b112d420d65b0a63d58726d81151",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/Reference.TaskService.csproj": {
+      "sha256": "a9a4fb30dcc5c201a700f0669f950b47871b9ce52345f3115abf6f7ad3dfce54",
+      "review": "reviews/package-consumer-lock-review-244ff96a.json",
+      "reviewer": "design_scope"
+    },
+    "tests/Data.Abstractions/ApiCheck/Program.cs": {
+      "sha256": "f3655a6c29fb709671c057de6f5ab0010f806d0c6d14b2f41ae8362d2bb2b727",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Abstractions/verify.py": {
+      "sha256": "cc03c8f501a1089cd4b8b24f51fd2e68fff11c00c657ac4332f6df829e191f8b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Materialization/consumer/Materialization.Consumer.csproj": {
+      "sha256": "0fee8eab6fb413a2d795986e74cd38c6f21588d4a4e29a8fd3e601992711589d",
+      "review": "reviews/package-consumer-lock-review-244ff96a.json",
+      "reviewer": "design_scope"
+    },
+    "tests/Data.Migrations/NativeWeave.Data.Migrations.Tests.csproj": {
+      "sha256": "d63f7c448d58eb18c2e99b25308a34e6d154c830961f5d5f8a714aeb583d1139",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.NativeHost/NativeWeave.Data.NativeHost.Tests.csproj": {
+      "sha256": "0c7297cea3fa603f7ca0118629b00af71ef169f1bf9676f2b740d08e1de4e012",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/ApiCheck/Program.cs": {
+      "sha256": "78ac7ccd48738e1d49d563aee86c9223b30a162ce5005191676d72fb3a9aa372",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj": {
+      "sha256": "954b99be8d026b68e30ada820d3e294090ed0f755193de6c45e2af1f94609413",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/Program.cs": {
+      "sha256": "232cd600e9234559f0cebafcf19c0e80e99d5ff5f83165d2144562256864bf9b",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/packages.linux-x64.aot.lock.json": {
+      "sha256": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/verify.py": {
+      "sha256": "5fc6c95d9dfc0a23b5d36b115200e34ce6e729e67871453888a5679cfe5a61f5",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/ApiCheck/Program.cs": {
+      "sha256": "756aae2e4bfefb12e7cf57ed7aadf59f7f9a5c7845f1763e0982bacea12879d2",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Sqlite/NativeWeave.Data.Sqlite.Tests.csproj": {
+      "sha256": "3252486094113868971126248e2a330657d9525e8a6e1a7baf42bfac4ae71988",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/Program.cs": {
+      "sha256": "440407ef76a2f0386ce3691996bf9197a608ecb2166abcd75c53936577444500",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/packages.linux-x64.aot.lock.json": {
+      "sha256": "72ba396f7020517a3c1e5decd176d9b1c476dbc13f32c4f35cfe3d68728f3014",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/verify.py": {
+      "sha256": "e8ce85c2d6f004a7ad2769ff194abf93ca0fa75bd37e4072d2aa5c5cb08a17a7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Interop.Abi/verify.py": {
+      "sha256": "4f206c6e842435a2a46e7bd2dd34967e56e157b5f15d02e44b26ad42c64b6ddc",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/consumer_cases.py": {
+      "sha256": "00576b22637d78884a1e01c47cf4d679c5e7632ebe43d70228d0e4b8f7be94e3",
+      "review": "reviews/package-jit-output-review-7d9bcdb7.json",
+      "reviewer": "design_scope"
+    },
+    "tests/Packaging.Domain/negative_cases.py": {
+      "sha256": "211f4cfa386a66f5de36d4aa28f20867907ce33d87ee2326f4f74ec2b4fa059f",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/registry_cases.py": {
+      "sha256": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/release_cases.py": {
+      "sha256": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/runtime_verify.py": {
+      "sha256": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "tests/Packaging.Domain/test_release_results.py": {
+      "sha256": "c7bd8045183b8fd43022c96293b04517f467355196c8fa73c2f2f434110e74c4",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/ProviderProfileChecks.cs": {
+      "sha256": "fe625ce8c447d76089f0eae715c9ea6a820f684233f9516e7bf4a44bc90c2b0a",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Query.Binding/native/src/tests.rs": {
+      "sha256": "9affa9fccbbc011b0d9f2232fd887b5dcc080ee529caaab35a057595eaa4386b",
+      "review": "standalone-fixture-format-audit/published-candidate5-source-binding.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Query.Fluent/Program.cs": {
+      "sha256": "bcfa85032dfe4049ca98b39b541f7ddb7c34bbfc889bf32d99ba51bb29dfb990",
+      "review": "reviews/query-fluent-negative-contract-review-4b61cf47.json",
+      "reviewer": "design_scope"
+    },
+    "tests/Reference.TaskService/README.md": {
+      "sha256": "309342674301ad3204292b8053a4679b6eb4e80a8fea8bcb6af076df8a2a482b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/golden-v1.json": {
+      "sha256": "0225f73ee78dbf11d5d529d680cc723c2e8f6880eab89ba0f50103047eb4901e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/golden.py": {
+      "sha256": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/package_probe.py": {
+      "sha256": "91df18f29c38896031c4b7bf91f6d4feab9504c8090442f5f449f67d1dca21d3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/postgres_oracles.py": {
+      "sha256": "b0382d1ecbad680c31d5e836c7b46c9926dc17c999aebdcbec3eaad8a997ec6c",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/run.py": {
+      "sha256": "58fa8d3193b4e02dd3941cdfb9f0e550cf72172cd16fa4556b6647b702f38561",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Tooling/test_evidence.py": {
+      "sha256": "56184a082eabbb125209853aa5ed41307d58c012b75a4b867e34118ee692d195",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Verification.EndToEnd/api_probe.py": {
+      "sha256": "c6ba8e4fbd582a856dc0f7c8053661a74766acdfbe2ebf584b3bd4b2f86073bd",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/faults.py": {
+      "sha256": "3f2c31535fd8948c080a053e27162c503b80eca45359f42e94153c9230571b2e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/harness.py": {
+      "sha256": "6c6605388b74f8f416b4d3d75d64c68801ebd1f19d474b013b7600c684d48a76",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/run.py": {
+      "sha256": "6c2a9ef10cac28bb7e7469f6b5ee104e654646689e0cd4cb393562654004f433",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    }
+  },
+  "final_hash_application": {
+    "prior_reviewed_source_count": 78,
+    "final_reviewed_source_count": 82,
+    "superseded_prior_hashes": [
+      {
+        "path": "tests/Packaging.Domain/consumer_cases.py",
+        "old_sha256": "715da0c4dc82a75ec2eab73047cffc92f69e1faec26ef6726daba7f9ac7c1363",
+        "prior_review": "reviews/product-static-review-c0b810eb.json"
+      }
+    ],
+    "all_final_hashes_match_git_and_worktree": true,
+    "all_other_tracked_files_unchanged_by_complete_git_diff": true
+  },
+  "separate_scratch_predicate_rebinding_check": {
+    "reviewed_by": "/root/old_task_inventory",
+    "scope": "Read-only exact JSON/hash comparison of the independently authored scratch predicate source binding; not an expansion of earlier schema review into new runtime acceptance.",
+    "old_contract": {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/expected-contract.v1-d354b80b.json",
+      "sha256": "d354b80b5c14f325d883d083d150d66c6f85875a350fbf6946c4da20d9c7bd88"
+    },
+    "new_versioned_contract": {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/expected-contract.v2-jit-output-7d9bcdb7.json",
+      "sha256": "bfb1e636dfc275bc7a6120fc62f9ff1ef1c5d2d3ef47e67d1c3bd36a90fe7e43"
+    },
+    "active_matches_versioned_copy": true,
+    "changed_json_pointer": "/reviewed_source_sha256/tests~1Packaging.Domain~1consumer_cases.py",
+    "exactly_one_source_hash_entry_changed": true,
+    "all_other_json_fields_and_acceptance_predicates_identical": true,
+    "all34_reviewed_source_hashes_match_published_candidate": true,
+    "validator_code_sha256": "5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751",
+    "validator_code_unchanged": true,
+    "tests_executed_now": false
+  },
+  "authorship_and_independence": [
+    "The consolidating reviewer authored portions of Packaging.Domain earlier in DB-Scope-01. The subsystem remains independently reviewed by product_scope in the preserved packaging review; the current JIT-output correction was authored by root and independently reviewed by design_scope.",
+    "The four project selector changes and the controller correction are attributed to the existing independent design_scope reviews. This receipt verifies their exact applicability to published C9 without claiming new independent authorship or execution.",
+    "The scratch receipt validator was authored by design_scope. This consolidator independently confirms only the versioned contract source-hash rebinding and unchanged predicate/code bytes.",
+    "PACK-01 remains covered by the original independent product_scope resolution. prepare.py is unchanged at the final source; that approval is not replaced by self-review."
+  ],
+  "execution_attribution_and_limits": [
+    "No builds, restore commands, tests, package consumer executions, PostgreSQL operations, source edits, Plan edits or merges were performed in this consolidation.",
+    "Candidate7 full CI remains a preserved failure. Its successful component/lifecycle cells are not relabeled as published C9 execution.",
+    "The separately qualified development run used C8-produced package bytes with the C9 controller. It has two source identities and cannot establish final single-source C9 acceptance; this receipt does not inspect or promote its runtime outputs.",
+    "Current source-bound producer/consumer results, pristine SDK/no-Rust and runtime-only gates, required PR checks and merged-main CI remain separate requirements.",
+    "Root reported current CI44918297335 running. This review did not poll it or claim its outcome.",
+    "Technical agent source applicability is not GitHub/human approval or merge authorization; future source changes require a new applicable delta binding."
+  ],
+  "inputs": [
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/candidate7-final-source-review.json",
+      "sha256": "101ab1c14e4b1e12da17f182d3ba98e0bafbe576a0bee64f522a9318f8625083"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/candidate6-final-source-review.json",
+      "sha256": "fb5aa81ef87d40892661a2122fbee7dd5fc593969acf3e0f9f347dc02dd31af6"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/package-consumer-lock-review-244ff96a.json",
+      "sha256": "4d342ca3df1aa7a4e39a872136005908afb2c7726442d93ab07ee8f9ac3b0574"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/package-jit-output-review-7d9bcdb7.json",
+      "sha256": "2cfd01c250ee7b50e1760d2507e0dc975eaab00e3d0b924c7e612dd6a9becf66"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/package-consumer-lock-selectors/result.json",
+      "sha256": "0bbc8ff43db429e23638b404857ff6a8157011b5679fe75bad9cc753834128b9"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/expected-contract.v1-d354b80b.json",
+      "sha256": "d354b80b5c14f325d883d083d150d66c6f85875a350fbf6946c4da20d9c7bd88"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/expected-contract.v2-jit-output-7d9bcdb7.json",
+      "sha256": "bfb1e636dfc275bc7a6120fc62f9ff1ef1c5d2d3ef47e67d1c3bd36a90fe7e43"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/expected-contract.json",
+      "sha256": "bfb1e636dfc275bc7a6120fc62f9ff1ef1c5d2d3ef47e67d1c3bd36a90fe7e43"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/evidence_review/verify_receipts.py",
+      "sha256": "5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751"
+    },
+    {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/packaging-static-review-5498e971.json",
+      "sha256": "277aae3573148590e099fd0e0c6b38ade89dedd747dedb67ea2423ec41b29b76"
+    }
+  ],
+  "new_builds_or_runtime_tests_by_reviewer": false,
+  "source_or_plan_edits": false,
+  "github_review_submitted": false,
+  "merge_authorization_claimed": false
+}

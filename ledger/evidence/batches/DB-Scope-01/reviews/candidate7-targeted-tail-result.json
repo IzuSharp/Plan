@@ -1,0 +1,336 @@
+{
+  "scope": "Exact committed selected complete database suites and API/negative/generator tail only",
+  "selectedSuites": [
+    "Query.Fluent",
+    "Orm.Relations"
+  ],
+  "fullPipelineAcceptance": false,
+  "commit": "4b61cf471fa90cc3e00798daf3293b6dcdba69ff",
+  "tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+  "driverSha256": "9b1d3521f12767b2944d1e85b7ae207eb2398b14ef1f0348f60dcad26e9b03fb",
+  "harnessSha256": "626d7cdac3f1fc3ccdf35fe282d50e4b8f3a192a65bab79551c0a2c4741255ef",
+  "executedSourceSha256": "a5d368e641d40d61f52dc8702e48ce3e42c863b70139d032e071e6c022afc11e",
+  "status": "passed",
+  "commands": [
+    {
+      "name": "Query.Fluent-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/NativeWeave.Query.Fluent.Tests.csproj",
+        "--locked-mode",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 1.935,
+      "log": "logs/Query.Fluent-restore.log",
+      "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    {
+      "name": "Query.Fluent-build",
+      "command": [
+        "dotnet",
+        "build",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/NativeWeave.Query.Fluent.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 22.097,
+      "log": "logs/Query.Fluent-build.log",
+      "sha256": "e43d68ae8eb056fca170d8a9ceb9d608c590eade62983fb11e10e617b56fb408"
+    },
+    {
+      "name": "Query.Fluent-jit",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/postgres/bin",
+        "--output",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/postgres/Query.Fluent-jit",
+        "--",
+        "dotnet",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/bin/Release/net11.0/NativeWeave.Query.Fluent.Tests.dll",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Query.Fluent/jit"
+      ],
+      "exitCode": 0,
+      "seconds": 1.571,
+      "log": "logs/Query.Fluent-jit.log",
+      "sha256": "8940f47d015b01ef2e4f399a89e49b22a94509c529d340f19741dd823ac316e0"
+    },
+    {
+      "name": "Query.Fluent-aot-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/NativeWeave.Query.Fluent.Tests.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 2.033,
+      "log": "logs/Query.Fluent-aot-restore.log",
+      "sha256": "c1a7c81d1073278ec024c2d17188bd191af03d3786a3fcb483c81492c80a3863"
+    },
+    {
+      "name": "Query.Fluent-aot-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/NativeWeave.Query.Fluent.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--no-restore",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Query.Fluent/aot"
+      ],
+      "exitCode": 0,
+      "seconds": 26.984,
+      "log": "logs/Query.Fluent-aot-publish.log",
+      "sha256": "3fb983e937444b4f4ce087f813e723b565a235f6a7bfd9c97b2a4699f0c532ef"
+    },
+    {
+      "name": "Query.Fluent-aot",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/postgres/bin",
+        "--output",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/postgres/Query.Fluent-aot",
+        "--",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Query.Fluent/aot/NativeWeave.Query.Fluent.Tests",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Query.Fluent/aot-results",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "seconds": 1.294,
+      "log": "logs/Query.Fluent-aot.log",
+      "sha256": "760e71dd0ecae352c45fd993332166d4c73cc76913a52e9ffcf38b19a83925c6"
+    },
+    {
+      "name": "Orm.Relations-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/NativeWeave.Orm.Relations.Tests.csproj",
+        "--locked-mode",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 1.623,
+      "log": "logs/Orm.Relations-restore.log",
+      "sha256": "a36ae47354740484368f874f421d92d7fc448c0d091ddf99270ac7f11bfb8422"
+    },
+    {
+      "name": "Orm.Relations-build",
+      "command": [
+        "dotnet",
+        "build",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/NativeWeave.Orm.Relations.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 18.307,
+      "log": "logs/Orm.Relations-build.log",
+      "sha256": "b29da6b0a76fdb97123b735e62fefafa863fc2fd20be35957a1aeafbbad84102"
+    },
+    {
+      "name": "Orm.Relations-jit",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/postgres/bin",
+        "--output",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/postgres/Orm.Relations-jit",
+        "--",
+        "dotnet",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/bin/Release/net11.0/NativeWeave.Orm.Relations.Tests.dll"
+      ],
+      "exitCode": 0,
+      "seconds": 1.468,
+      "log": "logs/Orm.Relations-jit.log",
+      "sha256": "8cdb85a33c408774dd160c48f63bcef6b385257373108a57902999fac6c182c3"
+    },
+    {
+      "name": "Orm.Relations-aot-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/NativeWeave.Orm.Relations.Tests.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exitCode": 0,
+      "seconds": 1.671,
+      "log": "logs/Orm.Relations-aot-restore.log",
+      "sha256": "2d4072d06f3cbc1a4fa35b3f57aa663a94849cbfdec65b36d92b0c658f8521a9"
+    },
+    {
+      "name": "Orm.Relations-aot-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/NativeWeave.Orm.Relations.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "--no-restore",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Orm.Relations/aot"
+      ],
+      "exitCode": 0,
+      "seconds": 25.578,
+      "log": "logs/Orm.Relations-aot-publish.log",
+      "sha256": "3f996683b481cb0222c9094b09b1484407eab788e1f19f1632fa298e09774c43"
+    },
+    {
+      "name": "Orm.Relations-aot",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/postgres/bin",
+        "--output",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/postgres/Orm.Relations-aot",
+        "--",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Orm.Relations/aot/NativeWeave.Orm.Relations.Tests",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "seconds": 1.178,
+      "log": "logs/Orm.Relations-aot.log",
+      "sha256": "02939e2d0dd1c2f8dfe958ef39e416a19d74521d3694cea4c20fc4ddc971ebb7"
+    },
+    {
+      "name": "Data.Migrations-api",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Data.Migrations/api.py",
+        "--design",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/frozen-design",
+        "--tool",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/src/Build.Integration/ApiReference/bin/Release/net11.0/NativeWeave.Build.ApiReference.dll"
+      ],
+      "exitCode": 0,
+      "seconds": 1.322,
+      "log": "logs/Data.Migrations-api.log",
+      "sha256": "286fce17e519bb440158820c7a5d700db233d349cc1ad4ea7c0daac93331d314"
+    },
+    {
+      "name": "Orm.Relations-api",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Orm.Relations/api.py",
+        "--design",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/frozen-design",
+        "--tool",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/src/Build.Integration/ApiReference/bin/Release/net11.0/NativeWeave.Build.ApiReference.dll"
+      ],
+      "exitCode": 0,
+      "seconds": 2.324,
+      "log": "logs/Orm.Relations-api.log",
+      "sha256": "f3ca77362631a62e83e4bad97cbf7c733eb7bddee93524b887cba325701419fd"
+    },
+    {
+      "name": "relations-type-errors",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/Orm.Relations/compile_negative.py"
+      ],
+      "exitCode": 0,
+      "seconds": 2.832,
+      "log": "logs/relations-type-errors.log",
+      "sha256": "43e7a334fe9c441b0d7502a2d92352efd0312bd75075c77624f32790d1a7d77e"
+    },
+    {
+      "name": "fluent-api",
+      "command": [
+        "dotnet",
+        "tests/Query.Fluent/ApiCheck/bin/Release/net11.0/NativeWeave.Query.Fluent.ApiCheck.dll",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/frozen-design",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/dotnet"
+      ],
+      "exitCode": 0,
+      "seconds": 0.767,
+      "log": "logs/fluent-api.log",
+      "sha256": "95dcf3d8afdc16b8fddaaa06420c31b04c5f59058f7c1a77fccdb13499f1571d"
+    },
+    {
+      "name": "query-generator",
+      "command": [
+        "dotnet",
+        "tests/Query.Generator/bin/Release/net11.0/NativeWeave.Query.Generator.Tests.dll"
+      ],
+      "exitCode": 0,
+      "seconds": 0.064,
+      "log": "logs/query-generator.log",
+      "sha256": "57e2b53a73958ef5827c21f2a0321a525c2ddf411b163fdd0db2fbb13be8508a"
+    },
+    {
+      "name": "query-generator-api",
+      "command": [
+        "dotnet",
+        "tests/Query.Generator/ApiCheck/bin/Release/net11.0/NativeWeave.Query.Generator.ApiCheck.dll",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/frozen-design",
+        "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/toolchains/dotnet"
+      ],
+      "exitCode": 0,
+      "seconds": 1.081,
+      "log": "logs/query-generator-api.log",
+      "sha256": "a9e038217a5af504f45e7396cd4237508fd61f702c55231dcd15025169803dd9"
+    }
+  ],
+  "sourceInputsUnchanged": true,
+  "workingTreeClean": true,
+  "runtimeCells": 4,
+  "migrationProcessCells": 0,
+  "artifactSha256": {
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Query.Fluent/bin/Release/net11.0/NativeWeave.Query.Fluent.Tests.dll": "8b13e26f6f70954b147b5c399ac6c77f45e4351170841783ea81ce0507f670df",
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Query.Fluent/aot/NativeWeave.Query.Fluent.Tests": "a92afe62f52bf70bf7bc885d39427f40742a4fd8c2311ae66bb9901ada159055",
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/tests/Orm.Relations/bin/Release/net11.0/NativeWeave.Orm.Relations.Tests.dll": "1d85e200ac83ee22c51bc8c63b86f5f2b9d126c7695cd89b5ae8c5b7af63f93b",
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/Orm.Relations/aot/NativeWeave.Orm.Relations.Tests": "36c535326f54b4b750f637757a38876c2acc032d74eb5c4be0fbc4109783250b",
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/target/release/libnw_database_sqlite.so": "9e6a7ae1fb59d9a380384b0b30ea34c3f2c9aef27def4eda8461d2663fa3f3dd",
+    "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/NativeWeave/target/release/libnw_database_postgresql.so": "e25664c914f284aa9834bae3faf36754d621135aee7e340db6ccf95695e65135"
+  }
+}

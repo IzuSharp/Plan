@@ -1,0 +1,798 @@
+{
+  "schema_version": 1,
+  "task": "DB-Scope-01",
+  "platform": "linux-x64",
+  "review_kind": "independent_technical_source_review_chain_applicability",
+  "reviewer": "/root/old_task_inventory",
+  "observed_at_utc": "2026-11-21T14:41:38.795265+00:00",
+  "sources": {
+    "NativeWeave": {
+      "commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+      "tree": "53b9be35089c757c23709c533d0d92fe8e67bca1"
+    }
+  },
+  "source_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+  "source_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+  "observed_fetch_head": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+  "source_clean": true,
+  "pull_request": "https://github.com/IzuSharp/NativeWeave/pull/20",
+  "status": "no_unresolved_blockers_in_reviewed_source_delta_scope",
+  "outcome": "passed_for_scoped_static_applicability_only",
+  "blocking_source_review_findings": [],
+  "runtime_acceptance": "full_current_candidate_pipeline_and_package_acceptance_pending",
+  "prior_review_chain": {
+    "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/candidate6-final-source-review.json",
+    "sha256": "fb5aa81ef87d40892661a2122fbee7dd5fc593969acf3e0f9f347dc02dd31af6",
+    "source_commit": "7ae0c583e7bdf99e8bd29320cfc74e8cce6e9f41",
+    "source_tree": "f10ff192c840c6c9f2673168a147ea1d764a7e2b",
+    "original_file_preserved": true,
+    "all18_original_input_review_hashes_reverified": true,
+    "inherited_scope": "Consolidates existing independent product, packaging and later source-delta reviews at candidate6. Verifies review artifact hashes, original Git blob hashes, complete intervening path sets and final applicability. Does not expand their original scopes or turn old executions into current acceptance.",
+    "original_authorship_and_independence": [
+      "The consolidating reviewer authored portions of Packaging.Domain earlier in DB-Scope-01. Detailed packaging approval is therefore attributed to /root/product_scope and its preserved independent review, not to the consolidator.",
+      "The mixed reference/API fixtures authored by /root/product_scope are covered by /root/design_scope product review; packaging reviewer expressly excluded its own fixture changes.",
+      "The consolidator independently reviewed the candidate3 API repair, candidate4 sixteen changed files, candidate5 formatter output, and candidate6 selectors/driver; none of those changes was authored by the consolidator.",
+      "The design_scope reviewer authored Design/earlier Plan portions; this receipt addresses product source only and does not replace independent Design or Plan acceptance."
+    ],
+    "original_scope_corrections": [
+      "The candidate4 all48 AOT lock audit covered static project closure and package equality. It did not prove evaluated lock selection or actual AOT restore consistency; the later selector review explicitly preserves this correction.",
+      "Candidate5/6 Host failure diagnosis was corrected before mutation: committed AOT locks already contained Linux RID and pinned SDK compiler/linker entries. Candidate6 changes three selectors only; all129 lock bytes remain unchanged from candidate5.",
+      "Candidate5 rustfmt adds the formatter optional trailing call-argument comma as well as line wrapping; token equivalence is claimed modulo that optional comma, not literal whitespace-only equality.",
+      "Candidate4 targeted provider runs and candidate3 API reruns retain their original source and author attribution. They are not clean candidate6 full-pipeline or package acceptance.",
+      "Inherited runner cleanup guarantees are unchanged and scoped to the preserved review; no additional process-group/SIGKILL/startup-failure guarantee is invented."
+    ]
+  },
+  "publication_binding": {
+    "reviewed_local_commit": "4b61cf471fa90cc3e00798daf3293b6dcdba69ff",
+    "reviewed_local_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "published_observed_head": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "published_observed_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "exact_trees_identical": true,
+    "empty_diff_between_reviewed_local_and_published_commit": true
+  },
+  "new_delta_review": {
+    "independent_review": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/query-fluent-negative-contract-review-4b61cf47.json",
+    "independent_review_sha256": "24bef1f807130ca3f91f9f30312532616952b73b28af4966997b75890d9fcc83",
+    "independent_reviewer": "design_scope",
+    "independent_review_result": "passed-static-no-blocker",
+    "independent_review_authorship": "Reviewer authored DB-Scope Design pruning and the two current provider guides, but did not author the frozen c62 Design contracts, Query.Fluent negative assertion correction, or reviewed production runtime paths.",
+    "exact_changed_paths": [
+      "tests/Query.Fluent/Program.cs"
+    ],
+    "actual_git_diff_sha256": "a15cac89a67c2c4b53c97dbff29dbd311f4fe643db1ebd412f2e82ec8b73284a",
+    "before_sha256": "51655719872ed57f901a4090996302ebe341aef7f5c462114fb21763d896db7d",
+    "after_sha256": "bcfa85032dfe4049ca98b39b541f7ddb7c34bbfc889bf32d99ba51bb29dfb990",
+    "exactly_one_expected_type_replacement": true,
+    "old_statement": "using (var withoutTransaction = Q()) await ThrowsAsync<DatabaseException>(() => withoutTransaction.ForUpdate().SelectAll().ToListAsync());",
+    "new_statement": "using (var withoutTransaction = Q()) await ThrowsAsync<InvalidOperationException>(() => withoutTransaction.ForUpdate().SelectAll().ToListAsync());",
+    "all_other_bytes_in_file_preserved": true,
+    "negative_throw_invocation_count": 30,
+    "all_other_expected_types_preserved": true,
+    "unchanged_oracles": [
+      "SQLite row-lock capability rejection",
+      "positive PostgreSQL explicit transaction row lock and rollback",
+      "all other assertions and negative expected types",
+      "Fluent call under the corrected assertion",
+      "production runtime and API declarations"
+    ]
+  },
+  "contract_basis": {
+    "mapping_chain": [
+      "Row-lock execution checks active explicit transaction before rendering or dispatch.",
+      "Missing active transaction returns Error.state with status NW_INVALID_STATE (4), database reason8, domain0x4442.",
+      "HostFailure only maps status DOMAIN_ERROR (13) in database domain to DatabaseException.",
+      "Other statuses reach NativeError.Create; NW_INVALID_STATE maps to InvalidOperationException."
+    ],
+    "status_reason_distinction": "Database DOMAIN_ERROR reason8 remains DatabaseException(InvalidState); status4 and domain reason8 are different fields.",
+    "independently_inspected_here": [
+      "Actual Host admission and Error.state implementation",
+      "HostFailure status/domain routing",
+      "NativeError.InvalidState managed exception mapping",
+      "Three frozen contract excerpts and exact file hashes"
+    ],
+    "frozen_contracts": [
+      {
+        "path": "docs/contracts/error-v0.1.md",
+        "sections": [
+          "section2 status4 INVALID_STATE versus status13 DOMAIN_ERROR",
+          "section5 managed mapping"
+        ],
+        "finding": "Invalid state maps to an API state exception; domain errors map to provider/domain exceptions.",
+        "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+        "sha256": "f110fba00ee2479c8a12648ecc1fbb592ca45866e1e25dc31b5445a694b95bd4"
+      },
+      {
+        "path": "docs/api/interop.md",
+        "sections": [
+          "managed failure table around line127"
+        ],
+        "finding": "Invalid sequencing maps to InvalidOperationException.",
+        "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+        "sha256": "2b32e5c2dcdfe78dd0b39014949a88bf91d6b2d011f8d75117e00507ecae4b74"
+      },
+      {
+        "path": "docs/api/database.md",
+        "sections": [
+          "error taxonomy around line210",
+          "ForUpdate around lines609-611",
+          "domain reason mapping around lines245-250"
+        ],
+        "finding": "ForUpdate requires an active explicit transaction. Database reason8 applies to DOMAIN_ERROR mapping and does not override Core INVALID_STATE.",
+        "commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+        "sha256": "1667c15e905b642717e77e5dfda322a0fc329dc7df31fd72e6d86e57b5c1c0ea"
+      }
+    ],
+    "production_source_hashes_verified": [
+      {
+        "path": "native/database/host/src/abi.rs",
+        "sha256": "2c3a7f9c9d140189b6f6920b52a918e55d003761a4ab9a62a40bed071b27783c",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/host/src/error.rs",
+        "sha256": "a4efc405e7d29e853f20d48752c093eeb65b545eee4ac94a8b5558c6896fa354",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/host/src/session.rs",
+        "sha256": "c22fb27b364222f8bbaf8335adfaaa57453281e42ecaea2590e558cfcddfd3ec",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/host/src/sql.rs",
+        "sha256": "80d0557ba882428ebd24513fcdd1ed53c43803b04be1fb7b3a4c505b41298e55",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/query/src/lib.rs",
+        "sha256": "2b708be6ac04b9095539a7b2a0a88c802277529a476b1591bc7f2d668e5c0062",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/query/src/plan.rs",
+        "sha256": "c61239a8a06f6959a776eb02c5997ca5f7913939e698d8c54dac57758c3e5a6c",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/binding/src/lib.rs",
+        "sha256": "52c878a9acd4434f0ce0f535fa6e81b1a16fa0831fc6a7ff5ae62f6400ea8f2e",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/binding/src/arena.rs",
+        "sha256": "19acffdd9fdfb23917c5591f816395de79510937ea539931d11573a61e4e6402",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "native/database/binding/src/clauses.rs",
+        "sha256": "7c37cff38fbc92d4d5d312f5c33e3ce4a6dd093777efce03f377cd645718f4f2",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Data.NativeHost/NativeHost.cs",
+        "sha256": "ef7f1d08b60785539f2d5277918e103a8923bb9a67168b687cab0f1a7100a6f5",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Data.NativeHost/DatabaseOptions.cs",
+        "sha256": "b60c38044a3490ada43137cfa61d41a2ff73c40c94d55998ce99309b7c5787be",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Interop.Errors/NativeError.cs",
+        "sha256": "8e30dc71b3060e673ec4bc425b8938dc23f5f706c749bbe7fcd187da5a6c24e7",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Fluent/Query.cs",
+        "sha256": "8166599aea66777aaf404f0568a4d008d6718826ceff1293794b95f6190f9234",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Fluent/QueryContext.cs",
+        "sha256": "30670cbe53079a13a2bee6993654cf4115130b2441c206276507d40e210a6306",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Fluent/Projections.cs",
+        "sha256": "54bc89ddc43030a0fea3833dbacaaec29e8038f1e224371d588d0c1ef93fe66c",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Fluent/Expressions.cs",
+        "sha256": "5ac2bf65bf9ce43e62719792dbb9694087308daf22972ca2f12fbb5a783bea29",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Fluent/Terminals.cs",
+        "sha256": "b04e1f00a1b9462dd164cd2ac3b03045d102fdddce5ca4a2812052eab4e7afe7",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Binding/QueryBinding.cs",
+        "sha256": "5214de78700bb00e51400071be721a2f9e133877098688e99c2a99ce95dbb916",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Query.Binding/Owners.cs",
+        "sha256": "a0ed6512b85e42cbf73206c027868305dca528b17c425e13fc22ec7c8368a88a",
+        "unchanged_from_candidate6_and_fresh_main": true
+      },
+      {
+        "path": "src/Data.Streaming/TypedStream.cs",
+        "sha256": "b3bc0ea7bbba003fbf4119030aaaadeb4052cf8144e5731f8b57849f4205d72a",
+        "unchanged_from_candidate6_and_fresh_main": true
+      }
+    ],
+    "production_source_count": 20,
+    "production_or_API_behavior_changed": false
+  },
+  "final_reviewed_source_hashes": {
+    ".github/workflows/build.yml": {
+      "sha256": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    ".gitleaksignore": {
+      "sha256": "f376f30330d14a0b854c1a751e6952e3e780165032fb396559400e97a28cf2df",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "docs/guides/data-postgres.md": {
+      "sha256": "9e46e76780cac92340b8e7ad6e7441ef3233ef6bc5e4f85c4247816958e1c556",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "docs/guides/data-sqlite.md": {
+      "sha256": "2c3ef9a570d0ff34fb201f4facc39abfd7102cf4968670ae8957529a255be994",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/build.py": {
+      "sha256": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/database_regressions.py": {
+      "sha256": "9b1d3521f12767b2944d1e85b7ae207eb2398b14ef1f0348f60dcad26e9b03fb",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "eng/task07_native.py": {
+      "sha256": "2d7364b31fd08aaf167786c0a2aad35e747cd0138d354f1c1ee1f690a121dda7",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "eng/verify-task04-linux.sh": {
+      "sha256": "fce00c72ccdae997edc0d40667f60ffb24e899475408597219d3c4401bded098",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "eng/verify-task07-linux.sh": {
+      "sha256": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "samples/api/data-postgres/Program.cs": {
+      "sha256": "0e9d30244935385d6f5f8fa661b13526145cdccd2d750376c71ac6d1eb07b5f2",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "samples/api/data-postgres/packages.linux-x64.aot.lock.json": {
+      "sha256": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "samples/api/packaging-domain/AddedModels.cs.template": {
+      "sha256": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "samples/api/packaging-domain/Program.cs": {
+      "sha256": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "samples/api/reference-taskservice/README.md": {
+      "sha256": "0e9442d17487a8dd0a6628512284d8efa361ecb3c02b245df4a2c621e167151e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Build.Integration/ApiReference/Program.cs": {
+      "sha256": "f1bf90c132c9c20744d347235c0c1ac59a14bbdd1df985930c79426a7bdbd068",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Abstractions/api-reference.md": {
+      "sha256": "e5d920735334a1e8b8143829e91707f70670cbaca8dadd70c03e4b84d5cb50e3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Abstractions/public-api.expected.json": {
+      "sha256": "57bf3c98da9955bba1293ac7b6a8eab22364e35c904c2f4d161d861b2a949e4a",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Migrations/reference/database.json": {
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Migrations/reference/database.md": {
+      "sha256": "4f6a16b4237b8818db6d905b9d2fddfcaa06f58de51d457972136c117850cc0b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.NativeHost/DependencyInjection/NativeWeave.Database.DependencyInjection.csproj": {
+      "sha256": "adb087ada6f203e921f4f7bcb274d92178d7d15249b5f48982426d31aac8be60",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "src/Data.NativeHost/reference/database.json": {
+      "sha256": "059e2339f0df8e9f999753be7ebb5d99b0b32efb2c62c3d076b0f0065c6cda63",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.NativeHost/reference/database.md": {
+      "sha256": "c3824403aecdf054b6e405167c87105f3cf9705f6e12925017f2c49404c07d72",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/api-reference.md": {
+      "sha256": "2311d682e019243ff7f153b4438f50d9868d9a138af23ca3ec1740e1b5a5b6e9",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/downstream-composition.json": {
+      "sha256": "3434475795809930aa23f44c837894a9f1531e155967aa9ba3004b597c43abb2",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Postgres/public-api.expected.json": {
+      "sha256": "2c5035b345c9a155b458474ccb28c558aba3aa2b21a9bb087577b6fed9930496",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/api-reference.md": {
+      "sha256": "b91272f936575b783e3eec671c7a12f675a57c093044727a534576e5448533a4",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/host-composition.expected.json": {
+      "sha256": "50da9b80d6a2195286052c3e38a6f7a14704f565e0469496c305ec0b8613c14b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Data.Sqlite/public-api.expected.json": {
+      "sha256": "8be25f466ddcd85c4e19dcbce66e2ad3f6c84331c6da0c9d9dfab38fca5111c3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Orm.Relations/reference/data.md": {
+      "sha256": "198ab1c99b1317148bbaa9e23c176da762f8de553b19f4497f352a44743347a6",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Orm.Relations/reference/database.md": {
+      "sha256": "5e4a4f7e9d7655ac3c443355c62e9d98720a0f44a8cf1947d27aeac4cd32d1c6",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Packaging.Domain/consume.py": {
+      "sha256": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/inventory.py": {
+      "sha256": "518b2479e13b25d53e783214537da73500fbceb324f9208bd83a6bd37dbbbdff",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/model.py": {
+      "sha256": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Domain/prepare.py": {
+      "sha256": "72c6b4bcd11d1716416e6e8e294626567b5aec7d59fc4e4b73f42f13bfd481ed",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Packaging.Release/BuildTasks/PackageClosure.cs": {
+      "sha256": "74db56973f28020085b77fd084b3af83e68802728f6e84897efc6b7cc6653c0c",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Release/buildTransitive/NativeWeave.Packaging.targets": {
+      "sha256": "23fdb5958aba7c93bc67dbcc0bdca5b8ef0616b74c1f40660dd85d1cfd3caa1b",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Packaging.Release/release.py": {
+      "sha256": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "src/Reference.TaskService/BlobStore.cs": {
+      "sha256": "e1fc4dae357efb7b05dce546ea7a403b5642c2397c2750fe7dd8d3eabd93c64c",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/DatabaseService.cs": {
+      "sha256": "11f3ff4856974dca05344e415fec9bd0cd38bb109f8d34d15334bb42a5cfd087",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/FixtureCases.cs": {
+      "sha256": "7529dab611991e94e1b1622466cf24b08a9b28fce80a5bbf7eac9c7a8868893a",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/Maintenance.cs": {
+      "sha256": "4e1ad45cf465ab00670cd8ceecfaad13466128410ea6ace70966dac4f2b36181",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/OutboxWorker.cs": {
+      "sha256": "099e21259781acff9b843fbf7cf97038610394d220c954dbe5d93e5a28ef8405",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "src/Reference.TaskService/Program.cs": {
+      "sha256": "81faeddf10fa3aeb8727729f8456f5aa7336b112d420d65b0a63d58726d81151",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Abstractions/ApiCheck/Program.cs": {
+      "sha256": "f3655a6c29fb709671c057de6f5ab0010f806d0c6d14b2f41ae8362d2bb2b727",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Abstractions/verify.py": {
+      "sha256": "cc03c8f501a1089cd4b8b24f51fd2e68fff11c00c657ac4332f6df829e191f8b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Migrations/NativeWeave.Data.Migrations.Tests.csproj": {
+      "sha256": "d63f7c448d58eb18c2e99b25308a34e6d154c830961f5d5f8a714aeb583d1139",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.NativeHost/NativeWeave.Data.NativeHost.Tests.csproj": {
+      "sha256": "0c7297cea3fa603f7ca0118629b00af71ef169f1bf9676f2b740d08e1de4e012",
+      "review": "reviews/candidate6-runner-isolation-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/ApiCheck/Program.cs": {
+      "sha256": "78ac7ccd48738e1d49d563aee86c9223b30a162ce5005191676d72fb3a9aa372",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Postgres/NativeWeave.Database.PostgreSql.Tests.csproj": {
+      "sha256": "954b99be8d026b68e30ada820d3e294090ed0f755193de6c45e2af1f94609413",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/Program.cs": {
+      "sha256": "232cd600e9234559f0cebafcf19c0e80e99d5ff5f83165d2144562256864bf9b",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/packages.linux-x64.aot.lock.json": {
+      "sha256": "dba8e8389902a37c1c3cb281c82786161e92116f1e8b9007a288c5155ae637d7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Postgres/verify.py": {
+      "sha256": "5fc6c95d9dfc0a23b5d36b115200e34ce6e729e67871453888a5679cfe5a61f5",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/ApiCheck/Program.cs": {
+      "sha256": "756aae2e4bfefb12e7cf57ed7aadf59f7f9a5c7845f1763e0982bacea12879d2",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Data.Sqlite/NativeWeave.Data.Sqlite.Tests.csproj": {
+      "sha256": "3252486094113868971126248e2a330657d9525e8a6e1a7baf42bfac4ae71988",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/Program.cs": {
+      "sha256": "440407ef76a2f0386ce3691996bf9197a608ecb2166abcd75c53936577444500",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/packages.linux-x64.aot.lock.json": {
+      "sha256": "72ba396f7020517a3c1e5decd176d9b1c476dbc13f32c4f35cfe3d68728f3014",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Data.Sqlite/verify.py": {
+      "sha256": "e8ce85c2d6f004a7ad2769ff194abf93ca0fa75bd37e4072d2aa5c5cb08a17a7",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Interop.Abi/verify.py": {
+      "sha256": "4f206c6e842435a2a46e7bd2dd34967e56e157b5f15d02e44b26ad42c64b6ddc",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/consumer_cases.py": {
+      "sha256": "715da0c4dc82a75ec2eab73047cffc92f69e1faec26ef6726daba7f9ac7c1363",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/negative_cases.py": {
+      "sha256": "211f4cfa386a66f5de36d4aa28f20867907ce33d87ee2326f4f74ec2b4fa059f",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/registry_cases.py": {
+      "sha256": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/release_cases.py": {
+      "sha256": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Packaging.Domain/runtime_verify.py": {
+      "sha256": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831",
+      "review": "reviews/packaging-static-review-5498e971.json",
+      "reviewer": "independent product_scope agent; packaging implementation authored by old_task_inventory"
+    },
+    "tests/Packaging.Domain/test_release_results.py": {
+      "sha256": "c7bd8045183b8fd43022c96293b04517f467355196c8fa73c2f2f434110e74c4",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/ProviderProfileChecks.cs": {
+      "sha256": "fe625ce8c447d76089f0eae715c9ea6a820f684233f9516e7bf4a44bc90c2b0a",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Query.Binding/native/src/tests.rs": {
+      "sha256": "9affa9fccbbc011b0d9f2232fd887b5dcc080ee529caaab35a057595eaa4386b",
+      "review": "standalone-fixture-format-audit/published-candidate5-source-binding.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Query.Fluent/Program.cs": {
+      "sha256": "bcfa85032dfe4049ca98b39b541f7ddb7c34bbfc889bf32d99ba51bb29dfb990",
+      "review": "reviews/query-fluent-negative-contract-review-4b61cf47.json",
+      "reviewer": "design_scope"
+    },
+    "tests/Reference.TaskService/README.md": {
+      "sha256": "309342674301ad3204292b8053a4679b6eb4e80a8fea8bcb6af076df8a2a482b",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/golden-v1.json": {
+      "sha256": "0225f73ee78dbf11d5d529d680cc723c2e8f6880eab89ba0f50103047eb4901e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/golden.py": {
+      "sha256": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/package_probe.py": {
+      "sha256": "91df18f29c38896031c4b7bf91f6d4feab9504c8090442f5f449f67d1dca21d3",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/postgres_oracles.py": {
+      "sha256": "b0382d1ecbad680c31d5e836c7b46c9926dc17c999aebdcbec3eaad8a997ec6c",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Reference.TaskService/run.py": {
+      "sha256": "58fa8d3193b4e02dd3941cdfb9f0e550cf72172cd16fa4556b6647b702f38561",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Tooling/test_evidence.py": {
+      "sha256": "56184a082eabbb125209853aa5ed41307d58c012b75a4b867e34118ee692d195",
+      "review": "reviews/provider-integration-review.json",
+      "reviewer": "/root/old_task_inventory"
+    },
+    "tests/Verification.EndToEnd/api_probe.py": {
+      "sha256": "c6ba8e4fbd582a856dc0f7c8053661a74766acdfbe2ebf584b3bd4b2f86073bd",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/faults.py": {
+      "sha256": "3f2c31535fd8948c080a053e27162c503b80eca45359f42e94153c9230571b2e",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/harness.py": {
+      "sha256": "6c6605388b74f8f416b4d3d75d64c68801ebd1f19d474b013b7600c684d48a76",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    },
+    "tests/Verification.EndToEnd/run.py": {
+      "sha256": "6c2a9ef10cac28bb7e7469f6b5ee104e654646689e0cd4cb393562654004f433",
+      "review": "reviews/product-static-review-c0b810eb.json",
+      "reviewer": "/root/design_scope"
+    }
+  },
+  "complete_later_delta_coverage": {
+    "prior_candidate": "7ae0c583e7bdf99e8bd29320cfc74e8cce6e9f41",
+    "final_candidate": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "new_paths": [
+      "tests/Query.Fluent/Program.cs"
+    ],
+    "new_path_count": 1,
+    "prior_reviewed_paths_unchanged": 77,
+    "final_reviewed_source_path_count": 78,
+    "uncovered_paths": [],
+    "all_other_tracked_files_identical_by_git_diff": true
+  },
+  "scoped_author_execution_observation": {
+    "owner": "/root/product_scope",
+    "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/result.json",
+    "sha256": "c9f40fb58696d6ab89d6aa3f81d216168a9ee4011baa84d06ebd9ae76ecee6b5",
+    "actual_execution_commit": "4b61cf471fa90cc3e00798daf3293b6dcdba69ff",
+    "actual_execution_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+    "same_tree_as_published_candidate": true,
+    "reported_scope": "Exact committed selected complete database suites and API/negative/generator tail only",
+    "selected_suites": [
+      "Query.Fluent",
+      "Orm.Relations"
+    ],
+    "status": "passed",
+    "command_count": 18,
+    "all18_command_log_hashes_verified": true,
+    "runtime_cells": 4,
+    "migration_process_cells": 0,
+    "commands": [
+      {
+        "name": "Query.Fluent-restore",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-restore.log",
+        "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+      },
+      {
+        "name": "Query.Fluent-build",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-build.log",
+        "sha256": "e43d68ae8eb056fca170d8a9ceb9d608c590eade62983fb11e10e617b56fb408"
+      },
+      {
+        "name": "Query.Fluent-jit",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-jit.log",
+        "sha256": "8940f47d015b01ef2e4f399a89e49b22a94509c529d340f19741dd823ac316e0"
+      },
+      {
+        "name": "Query.Fluent-aot-restore",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-aot-restore.log",
+        "sha256": "c1a7c81d1073278ec024c2d17188bd191af03d3786a3fcb483c81492c80a3863"
+      },
+      {
+        "name": "Query.Fluent-aot-publish",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-aot-publish.log",
+        "sha256": "3fb983e937444b4f4ce087f813e723b565a235f6a7bfd9c97b2a4699f0c532ef"
+      },
+      {
+        "name": "Query.Fluent-aot",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Query.Fluent-aot.log",
+        "sha256": "760e71dd0ecae352c45fd993332166d4c73cc76913a52e9ffcf38b19a83925c6"
+      },
+      {
+        "name": "Orm.Relations-restore",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-restore.log",
+        "sha256": "a36ae47354740484368f874f421d92d7fc448c0d091ddf99270ac7f11bfb8422"
+      },
+      {
+        "name": "Orm.Relations-build",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-build.log",
+        "sha256": "b29da6b0a76fdb97123b735e62fefafa863fc2fd20be35957a1aeafbbad84102"
+      },
+      {
+        "name": "Orm.Relations-jit",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-jit.log",
+        "sha256": "8cdb85a33c408774dd160c48f63bcef6b385257373108a57902999fac6c182c3"
+      },
+      {
+        "name": "Orm.Relations-aot-restore",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-aot-restore.log",
+        "sha256": "2d4072d06f3cbc1a4fa35b3f57aa663a94849cbfdec65b36d92b0c658f8521a9"
+      },
+      {
+        "name": "Orm.Relations-aot-publish",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-aot-publish.log",
+        "sha256": "3f996683b481cb0222c9094b09b1484407eab788e1f19f1632fa298e09774c43"
+      },
+      {
+        "name": "Orm.Relations-aot",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-aot.log",
+        "sha256": "02939e2d0dd1c2f8dfe958ef39e416a19d74521d3694cea4c20fc4ddc971ebb7"
+      },
+      {
+        "name": "Data.Migrations-api",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Data.Migrations-api.log",
+        "sha256": "286fce17e519bb440158820c7a5d700db233d349cc1ad4ea7c0daac93331d314"
+      },
+      {
+        "name": "Orm.Relations-api",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/Orm.Relations-api.log",
+        "sha256": "f3ca77362631a62e83e4bad97cbf7c733eb7bddee93524b887cba325701419fd"
+      },
+      {
+        "name": "relations-type-errors",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/relations-type-errors.log",
+        "sha256": "43e7a334fe9c441b0d7502a2d92352efd0312bd75075c77624f32790d1a7d77e"
+      },
+      {
+        "name": "fluent-api",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/fluent-api.log",
+        "sha256": "95dcf3d8afdc16b8fddaaa06420c31b04c5f59058f7c1a77fccdb13499f1571d"
+      },
+      {
+        "name": "query-generator",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/query-generator.log",
+        "sha256": "57e2b53a73958ef5827c21f2a0321a525c2ddf411b163fdd0db2fbb13be8508a"
+      },
+      {
+        "name": "query-generator-api",
+        "exitCode": 0,
+        "log": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/logs/query-generator-api.log",
+        "sha256": "a9e038217a5af504f45e7396cd4237508fd61f702c55231dcd15025169803dd9"
+      }
+    ],
+    "source_before": {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/source-inputs.json",
+      "sha256": "00d8025b98fc457fb5a925ad2b1074f584f0b36b28eca93788cc803934b16dc5"
+    },
+    "source_after": {
+      "path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/local-candidate7-tail/source-inputs-after.json",
+      "sha256": "00d8025b98fc457fb5a925ad2b1074f584f0b36b28eca93788cc803934b16dc5"
+    },
+    "all_source_inputs_equal_before_after_and_published_git": 857,
+    "executed_source_sha256": "a5d368e641d40d61f52dc8702e48ce3e42c863b70139d032e071e6c022afc11e",
+    "execution_by_this_reviewer": false,
+    "full_pipeline_acceptance": false,
+    "binary_hash_boundary": "Original producer-recorded binary hashes remain in the receipt. This static review does not reread mutable in-tree build outputs while the root full pipeline is running."
+  },
+  "preserved_failed_attempt": {
+    "combined_qualification_receipt": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/combined-targeted-receipt.json",
+    "combined_receipt_sha256": "78019de6801df99d856eed566215292ffd4a99e8573ac34958e256be56c27e47",
+    "candidate6_result_path": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/remaining-aot-locks/candidate6-runtime/result.json",
+    "candidate6_result_sha256": "225695df978d1154f0c6e056c975c6ddf5e50c42de525293fc487a324e3be874",
+    "candidate6_commit": "7ae0c583e7bdf99e8bd29320cfc74e8cce6e9f41",
+    "candidate6_result_status": "failed",
+    "original_failure_preserved": true,
+    "no_relabel_as_candidate7_runtime": true,
+    "source_split": "Candidate6 completed Host/Migrations/Materialization and both migration process cells before its Fluent expected-type failure. Local candidate7 independently completed Fluent/Relations JIT/AOT plus the six API/negative/generator commands. The combination is scoped qualification, not a single successful full current-source pipeline."
+  },
+  "limits": [
+    "This extends source review applicability and inspects scoped author receipts; it is not a GitHub/human approval or merge authorization.",
+    "The original independent packaging review remains attributed to product_scope; the consolidator does not independently approve its own packaging implementation.",
+    "Actual targeted execution belongs to local4b61 at the identical tree; it is not relabeled as execution of the published7e05 commit.",
+    "Candidate6 remains failed. Its successful individual cells are not promoted to a full candidate7 pass.",
+    "Current full Rust/C# regression, package JIT/AOT consumers, pristine SDK/runtime-only execution, required PR checks and merged-main CI require their own exact-source evidence.",
+    "Any later source tree change requires applicable review updates."
+  ],
+  "new_builds_or_runtime_tests_by_reviewer": false,
+  "source_or_plan_edits": false,
+  "github_review_submitted": false,
+  "merge_authorization_claimed": false
+}

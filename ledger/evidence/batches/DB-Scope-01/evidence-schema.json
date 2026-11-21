@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DB-Scope-01 evidence receipt v1",
+  "description": "Receipt shape. tools/verify_db_scope.py additionally checks actual file hashes, canonical task paths, candidate source equality and final PR/CI binding.",
+  "allOf": [
+    {
+      "$ref": "#/$defs/receipt"
+    }
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "commit",
+        "tree"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "Plan": {
+          "$ref": "#/$defs/source"
+        },
+        "NativeWeave-Design": {
+          "$ref": "#/$defs/source"
+        },
+        "NativeWeave": {
+          "$ref": "#/$defs/source"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^ledger/evidence/batches/DB-Scope-01/.+"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "evidence_reference": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^ledger/evidence/batches/DB-Scope-01/.+"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      }
+    },
+    "ci_run": {
+      "type": "object",
+      "required": [
+        "repository",
+        "url",
+        "head_commit",
+        "scope",
+        "status",
+        "conclusion"
+      ],
+      "properties": {
+        "repository": {
+          "enum": [
+            "Plan",
+            "NativeWeave-Design",
+            "NativeWeave"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/IzuSharp/(Plan|NativeWeave-Design|NativeWeave)/actions/runs/[1-9][0-9]*$"
+        },
+        "head_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "scope": {
+          "enum": [
+            "pr_head",
+            "merged_main"
+          ]
+        },
+        "branch": {
+          "type": "string"
+        },
+        "status": {
+          "const": "completed"
+        },
+        "conclusion": {
+          "const": "success"
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "task",
+        "platform",
+        "claims",
+        "outcome",
+        "sources",
+        "artifacts"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "task": {
+          "const": "DB-Scope-01"
+        },
+        "platform": {
+          "const": "linux-x64"
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "csharp_workspace",
+              "dependency_and_loaded_asset_closure",
+              "independent_review",
+              "merged_main_ci",
+              "no_consumer_rust_invocations",
+              "postgresql_package_aot",
+              "postgresql_package_jit",
+              "postgresql_regression",
+              "required_pr_checks",
+              "retained_api_and_format",
+              "rust_workspace",
+              "sqlite_package_aot",
+              "sqlite_package_jit",
+              "sqlite_regression"
+            ]
+          }
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "failed",
+            "blocked"
+          ]
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "required_checks_complete": {
+          "type": "boolean"
+        },
+        "ci": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ci_run"
+          }
+        }
+      }
+    },
+    "merged_pr": {
+      "type": "object",
+      "required": [
+        "url",
+        "state",
+        "head_commit",
+        "head_tree",
+        "merged_commit",
+        "merged_tree",
+        "head_checks",
+        "merged_main_checks"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/IzuSharp/(Plan|NativeWeave-Design|NativeWeave)/pull/[1-9][0-9]*$"
+        },
+        "state": {
+          "const": "merged"
+        },
+        "head_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "head_tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "merged_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "merged_tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "head_checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence_reference"
+          }
+        },
+        "merged_main_checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence_reference"
+          }
+        }
+      }
+    }
+  }
+}

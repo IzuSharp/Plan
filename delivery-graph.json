@@ -10342,5 +10342,130 @@
     "mandatory_global_runtime": false,
     "delivery_execution_authorized": false
   },
-  "public_api_standard_version": "1.0.0"
+  "public_api_standard_version": "1.0.0",
+  "current_execution": {
+    "task": "DB-Scope-01",
+    "branch": "task/DB-Scope-01-linux",
+    "platforms": [
+      "linux-x64"
+    ],
+    "authorization": "User instruction on 2026-11-21 supersedes Perf-01 and historical research-only scope; authorize pruning, necessary regression fixes, commits, PRs, reviews and compliant merges in all three repositories.",
+    "product_goal": "Strongly typed Fluent ORM for PostgreSQL and SQLite in ordinary C# applications, Native AOT, Rust SeaQuery and SQLx.",
+    "source_main": {
+      "Plan": "8afa0311f45ab8a8157fc45c51e95a0b17dd09f2",
+      "NativeWeave-Design": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+      "NativeWeave": "ea5fa528035d025bd7a28698ee7c71194432236c"
+    },
+    "plan": "ledger/evidence/batches/DB-Scope-01/plan.md",
+    "handoff": "ledger/evidence/batches/DB-Scope-01/handoff-linux.md",
+    "acceptance": "ledger/evidence/batches/DB-Scope-01/acceptance.json",
+    "historical_node_policy": "The 48 nodes below, their packets, all research/design acceptance, and Task-01 through Task-07 evidence retain their historical bytes/status. They do not define current product scope or authorize resuming retired work.",
+    "retain": [
+      "PostgreSQL",
+      "SQLite",
+      "Database Host",
+      "pool",
+      "session",
+      "transaction",
+      "migration",
+      "parameter binding",
+      "strongly typed Fluent",
+      "static models",
+      "DTO mapping",
+      "relations",
+      "CRUD",
+      "streaming",
+      "cancellation",
+      "errors",
+      "disposal",
+      "C# Rust binding",
+      "Native AOT packaging"
+    ],
+    "remove": [
+      "NativeWeave HTTP server",
+      "NativeWeave gRPC server and binding",
+      "routing and protocol wrappers",
+      "MCP",
+      "server examples",
+      "independent compression engine",
+      "HelloWorld demo packages",
+      "orphan generic Generators.Model/CSharp/Rust and Metadata products",
+      "orphan generic Analyzers product",
+      "generic proof-only native build profiles and MSBuild targets",
+      "artificial packaging conformance product after guard migration"
+    ],
+    "deferred": [
+      "performance optimization",
+      "30-minute load tests",
+      "new ORM features",
+      "new ASP.NET Core or gRPC wrappers",
+      "Windows validation",
+      "public domain package release"
+    ],
+    "phases": [
+      {
+        "id": "stop-and-clean",
+        "depends_on": [],
+        "state": "complete"
+      },
+      {
+        "id": "plan-first",
+        "depends_on": [
+          "stop-and-clean"
+        ],
+        "state": "complete"
+      },
+      {
+        "id": "design-prune",
+        "depends_on": [
+          "plan-first"
+        ],
+        "state": "complete"
+      },
+      {
+        "id": "implementation-prune",
+        "depends_on": [
+          "design-prune"
+        ],
+        "state": "complete"
+      },
+      {
+        "id": "linux-regression",
+        "depends_on": [
+          "implementation-prune"
+        ],
+        "state": "complete"
+      },
+      {
+        "id": "external-consumers",
+        "depends_on": [
+          "linux-regression"
+        ],
+        "state": "complete"
+      },
+      {
+        "id": "review-and-merge",
+        "depends_on": [
+          "external-consumers"
+        ],
+        "state": "in_progress"
+      }
+    ],
+    "dependency_audit": "ledger/evidence/batches/DB-Scope-01/dependency-audit.json",
+    "scope_refinements": [
+      {
+        "id": "database-dependency-tooling",
+        "reason": "Initial inventory confused generic Generators.Model with actual Query.Generator; trace database public/package/native paths before retaining generic tooling.",
+        "order": [
+          "plan-update",
+          "design-update",
+          "orphan-code-prune-and-guard-migration"
+        ],
+        "plan_update": "published:d74f6bcc8b0e6c4b04105449e8436335bf34bd47",
+        "design_update": "published:2a8a300808f8376f96ece21a6c718d1dd0c72025",
+        "orphan_code_prune": "complete:19252c6 (included in product candidate26328245)",
+        "audit": "ledger/evidence/batches/DB-Scope-01/dependency-audit.json"
+      }
+    ]
+  }
 }

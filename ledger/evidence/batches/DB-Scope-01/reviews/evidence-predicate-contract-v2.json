@@ -1,0 +1,403 @@
+{
+  "aot_system_dependencies": [
+    "libc.so.6",
+    "libgcc_s.so.1",
+    "libm.so.6",
+    "libdl.so.2",
+    "libpthread.so.0",
+    "librt.so.1",
+    "ld-linux-x86-64.so.2"
+  ],
+  "business_check_ids": [
+    "attachment-bytes-and-version",
+    "cursor-authentication",
+    "durable-idempotency-replay",
+    "fresh-durable-records-retained",
+    "idempotency-conflict",
+    "optimistic-conflict-rolls-back",
+    "outbox-delivery",
+    "outbox-replay-no-duplicate",
+    "recovery-principal-scope",
+    "tenant-principal-scopes",
+    "typed-keyset-pages",
+    "typed-optimistic-attachment",
+    "typed-recovery"
+  ],
+  "common_packages": [
+    "NativeWeave.Interop.Abi",
+    "NativeWeave.Core",
+    "NativeWeave.Data",
+    "NativeWeave.Database.Transactions",
+    "NativeWeave.Data.Streaming",
+    "NativeWeave.Query.Binding",
+    "NativeWeave.Query.Generator"
+  ],
+  "engines": {
+    "database.postgresql": {
+      "asset": "libnw_database_postgresql.so",
+      "facade": "NativeWeave.Database.PostgreSql"
+    },
+    "database.sqlite": {
+      "asset": "libnw_database_sqlite.so",
+      "facade": "NativeWeave.Database.Sqlite"
+    }
+  },
+  "fault_assertion_ids": {
+    "begin-transport-loss": [
+      "real-boundary-error",
+      "operation-cardinality",
+      "retry-after-transport-loss",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "proxy-has-no-controller-failure"
+    ],
+    "commit-acknowledgement-discarded": [
+      "uncertain-commit-distinct",
+      "independent-recovery-outcome",
+      "unknown-remains-protected",
+      "actual-commit-ack-discarded",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "proxy-has-no-controller-failure"
+    ],
+    "commit-held-before-upstream-send": [
+      "operation-cardinality",
+      "uncertain-commit-distinct",
+      "independent-recovery-outcome",
+      "unknown-remains-protected",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "proxy-has-no-controller-failure"
+    ],
+    "orphan-collection-interrupted": [
+      "crash-inside-actual-collection",
+      "reference-safe-across-collector-crash",
+      "orphan-collection-resumes",
+      "reachable-reference-after-gc"
+    ],
+    "outbox-after-publication-before-ack": [
+      "outbox-fixture-committed",
+      "consumer-durable-before-source-ack",
+      "source-ack-not-recorded",
+      "at-least-once-one-effect",
+      "retry-ack-committed"
+    ],
+    "postgres-restart": [
+      "restart-does-not-invent-confirmation",
+      "operation-cardinality",
+      "actual-postgres-restart-recovery",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes"
+    ],
+    "provider-drain-failure": [
+      "committed-effect-survives-cleanup-failure",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "discarded-connection-is-not-reused",
+      "proxy-has-no-controller-failure"
+    ],
+    "sqlite-busy": [
+      "real-busy-rejected",
+      "operation-cardinality",
+      "busy-release-restores-admission",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes"
+    ],
+    "sqlite-write-enospc": [
+      "actual-native-wal-write-was-faulted",
+      "commit-io-failure-preserves-unknown",
+      "storage-fault-not-durable",
+      "actual-sqlite-full-provider-code",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "sqlite-integrity-after-enospc"
+    ],
+    "upload-after-rename-before-commit": [
+      "renamed-content-complete",
+      "no-incomplete-reference",
+      "no-incomplete-reference",
+      "same-key-attachment-recovery",
+      "reconciled-reference-keeps-content"
+    ],
+    "upload-before-durable-content": [
+      "staged-content-incomplete",
+      "no-incomplete-reference",
+      "no-incomplete-reference",
+      "same-key-attachment-recovery",
+      "reconciled-reference-keeps-content"
+    ],
+    "write-transport-loss": [
+      "real-boundary-error",
+      "operation-cardinality",
+      "retry-after-transport-loss",
+      "operation-cardinality",
+      "atomic-item-result-outbox",
+      "stored-response-bytes",
+      "proxy-has-no-controller-failure"
+    ]
+  },
+  "fault_case_ids": {
+    "postgresql": [
+      "begin-transport-loss",
+      "write-transport-loss",
+      "commit-held-before-upstream-send",
+      "commit-acknowledgement-discarded",
+      "provider-drain-failure",
+      "postgres-restart",
+      "outbox-after-publication-before-ack",
+      "upload-before-durable-content",
+      "upload-after-rename-before-commit",
+      "orphan-collection-interrupted"
+    ],
+    "sqlite": [
+      "sqlite-busy",
+      "sqlite-write-enospc",
+      "outbox-after-publication-before-ack",
+      "upload-before-durable-content",
+      "upload-after-rename-before-commit",
+      "orphan-collection-interrupted"
+    ]
+  },
+  "keyset_check_ids": [
+    "keyset-complete-termination",
+    "keyset-multiple-tied-pages",
+    "keyset-no-duplicate-ids",
+    "tampered-valid-cursor-rejected",
+    "cross-tenant-valid-cursor-rejected",
+    "cross-principal-valid-cursor-rejected"
+  ],
+  "kind": "source_derived_expected_receipt_contract",
+  "lifecycle_case_ids": {
+    "postgresql": [
+      "commit-pre-admission-cancellation",
+      "pre-admission-cancel-confirmed-rollback",
+      "canceled-commit-no-durable-row",
+      "actual-failed-transaction-primary",
+      "failed-transaction-confirmed-rollback",
+      "early-database-stream-positive-first-row",
+      "live-cursor-holds-session-admission",
+      "early-database-stream-exit-releases-admission",
+      "public-session-safe-retirement",
+      "public-source-safe-retirement",
+      "closed-data-source-weak-reference-released",
+      "nullable-composite-foreign-key-direct-query",
+      "final-native-database-owners-zero",
+      "rollback-retains-same-physical-pg-session"
+    ],
+    "sqlite": [
+      "commit-pre-admission-cancellation",
+      "pre-admission-cancel-confirmed-rollback",
+      "canceled-commit-no-durable-row",
+      "actual-failed-transaction-primary",
+      "failed-transaction-confirmed-rollback",
+      "early-database-stream-positive-first-row",
+      "live-cursor-holds-session-admission",
+      "early-database-stream-exit-releases-admission",
+      "public-session-safe-retirement",
+      "public-source-safe-retirement",
+      "closed-data-source-weak-reference-released",
+      "nullable-composite-foreign-key-direct-query",
+      "final-native-database-owners-zero"
+    ]
+  },
+  "maintenance_check_ids": [
+    "bounded-outbox-claim",
+    "durable-result-reconciles-recovery",
+    "expired-key-has-no-permanent-replay-promise",
+    "expired-unreferenced-operation-removed",
+    "inside-seven-day-window-survives",
+    "missing-row-keeps-recovery-protection",
+    "old-orphan-collected",
+    "outbox-acknowledged",
+    "pending-outbox-protects-old-operation",
+    "persistent-consumer-counts-duplicate",
+    "persistent-consumer-one-effect",
+    "prepared-recovery-blob-preserved",
+    "recent-blob-grace-preserved",
+    "within-window-effect-confirmed",
+    "within-window-exact-replay-after-restart"
+  ],
+  "package_check_ids": [
+    "typed-entity-materialization",
+    "typed-native-database-roundtrip",
+    "typed-fluent-dto-query",
+    "database-local-owners-retired",
+    "actual-database-native-mapping"
+  ],
+  "package_negative_ids": [
+    "actual-domain-bootstrap-incompatible-abi",
+    "missing-domain-output-record",
+    "runtime-native-content-tamper",
+    "override-visible",
+    "override-suppressed",
+    "missing-exact-native-leaf-at-restore",
+    "valid-domain-task-control",
+    "missing-selected-domain-native",
+    "unsupported-domain-rid",
+    "domain-native-hash-before-compile",
+    "valid-domain-validation-control",
+    "unknown-domain-schema",
+    "duplicate-domain-package",
+    "duplicate-domain-json",
+    "unsupported-domain-cpu-baseline",
+    "malformed-domain-abi-integer",
+    "oversized-domain-engine-identity",
+    "domain-source-path-traversal",
+    "nonexact-domain-restored-edge",
+    "duplicate-selected-domain-native",
+    "domain-native-hash-during-build",
+    "domain-output-path-traversal",
+    "duplicate-domain-native-basename",
+    "unlisted-domain-known-version-restore"
+  ],
+  "packages": {
+    "NativeWeave.Core": [
+      "NativeWeave.Interop.Abi"
+    ],
+    "NativeWeave.Data": [],
+    "NativeWeave.Data.Streaming": [
+      "NativeWeave.Data"
+    ],
+    "NativeWeave.Database": [
+      "NativeWeave.Core",
+      "NativeWeave.Data",
+      "NativeWeave.Database.Transactions",
+      "NativeWeave.Data.Streaming",
+      "NativeWeave.Query.Binding"
+    ],
+    "NativeWeave.Database.PostgreSql": [
+      "NativeWeave.Core",
+      "NativeWeave.Data",
+      "NativeWeave.Database",
+      "NativeWeave.Query.Generator",
+      "NativeWeave.Database.PostgreSql.Native"
+    ],
+    "NativeWeave.Database.PostgreSql.Native": [],
+    "NativeWeave.Database.Sqlite": [
+      "NativeWeave.Core",
+      "NativeWeave.Data",
+      "NativeWeave.Database",
+      "NativeWeave.Query.Generator",
+      "NativeWeave.Database.Sqlite.Native"
+    ],
+    "NativeWeave.Database.Sqlite.Native": [],
+    "NativeWeave.Database.Transactions": [
+      "NativeWeave.Data"
+    ],
+    "NativeWeave.Interop.Abi": [],
+    "NativeWeave.Query.Binding": [
+      "NativeWeave.Data",
+      "NativeWeave.Interop.Abi"
+    ],
+    "NativeWeave.Query.Generator": []
+  },
+  "release_case_ids": [
+    "candidate-upgrade-and-actual-full-consumption",
+    "complete-previous-closure-fresh-process-rollback",
+    "live-process-rollback-rejected",
+    "matching-existing-closure-readback",
+    "partial-domain-publication-unadvertised",
+    "partial-rollback-rejected",
+    "resume-and-actual-previous-consumption",
+    "same-native-version-conflict-rejected",
+    "signature-scope",
+    "unknown-builder-rejected",
+    "unsigned-domain-repository-signature-rejected",
+    "wrong-provenance-subject-rejected",
+    "wrong-rid-rollback-rejected",
+    "wrong-source-rollback-rejected"
+  ],
+  "retired_package_prefixes": [
+    "nativeweave.server",
+    "nativeweave.protocols",
+    "nativeweave.engines",
+    "nativeweave.helloworld",
+    "nativeweave.conformance",
+    "nativeweave.verification.extensionproof",
+    "grpc.",
+    "google.protobuf",
+    "modelcontextprotocol"
+  ],
+  "review_basis": {
+    "evidence_map_sha256": "44bcca5b23c1951178e3de8dad1ef28a6fb0a9167490594037a348f7a806a5d2",
+    "head": "c0b810eb512c8907798a79842dac8eb1d4c6d55f",
+    "note": "Expected predicates derived from reviewed current source; candidate applicability is rechecked against each supplied commit object. No pending output is accepted here."
+  },
+  "reviewed_source_sha256": {
+    ".github/workflows/build.yml": "73f62606b20c30838397cf221f71e713b60ac549b9b66e7c88b24a505a3d1c1a",
+    "eng/build.py": "224aec2e0b8faee642d375e1c20809fa9569f3986a33295d90c3e007477c4ded",
+    "eng/task07_native.py": "2d7364b31fd08aaf167786c0a2aad35e747cd0138d354f1c1ee1f690a121dda7",
+    "eng/verify-task07-linux.sh": "8bb55bd253b11288f64441881a6d6b53d6d942c04e03fbb354d879d8ea2cc49e",
+    "samples/api/packaging-domain/AddedModels.cs.template": "d2dd4ec0b02bf464358a3f70e7fbdb003ff5a9524c57000fb1f303923df9009e",
+    "samples/api/packaging-domain/Program.cs": "cb5fdccd2047876b5be0b9fae38a20bbea6b39feb506d3ec77d975c6d675e120",
+    "src/Packaging.Domain/consume.py": "5423e8405d1c366372a07bb9b48247634a271b3befd4ea5cf0b3761ca9a3fcb4",
+    "src/Packaging.Domain/inventory.py": "518b2479e13b25d53e783214537da73500fbceb324f9208bd83a6bd37dbbbdff",
+    "src/Packaging.Domain/model.py": "5181128ad909d777c229099a2a45176bb10b11c931dc3ecdc6294906d771a158",
+    "src/Packaging.Domain/prepare.py": "72c6b4bcd11d1716416e6e8e294626567b5aec7d59fc4e4b73f42f13bfd481ed",
+    "src/Packaging.Linux/linux_profile.py": "60aa114ba3c36055bc5778b37b57ce5b438fe03a485465f259e442e9dfbbd26e",
+    "src/Reference.TaskService/FixtureCases.cs": "7529dab611991e94e1b1622466cf24b08a9b28fce80a5bbf7eac9c7a8868893a",
+    "src/Reference.TaskService/Program.cs": "81faeddf10fa3aeb8727729f8456f5aa7336b112d420d65b0a63d58726d81151",
+    "src/Reference.TaskService/Protocol.cs": "d811f05872741cffa0a144d9d90e5cdf8bd86eab8b2e8bad41161f416968e148",
+    "src/Verification.Compatibility/compatibility.py": "d186b03dd5896e2aad7070ddfd34186ff83e3a3364b921179150660317b3dc6b",
+    "src/Verification.EndToEnd/ApiProbe/DatabaseCases.cs": "ba4cc643d385faff64fb5ffda3449d45a0c6c9c893f140ccec4ff00fd5878473",
+    "src/Verification.EndToEnd/ApiProbe/Program.cs": "cb28434fcf19df8b518f1424b42df03cfcd61c80a8ecfdc2608f68590bde574a",
+    "src/Verification.EndToEnd/ApiProbe/required-cases.json": "ebebea5912fadbd0bb0e748b8dfb79878b296cfece75e1b89536fe825c457ed5",
+    "tests/Packaging.Domain/consumer_cases.py": "00576b22637d78884a1e01c47cf4d679c5e7632ebe43d70228d0e4b8f7be94e3",
+    "tests/Packaging.Domain/negative_cases.py": "211f4cfa386a66f5de36d4aa28f20867907ce33d87ee2326f4f74ec2b4fa059f",
+    "tests/Packaging.Domain/registry_cases.py": "eb1f18e0f275234660a52eddf40071d200db1b6ec5e967253b74e659430181ec",
+    "tests/Packaging.Domain/release_cases.py": "2e9ad59444dae1a79d5f4080ca5048a8df8c1c39d28a328aac8627517e59228f",
+    "tests/Packaging.Domain/runtime_verify.py": "3f54a461c8631b934e066bf99df9c9bfb72724ba6b76eb58909bad997b60d831",
+    "tests/Reference.TaskService/golden-v1.json": "0225f73ee78dbf11d5d529d680cc723c2e8f6880eab89ba0f50103047eb4901e",
+    "tests/Reference.TaskService/golden.py": "d62c5746506b3834790aff133c545fdae7c919298741f061892f050a562e4902",
+    "tests/Reference.TaskService/package_probe.py": "91df18f29c38896031c4b7bf91f6d4feab9504c8090442f5f449f67d1dca21d3",
+    "tests/Reference.TaskService/postgres_oracles.py": "b0382d1ecbad680c31d5e836c7b46c9926dc17c999aebdcbec3eaad8a997ec6c",
+    "tests/Reference.TaskService/run.py": "58fa8d3193b4e02dd3941cdfb9f0e550cf72172cd16fa4556b6647b702f38561",
+    "tests/Verification.EndToEnd/api_probe.py": "c6ba8e4fbd582a856dc0f7c8053661a74766acdfbe2ebf584b3bd4b2f86073bd",
+    "tests/Verification.EndToEnd/faults.py": "3f2c31535fd8948c080a053e27162c503b80eca45359f42e94153c9230571b2e",
+    "tests/Verification.EndToEnd/harness.py": "6c6605388b74f8f416b4d3d75d64c68801ebd1f19d474b013b7600c684d48a76",
+    "tests/Verification.EndToEnd/matrix.json": "bae30fd1c2afae78a40400b348978ad948a2f783da7820e6441ff087b9db1a9f",
+    "tests/Verification.EndToEnd/protocol_proxy.py": "fa69a615f410d8b4da7eedf2891b2a65d1687fe727905b0598333fccc28506d8",
+    "tests/Verification.EndToEnd/run.py": "6c2a9ef10cac28bb7e7469f6b5ee104e654646689e0cd4cb393562654004f433"
+  },
+  "rows": [
+    "sqlite-jit",
+    "sqlite-aot",
+    "postgresql-jit",
+    "postgresql-aot"
+  ],
+  "runtime_execution_claim": false,
+  "runtime_image": "mcr.microsoft.com/dotnet/runtime-deps:10.0.15-noble-amd64@sha256:ebb73a172b49758c6de2462305e872ea0cb37ad3ca27cc0d86bc48b6271eaace",
+  "schema_version": 1,
+  "sdk_image": "mcr.microsoft.com/dotnet/sdk:11.0.100-resolute-amd64@sha256:7913685c883a29dd8ba79da96172f5c6b29ed9be706ebe95935e3ef45f19c9c1",
+  "task": "DB-Scope-01",
+  "typed_data_expectation": {
+    "added_entity_dto": {
+      "Label": "ordinary edit",
+      "Number": 9
+    },
+    "evidence_boundary": "Runtime receipts export check names, not DTO rows; these exact values are bound by independently reviewed source bytes and the throwing assertions preceding receipt emission.",
+    "fluent_dto_rows": [
+      {
+        "Id": 2,
+        "Name": "typed 2"
+      },
+      {
+        "Id": 3,
+        "Name": "typed 3"
+      }
+    ],
+    "materialized_entity": {
+      "Id": 3,
+      "Name": "typed 3"
+    },
+    "row_count": 5,
+    "source": "samples/api/packaging-domain/Program.cs"
+  }
+}

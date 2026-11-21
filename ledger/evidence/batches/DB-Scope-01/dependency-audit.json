@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "task": "DB-Scope-01",
+  "kind": "read_only_dependency_scope_correction",
+  "product_source": {
+    "commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "tree": "ad858d6582043cafd3ad638e4e3c60e468ccfd87"
+  },
+  "method": "Enumerated every tracked csproj at the immutable fresh main; parsed ProjectReference edges. Read actual database generator/binding and database package producer/consumer entrypoints. This is source inspection, not product execution.",
+  "input_sha256": {
+    "src/Query.Generator/NativeWeave.Query.Generator.csproj": "ecd45581a12cc1520cbd47fceca67343e120d36e294e6e02c71e41645a1776ac",
+    "tests/Query.Binding/generate.py": "f410c1a67824b46a9f309e8f606e7ecdf222cd24c434e685140aef3e2135c6ae",
+    "native/database/binding/signatures-v1.json": "67e6c5480220dde85e4e36f0a1f09f9fcc4084666f2ec7fc389e53f35b9b747d",
+    "src/Data.NativeHost/NativeWeave.Database.csproj": "421d7e4ae1c2f39c29a26af4bbd5fd448b28e39fcca31f76388a203456250787",
+    "src/Data.Postgres/NativeWeave.Database.PostgreSql.csproj": "d85c4a0d755204d7da96b08b46c1eb94126591f4d86884ed69dbd773e9cb0687",
+    "src/Data.Sqlite/NativeWeave.Database.Sqlite.csproj": "c0cb471c78ed8d99c347af405d45baf4ca5f94a7baa940fcb831be5d9aa09459",
+    "src/Packaging.Domain/model.py": "af9336d26efa955dd30e0320f16a55a642d9e1bed357c6522a79a4ae38d4f79a",
+    "src/Packaging.Domain/prepare.py": "24bae409a21c2ae7607d83a11e270dd15ac0c670afbbbe30989bed1dd4e2adbb",
+    "tests/Packaging.Domain/release_cases.py": "daa6f2219052b85be61d8b6a3ab7695439c2b9341c3ce899ab13ab8ca5e7f851",
+    "src/Build.Integration/ApiReference/ApiReference.csproj": "1968be2752bfc0e90f7699cb064c1a9f024c434e0daf357501caf521d27debfa",
+    "src/Build.Integration/compose_docs.py": "7b092bcddc4c8382ca095232bba0cb3e6868c3974a823c24c6b5418893f4223b",
+    "src/Packaging.Release/BuildTasks/NativeWeave.Packaging.Tasks.csproj": "e9d0d27d99086c060d1ad766b495039157422dc1a2e4fa91d46b5002f70eb8c0",
+    "tests/Packaging.Release/build_cases.py": "83e905b01dc67b0b537938057a8ee7353f7d116985e6b9448493ed7f3a01707b"
+  },
+  "generic_generator_and_analyzer_incoming_project_references": [
+    {
+      "project": "samples/api/analyzers/AnalyzersSample.csproj",
+      "reference": "../../../src/Analyzers/NativeWeave.Analyzers.csproj"
+    },
+    {
+      "project": "samples/api/generators-csharp/Generators.CSharp.Sample.csproj",
+      "reference": "../../../src/Generators.CSharp/Metadata/NativeWeave.Generators.CSharp.Metadata.csproj"
+    },
+    {
+      "project": "samples/api/generators-model/Generators.Model.Sample.csproj",
+      "reference": "../../../src/Generators.Model/NativeWeave.Generators.Model.csproj"
+    },
+    {
+      "project": "src/Generators.CSharp/NativeWeave.Generators.CSharp.csproj",
+      "reference": "../Generators.Model/NativeWeave.Generators.Model.csproj"
+    },
+    {
+      "project": "src/Generators.Rust/NativeWeave.Generators.Rust.csproj",
+      "reference": "../Generators.Model/NativeWeave.Generators.Model.csproj"
+    },
+    {
+      "project": "tests/Analyzers/NativeWeave.Analyzers.Tests.csproj",
+      "reference": "../../src/Analyzers/NativeWeave.Analyzers.csproj"
+    },
+    {
+      "project": "tests/Generators.CSharp/Consumer/Consumer.csproj",
+      "reference": "../../../src/Generators.CSharp/Metadata/NativeWeave.Generators.CSharp.Metadata.csproj"
+    },
+    {
+      "project": "tests/Generators.CSharp/NativeWeave.Generators.CSharp.Tests.csproj",
+      "reference": "../../src/Generators.CSharp/NativeWeave.Generators.CSharp.csproj"
+    },
+    {
+      "project": "tests/Generators.CSharp/NativeWeave.Generators.CSharp.Tests.csproj",
+      "reference": "../../src/Generators.CSharp/Metadata/NativeWeave.Generators.CSharp.Metadata.csproj"
+    },
+    {
+      "project": "tests/Generators.Model/NativeWeave.Generators.Model.Tests.csproj",
+      "reference": "../../src/Generators.Model/NativeWeave.Generators.Model.csproj"
+    },
+    {
+      "project": "tests/Generators.Rust/NativeWeave.Generators.Rust.Tests.csproj",
+      "reference": "../../src/Generators.Rust/NativeWeave.Generators.Rust.csproj"
+    }
+  ],
+  "database_project_references_to_generic_families": [],
+  "retained_database_generation": [
+    "src/Query.Generator",
+    "tests/Query.Binding/generate.py",
+    "native/database/binding/signatures-v1.json"
+  ],
+  "retained_documentation_tools": [
+    "src/Build.Integration/ApiReference",
+    "src/Build.Integration/compose_docs.py",
+    "src/Build.Integration/api/core.json",
+    "tests/Build.Integration/ApiFixture",
+    "tests/Build.Integration/verify_docs.py"
+  ],
+  "retained_packaging_tools": [
+    "src/Packaging.Release/release.py",
+    "src/Packaging.Release/BuildTasks",
+    "src/Packaging.Release/buildTransitive",
+    "tests/Packaging.Release/ApiCheck",
+    "src/Packaging.Domain",
+    "tests/Packaging.Domain"
+  ],
+  "required_guard_migration": "Acceptance of retiring the artificial A16 package producer/consumer/native/sample requires its unique actual-MSBuild closure guards and release/recovery tests to pass against the real database candidate. Migrate the checks while pruning, then execute them during formal regression before closing acceptance. Preserve SDK/compiler analyzers, Core API checks, signatures, lock/provenance, and actual package/no-Rust/runtime-transfer guards."
+}

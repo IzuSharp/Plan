@@ -1,0 +1,278 @@
+{
+  "all_workflow_files_sha256": {
+    ".github/workflows/engine-completion.yml": "5a07161cce2f34e27a7e131da292db492c956e150deb55887b93c04139168423",
+    ".github/workflows/english-translation.yml": "a2ba384845c1ed370589e3b245e4074b20f738185bef2c109d0a4946c1c2f823",
+    ".github/workflows/logical-admission-docs.yml": "0d73eed42a23dda99812adce556cb23aed5be340f6446f30d73c367462605639",
+    ".github/workflows/logical-admission-research.yml": "eea0da1349515a0ea19c110720a4ffe3575203df9323e4b231577756e1214594",
+    ".github/workflows/native-slice-docs.yml": "06751838c1301642358138659567eef7e179f8e3f7f004e13dda355dd22a19cf",
+    ".github/workflows/paired-docs-verification.yml": "0aad8069bc71b8e5a2ae34ea2bf47c88c7afc4d897991a104efb839411bb5cfe",
+    ".github/workflows/public-api-design.yml": "a12b29b3834df393e81766240e9174c853a083ff7f9ae002d56a3c0a1d030324",
+    ".github/workflows/research-assets-migration.yml": "463b92638406c92c427b4417a26c5d33e14cb89be611f994129da52630268f59",
+    ".github/workflows/research-completion.yml": "0274606a7c1d273e0e21e543ef7ba97eb81fc261e33c30c5ef510a4c0be16666",
+    ".github/workflows/research-diagnostics.yml": "f06e44951e9860ab2111aa83bcd6d2a35822036fc3d44cbd410d8620f78c66d7",
+    ".github/workflows/rust-1100-integrate.yml": "3409899cea6ac92e0f32352aaee07bb86e68c74c53bc40a93eaf5d40eb2d8d0e",
+    ".github/workflows/rust-1100-probes.yml": "40bd953c02156fbc31ab5b09d0826d192be2a26b5c91a9aa7e33f5abc3556c40",
+    ".github/workflows/rust-1100-research.yml": "4fd9c0ae8d67c468e46bb35533ab039f0cca83e5e4cc2eb7e962ef887455c2a5",
+    ".github/workflows/source-driven-probe.yml": "7c297a5f35652390ca2f0852a786edd2f55ff7d951b7680f0384faeb8eb784e7",
+    ".github/workflows/source-driven-recovery.yml": "57d2f7508d0ea207f1accd1abbda4f4f7801d414dabe1267f6cb1e2ec36631b4",
+    ".github/workflows/source-driven-research.yml": "79fab0a90e971ee5b7994f261e86e4ecf184474bfa7f6c3b670eec333e8f5333",
+    ".github/workflows/source-lifecycle-integrity.yml": "d5cb982d0657c1acd2ed63c7ec1ab04da313f551f1d3823a74928e54a8c12578",
+    ".github/workflows/source-lifecycle-research.yml": "81177ac3cce246b402db7275076f26be86c1ac4aa7d47ca8f7c44836c0e40965"
+  },
+  "approval_or_acceptance_claim": false,
+  "automatic_main_push_workflows": [
+    {
+      "jobs": [
+        {
+          "commands": [
+            "python3 tools/verify_db_scope_history.py"
+          ],
+          "id": "translation-integrity",
+          "if": null,
+          "matrix": null,
+          "name": null
+        }
+      ],
+      "path": ".github/workflows/english-translation.yml",
+      "sha256": "a2ba384845c1ed370589e3b245e4074b20f738185bef2c109d0a4946c1c2f823",
+      "triggers": {
+        "pull_request": {
+          "branches": [
+            "main"
+          ]
+        },
+        "push": {
+          "branches": [
+            "main",
+            "docs/english-authoritative-20261113"
+          ]
+        }
+      },
+      "workflow_name": "Verify historical English and contract acceptance"
+    },
+    {
+      "jobs": [
+        {
+          "commands": [
+            "python3 tools/verify_db_scope.py"
+          ],
+          "id": "api-interface",
+          "if": null,
+          "matrix": {
+            "os": [
+              "ubuntu-24.04"
+            ]
+          },
+          "name": null
+        }
+      ],
+      "path": ".github/workflows/public-api-design.yml",
+      "sha256": "a12b29b3834df393e81766240e9174c853a083ff7f9ae002d56a3c0a1d030324",
+      "triggers": {
+        "pull_request": {
+          "branches": [
+            "main"
+          ]
+        },
+        "push": {
+          "branches": [
+            "main",
+            "task/DB-Scope-01-linux"
+          ]
+        }
+      },
+      "workflow_name": "Verify current database API design"
+    }
+  ],
+  "ci_polled_or_executed": false,
+  "expected_closeout_observation": "Observe successful completed runs for both workflow definitions at the actual main merge commit; record each run URL, head commit, main branch and conclusion in the eventual main-CI receipt.",
+  "head_checkout_policy": "Both workflows checkout github.event.pull_request.head.sha for PR events, otherwise github.sha. Current-design workflow also runs on task/DB-Scope-01-linux push, so that head may have both branch-push and PR-triggered runs.",
+  "historical_other_automatic_triggers": [
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/engine-completion.yml",
+      "push_branches": [
+        "research/rd-completion-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/logical-admission-docs.yml",
+      "push_branches": [
+        "research/logical-admission-r07"
+      ]
+    },
+    {
+      "manual_dispatch_available": true,
+      "path": ".github/workflows/logical-admission-research.yml",
+      "push_branches": [
+        "research/logical-admission-r07"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/native-slice-docs.yml",
+      "push_branches": [
+        "research/native-slices-evidence-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/paired-docs-verification.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/research-assets-migration.yml",
+      "push_branches": [
+        "research/pr1-asset-migration"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/research-completion.yml",
+      "push_branches": [
+        "research/rd-completion-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/research-diagnostics.yml",
+      "push_branches": [
+        "research/rd-completion-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/rust-1100-integrate.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/rust-1100-probes.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": true,
+      "path": ".github/workflows/rust-1100-research.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": true,
+      "path": ".github/workflows/source-driven-probe.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/source-driven-recovery.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": true,
+      "path": ".github/workflows/source-driven-research.yml",
+      "push_branches": [
+        "research/source-driven-integration-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/source-lifecycle-integrity.yml",
+      "push_branches": [
+        "research/source-lifecycle-2026-11-12"
+      ]
+    },
+    {
+      "manual_dispatch_available": false,
+      "path": ".github/workflows/source-lifecycle-research.yml",
+      "push_branches": [
+        "research/source-lifecycle-2026-11-12"
+      ]
+    }
+  ],
+  "kind": "workflow_trigger_source_inventory_only",
+  "limitations": [
+    "Source trigger inventory does not prove actual workflow enablement, required-check configuration or any run result.",
+    "The sixteen other checked workflow definitions restrict automatic pushes to historical research branches and have no pull_request trigger; optional manual dispatch is not an automatic main-merge obligation."
+  ],
+  "pull_requests_targeting_main_workflows": [
+    {
+      "jobs": [
+        {
+          "commands": [
+            "python3 tools/verify_db_scope_history.py"
+          ],
+          "id": "translation-integrity",
+          "if": null,
+          "matrix": null,
+          "name": null
+        }
+      ],
+      "path": ".github/workflows/english-translation.yml",
+      "sha256": "a2ba384845c1ed370589e3b245e4074b20f738185bef2c109d0a4946c1c2f823",
+      "triggers": {
+        "pull_request": {
+          "branches": [
+            "main"
+          ]
+        },
+        "push": {
+          "branches": [
+            "main",
+            "docs/english-authoritative-20261113"
+          ]
+        }
+      },
+      "workflow_name": "Verify historical English and contract acceptance"
+    },
+    {
+      "jobs": [
+        {
+          "commands": [
+            "python3 tools/verify_db_scope.py"
+          ],
+          "id": "api-interface",
+          "if": null,
+          "matrix": {
+            "os": [
+              "ubuntu-24.04"
+            ]
+          },
+          "name": null
+        }
+      ],
+      "path": ".github/workflows/public-api-design.yml",
+      "sha256": "a12b29b3834df393e81766240e9174c853a083ff7f9ae002d56a3c0a1d030324",
+      "triggers": {
+        "pull_request": {
+          "branches": [
+            "main"
+          ]
+        },
+        "push": {
+          "branches": [
+            "main",
+            "task/DB-Scope-01-linux"
+          ]
+        }
+      },
+      "workflow_name": "Verify current database API design"
+    }
+  ],
+  "repository": "IzuSharp/NativeWeave-Design",
+  "scope": "Both expected jobs run on ubuntu-24.04. Historical acceptance runs tools/verify_db_scope_history.py; current database API scope runs tools/verify_db_scope.py. Neither expected workflow has a path filter or job-level if condition.",
+  "source_commit": "3d1b4d5d80b8e3d8790481276a8333c0d2a25754",
+  "source_tree": "74f886a74a38d0478d1c4b4a22ea17383dfd0424",
+  "task": "DB-Scope-01"
+}
