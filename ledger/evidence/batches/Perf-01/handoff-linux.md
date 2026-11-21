@@ -1,5 +1,52 @@
 # Perf-01 Linux x64 handoff
 
+## Full selected Server regression passed; fresh layered profiling started — 2026-11-21
+
+The selected `2f40348c3db80a4fbee7a99e721b374a597b16df` Server asset completed
+[all 29 application/API/package commands](recovery/epoch-002/full29-final-003/README.md)
+at 05:12:16.247284 UTC. Execution
+`5496af175783b034a44459a83409835ba384152f64115255a905bbe92719bb50`
+and result
+`f6b82ca413ea73d944f8cd4fab9e3dc93dc210ccdaf5f07a0454ea780b09c824`
+record successful exits and full process retirement for every command.
+Actual JIT/AOT results are B17 105 checks / 43 dispatches each, B15 85 real
+Host assertions each, B19 291 assertions / 180 retirements each, and B20 122
+Release assertions each. B15's separate 492-per-mode mock component assertions
+remain labelled separately.
+
+The original B20 explicit-local sample now completes with two Activities,
+44 measurements and exactly four expected /failure 5xx warnings. It emits no
+completed-2xx failure warning. Both H1/H2 close-before-Finish markers pass in
+JIT and AOT, including successful Finish, exact response end and released
+business owners. This is actual functional evidence; it does not assign the
+older high-load drain failure's cause or establish a performance gain.
+
+Root has started the frozen fresh before layered profiles. Public Inspect's
+three independent processes, both 1,000-page typed probes and both 1,000-call
+retirement probes have completed. The PostgreSQL cycle wait profile completed its actual work but was rejected:
+the generator offered 3,601 operations, dispatched 3,119 successfully and
+rejected 482 at its in-flight limit. Independent persistence and final resource
+release checks passed. Its unchanged statement-logging/wait-observer setup is
+diagnostic only; the failed execution and raw evidence remain preserved. The
+PostgreSQL page profile is the next independent diagnostic. No profile rule or
+formal workload was changed to make this sample pass. The exact same selected profile definitions will run on the
+bound after role. These diagnostic results remain separate from formal noise,
+comparison, capacity and long timing.
+
+At an idle execution boundary, root removed only the 6,026 individually listed
+non-executable, single-link compilation intermediates in two completed native
+diagnostic targets. All 728 retained metadata documents were unchanged at
+deletion; ten referenced dependency files were excluded. Actual free space
+increased by 3.193687 GiB. Selected/baseline binaries, tests, native libraries,
+packages, toolchains, source, logs and raw results remain intact. The private
+cleanup receipt SHA-256 is
+`660f6a89a91a1faee4e758ef4f82f6bcafdb5b3c9b94d542e19f3e5c4fa056d7`.
+No measured artifact or configuration was changed.
+
+Next: finish before/after layered diagnostics, then the ten before-only noise
+cohorts and their actual publication/readback, equivalent comparisons, capacity
+and all ten long intervals. **Current long-test credit remains 0/10.**
+
 ## Final B18 passed and exact binary backup verified; full Server regression active — 2026-11-21
 
 The selected `2f40348c3db80a4fbee7a99e721b374a597b16df` package/native role
