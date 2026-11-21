@@ -1,0 +1,87 @@
+{
+  "accepted_build_source_index_sha256": "268d10b6b058f6c599fc1128b8a2a7ad7949f723d842647756e542ba70756795",
+  "caller_sources_sha256": {
+    "MEASUREMENT.md": "e87af5a1c5acb871fb4cf3eba8d055ae9a74a3abc1f874898cecb9a43c01fca5",
+    "admission.py": "b725cf969098c1fa5bf05c1244f22ff1e070ae60250f1699cff6f1c439329df4",
+    "database_capacity.py": "41e96b34b1a75a4347be348d3e65060e09ad2bf1e88636be0958e390cb5bb681",
+    "final-binding.example.json": "dc92eb70aa4f399120828449b960e4e29993ec33574333c33bd33149b9e71234",
+    "measure.py": "c8546af97fe18445d4e34c4ee5bd690a66fd39820fde3af041c87ddcb65a8360",
+    "measurement-inputs.example.json": "530be32255cd471a7918c2b0dfdcc924ecdac1c0f015fbaf49f92dd4e99c34f8",
+    "readers/database_compare.py": "6ccbe1d00d75c8c84fa41e2d9ab6353a49fe476c8d0a24f7b5c767ad79d57108"
+  },
+  "epoch": "recovery-002",
+  "historical_measurement_credit_transferred": false,
+  "independent_review": {
+    "blocking_findings": [],
+    "scope": "Exact indexed measurement caller source only; no execution or product/performance acceptance.",
+    "verdict": "ACCEPT"
+  },
+  "limitations": [
+    "Hash checks and Python AST parsing are source validation only. No caller/control import, build, service, benchmark or runtime test was performed by this reviewer.",
+    "Actual populated admission, completed producer/B18 receipts, final role binding, native/package maps, fresh noise/capacity receipts and long receipts must be evaluated by their existing execution checks; this review creates none of them.",
+    "The source review does not establish throughput, latency, correctness under real TLS load, resource recovery, historical-result reuse or completion of any 30-minute segment.",
+    "Execution remains with the existing finite owner and its exclusive reservation. This review does not authorize competing load or modify the prepared all-noise publication gate."
+  ],
+  "long_acceptance_credit_segments": 0,
+  "measurement_source_index": "ledger/evidence/batches/Perf-01/diagnostics/recovery-measure-002/measurement-sources.json",
+  "measurement_source_index_sha256": "a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b",
+  "original_a21_sha256": "a25dca7ca09c609bf6984050047b4bed752660bf6aa7f1c540cb113317b61b04",
+  "original_database_reader_sha256": "0f3ee6ca0d4ce9fcdce256df9b9fce1f9ce5eaa9032c3afa86e443aeceff59b8",
+  "original_long_verifier_sha256": "3f5eec2ffa18d0622463bda571ffdfd063c500d5aa5169cc92273d185201de82",
+  "original_protocol_reader_sha256": "a8cead371ceed5b2d6a865c1e6b113110005db7880af7566d5125f46429c032f",
+  "performance_credit_seconds": 0,
+  "resolved_findings": [
+    {
+      "finding": "The short protocol reader imposes a 64 MiB result-file bound and is unsuitable as long-run admission.",
+      "resolution": "Long admission uses the original streaming metadata parser and original producer identity functions; the short path remains unchanged."
+    },
+    {
+      "finding": "Selecting the whole scenarios object still loads its nested sparse histograms and can hit JsonStream.value's 4 MiB record bound.",
+      "resolution": "The reviewed admission excludes scenarios for long runs. The unchanged full verifier checks each client correctness flag, frozen oracle, request ledger, duration, service limits and release before credit."
+    },
+    {
+      "finding": "A noise projection must not relabel a completed execution from another scene.",
+      "resolution": "The preserved ten-scene gate additionally requires role=before and scene_name(execution.group, execution.scene) to equal its publication key."
+    }
+  ],
+  "reviewed_utc": "2026-11-21T02:10:26.855571+00:00",
+  "reviewer": "independent subagent /root/perf01_evidence_audit",
+  "role_mapping": {
+    "after_identity": "Separate exact final binding tied to the immutable before admission; no candidate or actual runtime is accepted by this source review.",
+    "before_product_commit": "ea5fa528035d025bd7a28698ee7c71194432236c",
+    "common_driver_commit": "2e3995df8d86583ee9443348276ca8d918056bfc",
+    "immutable_selected_final_commit": null,
+    "locked_design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9"
+  },
+  "schema_version": 1,
+  "source_checks": {
+    "all_indexed_hashes_match": true,
+    "all_ten_before_noise_scenes_gate_preserved": true,
+    "caller_control_or_workload_imported": false,
+    "database_capacity_algorithm_and_three_fresh_confirmations_preserved": true,
+    "database_raw_terminal_states_match_producers": true,
+    "domain_cli_and_reader_schema_mapping_source_checked": true,
+    "failed_partial_records_retained": true,
+    "indexed_file_count": 71,
+    "indexed_files_hashed": {
+      "files_sha256": 7,
+      "native_source_sha256": 45,
+      "plan_source_sha256": 19
+    },
+    "long_protocol_admission_skips_top_level_and_scenario_histograms": true,
+    "long_protocol_build_and_loaded_native_identity_checks_retained": true,
+    "long_verifier_checks_independent_client_correctness_and_oracle_rows": true,
+    "noise_scene_and_role_bound_to_actual_completed_execution": true,
+    "original_build_caller_unchanged": true,
+    "original_finite_owner_and_exclusive_reservation_reused": true,
+    "original_noise_and_percentile_definitions_preserved": true,
+    "python_files_ast_parsed": 49,
+    "short_protocol_reader_and_scenario_correctness_check_retained": true,
+    "tests_builds_services_or_workloads_run": false,
+    "unchanged_long_verifier_required_before_duration_credit": true
+  },
+  "status": "source-only-reviewed",
+  "task": "Perf-01",
+  "unchanged_build_caller_sha256": "d1a90dc336aeba313766e0fc77b96cb908d8040ef5c56290167cd55612eeac74",
+  "workload_bundle_sha256": "30af3a81ca377436cdedcae33a074b91df510256d403ba9fca11763186da44cf"
+}

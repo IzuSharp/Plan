@@ -1,5 +1,28 @@
 # Perf-01 Linux x64 handoff
 
+## Continued original build; large-result reader reviewed — 2026-11-21 02:12 UTC
+
+The original epoch-002 baseline build 002 completed at 02:06:40.950262 UTC:
+all eight producers exited 0 and retired, with no signals or remaining children.
+Execution SHA `892ed498e7dabbaaf1e3398add1d5367ebdb28255378dd793a9cc874d6def224`
+and binding SHA `17e8844b8968bda78c6ce1846a664e55a2c00e368dea08f21eb6796afb5407af`
+are preserved in [the actual baseline record](recovery/epoch-002/before-build-002/README.md).
+The original common stage continued at 02:07:00.763461 UTC; preserve that owner
+and do not start duplicate workloads. Its terminal result is not asserted here.
+
+The isolated [measurement caller review](recovery/epoch-002/measurement-caller-review.md)
+accepts source index `a71deb1272c3b29dd1573e5dacfccc0c53db01d72807dd091b4b78e18456728b`.
+The caller uses the original streaming parser for long protocol metadata,
+avoiding the short reader's 64 MiB file limit and nested histogram value limit.
+The unchanged full long verifier must still pass before any credit. Original
+workloads, drivers, A21 definitions and service standards are unchanged.
+This is source-only acceptance; populated admission and actual execution remain
+required. The reviewed build/B18 caller remains index `268d10b6`.
+
+A durable 115-member baseline project-binary archive was saved and materialized
+again; all member hashes passed. It excludes keys, operational maps and caches.
+Native CI128 and Plan CI202 passed. Current long acceptance remains **0/10**.
+
 ## Native retirement repair reviewed; fresh build underway — 2026-11-21 01:59 UTC
 
 The two constructed gRPC cleanup regressions failed on the unchanged runtime;
