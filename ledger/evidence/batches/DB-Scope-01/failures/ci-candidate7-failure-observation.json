@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "task": "DB-Scope-01",
+  "observer": "/root/old_task_inventory",
+  "observed_at": "2026-11-21T15:15:55.349Z",
+  "repository": "IzuSharp/NativeWeave",
+  "run_id": 44915077874,
+  "run_url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44915077874",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "cancelled": false,
+  "source_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+  "source_tree": "53b9be35089c757c23709c533d0d92fe8e67bca1",
+  "github_metadata": {
+    "path": "github-observation.json",
+    "sha256": "a7623c67812c5f036f8a9b7beecdfd4b7ba8b8ee379ea03feec936fbfdc89125"
+  },
+  "artifact": {
+    "id": 14712148610,
+    "name": "nativeweave-evidence-44915077874-1",
+    "path": "evidence.zip",
+    "bytes": 1533615,
+    "github_digest": "sha256:e6c6be5bdf21503e9d64b4514f08cbe5ba102cffcb5799bbd2b3928f5ff26d26",
+    "sha256": "e6c6be5bdf21503e9d64b4514f08cbe5ba102cffcb5799bbd2b3928f5ff26d26",
+    "verified_github_digest": true,
+    "archived_source_commit_and_tree_match": true
+  },
+  "first_concrete_failure": {
+    "job_id": 136878968260,
+    "job_name": "build / Build, package and Native AOT",
+    "step_number": 9,
+    "step": "Verify database workspaces, API, regressions and actual package JIT/AOT consumers",
+    "outer_command": "database-business",
+    "exit_code": 1,
+    "error_type": "FileNotFoundError",
+    "controller_error": "FileNotFoundError: [Errno 2] No such file or directory: '<consumer-root>/consumers/aot/packages.linux-x64.aot.lock.json'",
+    "not_a_restore_error": true,
+    "aot_resolve_exit_code": 0,
+    "aot_locked_restore_exit_code": 0,
+    "business_runtime_rows_started": 0,
+    "affected_project": "src/Reference.TaskService/Reference.TaskService.csproj",
+    "diagnosis": "The controller requires packages.linux-x64.aot.lock.json after successful AOT restore. The copied candidate7 Reference project only set NuGetLockFilePath for singular RuntimeIdentifier; the actual restore route supplies plural RuntimeIdentifiers. Restores succeeded but used the ordinary filename, so strict metadata preservation failed before business runtime rows.",
+    "uploaded_progress_sha256": "0bd6d5de7e46b1679b295622c31e31de8450e2be80a84f6e21727329bac7d5ef",
+    "declared_original_progress_sha256": "78846920a68243181b6be676a777a87a5d0788c6be0df92268a1775ac64c0221",
+    "safe_extract": "database-business-failure.sanitized.json",
+    "safe_extract_sha256": "cd55a7460145ccd08fc108556aa78a516728c8931f2396dfede44cf0a3c9e036",
+    "raw_command_logs_available_in_artifact": false,
+    "outer_business_log_empty": true
+  },
+  "preceding_lifecycle_observation": {
+    "all_four_rows_passed": true,
+    "row_names": [
+      "postgresql-aot",
+      "postgresql-jit",
+      "sqlite-aot",
+      "sqlite-jit"
+    ],
+    "source_commit": "7e050cdd43cbddeed3cbad00007539c353d55a53",
+    "uploaded_progress_sha256": "60b083060c62c465f2cbbc7fecfde5767098083668b8be50b28ca73fbd67d56b",
+    "scope": "Observed controller result from this CI artifact, not an expansion to full product/package/pristine acceptance."
+  },
+  "security_jobs": [
+    {
+      "id": 136878968225,
+      "name": "security / Secret scan",
+      "conclusion": "success"
+    },
+    {
+      "id": 136878968304,
+      "name": "security / CodeQL (csharp)",
+      "conclusion": "success"
+    },
+    {
+      "id": 136878968787,
+      "name": "security / Dependency review",
+      "conclusion": "success"
+    },
+    {
+      "id": 136878969321,
+      "name": "security / CodeQL (python)",
+      "conclusion": "success"
+    }
+  ],
+  "final_verify": {
+    "job_id": 136885698134,
+    "conclusion": "failure"
+  },
+  "known_fix_coverage": {
+    "local_candidate8_commit": "244ff96af3927b4001cd2724f41ee9b350ceb02c",
+    "local_candidate8_tree": "a6381b0258f0951e6f299c675cb4e5be98fc5d12",
+    "same_failure_already_addressed": true,
+    "fix": "Add the plural RuntimeIdentifiers AOT lock selector before the unchanged singular selector. Keep strict metadata read and locked restore unchanged.",
+    "independent_review": "/workspace/scratch/6c5fd6ee7a2b/.worktree/DB-Scope-01-linux/_validation/reviews/package-consumer-lock-review-244ff96a.json",
+    "independent_review_sha256": "4d342ca3df1aa7a4e39a872136005908afb2c7726442d93ab07ee8f9ac3b0574",
+    "before_project_sha256": "70fb9e117faee50f20708deefbf282c9adbc3b0f8e2a89c2a098a5dc850c80a9",
+    "after_project_sha256": "a9a4fb30dcc5c201a700f0669f950b47871b9ce52345f3115abf6f7ad3dfce54",
+    "new_candidate_ci_or_runtime_success_claimed": false
+  },
+  "limits": [
+    "One status observation, followed by retrieval of the completed failure; no busy polling.",
+    "Raw GitHub ZIP digest verified. Original pre-export business progress and command logs are not available in the artifact; their reported hashes are not described as independently recomputed.",
+    "Candidate7 remains completed/failure. This observation corroborates the known selector repair and does not accept later mixed-source development results or a final candidate.",
+    "No source, Plan, build, test or PostgreSQL mutation by this reviewer."
+  ]
+}
