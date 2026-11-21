@@ -1,5 +1,42 @@
 # Perf-01 Linux x64 handoff
 
+## All ten fresh before-noise scenes completed — 2026-11-21 UTC
+
+The [before-only noise record](recovery/epoch-002/noise-before-001/README.md)
+now contains all ten frozen scenes and their original numeric bands.
+Thirty independently launched workload cells completed: PostgreSQL and
+SQLite c16; HTTP/1.1 and HTTP/2 small and large transfers; gRPC unary and
+streaming; codec with one and two workers. All 56 owned finite commands
+exited zero and retired. The last original noise execution ended at
+06:20:59.021227 UTC. These are the current freshly rebuilt EA5 baseline
+under the unchanged 2e common driver, not historical B22/B23 results.
+
+The exact numeric projection SHA-256 is
+`b127934f9bde44fbb8b8b67d7c8f7927063f8323bb05094072ae71240d04e090`.
+It preserves each original noise receipt, three before-process result
+identities and the original bands without new statistical calculations.
+The [execution ledger](recovery/epoch-002/noise-before-001/execution-ledger.json)
+records actual scene/command identities, frozen loads and UTC boundaries.
+The existing gate requires publication, actual remote byte readback and an
+exact local Git commit/path/blob before any candidate comparison.
+
+At the idle boundary, root retained all actual payloads and removed only
+4,807 individually enumerated, non-executable, single-link Rust compiler
+intermediates across the seven explicitly reviewed completed cache roots.
+All 1,130 protection metadata documents remained identical before and after.
+Free space increased by 3.040653 GiB to 20.243744 GiB. Measured executables,
+native libraries, packages, source, toolchains, tests and raw results were
+unchanged. The exact cleanup receipt is
+`fe72c3826cb3e633fb5ad2d09840d16c488ae2e77345d137c30f1bd510938cc4`.
+The initial metadata enumeration stopped at its 16 MiB document bound without
+deleting anything; a new bounded configuration retained the complete
+21.38 MiB application receipt and all its artifact references.
+
+Next: complete the exact noise publication/readback binding, run the 16
+original interleaved comparison invocations, then three-role capacity and
+the ten before/final long segments. Product selection remains `2f40348c…`.
+**Accepted long-test credit is still 0/10.**
+
 ## Fresh layered profiles completed; formal before-only noise is running — 2026-11-21 UTC
 
 The [actual layered comparison](recovery/epoch-002/layered-profile-comparison-004.md)
