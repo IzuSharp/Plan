@@ -1,3 +1,9 @@
+# Current task — DB-CPP-01
+
+The owner authorizes the behavior-compatible C++ migration of the merged PostgreSQL/SQLite database product on Linux x64, including tests, documentation, pushes, PRs and normal merges. Read [the current plan](ledger/evidence/batches/DB-CPP-01/plan.md), [handoff](ledger/evidence/batches/DB-CPP-01/handoff-linux.md) and `delivery-graph.json.current_execution`. Preserve C# API, ABI, package identities and stored data. DB-API-01 and DB-Perf-01 are excluded. Prior DB-Scope-01 completion remains historical, verified at its immutable commit. Do not claim unexecuted migration acceptance.
+
+---
+
 # DB-Scope-01 — current database product scope
 
 The owner authorized DB-Scope-01 on 2026-11-21: stop Perf-01, retain the PostgreSQL/SQLite strong-typed Fluent ORM with Rust SeaQuery/SQLx and Native AOT, remove NativeWeave-owned Server/gRPC/MCP and non-database engines/demos, run real Linux consumers, review and merge, then stop. Ordinary C# applications choose their own hosting; no new HTTP/gRPC wrapper or ORM feature is in scope.

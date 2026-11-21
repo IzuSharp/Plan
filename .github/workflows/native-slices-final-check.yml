@@ -47,8 +47,19 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - name: Verify current database scope and preserved historical records
+      - name: Verify current C++ migration progress and preserved historical records
         working-directory: Plan
+        run: python3 tools/verify_db_cpp.py
+      - name: Check out the immutable completed DB-Scope-01 input
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/Plan
+          ref: 1fe52a8bd792ccdbb4bbea17ba59b0ad0c24349d
+          fetch-depth: 0
+          path: scope-history/Plan
+          persist-credentials: false
+      - name: Run unchanged completed database-scope acceptance gates
+        working-directory: scope-history/Plan
         run: python3 tools/verify_db_scope.py
       - name: Check out the immutable historical Plan acceptance input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -106,3 +117,4 @@ jobs:
             historical/Plan/verification/source-lifecycle-reviews/**
             historical/Plan/source-driven-baseline.json
             Plan/ledger/evidence/batches/DB-Scope-01/
+            Plan/ledger/evidence/batches/DB-CPP-01/
