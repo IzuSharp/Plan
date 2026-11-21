@@ -2,11 +2,14 @@
 
 ## Current checkpoint
 
-- Active task: **DB-Scope-01**, Linux x64; branch `task/DB-Scope-01-linux` in all three repositories.
-- Sequence: old PR closure and local cleanup complete; initial Plan committed/pushed and [PR24](https://github.com/IzuSharp/Plan/pull/24) created at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a`. Design pruning checkpoint is complete and [Design PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14) exists. **Product pruning is committed and [product PR20](https://github.com/IzuSharp/NativeWeave/pull/20) is open. Candidate5 passed all standalone database/query suites and Host JIT, then failed Host AOT locked restore; three assembled-suite AOT lock selectors are being corrected for candidate6; the existing AOT lock bytes are complete and unchanged.**
-- Continue from this file and the DB-Scope-01 PRs. Do not delete this new workspace, repeat completed cleanup, resume Perf-01, or relabel historical evidence.
-- Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json) and `delivery-graph.json.current_execution`.
-- Dependency correction completed in order: Plan `d74f6bc` → Design `2a8a300` → orphan code/guard migration `19252c6`, now included in the published product candidate. Query.Generator and actual database binding generation are retained.
+- Active task: **DB-Scope-01**, Linux x64, branch `task/DB-Scope-01-linux`; Perf-01 is terminated. Keep the existing three checkouts and all current evidence.
+- Required order was followed: old PR closure/cleanup → initial Plan PR24 at `b56ef7a6d4fc8c38cf8da04d555f30bae4e0693a` → current Design → product pruning. Scope and code changes are complete; only final full CI/evidence binding, compliant merges and observed main CI remain.
+- **Current product candidate10:** `7255040b9501a1898d008c793f9b1777d8394d65`, tree `5f5d74ec7cfa502a4f8d119bb89e2e2776d4b65b`, [PR20](https://github.com/IzuSharp/NativeWeave/pull/20). Do not resume older candidates described later in this historical execution log.
+- **Design:** `3d1b4d5d80b8e3d8790481276a8333c0d2a25754`, tree `74f886a74a38d0478d1c4b4a22ea17383dfd0424`, [PR14](https://github.com/IzuSharp/NativeWeave-Design/pull/14). Exact-head current/historical CI and independent source review passed.
+- Same published-C10 packages have independently verified four lifecycle cells, four business cells,32 finite fault executions, three Fluent/DTO graphs with ten runtime results and24 guards. See [actual local component review](results/candidate10-local-package-components/review.json). The original local /tmp-full attempt remains failed; its separate unchanged-source Domain retry passed. This is not complete formatter/pristine/runtime-only CI acceptance.
+- **Final product CI:** [44919645468](https://github.com/IzuSharp/NativeWeave/actions/runs/44919645468), exact candidate10. Four security jobs passed; the full build/regression/package job was still running at this checkpoint. No PR has been merged yet. Plan [PR24](https://github.com/IzuSharp/Plan/pull/24) remains the active evidence record.
+- No local build or PostgreSQL execution remains active. A task-scoped read-only observer is waiting for the final CI result. Active evidence validator: v3 contract SHA256 `b3f550e5c78f0a225b0d7318d7d6e2cbf3ccc81670eaba2f2ef3ac432dba7ae6`, unchanged validator SHA256 `5743872419306518f37162d8fd2a888b222a2aea34c7729764798a8142ae1751`.
+- Read [plan.md](plan.md), [baseline.json](baseline.json), [acceptance.json](acceptance.json), `delivery-graph.json.current_execution`, and the following next actions. Historical execution details follow for audit, not restart instructions.
 
 ## Completed stop/cleanup
 
@@ -24,11 +27,11 @@ Only the current Linux execution host is exposed in this session. No other Linux
 
 ## Next actions
 
-1. Candidate5 local execution has stopped at Data.NativeHost AOT locked restore. Read `_validation/attempts/formal-5-aaf5dafc/attempt.json` and the preserved failing log. Actual locked AOT restores identified three singular-only lock selectors in Host DI, Host tests and Migrations tests. The implementation agent is correcting only these existing project conditions and verifying the unchanged original restore commands for all five assembled suites; all lock bytes and versions remain unchanged. Finish independent review and commit/publish candidate6, then run the targeted remaining suites before restarting the complete clean local pipeline; do not overlap source/obj/bin writers. Candidate5 CI44912217954 was still active at local failure; inspect its actual outcome. All package and merge acceptance remains pending.
-2. Inspect actual regression/package failures, retain failed attempts, and make only necessary scope regression repairs. New candidate identities require corresponding source-bound evidence; never overwrite a completed attempt.
-3. Execute retained Core/minimum CPU checks locally where applicable; exact-head CI supplies the declared Ubuntu baseline, genuinely no-Rust SDK image and runtime-only transfer.
-4. Bind actual logs/results and independent reviews using evidence-format.md. Keep all four external PackageReference JIT/AOT cells pending until actual execution validates data and native mappings.
-5. Complete required head CI, independent reviews and normal Design/product/Plan merges. Observe exact merged-main CI, then append the honest Plan postmerge closeout receipt and stop.
+1. Observe exact candidate10 CI44919645468 through completion. If successful, authenticate and download its evidence and exact candidate feed artifacts under `_validation/ci/44919645468/`. Do not infer full success from the local components, and do not rerun old failed candidates.
+2. Independently validate the actual final CI receipts against published7255040/tree5f5 with the existing v3 contract, including all56 regression gates, full formatting/API, release14, pristine SDK without Rust and runtime-only transfer. Preserve artifact digests and all failed/cancelled attempt identities.
+3. When all required checks and reviews are satisfied, perform normal Design/product merges with expected head checks and matching tested/merged trees. Observe CI for each actual main merge commit. No protection, license, required check or approval identity changes.
+4. Bind actual results in Plan, complete its necessary review/head checks, merge PR24 and observe its exact main CI. Keep acceptance in_progress until that observation. Then create the authorized evidence-only Plan followup recording the already observed three-repository delivery snapshot; no future-CI prediction or circular source hash.
+5. Check the evidence-only followup's own head/main CI, report final PR/commit locations and the four PostgreSQL/SQLite JIT/AOT consumer cells briefly, then stop. No performance optimization,30-minute load, new ORM feature, server wrapper or public package release.
 
 ## Plan-first and validation environment checkpoint
 
@@ -225,3 +228,15 @@ Published candidate10 is `7255040b9501a1898d008c793f9b1777d8394d65`, tree `5f5d7
 Root owns a fresh native/package/lifecycle/business/Fluent consumer run from this exact published source. Complete CI44919645468 runs all unchanged mandatory gates, including full formatter,56 regressions, Core/minimum CPU, pristine SDK without Rust, release/recovery and runtime-only transfer. The evidence contract preserves v1/v2 and adds v3 with only the reviewed negative_cases.py source hash changed; every predicate and validator code remains unchanged and all34 source hashes match. Final claims remain pending.
 
 Superseded candidate9 CI44918297335 is observed completed/cancelled, separately from its actual failed local negative setup. C9 original outputs are archived under `_validation/attempts/formal-9-3614ef79`; no new run reuses their package identity. Plan87bbaef0 CI44918953905 passed.
+
+## C10 local temporary-filesystem interruption and unchanged-source stage completion
+
+The fresh published-C10 attempt completed all four lifecycle and four business cells, then Domain SQLite JIT/AOT and PostgreSQL JIT. PostgreSQL AOT restore stopped with the literal NuGet error `No space left on device` while extracting ILCompiler into the host's4.9GB /tmp tmpfs; the task disk still had more than34GB available. The failed command and original failed pipeline/receipt remain under failures/candidate10-package-7255040-enospc. No new product change was made.
+
+The existing full Domain CLI was rerun separately with TMPDIR on the task disk, keeping the exact published7255040 source/tree and original C10 package bytes/manifest `7ee330b9f5c959be44a886ed314cbe5a3b7ff5a4773ca447c45412b8265a8591`. It passed all50 commands, three graphs, ten actual runtime cells and24 guards. The source and every package archive remained unchanged before/after. Its separate receipt `193896e10fb1325f210645bbfa34f1d9ed6325a13447c123f204363bbfd47f5f` is a successful same-source stage, not a relabeling of the original failed pipeline or a full/pristine CI claim.
+
+To restore temporary filesystem capacity while retaining evidence, the completed C9 temporary consumer directory was copied in full into its task archive. All5921 entries/1,567,355,075bytes were compared before retiring the original temporary location; path mapping and complete local hash inventory are preserved. No new checkout or historical evidence was cleared. /tmp regained approximately1.575GB. Full CI44919645468 still runs with all four security jobs passed; final claims and merges remain pending.
+
+## Same-source local package/component evidence reviewed
+
+Independent review binds the exact C10 source/tree and original manifest across four lifecycle and four business rows plus the separately successful full Domain retry. It verifies80 commands/130 raw log hashes,80 actual restored-cache archive checks,91 output/metadata checks and all original data, mapped-provider and24 guard predicates. The safe23-file export bundle and complete review are under results/candidate10-local-package-components. Actual package/nuspec/runtime closures contain only the retained database product; no retired server/protocol/demo or compiler runtime payload is present. Original ENOSPC failure, incomplete/full verification boundaries and false pristine/runtime-only/public-release flags remain explicit.
