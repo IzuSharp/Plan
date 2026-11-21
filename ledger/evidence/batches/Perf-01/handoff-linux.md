@@ -1,6 +1,6 @@
 # Perf-01 Linux x64 handoff
 
-## Baseline B18 passed; selected-native regression caller ready — 2026-11-21 02:41 UTC
+## Baseline B18 passed; selected-native regression caller ready — 2026-11-21 02:36 UTC
 
 The unchanged baseline native component and assembled B18 completed at
 02:28:03.448719 UTC. Both finite-owner commands exited zero and retired.
