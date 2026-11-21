@@ -32,7 +32,7 @@ Start from the observed main commits in [baseline.json](baseline.json). Only mer
 | PostgreSQL TLS, state, cancellation/drain/disconnect | libpq asynchronous execution | Existing provider TLS/process/proxy regressions | Implemented; final regression/CI acceptance pending |
 | SQLite locks, BUSY/LOCKED, transaction modes/durability | sqlite3 prepared statement worker | Existing lock and persistence regressions | Implemented; final regression/CI acceptance pending |
 | Core/provider precompiled packages and dependency closure | CMake install, package production and provenance | Packaging.Domain, Packaging.Linux, Packaging.Release | Implemented; final regression/CI acceptance pending |
-| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Passed on candidate `3e49cee`; fresh candidate `7ad56394` rerun and final CI/merge pending |
+| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Fresh four-cell comparison passed on `7ad56394`; full regression and final CI/merge pending |
 
 ## Implementation decision to record in Design
 

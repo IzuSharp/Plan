@@ -1,6 +1,6 @@
 # DB-CPP-01 — database native implementation migration, Linux x64
 
-**Status: in progress.** This report is being assembled from actual source-bound evidence. The Design decision has merged. Candidate 3 passed clean C++ production, twelve-package preparation and the complete same-source four-cell business comparison, but failed an original SQLite input-admission assertion in both local and official CI regression. Candidate 4 contains the independently reviewed native correction; its fresh production, complete regression, package comparison and mandatory CI gates are running. Product and Plan merge acceptance remains open. The authoritative machine-readable status is [acceptance.json](acceptance.json). A failed or missing gate is not accepted by this document.
+**Status: in progress.** This report is being assembled from actual source-bound evidence. The Design decision has merged. Candidate 3 passed clean C++ production, twelve-package preparation and the complete same-source four-cell business comparison, but failed an original SQLite input-admission assertion in both local and official CI regression. Candidate 4 contains the independently reviewed native correction. Its clean native production, exact package preparation, all 19 Release CTests, full Clang format/tidy, complete managed build and fresh same-source four-cell comparison have passed; complete original regression and mandatory CI gates are running. Product and Plan merge acceptance remains open. The authoritative machine-readable status is [acceptance.json](acceptance.json). A failed or missing gate is not accepted by this document.
 
 ## Scope and frozen reference
 
@@ -70,18 +70,18 @@ The retained twelve identities are `NativeWeave.Interop.Abi`, `NativeWeave.Core`
 
 `tests/Migration.Cpp` contains the versioned C# business consumer, required cases, fixed reference lock, direct ABI refusal oracle and process driver. Reference and candidate runs use the same controlled source/input hashes, database version/options and equivalent snapshots. They execute in separate processes. SQLite files and PostgreSQL dumps created by the old package are handed directly to the candidate for read, continued write and migration-idempotence checks. Independent sqlite3/psql queries check stored data and ledgers, alongside the cross-implementation comparisons.
 
-The fresh formal comparison at candidate `3e49cee95d206468a32c94f0a3b98e923f02acbf` passes all four cells. Both halves use the same clean consumer commit and separately verified business/driver/DTO/ABI/config hashes. The Rust libraries and packages remain fixed at `465cd0f`. Rust executes twelve business processes; C++ executes sixteen, including a rebuilt DTO variant in each cell. Each seed/observe/continue phase covers 26/25/30 semantic groups. All 24 actual C ABI refusal results match and all six observed native-owner counters return to zero. Neither consumer builds a Rust or C++ product library.
+The fresh formal comparison at candidate `7ad56394a8a119202cfee5088406c5459f4cc6f0` passes all four cells. Both halves use the same clean consumer commit and separately verified business/driver/DTO/ABI/config hashes. The Rust libraries and packages remain fixed at `465cd0f`. Rust executes twelve business processes; C++ executes sixteen, including a rebuilt DTO variant in each cell. Each seed/observe/continue phase covers 26/25/30 semantic groups. All 24 actual C ABI refusal results match and all six observed native-owner counters return to zero. Neither consumer builds a Rust or C++ product library.
 
-| Provider / mode | Fixed Rust baseline | C++ candidate 3 | Old data / continued writes / DTO hash |
+| Provider / mode | Fixed Rust baseline | C++ candidate 4 | Old data / continued writes / DTO hash |
 | --- | --- | --- | --- |
 | SQLite JIT | Passed | Passed | Passed |
 | SQLite Native AOT | Passed | Passed | Passed |
 | PostgreSQL JIT | Passed | Passed | Passed |
 | PostgreSQL Native AOT | Passed | Passed | Passed |
 
-Independent SQL confirms committed rows `10`, `11` and `12`, absence of savepoint-rolled-back row `90` and outer-rolled-back row `99`, the expected optimistic version/update/delete outcomes, and the same three migration history entries/checksums/success flags. Reapplying migrations is idempotent. Changing the DTO from three projected fields to four leaves the actual SQLite SHA-256 `14e5fd153b441cafb396ccfcb90ca67c366ccd05a403d9ddd75996e05dd338db` and PostgreSQL SHA-256 `7de544ad5550449535915b16ac323d4aa84da2b6025ebdec31081c06889fcdbf` unchanged.
+Independent SQL confirms committed rows `10`, `11` and `12`, absence of savepoint-rolled-back row `90` and outer-rolled-back row `99`, the expected optimistic version/update/delete outcomes, and the same three migration history entries/checksums/success flags. Reapplying migrations is idempotent. Changing the DTO from three projected fields to four leaves the actual SQLite SHA-256 `aad32bab9c6bae6744fd34480eeaa5aa596c02efde71db249803761cf778031c` and PostgreSQL SHA-256 `86dd277482bbe3a3adf48b91afe3af5a5a583120178b6d30daeb60b5aa93cd07` unchanged.
 
-The [complete comparison evidence](checkpoints/candidate-3/business-comparison/comparison.json) contains each semantic comparison, package inventory and ABI result. Safe exports retain the original raw artifact hashes: comparison `2a5e2f25fd825ac61fa1c886e2108c9670d4c89d5e814f7ba49598af2a39279b`, Rust result `516d16feecbd3ceaefde02a6ef08738fa8cf79a458e1a31189b676d435f96da0`, and C++ result `b653c790953dd0f4f97bb03824dbfccde89213c25a3825267d3c8e4069e39058`. The candidate-2 failure is preserved separately; it was not overwritten or reclassified.
+The [complete comparison evidence](checkpoints/candidate-4/business-comparison/comparison.json) contains each semantic comparison, package inventory and ABI result. Safe exports retain the original raw artifact hashes: comparison `318a54e69203cf19b09de2c1303608f9be5998bde552d5859836914e4ef9b025`, Rust result `6eb101cb48405021bfec4c310734186797abd6fa427eacea5ac1cee496ea6a26`, and C++ result `2570f8375bbc2188d91635aff01427fe16c67a447ce83d0c859960cd20120ca9`. The earlier candidates' passing comparison results and distinct failures are preserved separately; none was overwritten or reclassified.
 
 ### Original regression and fault gates
 
@@ -111,6 +111,10 @@ The local environment prohibits Unix-domain sockets used by Roslyn's formatting 
 
 The shared presets are `native-base`, `linux-x64-release`, `linux-x64-asan-ubsan`, `windows-x64-release` and `macos-release`. Release and sanitizer build trees are isolated. Maintainers select the pinned tools, original API declaration inputs and a disposable PostgreSQL 18 endpoint. Consumers install the precompiled packages.
 
+To reproduce every CI gate, use Ubuntu 24.04 x64, a non-root test user for isolated PostgreSQL `initdb`, and a complete-history clean product checkout of `7ad56394a8a119202cfee5088406c5459f4cc6f0` (the CI product checkout uses `fetch-depth: 0`). Install Python, Git, curl, tar/zstd, make, patch, bison/flex, OpenSSL 3 and zlib development headers, qemu-user, Python cryptography, pre-commit and .NET SDK 11.0.100. The runtime/pristine/fresh-builder gates additionally require a working Docker daemon. The retained minimum-CPU gate explicitly enforces Ubuntu 24.04; passing a narrower native build on another Linux distribution does not establish that gate.
+
+Start with absent `artifacts/postgres-tools` and source-bound producer/package output directories such as `artifacts/db-scope/native-build` and `artifacts/db-scope/prepared`. A clean Git status alone does not mean these ignored outputs are absent. Preserve previous evidence in separate directories; the producer deliberately refuses to reuse immutable output locations. Exact tools, archives, source hashes, patch and notices are recorded in the fixed [dependency lock](https://github.com/IzuSharp/NativeWeave/blob/7ad56394a8a119202cfee5088406c5459f4cc6f0/native/dependencies.lock.json), [libpq configuration patch](https://github.com/IzuSharp/NativeWeave/blob/7ad56394a8a119202cfee5088406c5459f4cc6f0/native/cpp/patches/libpq-explicit-configuration.patch) and [third-party notices](https://github.com/IzuSharp/NativeWeave/blob/7ad56394a8a119202cfee5088406c5459f4cc6f0/THIRD_PARTY_NOTICES.md).
+
 ```sh
 python3 eng/cpp_toolchain.py
 . artifacts/toolchain/environment.sh
@@ -120,7 +124,7 @@ export CMAKE_PREFIX_PATH="$PWD/artifacts/postgres-tools/install"
 
 pre-commit install
 pre-commit run clang-format --all-files
-cmake --preset linux-x64-release
+cmake --preset linux-x64-release --fresh
 cmake --build --preset linux-x64-release
 ctest --preset linux-x64-release
 cmake --install artifacts/cmake/linux-x64-release
@@ -130,10 +134,12 @@ bash eng/verify-cpp-sanitizers.sh
 
 The pre-commit formatter uses fixed mirror commit `ce4bd7270237e95464b37d808b942f02785192c4` / clang-format 23.1.5. CI enforces the same version/rules even without a local hook. Generated ABI declarations retain their generator/byte checks. The incremental Git attributes/ignore changes preserve C# and NuGet rules, exclude local build/cache/compile-command/user-preset files and track shared presets.
 
-For complete source-bound verification, begin with a committed clean checkout, provide the fixed API inputs at `artifacts/frozen-design` (`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`) and `artifacts/frozen-plan` (`8afa0311f45ab8a8157fc45c51e95a0b17dd09f2`), and set `NW_TEST_POSTGRES` to a disposable PostgreSQL 18 server:
+For complete source-bound verification, provide the fixed API inputs at `artifacts/frozen-design` (`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`) and `artifacts/frozen-plan` (`8afa0311f45ab8a8157fc45c51e95a0b17dd09f2`), plus the separate compatibility inputs at `artifacts/scope-design` (`8298dc4128b745cf1809bad0c3cf02c45eb7f522`). These are detached source checkouts, not the latest Design/Plan main. Set `NW_TEST_POSTGRES` to a disposable PostgreSQL 18 server. The optional historical comparison needs either `NW_RUST_REFERENCE_ARCHIVE` pointing to the fixed verified reference ZIP or a `GITHUB_TOKEN` with Actions read access to download it; the reference preparer verifies the locked archive/package hashes in either case. GitHub Actions supplies its restricted token in the workflow.
 
 ```sh
 python3 eng/build.py verify --version 0.1.0-db-cpp.1 --compare-rust-reference
+python3 tests/Verification.Compatibility/verify.py --evidence artifacts/cpp-compatibility --design-root artifacts/scope-design
+python3 tests/Verification.Interop/verify.py --output artifacts/cpp-interop-properties
 bash eng/verify-task04-linux.sh
 bash eng/verify-task07-linux.sh
 bash eng/verify-cpp-clean.sh
