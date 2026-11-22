@@ -1,6 +1,6 @@
 # DB-CPP-01 — database native implementation migration, Linux x64
 
-**Status: in progress.** Candidate 6 is `1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff`, tree `79dbd786221e07c4ba0be035dbf1a9e261f4a660`, in product PR21. Its empty-tree C++ production, normal twelve-package preparation, fresh PostgreSQL/SQLite × JIT/Native AOT business/history comparison, original PostgreSQL package fault in both modes and source-bound non-author review have passed. The complete retained suite and [candidate 6 CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44971159513) remain in progress. Candidate 5's strict generated-reference failure and nine earlier stage passes remain attached to [its rejection snapshot](checkpoints/candidate-5/acceptance-at-rejection.json); candidate 6 changes only thirteen Markdown references and has its own executed results. Design PR15 has merged with successful main CI. Product and Plan merge acceptance remain open. The authoritative status is [acceptance.json](acceptance.json).
+**Status: in progress.** Candidate 6 is `1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff`, tree `79dbd786221e07c4ba0be035dbf1a9e261f4a660`, in product PR21. Its empty-tree C++ production, normal twelve-package preparation, fresh PostgreSQL/SQLite × JIT/Native AOT business/history comparison, original PostgreSQL package fault in both modes and source-bound non-author review have passed. The complete retained suite also passed all 57 commands, including 20 native CTests and every composed JIT/AOT suite. [Candidate 6 CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44971159513) and the remaining CI-specific gates are still in progress. Candidate 5's strict generated-reference failure and nine earlier stage passes remain attached to [its rejection snapshot](checkpoints/candidate-5/acceptance-at-rejection.json); candidate 6 changes only thirteen Markdown references and has its own executed results. Design PR15 has merged with successful main CI. Product and Plan merge acceptance remain open. The authoritative status is [acceptance.json](acceptance.json).
 
 ## Scope and frozen reference
 
@@ -89,6 +89,8 @@ The [comparison summary](checkpoints/candidate-6/migration-comparison.json), [fi
 
 ### Original regression and fault gates
 
+The final local candidate 6 run passed all 57 original orchestration commands in 659.9 seconds. It includes all 20 native CTests, three separately isolated PostgreSQL native regressions and each of Data.NativeHost, Data.Migrations, Data.Materialization, Query.Fluent and Orm.Relations in both JIT and Native AOT. The [typed retained result](checkpoints/candidate-6/regression-result.json) preserves every command name, exit status and original log hash and the entire native test inventory; [the local summary](checkpoints/candidate-6/local-regression-summary.json) records clean/stable source, unchanged producer/package manifests and the stopped server. The actual result SHA-256 is `8a6c7c2ce296a5651d1a5a39b026b70d3fa0ef86adc56c50dcbf11f0d55e05dd`; wrapper receipt SHA-256 is `af4cf829452b0e4f49a5a3167c9d9e3a5bb9104f0ae74b21a87a40ef74b090d2`. This complete local regression pass does not substitute for current-source CI format/tidy, leak detection, fresh-image or merge/main gates.
+
 The [native correspondence](https://github.com/IzuSharp/NativeWeave/blob/task/DB-CPP-01-linux/native/cpp/tests/ported-tests.md) maps original Rust families to C++ and unchanged C# consumers. A01–A08/A20, B01–B07, query binding/native/Fluent, materialization, migrations, relations, compatibility, Core packaging and database package/release/runtime checks remain executable gates. These include original 52 SQL/ordered-parameter cases, real provider TLS/process/lock/COMMIT faults, transaction/savepoint outcomes, bounded large results, partial-read release and concurrent shutdown.
 
 First-candidate formal A15 passed 20 JIT/AOT matrix rows, 30 policy cases, six actual NuGet closure controls, five XML rejection controls and all 85 commands. B05 passed its 24 commands and original JIT/AOT consumers. B06 and a separate Release CTest run exposed stream-retirement failures; those failures are preserved under [candidate-1](checkpoints/candidate-1/index.json), and do not count as acceptance.
@@ -134,13 +136,16 @@ Candidate 6 changes only thirteen Markdown files. The original generation and st
 
 The shared presets are `native-base`, `linux-x64-release`, `linux-x64-asan-ubsan`, `windows-x64-release` and `macos-release`. Release and sanitizer build trees are isolated. Maintainers select the pinned tools, original API declaration inputs and a disposable PostgreSQL 18 endpoint. Consumers install the precompiled packages.
 
-To reproduce every CI gate, use Ubuntu 24.04 x64, a non-root test user for isolated PostgreSQL `initdb`, and a complete-history clean product checkout of `1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff` (the CI product checkout uses `fetch-depth: 0`). Install Python, Git, curl, tar/zstd, make, patch, bison/flex, OpenSSL 3 and zlib development headers, qemu-user, Python cryptography, pre-commit and .NET SDK 11.0.100. The runtime/pristine/fresh-builder gates additionally require a working Docker daemon. The retained minimum-CPU gate explicitly enforces Ubuntu 24.04; passing a narrower native build on another Linux distribution does not establish that gate.
+To reproduce every CI gate, use Ubuntu 24.04 x64, a non-root test user for isolated PostgreSQL `initdb`, and a complete-history clean product checkout of `1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff` (the CI product checkout uses `fetch-depth: 0`). Install Python, Git, curl, tar/zstd, bzip2, Ubuntu `build-essential` for the system headers and linking tools, make, patch, bison/flex, OpenSSL 3 and zlib development headers, qemu-user, Python cryptography, pre-commit and .NET SDK 11.0.100. The runtime/pristine/fresh-builder gates additionally require a working Docker daemon accessible to the test user. The retained minimum-CPU gate explicitly enforces Ubuntu 24.04; passing a narrower native build on another Linux distribution does not establish that gate. Run the following blocks in the same fresh Bash shell from the product checkout root.
 
 Start with absent `artifacts/postgres-tools` and source-bound producer/package output directories such as `artifacts/db-scope/native-build` and `artifacts/db-scope/prepared`. A clean Git status alone does not mean these ignored outputs are absent. Preserve previous evidence in separate directories; the producer deliberately refuses to reuse immutable output locations. Exact tools, archives, source hashes, patch and notices are recorded in the fixed [dependency lock](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/native/dependencies.lock.json), [libpq configuration patch](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/native/cpp/patches/libpq-explicit-configuration.patch) and [third-party notices](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/THIRD_PARTY_NOTICES.md).
 
 ```sh
+set -euo pipefail
 python3 eng/cpp_toolchain.py
 . artifacts/toolchain/environment.sh
+export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
+export NUGET_PACKAGES="$PWD/artifacts/nuget-packages"
 bash eng/postgres-tools.sh
 export NW_POSTGRES_BIN="$PWD/artifacts/postgres-tools/install/bin"
 export CMAKE_PREFIX_PATH="$PWD/artifacts/postgres-tools/install"
@@ -155,9 +160,45 @@ python3 eng/check_native.py tidy
 bash eng/verify-cpp-sanitizers.sh
 ```
 
+The [Release preset](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/CMakePresets.json) installs `libnw_database_sqlite.so` and `libnw_database_postgresql.so` under `artifacts/native-install/linux-x64-release/lib`. During source-bound production, [the native producer](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/eng/task07_native.py) verifies that each installed library matches its linked CMake output, copies it into `artifacts/db-scope/native-build`, and records the source, inputs and binary hashes in that directory's `manifest.json`. [The package preparer](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/src/Packaging.Domain/prepare.py) consumes this manifest and the installed-output provenance to compose the existing provider leaves and facades in `artifacts/db-scope/prepared`. The `eng/build.py verify` command below runs this production and packaging chain.
+
 The pre-commit formatter uses fixed mirror commit `ce4bd7270237e95464b37d808b942f02785192c4` / clang-format 23.1.5. CI enforces the same version/rules even without a local hook. Generated ABI declarations retain their generator/byte checks. The incremental Git attributes/ignore changes preserve C# and NuGet rules, exclude local build/cache/compile-command/user-preset files and track shared presets.
 
-For complete source-bound verification, provide the fixed API inputs at `artifacts/frozen-design` (`c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9`) and `artifacts/frozen-plan` (`8afa0311f45ab8a8157fc45c51e95a0b17dd09f2`), plus the separate compatibility inputs at `artifacts/scope-design` (`8298dc4128b745cf1809bad0c3cf02c45eb7f522`). These are detached source checkouts, not the latest Design/Plan main. Set `NW_TEST_POSTGRES` to a disposable PostgreSQL 18 server. The optional historical comparison needs either `NW_RUST_REFERENCE_ARCHIVE` pointing to the fixed verified reference ZIP or a `GITHUB_TOKEN` with Actions read access to download it; the reference preparer verifies the locked archive/package hashes in either case. GitHub Actions supplies its restricted token in the workflow.
+For complete source-bound verification, create the three fixed historical inputs with the commands below. The detached commits and the PostgreSQL image digest, user, database and health-check options match [the source6 workflow](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/.github/workflows/build.yml). The `nativeweave` user and loopback-only trust authentication are an example exclusively for a disposable local test database; they are not credentials or connection settings from an actual execution session. Use a free local port 5432 and the unused container name shown below. The bounded readiness loop stops after at most sixty inspections; the exit trap removes the container if verification fails.
+
+```sh
+git clone https://github.com/IzuSharp/NativeWeave-Design.git artifacts/frozen-design
+git -C artifacts/frozen-design checkout --detach c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+git clone https://github.com/IzuSharp/Plan.git artifacts/frozen-plan
+git -C artifacts/frozen-plan checkout --detach 8afa0311f45ab8a8157fc45c51e95a0b17dd09f2
+git clone https://github.com/IzuSharp/NativeWeave-Design.git artifacts/scope-design
+git -C artifacts/scope-design checkout --detach 8298dc4128b745cf1809bad0c3cf02c45eb7f522
+
+docker run --detach --name nativeweave-db-cpp-repro \
+  --publish 127.0.0.1:5432:5432 \
+  --env POSTGRES_USER=nativeweave \
+  --env POSTGRES_DB=postgres \
+  --env POSTGRES_HOST_AUTH_METHOD=trust \
+  --health-cmd 'pg_isready -U nativeweave -d postgres' \
+  --health-interval 5s --health-timeout 5s --health-retries 12 \
+  postgres:18.0@sha256:41fc5342eefba6cc2ccda736aaf034bbbb7c3df0fdb81516eba1ba33f360162c
+trap 'docker rm --force nativeweave-db-cpp-repro >/dev/null 2>&1 || true' EXIT
+db_cpp_pg_ready=0
+for ((db_cpp_attempt=0; db_cpp_attempt<60; db_cpp_attempt++)); do
+  if [ "$(docker inspect --format '{{.State.Health.Status}}' nativeweave-db-cpp-repro)" = healthy ]; then
+    db_cpp_pg_ready=1
+    break
+  fi
+  sleep 1
+done
+if [ "$db_cpp_pg_ready" -ne 1 ]; then
+  echo 'Disposable PostgreSQL did not become healthy.' >&2
+  exit 1
+fi
+export NW_TEST_POSTGRES='postgresql://nativeweave@127.0.0.1:5432/postgres'
+```
+
+The optional historical comparison additionally needs either `NW_RUST_REFERENCE_ARCHIVE` pointing to the fixed verified reference ZIP or a `GITHUB_TOKEN` with Actions read access to download it; set the selected variable in this shell before continuing. The reference preparer verifies the locked archive/package hashes in either case. GitHub Actions supplies its restricted token in the workflow. These are reproduction instructions; this report update did not execute Docker on the local host. The corresponding fresh-image acceptance result is recorded separately from the instructions.
 
 ```sh
 python3 eng/build.py verify --version 0.1.0-db-cpp.1 --compare-rust-reference
@@ -166,16 +207,18 @@ python3 tests/Verification.Interop/verify.py --output artifacts/cpp-interop-prop
 bash eng/verify-task04-linux.sh
 bash eng/verify-task07-linux.sh
 bash eng/verify-cpp-clean.sh
+docker rm --force nativeweave-db-cpp-repro
+trap - EXIT
 ```
 
-The migration comparison verifies the fixed old artifact before use. `NW_RUST_REFERENCE_ARCHIVE` supports an already verified offline copy. Ordinary future `eng/build.py verify` omits that finite historical comparison and requires no Rust toolchain, Rust source build or expiring old artifact. The fresh-builder image produces native libraries and packages with Rust absent; the separate pinned SDK image verifies pristine package consumption, and a runtime-only image receives only verified AOT outputs. The candidate publication policy remains local/CI packages; no new public release workflow is introduced.
+The migration comparison verifies the fixed old artifact before use. `NW_RUST_REFERENCE_ARCHIVE` supports an already verified offline copy. Ordinary future `eng/build.py verify` omits that finite historical comparison and requires no Rust toolchain, Rust source build or expiring old artifact. [The fresh-builder script](https://github.com/IzuSharp/NativeWeave/blob/1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff/eng/verify-cpp-clean.sh) checks Rust tool and standard installation-directory absence in its pinned Ubuntu image, clones the exact source from a Git bundle into a new checkout, and builds NativeWeave's native libraries and packages there. It reads the checksum-locked Clang/CMake/Ninja tools, the already Clang-built libpq installation and dependency download cache through the read-only input mount; the selected .NET SDK is also mounted read-only. Those upstream tools and libpq are not rebuilt inside this image. The separate pinned SDK image verifies pristine package consumption, and a runtime-only image receives only verified AOT outputs. The candidate publication policy remains local/CI packages; no new public release workflow is introduced.
 
 ## Review, PRs, CI and remaining work
 
 | Repository | PR | Actual status |
 | --- | --- | --- |
 | NativeWeave-Design | [15](https://github.com/IzuSharp/NativeWeave-Design/pull/15) | Merged as `de1f4796dc199250b405ea99f2129d611f17b1f6`; tested and merged tree both `8dbb89bb028be6f0f910f43daa3042c1a84289ac` |
-| NativeWeave | [21](https://github.com/IzuSharp/NativeWeave/pull/21) | Draft; candidate 6 production, fresh four-cell comparison and scoped source review passed; complete regression/CI and normal merge pending |
+| NativeWeave | [21](https://github.com/IzuSharp/NativeWeave/pull/21) | Draft; candidate 6 production, fresh four-cell comparison, 57-command complete local regression and scoped source review passed; full CI and normal merge pending |
 | Plan | [26](https://github.com/IzuSharp/Plan/pull/26) | Draft; handoff/evidence and this report in progress |
 
 Design's exact merged-main [current-design CI](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44956543416) and [historical acceptance CI](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/44956543440) passed. Independent technical review is recorded as an honest COMMENT under the existing GitHub identity, without impersonating another approver. The [first product CI](https://github.com/IzuSharp/NativeWeave/actions/runs/44955442617) failed in the A02 harness and is retained as failed evidence. Plan checkpoint [CI 44956128270](https://github.com/IzuSharp/Plan/actions/runs/44956128270) passed its current progress and unchanged historical gates.
