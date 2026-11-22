@@ -1,0 +1,141 @@
+{
+  "actualLocalChecks": [
+    {
+      "command": "python3 tests/Packaging.Domain/test_nuget_publication.py",
+      "exitCode": 0,
+      "fixtureScope": "Mocked refusal, authentication-destination, archive and partial-outcome controls; no publication performed.",
+      "result": "passed",
+      "testsRun": 18
+    },
+    {
+      "command": "python3 tests/Packaging.Domain/test_nuget_public_consumer.py",
+      "exitCode": 0,
+      "fixtureScope": "Synthetic payload/provenance/signature-identity/runtime-receipt/environment refusal controls; no application executed.",
+      "result": "passed",
+      "testsRun": 9
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "artifactBytes": 6169499,
+      "artifactName": "nativeweave-database-linux-44977773509-1",
+      "artifactSha256": "bb63f9fe71ea4c2f68dd63b748af3820c8bc0174199ce6fa7e2a92197f31e8b9",
+      "candidatePath": "db-scope/prepared/candidate",
+      "check": "accepted-main-archive-and-all-original-package-digests",
+      "method": "Independently read the retained original GitHub artifact ZIP; verified archive size and digest, exact selected file set, fixed source, all manifest package versions and all twelve nupkg SHA-256 values against release.json.",
+      "packageCount": 12,
+      "receiptLocalUnsignedOnlyPreserved": true,
+      "result": "passed",
+      "sourceArtifactId": 14738115742,
+      "sourceRunId": 44977773509
+    },
+    {
+      "check": "old-verifiers-build-workflow-and-business-source-unchanged",
+      "comparedTo": "3badc05be503991b5591732629dd7e5b0dbad111",
+      "filesSha256": {
+        ".github/workflows/ci.yml": "d79d42000a6f6af2a06d46eb2720c00718c9db1acadbe7f217bfc770b7d2de6d",
+        "eng/build.py": "13b4f185fa0da513bf73a440756c5cc99a7929453e6ea4819753757b6996e5a1",
+        "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "samples/api/packaging-domain/Program.cs": "77dacfc28857b203b9fbfdd4b659c46a427ea122372cf00d78c9b168529f4e01",
+        "src/Packaging.Domain/model.py": "aea928bac7660f99bd44084b03d0e15a2afd6669252684bcb35708a5c343e692",
+        "src/Packaging.Release/release.py": "aa6a97a42a10b404d299eb65307488920b12343424d90c64a6414bc4a381165e",
+        "src/Verification.Compatibility/compatibility.py": "fea383b9eb40da3382ee8ad43b12746b3d8858cfe63096732b0ffee72eb4cfdc"
+      },
+      "result": "passed"
+    },
+    {
+      "check": "frozen-file-hashes-and-complete-upcoming-commit-delta",
+      "commit": "762fe8bf6915271244792e9bff69939767e00229",
+      "files": 10,
+      "result": "passed"
+    }
+  ],
+  "exclusions": [
+    "No NuGet key or OIDC credential was read, generated or used by this reviewer.",
+    "No package was pushed or unlisted and no permissions, publisher scopes, secrets or account settings were changed by this reviewer.",
+    "No dotnet public restore, business application, Native AOT build or public runtime matrix was executed in this review.",
+    "The source review and 27 synthetic/local tests do not establish public release completion or a new migration-runtime acceptance.",
+    "This record is an independent technical review by a separate agent, not another GitHub account approval."
+  ],
+  "kind": "independent-publication-source-and-rejection-control-review",
+  "pendingExecutionGates": [
+    "Actual existing NUGET_PUBLISH_ENABLED value observed by PR preflight; a false or absent switch must fail and cannot be reported as publication.",
+    "Normal product PR required checks, normal merge and applicable main CI.",
+    "Successful existing trusted-publisher exchange, actual package uploads or exact existing-payload readback, official signing and listing confirmation for all twelve versions.",
+    "Actual public-source SQLite/PostgreSQL times JIT/Native AOT execution and all native/closure/provenance checks.",
+    "Actual HelloWorld authorization result and final unlisted state for every version, independently recorded even if database publication succeeds."
+  ],
+  "resolvedFindings": [
+    {
+      "finding": "Publisher signature logs were written to signatures/ while upload-artifact initially selected signature-logs/.",
+      "resolution": "The frozen workflow selects artifacts/nuget-publication/signatures/.",
+      "verifiedInWorkflowSha256": "c464d7d034faf91d8712c21753f1bb06a18c3fedd74e6b309f89e9bd21884068"
+    }
+  ],
+  "reviewedAt": "2026-11-22T06:34:38.646562+00:00",
+  "reviewedControls": [
+    "Successful push-to-main CI attempt, repository ID, source commit/tree, artifact ID/name/size/digest and all twelve original package archives are fixed before promotion; candidate provenance remains unchanged.",
+    "All existing package versions are downloaded and verified before the first new upload. A 409 is accepted only after exact unsigned-entry comparison and real repository-signature verification.",
+    "NuGet PUT is restricted to its fixed endpoint and DELETE to the authorized HelloWorld identity. Credential-bearing redirects are refused. GitHub artifact storage redirects are allowlisted and receive no GitHub authorization header.",
+    "Publication API keys and GitHub/OIDC/runtime credentials are removed from signature subprocess scope; public consumer child processes also remove publication and runner tokens. Receipts retain only safe allowlisted metadata and public verification logs.",
+    "Repository-signature certificates are obtained from the official NuGet service resource. Cryptographic verification must succeed, then the actual repository-primary route, service index, exact dekueon owner set, certificate SHA-256 and subject must match.",
+    "Upload and unlist journals distinguish started/unconfirmed, accepted-awaiting-readback, authorization rejection and confirmed final state. Database publication and HelloWorld retirement keep separate outcomes.",
+    "All HelloWorld flat-container versions must match the registration inventory; final listed=false is required for every version, and newly observed unattempted versions prevent completion.",
+    "The public consumer uses the exact accepted Program.cs, fresh external projects and empty private caches, only the official public NuGet source, no source ProjectReference and no candidate feed.",
+    "Public consumption verifies the exact provider dependency closures and every package payload/signature, then runs SQLite/PostgreSQL times JIT/Native AOT. AOT requires actual Linux x64 ELF output, dynamic-code=false and an execution witness; both modes verify the actually mapped native-library hash and deterministic owner retirement.",
+    "The original publication-enable variable remains required. PR preflight explicitly checks its non-secret value. Only the exact repository main push/dispatch can enter the nuget environment and request an OIDC token.",
+    "The workflow retains raw publisher signatures and consumer logs, requires successful publication, four-cell consumption and retirement outcomes, and preserves the old build/acceptance workflow unchanged.",
+    "Documentation preserves the distinction between accepted local candidates and completed public delivery and does not consolidate package IDs or alter the accepted native binaries."
+  ],
+  "reviewer": {
+    "agent": "closeout_review",
+    "authorship": "The reviewer authored none of the ten reviewed product files. The reviewer authored this record, earlier migration closeout review records and read-only upstream scope/action research.",
+    "externalGitHubApprovalClaimed": false,
+    "independentOfReviewedFileAuthors": true,
+    "reviewIsPublicationAcceptance": false
+  },
+  "schemaVersion": 1,
+  "source": {
+    "baseCommit": "3badc05be503991b5591732629dd7e5b0dbad111",
+    "files": {
+      ".github/workflows/release.yml": "c464d7d034faf91d8712c21753f1bb06a18c3fedd74e6b309f89e9bd21884068",
+      "AGENTS.md": "777a45dc0a5915e56a781357ba28f44537daa1d2767e9a6c880634685c124f0f",
+      "README.md": "a4aba0b5a4b22c7ff420f019fa99a92fdddbfb29804e418240b90ba03dc8e075",
+      "docs/getting-started.md": "67a96315e56095c6cf14ee531ea4f1e9d4bdf8ce9636895e9732122702182f68",
+      "docs/releasing.md": "22daad45f56b794f3f21647c98b339e3bb4665c604a6d795c2e2eceddbf6d66e",
+      "eng/publish_nuget.py": "a659a37da070ae5b6c927e6faf65a80e11b950ed64a326a32f99aab94edfc6c9",
+      "eng/verify_nuget_public.py": "4710aa47c31398f385b7c31ac86215ef46edb830360bab473b7c1671c03e8646",
+      "packaging/releases/DB-CPP-01-nuget.json": "e6544925c8bd068cd24f7627857cb26582f743c68e1d92039437c9e659989515",
+      "tests/Packaging.Domain/test_nuget_public_consumer.py": "7d513a59a3d2467e657718721f46dee35d8b9bdc11a9211937d5ed95ae6faa24",
+      "tests/Packaging.Domain/test_nuget_publication.py": "6ee752fc9e815d11a3612936a0ba8a9a53fa6086d7729d5635cd83c203c6b0f0"
+    },
+    "fullCommitDeltaReviewed": true,
+    "repository": "IzuSharp/NativeWeave",
+    "reviewedCommit": "762fe8bf6915271244792e9bff69939767e00229",
+    "reviewedFileCount": 10,
+    "reviewedTree": "b43259a919e2e9de789dc851fb32502bc7271d71"
+  },
+  "upstreamAuthorizationConclusion": {
+    "conclusion": "Trusted Publishing credential construction copies the matched policy scopes; package:push does not imply package:unlist. The actual policy scopes have not been read. A normal authorized attempt must record the real result, including a possible 403, without altering scopes or account permissions.",
+    "nugetGallerySourceCommit": "63e6ee4202b441e1c904d6f78fc7b070f36bc24f",
+    "nugetLoginCommit": "8d196754b4036150537f80ac539e15c2f1028841",
+    "nugetLoginVersion": "v1.2.0",
+    "policyScopeRead": false,
+    "scopeEvidenceNote": "The fixed upstream CredentialBuilder clones the matched policy scopes; the scope extension matches the exact allowed action or All; ApiController DeletePackage requires PackageUnlist and the scope filter rejects unauthorized requests. This makes no assumption about the live account policy.",
+    "sourcePaths": [
+      "src/NuGetGallery.Services/Authentication/CredentialBuilder.cs",
+      "src/NuGetGallery.Services/Authentication/NuGetScopes.cs",
+      "src/NuGetGallery.Services/Extensions/ScopeExtensions.cs",
+      "src/NuGetGallery/Controllers/ApiController.cs",
+      "src/NuGetGallery/Filters/ApiScopeRequiredAttribute.cs"
+    ]
+  },
+  "verdict": {
+    "remainingSourceBlockers": [],
+    "scope": "The reviewed implementation may proceed to normal PR checks and the existing authorized publisher workflow. Real registry mutation, signed readback, public consumers and final retirement are separate pending execution gates.",
+    "sourceReviewPassed": true
+  }
+}
