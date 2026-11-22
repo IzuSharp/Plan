@@ -16,7 +16,7 @@ All work branches use `task/DB-CPP-01-linux`. Worktrees are `ROOT/.worktree/DB-C
 
 The twelve fixed Rust packages came from [merged baseline CI44924918463](https://github.com/IzuSharp/NativeWeave/actions/runs/44924918463), artifact `14715983822`, ZIP SHA-256 `7a7982ccda96d3a5d7f3f4b00713a8668ae5548ec189419e3c22af5493248a11`. Individual package and library identities are in [reference provenance](rust-reference-provenance.json) and [package inventory](rust-reference-packages.json).
 
-Linux uses LLVM 23.1.5, CMake 4.3.3, Ninja 1.13.2, .NET 11.0.100, PostgreSQL 18.0 and SQLite 3.51.3. Formal C++ builds use the locked patched libpq tools. The native producer records real compiler paths, hashes and target triples and rejects Rust on its producer PATH. Shared presets are `linux-x64-release` and `linux-x64-asan-ubsan`. Local ASan/UBSan uses `detect_leaks=0` because this host blocks LeakSanitizer process inspection; mandatory CI still requires `detect_leaks=1`.
+Linux uses LLVM 23.1.5, CMake 4.3.3, Ninja 1.13.2, .NET 11.0.100, PostgreSQL 18.0 and SQLite 3.51.3. Formal C++ builds use the locked patched libpq tools. The native producer records real compiler paths, hashes, target triples and Rust tool visibility on PATH. The formal local producer ran without Rust on PATH; the fresh-image CI gate enforces Rust tool and installation-directory absence. Shared presets are `linux-x64-release` and `linux-x64-asan-ubsan`. Local ASan/UBSan uses `detect_leaks=0` because this host blocks LeakSanitizer process inspection; mandatory CI still requires `detect_leaks=1`.
 
 ## Candidate 4 remains rejected
 
