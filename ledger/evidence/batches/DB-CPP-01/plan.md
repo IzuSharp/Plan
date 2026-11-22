@@ -20,19 +20,19 @@ Start from the observed main commits in [baseline.json](baseline.json). Only mer
 
 | Existing contract | C++ module responsibility | Reusable verification | Status |
 |---|---|---|---|
-| Bootstrap, ABI layout and negotiated exports | Shared interop and exported C tables | Interop.Abi, Negotiation, compatibility and loaded-asset checks | Implemented; final regression/CI acceptance pending |
-| Handle generations, lifetime, owned buffers, callback/async retirement | Shared interop resources | Lifetime, Memory, Callbacks, Async, Execution and error suites | Implemented; final regression/CI acceptance pending |
-| Data source, pool, session and close/drain | Database Host and provider connections | Data.NativeHost, Data.Postgres, Data.Sqlite | Implemented; final regression/CI acceptance pending |
-| Fluent arena, immutable query plan, cloning, expression ownership | Runtime query model and dialect compiler | Query.Binding, Query.Native, Query.Fluent and SQL golden assertions | Implemented; final regression/CI acceptance pending |
-| Explicit SQL, parameter order/types, prepared execution | SQL lexer, codecs and prepared plans | Data.Codecs, Query.Native and host execution tests | Implemented; final regression/CI acceptance pending |
-| Bounded row batches, DTO materialization, early disposal | Cursor and batch ownership | Data.Streaming, Data.Materialization, resource/failure oracles | Implemented; final regression/CI acceptance pending |
-| CRUD, relationships, batching and optimistic concurrency | Relational plans and mutation execution | Orm.Relations, reference business consumer | Implemented; final regression/CI acceptance pending |
-| Transactions, savepoints and unknown commit outcome | Session transaction coordinator | Data.Transactions and independent PostgreSQL fault oracles | Implemented; final regression/CI acceptance pending |
-| Migrations, history/checksums and catalog reads | Migration and provider catalog implementation | Data.Migrations, history handover and independent SQL | Implemented; final regression/CI acceptance pending |
-| PostgreSQL TLS, state, cancellation/drain/disconnect | libpq asynchronous execution | Existing provider TLS/process/proxy regressions | Implemented; final regression/CI acceptance pending |
-| SQLite locks, BUSY/LOCKED, transaction modes/durability | sqlite3 prepared statement worker | Existing lock and persistence regressions | Implemented; final regression/CI acceptance pending |
-| Core/provider precompiled packages and dependency closure | CMake install, package production and provenance | Packaging.Domain, Packaging.Linux, Packaging.Release | Implemented; final regression/CI acceptance pending |
-| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Source7 fresh four-cell comparison passed; source6 failures preserved; full current CI and normal merges pending |
+| Bootstrap, ABI layout and negotiated exports | Shared interop and exported C tables | Interop.Abi, Negotiation, compatibility and loaded-asset checks | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Handle generations, lifetime, owned buffers, callback/async retirement | Shared interop resources | Lifetime, Memory, Callbacks, Async, Execution and error suites | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Data source, pool, session and close/drain | Database Host and provider connections | Data.NativeHost, Data.Postgres, Data.Sqlite | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Fluent arena, immutable query plan, cloning, expression ownership | Runtime query model and dialect compiler | Query.Binding, Query.Native, Query.Fluent and SQL golden assertions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Explicit SQL, parameter order/types, prepared execution | SQL lexer, codecs and prepared plans | Data.Codecs, Query.Native and host execution tests | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Bounded row batches, DTO materialization, early disposal | Cursor and batch ownership | Data.Streaming, Data.Materialization, resource/failure oracles | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| CRUD, relationships, batching and optimistic concurrency | Relational plans and mutation execution | Orm.Relations, reference business consumer | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Transactions, savepoints and unknown commit outcome | Session transaction coordinator | Data.Transactions and independent PostgreSQL fault oracles | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Migrations, history/checksums and catalog reads | Migration and provider catalog implementation | Data.Migrations, history handover and independent SQL | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| PostgreSQL TLS, state, cancellation/drain/disconnect | libpq asynchronous execution | Existing provider TLS/process/proxy regressions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| SQLite locks, BUSY/LOCKED, transaction modes/durability | sqlite3 prepared statement worker | Existing lock and persistence regressions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Core/provider precompiled packages and dependency closure | CMake install, package production and provenance | Packaging.Domain, Packaging.Linux, Packaging.Release | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
+| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Source7 fresh four-cell and complete PR CI passed; product merged, exact main/final Plan checks pending |
 
 ## Implementation decision to record in Design
 
