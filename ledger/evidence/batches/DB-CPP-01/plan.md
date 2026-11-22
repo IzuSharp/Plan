@@ -20,19 +20,19 @@ Start from the observed main commits in [baseline.json](baseline.json). Only mer
 
 | Existing contract | C++ module responsibility | Reusable verification | Status |
 |---|---|---|---|
-| Bootstrap, ABI layout and negotiated exports | Shared interop and exported C tables | Interop.Abi, Negotiation, compatibility and loaded-asset checks | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Handle generations, lifetime, owned buffers, callback/async retirement | Shared interop resources | Lifetime, Memory, Callbacks, Async, Execution and error suites | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Data source, pool, session and close/drain | Database Host and provider connections | Data.NativeHost, Data.Postgres, Data.Sqlite | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Fluent arena, immutable query plan, cloning, expression ownership | Runtime query model and dialect compiler | Query.Binding, Query.Native, Query.Fluent and SQL golden assertions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Explicit SQL, parameter order/types, prepared execution | SQL lexer, codecs and prepared plans | Data.Codecs, Query.Native and host execution tests | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Bounded row batches, DTO materialization, early disposal | Cursor and batch ownership | Data.Streaming, Data.Materialization, resource/failure oracles | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| CRUD, relationships, batching and optimistic concurrency | Relational plans and mutation execution | Orm.Relations, reference business consumer | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Transactions, savepoints and unknown commit outcome | Session transaction coordinator | Data.Transactions and independent PostgreSQL fault oracles | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Migrations, history/checksums and catalog reads | Migration and provider catalog implementation | Data.Migrations, history handover and independent SQL | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| PostgreSQL TLS, state, cancellation/drain/disconnect | libpq asynchronous execution | Existing provider TLS/process/proxy regressions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| SQLite locks, BUSY/LOCKED, transaction modes/durability | sqlite3 prepared statement worker | Existing lock and persistence regressions | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Core/provider precompiled packages and dependency closure | CMake install, package production and provenance | Packaging.Domain, Packaging.Linux, Packaging.Release | Implemented; complete candidate-7 PR CI passed; merged-main/final record pending |
-| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Source7 fresh four-cell and complete PR CI passed; product merged, exact main/final Plan checks pending |
+| Bootstrap, ABI layout and negotiated exports | Shared interop and exported C tables | Interop.Abi, Negotiation, compatibility and loaded-asset checks | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Handle generations, lifetime, owned buffers, callback/async retirement | Shared interop resources | Lifetime, Memory, Callbacks, Async, Execution and error suites | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Data source, pool, session and close/drain | Database Host and provider connections | Data.NativeHost, Data.Postgres, Data.Sqlite | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Fluent arena, immutable query plan, cloning, expression ownership | Runtime query model and dialect compiler | Query.Binding, Query.Native, Query.Fluent and SQL golden assertions | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Explicit SQL, parameter order/types, prepared execution | SQL lexer, codecs and prepared plans | Data.Codecs, Query.Native and host execution tests | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Bounded row batches, DTO materialization, early disposal | Cursor and batch ownership | Data.Streaming, Data.Materialization, resource/failure oracles | Accepted; candidate-7 PR and actual merged-main gates passed |
+| CRUD, relationships, batching and optimistic concurrency | Relational plans and mutation execution | Orm.Relations, reference business consumer | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Transactions, savepoints and unknown commit outcome | Session transaction coordinator | Data.Transactions and independent PostgreSQL fault oracles | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Migrations, history/checksums and catalog reads | Migration and provider catalog implementation | Data.Migrations, history handover and independent SQL | Accepted; candidate-7 PR and actual merged-main gates passed |
+| PostgreSQL TLS, state, cancellation/drain/disconnect | libpq asynchronous execution | Existing provider TLS/process/proxy regressions | Accepted; candidate-7 PR and actual merged-main gates passed |
+| SQLite locks, BUSY/LOCKED, transaction modes/durability | sqlite3 prepared statement worker | Existing lock and persistence regressions | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Core/provider precompiled packages and dependency closure | CMake install, package production and provenance | Packaging.Domain, Packaging.Linux, Packaging.Release | Accepted; candidate-7 PR and actual merged-main gates passed |
+| Same consumer on old/new engines, JIT/AOT, changed model | Versioned out-of-tree business consumer | PostgreSQL/SQLite × JIT/AOT and unchanged native hash | Accepted; source7 four-cell comparison passed; Product21, Design15 and Plan26 merged with exact main CI |
 
 ## Implementation decision to record in Design
 
@@ -55,3 +55,7 @@ No full-result buffering may stand in for a stream. No public breaking change, s
 ## Evidence and continuation
 
 Update and publish [handoff-linux.md](handoff-linux.md) after each handover-ready stage. It identifies the active branches, exact commits, PRs, completed commands and next work. [acceptance.json](acceptance.json) starts pending and requires actual hashed evidence for every passed check. The final report belongs at `ledger/evidence/batches/DB-CPP-01/migration-report-linux.md`; it must include source transition, dependency decisions, compatibility, actual four-cell results, limitations, presets/reproduction commands and PR/CI links.
+
+## Observed delivered snapshot
+
+All 21 claims and seven phases are complete for Product21 / Design15 / Plan26. The final [report](migration-report-linux.md) and [acceptance record](acceptance.json) bind their exact tested/merged sources and successful PR/main CI. The evidence-only follow-up is reviewed and checked through its own PR/main CI separately, as required by [the receipt schema](receipt-schema.md#plan-delivery-without-a-circular-ci-claim). No product gate or historical acceptance was weakened.
