@@ -1,5 +1,9 @@
 # DB-CPP-01 Linux handoff
 
+## Subsequent authorized public publication
+
+The migration evidence follow-up below has since merged as [Plan PR27](https://github.com/IzuSharp/Plan/pull/27), commit `5be447a868be78713ada52f46cee16409f0edc13`; its [PR CI](https://github.com/IzuSharp/Plan/actions/runs/44990199769) and [merged-main CI](https://github.com/IzuSharp/Plan/actions/runs/44990593869) both passed. The owner then explicitly authorized actual NuGet publication to `dekueon` and withdrawal of HelloWorld. Continue that separate delivery from the [publication handoff](nuget-publication/handoff-linux.md). The original 21 migration claims and source identities remain unchanged; they do not themselves claim a public release.
+
 ## Current state: delivered migration accepted; final evidence record checks are separate
 
 The owner authorized the database-only Rust-to-C++ migration, tests, documentation, pushes, PRs and normal merges. The delivered Linux x64 snapshot is accepted: **21/21 checks and seven complete phases**. Earlier failures remain evidence at their actual sources. DB-API-01 and DB-Perf-01 remain excluded. This evidence-only follow-up must complete its own technical review, PR CI, normal merge and merged-main CI before the final user handoff; those outcomes are linked in its PR discussion rather than predicted in this commit.
