@@ -1,0 +1,23 @@
+{
+  "baseCommit": "1d6935cdcfb381cc9ccd9ccc143d4bfaf1d4d690",
+  "sourceDirty": true,
+  "hostSha256": "fc476a037f24cafed659530045b360713b17235e52707b4d754fa4474cdfd2fd",
+  "testsSha256": "900a74759b292e2ee3542ba2d3a4c622eab59f1a6c3d111ce34d719b9d74b9d9",
+  "negativeControls": [
+    {
+      "name": "released-owner",
+      "exitCode": 1,
+      "negativeRejected": true,
+      "output": "FAIL transaction lifecycle: released savepoint disposal closed the next transaction command\n",
+      "mutantSha256": "10e6b379f4b4bd849ba895bece6678a6ff77f03095b350eca92af5fde3a60de3"
+    },
+    {
+      "name": "parent-close",
+      "exitCode": 1,
+      "negativeRejected": true,
+      "output": "FAIL transaction lifecycle: parent close misclassified a top savepoint as an ordering failure\n",
+      "mutantSha256": "5aa89341b72f5d8cea693681c0c8cf7d3b248d070e956737a1d75b598594c103"
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "scope": "Independent in-memory verifier consistency review; no synthetic ledger evidence",
+  "verifier_sha256": {
+    "verify_db_cpp.py": "f64cd9e586b93024fc8e119bc955e0fcbe69ea0de3a89b7c0863e5bd434c42d7",
+    "db_cpp_evidence.py": "db1bc67d61684e83edf72ba22341f14633b1f4614242e83c53dc5bc198251f31"
+  },
+  "actual_migration_comparison_sha256": "2a5e2f25fd825ac61fa1c886e2108c9670d4c89d5e814f7ba49598af2a39279b",
+  "cases": [
+    {
+      "case": "actual-migration-results",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "wrapper-source-differs-from-candidate",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Claim source differs from its exact candidate/baseline/PR identity: query_semantic_parity",
+      "passed": true
+    },
+    {
+      "case": "actual-result-source-differs-from-wrapper",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Dirty or different actual controller source",
+      "passed": true
+    },
+    {
+      "case": "actual-controller-dirty",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Dirty or different actual controller source",
+      "passed": true
+    },
+    {
+      "case": "passed-wrapper-around-failed-candidate",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual result is not passed: passed",
+      "passed": true
+    },
+    {
+      "case": "passed-wrapper-around-candidate-with-failures",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual result contains failures",
+      "passed": true
+    },
+    {
+      "case": "failed-command-under-passed-candidate",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual command failed",
+      "passed": true
+    },
+    {
+      "case": "no-candidate-commands",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Missing actual command results",
+      "passed": true
+    },
+    {
+      "case": "required-aot-row-removed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Missing database/runtime cell",
+      "passed": true
+    },
+    {
+      "case": "required-aot-row-failed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual database/runtime cell failed",
+      "passed": true
+    },
+    {
+      "case": "failed-baseline-under-passed-comparison",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual result is not passed: passed",
+      "passed": true
+    },
+    {
+      "case": "changed-business-source",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Business build source differs from declared consumer/DTO change",
+      "passed": true
+    },
+    {
+      "case": "changed-dto-input",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Business build source differs from declared consumer/DTO change",
+      "passed": true
+    },
+    {
+      "case": "changed-sdk-input",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Old/new comparison uses different environment/input: global_json_sha256",
+      "passed": true
+    },
+    {
+      "case": "changed-abi-probe-input",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "ABI probe inputs differ",
+      "passed": true
+    },
+    {
+      "case": "different-postgresql-version",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Old/new comparison uses different environment/input: postgres_version",
+      "passed": true
+    },
+    {
+      "case": "missing-native-package-in-both-summaries",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Missing actual package identities",
+      "passed": true
+    },
+    {
+      "case": "package-built-from-wrong-commit",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Package source differs",
+      "passed": true
+    },
+    {
+      "case": "native-product-build-tool-invoked-by-consumer",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "comparison-row-differs-from-actual",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Compared matrix differs from executed matrix",
+      "passed": true
+    },
+    {
+      "case": "dto-native-hash-changed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "abi-refusal-differs-from-rust",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "ABI comparison differs from actual process result",
+      "passed": true
+    },
+    {
+      "case": "abi-resource-leak",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "different-actual-abi-with-consistent-wrapper",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Actual ABI outcomes differ",
+      "passed": true
+    },
+    {
+      "case": "wrong-old-snapshot-with-consistent-wrapper",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Candidate did not receive the exact old database snapshot",
+      "passed": true
+    },
+    {
+      "case": "empty-phase-list",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Missing or reordered migration phase",
+      "passed": true
+    },
+    {
+      "case": "actual-ci-design-pr-head-44956346986",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "actual-ci-design-pr-head-44956346889",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "actual-ci-design-merged-main-44956543416",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "actual-ci-design-merged-main-44956543440",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-failed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "CI is unfinished or failed",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-in-progress",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "CI is unfinished or failed",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-wrong-source",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-wrong-tree",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "CI actual commit/tree differs",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-wrong-repository",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-wrong-url",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-run-wrong-event",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Wrong CI branch/event",
+      "passed": true
+    },
+    {
+      "case": "raw-main-ci-run-wrong-branch",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Wrong CI branch/event",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-job-failed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Required job failed or was skipped",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-job-skipped",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Required job failed or was skipped",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-job-another-run",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-job-another-attempt",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-job-another-head",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-jobs-page-incomplete",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "CI jobs response is incomplete",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-required-job-omitted",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "CI jobs response is incomplete",
+      "passed": true
+    },
+    {
+      "case": "raw-ci-required-step-skipped",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Mandatory CI step missing, failed or skipped: Validate migration decision and unchanged accepted database scope at its frozen input",
+      "passed": true
+    },
+    {
+      "case": "arbitrary-success-command-as-native_sanitizers",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Claim lacks an applicable actual result: native_sanitizers",
+      "passed": true
+    },
+    {
+      "case": "arbitrary-success-command-as-rust_free_build_pack_run",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Claim lacks an applicable actual result: rust_free_build_pack_run",
+      "passed": true
+    },
+    {
+      "case": "arbitrary-success-command-as-native_format_tidy",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Claim lacks an applicable actual result: native_format_tidy",
+      "passed": true
+    },
+    {
+      "case": "synthetic-complete-delivery-fixture",
+      "expected_rejection": false,
+      "rejected": false,
+      "passed": true
+    },
+    {
+      "case": "delivered-plan-tested-tree-mismatch",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "delivered-plan-followup-policy-removed",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    },
+    {
+      "case": "delivered-plan-future-self-ci-predicted",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Evidence record cannot predict its own future CI",
+      "passed": true
+    },
+    {
+      "case": "accepted-plan-still-open",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Required PR remains unmerged",
+      "passed": true
+    },
+    {
+      "case": "accepted-plan-missing-main-ci",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Missing exact-head/merged-main CI receipts",
+      "passed": true
+    },
+    {
+      "case": "accepted-plan-candidate-source-mismatch",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "PR tested source differs from candidate",
+      "passed": true
+    },
+    {
+      "case": "accepted-plan-unobserved-merge",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "Observed PR has not merged at the recorded identity",
+      "passed": true
+    },
+    {
+      "case": "accepted-plan-main-ci-uses-pr-head-receipt",
+      "expected_rejection": true,
+      "rejected": true,
+      "reason": "",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

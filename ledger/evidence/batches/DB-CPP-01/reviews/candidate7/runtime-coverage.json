@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "kind": "review",
+  "task": "DB-CPP-01",
+  "passed": true,
+  "product_acceptance": false,
+  "sources": {
+    "NativeWeave": {
+      "commit": "39b5b72ff9bf4d8a485b55debf940f4ded83bbe2",
+      "tree": "3264de79b73c8a89f1cac1eff57d0c0ff2c841c2"
+    }
+  },
+  "scope": "Source-bound inheritance of candidate6 native runtime, ABI and build-boundary review. This pass verifies exact Git blob identity, SHA256 and local bytes for all 74 previously bound files, including all 18 native production paths. The sole changed file contains two private A20 expected assertion text corrections. No full rereading or runtime execution of unchanged files is claimed.",
+  "authorship_disclosure": "Separate subagents in the same execution team, not external reviewers. This reviewer authored query/mutations, Query/SQLite bridges, Migration.Cpp and the limited query-error/codec ABI conversion. Those authored portions use the other subagents independent reviews. Initial provider and its PostgreSQL correction were authored by upstream_cpp_research; Host integration was authored by root and upstream_cpp_research; interop was authored by linux_capabilities. This reviewer independently read the other production modules and current Host/provider/ABI corrections.",
+  "blocking_findings": [],
+  "review_method": {
+    "prior_scope_and_authorship_exclusions_inherited": true,
+    "unchanged_files_reread_in_full_this_pass": false,
+    "all_74_prior_file_sha256_and_git_blobs_verified": true,
+    "all_74_local_bytes_equal_current_commit": true,
+    "current_tracked_native_production_paths": 18,
+    "all_current_production_paths_accounted_for": true,
+    "native_runtime_hunks_changed": 0,
+    "working_tree_clean": true,
+    "entire_commit_diff_exactly_two_private_test_literals": true,
+    "execution_acceptance_inherited": false
+  },
+  "private_test_delta": {
+    "path": "tests/Verification.Interop/verify.py",
+    "before_sha256": "34ab075f269b4cc1d008a56a75bcefaf7f48bdb33461d8e4491711f1fb134af5",
+    "after_sha256": "a122069fd54bbe2f71402d4a23ba1d82d3f8ce7a0b77eb5f0a138c5def86c79d",
+    "replacement_count": 2,
+    "previous_required_literal": "status==(expected?NW_OK:NW_INVALID_ARGUMENT)",
+    "current_required_literal": "status == (expected ? NW_OK : NW_INVALID_ARGUMENT)",
+    "entire_file_equals_two_literal_replacement": true,
+    "expected_exit_codes_assertion_marker_timeouts_oracle_and_fatal_control_logic_unchanged": true,
+    "negative_control_c_source_unchanged": true,
+    "runtime_execution_by_this_review": false,
+    "local_replay_approval_rejection_not_retried": true
+  },
+  "known_limitations": [
+    "No new candidate package acceptance is asserted.",
+    "Local sanitizer evidence does not replace required CI leak detection.",
+    "Public libpq close confirms local destruction, not a reported SQLx Terminate write/flush result; the finite observed public categories match.",
+    "These are same-team non-author technical reviews, not an external audit.",
+    "The reviewed old pool-return Usable receipt can coexist with actual lower-layer physical discard; this existing observation defect is retained explicitly.",
+    "Earlier failed candidates and their blocked reviews remain immutable historical results, not relabeled successes.",
+    "No source7 execution acceptance is inherited from source6, source5 or earlier development observations.",
+    "An automatic risk rejection of a local A20 replay is preserved; this review did not retry or replace that action. The fresh official workflow is the pending execution authority."
+  ],
+  "earlier_failed_ci_preserved": [
+    {
+      "run_id": 44968972018,
+      "commit": "7e70ab8ec9390f4e40f45b4c47e24702f5bf3ed6",
+      "conclusion": "failure",
+      "reason": "Data.Abstractions API/reference gate aborted; local source5 observation confirmed stale generated reference documentation."
+    },
+    {
+      "run_id": 44971159513,
+      "commit": "1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff",
+      "conclusion": "failure",
+      "reason": "The deliberate A20 oracle returned the expected exit77, but its formatted assertion expression did not match the verifier exact diagnostic literal. Later packaging and fresh no-Rust steps were skipped.",
+      "failure_summary_sha256": "403a6a22c0aece739a040be456ea3d83540fae1345719ef46834463a68c8da6e"
+    }
+  ],
+  "pending_acceptance_gates": [
+    "Source7 normal native/package production and actual consumer execution",
+    "Source7 complete required PR workflow and later merged-main workflows",
+    "Final three-repository acceptance and Plan report closure"
+  ],
+  "pending_ci_url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44974091036",
+  "runtime_tests_run": [],
+  "source_or_test_edits_by_this_review": false,
+  "coverage": {
+    "current_tracked_paths": 18,
+    "all_paths_accounted_for": true,
+    "prior_non_author_runtime_full_file_reviews": 13,
+    "prior_peer_non_author_compiler_full_file_reviews": 4,
+    "prior_small_generated_schema_review": 1
+  },
+  "previous_exact_review": {
+    "commit": "1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff",
+    "tree": "79dbd786221e07c4ba0be035dbf1a9e261f4a660",
+    "sha256": "0db4aa9596731598f140a9b8b5c3d59e55890823ca73ddad881f1172cc1bb6b9",
+    "preserved_unmodified": true
+  },
+  "public_contract": "All previously reviewed production, normative ABI, managed runtime, package identity and build-boundary bytes are unchanged. Only two private expected diagnostic strings changed; no execution acceptance is inherited.",
+  "evidence_sha256": {
+    "complete_source_binding_review": "3fac8db67b508c2e6cfdeadb1f963b044f9e3083258bb6b712142f850db14ff4",
+    "prior_runtime_build_review": "0db4aa9596731598f140a9b8b5c3d59e55890823ca73ddad881f1172cc1bb6b9",
+    "source6_failure_summary": "403a6a22c0aece739a040be456ea3d83540fae1345719ef46834463a68c8da6e"
+  },
+  "official_source": "https://github.com/IzuSharp/NativeWeave/tree/39b5b72ff9bf4d8a485b55debf940f4ded83bbe2",
+  "privacy": "Explicit allowlist of public source identities, coverage, review attribution, public test literals, findings, limits and integrity hashes. No machine paths, command argument vectors, environment data, raw logs or operational metadata."
+}

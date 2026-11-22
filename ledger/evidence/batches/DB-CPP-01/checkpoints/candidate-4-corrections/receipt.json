@@ -1,0 +1,102 @@
+{
+  "sanitized": true,
+  "source_artifact_sha256": "770a91fd70047e2ca48ba287eef16de1b726fdaf7fde9312f9739384a17e110c",
+  "data": {
+    "schemaVersion": 1,
+    "task": "DB-CPP-01",
+    "status": "passed-targeted-development",
+    "recordedUtc": "2026-11-21T23:32:02.660418+00:00",
+    "baseCommit": "3e49cee95d206468a32c94f0a3b98e923f02acbf",
+    "sourceDirty": true,
+    "sourceFiles": {
+      "native/cpp/include/nw/provider.hpp": "82ca8ad2cb37d2af68d1e3fc1048165b612f48af8a6995b754134b8136ef33da",
+      "native/cpp/src/host.cpp": "eb1c23c0e0bc87b0f2f647dae17fcfaaf4f4d132b1dbef2c22298993d8a5c536",
+      "native/cpp/src/provider.cpp": "ff2a99f8dfa0a1dcc995735f0c2980fd5aec7efef26c69333416b442c887794f",
+      "native/cpp/tests/host_review_tests.cpp": "ae46828bd3c7c7d8c42c480155b1f9dbc4def24850501834fed15bc6d946d5fe",
+      "native/cpp/tests/ported-tests.md": "e2fd554b988583db31b131ebb628357673c62db00d9f07d44b3d186bfaf39fe3"
+    },
+    "patchSha256": "f529626c0b2cc1268030b83809ecc79764a139fc00a619c48c84769c21636ea3",
+    "fixedRustReference": {
+      "commit": "465cd0f90e6af05ec50eb581156240377cf0825b",
+      "sqlite": "native/database/sqlite/src/session.rs::prepare; Host Limits::sqlite and Session::open",
+      "providerWidth": "native/database/codecs/src/scalar.rs::provider_size and lib.rs::Parameters::decode",
+      "queryOrder": "native/database/host/src/session.rs::CursorOwner::open then streaming/src/cursor.rs::Cursor::open"
+    },
+    "behavior": {
+      "sqlite": "per-session SQL + 2*complete wire capacity; zero-argument wire remains 96 bytes; physical refusal 13/6 before dispatch",
+      "codecs": "provider width + 4-byte framing; Host codec failures 13/3, direct codec capacity 13/6",
+      "query": "SQLite SQL-only describe, then parameter admission; both providers prepare before row-buffer admission; no statement stepping before row budget"
+    },
+    "nativeResults": [
+      {
+        "profile": "release",
+        "passed": true,
+        "tests": [
+          "native.scalar",
+          "native.provider",
+          "native.host_review",
+          "native.transactions",
+          "native.streaming"
+        ],
+        "log": "/workspace/scratch/b938bf45c750/_validation/input-admission-review/release-ctest.log",
+        "sha256": "f929b9323d475e2769ae852ee65a52d97ca6685f752ea5c545b8ae403da44185"
+      },
+      {
+        "profile": "asan-ubsan",
+        "passed": true,
+        "tests": [
+          "native.scalar",
+          "native.provider",
+          "native.host_review",
+          "native.transactions",
+          "native.streaming"
+        ],
+        "log": "/workspace/scratch/b938bf45c750/_validation/input-admission-review/asan-ubsan-ctest.log",
+        "sha256": "9e1e4c6cd4f98b8db02c4f9b65bffbc7214007745c789cc84c4314c6f98a9d86"
+      }
+    ],
+    "evidence": {
+      "negativeControls": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/input-admission-review/negative/result.json",
+        "sha256": "30e91407ef7a3491bdd8d47061da31ceb2fb07c1044526993fdd830774bcd046"
+      },
+      "unchangedManagedCodecReplay": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/input-admission-review/codecs/result.json",
+        "sha256": "257d675976e6c25ebe8ebedeb949b53d657d7a9c0dda28353a27e58666256cb9"
+      },
+      "independentPublicAbiReplay": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/parameter-budget-fixed-development-1/result.json",
+        "sha256": "59defa05f3fe23132d1596c9601c07840d223fe02d946f448371d306b6857be2"
+      },
+      "postgresReleaseAndSanitizerWiring": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/logs/candidate4-input-wiring.json",
+        "sha256": "48aea108cee92caac4e3232000b71c0e14640b5478fa1d91e5b6d82c7a5d595e"
+      },
+      "originalPgDifference": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/parameter-budget-review-1/result.json",
+        "sha256": "a85e3212078b5ca27cd8ad0b663538367337110ccc1a01e45b0a93867efe17d6"
+      },
+      "originalSqliteDifference": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/sqlite-input-review-2/result.json",
+        "sha256": "e3c89f693b023825d6218fbffe7a8ec4c979cbadefdb12a4ebd1f7ec6de8902e"
+      }
+    },
+    "developmentLibraries": {
+      "libnw_database_sqlite.so": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/build/b05-b06/libnw_database_sqlite.so",
+        "sha256": "aad32bab9c6bae6744fd34480eeaa5aa596c02efde71db249803761cf778031c"
+      },
+      "libnw_database_postgresql.so": {
+        "path": "/workspace/scratch/b938bf45c750/_validation/build/b05-b06/libnw_database_postgresql.so",
+        "sha256": "86dd277482bbe3a3adf48b91afe3af5a5a583120178b6d30daeb60b5aa93cd07"
+      }
+    },
+    "formatAndDiffCheck": true,
+    "limitations": [
+      "Uncommitted development snapshot, not candidate4 acceptance.",
+      "ASan/UBSan used detect_leaks=0 locally; CI LeakSanitizer gate remains enabled.",
+      "Original C# Orm.Relations assertions were not changed. Complete regression/package comparison must be rerun against the next committed candidate.",
+      "Source3 formal passes and failures remain unchanged and do not attest candidate4."
+    ]
+  }
+}

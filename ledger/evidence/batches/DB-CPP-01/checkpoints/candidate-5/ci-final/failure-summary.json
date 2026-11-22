@@ -1,0 +1,156 @@
+{
+  "schema_version": 2,
+  "task": "DB-CPP-01",
+  "scope": "official candidate5 PR CI failure archive",
+  "passed": false,
+  "product_acceptance": false,
+  "sources": {
+    "NativeWeave": {
+      "commit": "7e70ab8ec9390f4e40f45b4c47e24702f5bf3ed6",
+      "tree": "ea00a3871ae4c26b8833d2924b7f94451f006d42"
+    }
+  },
+  "ci": {
+    "repository": "IzuSharp/NativeWeave",
+    "run_id": 44968972018,
+    "run_attempt": 1,
+    "event": "pull_request",
+    "workflow_path": ".github/workflows/ci.yml",
+    "branch": "task/DB-CPP-01-linux",
+    "url": "https://github.com/IzuSharp/NativeWeave/actions/runs/44968972018",
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs_total_count": 6,
+    "jobs": [
+      {
+        "id": 137044420143,
+        "name": "security / Dependency review",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 137044420334,
+        "name": "security / CodeQL (csharp)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 137044420370,
+        "name": "security / CodeQL (python)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 137044420377,
+        "name": "security / Secret scan",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 137044420401,
+        "name": "build / Build, package and Native AOT",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 137048407485,
+        "name": "Verify",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ]
+  },
+  "observed_failure": {
+    "job_id": 137044420401,
+    "step": "Verify database workspaces, API, regressions and actual package JIT/AOT consumers",
+    "component": "Data.Abstractions",
+    "component_command": "api-exact-xml-reference",
+    "exit_code": -6,
+    "direct_evidence": "The official artifact contains the component wrapper log recording this command and exit code. It does not contain the nested command log or literal exception message.",
+    "nested_exception_available_in_official_artifact": false,
+    "completed_outer_commands_before_failure": 11,
+    "regression_result_json_present": false
+  },
+  "local_same_source_diagnosis": {
+    "attribution": "Root executor reported and directly inspected the separate local source5 failure.",
+    "exception": "Generated API reference is stale.",
+    "same_component_command_as_official_ci": true,
+    "limitation": "The exact exception is established by the separate local observation; it is not claimed to be present in this official artifact."
+  },
+  "subsequent_verification_steps": [
+    {
+      "number": 11,
+      "name": "Reject generated source or dependency drift",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 12,
+      "name": "Verify shared ASan and UBSan preset with leak detection enabled",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 13,
+      "name": "Verify retained cross-version compatibility and Core property/fuzz gates",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 14,
+      "name": "Verify retained Core package closure and minimum CPU/runtime transfer",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 15,
+      "name": "Reject shared packaging source or dependency drift",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 16,
+      "name": "Verify database release recovery, no-Rust SDK consumption and runtime-only transfer",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 17,
+      "name": "Reject database packaging source or dependency drift",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 18,
+      "name": "Build and package C++ assets in a fresh Linux image without Rust",
+      "conclusion": "skipped"
+    },
+    {
+      "number": 21,
+      "name": "Retain the exact verified database candidate",
+      "conclusion": "skipped"
+    }
+  ],
+  "acceptance_guard": {
+    "failed_run_rejected_by_typed_success_validator": true,
+    "reason": "CI is unfinished or failed",
+    "leak_detection_gate": "skipped",
+    "fresh_linux_without_rust_gate": "skipped",
+    "later_skipped_steps_counted_as_success": false
+  },
+  "official_artifact": {
+    "id": 14733600835,
+    "name": "nativeweave-evidence-44968972018-1",
+    "size_in_bytes": 161818,
+    "github_digest": "sha256:70e2675d944240d40f6699f5c915ce48ba9b2f6af296faf6e169105f0babdc14",
+    "download_sha256": "70e2675d944240d40f6699f5c915ce48ba9b2f6af296faf6e169105f0babdc14",
+    "digest_verified": true,
+    "files_extracted": 132,
+    "original_artifacts_api_sha256": "4e7176757e0c0bb98057db9beed30866c82f7702fc5733fd874799d73a53da47"
+  },
+  "evidence_sha256": {
+    "run_envelope": "0dbce132ec1e3a72f731ed586320dbbc98beffe7bcdd26af3637acf4b84f4ad5",
+    "jobs_envelope": "c5b6d83a442c5f67f7f7a04fd6738b13e335abed6a0e3f97ef84866b12515da7",
+    "original_run": "d59a7527610102f53f670d667b835d8364eaaa403c5f28ac0a340af4349135da",
+    "original_jobs": "0d594dcc8c8109293d0245370297e8a1c199305d4b19ade9f02f298aeb379290",
+    "official_build_job_log": "67e36e6f7603865845d0608e84bf02b79aeb4916c0f7857cd9250bf40e1925b6",
+    "official_component_wrapper_log": "3756b610c364925d81b61dbc5b5440954460b2c0d3f6599003ced119306d3a55",
+    "official_outer_regression_log": "7370a2bf80639572a37fb7ba24b6f6d26e990471e45e80a12724312e49692a8b",
+    "official_completed_commands": "afe5840e599d8c914c832ece68785422c2fb1c200f6de19864e8a1d6d77902d3",
+    "official_native_manifest": "bd81c1a5538df0358b91071b9ce8d1ed236d75362dc2c6219e1d6432fb2440ab"
+  },
+  "privacy": "Explicit allowlist of source identity, official CI identity and terminal states, public command names, result classification, and evidence hashes. No local paths, actors, runner identities, credentials, connection strings, raw logs or protocol data."
+}
