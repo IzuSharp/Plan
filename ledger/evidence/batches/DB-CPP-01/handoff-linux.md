@@ -1,6 +1,6 @@
 # DB-CPP-01 Linux handoff
 
-## Current state: candidate 4 passed the original suite; independent full review found two additional ABI incompatibilities
+## Current state: candidate 4 rejected by full review and PostgreSQL cleanup CI; candidate 5 corrections in progress
 
 The owner authorized the database-only Rust-to-C++ migration, tests, three-repository documentation, PRs and normal merges. DB-API-01 and DB-Perf-01 are separate and not started. No migration acceptance is claimed.
 
@@ -54,7 +54,7 @@ The product candidate contains `native/cpp` Contracts, Interop, scalar codecs, q
 
 ## Next work
 
-Candidate 4 is `7ad56394a8a119202cfee5088406c5459f4cc6f0`, tree `0bd369df2dabf2391c2c9b508757fdb2a5948afb`. Its complete original suite and fresh four-cell comparison passed, but independent full-source review and actual old/new ABI probes found relation/CRUD deadline-origin and relation-capacity classification differences. A fifth, narrow Host-adapter correction is now authorized in the product worktree. Preserve all candidate4 native/package/evidence outputs; use separate development build paths. Complete that correction, replay the frozen probes, freeze a new commit and rerun source-bound production, behavior, required CI and normal merge gates. No passed result from an earlier source attests the next candidate.
+Candidate 4 is `7ad56394a8a119202cfee5088406c5459f4cc6f0`, tree `0bd369df2dabf2391c2c9b508757fdb2a5948afb`. Its complete original suite and fresh four-cell comparison passed, but independent full-source review and actual old/new ABI probes found relation/CRUD deadline-origin and relation-capacity classification differences. A fifth candidate is in development: the narrow Host-adapter correction has passed targeted old/new replay, and missing PostgreSQL protocol confirmation is being repaired after the official package fault failure. Preserve all candidate4 native/package/evidence outputs; use separate development build paths. Complete that correction, replay the frozen probes, freeze a new commit and rerun source-bound production, behavior, required CI and normal merge gates. No passed result from an earlier source attests the next candidate.
 
 ## Corrected candidate and Design merge
 
@@ -142,3 +142,14 @@ The outside-tree frozen-input probe has now actually reproduced both differences
 All candidate4 inputs and original outputs are retained. Product source editing was allowed only after the original suite ended and the independent reader froze its native libraries/manifests/ABI/metadata. The narrow fix must preserve the distinct raw-SQL/Fluent timeout origin, private binding error semantics, public C# and C ABI, all resource limits and existing assertions. Even a green candidate4 CI cannot remove these actual behavioral blockers.
 
 The frozen candidate4 relation/CRUD diagnostic and non-author coverage are preserved in [the diagnostic manifest](checkpoints/candidate-4/relation-adapter-diagnostic/manifest.json) and [complete-review coverage](reviews/candidate4-complete/coverage-blocked.json). Execution completion is distinct from its false compatibility result.
+
+
+## Candidate 4 final CI failure and candidate 5 development checkpoint
+
+[CI 44962483407](https://github.com/IzuSharp/NativeWeave/actions/runs/44962483407) completed with failure. Both PostgreSQL JIT and AOT `provider-drain-failure` cells failed before their first business assertion. The 56-command original regression, all twelve candidate packages, four-cell migration comparison, four-cell lifecycle consumer and four security jobs had passed. Later sanitizer/LSan, compatibility/fuzz, CPU/runtime, release/pristine/runtime and fresh no-Rust builder gates were not executed. The [raw run/jobs and precise fault receipts](checkpoints/candidate-4/ci-final/index.json) retain artifact 14730524246, archive SHA256 `607776f4bdc50d56acc9225bdbaad12e3fb98c8450b1251c3e879db181ff36e9`.
+
+A separate immutable-package diagnostic ran the original frozen 7ad consumer/fault controller against both actual Rust and C++ libraries. Rust JIT passed all six assertions; candidate4 exited with `DatabaseException`. Passive frame observation preserved every forwarded byte, target, ordinal and assertion: Rust sent two standalone protocol Syncs after COMMIT/Ready; candidate4's corresponding Syncs belonged to the next BEGIN's Parse and Describe. The old driver confirms COMMIT before publishing Committed, then separately confirms protocol recovery. C++ omitted those phases. An offline copy of each stopped database independently contains exactly one operation/item/outbox and stored 201 result. This is an implementation compatibility failure; the proxy ordinal is not being changed. [The full diagnostic export](checkpoints/candidate-4/provider-drain-diagnostic/manifest.json) binds original inputs and evidence. Local diagnostic coverage is JIT only; actual official CI also failed AOT.
+
+The B14 correction is frozen in four development files. Its real public-ABI test passed 352 checks in Release and ASan/UBSan; removing either elapsed-time subtraction or Host capacity preflight from separate product leaves makes the intended assertion fail. The same frozen probe now matches Rust in all 16 provider/scenario cases, with six zero owner counts and the PostgreSQL server stopped. Local sanitizer evidence explicitly uses `detect_leaks=0`; the mandatory CI LSan gate remains. The separate filesystem-fault shim now validates the pinned Clang binary/version/target, uses C17, records its identity and rejects system `cc`; all original fault assertions remain unchanged. These are [development receipts](checkpoints/candidate-5-development/manifest.json), not formal candidate5 acceptance.
+
+Next: finish the libpq public-API pure-Sync confirmation repair, including first-confirmation failure/Unknown, post-primary recovery failure/Committed+Discard, and Session return semantics; replay the unchanged actual fault and observe its protocol phase. Then freeze a new product commit and rerun clean production, packages, original regression, four-cell business comparison and every required CI/merge gate. Preserve candidate4's formal native/package directories and all prior failed evidence. Plan checkpoint `03f603833c750afb03459f5cf4b7d6e455a3ff9f` passed [CI 44964432158](https://github.com/IzuSharp/Plan/actions/runs/44964432158).
