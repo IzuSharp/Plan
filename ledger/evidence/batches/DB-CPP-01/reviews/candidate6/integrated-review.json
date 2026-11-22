@@ -1,0 +1,87 @@
+{
+  "schema_version": 2,
+  "passed": true,
+  "sources": {
+    "NativeWeave": {
+      "commit": "1ccfcb767d1ab6cc7e688b4f09b502b79b13cbff",
+      "tree": "79dbd786221e07c4ba0be035dbf1a9e261f4a660"
+    }
+  },
+  "reviewer": "query_migration, upstream_cpp_research and linux_capabilities; root integrated and independently verified source bindings",
+  "authorship_disclosure": "Same-team non-author review, not an external audit or an approval by another GitHub account. Query/compiler author reviewed shared Contracts, scalar/Interop, Host/Provider, administration and ABI. Shared/provider author reviewed query/compiler and managed/package boundaries. Build reviewer excluded their own Interop, test wiring, filesystem shim, checkout fix and generated documentation. Root independently reviewed the filesystem shim correction; upstream independently reviewed the twelve generated references, and query independently reviewed the hand-written documentation edit. Original partial-file scopes and author exclusions remain in force.",
+  "blocking_findings": [],
+  "scope": "Exact-source continuation of prior full native module and selected managed/build/package reviews after byte verification; independent review of the thirteen documentation changes. Runtime execution and CI are separate acceptance evidence.",
+  "method": {
+    "prior_full_file_readings_inherited_after_exact_source_hash_verification": true,
+    "new_full_runtime_reading_claimed": false,
+    "new_runtime_tests_claimed": false,
+    "all_changed_paths_are_markdown": true,
+    "changed_document_count": 13,
+    "unchanged_non_markdown_file_count": 721,
+    "reviewed_file_bindings_independently_verified_by_root": 97,
+    "source_clean": true
+  },
+  "coverage": [
+    {
+      "area": "Core/Interop, wire/scalar codecs, Host/Provider pools, bounded streams, transaction/lifecycle, administration and ABI adapters",
+      "reviewer": "query_migration",
+      "full_runtime_files_in_prior_review": 13,
+      "source_binding_file_count": 74,
+      "review_sha256": "0db4aa9596731598f140a9b8b5c3d59e55890823ca73ddad881f1172cc1bb6b9"
+    },
+    {
+      "area": "Runtime query AST, plans, ordered parameters, CRUD/relation compiler; selected managed ownership/loader and package boundary",
+      "reviewer": "upstream_cpp_research",
+      "full_compiler_files_in_prior_review": 4,
+      "full_managed_and_package_files_in_prior_review": 19,
+      "source_binding_file_count": 50,
+      "review_sha256": "b9796e8b215852f5cc6efe4f63c90e90989de0c0d3579cf1f1e30cf46a9e8103"
+    },
+    {
+      "area": "Canonical generated schema constants and metadata keys",
+      "reviewer": "query_migration",
+      "full_generated_files_in_prior_review": 1,
+      "review_sha256": "0db4aa9596731598f140a9b8b5c3d59e55890823ca73ddad881f1172cc1bb6b9"
+    },
+    {
+      "area": "Native producer, CMake/toolchain, normal package production and CI configuration, with authored slices excluded",
+      "reviewer": "linux_capabilities",
+      "source_binding_file_count": 32,
+      "review_sha256": "a01ed0059418c544a06afed5cdf92479679084ee4cae6fca5d81d9ffdaa1043c"
+    }
+  ],
+  "documentation_review": {
+    "generated_files": 12,
+    "generated_non_author_review_sha256": "553fc9e25a01a037561cbaa556f70a88e5e111737c7227e590d91c4ba93325ae",
+    "manual_files": 1,
+    "manual_non_author_review_sha256": "50fd969f872595297c679fd04b4b3cdfd4eaec49e4b901906b57a55d082452ed",
+    "all_reviewed_document_bytes_equal_committed_bytes": true,
+    "declaration_code_fences_unchanged": true
+  },
+  "unchanged_authored_slice_review": {
+    "reviewer": "root, non-author of this correction",
+    "path": "tests/Verification.EndToEnd/run.py",
+    "sha256": "5607a02cb16fa398f602a3ea5301fd1318c8a4825da4ddf64fc1fb1555621e60",
+    "basis": "Prior full function and exact delta read; final source hash unchanged. Locked Clang identity is required before compilation; the original fault cases, ordinals, deadlines and assertions are unchanged."
+  },
+  "supporting_summaries": [
+    {
+      "path": "ledger/evidence/batches/DB-CPP-01/reviews/candidate6/runtime-coverage.json",
+      "sha256": "614e1b55e9b8cd62873c9f9c38bb784790182d84fde01d3a6aa5b536275c8f8c"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-CPP-01/reviews/candidate6/compiler-managed-packaging.json",
+      "sha256": "b9796e8b215852f5cc6efe4f63c90e90989de0c0d3579cf1f1e30cf46a9e8103"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-CPP-01/reviews/candidate6/build-packaging.json",
+      "sha256": "a65c79ad165b030be6b55d18cbc44dc313cf9dea9db96b9325b46de3a400f5a6"
+    }
+  ],
+  "known_inherited_limits": [
+    "The old pool-return Usable receipt can coexist with physical lower-pool discard; the public observation limit remains explicit.",
+    "The named PostgreSQL conflict-constraint quoting behavior and SQLite migration-script guard are retained baseline limits.",
+    "libpq close establishes local transport destruction; it does not report a remote acknowledgement or a SQLx Terminate write/flush result."
+  ],
+  "temporal_scope": "Source review completed while candidate6 formal execution and CI were ongoing. No claim about their completion is made or inherited from earlier candidates."
+}

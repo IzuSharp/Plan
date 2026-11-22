@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "task": "DB-CPP-01",
+  "scope": "Candidate6 thirteenth documentation file: actual C++ query implementation mapping",
+  "passed": true,
+  "product_acceptance": false,
+  "blocking_findings": [],
+  "authorship_disclosure": "Reviewer is a separate subagent in the same migration team and did not author this documentation edit. Reviewer authored the query compiler implementation; this is an independent review of the documentation edit, not independent approval of the reviewer-authored query implementation.",
+  "base_source": {
+    "commit": "7e70ab8ec9390f4e40f45b4c47e24702f5bf3ed6",
+    "tree": "ea00a3871ae4c26b8833d2924b7f94451f006d42"
+  },
+  "pending_commit": true,
+  "reviewed_document": {
+    "path": "src/Query.Native/api-reference.md",
+    "sha256": "fec44fb63e1028fc909ede734c472498044501b4ea0e52a3e8574d6cc56b9633"
+  },
+  "verified_mappings": [
+    "NativeQuery constructor accepts model/source, parameter registry, limits, capabilities and timeout as used by the Host ABI.",
+    "Column/value/parameter and binary/unary/list map to existing C++ expression nodes and checked tokens.",
+    "Clause mutates a candidate QueryData copy, applies quota validation, and publishes the candidate after validation.",
+    "NativePlan::render accepts an optional ShapeCache and copies execution cells into canonical provider parameter bytes.",
+    "ShapeCache constructor/acquire/clear retain bounded immutable compiled shapes with ABI, profile, metadata and query identity.",
+    "Host SQL diagnostics clone the selected query, seal terminal 8, and call render_shape; row-lock dispatch requires an active explicit transaction.",
+    "provider.cpp implements checked parameter decoding and actual libpq/sqlite3 binding.",
+    "SeaQuery 1.0.2 is a locked reference-only source of supported SQL semantics, not a product runtime or build dependency."
+  ],
+  "referenced_source_files": [
+    {
+      "path": "native/cpp/include/nw/query.hpp",
+      "sha256": "25861bb27c3ab05947017980f653f689562657aee6deae781ace367d58f9338b",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/cpp/src/query.cpp",
+      "sha256": "9517ef9811b1dab8e3af90af48c4eafea1225e875dfa19ba09d5e9e36864733d",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/cpp/src/host_abi.cpp",
+      "sha256": "c38c2087dc5cf5a9b2ba3b5ba1d2ab1a4982b2cf6ead3ab171e211071a593643",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/cpp/src/provider.cpp",
+      "sha256": "e2d6e332c92860fd4cc8fd2524b427345d760b45ddc2c6328caa3b15a578139e",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/cpp/src/host.cpp",
+      "sha256": "074245e3cb2531e09ab790629d6c7b7aa66043376cbd88e15644a020404b367b",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/dependencies.lock.json",
+      "sha256": "dca7f396bce6f438e5ed3a41dcbeeab8d350f8653f43cd60c753713a2758bb55",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/Query.Binding/NativeCalls.g.cs",
+      "sha256": "b41f338e2ab023cb875b8e217b8cf3f304b3f52f758389233ab30d9c91415b7d",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "native/database/binding/signatures-v1.json",
+      "sha256": "67e6c5480220dde85e4e36f0a1f09f9fcc4084666f2ec7fc389e53f35b9b747d",
+      "unchanged_from_base": true
+    }
+  ],
+  "working_delta": {
+    "tracked_changed_files": 13,
+    "only_markdown": true,
+    "native_abi_and_managed_source_unchanged": true
+  },
+  "validation_limit": "Read-only documentation review. No new tests or builds executed, no product or Plan files edited, and no new candidate commit or CI success claimed."
+}
