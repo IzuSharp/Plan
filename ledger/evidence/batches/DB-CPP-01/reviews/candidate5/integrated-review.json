@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "passed": true,
+  "sources": {
+    "NativeWeave": {
+      "commit": "7e70ab8ec9390f4e40f45b4c47e24702f5bf3ed6",
+      "tree": "ea00a3871ae4c26b8833d2924b7f94451f006d42"
+    }
+  },
+  "reviewer": "query_migration, upstream_cpp_research and linux_capabilities (same-team non-author reviews; root integrated the evidence)",
+  "authorship_disclosure": "Same-team non-author review. No author claims independent approval of their own implementation: the query/compiler author reviewed Contracts, scalar, Interop, Host, Provider and administration; the author of those shared/provider corrections independently reviewed the query/compiler and unchanged managed/package boundary. Test and evidence reviews retain their own explicitly scoped author disclosures. This is not an external audit. Same implementation team. Reviewer authored other Interop and fixture modules/verifiers, the filesystem fault shim Clang correction, selected CMake test wiring, and the product checkout fetch-depth fix. Those authored slices are excluded from this non-author conclusion and require the separately recorded root/query reviews. Main native producer, top-level CMake/toolchain, package construction/inventory and orchestration examined here were authored by other team members.",
+  "blocking_findings": [],
+  "coverage": [
+    {
+      "area": "Core/Interop, canonical wire and scalar codecs, Host/provider lifecycle, streaming/transactions/ownership, migration/catalog administration and ABI adapters",
+      "author_exclusions": "Authored query/mutations and limited query-error/codec ABI conversion use the other reviewer.",
+      "changed_hunks_reread": true,
+      "complete_runtime_files": 13,
+      "review_sha256": "eac53c2e0bd2885b40385f47396129cadc435d878fb9a9a883662c6804204dc3",
+      "reviewer": "query_migration",
+      "unchanged_files_sha_verified": true
+    },
+    {
+      "additional_complete_managed_and_packaging_files": 19,
+      "area": "Runtime query AST, immutable/prepared plans, ordered parameters, CRUD/relation compiler, query ABI; managed owner/loader/error transport and build/package provenance",
+      "author_exclusions": "Contracts, scalar, administration, Host/provider and B14 correction approval use the other reviewers.",
+      "complete_compiler_files": 4,
+      "review_sha256": "45bb98985de60d431f0379dd379d890ee035ce12573e6e49eb22f853bf6620d6",
+      "reviewer": "upstream_cpp_research"
+    },
+    {
+      "area": "Generated canonical schema constants and ordered metadata keys",
+      "complete_generated_files": 1,
+      "matched_normative_schema": true,
+      "review_sha256": "eac53c2e0bd2885b40385f47396129cadc435d878fb9a9a883662c6804204dc3",
+      "reviewer": "query_migration"
+    }
+  ],
+  "build_and_packaging_files_reviewed": 32,
+  "scope": "Exact-source technical review of the native implementation, managed boundary and build/package configuration. Formal execution, CI and merge are separate acceptance checks.",
+  "supporting_summaries": [
+    {
+      "path": "ledger/evidence/batches/DB-CPP-01/reviews/candidate5/runtime-coverage.json",
+      "sha256": "172354d2ab2f5454e1f1916fc05ee8f8ffea7ff2b5cef08897db1c8dfbee5505"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-CPP-01/reviews/candidate5/build-packaging.json",
+      "sha256": "9fcee701958ceb569daf114fef212de8038f7d3c2fa17dcd984d82893178ca59"
+    }
+  ],
+  "unchanged_authored_slice_review": {
+    "reviewer": "root (non-author of the filesystem-shim correction)",
+    "path": "tests/Verification.EndToEnd/run.py",
+    "sha256": "5607a02cb16fa398f602a3ea5301fd1318c8a4825da4ddf64fc1fb1555621e60",
+    "basis": "Full function and exact delta read; final source hash unchanged. Locked Clang identity is required before compilation; original fault cases and assertions are unchanged."
+  },
+  "known_inherited_limits": [
+    "Pending formal candidate package, retained regression and required CI gates; this review does not assert their completion.",
+    "The old pool-return Usable receipt despite lower-layer physical discard and named PostgreSQL conflict-constraint quoting remain explicitly inherited behavior.",
+    "Public libpq close establishes local transport destruction, not a reported SQLx Terminate write/flush result; the finite public cleanup observations match."
+  ]
+}

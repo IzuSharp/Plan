@@ -1,6 +1,6 @@
 # DB-CPP-01 Linux handoff
 
-## Current state: candidate 5 committed; formal verification in progress
+## Current state: candidate 5 packages and four-cell comparison passed; full CI pending
 
 The owner authorized the database-only Rust-to-C++ migration, tests, documentation, pushes, PRs and normal merges. DB-API-01 and DB-Perf-01 remain excluded. Product acceptance is **not complete**. Earlier failures remain evidence; a development pass does not attest a new package or CI run.
 
@@ -38,11 +38,13 @@ The committed correction restores relation/CRUD create-time elapsed budgets and 
 
 These summaries contain public source identities, result categories/counts and original evidence hashes. Detailed local protocol diagnostics are retained for verification. The old SQLx pool-return receipt can report Usable even when the pool discards the physical connection, including pool shutdown; this existing observation limit is preserved and disclosed in the report. Its internal return ping has no independent native timeout wrapper. A bounded Host waiter is not proof that native retirement has completed.
 
-## Work now running and next actions
+## Formal candidate 5 observations and next actions
 
-1. Candidate 5 [PR CI44968972018](https://github.com/IzuSharp/NativeWeave/actions/runs/44968972018) is running. It has not passed acceptance yet.
-2. Preserve candidate 4 producer/package outputs, then run candidate 5 clean native production and normal twelve-package preparation. Record exact source, compiler, installed assets and package hashes.
-3. Run the complete retained regression suite and a fresh PostgreSQL/SQLite × JIT/AOT same-source business comparison. Repeat the original packaged PostgreSQL provider-drain case in both modes with baked asset hashes intact.
-4. Finish exact-source non-author reviews and all mandatory CI gates, including LSan, compatibility/fuzz, CPU/runtime, release/recovery/pristine and fresh Rust-free producer checks. Resolve actual failures without weakening gates.
-5. Normally merge product PR21 only after its required checks and technical review pass, then observe exact merged-main CI.
-6. Complete and merge [the final report](migration-report-linux.md) and Plan PR26, observe its main CI, and use the documented evidence-only follow-up to record delivered identities without self-hash circularity. Stop after DB-CPP-01.
+- Clean native producer and normal twelve-package preparation passed. Raw manifest SHA-256 values are `03032cd7625ea5140ee441c0366a93844279791dd72f767046f0c9bfe2ce9bc7` and `547a1cf36d4621269d203e2c10e9ff48498d9acd4a1253704cc34554c5f45e2b`. [Public source-bound summaries](checkpoints/candidate-5/summary-index.json) retain the actual source, tool, dependency, package, capability and binary identities.
+- Fresh same-source old/new comparison passed all four provider/runtime cells, 24 ABI refusals, independent SQL, history handover and DTO-native-hash checks. [Comparison](checkpoints/candidate-5/migration-comparison.json) original SHA-256: `55c41737d1c263ebe6dcdd9ebf8162c770034f6341b92b52b90d06df95ae417f`.
+- The original PostgreSQL provider-drain failure now passes in actual normal-package JIT and AOT, plus separate passive runs: four runs, six original assertions each. [Targeted summary](checkpoints/candidate-5/postgresql-package-fault.json). The earlier eight ABI comparisons bind to the identical formal ELF; they were not rerun in this phase.
+- [Integrated non-author technical review](reviews/candidate5/integrated-review.json) has no remaining source blocker within its stated coverage. The exact Design review is unchanged. These are same-team reviews with author exclusions, not external approvals.
+- Complete local clang-format/tidy, locked restore and Release managed build passed. The full retained regression suite is running against candidate 5. Native/package source and manifests remain unchanged.
+- [Product CI44968972018](https://github.com/IzuSharp/NativeWeave/actions/runs/44968972018) is running. Its four security jobs have passed; the full build/package task and later mandatory gates are not yet accepted. [Plan checkpoint CI44969091425](https://github.com/IzuSharp/Plan/actions/runs/44969091425) passed at `1bade8701a54d2185c8765478343683ccc9aacd4`.
+
+Next: finish the complete retained suite and all mandatory CI gates, including LSan, compatibility/fuzz, CPU/runtime, release/recovery/pristine and fresh Rust-free production. Preserve failures and correct causes without relaxing checks. Then normally merge product PR21 and observe exact main CI. Finalize and merge [the report](migration-report-linux.md) with Plan PR26, observe its main CI, and record the delivered identities through the documented evidence-only follow-up. DB-CPP-01 remains incomplete until those gates finish; stop after this task.
