@@ -48,11 +48,12 @@
     {
       "area": "root integration",
       "reviewer": "/root/mapping_audit",
-      "source": "29801745d01abe3cfed8fc90d25afdaa62706f27",
-      "scope": "29 integration files plus the diagnostic/documentation delta; original report bytes unavailable.",
+      "source": "3297c122bb126a7bbb9ebe4979422578a228b381",
+      "scope": "29 committed root-integration files at 3297, followed by the explicit diagnostic/documentation delta at 298; original report bytes unavailable.",
       "original_report_sha256": "38b7868103a48989c9a3f534c6cadb6f4ac5740085ffdde7df3b5adca9bad5f5",
       "delta_report_sha256": "d492e97acd68bec933bbabb8eee2f85e6780089c07fe1782c4093f5071229404",
-      "result": "No remaining blocker in the reviewed scope."
+      "result": "No remaining blocker in the reviewed scope.",
+      "delta_source": "29801745d01abe3cfed8fc90d25afdaa62706f27"
     },
     {
       "area": "mapping/generator/codecs/projection",
@@ -73,9 +74,15 @@
     {
       "area": "schema/migration/scaffold",
       "reviewer": "/root/mapping_audit",
-      "source": "29801745d01abe3cfed8fc90d25afdaa62706f27",
-      "scope": "Independent implementation and scaffold compilation review; detailed local receipt unavailable.",
-      "result": "No remaining blocker in the reviewed scope."
+      "source": {
+        "base_commit": "7275396176b928c8879d59f4bf20ad8fa7ffb62c",
+        "commit": null,
+        "tree": null,
+        "worktree": "Uncommitted authoring tree"
+      },
+      "scope": "Historical authoring review of schema/migration/scaffold implementation; exact reviewed source identity was not captured. The reviewer later authored tests/Query.Generator/ScaffoldChecks.cs, so that compiler harness is excluded from this independent scope.",
+      "result": "No known blocker in the then-reviewed implementation. This is not a committed-candidate review; a fresh remote review of the delivered implementation is pending.",
+      "provenance_correction": "The earlier progress record at 072817bacd345c6b5434211caa7ea9401320aae8 incorrectly bound this review to 29801745 and overstated independent scaffold compiler review. The reviewer corrected that attribution before Plan PR29 was merged."
     }
   ],
   "first_provider_artifact_reviews": [

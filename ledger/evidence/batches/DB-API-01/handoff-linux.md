@@ -1,5 +1,33 @@
 # DB-API-01 — Linux handoff
 
+## Merge and review checkpoint — 2026-11-23 21:29 UTC
+
+Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) and Design
+[PR #16](https://github.com/IzuSharp/NativeWeave-Design/pull/16) were normally
+merged after their final required checks passed. Korda merge
+`ea72031db6f9111a31c6f743b5babc345f96862d` has the exact reviewed tree
+`ea65de3644a170bb9b642157091a4b2279d4a373`; Design merge
+`e6581f6e07451870c11fa26d6cb662a157fa68fe` has reviewed tree
+`868c6b3cda4a6ef37c6730ad69a2d120f62f8fb6`.
+Both Design main checks passed. Korda [main CI](https://github.com/IzuSharp/Korda/actions/runs/45269220542)
+is running and selected `0.1.0-preview.2` for both providers; selection is not publication.
+
+Plan PR29 remains unmerged. Its prior head passed all current and historical
+gates. Independent provenance review identified one overstatement in
+[retained progress](results/retained-progress.json): the historical schema review
+covered an uncommitted authoring tree based on the starting main, not committed
+`29801745`. It also excludes the compiler harness subsequently authored by that
+reviewer. That attribution is corrected here before merge. A fresh remote review
+of the delivered schema implementation and an independent harness scope check
+will be recorded separately with their actual timing.
+
+Current Korda PR CI completed successfully, including the shared Linux job,
+both provider jobs, security and Verify. All seven relation compilation negatives
+passed; the shared run recorded 31 mapping checks, eight scaffold compilation/order
+checks, 357 migration assertions and 2,211 relation/transaction assertions.
+Keep the historical observations below unchanged; they describe earlier times.
+
+
 ## Remote continuation — 2026-11-23 21:20 UTC
 
 The current Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) head is
