@@ -1,6 +1,44 @@
 # DB-API-01 — Linux handoff
 
-## Current checkpoint
+## Recovery checkpoint — 2026-11-23 21:04 UTC
+
+Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) is at
+`29801745d01abe3cfed8fc90d25afdaa62706f27`, tree
+`363e669f657df638967058016bccd9c0ab660bb7`. Its
+[complete PR CI](https://github.com/IzuSharp/Korda/actions/runs/45263070788)
+passed, including separate PostgreSQL/SQLite public package checks and external
+three-phase Native AOT order consumers. No repository has been merged for this
+batch, and publication has not been observed.
+
+The workspace became unavailable during final verifier cleanup. GitHub remains
+available. Continue from the actual remote PR heads; preserve any recovered local
+changes before fetching and reconciling them. Local Plan authoring/candidate
+evidence copies and some harness edits were not uploaded. Their existence is not
+claimed as committed evidence. See [the remote recovery record](recovery/checkpoint-20261123T2104.json).
+
+The remaining product change is narrowly required by current Korda AGENTS:
+remove neutral executable-consumer builds from the selected legacy verifiers,
+retain library/API/compiler checks, and convert the old Data.Codecs sample JIT
+execution to Native AOT. Root owns Interop.Execution, Interop.Negotiation,
+Data.Abstractions, Query.Binding and Query.Native verifiers; the two scoped
+reviewers own the provider verifiers and Transactions/Streaming/Codecs verifiers.
+A focused local Interop.Negotiation harness check passed 26 AOT cases / 428
+assertions and the external package asset-location oracles before environment
+loss. This was uncommitted authoring evidence, not final candidate acceptance.
+
+The first candidate's shared Linux failure is preserved: a wrong relation call
+still failed compilation, but the new batch overload changed its diagnostic from
+CS0411 to CS1503. The correction adds a separate batch type-error probe; all seven
+negative cases and the subsequent complete PR CI pass. The first candidate's two
+provider artifacts passed independently. Their immutable artifact IDs and hashes
+are recorded separately; do not relabel them as the later candidate.
+
+After the AOT-only harness correction, require current-head CI, merge normally,
+observe each main run and every triggered release, and complete the source-bound
+acceptance record. Acceptance remains in progress; future CI is checked separately.
+
+
+## Prior checkpoint — preserved
 
 Implementation and local authoring verification are in progress. Product acceptance,
 PR checks, merges and release observation are still pending. Read [plan.md](plan.md),
