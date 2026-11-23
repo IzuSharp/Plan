@@ -134,7 +134,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -324,7 +324,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -488,7 +488,7 @@
       "csharp_surface": "Private SafeHandle owner; TryAcquire/lease and Dispose/DisposeAsync with explicit lifecycle.",
       "native_reuse": "Rust RAII owners/Arc as source semantics permit; creating module releases its own resources.",
       "implementation_steps": [
-        "Implement Open\u2192Closing\u2192Closed admission under one synchronization policy; acquire logical token and DangerousAddRef before exposing native pointer.",
+        "Implement Open→Closing→Closed admission under one synchronization policy; acquire logical token and DangerousAddRef before exposing native pointer.",
         "Roll back all earlier increments if a later acquisition fails; close admission atomically and let previously admitted calls finish.",
         "Release physical lease and logical token exactly once in finally/RAII, including managed mapping/native errors.",
         "Expose completion of true retirement separately from synchronous Dispose request; finalizer path must be bounded/nonblocking.",
@@ -517,7 +517,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -627,7 +627,7 @@
         "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
       ],
       "specific_verification": [
-        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count\u00d7width/offset overflow, isize bound and null+zero contiguous views.",
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
         "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT."
       ],
       "selection_required": false,
@@ -672,7 +672,7 @@
       "csharp_surface": "CopyTo/ToArray and synchronous nonescaping scoped byte views under an active owner lease; async input uses bounded native copy or an explicitly accepted retained-owner/pin profile.",
       "native_reuse": "Rust Vec/Bytes owners and source-verified destruction; D07 complete extent/stride contract.",
       "implementation_steps": [
-        "Implement D07 contiguous byte-view length/count/element-width and offset checks, checked u64\u2194nuint conversion, isize::MAX and allocation-capacity bounds; preserve null+zero rules. A strided view requires a separately accepted profile and is not part of v1.",
+        "Implement D07 contiguous byte-view length/count/element-width and offset checks, checked u64↔nuint conversion, isize::MAX and allocation-capacity bounds; preserve null+zero rules. A strided view requires a separately accepted profile and is not part of v1.",
         "Attach owner/type/release function to every allocation; copy/pin/borrow is an explicit profile with a defined end.",
         "Hold owner and budget through clones/slices/async delivery; retain full backing allocation charge rather than visible slice length.",
         "Dispose/pin release occurs after the last admitted consumer; mapper/conversion errors release all unpublished outputs.",
@@ -685,7 +685,7 @@
         "The initial public surface is CopyTo/ToArray or a synchronous nonescaping scoped view with an active lease; do not expose arbitrary native-backed Memory/MemoryManager or a Span after dropping its owner lease."
       ],
       "specific_acceptance": [
-        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count\u00d7width/offset overflow, isize bound and null+zero contiguous views.",
+        "Independent arbitrary-precision oracle plus native/C# parity for zero, oversized length, count×width/offset overflow, isize bound and null+zero contiguous views.",
         "Retained slices, copy overlap, malformed descriptor, GC/Dispose races and creating-module release count on each OS AOT.",
         "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
         "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption."
@@ -702,7 +702,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -882,7 +882,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -1067,7 +1067,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -1252,7 +1252,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -1432,7 +1432,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -1606,7 +1606,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -1788,7 +1788,7 @@
       "native_reuse": "Framework LibraryImport generator; compare csbindgen-generated raw imports where useful, never assume its DllImport output equals this profile.",
       "implementation_steps": [
         "Consume A09 validated schema; emit exact managed representation, import calling conventions and private ownership wrappers.",
-        "Generate static callback dispatch and cleanup guards from the exact pinned D04\u2013D08 contracts and reusable A03\u2013A07 interfaces instead of duplicating lifecycle algorithms; early emitter tests may use a clearly labelled fixed conformance fixture, while A14/A15 acceptance must execute the real completed A07 dependency closure.",
+        "Generate static callback dispatch and cleanup guards from the exact pinned D04–D08 contracts and reusable A03–A07 interfaces instead of duplicating lifecycle algorithms; early emitter tests may use a clearly labelled fixed conformance fixture, while A14/A15 acceptance must execute the real completed A07 dependency closure.",
         "Use incremental semantic inputs with stable equality; never depend on another generator seeing generated source in the same pass.",
         "Package analyzer/compiler-compatible generator separately from net11 runtime facade; keep handwritten-static path equivalent.",
         "Public API refinement 0.4.0: Generated C# LibraryImport/reverse-entry declarations, static metadata and XML documentation; no unbounded reflection binder.",
@@ -1816,7 +1816,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2021,7 +2021,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2209,7 +2209,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2415,7 +2415,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2625,7 +2625,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2800,7 +2800,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -2992,7 +2992,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -3229,7 +3229,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -3420,7 +3420,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -3601,7 +3601,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -3755,7 +3755,7 @@
       "native_reuse": "libFuzzer/property tooling/Miri/Loom/sanitizers only on supported components/targets; no blanket all-FFI tooling claim.",
       "implementation_steps": [
         "Generate valid/invalid descriptors and compare native/C# outcomes to independent mathematical/reference oracles.",
-        "Use controlled barriers for every named boundary schedule in D04\u2013D09 and enumerate the exact bounded model schedules selected for this implementation. Record operation/thread/queue/preemption bounds and untested schedules; separate managed GC scheduling from native owner counters and make no exhaustive unbounded-interleaving claim.",
+        "Use controlled barriers for every named boundary schedule in D04–D09 and enumerate the exact bounded model schedules selected for this implementation. Record operation/thread/queue/preemption bounds and untested schedules; separate managed GC scheduling from native owner counters and make no exhaustive unbounded-interleaving claim.",
         "Run malformed boundary/crash negatives in isolated subprocesses with timeouts and saved seeds/minimized cases.",
         "Declare exact sanitizer/model-supported subsets and carry unsupported full CLR FFI coverage through real target tests.",
         "Public API refinement 0.4.0: Differential/property/fuzz checks cover exact public/native codecs, malformed inputs, callback races and resource release.",
@@ -3783,7 +3783,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -3954,7 +3954,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -4163,7 +4163,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -4382,7 +4382,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -4540,7 +4540,7 @@
       "product_validation_scope": "Actual product component and stated integration oracles. Design research evidence is a specification/regression source, never a passed product row.",
       "boundary_and_ownership": "Small Engine manifest/scaffold and repeatable conformance entrypoint, no fourth planning system.",
       "csharp_surface": "CLI/templates produce maintainer adapter package and typed static facade skeleton with clear ownership.",
-      "native_reuse": "Reuse A09\u2013A13 generation/build infrastructure and mature Engine-specific seam selection.",
+      "native_reuse": "Reuse A09–A13 generation/build infrastructure and mature Engine-specific seam selection.",
       "implementation_steps": [
         "Generate only opted-in ABI/ownership/error/buffer/async/affinity pieces from a minimal Engine descriptor.",
         "Include exact upstream/crate/patch/features/target provenance and source/test coverage obligations.",
@@ -4571,7 +4571,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -4827,7 +4827,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -5064,7 +5064,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -5277,7 +5277,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -5549,7 +5549,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -5793,7 +5793,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -6022,7 +6022,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -6152,7 +6152,7 @@
       ],
       "specific_verification": [
         "Every supported scalar positive/negative and boundary value against real both databases; compare static C# values, wire, SQLx native bind and returned values.",
-        "Run UUID endianness, huge PG numeric, typed NULL and nanosecond\u2192microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
+        "Run UUID endianness, huge PG numeric, typed NULL and nanosecond→microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
         "Checked input failures occur before DB sends and preserve zero leaked argument/result owners."
       ],
       "selection_required": false,
@@ -6210,7 +6210,7 @@
       ],
       "specific_acceptance": [
         "Every supported scalar positive/negative and boundary value against real both databases; compare static C# values, wire, SQLx native bind and returned values.",
-        "Run UUID endianness, huge PG numeric, typed NULL and nanosecond\u2192microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
+        "Run UUID endianness, huge PG numeric, typed NULL and nanosecond→microsecond loss controls from the actual Design PG fixture; fuzz length/tag/arithmetic separately.",
         "Checked input failures occur before DB sends and preserve zero leaked argument/result owners.",
         "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
         "Public API refinement 0.4.0: Review installation/import/configuration/disposal/error experience, capability/native-operation correspondence and allocation/copy/FFI/runtime cost. This task owns its documentation; A16/B24 own final pristine package consumption.",
@@ -6234,7 +6234,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -6446,7 +6446,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -6663,7 +6663,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -6882,7 +6882,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -7024,7 +7024,7 @@
         "No client-side hidden expression evaluation or C# NULL compensation."
       ],
       "specific_verification": [
-        "For every supported operation compare direct Rust SeaQuery SQL, placeholder order, typed arguments and real PG/SQLite result/errors against C#\u2192ABI.",
+        "For every supported operation compare direct Rust SeaQuery SQL, placeholder order, typed arguments and real PG/SQLite result/errors against C#→ABI.",
         "Property/negative tests: malformed raw operations, SQL injection through value vs identifier, nonfinite/overflow values, NULL joins, Unicode, empty sets, capability mismatches and budget exhaustion.",
         "Same-native-hash ordinary entity changes and Windows/Linux AOT, with fallible binder source owned by B07 only."
       ],
@@ -7073,7 +7073,7 @@
       "native_reuse": "SeaQuery Expr/Condition/Select/Insert/Update/Delete/Dialect and SQLx B07 binder. No C# SQL parser/emitter, no duplicated Rust SQL builder.",
       "csharp_surface": "Internal native query/plan owner and typed operation calls; public high-level Fluent surface is B13.",
       "implementation_steps": [
-        "Implement Mutable\u2192Sealed\u2192Submitted/Closed/Poisoned with single-writer admission. Immutable sealed shape and each execution parameter snapshot are distinct owners.",
+        "Implement Mutable→Sealed→Submitted/Closed/Poisoned with single-writer admission. Immutable sealed shape and each execution parameter snapshot are distinct owners.",
         "Translate typed metadata/operations directly into SeaQuery public APIs; retain metadata owner and aliases. Value placeholders remain values, identifiers come from trusted metadata.",
         "Validate backend capabilities before SeaQuery render and before send: reject SQLite row lock/SELECT INTO/SEARCH CYCLE, unsupported CTE/ANY/SOME/ALL or named-window cardinality instead of accepting upstream ignore/panic.",
         "Implement ordinary CRUD, joins, aggregates, bounded subqueries/CTE/window capabilities with SQL three-valued logic; call B07 once for native binding and propagate its error.",
@@ -7087,7 +7087,7 @@
         "No client-side hidden expression evaluation or C# NULL compensation."
       ],
       "specific_acceptance": [
-        "For every supported operation compare direct Rust SeaQuery SQL, placeholder order, typed arguments and real PG/SQLite result/errors against C#\u2192ABI.",
+        "For every supported operation compare direct Rust SeaQuery SQL, placeholder order, typed arguments and real PG/SQLite result/errors against C#→ABI.",
         "Property/negative tests: malformed raw operations, SQL injection through value vs identifier, nonfinite/overflow values, NULL joins, Unicode, empty sets, capability mismatches and budget exhaustion.",
         "Same-native-hash ordinary entity changes and Windows/Linux AOT, with fallible binder source owned by B07 only.",
         "Public API refinement 0.4.0: Compile exact signatures/overloads/nullability/generics and relevant generated consumers; run required actual product AOT rows, API compatibility and XML/reference/symbol coverage checks. Design stub execution is never a passed product row.",
@@ -7113,7 +7113,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -7352,7 +7352,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -7577,7 +7577,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -7823,7 +7823,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -8073,7 +8073,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -8318,7 +8318,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -8556,7 +8556,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -8758,7 +8758,7 @@
         "Implement one runtime method router and four public native service adapters; copy/release payload ownership through Core operations.",
         "Use generated C# protobuf models/typed parsers; no runtime schema compiler or reflection-discovered services.",
         "Keep Tonic framing/compression/trailers/statuses native; preserve framed length OutOfRange11 versus decompression ResourceExhausted8.",
-        "Implement strict small Rust deadline policy: one1\u20138-digit timeout+H/M/S/m/u/n, checked/capped monotonic budget starting at admission; invalid3/expired4 statuses.",
+        "Implement strict small Rust deadline policy: one1–8-digit timeout+H/M/S/m/u/n, checked/capped monotonic budget starting at admission; invalid3/expired4 statuses.",
         "Keep deadline and body/operation owner alive after response head; private Tonic GrpcTimeout is not callable and only wraps ResponseFuture.",
         "Integrate all method kinds and conformance clients under Windows/Linux Native AOT.",
         "Construct a fresh Decoder for each request and selected method kind. Unary/server-stream methods accept exactly one frame, including a zero-byte protobuf message; reject a second frame with InvalidArgument(3) before Handler invocation. Client/bidi streaming permits multiple frames within total quota.",
@@ -8798,7 +8798,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -9019,7 +9019,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -9234,7 +9234,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -9448,7 +9448,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -9666,7 +9666,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -9901,7 +9901,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -10212,7 +10212,7 @@
       "csharp_surface": "Versioned Data/Query/Server plus optional-to-consumers gRPC/MCP packages over one mandatory Rust host.",
       "native_reuse": "Same selected mature Rust closure and D10 provenance; no alternate Kestrel product profile.",
       "implementation_steps": [
-        "Bind all B01\u2013B23 accepted component revisions and A16/A22 package/compatibility outcomes to one release scope.",
+        "Bind all B01–B23 accepted component revisions and A16/A22 package/compatibility outcomes to one release scope.",
         "Run clean Windows/Linux consumers: SQLite and real PG, HTTP1/2/TLS, chosen gRPC/MCP packages independently and combined.",
         "Verify no-Rust ordinary build/run/edit and explicit Native AOT publication/execution with byte-identical native module for model/Handler changes.",
         "Audit licenses/transitive artifacts/provenance/ABI/behavior versions and rollback set; publish only after actual future release authorization.",
@@ -10244,7 +10244,7 @@
         ],
         "consumer": "Independent NuGet where this component is distributed; full no-Rust pristine consumer gates A16/B24.",
         "source_identity": "Exact source/lock/features/native/package/executable hashes; component tests cannot claim assembled product success.",
-        "failure_memory_concurrency": "The task-specific cases below plus D04\u2013D09; native and managed retirement separately observed.",
+        "failure_memory_concurrency": "The task-specific cases below plus D04–D09; native and managed retirement separately observed.",
         "api_and_documentation": "Exact API/consumer compilation, current stable source comparison, XML/reference completeness, compatibility and independent usability review; justified applicability for internal-only work."
       },
       "api_design_inputs": [
@@ -10539,21 +10539,21 @@
       },
       {
         "id": "plan-first",
-        "state": "in_progress",
+        "state": "complete",
         "depends_on": [
           "baseline"
         ]
       },
       {
         "id": "design-contract",
-        "state": "pending",
+        "state": "complete",
         "depends_on": [
           "plan-first"
         ]
       },
       {
         "id": "implementation",
-        "state": "pending",
+        "state": "in_progress",
         "depends_on": [
           "design-contract"
         ]

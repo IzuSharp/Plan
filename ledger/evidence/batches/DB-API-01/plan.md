@@ -9,9 +9,9 @@ The owner authorizes source and documentation changes, local and normal CI execu
 ## Ordering and progress
 
 1. **Baseline — complete:** actual remote main inputs read; requested task branches and handoff were absent; fresh task worktrees created without clearing prior work.
-2. **Plan first — in progress:** publish this initial checkpoint before recording the Design contract or changing product source.
-3. **Design contract — pending:** publish an additive DB-API-01 contract overlay, with its own gate and immutable historical validation. Pin the Plan-first commit; distinguish desired semantics from implemented APIs.
-4. **Implementation — pending:** read both current samples, write order/customer/detail usage, audit actual gaps, then implement the smallest coherent changes with source generation, precise diagnostics and current module dependencies.
+2. **Plan first — complete:** published checkpoint `21e98f7591b4cf1f7fd5b7d5e791ab0be4271515` before the Design overlay and product changes.
+3. **Design contract — complete:** published additive checkpoint `3b270347d37f2bef0e6e5c6baefc9235e39bf7c2`, with its own gate, Plan-first pin and unchanged historical validation. Implementation acceptance remains separate.
+4. **Implementation — in progress:** both existing samples compared; existing optional filters, joins, aggregate, keyed CRUD and checked writes retained. Added generated DTO/codec policy, complete cursor, bounded batch, callback and schema workflows; integrating API inventories, executable package consumers and routing.
 5. **AOT consumers — pending:** produce exact standalone provider packages; execute separate external PackageReference consumers with actual PostgreSQL/SQLite; record business assertions, native identity and DTO-edit reuse.
 6. **Review and merge — pending:** obtain scoped non-author technical review, correct findings, observe exact-head required checks and use normal repository merges.
 7. **Main and release — pending:** inspect each actual merged-main run and every triggered package release, update handoff with observed URLs/results and stop after the Chinese delivery brief.
@@ -20,7 +20,7 @@ The owner authorizes source and documentation changes, local and normal CI execu
 
 ## Business comparison before additions
 
-Use a customer, order and order-line model, a narrow immutable order-list DTO and an order-with-lines result. The implementation audit must show the existing call, desired complete call, precise missing behavior, owning module and acceptance oracle for each item below. Existing behavior should be reused and demonstrated rather than replaced. Initial status is **pending source audit**, not an assertion that every feature is missing.
+Use a customer, order and order-line model, a narrow immutable order-list DTO and an order-with-lines result. The implementation audit must show the existing call, desired complete call, precise missing behavior, owning module and acceptance oracle for each item below. Existing behavior should be reused and demonstrated rather than replaced. The comparison is now captured in Korda `docs/guides/orm-experience.md` and the executable `samples/api/orm-experience/` sources; runtime acceptance is still pending.
 
 | Requirement | Business use and acceptance |
 | --- | --- |
