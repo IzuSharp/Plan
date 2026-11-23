@@ -47,9 +47,20 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - name: Verify current C++ migration progress and preserved historical records
+      - name: Verify current Fluent ORM progress and preserved historical records
         working-directory: Plan
-        run: python3 tools/verify_db_cpp.py
+        run: python3 tools/verify_db_api.py
+      - name: Check out the immutable completed DB-CPP-01 input
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/Plan
+          ref: 5be447a868be78713ada52f46cee16409f0edc13
+          fetch-depth: 0
+          path: cpp-history/Plan
+          persist-credentials: false
+      - name: Run unchanged completed C++ migration acceptance gates
+        working-directory: cpp-history/Plan
+        run: python3 tools/verify_db_cpp.py --require-complete
       - name: Check out the immutable completed DB-Scope-01 input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -118,3 +129,4 @@ jobs:
             historical/Plan/source-driven-baseline.json
             Plan/ledger/evidence/batches/DB-Scope-01/
             Plan/ledger/evidence/batches/DB-CPP-01/
+            Plan/ledger/evidence/batches/DB-API-01/

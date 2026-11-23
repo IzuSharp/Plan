@@ -1,3 +1,13 @@
+# Current task — DB-API-01
+
+The owner authorizes Korda's existing PostgreSQL/SQLite Fluent ORM experience enhancements on Linux x64, including implementation, tests, English documentation, pushes, PRs, normal merges and verification of repository-triggered publication. Read the [current plan](ledger/evidence/batches/DB-API-01/plan.md), [handoff](ledger/evidence/batches/DB-API-01/handoff-linux.md) and [acceptance](ledger/evidence/batches/DB-API-01/acceptance.json). `delivery-graph.json.current_execution` owns this batch. Use `task/DB-API-01-linux` and `.worktree/DB-API-01-linux/{Korda,NativeWeave-Design,Plan}`.
+
+Plan comes before Design; the new Design contract precedes product changes. Compare the existing query and relationship samples against order/customer/detail business calls before filling actual gaps. Preserve C++20/libpq/sqlite3 execution and Native AOT, package isolation, native compatibility and ordinary DTO-only native reuse. Korda's current AGENTS.md owns module routing, checks and publication: direct AOT consumers, no JIT consumer checks, and no clean-image or CPU-emulation campaign unless separately requested. Product acceptance is evidence-based, not a document status.
+
+Run `python3 tools/verify_db_api.py` for this batch. Old DB-CPP-01 gates run unchanged at Plan `5be447a868be78713ada52f46cee16409f0edc13`, including its completed acceptance; all earlier frozen gates remain in CI. Retain previous graphs, evidence, failure states and verifier bytes. The previous task exclusions below are historical and do not prohibit this newly authorized work. No performance campaign, server wrapper or additional platform acceptance is authorized.
+
+## Previous task authority (historical)
+
 # Current task — DB-CPP-01
 
 The owner authorizes the behavior-compatible C++ migration of the merged PostgreSQL/SQLite database product on Linux x64, including tests, documentation, pushes, PRs and normal merges. Read [the current plan](ledger/evidence/batches/DB-CPP-01/plan.md), [handoff](ledger/evidence/batches/DB-CPP-01/handoff-linux.md) and `delivery-graph.json.current_execution`. Preserve C# API, ABI, package identities and stored data. DB-API-01 and DB-Perf-01 are excluded. Prior DB-Scope-01 completion remains historical, verified at its immutable commit. Do not claim unexecuted migration acceptance.

@@ -1,0 +1,896 @@
+﻿2026-11-23T21:12:24.2452465Z Current runner version: '2.338.2'
+2026-11-23T21:12:24.2469063Z ##[group]Runner Image Provisioner
+2026-11-23T21:12:24.2469661Z Hosted Compute Agent
+2026-11-23T21:12:24.2470149Z Version: 20261111.635
+2026-11-23T21:12:24.2470576Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:12:24.2471067Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:12:24.2471532Z Worker ID: {7ee2e843-3648-4d43-8aef-c42751dca302}
+2026-11-23T21:12:24.2472001Z Region: centralus
+2026-11-23T21:12:24.2472423Z Cloud: Azure
+2026-11-23T21:12:24.2473000Z ##[endgroup]
+2026-11-23T21:12:24.2473918Z ##[group]Operating System
+2026-11-23T21:12:24.2474357Z Ubuntu
+2026-11-23T21:12:24.2474696Z 24.04.5
+2026-11-23T21:12:24.2475088Z LTS
+2026-11-23T21:12:24.2475427Z ##[endgroup]
+2026-11-23T21:12:24.2475775Z ##[group]Runner Image
+2026-11-23T21:12:24.2476187Z Image: ubuntu-24.04
+2026-11-23T21:12:24.2476561Z Version: 20261116.376.1
+2026-11-23T21:12:24.2477452Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261116.376/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-23T21:12:24.2478458Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261116.376
+2026-11-23T21:12:24.2479121Z ##[endgroup]
+2026-11-23T21:12:24.2479900Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:12:24.2481569Z Actions: read
+2026-11-23T21:12:24.2481954Z Contents: read
+2026-11-23T21:12:24.2482328Z Metadata: read
+2026-11-23T21:12:24.2483017Z ##[endgroup]
+2026-11-23T21:12:24.2484458Z Secret source: Actions
+2026-11-23T21:12:24.2485163Z Cache mode: write
+2026-11-23T21:12:24.2485860Z Prepare workflow directory
+2026-11-23T21:12:24.2914575Z Prepare all required actions
+2026-11-23T21:12:24.2951232Z Getting action download info
+2026-11-23T21:12:24.5661552Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-23T21:12:24.7066870Z Download action repository 'actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68' (SHA:a98b56852c35b8e3190ac28c8c2271da59106c68)
+2026-11-23T21:12:25.1609872Z Download action repository 'actions/cache@caa296126883cff596d87d8935842f9db880ef25' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-11-23T21:12:25.3751684Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-11-23T21:12:25.5748921Z Uses: IzuSharp/Korda/.github/workflows/build.yml@refs/pull/35/merge (9ec10683791e8c949f82e8822f1d6ef3c031aeab)
+2026-11-23T21:12:25.5752781Z ##[group] Inputs
+2026-11-23T21:12:25.5753571Z   mode: run
+2026-11-23T21:12:25.5754142Z   resources: [
+  "design",
+  "dotnet",
+  "native",
+  "pg-server",
+  "pg-tools"
+]
+2026-11-23T21:12:25.5754787Z   version: 0.1.0-ci.1
+2026-11-23T21:12:25.5755215Z   scope: postgresql
+2026-11-23T21:12:25.5761942Z   plan: {"scope":"linux","deep":false,"build_scopes":["linux","postgresql","sqlite"],"actions":{"linux":["database.native","database.build","database.api","database.dependencies","database.regressions","fluent.api","generator.test","api.tool","migrations.api","relations.api"],"postgresql":["postgresql.build","postgresql.dependencies","public.pack","postgresql.packed-api","postgresql.test","public.consume-aot","public.validate"],"sqlite":["sqlite.build","public.pack","public.consume-aot","public.validate","sqlite.dependencies","sqlite.packed-api","sqlite.test"]},"resources":{"linux":["design","dotnet","native","pg-server","pg-tools","plan","scope-design"],"postgresql":["design","dotnet","native","pg-server","pg-tools"],"sqlite":["design","dotnet","native"]},"public_checks":["postgresql","sqlite"],"deferred":[],"changed_languages":["cpp","csharp","data","markdown","python"],"inputs":{"sqlite":"c158926b580a6dd3db65cdaafa3fdbd8061010cec493b43000d26220b4faf449","postgresql":"2463e3dac813be2fe8363c5f6a41f9e3338e94a654e037d26c9dfff5805d3f14"},"payload_inputs":{"postgresql":"0cc2ed07f783e190c58451ca5efb235654807fc0d66a3dc588550b76791799ed","sqlite":"a02b5599864144cfc95da061152a6d57e8079ad79aa8469c556c9995e6bad972"},"packages":["postgresql","sqlite"],"candidates":[],"versions":{"postgresql":"0.1.0-ci.1","sqlite":"0.1.0-ci.1"},"releases":[],"modules":[],"run_steps":{},"languages":["csharp","python"],"artifacts":{},"module_packages":[],"module_resources":{},"compose_from":{}}
+2026-11-23T21:12:25.5769031Z ##[endgroup]
+2026-11-23T21:12:25.5769513Z Complete job name: build (postgresql) / Run postgresql actions
+2026-11-23T21:12:25.6380180Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-23T21:12:25.6381011Z with:
+2026-11-23T21:12:25.6381448Z   ref: 9ec10683791e8c949f82e8822f1d6ef3c031aeab
+2026-11-23T21:12:25.6381976Z   fetch-depth: 0
+2026-11-23T21:12:25.6382398Z   persist-credentials: false
+2026-11-23T21:12:25.6383181Z   repository: IzuSharp/Korda
+2026-11-23T21:12:25.6386230Z   token: ***
+2026-11-23T21:12:25.6386599Z   ssh-strict: true
+2026-11-23T21:12:25.6387011Z   ssh-user: git
+2026-11-23T21:12:25.6387395Z   clean: true
+2026-11-23T21:12:25.6387789Z   sparse-checkout-cone-mode: true
+2026-11-23T21:12:25.6388246Z   fetch-tags: false
+2026-11-23T21:12:25.6388663Z   show-progress: true
+2026-11-23T21:12:25.6389058Z   lfs: false
+2026-11-23T21:12:25.6389450Z   submodules: false
+2026-11-23T21:12:25.6389872Z   set-safe-directory: true
+2026-11-23T21:12:25.6390323Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:12:25.6390929Z env:
+2026-11-23T21:12:25.6391295Z   CI: true
+2026-11-23T21:12:25.6391949Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:25.6392552Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:25.6393239Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:25.6393673Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:25.6394123Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:25.6394661Z ##[endgroup]
+2026-11-23T21:12:25.8776294Z Syncing repository: IzuSharp/Korda
+2026-11-23T21:12:25.8778046Z ##[group]Getting Git version info
+2026-11-23T21:12:25.8778703Z Working directory is '/home/runner/work/Korda/Korda'
+2026-11-23T21:12:25.8779538Z [command]/usr/bin/git version
+2026-11-23T21:12:25.8827621Z git version 2.56.1
+2026-11-23T21:12:25.8843059Z ##[endgroup]
+2026-11-23T21:12:25.8849767Z Temporarily overriding HOME='/home/runner/work/_temp/9f3b0014-3b8a-4abc-b7fa-a7c554ab3331' before making global git config changes
+2026-11-23T21:12:25.8852017Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:12:25.8854132Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Korda/Korda
+2026-11-23T21:12:25.8889219Z Deleting the contents of '/home/runner/work/Korda/Korda'
+2026-11-23T21:12:25.8893329Z ##[group]Determining repository object format
+2026-11-23T21:12:25.8894629Z ##[endgroup]
+2026-11-23T21:12:25.8895655Z ##[group]Initializing the repository
+2026-11-23T21:12:25.8898035Z [command]/usr/bin/git init /home/runner/work/Korda/Korda
+2026-11-23T21:12:25.8994975Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:12:25.8996025Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:12:25.8996976Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:12:25.8997640Z hint: call:
+2026-11-23T21:12:25.8997994Z hint:
+2026-11-23T21:12:25.8998494Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:12:25.8999165Z hint:
+2026-11-23T21:12:25.8999710Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:12:25.9000497Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:12:25.9001109Z hint:
+2026-11-23T21:12:25.9001527Z hint: 	git branch -m <name>
+2026-11-23T21:12:25.9002063Z hint:
+2026-11-23T21:12:25.9003015Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:12:25.9006195Z Initialized empty Git repository in /home/runner/work/Korda/Korda/.git/
+2026-11-23T21:12:25.9013371Z [command]/usr/bin/git remote add origin https://github.com/IzuSharp/Korda
+2026-11-23T21:12:25.9055063Z ##[endgroup]
+2026-11-23T21:12:25.9055951Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:12:25.9057390Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:12:25.9082217Z ##[endgroup]
+2026-11-23T21:12:25.9083612Z ##[group]Setting up auth
+2026-11-23T21:12:25.9084795Z Removing SSH command configuration
+2026-11-23T21:12:25.9086254Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:12:25.9110337Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:12:25.9422402Z Removing HTTP extra header
+2026-11-23T21:12:25.9428620Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:12:25.9479568Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:12:25.9627496Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:12:25.9631759Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:12:25.9658315Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:12:25.9807159Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:12:26.0362026Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Korda/Korda/.git.path /home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:26.0768945Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Korda/Korda/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:26.0797452Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:26.1356677Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:26.1383300Z ##[endgroup]
+2026-11-23T21:12:26.1384359Z ##[group]Fetching the repository
+2026-11-23T21:12:26.1390120Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T21:12:27.1331637Z From https://github.com/IzuSharp/Korda
+2026-11-23T21:12:27.1334220Z  * [new branch]      codex/automatic-preview-publishing -> origin/codex/automatic-preview-publishing
+2026-11-23T21:12:27.1336420Z  * [new branch]      codex/merge-preview-publishing -> origin/codex/merge-preview-publishing
+2026-11-23T21:12:27.1338693Z  * [new branch]      codex/verify-merged-pr-release -> origin/codex/verify-merged-pr-release
+2026-11-23T21:12:27.1341309Z  * [new branch]      dependabot/github_actions/actions/cache-6.1.0 -> origin/dependabot/github_actions/actions/cache-6.1.0
+2026-11-23T21:12:27.1345260Z  * [new branch]      dependabot/github_actions/actions/dependency-review-action-5.0.1 -> origin/dependabot/github_actions/actions/dependency-review-action-5.0.1
+2026-11-23T21:12:27.1349330Z  * [new branch]      dependabot/github_actions/actions/setup-dotnet-6.1.0 -> origin/dependabot/github_actions/actions/setup-dotnet-6.1.0
+2026-11-23T21:12:27.1353113Z  * [new branch]      dependabot/github_actions/actions/upload-artifact-7.0.2 -> origin/dependabot/github_actions/actions/upload-artifact-7.0.2
+2026-11-23T21:12:27.1355675Z  * [new branch]      docs/nuget-ci-check-selection -> origin/docs/nuget-ci-check-selection
+2026-11-23T21:12:27.1357632Z  * [new branch]      fix/database-ci-preview -> origin/fix/database-ci-preview
+2026-11-23T21:12:27.1360053Z  * [new branch]      fix/independent-preview-validation -> origin/fix/independent-preview-validation
+2026-11-23T21:12:27.1361789Z  * [new branch]      fix/nuget-mit-metadata  -> origin/fix/nuget-mit-metadata
+2026-11-23T21:12:27.1363240Z  * [new branch]      main                    -> origin/main
+2026-11-23T21:12:27.1364811Z  * [new branch]      research/native-slices-rust-1100 -> origin/research/native-slices-rust-1100
+2026-11-23T21:12:27.1366887Z  * [new branch]      task/DB-API-01-linux    -> origin/task/DB-API-01-linux
+2026-11-23T21:12:27.1368679Z  * [new branch]      task/DB-CPP-01-linux    -> origin/task/DB-CPP-01-linux
+2026-11-23T21:12:27.1370345Z  * [new branch]      task/DB-Scope-01-linux  -> origin/task/DB-Scope-01-linux
+2026-11-23T21:12:27.1372965Z  * [new branch]      task/Perf-01-binding-retry-linux -> origin/task/Perf-01-binding-retry-linux
+2026-11-23T21:12:27.1375632Z  * [new branch]      task/Perf-01-callback-linux -> origin/task/Perf-01-callback-linux
+2026-11-23T21:12:27.1378306Z  * [new branch]      task/Perf-01-callback-scan-linux -> origin/task/Perf-01-callback-scan-linux
+2026-11-23T21:12:27.1380857Z  * [new branch]      task/Perf-01-db-observer-linux -> origin/task/Perf-01-db-observer-linux
+2026-11-23T21:12:27.1383910Z  * [new branch]      task/Perf-01-db-observer-measured-linux -> origin/task/Perf-01-db-observer-measured-linux
+2026-11-23T21:12:27.1386214Z  * [new branch]      task/Perf-01-empty-retry-linux -> origin/task/Perf-01-empty-retry-linux
+2026-11-23T21:12:27.1387943Z  * [new branch]      task/Perf-01-linux      -> origin/task/Perf-01-linux
+2026-11-23T21:12:27.1390114Z  * [new branch]      task/Perf-01-recovery-grpc-off-linux -> origin/task/Perf-01-recovery-grpc-off-linux
+2026-11-23T21:12:27.1392146Z  * [new branch]      task/Perf-01-retry-linux -> origin/task/Perf-01-retry-linux
+2026-11-23T21:12:27.1393914Z  * [new branch]      task/Task-01-A01-linux  -> origin/task/Task-01-A01-linux
+2026-11-23T21:12:27.1395471Z  * [new branch]      task/Task-01-A19-linux  -> origin/task/Task-01-A19-linux
+2026-11-23T21:12:27.1397092Z  * [new branch]      task/Task-01-A21-linux  -> origin/task/Task-01-A21-linux
+2026-11-23T21:12:27.1398720Z  * [new branch]      task/Task-01-B01-linux  -> origin/task/Task-01-B01-linux
+2026-11-23T21:12:27.1400351Z  * [new branch]      task/Task-01-linux      -> origin/task/Task-01-linux
+2026-11-23T21:12:27.1401884Z  * [new branch]      task/Task-02-A02-linux  -> origin/task/Task-02-A02-linux
+2026-11-23T21:12:27.1403582Z  * [new branch]      task/Task-02-A05-linux  -> origin/task/Task-02-A05-linux
+2026-11-23T21:12:27.1405105Z  * [new branch]      task/Task-02-A09-linux  -> origin/task/Task-02-A09-linux
+2026-11-23T21:12:27.1406613Z  * [new branch]      task/Task-02-B02-linux  -> origin/task/Task-02-B02-linux
+2026-11-23T21:12:27.1408126Z  * [new branch]      task/Task-02-B03-linux  -> origin/task/Task-02-B03-linux
+2026-11-23T21:12:27.1409609Z  * [new branch]      task/Task-02-B05-linux  -> origin/task/Task-02-B05-linux
+2026-11-23T21:12:27.1411308Z  * [new branch]      task/Task-02-B06-linux  -> origin/task/Task-02-B06-linux
+2026-11-23T21:12:27.1412939Z  * [new branch]      task/Task-02-B07-linux  -> origin/task/Task-02-B07-linux
+2026-11-23T21:12:27.1414443Z  * [new branch]      task/Task-02-B09-linux  -> origin/task/Task-02-B09-linux
+2026-11-23T21:12:27.1415890Z  * [new branch]      task/Task-02-linux      -> origin/task/Task-02-linux
+2026-11-23T21:12:27.1417353Z  * [new branch]      task/Task-03-A03-linux  -> origin/task/Task-03-A03-linux
+2026-11-23T21:12:27.1418828Z  * [new branch]      task/Task-03-A04-linux  -> origin/task/Task-03-A04-linux
+2026-11-23T21:12:27.1420350Z  * [new branch]      task/Task-03-A10-linux  -> origin/task/Task-03-A10-linux
+2026-11-23T21:12:27.1421797Z  * [new branch]      task/Task-03-A11-linux  -> origin/task/Task-03-A11-linux
+2026-11-23T21:12:27.1423419Z  * [new branch]      task/Task-03-A12-linux  -> origin/task/Task-03-A12-linux
+2026-11-23T21:12:27.1424918Z  * [new branch]      task/Task-03-A13-linux  -> origin/task/Task-03-A13-linux
+2026-11-23T21:12:27.1426588Z  * [new branch]      task/Task-03-A22-linux  -> origin/task/Task-03-A22-linux
+2026-11-23T21:12:27.1428009Z  * [new branch]      task/Task-03-linux      -> origin/task/Task-03-linux
+2026-11-23T21:12:27.1429442Z  * [new branch]      task/Task-04-A06-linux  -> origin/task/Task-04-A06-linux
+2026-11-23T21:12:27.1430995Z  * [new branch]      task/Task-04-A07-linux  -> origin/task/Task-04-A07-linux
+2026-11-23T21:12:27.1432469Z  * [new branch]      task/Task-04-A08-linux  -> origin/task/Task-04-A08-linux
+2026-11-23T21:12:27.1434062Z  * [new branch]      task/Task-04-A14-linux  -> origin/task/Task-04-A14-linux
+2026-11-23T21:12:27.1435491Z  * [new branch]      task/Task-04-A16-linux  -> origin/task/Task-04-A16-linux
+2026-11-23T21:12:27.1436910Z  * [new branch]      task/Task-04-A17-linux  -> origin/task/Task-04-A17-linux
+2026-11-23T21:12:27.1438322Z  * [new branch]      task/Task-04-A18-linux  -> origin/task/Task-04-A18-linux
+2026-11-23T21:12:27.1439971Z  * [new branch]      task/Task-04-A20-linux  -> origin/task/Task-04-A20-linux
+2026-11-23T21:12:27.1441425Z  * [new branch]      task/Task-04-A23-linux  -> origin/task/Task-04-A23-linux
+2026-11-23T21:12:27.1443051Z  * [new branch]      task/Task-04-A24-linux  -> origin/task/Task-04-A24-linux
+2026-11-23T21:12:27.1444649Z  * [new branch]      task/Task-04-linux      -> origin/task/Task-04-linux
+2026-11-23T21:12:27.1446476Z  * [new branch]      task/Task-05-linux      -> origin/task/Task-05-linux
+2026-11-23T21:12:27.1447997Z  * [new branch]      task/Task-06-linux      -> origin/task/Task-06-linux
+2026-11-23T21:12:27.1449749Z  * [new branch]      task/Task-07-B23-diagnosis-linux -> origin/task/Task-07-B23-diagnosis-linux
+2026-11-23T21:12:27.1451478Z  * [new branch]      task/Task-07-linux      -> origin/task/Task-07-linux
+2026-11-23T21:12:27.1454843Z [command]/usr/bin/git rev-parse --verify --quiet 9ec10683791e8c949f82e8822f1d6ef3c031aeab^{object}
+2026-11-23T21:12:27.1458387Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin 9ec10683791e8c949f82e8822f1d6ef3c031aeab
+2026-11-23T21:12:27.4131240Z From https://github.com/IzuSharp/Korda
+2026-11-23T21:12:27.4132767Z  * branch            9ec10683791e8c949f82e8822f1d6ef3c031aeab -> FETCH_HEAD
+2026-11-23T21:12:27.4145859Z [command]/usr/bin/git rev-parse --verify --quiet 9ec10683791e8c949f82e8822f1d6ef3c031aeab^{object}
+2026-11-23T21:12:27.4169522Z 9ec10683791e8c949f82e8822f1d6ef3c031aeab
+2026-11-23T21:12:27.4173945Z ##[endgroup]
+2026-11-23T21:12:27.4176053Z ##[group]Determining the checkout info
+2026-11-23T21:12:27.4179242Z ##[endgroup]
+2026-11-23T21:12:27.4180508Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:12:27.4230678Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:12:27.4256446Z ##[group]Checking out the ref
+2026-11-23T21:12:27.4258645Z [command]/usr/bin/git checkout --progress --force 9ec10683791e8c949f82e8822f1d6ef3c031aeab
+2026-11-23T21:12:27.4626415Z Note: switching to '9ec10683791e8c949f82e8822f1d6ef3c031aeab'.
+2026-11-23T21:12:27.4627497Z 
+2026-11-23T21:12:27.4628107Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-23T21:12:27.4629551Z changes and commit them, and you can discard any commits you make in this
+2026-11-23T21:12:27.4630968Z state without impacting any branches by switching back to a branch.
+2026-11-23T21:12:27.4631772Z 
+2026-11-23T21:12:27.4632358Z If you want to create a new branch to retain commits you create, you may
+2026-11-23T21:12:27.4634156Z do so (now or later) by using -c with the switch command. Example:
+2026-11-23T21:12:27.4635101Z 
+2026-11-23T21:12:27.4635497Z   git switch -c <new-branch-name>
+2026-11-23T21:12:27.4636142Z 
+2026-11-23T21:12:27.4636532Z Or undo this operation with:
+2026-11-23T21:12:27.4637214Z 
+2026-11-23T21:12:27.4637562Z   git switch -
+2026-11-23T21:12:27.4637966Z 
+2026-11-23T21:12:27.4638741Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-23T21:12:27.4639842Z 
+2026-11-23T21:12:27.4641013Z HEAD is now at 9ec1068 Merge 1794fbae14855f28842354c9649a66e58f5001ef into 7275396176b928c8879d59f4bf20ad8fa7ffb62c
+2026-11-23T21:12:27.4653198Z ##[endgroup]
+2026-11-23T21:12:27.4675466Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:12:27.4694139Z 9ec10683791e8c949f82e8822f1d6ef3c031aeab
+2026-11-23T21:12:27.4700602Z ##[group]Removing auth
+2026-11-23T21:12:27.4702000Z Removing SSH command configuration
+2026-11-23T21:12:27.4703611Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:12:27.4729962Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:12:27.4889878Z Removing HTTP extra header
+2026-11-23T21:12:27.4892242Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:12:27.4916717Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:12:27.5085929Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:12:27.5091419Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:12:27.5110395Z includeif.gitdir:/home/runner/work/Korda/Korda/.git.path
+2026-11-23T21:12:27.5113949Z includeif.gitdir:/home/runner/work/Korda/Korda/.git/worktrees/*.path
+2026-11-23T21:12:27.5116157Z includeif.gitdir:/github/workspace/.git.path
+2026-11-23T21:12:27.5117861Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T21:12:27.5122286Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Korda/Korda/.git.path
+2026-11-23T21:12:27.5133334Z /home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:27.5142141Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Korda/Korda/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-bd003378\-05cc\-4585\-8eab\-a7cf54e1f77e\.config
+2026-11-23T21:12:27.5176113Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Korda/Korda/.git/worktrees/*.path
+2026-11-23T21:12:27.5191305Z /home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:27.5197882Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Korda/Korda/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-bd003378\-05cc\-4585\-8eab\-a7cf54e1f77e\.config
+2026-11-23T21:12:27.5229782Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-23T21:12:27.5247813Z /github/runner_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:27.5253808Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-bd003378\-05cc\-4585\-8eab\-a7cf54e1f77e\.config
+2026-11-23T21:12:27.5277826Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T21:12:27.5294133Z /github/runner_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config
+2026-11-23T21:12:27.5299815Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-bd003378\-05cc\-4585\-8eab\-a7cf54e1f77e\.config
+2026-11-23T21:12:27.5328206Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:12:27.5484173Z Removing credentials config '/home/runner/work/_temp/git-credentials-bd003378-05cc-4585-8eab-a7cf54e1f77e.config'
+2026-11-23T21:12:27.5498837Z ##[endgroup]
+2026-11-23T21:12:27.5683772Z ##[group]Run mkdir -p artifacts && echo "$PLAN" > artifacts/plan.json
+2026-11-23T21:12:27.5685104Z [36;1mmkdir -p artifacts && echo "$PLAN" > artifacts/plan.json[0m
+2026-11-23T21:12:27.5701251Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:12:27.5701952Z env:
+2026-11-23T21:12:27.5702493Z   CI: true
+2026-11-23T21:12:27.5703646Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:27.5704695Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:27.5705346Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:27.5705984Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:27.5706696Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:27.5718931Z   PLAN: {"scope":"linux","deep":false,"build_scopes":["linux","postgresql","sqlite"],"actions":{"linux":["database.native","database.build","database.api","database.dependencies","database.regressions","fluent.api","generator.test","api.tool","migrations.api","relations.api"],"postgresql":["postgresql.build","postgresql.dependencies","public.pack","postgresql.packed-api","postgresql.test","public.consume-aot","public.validate"],"sqlite":["sqlite.build","public.pack","public.consume-aot","public.validate","sqlite.dependencies","sqlite.packed-api","sqlite.test"]},"resources":{"linux":["design","dotnet","native","pg-server","pg-tools","plan","scope-design"],"postgresql":["design","dotnet","native","pg-server","pg-tools"],"sqlite":["design","dotnet","native"]},"public_checks":["postgresql","sqlite"],"deferred":[],"changed_languages":["cpp","csharp","data","markdown","python"],"inputs":{"sqlite":"c158926b580a6dd3db65cdaafa3fdbd8061010cec493b43000d26220b4faf449","postgresql":"2463e3dac813be2fe8363c5f6a41f9e3338e94a654e037d26c9dfff5805d3f14"},"payload_inputs":{"postgresql":"0cc2ed07f783e190c58451ca5efb235654807fc0d66a3dc588550b76791799ed","sqlite":"a02b5599864144cfc95da061152a6d57e8079ad79aa8469c556c9995e6bad972"},"packages":["postgresql","sqlite"],"candidates":[],"versions":{"postgresql":"0.1.0-ci.1","sqlite":"0.1.0-ci.1"},"releases":[],"modules":[],"run_steps":{},"languages":["csharp","python"],"artifacts":{},"module_packages":[],"module_resources":{},"compose_from":{}}
+2026-11-23T21:12:27.5731783Z ##[endgroup]
+2026-11-23T21:12:27.5979723Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-23T21:12:27.5980677Z with:
+2026-11-23T21:12:27.5981276Z   repository: IzuSharp/NativeWeave-Design
+2026-11-23T21:12:27.5982104Z   ref: c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+2026-11-23T21:12:27.5983078Z   path: artifacts/frozen-design
+2026-11-23T21:12:27.5983787Z   persist-credentials: false
+2026-11-23T21:12:27.5989111Z   token: ***
+2026-11-23T21:12:27.5989695Z   ssh-strict: true
+2026-11-23T21:12:27.5990287Z   ssh-user: git
+2026-11-23T21:12:27.5990858Z   clean: true
+2026-11-23T21:12:27.5991471Z   sparse-checkout-cone-mode: true
+2026-11-23T21:12:27.5992182Z   fetch-depth: 1
+2026-11-23T21:12:27.5992990Z   fetch-tags: false
+2026-11-23T21:12:27.5993591Z   show-progress: true
+2026-11-23T21:12:27.5994204Z   lfs: false
+2026-11-23T21:12:27.5994800Z   submodules: false
+2026-11-23T21:12:27.5995406Z   set-safe-directory: true
+2026-11-23T21:12:27.5996082Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:12:27.5996814Z env:
+2026-11-23T21:12:27.5997326Z   CI: true
+2026-11-23T21:12:27.5998113Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:27.5999080Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:27.5999712Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:27.6000348Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:27.6001046Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:27.6001693Z ##[endgroup]
+2026-11-23T21:12:27.6647793Z Syncing repository: IzuSharp/NativeWeave-Design
+2026-11-23T21:12:27.6653869Z ##[group]Getting Git version info
+2026-11-23T21:12:27.6656362Z Working directory is '/home/runner/work/Korda/Korda/artifacts/frozen-design'
+2026-11-23T21:12:27.6674798Z [command]/usr/bin/git version
+2026-11-23T21:12:27.6703115Z git version 2.56.1
+2026-11-23T21:12:27.6717057Z ##[endgroup]
+2026-11-23T21:12:27.6734720Z Temporarily overriding HOME='/home/runner/work/_temp/0dc62507-1c72-4c83-9aa1-f498dd843fbb' before making global git config changes
+2026-11-23T21:12:27.6742900Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:12:27.6745772Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Korda/Korda/artifacts/frozen-design
+2026-11-23T21:12:27.6757166Z ##[group]Determining repository object format
+2026-11-23T21:12:27.6758646Z ##[endgroup]
+2026-11-23T21:12:27.6759887Z ##[group]Initializing the repository
+2026-11-23T21:12:27.6761263Z [command]/usr/bin/git init /home/runner/work/Korda/Korda/artifacts/frozen-design
+2026-11-23T21:12:27.6796776Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:12:27.6798818Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:12:27.6800283Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:12:27.6801352Z hint: call:
+2026-11-23T21:12:27.6801963Z hint:
+2026-11-23T21:12:27.6803162Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:12:27.6804178Z hint:
+2026-11-23T21:12:27.6805080Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:12:27.6806397Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:12:27.6807460Z hint:
+2026-11-23T21:12:27.6808103Z hint: 	git branch -m <name>
+2026-11-23T21:12:27.6808841Z hint:
+2026-11-23T21:12:27.6810331Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:12:27.6812946Z Initialized empty Git repository in /home/runner/work/Korda/Korda/artifacts/frozen-design/.git/
+2026-11-23T21:12:27.6816670Z [command]/usr/bin/git remote add origin https://github.com/IzuSharp/NativeWeave-Design
+2026-11-23T21:12:27.6849312Z ##[endgroup]
+2026-11-23T21:12:27.6850779Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:12:27.6853684Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:12:27.6879330Z ##[endgroup]
+2026-11-23T21:12:27.6880401Z ##[group]Setting up auth
+2026-11-23T21:12:27.6881630Z Removing SSH command configuration
+2026-11-23T21:12:27.6883161Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:12:27.6908685Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:12:27.7071038Z Removing HTTP extra header
+2026-11-23T21:12:27.7081664Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:12:27.7099367Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:12:27.7254137Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:12:27.7258089Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:12:27.7293281Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:12:27.7464948Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:12:27.7493354Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git.path /home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:27.7518635Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:27.7547581Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/artifacts/frozen-design/.git.path /github/runner_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:27.7571449Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/artifacts/frozen-design/.git/worktrees/*.path /github/runner_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:27.7593851Z ##[endgroup]
+2026-11-23T21:12:27.7594857Z ##[group]Fetching the repository
+2026-11-23T21:12:27.7598543Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+2026-11-23T21:12:29.4735041Z From https://github.com/IzuSharp/NativeWeave-Design
+2026-11-23T21:12:29.4735453Z  * branch            c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9 -> FETCH_HEAD
+2026-11-23T21:12:29.4743124Z [command]/usr/bin/git rev-parse --verify --quiet c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9^{object}
+2026-11-23T21:12:29.4768081Z c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+2026-11-23T21:12:29.4769576Z ##[endgroup]
+2026-11-23T21:12:29.4770163Z ##[group]Determining the checkout info
+2026-11-23T21:12:29.4774918Z ##[endgroup]
+2026-11-23T21:12:29.4775351Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:12:29.4814210Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:12:29.4840962Z ##[group]Checking out the ref
+2026-11-23T21:12:29.4845084Z [command]/usr/bin/git checkout --progress --force c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+2026-11-23T21:12:29.6158940Z Note: switching to 'c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9'.
+2026-11-23T21:12:29.6159288Z 
+2026-11-23T21:12:29.6159494Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-23T21:12:29.6159969Z changes and commit them, and you can discard any commits you make in this
+2026-11-23T21:12:29.6160436Z state without impacting any branches by switching back to a branch.
+2026-11-23T21:12:29.6160698Z 
+2026-11-23T21:12:29.6160878Z If you want to create a new branch to retain commits you create, you may
+2026-11-23T21:12:29.6161270Z do so (now or later) by using -c with the switch command. Example:
+2026-11-23T21:12:29.6161742Z 
+2026-11-23T21:12:29.6161877Z   git switch -c <new-branch-name>
+2026-11-23T21:12:29.6162071Z 
+2026-11-23T21:12:29.6162194Z Or undo this operation with:
+2026-11-23T21:12:29.6162396Z 
+2026-11-23T21:12:29.6162480Z   git switch -
+2026-11-23T21:12:29.6162809Z 
+2026-11-23T21:12:29.6163028Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-23T21:12:29.6163347Z 
+2026-11-23T21:12:29.6163588Z HEAD is now at c62cdb8 Merge complete independently reviewed C# public API design (#13)
+2026-11-23T21:12:29.6169039Z ##[endgroup]
+2026-11-23T21:12:29.6205759Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:12:29.6227263Z c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+2026-11-23T21:12:29.6233019Z ##[group]Removing auth
+2026-11-23T21:12:29.6233304Z Removing SSH command configuration
+2026-11-23T21:12:29.6236308Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:12:29.6259951Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:12:29.6411429Z Removing HTTP extra header
+2026-11-23T21:12:29.6414788Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:12:29.6438768Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:12:29.6585180Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:12:29.6587526Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:12:29.6604370Z includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git.path
+2026-11-23T21:12:29.6605158Z includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git/worktrees/*.path
+2026-11-23T21:12:29.6606022Z includeif.gitdir:/github/workspace/artifacts/frozen-design/.git.path
+2026-11-23T21:12:29.6606720Z includeif.gitdir:/github/workspace/artifacts/frozen-design/.git/worktrees/*.path
+2026-11-23T21:12:29.6642499Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git.path
+2026-11-23T21:12:29.6667079Z /home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:29.6673774Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-c067126d\-31d9\-448f\-8679\-9e2ebd3d260c\.config
+2026-11-23T21:12:29.6704944Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git/worktrees/*.path
+2026-11-23T21:12:29.6722763Z /home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:29.6728969Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Korda/Korda/artifacts/frozen-design/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-c067126d\-31d9\-448f\-8679\-9e2ebd3d260c\.config
+2026-11-23T21:12:29.6755928Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/artifacts/frozen-design/.git.path
+2026-11-23T21:12:29.6772733Z /github/runner_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:29.6777691Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/artifacts/frozen-design/.git.path \/github\/runner_temp\/git\-credentials\-c067126d\-31d9\-448f\-8679\-9e2ebd3d260c\.config
+2026-11-23T21:12:29.6811413Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/artifacts/frozen-design/.git/worktrees/*.path
+2026-11-23T21:12:29.6828623Z /github/runner_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config
+2026-11-23T21:12:29.6834238Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/artifacts/frozen-design/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-c067126d\-31d9\-448f\-8679\-9e2ebd3d260c\.config
+2026-11-23T21:12:29.6884205Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:12:29.7032002Z Removing credentials config '/home/runner/work/_temp/git-credentials-c067126d-31d9-448f-8679-9e2ebd3d260c.config'
+2026-11-23T21:12:29.7040787Z ##[endgroup]
+2026-11-23T21:12:29.7174413Z ##[group]Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68
+2026-11-23T21:12:29.7174689Z with:
+2026-11-23T21:12:29.7174848Z   global-json-file: global.json
+2026-11-23T21:12:29.7175027Z   cache: true
+2026-11-23T21:12:29.7175242Z   cache-dependency-path: global.json
+**/packages*.lock.json
+
+2026-11-23T21:12:29.7175479Z env:
+2026-11-23T21:12:29.7175610Z   CI: true
+2026-11-23T21:12:29.7175827Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:29.7176109Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:29.7176273Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:29.7176436Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:29.7176620Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:29.7176790Z ##[endgroup]
+2026-11-23T21:12:29.8139104Z [command]/home/runner/work/_actions/actions/setup-dotnet/a98b56852c35b8e3190ac28c8c2271da59106c68/externals/install-dotnet.sh --skip-non-versioned-files --runtime dotnet --channel LTS
+2026-11-23T21:12:30.3142222Z dotnet-install: .NET Core Runtime with version '10.0.15' is already installed.
+2026-11-23T21:12:30.3162175Z [command]/home/runner/work/_actions/actions/setup-dotnet/a98b56852c35b8e3190ac28c8c2271da59106c68/externals/install-dotnet.sh --skip-non-versioned-files --channel 11.0.1xx
+2026-11-23T21:12:30.6375022Z dotnet-install: .NET Core SDK with version '11.0.100' is already installed.
+2026-11-23T21:12:34.8609484Z Dotnet cache is not found
+2026-11-23T21:12:34.9186781Z ##[group]Run actions/cache@caa296126883cff596d87d8935842f9db880ef25
+2026-11-23T21:12:34.9187026Z with:
+2026-11-23T21:12:34.9187285Z   key: linux-x64-tools-108c089de5dbeada7c851c0fc364e551d164aec91caa92092730c60d812369bf
+2026-11-23T21:12:34.9187737Z   path: artifacts/toolchain/downloads
+artifacts/toolchain/sccache/tool.tar.gz
+artifacts/dependencies/downloads
+
+2026-11-23T21:12:34.9188072Z   enableCrossOsArchive: false
+2026-11-23T21:12:34.9188249Z   fail-on-cache-miss: false
+2026-11-23T21:12:34.9188408Z   lookup-only: false
+2026-11-23T21:12:34.9188563Z   save-always: false
+2026-11-23T21:12:34.9188701Z env:
+2026-11-23T21:12:34.9188823Z   CI: true
+2026-11-23T21:12:34.9189031Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:34.9189283Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:34.9189439Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:34.9189590Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:34.9189763Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:34.9189965Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:12:34.9190135Z ##[endgroup]
+2026-11-23T21:12:35.1652834Z Cache hit for: linux-x64-tools-108c089de5dbeada7c851c0fc364e551d164aec91caa92092730c60d812369bf
+2026-11-23T21:12:36.3486214Z Received 134217728 of 1267510466 (10.6%), 128.0 MBs/sec
+2026-11-23T21:12:37.3491525Z Received 352321536 of 1267510466 (27.8%), 168.0 MBs/sec
+2026-11-23T21:12:38.3494402Z Received 553648128 of 1267510466 (43.7%), 176.0 MBs/sec
+2026-11-23T21:12:39.3534174Z Received 784334848 of 1267510466 (61.9%), 187.0 MBs/sec
+2026-11-23T21:12:40.3534332Z Received 981467136 of 1267510466 (77.4%), 187.1 MBs/sec
+2026-11-23T21:12:41.3567937Z Received 1119879168 of 1267510466 (88.4%), 177.9 MBs/sec
+2026-11-23T21:12:42.0847194Z Received 1267510466 of 1267510466 (100.0%), 179.5 MBs/sec
+2026-11-23T21:12:42.0849584Z Cache Size: ~1209 MB (1267510466 B)
+2026-11-23T21:12:42.0911605Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3ea4e2ae-9a10-4f4a-b2a6-e3ecc9e9c087/cache.tzst -P -C /home/runner/work/Korda/Korda --use-compress-program unzstd
+2026-11-23T21:12:44.0099617Z Cache restored successfully
+2026-11-23T21:12:44.5484327Z Cache restored from key: linux-x64-tools-108c089de5dbeada7c851c0fc364e551d164aec91caa92092730c60d812369bf
+2026-11-23T21:12:44.6088374Z ##[group]Run sudo apt-get update
+2026-11-23T21:12:44.6088742Z [36;1msudo apt-get update[0m
+2026-11-23T21:12:44.6089210Z [36;1msudo apt-get install -y --no-install-recommends zstd libssl-dev[0m
+2026-11-23T21:12:44.6089973Z [36;1mif [ "$NEED_PG" = true ]; then sudo apt-get install -y zlib1g-dev bison flex python3-cryptography; fi[0m
+2026-11-23T21:12:44.6090706Z [36;1mif [ "$NEED_QEMU" = true ]; then sudo apt-get install -y qemu-user; fi[0m
+2026-11-23T21:12:44.6091174Z [36;1mpython3 eng/cpp_toolchain.py[0m
+2026-11-23T21:12:44.6091713Z [36;1mbash eng/ci/sccache.sh install[0m
+2026-11-23T21:12:44.6108282Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:12:44.6108580Z env:
+2026-11-23T21:12:44.6108806Z   CI: true
+2026-11-23T21:12:44.6109181Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:12:44.6109668Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:12:44.6109938Z   DOTNET_NOLOGO: true
+2026-11-23T21:12:44.6110203Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:12:44.6110564Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:12:44.6110857Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:12:44.6111138Z   NEED_PG: true
+2026-11-23T21:12:44.6111370Z   NEED_QEMU: false
+2026-11-23T21:12:44.6111613Z ##[endgroup]
+2026-11-23T21:12:44.8076887Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-23T21:12:44.8422148Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-11-23T21:12:44.8545053Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-11-23T21:12:44.8560818Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-11-23T21:12:44.9103875Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-11-23T21:12:44.9119724Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-11-23T21:12:44.9778812Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [852 kB]
+2026-11-23T21:12:45.0005622Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1486 kB]
+2026-11-23T21:12:45.1591025Z Get:20 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [780 kB]
+2026-11-23T21:12:45.2313212Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [320 kB]
+2026-11-23T21:12:45.2898541Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1716 kB]
+2026-11-23T21:12:45.3496562Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [346 kB]
+2026-11-23T21:12:45.4085359Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1945 kB]
+2026-11-23T21:12:45.4690478Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [447 kB]
+2026-11-23T21:12:45.6833947Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1202 kB]
+2026-11-23T21:12:45.7996430Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [239 kB]
+2026-11-23T21:12:45.8034434Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1232 kB]
+2026-11-23T21:12:45.9195024Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [249 kB]
+2026-11-23T21:12:45.9632202Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1799 kB]
+2026-11-23T21:12:45.9693654Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [417 kB]
+2026-11-23T21:12:50.4234259Z Fetched 13.4 MB in 1s (9410 kB/s)
+2026-11-23T21:12:51.4156249Z Reading package lists...
+2026-11-23T21:12:51.4455358Z Reading package lists...
+2026-11-23T21:12:51.6561930Z Building dependency tree...
+2026-11-23T21:12:51.6569079Z Reading state information...
+2026-11-23T21:12:51.8232155Z zstd is already the newest version (1.5.5+dfsg2-2build1.1).
+2026-11-23T21:12:51.8232544Z zstd set to manually installed.
+2026-11-23T21:12:51.8233295Z libssl-dev is already the newest version (3.0.13-0ubuntu3.16).
+2026-11-23T21:12:51.8233620Z 0 upgraded, 0 newly installed, 0 to remove and 72 not upgraded.
+2026-11-23T21:12:51.8399165Z Reading package lists...
+2026-11-23T21:12:52.0396923Z Building dependency tree...
+2026-11-23T21:12:52.0403537Z Reading state information...
+2026-11-23T21:12:52.2067739Z zlib1g-dev is already the newest version (1:1.3.dfsg-3.1ubuntu2.3).
+2026-11-23T21:12:52.2068130Z bison is already the newest version (2:3.8.2+dfsg-1ubuntu0.24.04.1).
+2026-11-23T21:12:52.2068417Z flex is already the newest version (2.6.4-8.2build1).
+2026-11-23T21:12:52.2068745Z python3-cryptography is already the newest version (41.0.7-4ubuntu0.4).
+2026-11-23T21:12:52.2069046Z python3-cryptography set to manually installed.
+2026-11-23T21:12:52.2069326Z 0 upgraded, 0 newly installed, 0 to remove and 72 not upgraded.
+2026-11-23T21:13:52.4746781Z {"environment": "/home/runner/work/Korda/Korda/artifacts/toolchain/environment.sh", "lockSha256": "dca7f396bce6f438e5ed3a41dcbeeab8d350f8653f43cd60c753713a2758bb55", "verifiedToolDirectories": ["/home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin", "/home/runner/work/Korda/Korda/artifacts/toolchain/cmake-4.3.3/bin", "/home/runner/work/Korda/Korda/artifacts/toolchain/ninja-1.13.2"], "bin": {"llvm": "/home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin", "cmake": "/home/runner/work/Korda/Korda/artifacts/toolchain/cmake-4.3.3/bin", "ninja": "/home/runner/work/Korda/Korda/artifacts/toolchain/ninja-1.13.2"}}
+2026-11-23T21:13:52.4916227Z /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/tool.tar.gz: OK
+2026-11-23T21:13:53.4550910Z ##[group]Run actions/cache@caa296126883cff596d87d8935842f9db880ef25
+2026-11-23T21:13:53.4551177Z with:
+2026-11-23T21:13:53.4551327Z   path: ~/.cache/sccache
+2026-11-23T21:13:53.4551847Z   key: sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-postgresql-8d5bd7f69d1c0cb825541190468ec2c0ea5302b85d6f48789fece0cdd54dc577
+2026-11-23T21:13:53.4553093Z   restore-keys: sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-postgresql-
+sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-
+
+2026-11-23T21:13:53.4553684Z   enableCrossOsArchive: false
+2026-11-23T21:13:53.4553884Z   fail-on-cache-miss: false
+2026-11-23T21:13:53.4554055Z   lookup-only: false
+2026-11-23T21:13:53.4554217Z   save-always: false
+2026-11-23T21:13:53.4554368Z env:
+2026-11-23T21:13:53.4554513Z   CI: true
+2026-11-23T21:13:53.4554720Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:13:53.4555017Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:13:53.4555179Z   DOTNET_NOLOGO: true
+2026-11-23T21:13:53.4555342Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:13:53.4555521Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:13:53.4555706Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:13:53.4555953Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:13:53.4556287Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:13:53.4556659Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:53.4557059Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:53.4557343Z ##[endgroup]
+2026-11-23T21:13:53.7249903Z Cache hit for: sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-postgresql-8d5bd7f69d1c0cb825541190468ec2c0ea5302b85d6f48789fece0cdd54dc577
+2026-11-23T21:13:54.8795565Z Received 100137829 of 108526437 (92.3%), 95.5 MBs/sec
+2026-11-23T21:13:54.9446616Z Received 108526437 of 108526437 (100.0%), 96.8 MBs/sec
+2026-11-23T21:13:54.9448293Z Cache Size: ~103 MB (108526437 B)
+2026-11-23T21:13:54.9483249Z [command]/usr/bin/tar -xf /home/runner/work/_temp/0b592880-a3c5-4e68-8e1a-ef8a009818af/cache.tzst -P -C /home/runner/work/Korda/Korda --use-compress-program unzstd
+2026-11-23T21:13:55.1261307Z Cache restored successfully
+2026-11-23T21:13:55.1444983Z Cache restored from key: sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-postgresql-8d5bd7f69d1c0cb825541190468ec2c0ea5302b85d6f48789fece0cdd54dc577
+2026-11-23T21:13:55.1696381Z ##[group]Run echo "key=$(python3 eng/postgres-cache-key.py full)" >> "$GITHUB_OUTPUT"
+2026-11-23T21:13:55.1697042Z [36;1mecho "key=$(python3 eng/postgres-cache-key.py full)" >> "$GITHUB_OUTPUT"[0m
+2026-11-23T21:13:55.1723544Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:13:55.1723744Z env:
+2026-11-23T21:13:55.1723893Z   CI: true
+2026-11-23T21:13:55.1724123Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:13:55.1724386Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:13:55.1724562Z   DOTNET_NOLOGO: true
+2026-11-23T21:13:55.1724738Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:13:55.1724931Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:13:55.1725107Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:13:55.1725363Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:13:55.1725719Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:13:55.1726119Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:55.1726521Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:55.1726822Z ##[endgroup]
+2026-11-23T21:13:55.5003455Z ##[group]Run actions/cache@caa296126883cff596d87d8935842f9db880ef25
+2026-11-23T21:13:55.5003886Z with:
+2026-11-23T21:13:55.5004267Z   key: postgres-full-ubuntu24-x64-02df0bcf5326d6007d10dfb3ea11363279fab735af7b6cf786802ec3eb787a0b
+2026-11-23T21:13:55.5004728Z   path: artifacts/postgres-tools/install
+2026-11-23T21:13:55.5005126Z   enableCrossOsArchive: false
+2026-11-23T21:13:55.5005395Z   fail-on-cache-miss: false
+2026-11-23T21:13:55.5005669Z   lookup-only: false
+2026-11-23T21:13:55.5005880Z   save-always: false
+2026-11-23T21:13:55.5006137Z env:
+2026-11-23T21:13:55.5006349Z   CI: true
+2026-11-23T21:13:55.5006641Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:13:55.5007000Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:13:55.5007226Z   DOTNET_NOLOGO: true
+2026-11-23T21:13:55.5007488Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:13:55.5007734Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:13:55.5007995Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:13:55.5008415Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:13:55.5008834Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:13:55.5009292Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:55.5009805Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:55.5010186Z ##[endgroup]
+2026-11-23T21:13:55.7493185Z Cache hit for: postgres-full-ubuntu24-x64-02df0bcf5326d6007d10dfb3ea11363279fab735af7b6cf786802ec3eb787a0b
+2026-11-23T21:13:56.5148073Z Received 9722149 of 9722149 (100.0%), 16.4 MBs/sec
+2026-11-23T21:13:56.5148830Z Cache Size: ~9 MB (9722149 B)
+2026-11-23T21:13:56.5171487Z [command]/usr/bin/tar -xf /home/runner/work/_temp/2510206d-8060-4bf1-8a10-640b74507bbb/cache.tzst -P -C /home/runner/work/Korda/Korda --use-compress-program unzstd
+2026-11-23T21:13:56.5684437Z Cache restored successfully
+2026-11-23T21:13:56.5744526Z Cache restored from key: postgres-full-ubuntu24-x64-02df0bcf5326d6007d10dfb3ea11363279fab735af7b6cf786802ec3eb787a0b
+2026-11-23T21:13:56.6389354Z ##[group]Run bash eng/postgres-tools.sh
+2026-11-23T21:13:56.6389799Z [36;1mbash eng/postgres-tools.sh[0m
+2026-11-23T21:13:56.6406991Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:13:56.6407378Z env:
+2026-11-23T21:13:56.6407688Z   CI: true
+2026-11-23T21:13:56.6408100Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:13:56.6408569Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:13:56.6408940Z   DOTNET_NOLOGO: true
+2026-11-23T21:13:56.6409263Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:13:56.6409614Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:13:56.6409977Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:13:56.6410496Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:13:56.6411084Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:13:56.6411777Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:56.6412567Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:56.6413457Z ##[endgroup]
+2026-11-23T21:13:56.9683428Z Reusing verified PostgreSQL full install
+2026-11-23T21:13:56.9987066Z ##[group]Run python3 eng/ci/worker.py "$MODE" artifacts/plan.json "$SCOPE"
+2026-11-23T21:13:56.9987549Z [36;1mpython3 eng/ci/worker.py "$MODE" artifacts/plan.json "$SCOPE"[0m
+2026-11-23T21:13:56.9987894Z [36;1mgit diff --exit-code[0m
+2026-11-23T21:13:56.9999964Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:13:57.0000276Z env:
+2026-11-23T21:13:57.0000463Z   CI: true
+2026-11-23T21:13:57.0000771Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:13:57.0001091Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:13:57.0001344Z   DOTNET_NOLOGO: true
+2026-11-23T21:13:57.0001607Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:13:57.0001844Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:13:57.0002104Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:13:57.0002429Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:13:57.0003082Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:13:57.0003700Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:57.0004192Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:13:57.0004655Z   NW_POSTGRES_BIN: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin
+2026-11-23T21:13:57.0005161Z   CMAKE_PREFIX_PATH: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install
+2026-11-23T21:13:57.0005484Z   SCOPE: postgresql
+2026-11-23T21:13:57.0005706Z   MODE: run
+2026-11-23T21:13:57.0005931Z   TMPDIR: /home/runner/work/_temp
+2026-11-23T21:13:57.0008017Z   GITHUB_TOKEN: ***
+2026-11-23T21:13:57.0008283Z ##[endgroup]
+2026-11-23T21:13:57.1680899Z + /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin/initdb -D /home/runner/work/_temp/nw-pg-uiuw7oj8/data -U korda -A trust --no-locale
+2026-11-23T21:13:57.1717963Z The files belonging to this database system will be owned by user "runner".
+2026-11-23T21:13:57.1718712Z This user must also own the server process.
+2026-11-23T21:13:57.1718983Z 
+2026-11-23T21:13:57.1719236Z The database cluster will be initialized with locale "C".
+2026-11-23T21:13:57.1719758Z The default database encoding has accordingly been set to "SQL_ASCII".
+2026-11-23T21:13:57.1720366Z The default text search configuration will be set to "english".
+2026-11-23T21:13:57.1720693Z 
+2026-11-23T21:13:57.1720835Z Data page checksums are enabled.
+2026-11-23T21:13:57.1721096Z 
+2026-11-23T21:13:57.1721386Z creating directory /home/runner/work/_temp/nw-pg-uiuw7oj8/data ... ok
+2026-11-23T21:13:57.1721895Z creating subdirectories ... ok
+2026-11-23T21:13:57.1722401Z selecting dynamic shared memory implementation ... posix
+2026-11-23T21:13:57.1795908Z selecting default "max_connections" ... 100
+2026-11-23T21:13:57.1894200Z selecting default "shared_buffers" ... 128MB
+2026-11-23T21:13:57.1927436Z selecting default time zone ... Etc/UTC
+2026-11-23T21:13:57.2393037Z creating configuration files ... ok
+2026-11-23T21:13:57.2980839Z running bootstrap script ... ok
+2026-11-23T21:13:57.9037558Z performing post-bootstrap initialization ... ok
+2026-11-23T21:13:58.3340276Z syncing data to disk ... ok
+2026-11-23T21:13:58.3340574Z 
+2026-11-23T21:13:58.3340814Z Success. You can now start the database server using:
+2026-11-23T21:13:58.3341052Z 
+2026-11-23T21:13:58.3341616Z     /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin/pg_ctl -D /home/runner/work/_temp/nw-pg-uiuw7oj8/data -l logfile start
+2026-11-23T21:13:58.3342027Z 
+2026-11-23T21:13:58.3346888Z + /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin/pg_ctl -D /home/runner/work/_temp/nw-pg-uiuw7oj8/data -l /home/runner/work/_temp/nw-pg-uiuw7oj8/postgres.log -o '-k /home/runner/work/_temp/nw-pg-uiuw7oj8 -h 127.0.0.1 -p 33977' -w start
+2026-11-23T21:13:58.4383356Z waiting for server to start.... done
+2026-11-23T21:13:58.4383822Z server started
+2026-11-23T21:13:58.4389562Z [1/7] postgresql.build
+2026-11-23T21:13:58.4390824Z + python3 eng/ci/native_graph.py query artifacts/cmake/linux-x64-postgresql
+2026-11-23T21:13:58.4682550Z + python3 eng/task07_native.py --output artifacts/provider-native/postgresql --provider postgresql
+2026-11-23T21:13:59.9111324Z + cmake --preset linux-x64-postgresql -DCMAKE_C_COMPILER=/home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang -DCMAKE_CXX_COMPILER=/home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++ -DFETCHCONTENT_SOURCE_DIR_NW_JSON=/home/runner/work/Korda/Korda/artifacts/dependencies/nlohmann-json/json -DPostgreSQL_ROOT=/home/runner/work/Korda/Korda/artifacts/postgres-tools/install
+2026-11-23T21:14:01.2510344Z + cmake --build --preset linux-x64-postgresql --parallel 4
+2026-11-23T21:14:01.5067549Z + cmake --install artifacts/cmake/linux-x64-postgresql
+2026-11-23T21:14:01.5342048Z {"manifest": "/home/runner/work/Korda/Korda/artifacts/provider-native/postgresql/manifest.json", "sha256": "e93fca058f3f45d81cbe8849a6e65410a088399182e84c9fdfdd8c9ee0ba8153"}
+2026-11-23T21:14:01.5406478Z postgresql.build: 3.10s
+2026-11-23T21:14:01.5407065Z [2/7] postgresql.dependencies
+2026-11-23T21:14:01.5407643Z + python3 eng/ci/native_graph.py verify artifacts/cmake/linux-x64-postgresql nw_database_postgresql
+2026-11-23T21:14:02.5294210Z postgresql.dependencies: 0.99s
+2026-11-23T21:14:02.5294933Z [3/7] public.pack
+2026-11-23T21:14:02.5295871Z + python3 eng/ci/bundles.py --plan /home/runner/work/Korda/Korda/artifacts/plan.json --version 0.1.0-ci.1 --provider postgresql --native artifacts/provider-native/postgresql/manifest.json
+2026-11-23T21:14:04.4862549Z   Determining projects to restore...
+2026-11-23T21:14:05.6726233Z   Restored /home/runner/work/Korda/Korda/src/Packaging.Release/BuildTasks/Korda.Packaging.Tasks.csproj (in 234 ms).
+2026-11-23T21:14:11.1364316Z   Korda.Packaging.Tasks -> /home/runner/work/Korda/Korda/src/Packaging.Release/BuildTasks/bin/Release/net11.0/Korda.Packaging.Tasks.dll
+2026-11-23T21:14:11.1364890Z 
+2026-11-23T21:14:11.1365035Z Build succeeded.
+2026-11-23T21:14:11.1365333Z     0 Warning(s)
+2026-11-23T21:14:11.1365701Z     0 Error(s)
+2026-11-23T21:14:11.1365873Z 
+2026-11-23T21:14:11.1366058Z Time Elapsed 00:00:05.29
+2026-11-23T21:14:11.5511308Z   Determining projects to restore...
+2026-11-23T21:14:12.8454316Z   Restored /home/runner/work/Korda/Korda/src/Data.Abstractions/Korda.Data.csproj (in 581 ms).
+2026-11-23T21:14:12.8455433Z   Restored /home/runner/work/Korda/Korda/src/Query.Binding/Korda.Query.Binding.csproj (in 583 ms).
+2026-11-23T21:14:12.8456633Z   Restored /home/runner/work/Korda/Korda/src/Korda.Core/Korda.Core.csproj (in 564 ms).
+2026-11-23T21:14:12.8457604Z   Restored /home/runner/work/Korda/Korda/src/Data.Transactions/Korda.Database.Transactions.csproj (in 583 ms).
+2026-11-23T21:14:12.8458877Z   Restored /home/runner/work/Korda/Korda/src/Interop.Abi/Interop.Abi.csproj (in 1 ms).
+2026-11-23T21:14:12.8460418Z   Restored /home/runner/work/Korda/Korda/src/Data.Streaming/Korda.Data.Streaming.csproj (in 2 ms).
+2026-11-23T21:14:12.8461543Z   Restored /home/runner/work/Korda/Korda/src/Data.NativeHost/Korda.Database.csproj (in 6 ms).
+2026-11-23T21:14:12.8462499Z   Restored /home/runner/work/Korda/Korda/src/Data.Postgres/Korda.Database.PostgreSql.csproj (in 3 ms).
+2026-11-23T21:14:13.7690833Z   Restored /home/runner/work/Korda/Korda/src/Query.Generator/Korda.Query.Generator.csproj (in 934 ms).
+2026-11-23T21:14:14.9546039Z   Korda.Query.Generator -> /home/runner/work/Korda/Korda/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+2026-11-23T21:14:16.4667450Z   Korda.Data -> /home/runner/work/Korda/Korda/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+2026-11-23T21:14:16.6281140Z   Interop.Abi -> /home/runner/work/Korda/Korda/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+2026-11-23T21:14:17.1505252Z   Korda.Data.Streaming -> /home/runner/work/Korda/Korda/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+2026-11-23T21:14:17.1864189Z   Korda.Database.Transactions -> /home/runner/work/Korda/Korda/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+2026-11-23T21:14:17.2267635Z   Korda.Query.Binding -> /home/runner/work/Korda/Korda/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+2026-11-23T21:14:18.1065458Z   Korda.Core -> /home/runner/work/Korda/Korda/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+2026-11-23T21:14:20.2260695Z   Korda.Database -> /home/runner/work/Korda/Korda/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+2026-11-23T21:14:20.4164531Z   Korda.Database.PostgreSql -> /home/runner/work/Korda/Korda/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+2026-11-23T21:14:20.4164946Z 
+2026-11-23T21:14:20.4165061Z Build succeeded.
+2026-11-23T21:14:20.4165454Z     0 Warning(s)
+2026-11-23T21:14:20.4165741Z     0 Error(s)
+2026-11-23T21:14:20.4165870Z 
+2026-11-23T21:14:20.4166022Z Time Elapsed 00:00:06.50
+2026-11-23T21:14:20.5934620Z public.pack: 18.06s
+2026-11-23T21:14:20.5935174Z [4/7] postgresql.packed-api
+2026-11-23T21:14:20.5935664Z + python3 eng/ci/packed_api.py postgresql 0.1.0-ci.1 artifacts/packed-api/postgresql
+2026-11-23T21:14:20.6765391Z + python3 tests/Data.Postgres/verify.py --api-only --design-root artifacts/frozen-design --output artifacts/provider-api/postgresql --native-build artifacts/cmake/linux-x64-postgresql --assembly-dir artifacts/packed-api/postgresql
+2026-11-23T21:14:22.2668168Z api-restore: 0
+2026-11-23T21:14:25.1408604Z api-build: 0
+2026-11-23T21:14:28.6123648Z managed-whitespace: 0
+2026-11-23T21:14:28.8277383Z exact-api-xml-reference: 0
+2026-11-23T21:14:28.8279538Z {"task": "B02", "platform": "linux-x64", "status": "passed", "commands": 4, "native_only": false, "component_only": true, "host_preflight": false, "full_b04_host": false, "other_platforms_executed": [], "source_manifest_sha256": "51bbe3aff5de3c643a7f2fe3999db45d910642bbdc00178da15597e2579bc53b"}
+2026-11-23T21:14:28.8455846Z postgresql.packed-api: 8.25s
+2026-11-23T21:14:28.8456424Z [5/7] postgresql.test
+2026-11-23T21:14:28.8457026Z + ctest --preset linux-x64-postgresql --no-tests=error -R '^native\.selected\.abi$'
+2026-11-23T21:14:28.8477641Z Test project /home/runner/work/Korda/Korda/artifacts/cmake/linux-x64-postgresql
+2026-11-23T21:14:28.8480951Z     Start 1: native.selected.abi
+2026-11-23T21:14:28.8498376Z 1/1 Test #1: native.selected.abi ..............   Passed    0.00 sec
+2026-11-23T21:14:28.8499771Z 
+2026-11-23T21:14:28.8500044Z 100% tests passed, 0 tests failed out of 1
+2026-11-23T21:14:28.8500289Z 
+2026-11-23T21:14:28.8502890Z Total Test time (real) =   0.00 sec
+2026-11-23T21:14:28.8507065Z + python3 tests/Data.Postgres/verify.py --test-only --design-root artifacts/frozen-design --output artifacts/provider-test/postgresql --native-build artifacts/cmake/linux-x64-postgresql --postgres-bin artifacts/postgres-tools/install/bin
+2026-11-23T21:14:28.9871785Z clang-toolchain: 0
+2026-11-23T21:14:28.9948414Z clang-target: 0
+2026-11-23T21:14:28.9989929Z cmake-toolchain: 0
+2026-11-23T21:14:29.3141540Z dotnet-toolchain: 0
+2026-11-23T21:14:30.0010837Z native-symbols: 0
+2026-11-23T21:14:30.0337451Z component-symbols: 0
+2026-11-23T21:14:30.0357630Z native-dependencies: 0
+2026-11-23T21:14:31.2617240Z pg-init-valid: 0
+2026-11-23T21:14:31.8857082Z pg-init-expired: 0
+2026-11-23T21:14:32.5097738Z pg-init-plain: 0
+2026-11-23T21:14:34.9949924Z native-oracles: 0
+2026-11-23T21:14:37.4166323Z native-home-files: 0
+2026-11-23T21:14:38.2368707Z provider-restore: 0
+2026-11-23T21:14:50.7027881Z provider-build: 0
+2026-11-23T21:14:51.6697982Z managed-whitespace: 0
+2026-11-23T21:14:55.3915099Z test-aot-restore: 0
+2026-11-23T21:15:06.8015824Z aot-linker-selection: 0
+2026-11-23T21:15:12.5451269Z test-aot-publish: 0
+2026-11-23T21:15:15.0134428Z test-aot-run: 0
+2026-11-23T21:15:16.0816982Z sample-aot-restore: 0
+2026-11-23T21:15:21.4649631Z sample-aot-publish: 0
+2026-11-23T21:15:21.4814508Z sample-aot-run: 0
+2026-11-23T21:15:21.8148357Z {"task": "B02", "platform": "linux-x64", "status": "passed", "commands": 22, "native_only": false, "component_only": true, "host_preflight": true, "full_b04_host": false, "other_platforms_executed": [], "source_manifest_sha256": "51bbe3aff5de3c643a7f2fe3999db45d910642bbdc00178da15597e2579bc53b"}
+2026-11-23T21:15:21.8290210Z postgresql.test: 52.98s
+2026-11-23T21:15:21.8290550Z [6/7] public.consume-aot
+2026-11-23T21:15:21.8291007Z + python3 eng/ci/consume.py artifacts/public/release.json /home/runner/work/Korda/Korda/artifacts/plan.json
+2026-11-23T21:15:22.0783490Z   Determining projects to restore...
+2026-11-23T21:15:22.1565522Z   Restored /home/runner/work/_temp/korda-public-8i7c1adc/postgresql/Consumer.csproj (in 79 ms).
+2026-11-23T21:15:23.0769760Z   Consumer -> /home/runner/work/_temp/korda-public-8i7c1adc/postgresql/bin/Release/net11.0/linux-x64/B24Consumer.dll
+2026-11-23T21:15:23.1560880Z   Generating native code
+2026-11-23T21:15:28.5660079Z   Consumer -> /home/runner/work/_temp/korda-public-8i7c1adc/postgresql/out/
+2026-11-23T21:15:28.6445652Z B24_RESULT {"schemaVersion":1,"task":"DB-CPP-01","provider":"postgresql","dynamicCodeSupported":false,"checks":["actual-native-aot","generated-table-descriptor","typed-entity-materialization","typed-native-database-roundtrip","typed-fluent-dto-query","only-selected-database-module","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","actual-database-native-mapping","database-local-owners-retired"],"nativeLibraries":[{"file":"libnw_database_postgresql.so","sha256":"73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6"}]}
+2026-11-23T21:15:28.6463829Z RUN orders PostgreSql scaffold publish
+2026-11-23T21:15:36.9759963Z RUN orders PostgreSql scaffold execute
+2026-11-23T21:15:37.1963399Z RUN orders PostgreSql original publish
+2026-11-23T21:15:44.6669772Z RUN orders PostgreSql original execute
+2026-11-23T21:15:44.9371820Z RUN orders PostgreSql edited publish
+2026-11-23T21:15:52.2462896Z RUN orders PostgreSql edited execute
+2026-11-23T21:15:52.6014993Z public.consume-aot: 30.77s
+2026-11-23T21:15:52.6015538Z [7/7] public.validate
+2026-11-23T21:15:52.6016127Z + python3 eng/ci/validate_public.py artifacts/public /home/runner/work/Korda/Korda/artifacts/plan.json 0.1.0-ci.1 --module postgresql
+2026-11-23T21:15:52.7233335Z artifacts/public/feed/Korda.Database.PostgreSql.0.1.0-ci.1.nupkg
+2026-11-23T21:15:52.7328225Z public.validate: 0.13s
+2026-11-23T21:15:52.7330275Z + /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin/pg_ctl -D /home/runner/work/_temp/nw-pg-uiuw7oj8/data -m fast -w stop
+2026-11-23T21:15:52.8340513Z waiting for server to shut down.... done
+2026-11-23T21:15:52.8341104Z server stopped
+2026-11-23T21:15:53.0724141Z ##[group]Run bash eng/ci/sccache.sh stats
+2026-11-23T21:15:53.0724469Z [36;1mbash eng/ci/sccache.sh stats[0m
+2026-11-23T21:15:53.0760465Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:15:53.0760767Z env:
+2026-11-23T21:15:53.0760985Z   CI: true
+2026-11-23T21:15:53.0761278Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:15:53.0761712Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:15:53.0761932Z   DOTNET_NOLOGO: true
+2026-11-23T21:15:53.0762181Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:15:53.0762407Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:15:53.0762994Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:15:53.0763337Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:15:53.0763777Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:15:53.0764224Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:15:53.0764763Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:15:53.0765229Z   NW_POSTGRES_BIN: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin
+2026-11-23T21:15:53.0765669Z   CMAKE_PREFIX_PATH: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install
+2026-11-23T21:15:53.0766005Z ##[endgroup]
+2026-11-23T21:15:53.0824531Z Compile requests                     26
+2026-11-23T21:15:53.0824943Z Compile requests executed            26
+2026-11-23T21:15:53.0825384Z Cache hits                           25
+2026-11-23T21:15:53.0825732Z Cache hits (C/C++)                   25
+2026-11-23T21:15:53.0826185Z Cache misses                          1
+2026-11-23T21:15:53.0826630Z Cache misses (C/C++)                  1
+2026-11-23T21:15:53.0827035Z Cache hits rate                   96.15 %
+2026-11-23T21:15:53.0827447Z Cache hits rate (C/C++)           96.15 %
+2026-11-23T21:15:53.0827801Z Cache timeouts                        0
+2026-11-23T21:15:53.0828182Z Cache read errors                     0
+2026-11-23T21:15:53.0828502Z Forced recaches                       0
+2026-11-23T21:15:53.0828862Z Cache write errors                    0
+2026-11-23T21:15:53.0829220Z Cache errors                          0
+2026-11-23T21:15:53.0829674Z Compilations                          1
+2026-11-23T21:15:53.0830024Z Compilation failures                  0
+2026-11-23T21:15:53.0830596Z Non-cacheable compilations            0
+2026-11-23T21:15:53.0830991Z Non-cacheable calls                   0
+2026-11-23T21:15:53.0831359Z Non-compilation calls                 0
+2026-11-23T21:15:53.0831680Z Unsupported compiler calls            0
+2026-11-23T21:15:53.0832058Z Average cache write               0.000 s
+2026-11-23T21:15:53.0832353Z Average compiler                  0.009 s
+2026-11-23T21:15:53.0832830Z Average cache read hit            0.000 s
+2026-11-23T21:15:53.0833106Z Failed distributed compilations       0
+2026-11-23T21:15:53.0833514Z Cache location                  Local disk: "/home/runner/.cache/sccache"
+2026-11-23T21:15:53.0833846Z Base directories                (none)
+2026-11-23T21:15:53.0834188Z Use direct/preprocessor mode?   yes
+2026-11-23T21:15:53.0834464Z Version (client)                0.17.0
+2026-11-23T21:15:53.0834771Z Cache size                          173 MiB
+2026-11-23T21:15:53.0835069Z Max cache size                       10 GiB
+2026-11-23T21:15:53.0900844Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+2026-11-23T21:15:53.0901230Z with:
+2026-11-23T21:15:53.0901459Z   name: candidate-postgresql
+2026-11-23T21:15:53.0901739Z   overwrite: true
+2026-11-23T21:15:53.0901980Z   path: artifacts/public/
+2026-11-23T21:15:53.0902237Z   if-no-files-found: error
+2026-11-23T21:15:53.0902488Z   retention-days: 14
+2026-11-23T21:15:53.0902957Z   compression-level: 6
+2026-11-23T21:15:53.0903234Z   include-hidden-files: false
+2026-11-23T21:15:53.0903503Z   archive: true
+2026-11-23T21:15:53.0903696Z env:
+2026-11-23T21:15:53.0903926Z   CI: true
+2026-11-23T21:15:53.0904230Z   NUGET_PACKAGES: /home/runner/work/Korda/Korda/artifacts/nuget-packages
+2026-11-23T21:15:53.0904604Z   SCCACHE_IDLE_TIMEOUT: 0
+2026-11-23T21:15:53.0904849Z   DOTNET_NOLOGO: true
+2026-11-23T21:15:53.0905146Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-11-23T21:15:53.0905412Z   PACKAGE_VERSION: 0.1.0-ci.1
+2026-11-23T21:15:53.0905795Z   DOTNET_ROOT: /usr/share/dotnet
+2026-11-23T21:15:53.0906198Z   CC: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang
+2026-11-23T21:15:53.0906686Z   CXX: /home/runner/work/Korda/Korda/artifacts/toolchain/llvm-23.1.5/bin/clang++
+2026-11-23T21:15:53.0907195Z   CMAKE_C_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:15:53.0907704Z   CMAKE_CXX_COMPILER_LAUNCHER: /home/runner/work/Korda/Korda/artifacts/toolchain/sccache/sccache
+2026-11-23T21:15:53.0908228Z   NW_POSTGRES_BIN: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install/bin
+2026-11-23T21:15:53.0908684Z   CMAKE_PREFIX_PATH: /home/runner/work/Korda/Korda/artifacts/postgres-tools/install
+2026-11-23T21:15:53.0909090Z ##[endgroup]
+2026-11-23T21:15:53.2024914Z With the provided path, there will be 9 files uploaded
+2026-11-23T21:15:53.3716209Z Artifact name is valid!
+2026-11-23T21:15:53.3716868Z Root directory input is valid!
+2026-11-23T21:15:53.7115206Z Uploading artifact: candidate-postgresql.zip
+2026-11-23T21:15:53.7144790Z Beginning upload of artifact content to blob storage
+2026-11-23T21:15:54.2080210Z Uploaded bytes 1423467
+2026-11-23T21:15:54.2537455Z Finished uploading artifact content to blob storage!
+2026-11-23T21:15:54.2538692Z SHA256 digest of uploaded artifact is 64c88486d688407195a21808324eda73fae46202072c5325761d7d10271cdae0
+2026-11-23T21:15:54.2539388Z Finalizing artifact upload
+2026-11-23T21:15:54.7553133Z Artifact candidate-postgresql successfully finalized. Artifact ID 14863163164
+2026-11-23T21:15:54.7553842Z Artifact candidate-postgresql has been successfully uploaded! Final size is 1423467 bytes. Artifact ID is 14863163164
+2026-11-23T21:15:54.7556256Z Artifact download URL: https://github.com/IzuSharp/Korda/actions/runs/45267208518/artifacts/14863163164
+2026-11-23T21:15:54.7695759Z Post job cleanup.
+2026-11-23T21:15:54.8663220Z Cache hit occurred on the primary key postgres-full-ubuntu24-x64-02df0bcf5326d6007d10dfb3ea11363279fab735af7b6cf786802ec3eb787a0b, not saving cache.
+2026-11-23T21:15:55.1048803Z Post job cleanup.
+2026-11-23T21:15:55.1943167Z Cache hit occurred on the primary key sccache-linux-x64-v017-cb0087d7c3d6778d99a1a6d0124277088670ef236817857646f53c62ede20278-postgresql-8d5bd7f69d1c0cb825541190468ec2c0ea5302b85d6f48789fece0cdd54dc577, not saving cache.
+2026-11-23T21:15:55.2439325Z Post job cleanup.
+2026-11-23T21:15:55.3375912Z Cache hit occurred on the primary key linux-x64-tools-108c089de5dbeada7c851c0fc364e551d164aec91caa92092730c60d812369bf, not saving cache.
+2026-11-23T21:15:55.3472138Z Post job cleanup.
+2026-11-23T21:15:55.5985264Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Korda/Korda --files-from manifest.txt --use-compress-program zstdmt
+2026-11-23T21:15:56.5410581Z Failed to save: Unable to reserve cache with key dotnet-cache-Linux-274afb06a73f14fc88a35dbdd6aa5c8607e3540613752ded69386639f5ecfb99, another job may be creating this cache.
+2026-11-23T21:15:56.5925425Z Post job cleanup.
+2026-11-23T21:15:56.6591695Z [command]/usr/bin/git version
+2026-11-23T21:15:56.6630131Z git version 2.56.1
+2026-11-23T21:15:56.6659175Z Temporarily overriding HOME='/home/runner/work/_temp/70f60030-d5d3-4946-bbf3-c0fdd384400f' before making global git config changes
+2026-11-23T21:15:56.6659808Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:15:56.6664025Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Korda/Korda/artifacts/frozen-design
+2026-11-23T21:15:56.6692348Z Removing SSH command configuration
+2026-11-23T21:15:56.6697407Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:15:56.6727593Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:15:56.6925231Z Removing HTTP extra header
+2026-11-23T21:15:56.6929724Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:15:56.6957022Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:15:56.7114195Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:15:56.7118461Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:15:56.7140974Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:15:56.7408424Z Post job cleanup.
+2026-11-23T21:15:56.8039365Z [command]/usr/bin/git version
+2026-11-23T21:15:56.8076958Z git version 2.56.1
+2026-11-23T21:15:56.8108214Z Temporarily overriding HOME='/home/runner/work/_temp/b17e3bfd-0052-4d7f-b86d-da1eb38f4b4f' before making global git config changes
+2026-11-23T21:15:56.8113390Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:15:56.8114210Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Korda/Korda
+2026-11-23T21:15:56.8143853Z Removing SSH command configuration
+2026-11-23T21:15:56.8149555Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:15:56.8184947Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:15:56.8404773Z Removing HTTP extra header
+2026-11-23T21:15:56.8409412Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:15:56.8437018Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:15:56.8595901Z Removing includeIf entries pointing to credentials config files
+2026-11-23T21:15:56.8599440Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:15:56.8622558Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:15:56.8931636Z Cleaning up orphan processes
+2026-11-23T21:15:56.9202764Z Terminate orphan process: pid (3229) (sccache)
+2026-11-23T21:15:56.9225115Z Terminate orphan process: pid (3432) (MSBuild)
+2026-11-23T21:15:56.9252157Z Terminate orphan process: pid (3483) (VBCSCompiler)
+2026-11-23T21:15:56.9279223Z Terminate orphan process: pid (3535) (MSBuild)
+2026-11-23T21:15:56.9304097Z Terminate orphan process: pid (3536) (MSBuild)
+2026-11-23T21:15:56.9329582Z Terminate orphan process: pid (3537) (MSBuild)
