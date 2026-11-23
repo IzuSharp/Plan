@@ -1,5 +1,37 @@
 # DB-API-01 — Linux handoff
 
+## Remote continuation — 2026-11-23 21:20 UTC
+
+The current Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) head is
+`1794fbae14855f28842354c9649a66e58f5001ef`, tree
+`ea65de3644a170bb9b642157091a4b2279d4a373`.
+[Current-head CI](https://github.com/IzuSharp/Korda/actions/runs/45267208518)
+has passed both independent provider jobs; the shared Linux job is still running.
+Twelve retained verifier/sample-lock files now remove neutral executable-consumer
+builds and run the old Codecs sample directly as Native AOT. Product/native code
+is unchanged from the previous fully passing candidate. Every changed remote file
+was read back and matched the prepared text. Scoped non-author followup reviews
+are in progress.
+
+Design [PR #16](https://github.com/IzuSharp/NativeWeave-Design/pull/16) is at
+`656d56688c2af391e463d83dbb626699590b11f9`, with its observed checks passing.
+Plan [PR #29](https://github.com/IzuSharp/Plan/pull/29) retains the earlier Plan-first
+checkpoint and recovery boundary. No repository is merged yet; publication remains
+unobserved. Wait for current checks and reviews, merge normally, then observe
+each merged-main run and every triggered release before accepting the batch.
+
+[Retained progress](results/retained-progress.json) reconstructs the unavailable
+local review observations with explicit provenance. It also preserves the first
+candidate's failure, the subsequent successful run, independently audited first
+provider artifacts, and exact decoded GitHub job logs with SHA-256 digests.
+Historical candidate evidence is not relabeled as the current source.
+
+The local executor remains unavailable. Continue through immutable GitHub source
+reads, small Git Data tree updates with branch-head leases, exact remote readback
+and normal CI. On future local recovery, preserve and reconcile all existing
+worktree changes before use.
+
+
 ## Recovery checkpoint — 2026-11-23 21:04 UTC
 
 Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) is at
