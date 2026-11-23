@@ -10468,51 +10468,116 @@
           "audit": "ledger/evidence/batches/DB-Scope-01/dependency-audit.json"
         }
       ]
+    },
+    "DB-CPP-01": {
+      "task": "DB-CPP-01",
+      "branch": "task/DB-CPP-01-linux",
+      "platforms": [
+        "linux-x64"
+      ],
+      "authorization": "Owner explicitly authorized behavior-compatible Rust-to-C++ database migration through tested normal merges; DB-API-01 and DB-Perf-01 excluded.",
+      "source_main": {
+        "NativeWeave": "465cd0f90e6af05ec50eb581156240377cf0825b",
+        "NativeWeave-Design": "8298dc4128b745cf1809bad0c3cf02c45eb7f522",
+        "Plan": "1fe52a8bd792ccdbb4bbea17ba59b0ad0c24349d"
+      },
+      "plan": "ledger/evidence/batches/DB-CPP-01/plan.md",
+      "handoff": "ledger/evidence/batches/DB-CPP-01/handoff-linux.md",
+      "acceptance": "ledger/evidence/batches/DB-CPP-01/acceptance.json",
+      "phases": [
+        {
+          "id": "baseline-and-cleanup",
+          "state": "complete"
+        },
+        {
+          "id": "plan-first",
+          "state": "complete"
+        },
+        {
+          "id": "design-decision",
+          "state": "complete"
+        },
+        {
+          "id": "cpp-execution",
+          "state": "complete"
+        },
+        {
+          "id": "behavior-comparison",
+          "state": "complete"
+        },
+        {
+          "id": "rust-free-packages",
+          "state": "complete"
+        },
+        {
+          "id": "review-and-merge",
+          "state": "complete"
+        }
+      ]
     }
   },
   "current_execution": {
-    "task": "DB-CPP-01",
-    "branch": "task/DB-CPP-01-linux",
+    "task": "DB-API-01",
+    "branch": "task/DB-API-01-linux",
     "platforms": [
       "linux-x64"
     ],
-    "authorization": "Owner explicitly authorized behavior-compatible Rust-to-C++ database migration through tested normal merges; DB-API-01 and DB-Perf-01 excluded.",
+    "authorization": "Owner-authorized Fluent ORM experience enhancements, tests, English documentation, normal merges and observation of repository-triggered publication. C++20/libpq/sqlite3 remain execution owners.",
     "source_main": {
-      "NativeWeave": "465cd0f90e6af05ec50eb581156240377cf0825b",
-      "NativeWeave-Design": "8298dc4128b745cf1809bad0c3cf02c45eb7f522",
-      "Plan": "1fe52a8bd792ccdbb4bbea17ba59b0ad0c24349d"
+      "Korda": "7275396176b928c8879d59f4bf20ad8fa7ffb62c",
+      "NativeWeave-Design": "de1f4796dc199250b405ea99f2129d611f17b1f6",
+      "Plan": "5be447a868be78713ada52f46cee16409f0edc13"
     },
-    "plan": "ledger/evidence/batches/DB-CPP-01/plan.md",
-    "handoff": "ledger/evidence/batches/DB-CPP-01/handoff-linux.md",
-    "acceptance": "ledger/evidence/batches/DB-CPP-01/acceptance.json",
+    "plan": "ledger/evidence/batches/DB-API-01/plan.md",
+    "handoff": "ledger/evidence/batches/DB-API-01/handoff-linux.md",
+    "acceptance": "ledger/evidence/batches/DB-API-01/acceptance.json",
     "phases": [
       {
-        "id": "baseline-and-cleanup",
-        "state": "complete"
+        "id": "baseline",
+        "state": "complete",
+        "depends_on": []
       },
       {
         "id": "plan-first",
-        "state": "complete"
+        "state": "in_progress",
+        "depends_on": [
+          "baseline"
+        ]
       },
       {
-        "id": "design-decision",
-        "state": "complete"
+        "id": "design-contract",
+        "state": "pending",
+        "depends_on": [
+          "plan-first"
+        ]
       },
       {
-        "id": "cpp-execution",
-        "state": "complete"
+        "id": "implementation",
+        "state": "pending",
+        "depends_on": [
+          "design-contract"
+        ]
       },
       {
-        "id": "behavior-comparison",
-        "state": "complete"
-      },
-      {
-        "id": "rust-free-packages",
-        "state": "complete"
+        "id": "aot-consumers",
+        "state": "pending",
+        "depends_on": [
+          "implementation"
+        ]
       },
       {
         "id": "review-and-merge",
-        "state": "complete"
+        "state": "pending",
+        "depends_on": [
+          "aot-consumers"
+        ]
+      },
+      {
+        "id": "main-and-release",
+        "state": "pending",
+        "depends_on": [
+          "review-and-merge"
+        ]
       }
     ]
   }
