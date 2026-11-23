@@ -1,5 +1,97 @@
 # DB-API-01 — Linux handoff
 
+## Delivered and accepted — 2026-11-23
+
+All seventeen delivered-source acceptance checks and all seven execution phases
+are complete. The product, Design contract and Plan delivery merged normally;
+each actual main run passed. Both independently installable provider packages
+were published as `0.1.0-preview.2`, verified from NuGet, and consumed from the
+public feed by actual Linux x64 Native AOT executables.
+
+Start with [acceptance.json](acceptance.json), [observed delivery](results/observed-delivery.json),
+[review followup](results/review-followup.json) and the [raw-log index](ci/files.json).
+The evidence-only closeout's own PR/main checks are observed separately, as
+required by `self_ci: checked-separately`; this file does not predict its future
+commit or CI result. Stop after those normal checks and the Chinese delivery brief.
+
+### Delivered identities
+
+| Repository | Delivery | Reviewed head | Actual merge | Observed main |
+| --- | --- | --- | --- | --- |
+| Korda | [PR35](https://github.com/IzuSharp/Korda/pull/35) | `1794fbae14855f28842354c9649a66e58f5001ef` | `ea72031db6f9111a31c6f743b5babc345f96862d` | [CI](https://github.com/IzuSharp/Korda/actions/runs/45269220542) |
+| Design | [PR17 erratum](https://github.com/IzuSharp/NativeWeave-Design/pull/17), after [PR16](https://github.com/IzuSharp/NativeWeave-Design/pull/16) | `fa5d44baf76cdf351225a4291797813436f1cc4c` | `fcc2b3599066a467ce3d8bf52e4753bdeea6cd86` | [Current](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/45271165162), [historical](https://github.com/IzuSharp/NativeWeave-Design/actions/runs/45271164759) |
+| Plan | [PR29](https://github.com/IzuSharp/Plan/pull/29) | `720f27ca465e1a55c647d3282455c99cb56eb101` | `780edb9d96222fcd759b4497339831d8b00847cf` | [Integrity](https://github.com/IzuSharp/Plan/actions/runs/45272736607) |
+
+Each fetched merge tree equals the tested head tree. Actual synthetic PR merge
+producer identities are preserved in the shared record. The Design JSON checkpoint
+remains `656d56688c2af391e463d83dbb626699590b11f9`, with unchanged SHA-256
+`6b3a31ea38a5ff75b568847ea3cb98a9a11d4df06db8203dd4b2107102bf4c40`.
+The later one-line prose erratum correctly calls the result **control record kind 19**.
+
+### Verified product outcomes
+
+The final main Linux job passed 31 mapping/policy checks, eight actual scaffold
+compilation/order cases and seven invalid relation compilation cases. Its actual
+two-provider runs recorded 359 migration assertions and 2,219 relation/transaction
+assertions, with all native owner counters zero. Earlier-run counts retain their
+own identities in historical logs.
+
+Independent provider jobs built the exact packages and executed the order,
+customer and detail workflow outside the source tree. Each three-phase runner
+requires 19 business checks for scaffold bootstrap, then 21 for original and
+edited consumers, including the two compiled reverse mappings. Required outcomes
+include narrow DTO projection, nullable joins, aggregate/SQL DTO reuse, cursor ties
+and empty boundaries, exactly two SQL dispatches for a page and its details,
+empty batch with zero SQL, explicit NULL versus omission, checked concurrency,
+insert-returning, confirmed transaction results and rollback.
+
+The original/edited source comparison changes only `Models.cs`. The `DtoEdit`
+property also selects prewritten managed projection/SQL branches. All phases must
+load the same exact packaged native payload; scaffold sources stay fixed while
+the AOT executable changes. Native execution stays in C++20/libpq/sqlite3.
+
+### Observed publication
+
+| Package | Version | Actual public consumer | Loaded native SHA-256 |
+| --- | --- | --- | --- |
+| Korda.Database.PostgreSql | `0.1.0-preview.2` | [Passed](https://github.com/IzuSharp/Korda/actions/runs/45269220542/job/138030305741) | `73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6` |
+| Korda.Database.Sqlite | `0.1.0-preview.2` | [Passed](https://github.com/IzuSharp/Korda/actions/runs/45269220542/job/138030305911) | `970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40` |
+
+Both lanes logged `publish=True, verify=True`, exact signed-registry verification,
+an AOT smoke result and all six ORM phase markers, then completed the non-skipped
+public Native AOT consumer step. PostgreSQL's longer wait was the recorded NuGet
+404 indexing loop; it subsequently verified successfully. No publication setting
+or required check was changed.
+
+The first historical candidate archives were independently unpacked before
+executor loss. Current raw job logs and artifact identities are retained here.
+Detailed later/public business JSON and signature-verifier temporary files were
+not independently inspected: the release workflow does not upload those public
+files. Their assertions are established by the successful enforcing CI step.
+Signed registry ZIP bytes may differ from the candidate because NuGet adds a
+signature; identical unsigned/native payload is the checked invariant.
+
+### Scope, review and recovery
+
+Destructive migration changes still require exact developer-selected IDs.
+Unsupported transformations reject rather than guessing a data conversion.
+SQL dispatches and libpq protocol submissions are separate counters; neither
+measures physical network round trips.
+
+Scoped reviews preserve authorship and timing. The early dirty-tree schema review
+was corrected to its actual uncommitted identity. The committed compiler harness
+had an independent pre-merge review; the fresh schema and Design consistency
+reviews are explicitly post-merge. The Design prose finding was corrected and
+normally merged. Historical failures and the unavailable-workspace boundary remain
+in [retained progress](results/retained-progress.json) and the checkpoints below.
+
+The local worktree was not cleared. After it became unavailable, exact remote
+source reads, branch-head leases, remote readback and normal CI supplied the final
+delivery. Reconcile any recovered local changes before reusing that worktree.
+No new platform, clean-image, CPU-emulation or performance acceptance is claimed.
+
+## Historical checkpoints — preserved
+
 ## Review followup — 2026-11-23 21:34 UTC
 
 [Review followup](results/review-followup.json) records the actual committed-source
