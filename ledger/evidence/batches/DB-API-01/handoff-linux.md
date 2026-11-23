@@ -1,5 +1,28 @@
 # DB-API-01 — Linux handoff
 
+## Review followup — 2026-11-23 21:34 UTC
+
+[Review followup](results/review-followup.json) records the actual committed-source
+scopes and timing. The fresh post-merge schema implementation review found no
+runtime blocker. The compiler harness at
+`tests/Query.Generator/ApiCheck/ScaffoldChecks.cs` was independently reviewed by
+`/root/query_verify` at committed `29801745` before merge; it was not independently
+reviewed by its author. Current verifier delta reviews cover all twelve files.
+
+A post-merge Design consistency review found one prose-only wire-format error:
+schema draft result control records use kind `19`; the document said `6`.
+[Design PR #17](https://github.com/IzuSharp/NativeWeave-Design/pull/17) contains the
+one-line correction at `fa5d44baf76cdf351225a4291797813436f1cc4c`, with current and
+historical checks pending. Runtime code and the JSON contract checkpoint are unchanged.
+Require that correction's actual CI and normal merge in final acceptance.
+
+Both Korda main provider jobs have passed. Shared Linux/Verify and the actual
+triggered publication remain under observation. Preserve the release evidence
+boundary: public consumer success and visible phase markers establish enforced
+checks; detailed public business/signature files are not uploaded by the current
+release workflow. Do not claim those unavailable files were independently inspected.
+
+
 ## Merge and review checkpoint — 2026-11-23 21:29 UTC
 
 Korda [PR #35](https://github.com/IzuSharp/Korda/pull/35) and Design
