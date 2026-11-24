@@ -1,5 +1,68 @@
 # DB-Perf-01 — Linux handoff
 
+## Latest live recovery observation — 2026-11-24 17:41 UTC
+
+Read this newer observation before the historical checkpoints below. The user
+confirms that **0 B is the steady-state target for additional framework
+allocation; required business DTO/List/string/typed JSON objects need not be
+zero**. Shared-process GC collection events are not split into fictitious
+framework and business GC counts.
+
+- Product branch head: `663ceb97b3d20c38048ce17869259a6b9df62492`.
+  The measured final package producer remains
+  `3d5ba3f9884308caa691718f73a74aa42be19d94`, tree
+  `74a76bc5d00671a48221d0ed19002a3ffffd319f`, from successful
+  [CI 45438460386](https://github.com/IzuSharp/Korda/actions/runs/45438460386).
+  Both separate providers are version `0.1.0-ci.1`. Do not replace the measured
+  candidate with later harness-only CI packages.
+- Active isolated campaign:
+  [45449544703](https://github.com/IzuSharp/Korda/actions/runs/45449544703),
+  harness `4ee348d8b9834a14327dcf68a105e34f52f81795`, request SHA
+  `4c5c751d8fd8708ade19e1f1cf291a156f9dd24c84eaa7b33e7afb4f469d88f6`.
+  Preparation succeeded. The first measurement attempt stopped before admission
+  because preparation used image `20261116.133.1` and measurement was allocated
+  `20261116.376.1`. Only failed measurement job `138645902342` was rerun; it
+  reuses the same verified runtime bundle. The image-equality gate is unchanged.
+  Re-read its live state and checkpoint artifacts before retrying. Do not overlap
+  campaigns. **Accepted long segments remain 0/8** until actual qualification.
+- Two earlier startup failures remain uncredited:
+  [45442350170](https://github.com/IzuSharp/Korda/actions/runs/45442350170)
+  found Python bytecode writes inside the immutable bundle; bytecode writes are
+  now disabled. [45444706914](https://github.com/IzuSharp/Korda/actions/runs/45444706914)
+  failed quota ancestry observation before any workload and did not preserve
+  its quota snapshot. A [new read-only VM observation](https://github.com/IzuSharp/Korda/actions/runs/45447986595)
+  reproduced EACCES reading PID 1's namespace while all quota ancestors were
+  visible. The independently reviewed fixed read-only namespace helper preserves
+  the original error and all existing admission rules; [its new-VM validation](https://github.com/IzuSharp/Korda/actions/runs/45449083846)
+  passed the unchanged quota assessment. Neither diagnostic establishes full
+  admission or earns long-test credit.
+- Final ordinary-package scalar diagnostics are complete: each provider has
+  384 complete 256-row dynamic queries and 384 prepared queries, with unchanged
+  original baseline processes reused. Total managed allocation fell about
+  71.7% dynamic and 90.8% prepared. Only the already-buffered 127-row window is
+  measured at raw 0 B; the final refill-plus-first-row window remains 512 B.
+- Buffered business results are complete across eighteen independent processes:
+  actual List100, one hundred DTOs, eighty distinct strings and twenty NULLs.
+  Korda whole-query totals fell about 50% to 34.73–34.74 KB/query; Dapper.AOT is
+  10.91–11.17 KB/query. The 7,480 B same-graph business control is not an exact
+  in-query attribution and its subtraction is not exact framework allocation.
+- Twelve before/final resource processes passed real pool pressure, pending and
+  unconsumed operations, cancellation and zero-owner retirement. Preserve cold
+  Fluent preparation +696 B and PostgreSQL exhaustion/cancellation +8.607%
+  allocation regressions. Local diagnostic CPU/retention values do not replace
+  the dedicated four-column mixed-load results.
+
+Detailed new raw checkpoints have passed local integrity/source gates and are
+being uploaded as verified content-addressed Git objects. Their publication is
+not yet complete: do not assume missing paths are public. The frozen local Plan
+checkpoint is `a0b455b8c391b75fcdc8cef754fe8b0ab2c806f5`, tree
+`d317bd4d33438251b2608659b7f673129f145833`; later resource and environment receipts
+are being appended. Local task worktrees remain under
+`/workspace/scratch/b94e2a0e0c3f/`, with upload recovery manifests under
+`/workspace/scratch/37c4f8cc3a91/plan-upload/`. Reuse their unchanged matched
+measurements. No normal merges, automatic preview or public NuGet acceptance
+are claimed yet; these remain authorized outstanding work.
+
 ## Current recovery point
 
 This is an **in-progress measurement and implementation checkpoint**, not batch
