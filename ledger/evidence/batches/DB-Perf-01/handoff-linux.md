@@ -15,7 +15,7 @@ tar SHA `735b47e883859edb9efaa615d00d93aca843c06522c757aa94c870ecd3c7f85c`,
 manifest SHA `5a2eba0796a009bfa316dfc07c66919c8b3e14f600faa808e96cd32da617885c`.
 Checkout remains `d665c0c9629922cfff0e48fa535d6f21393f8162`, executing harness
 `da153c22ef1093fccc3233ec76bfda96e6cc59df`. The
-[new runtime checkpoint](checkpoints/campaign-runtime-45461269267-v1/README.md)
+`checkpoints/campaign-runtime-45461269267-v1/README.md` (verified locally; publication pending)
 checks all 2,257 file entries and eight application cells. All application ELF,
 package and native-library bytes equal the preceding runtime; only controller,
 request and build/CI receipts differ. This supports identity reuse, not reuse of
@@ -26,13 +26,13 @@ Product branch head is now `272036290cae784e2c085e768fd0cf896e8fb37e`, tree
 release artifact retention: actual signed NuGet downloads, verification JSON,
 signature logs and existing public Native AOT receipts will survive the runner.
 The independently reviewed bytes and publication responses are in
-[public-receipt-retention-v1](checkpoints/public-receipt-retention-v1/README.md).
+`checkpoints/public-receipt-retention-v1/README.md` (verified locally; publication pending).
 Normal CI [45464901812](https://github.com/IzuSharp/Korda/actions/runs/45464901812)
 passed all selected checks and Verify; PR publication correctly skipped.
 Normal CI for da153 and d665 also completed successfully. No merge or public
 NuGet release has yet been accepted, and the measured product remains 3d5ba3f.
 
-[Actual PostgreSQL plan comparison](checkpoints/actual-pg-plan-comparison-v1/README.md)
+`checkpoints/actual-pg-plan-comparison-v1/README.md` (verified locally; publication pending)
 reparsed the original four-route server logs from failed preflight 45452087158.
 Both Korda variants have identical plans. Dapper's 31 non-CRUD cases match them;
 its CRUD Find omits a Limit node over the same one-row primary-key Index Scan.
@@ -244,13 +244,13 @@ The actual before/after packages, business consumer source, workload, CPU
 partition, SLO, resource thresholds, segment order and eight 1,800-second
 measurement durations remain unchanged. There is still **0/8** long credit.
 Normal merges and public preview verification also remain outstanding.
-The [candidate and activation checkpoint](checkpoints/candidate-and-campaign-activation-v1/README.md)
+The `checkpoints/candidate-and-campaign-activation-v1/README.md` (verified locally; publication pending)
 retains the package/CI/DTO-edit receipts and first startup failure; the second
 failure and environment repair receipts are retained separately in
-[campaign-attempt-2-v1](checkpoints/campaign-attempt-2-v1/README.md).
+`checkpoints/campaign-attempt-2-v1/README.md` (verified locally; publication pending).
 
 Two narrowly completed acceptance obligations are now bound to independently
-verified [observed claims](results/completed-claims-v1/README.md): real independent
+verified `results/completed-claims-v1/README.md` (verified locally; publication pending): real independent
 ORM Native AOT queries on both providers, and both actual final candidate packages'
 external AOT/ordinary DTO-edit/native-reuse checks. The claims point to 72 existing
 original gzip records and twenty original argv sequences. They do not accept any
@@ -260,12 +260,12 @@ Microsoft.Data.Sqlite.Core 11.0.0 / SQLitePCLRaw 3.0.5.
 
 Two final-package allocation comparisons are complete and must be reused:
 
-- [Numeric public API](checkpoints/final-public-allocation-cf7-v1/files.json):
+- `checkpoints/final-public-allocation-cf7-v1/files.json` (verified locally; publication pending):
   two new external AOT builds and six final processes, with the unchanged original
   six-process baseline reused. Dynamic 256-row query totals fall about 71.7%;
   prepared totals fall about 90.8%. Each provider retains 384 exactly-zero raw
   127-row in-batch windows; every final refill-plus-first-row window is 512 B.
-- [Buffered business results](checkpoints/business-results-v1/README.md):
+- `checkpoints/business-results-v1/README.md` (verified locally; publication pending):
   six external AOT builds, 18 independent processes and 108 measured windows.
   Both managed routes return the same List with 100 DTOs, 80 independent strings
   and 20 NULLs. Korda totals fall about 50% to 34.73–34.74 KB/query; the isolated
@@ -275,7 +275,7 @@ Two final-package allocation comparisons are complete and must be reused:
 Neither comparison establishes whole-framework 0 B or qualified timing. The
 final cold/concurrent/resource inventory completed twelve independent
 processes and passed independent raw review. Its full archive is in
-[resources-final-v1](checkpoints/resources-final-v1/README.md). It retains
+`checkpoints/resources-final-v1/README.md` (verified locally; publication pending). It retains
 cold-prepare and PostgreSQL cancellation allocation regressions explicitly. The
 independent reviewers checked actual package, ELF, native, source and raw-count
 identities; preserved failure records and historical source identities remain
@@ -392,7 +392,7 @@ inventories may now use lossless gzip with compressed and original hashes/length
 this representation changes no source values or measurement bytes. Exactly one
 inventory is required, and compressed metadata is not counted as an extra raw run.
 The exact Plan-owned `35b22ae3...` verifier used by v7/v8 is retained in the
-[verifier source snapshot index](verifier-snapshots/index.json). It is not Korda
+`verifier-snapshots/index.json` (verified locally; publication pending). It is not Korda
 implementation and is not the active CI script. This preserves its original
 source identity while skipping only unpublished large author-index formatting
 trees in the eventual remote publication chain; old raw receipts remain intact.
@@ -404,16 +404,16 @@ The previously published Plan checkpoint is
 is open and draft. Its actual
 [paired-integrity job](https://github.com/IzuSharp/Plan/actions/runs/45392377806/job/138439174420)
 passed for that exact HEAD; this does not predict this newer record's future CI.
-The [observed API projection](checkpoints/iterations-04-09-v1/plan-pr-status-observed.json)
+The `checkpoints/iterations-04-09-v1/plan-pr-status-observed.json` (verified locally; publication pending)
 retains the source URLs, HEAD and check result. No merge is claimed.
 
-Read the [fourth–ninth iteration and recovery checkpoint](checkpoints/iterations-04-09-v1/README.md)
-and [tenth control-snapshot checkpoint](checkpoints/iteration-10-v1/README.md),
-then the [normal merge, failed campaign and eleventh checkpoint](checkpoints/merge-and-iteration-11-v1/README.md)
-and [twelfth Fetch/provenance checkpoint](checkpoints/iteration-12-and-provenance-v1/README.md)
-and [thirteenth default-transaction checkpoint](checkpoints/iteration-13-v1/README.md),
-then [fourteenth retained-native-batch checkpoint](checkpoints/iteration-14-v1/README.md)
-and [fifteenth private-Move checkpoint](checkpoints/iteration-15-v1/README.md)
+Read the `checkpoints/iterations-04-09-v1/README.md` (verified locally; publication pending)
+and `checkpoints/iteration-10-v1/README.md` (verified locally; publication pending),
+then the `checkpoints/merge-and-iteration-11-v1/README.md` (verified locally; publication pending)
+and `checkpoints/iteration-12-and-provenance-v1/README.md` (verified locally; publication pending)
+and `checkpoints/iteration-13-v1/README.md` (verified locally; publication pending),
+then `checkpoints/iteration-14-v1/README.md` (verified locally; publication pending)
+and `checkpoints/iteration-15-v1/README.md` (verified locally; publication pending)
 before rebuilding or repeating measurements. These checkpoints keep lossless compressed raw
 files, exact original hashes/counts, failed attempts, command/build receipts and
 Korda-only source references. The gate decompresses and verifies every original
@@ -869,7 +869,7 @@ bytes and unmet or unproven paths instead of claiming whole-framework 0 GC.
 
 ## Sixteenth allocation checkpoint and publication limits
 
-[Iteration 16](checkpoints/iteration-16-v1/files.json) preserves 136 original
+`checkpoints/iteration-16-v1/files.json` (verified locally; publication pending) preserves 136 original
 records and 437 fixed source references: the four actual builds share 339 source,
 configuration and test-driver inputs; 95 native fixture inputs are independently
 matched; two previously published auxiliary inputs and the exact old observer
@@ -916,7 +916,7 @@ inputs and are **not claimed public**.
 The actual old observer is already available byte-for-byte at
 `4a0dbffce55053d967874d5ba6962c95236f1c79:benchmarks/db-perf/run.py`, SHA
 `1290fbca3845816fad3ab511282e7938b8c1cadc6d48c9ab8a90c955d1df839b`.
-The [publication disclosure](checkpoints/iteration-16-v1/read-only-verification.json)
+The `checkpoints/iteration-16-v1/read-only-verification.json` (verified locally; publication pending)
 separately records **17 historical origins / 14 unique helper or patch files** as
 `local_only_unpublished`, with exact SHA, byte length and role. Their full text
 has no claimed fixed public source. The 437 fixed-reference count describes the
@@ -936,7 +936,7 @@ result is relabeled as the final package or any long test.
 
 ## Seventeenth allocation checkpoint
 
-[Iteration 17](checkpoints/iteration-17-v1/files.json) reuses the six original
+`checkpoints/iteration-17-v1/files.json` (verified locally; publication pending) reuses the six original
 iteration16 AFTER processes as before and preserves six new after processes.
 The final passing 341-file source/configuration inventory matches safe source
 object `fd3ffb45c4a84ce14b34477e0c90dc548514d1d1`, tree
@@ -987,7 +987,7 @@ acceptance. Long credit stays **0/8**.
 
 ## SQL and execution-plan diagnostic checkpoint
 
-The separate [query-plan diagnostic checkpoint](checkpoints/query-plan-diagnostics-v1/files.json)
+The separate `checkpoints/query-plan-diagnostics-v1/files.json` (verified locally; publication pending)
 preserves 74 exact original records and six fixed Korda source references. Its
 successful helper sources and 35-case manifest bind to
 `cc8af8cd1060e68b125951453412eaab8f952a6f`; the actual old successful controller
@@ -1032,7 +1032,7 @@ and all eight long segments remain pending, with **0/8** long credit.
 
 ## Eighteenth allocation checkpoint
 
-[Iteration 18](checkpoints/iteration-18-v1/files.json) preserves 117 exact original
+`checkpoints/iteration-18-v1/files.json` (verified locally; publication pending) preserves 117 exact original
 records, including the six new AFTER processes, the initial Host compiler failure,
 the actual passing AOT gates, two source reviews, the independent raw-count audit,
 and the source-free publication API responses. The original iteration17 AFTER
