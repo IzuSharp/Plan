@@ -1,5 +1,24 @@
 # DB-Perf-01 — Linux handoff
 
+## Independent review update — 2026-11-24 19:03 UTC
+
+The [current candidate/harness review checkpoint](reviews/current-candidate-harness-20261124/README.md)
+preserves actual byte verification of both `0.1.0-ci.1` provider candidates from
+CI `45438460386`, including all 81 unsigned members and native ELF payloads.
+It separately confirms the current sticky correctness-oracle and PostgreSQL
+cgroup CPU implementations at `d665c0c`. Only review records, hashes and an
+existing historical raw-counter observation are added; no new runtime or
+historical source archive is included. Candidate artifacts remain distinct from
+actual public NuGet acceptance.
+
+At this live observation, the sole campaign `45461269267` had completed
+preparation and remained in VM admission/calibration. All eight long steps were
+pending: **0/8 accepted segments, 0 effective seconds**. Current product branch
+head `272036290cae784e2c085e768fd0cf896e8fb37e` adds preservation of future
+public registry/consumption receipts; it does not change the frozen campaign
+request, measured packages or consumer workloads. Re-read the live run before
+any continuation and do not start an overlapping campaign.
+
 ## Live continuation — 2026-11-24 18:38 UTC
 
 The measured product remains actual package producer

@@ -1,0 +1,53 @@
+{
+  "schema": "DB-Perf-01.readonly-remote-comparison.v1",
+  "commit": "d665c0c9629922cfff0e48fa535d6f21393f8162",
+  "review_scope": "Source and GitHub job state plus offline recomputation of one existing historical cgroup sample; no new test, build, DB, branch, Plan, or workflow mutation",
+  "remote_fixes": {
+    "oracle": "independently implemented; sticky process counter and unconditional controller rejection",
+    "postgres_cpu": "independently implemented; task-owned cgroup cumulative CPU and fail-closed retirement"
+  },
+  "local_patch": {
+    "directory": "../active-harness-fixes-003",
+    "files": 18,
+    "freeze_sha256": "b9bd6a486baa6eb72a07cce8be588d7d06c763e689a5247f35e2669e5f30eb3d",
+    "patch_sha256": "98b3e0c96523bfbff2cd516268b7e9ccd164c0d8cad84966ed7215f7f8d8ff8e",
+    "apply_wholesale": false
+  },
+  "live_run": {
+    "id": 45461269267,
+    "attempt": 2,
+    "observed_utc": "2026-11-24 18:52:23 UTC",
+    "prepare": "success",
+    "measure": "in_progress",
+    "active_step": 5,
+    "active_step_name": "Admit this VM and freeze noise, capacity and offered load",
+    "long_steps": [
+      "pending",
+      "pending",
+      "pending",
+      "pending",
+      "pending",
+      "pending",
+      "pending",
+      "pending"
+    ],
+    "long_started": false
+  },
+  "residual_boundaries": [
+    "Current-run raw server group and executable evidence has not been independently inspected in this review.",
+    "Remote source uses per-seed/cell group lifetime plus raw wait4 cross-record rather than the older patch's dedicated positive-CPU backend-exit probe.",
+    "PQsetSingleRowMode rejection remains ordinary runtime_error at native/main.cpp:1046; no occurrence observed.",
+    "Server sampled CPU remains steady-plus-drain internal sample scope, not exact cutoff-only CPU.",
+    "Local AOT helper proof does not transfer to remote source or real provider."
+  ],
+  "action": "Preserve old patch as recovery only; root owns synchronization and any targeted integration. No active-run intervention performed.",
+  "historical_runtime_evidence": {
+    "path": "historical-cgroup-sample/observation.json",
+    "zip_sha256": "bc4f1195eba7fcd518120e8e3c61b0e1f6304f8a76dd1992ba7d3da4ebc1cb39",
+    "samples": 41,
+    "positive_cpu_backend_then_absent": true,
+    "identity_and_cpu_monotonic": true,
+    "owner_empty_removed_exit0": true,
+    "scope": "Historical preflight only; not current-run acceptance or dedicated lower-bound self-test"
+  }
+}
