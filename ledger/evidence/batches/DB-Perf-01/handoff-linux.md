@@ -1,5 +1,159 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-24 22:18 UTC (2026-11-25 06:18 Asia/Shanghai)
+
+Continue from the current worktrees and original receipts. The product task branch
+is `ef998f6f716412b3bf3bcf4434949c6b595b2f18`; product inputs are those of
+`fe56abc2b55fa851de3651b1cec228ed1ce83a0a` because `ef998` only adds a bounded
+runtime-spin diagnostic. The actual newly consumed provider packages were built
+from GitHub merge producer `2e9e0c040403510cd50c725e31f94dd08f167a5c`, tree
+`295440dbf50a4b29d0452160b0d24b2925ebc605`, byte-equal to the `fe56` tree.
+The further projection encoder experiment is still isolated and uncommitted.
+Both PRs remain draft: [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Plan #32](https://github.com/IzuSharp/Plan/pull/32). No merge, public preview or
+downloaded-public-NuGet acceptance is claimed.
+
+### Four original long segments independently checked; final candidate still open
+
+The original [campaign 45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267),
+attempt 2 / job `138688263792`, remains on its admitted VM and original `3d5ba3f`
+runtime. **Four SQLite segments are independently qualified: 7,200 effective
+seconds, 4/8.** PostgreSQL/direct_cpp is in progress. Do not change the running VM,
+relabel these old after binaries as the new `2e9` package, or credit pending time.
+The fixed before remains `771bc77cbd68d3f932b99ed2497c0697bbba5f02`.
+
+Each completed segment has 348,866 planned, sent and successful operations,
+8,512,405 rows, zero failures/rejections/retries, and an exact 1,800-second
+planned-arrival window. All use the frozen sustainable rate and concurrency 4.
+
+| SQLite original route | Success ops/s | p50 / p95 / p99 ms | CPU user / system s | CPU ms/success | Managed B/success | GC 0/1/2 |
+| --- | ---: | --- | --- | ---: | ---: | --- |
+| Direct C++ | 193.814379 | 0.101888 / 0.630784 / 1.376256 | 754.713448 / 6.862146 | 2.183003 | N/A | N/A |
+| Fixed before Korda | 193.813334 | 0.708608 / 21.102592 / 44.826624 | 1102.856381 / 96.555582 | 3.438031 | 68402.335636 | 1439/127/14 |
+| Independent Dapper AOT | 193.814287 | 0.159744 / 0.991232 / 1.400832 | 798.969268 / 10.759949 | 2.321032 | 7368.832824 | 154/14/2 |
+| Original `3d5` after Korda | 193.813870 | 0.696320 / 21.495808 / 46.923776 | 1097.552831 / 96.379242 | 3.422323 | 47223.985324 | 987/87/10 |
+
+Retain the old after p99 increase from 44.826624 to 46.923776 ms; these observations
+do not support an all-metric improvement. Whole mixed-workload allocation includes
+business results, framework, runtime and harness; exact components remain unknown.
+GC events describe the entire shared managed heap, not separate business/framework
+GC. The six Korda owner counters return to zero. Dapper's application connection
+counter drains to zero; provider-internal/native owner counts remain unobserved.
+Steady / sampled-peak RSS in route order are 19,222,528 / 19,402,752 B;
+61,562,880 / 62,201,856 B; 50,155,520 / 50,630,656 B;
+56,283,136 / 56,868,864 B. Separate wait4 lifecycle peaks include earlier exec
+images and must not be called exact isolated application/native-heap peaks.
+
+Checkpoint 4 artifact `14967952995`, 17,153,749 B, has SHA-256
+`da74260271d08f0f9a4be0e5754ba4542da32fbf746292d4f171ad62c783ac55`.
+Its 2,300-member archive and incremental observations were audited under
+`/workspace/scratch/37c4f8cc3a91/campaign-attempt5-long-checkpoint4/`;
+segment audit SHA `b821d501ba99c0761f621c5492ab68b96d58b4861e86e24e75ebf5beae555152`.
+Original ZIPs are under `/home/agent/DB-Perf-01-artifacts/campaign-45461269267/`.
+The independent full raw verifier recomputed 237 observations, four long segments
+and retained 74 ordinary SLO failures; its `matrixAccepted` remains false.
+Receipt: `independent-checkpoint4-v1/verification.json` in that artifact root,
+SHA `a6e92e2799beb0226287030ccba081c706cb9d5628de7884a2b839567a0c1b88`.
+The complete final-candidate eight-segment requirement remains open.
+
+### ControlRecord improvement: actual packages and public business consumption
+
+The sorted-field ControlRecord fast path is retained in `fe56`. Original unordered
+and invalid paths preserve validation/sorting; output arrays remain framework
+allocation. Independent review and the normal abstraction correctness/API/native
+and Native AOT gate passed. [CI 45491468585](https://github.com/IzuSharp/Korda/actions/runs/45491468585)
+passed. The actual two packages are `0.1.0-ci.1`, produced by `2e9` above:
+
+| Provider | Actual nupkg SHA-256 | Actual loaded native SHA-256 |
+| --- | --- | --- |
+| PostgreSQL | `94a874df65129de4ee205b1ef5a3323a11319e3216c60a58e8f915361dfc0095` | `73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6` |
+| SQLite | `2967ed60f5e3a6ca7486e5c815d77804f962bfbf2017274cc5810640c5b2dfb3` | `970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40` |
+
+Package payloads, producer Git tree, ELF identities and loaded native bytes were
+verified; originals are under `candidate-fe56abc/` in the artifact root. Ordinary
+source-tree-external PackageReference Native AOT consumers use unchanged source.
+Twelve interleaved old/new scalar processes use the same database and source:
+
+| Scalar public query | Original `3d5` B/query | New `2e9` B/query |
+| --- | ---: | ---: |
+| PostgreSQL dynamic | 19649 | 14803.375 |
+| SQLite dynamic | 19663.354167 | 14794.958333 |
+| PostgreSQL prepared | 5185.479167 | 5249.854167 |
+| SQLite prepared | 5163.979167 | 5251.229167 |
+
+The prepared increases of 64.375 and 87.25 B/query remain observations with
+unresolved attribution; do not erase them as noise. Buffered first-batch windows
+remain 0 B only in their measured scope; refill windows remain 512 B. This scalar
+fixture produces no business DTO/list/string result. Public whole-query framework
+exclusive attribution is still unknown. Source, counters and strict validation are
+under `control-public-allocation-interleaved-v1/` in the artifact root.
+
+Twelve separately interleaved business-result processes return the same
+`List<OrderDto>` of 100 DTOs, capacity 128, 80 strings and 20 nulls, with identical
+content digest `12366612025187139697`. Whole-process totals fall from
+34,749.256944 to 26,776.784722 B/query for PostgreSQL and 34,759.881944 to
+26,796.097222 B/query for SQLite. Each lane/provider has 1,152 queries and
+115,200 rows; GC totals stay 9/0/0 in both lanes. An independent same-graph clone
+is 7,480 B/graph in every process. This establishes a business graph fixture cost,
+not an exact in-query allocation trace: do not subtract it as precise framework
+bytes. Original results and analysis are under `control-business-results-fe56-v1/`;
+comparison SHA `b673fdfd77ba0a44cac3fabcc3347e2875814ce3c48fec3d5304f70f04cdcd6f`.
+Two failed PostgreSQL AOT compile attempts (exit 137) remain recorded. A subsequent
+serial, build-only processor-count-two compilation passed; measurement processes
+unset that build override. No shared-host timing is used for throughput acceptance.
+
+### Next product experiment and runtime CPU diagnosis
+
+Projection encoding at
+`/home/agent/DB-Perf-01-worktrees/Korda-projection-encoding-DB-Perf-01-linux`
+has one product edit, `src/Query.Binding/OperandEncoding.cs`, SHA
+`ac85d745e3613a9c9438d29d338f38d10a4c116c75213b53bd9153bae1b8210f`.
+The direct writer preserves the old fallback for oversized or invalid metadata,
+binding order, exact wire bytes and an independently owned output array. Six
+interleaved original Native AOT microprocesses show 8-expression fields falling
+from 12,184 to 1,152 B/encode, and 32-expression fields from 48,088 to 4,296.
+Ten complete golden shapes and exception results match. Retain the unexplained
+1,096 B per 4,096-operation-window observation in two small cases; no universal
+zero-allocation claim is made. Results: `projection-encoding-v1/interleaved-v1/`,
+comparison SHA `e5ebda3b63249799d1507487f07b47e6afbc12688125c459bd0c0d031c85753f`.
+Independent source review found no blocker. Newly frozen boundary/concurrency
+tests are now being compiled and calibrated in `projection-regression-v1/`;
+formal module gates, public candidate packages and composite validation are pending.
+Do not credit the internal ProjectReference probe as a public-package acceptance.
+
+The separate [runtime-spin diagnostic 45498304114](https://github.com/IzuSharp/Korda/actions/runs/45498304114)
+is running on a separate admitted VM. It changes only the original process runtime
+spin setting in 36 bounded, interleaved cells using original AOT binaries; it is
+not a product setting change or formal long-run segment. The v2 independent review
+closed the interrupted atomic-state-write failure with the original fault injection;
+review SHA `384712153e5afb7f24d859ed4acc9f32030102bf8737327ae4bdd9cc4f314f12`.
+Normal [ef998 CI 45498319936](https://github.com/IzuSharp/Korda/actions/runs/45498319936)
+is still running. Source-only remaining-hotspot notes are not a final stop decision.
+
+### Evidence publication and recovery
+
+The full Plan worktree is
+`/home/agent/DB-Perf-01-worktrees/Plan-DB-Perf-01-linux`; retain its full history.
+The thin public head `403c061e7c4110eb17a4a4e2817856ebe3044067` adds the
+PreparedQuery forwarding withdrawal decision to `53105de`; preserve both documents
+and the earlier `00f8` review files. Its thin status is not complete raw evidence.
+Schema 5 readable storage is being reviewed independently in
+`/home/agent/DB-Perf-01-worktrees/Plan-readable-schema5-DB-Perf-01-linux`.
+It preserves original UTF-8 bytes, fixed predecessor indexes and claim values;
+original binary/capsule identities remain separate. The earlier opaque upload queue
+stays stopped. Do not retry rejected compressed records or repackage denied source,
+helper or runtime archives. The 21 original binary objects and one deferred capsule
+inventory representation remain explicit work; neither a sparse tree nor a count
+of uploaded chunks is full publication or eight completed long runs.
+
+Continue with projection AOT regression and actual public-package validation,
+new checkpoint audits and runtime-spin interpretation, then freeze a final package
+candidate and run its complete matching four-route/two-provider campaign. Complete
+readable evidence integration, correctness/SQL-plan/source review, independent PR
+review, normal merges, main CI and actual downloaded preview AOT consumption before
+declaring this batch complete.
+
+
 ## Live continuation — 2026-11-24 21:17 UTC
 
 The original formal campaign [45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267)
@@ -1394,3 +1548,4 @@ The new Plan record gate is `python3 tools/verify_db_perf.py`; optional
 their original inputs. `--archives /absolute/path/to/baseline-artifacts` rechecks
 the selected original package bytes. A document/integrity pass is not a benchmark
 result. The current evidence commit's own future CI is always checked separately.
+
