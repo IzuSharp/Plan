@@ -1,5 +1,194 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-24 23:17 UTC (2026-11-25 07:17 Asia/Shanghai)
+
+Resume from actual receipts below, not from an earlier pending-state paragraph.
+[Korda #37](https://github.com/IzuSharp/Korda/pull/37) is draft at
+`33d6cc8fd422f6213eae8cca820ffefd5df5fda1`, tree
+`ddf670dab41d582ff78eb30f3381ee26a6cfef13`.
+[CI 45502134936](https://github.com/IzuSharp/Korda/actions/runs/45502134936)
+passed. This adds the reviewed owned-buffer projection encoder and corrects the
+interleaved allocation runner's failure/cleanup receipt ordering. The original
+measurement loop is unchanged. The next stack-buffer experiment remains isolated;
+it has not been published as a provider package or accepted in mixed load.
+Both PRs remain draft; no merge, public preview or public-NuGet acceptance is claimed.
+
+### Allocation accounting remains explicit
+
+Business `List`, backing arrays, DTOs, strings and typed JSON objects remain
+business-result allocation even when a generated mapper creates them. The objective
+is zero steady-state extra allocation introduced by library machinery where the
+actual scoped counters and attribution support it. Whole-query totals include all
+business, library, runtime and harness allocation; unknown components remain
+unknown. The independent 7,480 B same-graph clone is not an exact allocation trace
+inside the real query and must not be subtracted as a precise framework total.
+GC generations describe the shared process heap, never separate business/framework
+GC. No whole-framework or business-result zero-allocation claim is made.
+
+### Six original long segments fully verified; the final candidate is different
+
+The original [campaign 45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267),
+attempt 2, job `138688263792`, remains active on boot
+`a1dda7dd-2e7f-4168-b019-1ade81b9da65` and original after producer `3d5ba3f`.
+**Six actual continuous 1,800-second segments are independently verified: 10,800
+effective seconds, 6/8.** All four SQLite columns and PostgreSQL/direct_cpp and
+PostgreSQL/korda_before are complete. The PostgreSQL independent ORM segment is
+running; preserve the VM and original binaries. The fixed before remains
+`771bc77cbd68d3f932b99ed2497c0697bbba5f02`. These original after observations cannot
+be relabeled as `2e9`, `6f827` or a later candidate. A complete matching final
+candidate matrix remains outstanding.
+
+The latest original checkpoint artifact is `14972238045`, 18,832,403 B, SHA-256
+`8331aab1f1423e66409a44b3aeb52886b0caf5ff60d755648623ceb716d93a0c`.
+It retains 2,310 unchanged earlier members, replaces campaign state and adds the
+11 new PostgreSQL/before members. The archive and incremental semantic audits
+passed. Full independent raw verification recomputed 239 observations, six long
+segments and retained 74 ordinary SLO failures; its matrix-complete flag is false.
+Result SHA `e6d61c8a3a9e50f180c25f550e91110bbad3ab58256b51218ed4a7c4268c0972`.
+The initial premature local audit start (file not yet downloaded) and a later
+full-verifier SIGKILL (-9) remain separate failure receipts. The serial unchanged
+read-only full verification retry passed at 22:59:15 UTC; the kill cause is unproved.
+No measurement was rerun to replace either failure.
+
+| New PostgreSQL original segment | Direct C++ | Fixed before Korda |
+| --- | ---: | ---: |
+| Actual planned-arrival interval (UTC) | 21:51:12.208439–22:21:12.209396 | 22:21:25.8648479–22:51:25.8648968 |
+| Planned / sent / successful operations | 325129 / 325129 / 325129 | 325129 / 325129 / 325129 |
+| Rows | 7933200 | 7933200 |
+| Success ops/s | 180.627184 | 180.627050 |
+| p50 / p95 / p99 ms | 0.268288 / 0.966656 / 1.720320 | 1.064960 / 17.432576 / 32.112640 |
+| Client CPU user / system seconds | 442.305458 / 10.032169 | 797.205778 / 172.250985 |
+| Client CPU ms / success | 1.391256 | 2.981760 |
+| Steady / sampled-peak RSS bytes | 11767808 / 11767808 | 54956032 / 58163200 |
+| Managed B / success | N/A | 69440.626951 |
+| Process GC 0 / 1 / 2 | N/A | 1362 / 120 / 14 |
+
+Both have zero failures, rejections and retries, exact 1,800-second offered windows
+and drained observed owners. PostgreSQL service metrics remain separate in the raw
+records. Native heap companion profiles are separately instrumented; primary long
+runs do not claim an exact native heap peak. The preceding four SQLite values and
+its observed old-after p99 regression remain unchanged below.
+
+Original ZIPs: `/home/agent/DB-Perf-01-artifacts/campaign-45461269267/checkpoint-6.zip`.
+Audit/retry records: `/workspace/scratch/37c4f8cc3a91/campaign-attempt5-long-checkpoint6/`.
+Full read-only reproduction uses `benchmarks/db-perf/analysis/verify_current.py`
+with runtime ZIP SHA `aecbd4e949e333399704ba141f7d52e9225323e658f6180262355831b5aec7e8`,
+this checkpoint SHA, expected run `45461269267`, attempt `2`; do not use
+`--require-eight-long` until all eight original records exist.
+
+### Owned projection encoder: actual two-package and public Native AOT results
+
+The source-tree-external consumers use actual `0.1.0-ci.1` packages built from
+producer `6f8272c48ac170230ef44b79a5138836d92b1155`, whose exact tree equals `33d6`.
+Signed Git object identity, package contents and actual loaded native SHA were
+verified. Package IDs remain independently installable and public APIs are unchanged.
+
+| Provider | Actual nupkg SHA-256 | Actual loaded native SHA-256 |
+| --- | --- | --- |
+| PostgreSQL | `16f5ddb5454183f2417e4b24290726b1c423a15b50ed173f887f999c36427518` | `73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6` |
+| SQLite | `f310fb2edf1c6fc763a9b6d532b7ab0fa0b8db6925cb27a22260200d64decf26` | `970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40` |
+
+Normal B09 gate passed 24 commands with 155 unchanged registered source inputs,
+42 C ABI signatures, API/golden/native fixture/AOT/sample checks and the calibrated
+allocation regression. Gate log SHA
+`72575f492a276dd965d52d8f8fc92e44003985d0b244980bb1deee2e3bf4ea76`.
+The measured owned-buffer regression budget is 9,438,704 B per 8,192-operation
+window, retaining observed whole-process overhead; it does not assert zero.
+
+Twelve newly interleaved scalar processes compare actual prior `2e9` and `6f827`
+packages with unchanged source, same local data and raw all-thread allocation/GC
+counters. Strict post-cleanup validation passed:
+
+| Scalar public query | Prior `2e9` B/query | `6f827` B/query | Change B/query |
+| --- | ---: | ---: | ---: |
+| PostgreSQL dynamic | 14795.479167 | 12170.833333 | -2624.645834 |
+| SQLite dynamic | 14799.145833 | 12146.812500 | -2652.333333 |
+| PostgreSQL prepared | 5237.583333 | 5163.104167 | -74.479166 |
+| SQLite prepared | 5243.895833 | 5163.895833 | -80.000000 |
+
+Prepared execution does not re-encode its projection; its small changes remain
+unattributed, not a proven benefit of this encoder. Actual ELF/package/source
+identities and raw counts are in `projection-public-allocation-interleaved-v1/`.
+
+Twelve separately interleaved business processes return the same 100-order list,
+capacity 128, 80 strings, 20 nulls and digest `12366612025187139697`:
+
+| Business result query | Prior `2e9` total B/query | `6f827` total B/query | Process GC 0/1/2 before → after |
+| --- | ---: | ---: | --- |
+| PostgreSQL | 26783.743056 | 22720.263889 | 9/0/0 → 6/0/0 |
+| SQLite | 26791.097222 | 22741.430556 | 9/0/0 → 6/0/0 |
+
+Each lane/provider has 1,152 queries and 115,200 rows in three independent
+processes. The separate graph clone remains 7,480 B in all processes, with 144 B
+of extra whole-process overhead retained in each 9,216-graph window. Framework
+exclusive attribution remains null. Comparison SHA
+`e392331ae209b11d73a46be2d8a0816c6d5c1a86ce7aaec132cfba33aca262a0`.
+Original artifacts are under `/home/agent/DB-Perf-01-artifacts/`, in
+`candidate-33d6cc8/`, `projection-component-gate-v1/`,
+`projection-public-allocation-33d6-v1/`,
+`projection-public-allocation-interleaved-v1/` and
+`projection-business-results-33d6-v1/`. Shared-host timing is not throughput acceptance.
+
+### Current isolated stack-buffer experiment and completed runtime diagnosis
+
+Worktree: `/home/agent/DB-Perf-01-worktrees/Korda-projection-stack-DB-Perf-01-linux`,
+base `33d6`. Current product files are `OperandEncoding.cs` SHA
+`63501990982a3767bec56218a14ded677827a1997dd9a811bbe4ab1a8b5fae24`,
+`MetadataBindings.cs` SHA
+`b425e1fc43d6772b5b78191b825b3566dbcf0eca3b57637fba6a617ec5776c3f`,
+and `QueryContext.cs` SHA
+`9684c9baf344e35068469a30beadfee6d032e42779cc6c8f9bc37ff6a2e2c39b`.
+The proposed immediate synchronous ABI calls borrow at most 4 KiB caller stack
+space, explicitly initialize reserved wire bytes, preserve two expression
+validation passes and codec binding order, and retain owned-array fallback.
+Independent review and poison/boundary/error/lifetime tests are pending.
+
+Three actual before processes ran before any product edit. Six further interleaved
+AOT processes compare identical encode-and-consume source. All ten complete wire
+shapes, input fingerprints and owned-encoder error outputs match. Actual after
+whole-process increments are zero in every 4,096-operation window for fitting
+1/4/8-field metadata/expression and 32-field metadata cases. The 32-expression
+4,266-byte frame still allocates 4,296 B/operation, and both 128-field fallbacks
+retain 13,824/16,896 B. This is a prebuilt internal encoder with no business result,
+not zero allocation for a public query. Retain the before 1,096 B/window extra in
+four-field metadata. No subtraction or rounded-zero inference is used.
+Artifacts: `projection-scratch-v1/`; comparison SHA
+`c5c02b3c5a772619bba00983070c9c3bf665863bf710eb51d8b1d9214158e073`.
+
+The [runtime-spin diagnostic 45498304114](https://github.com/IzuSharp/Korda/actions/runs/45498304114)
+finished all 36 cells, zero errors and zero unstarted cells. Artifact `14969063762`,
+2,473,436 B, SHA
+`5157596381f2b8802c97228e06d92052e8b26a24e7f54902edc7fb655b211fdf`.
+Original runtime inventory remained unchanged. This separately admitted diagnostic
+changes only runtime spin settings and earns no formal long-segment or production
+optimization credit. Independent raw recomputation remains pending; keep observed
+SQLite Dapper p99 increase. Production defaults and formal workload are unchanged.
+
+### Durable evidence and exact recovery work
+
+Full local Plan is at reviewed schema-5 integration
+`f2318a5050f868e6c51942bb616a7a1c8cf77077` before this handoff-only update.
+The independent readable-storage review and complete old/new/frozen-history gates
+passed; original UTF-8 bytes, fixed predecessor indexes, historical failures and
+acceptance claim values are preserved. Thin public Plan is `b5e5a37` before this
+handoff update. Preserve both full and thin histories and the `00f8` and `403c`
+review/withdrawal documents; never reset the full worktree to the thin tree.
+The queue at `plan-readable-publication-v1/queue-f2318a5/` targets the frozen full
+`f2318a5` tree. Reconcile this newer handoff after those source-bound objects;
+never overwrite it with the older queue copy. Previously rejected opaque uploads
+remain stopped. Readable original UTF-8 objects and previously successful blobs
+are being queued separately. Twenty-one original binary objects and one deferred
+capsule inventory remain explicit holds pending path/hash-bound actual-content
+review. Incomplete object publication is not complete evidence publication.
+
+Continue in this order: close stack experiment review/correctness and actual
+public-package benefit; freeze the final candidate and run its matching complete
+four-column/two-provider long campaign; complete raw evidence publication,
+remaining SQL/plan/source review and stopping justification; normal PR merges,
+main checks, automatic preview and actual NuGet-download AOT consumption. The final
+Chinese report must state unknown attribution, retained regressions and exact
+measurement scopes alongside actual improvements.
+
 ## Live continuation — 2026-11-24 22:18 UTC (2026-11-25 06:18 Asia/Shanghai)
 
 Continue from the current worktrees and original receipts. The product task branch
