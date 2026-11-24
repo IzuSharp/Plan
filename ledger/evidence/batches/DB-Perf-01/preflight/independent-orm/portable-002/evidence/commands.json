@@ -1,0 +1,198 @@
+[
+  {
+    "name": "sdk-version",
+    "command": [
+      "/workspace/scratch/82a414196324/tooling/dotnet/dotnet",
+      "--version"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002/source",
+    "started_utc": "2026-11-24T09:18:14.598535+00:00",
+    "finished_utc": "2026-11-24T09:18:14.639782+00:00",
+    "exit_code": 0,
+    "log": "logs/sdk-version.log",
+    "log_sha256": "ce0ed33fa65d926bf35a4b5fa3e9bd13266a9931237db41d283edcc123ecb9ff"
+  },
+  {
+    "name": "clang-version",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang-23",
+      "--version"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:14.640186+00:00",
+    "finished_utc": "2026-11-24T09:18:14.647253+00:00",
+    "exit_code": 0,
+    "log": "logs/clang-version.log",
+    "log_sha256": "139f9fcc01a4c3c1e72421a5d2d8684a93568faf5250465d31f242401bed6d58"
+  },
+  {
+    "name": "postgres-version",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/postgres",
+      "--version"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:14.647578+00:00",
+    "finished_utc": "2026-11-24T09:18:14.652719+00:00",
+    "exit_code": 0,
+    "log": "logs/postgres-version.log",
+    "log_sha256": "909de18f93a76dee62f191207d7caca9edc9f32ae5181e66be744c1a17a8c4d0"
+  },
+  {
+    "name": "sqlite-native-build",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang-23",
+      "-O3",
+      "-DNDEBUG",
+      "-DSQLITE_THREADSAFE=1",
+      "-DSQLITE_ENABLE_COLUMN_METADATA",
+      "-fPIC",
+      "-shared",
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/sqlite/sqlite-amalgamation-3510300/sqlite3.c",
+      "-o",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/native/libsqlite3.so",
+      "-lm",
+      "-ldl",
+      "-lpthread"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:14.653314+00:00",
+    "finished_utc": "2026-11-24T09:18:27.366433+00:00",
+    "exit_code": 0,
+    "log": "logs/sqlite-native-build.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "sqlite-publish",
+    "command": [
+      "/workspace/scratch/82a414196324/tooling/dotnet/dotnet",
+      "publish",
+      "OrmProbe.csproj",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false",
+      "-p:RestoreLockedMode=true",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-o",
+      "out"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002/source/sqlite",
+    "started_utc": "2026-11-24T09:18:27.368745+00:00",
+    "finished_utc": "2026-11-24T09:18:34.870110+00:00",
+    "exit_code": 0,
+    "log": "logs/sqlite-publish.log",
+    "log_sha256": "fef4ceb48189db0d71892e8b4156611e8b3e368ede7f7446c94c3215d980ed5d"
+  },
+  {
+    "name": "postgresql-publish",
+    "command": [
+      "/workspace/scratch/82a414196324/tooling/dotnet/dotnet",
+      "publish",
+      "OrmProbe.csproj",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false",
+      "-p:RestoreLockedMode=true",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "-o",
+      "out"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002/source/postgresql",
+    "started_utc": "2026-11-24T09:18:34.871442+00:00",
+    "finished_utc": "2026-11-24T09:18:52.541993+00:00",
+    "exit_code": 0,
+    "log": "logs/postgresql-publish.log",
+    "log_sha256": "2e0a1ae7f7063746c11cfe3a8ca4d3971e98e8709bf547975d7c2029fc98ad4d"
+  },
+  {
+    "name": "sqlite-execute",
+    "command": [
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/source/sqlite/out/OrmProbe",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/probe.db"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:52.547049+00:00",
+    "finished_utc": "2026-11-24T09:18:52.562254+00:00",
+    "exit_code": 0,
+    "log": "logs/sqlite-execute.log",
+    "log_sha256": "b02fc0fc9cd78576ca5e2eff59ec14669df61079da8beb12208461742bb2e1d8"
+  },
+  {
+    "name": "postgres-initdb",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/initdb",
+      "-D",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/pgdata",
+      "-U",
+      "korda",
+      "-A",
+      "trust",
+      "--no-locale"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:52.562759+00:00",
+    "finished_utc": "2026-11-24T09:18:53.146967+00:00",
+    "exit_code": 0,
+    "log": "logs/postgres-initdb.log",
+    "log_sha256": "9f98720dabba344af4e172958897d778ac2c3764e6fcb223d9de87aa3de87c6e"
+  },
+  {
+    "name": "postgres-start",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/pg_ctl",
+      "-D",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/pgdata",
+      "-l",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/logs/postgres-server.log",
+      "-o",
+      "-k '' -h 127.0.0.1 -p 52281",
+      "-w",
+      "start"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:53.148668+00:00",
+    "finished_utc": "2026-11-24T09:18:53.254653+00:00",
+    "exit_code": 0,
+    "log": "logs/postgres-start.log",
+    "log_sha256": "66afd0411ccc09366e99fdd99b85f21899c8d2d064f5835126859618802153ad"
+  },
+  {
+    "name": "postgresql-execute",
+    "command": [
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/source/postgresql/out/OrmProbe",
+      "Host=127.0.0.1;Port=52281;Database=postgres;Username=korda;Pooling=false;SSL Mode=Disable"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:53.255552+00:00",
+    "finished_utc": "2026-11-24T09:18:53.286223+00:00",
+    "exit_code": 0,
+    "log": "logs/postgresql-execute.log",
+    "log_sha256": "f4dc1d2dd0573562671052744598709bf6ed340c1cfd4c99cb2e9947d00d294c"
+  },
+  {
+    "name": "postgres-stop",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/pg_ctl",
+      "-D",
+      "/workspace/scratch/754bc732518e/orm-probe-portable-002/pgdata",
+      "-m",
+      "fast",
+      "-w",
+      "stop"
+    ],
+    "cwd": "/workspace/scratch/754bc732518e/orm-probe-portable-002",
+    "started_utc": "2026-11-24T09:18:53.286870+00:00",
+    "finished_utc": "2026-11-24T09:18:53.388577+00:00",
+    "exit_code": 0,
+    "log": "logs/postgres-stop.log",
+    "log_sha256": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d"
+  }
+]

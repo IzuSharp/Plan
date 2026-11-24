@@ -5,3 +5,9 @@ verification/source-lifecycle-local/*.stderr -text -whitespace
 verification/source-lifecycle-reviews/gates/author-final-validation/rust1100_checks.stdout -text -whitespace
 # Preserve exact DB-Rename-01 command logs and their recorded SHA-256 values.
 ledger/evidence/batches/DB-Rename-01/local/**/*.log -text -whitespace
+# DB-Perf-01 raw producer output retains original CRLF and terminal blank lines.
+# Authored reports and scripts keep the repository's normal whitespace checks.
+ledger/evidence/batches/DB-Perf-01/preflight/**/*.log -text whitespace=cr-at-eol,-blank-at-eof
+ledger/evidence/batches/DB-Perf-01/preflight/**/*.nuspec -text whitespace=cr-at-eol
+ledger/evidence/batches/DB-Perf-01/preflight/**/*.generated.cs -text whitespace=cr-at-eol
+ledger/evidence/batches/DB-Perf-01/preflight/**/*.bundle -text -diff
