@@ -1,0 +1,109 @@
+[
+  {
+    "name": "component-restore-aot",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Query.Generator/Query.Generator.Tests.csproj",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--locked-mode",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 1.423,
+    "log": "01-component-restore-aot.log",
+    "log_sha256": "32790213e8d54db69eb445440a070997e0fc7f5463c7f0eafcd6916a990dbffe"
+  },
+  {
+    "name": "component-publish-aot",
+    "command": [
+      "dotnet",
+      "publish",
+      "tests/Query.Generator/Query.Generator.Tests.csproj",
+      "-c",
+      "Release",
+      "-r",
+      "linux-x64",
+      "-p:PublishAot=true",
+      "--no-restore",
+      "-o",
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/generator-checks/component-aot",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 7.079,
+    "log": "02-component-publish-aot.log",
+    "log_sha256": "829e3eb0f0ee8e20ba835b8b6c47c706173b3139950de1819bb3bbe64f08eab8"
+  },
+  {
+    "name": "component-aot",
+    "command": [
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/generator-checks/component-aot/Korda.Query.Generator.Tests",
+      "--require-aot"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 0.009,
+    "log": "03-component-aot.log",
+    "log_sha256": "bb8e20a802e0073f8e5743c3ef44bd1585193d99287d4e2c9d1f746fa943dbc6"
+  },
+  {
+    "name": "api-restore",
+    "command": [
+      "dotnet",
+      "restore",
+      "tests/Query.Generator/ApiCheck/ApiCheck.csproj",
+      "--locked-mode",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 1.321,
+    "log": "04-api-restore.log",
+    "log_sha256": "4dfdb06c214b095cf893b5afa6fd2bf458a49ef90d9ef09c0f5a57fac88269c0"
+  },
+  {
+    "name": "api-build",
+    "command": [
+      "dotnet",
+      "build",
+      "tests/Query.Generator/ApiCheck/ApiCheck.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 13.508,
+    "log": "05-api-build.log",
+    "log_sha256": "909c923c09b4dec3e51fdfd15e63cc9852cacac5175c4e2d22b582dcf340052c"
+  },
+  {
+    "name": "exact-api-diagnostics-incremental",
+    "command": [
+      "dotnet",
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Query.Generator/ApiCheck/bin/Release/net11.0/Korda.Query.Generator.ApiCheck.dll",
+      "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+      "artifacts/frozen-design",
+      "/workspace/scratch/82a414196324/tooling/dotnet"
+    ],
+    "cwd": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux",
+    "exit_code": 0,
+    "seconds": 1.471,
+    "log": "06-exact-api-diagnostics-incremental.log",
+    "log_sha256": "90a576663b095c97ef9844d80e6008349a3840e7f13fdd40b01e828599733fd5"
+  }
+]

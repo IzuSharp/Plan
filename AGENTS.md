@@ -1,3 +1,13 @@
+# Current task — DB-Rename-01
+
+The owner authorizes renaming Korda's database attributes to natural `Db` names, preserving behavior, synchronizing current documentation, testing Linux x64 Native AOT consumers against both real databases, and pushing reviewable PRs. Read the [current plan](ledger/evidence/batches/DB-Rename-01/plan.md) and [handoff](ledger/evidence/batches/DB-Rename-01/handoff-linux.md). Use `task/DB-Rename-01-linux` and task-marked worktrees.
+
+`delivery-graph.json.current_execution` identifies this task; the completed DB-API-01 execution and all source-bound historical evidence remain unchanged. Run `python3 tools/verify_db_rename.py`. It validates current scope and runs the original completed DB-API-01 gate at frozen Plan `85f7f83e29e67f6865c14c64585139541b8a1a1f`; existing earlier historical CI gates remain intact.
+
+Stop with passing PR checks and a Chinese delivery brief, awaiting maintainer review. **Do not merge or publish publicly.** Product acceptance requires observed source-bound evidence; a documentation check is not an AOT or database execution result. The earlier merge/publication authorities below are historical.
+
+## Earlier task authority (historical)
+
 # Current task — DB-API-01
 
 The owner authorizes Korda's existing PostgreSQL/SQLite Fluent ORM experience enhancements on Linux x64, including implementation, tests, English documentation, pushes, PRs, normal merges and verification of repository-triggered publication. Read the [current plan](ledger/evidence/batches/DB-API-01/plan.md), [handoff](ledger/evidence/batches/DB-API-01/handoff-linux.md) and [acceptance](ledger/evidence/batches/DB-API-01/acceptance.json). `delivery-graph.json.current_execution` owns this batch. Use `task/DB-API-01-linux` and `.worktree/DB-API-01-linux/{Korda,NativeWeave-Design,Plan}`.

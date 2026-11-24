@@ -1,0 +1,34 @@
+[1/7] postgresql.build
++ python3 eng/ci/native_graph.py query artifacts/cmake/linux-x64-postgresql
++ python3 eng/task07_native.py --output artifacts/provider-native/postgresql --provider postgresql
++ cmake --preset linux-x64-postgresql -DCMAKE_C_COMPILER=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang -DCMAKE_CXX_COMPILER=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++ -DFETCHCONTENT_SOURCE_DIR_NW_JSON=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/nlohmann-json/json -DPostgreSQL_ROOT=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install
++ cmake --build --preset linux-x64-postgresql --parallel 2
++ cmake --install artifacts/cmake/linux-x64-postgresql
+{"manifest": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/provider-native/postgresql/manifest.json", "sha256": "cb5d3a9ffc7973c7f6d7db51c790490084917f2042c8fcc53167cd3ffff6358d"}
+postgresql.build: 33.05s
+[2/7] postgresql.dependencies
++ python3 eng/ci/native_graph.py verify artifacts/cmake/linux-x64-postgresql nw_database_postgresql
+postgresql.dependencies: 0.54s
+[3/7] public.pack
++ python3 eng/ci/bundles.py --plan /workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/plan.json --version 0.1.0-db-rename-01.1 --provider postgresql --native artifacts/provider-native/postgresql/manifest.json
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/bundles.py", line 197, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/bundles.py", line 164, in main
+    raise ValueError("Package or version differs from the verification plan")
+ValueError: Package or version differs from the verification plan
+public.pack: 0.08s
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/worker.py", line 149, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/worker.py", line 143, in main
+    ctx.execute(steps, names)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/runner.py", line 68, in execute
+    steps[name].run(self)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/runner.py", line 27, in run
+    ctx.call([str(word).format_map(ctx.variables) for word in command])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/eng/ci/runner.py", line 61, in call
+    subprocess.run(command, check=True, env=os.environ | (env or {}))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'eng/ci/bundles.py', '--plan', '/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/plan.json', '--version', '0.1.0-db-rename-01.1', '--provider', 'postgresql', '--native', 'artifacts/provider-native/postgresql/manifest.json']' returned non-zero exit status 1.

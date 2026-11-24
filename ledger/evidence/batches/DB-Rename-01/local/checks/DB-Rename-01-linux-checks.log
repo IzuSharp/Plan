@@ -1,0 +1,690 @@
+The full workspace formatter is blocked by the host's Unix socket restriction; it is NOT counted as passed. Remaining functional checks follow.
+{"resume": "linux", "completed_actions": ["database.native", "database.api"], "native_manifest_sha256": "c073810b5a365e45f1e05843ed377ad15b08be73455d95cd017228ca577eb137", "source_commit": "9aa0b9092c6b2dfc19d5c98d82cb131699171d66", "version": "0.1.0-ci.1"}
+[1/4] database.regressions
++ python3 eng/build.py regressions --separate-provider-tests
++ git rev-parse HEAD
+9aa0b9092c6b2dfc19d5c98d82cb131699171d66
++ git rev-parse HEAD^{tree}
+ddc4ec36cdade1749127fe5d50cbbf218b2878e6
++ ctest --test-dir /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release --show-only=json-v1
+me" : "LABELS",
+          "value" : 
+          [
+            "contract",
+            "native"
+          ]
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 10.0
+        },
+        {
+          "name" : "WILL_FAIL",
+          "value" : true
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/native/cpp/tests"
+        }
+      ]
+    },
+    {
+      "backtrace" : 45,
+      "command" : 
+      [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/nw_database_abi_c"
+      ],
+      "name" : "native.database.abi",
+      "properties" : 
+      [
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "abi",
+            "contract",
+            "native"
+          ]
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 10.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/native/cpp/tests"
+        }
+      ]
+    },
+    {
+      "backtrace" : 47,
+      "command" : 
+      [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/nw_relations_abi_tests"
+      ],
+      "name" : "native.relations.abi",
+      "properties" : 
+      [
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "abi",
+            "contract",
+            "native"
+          ]
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 60.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/native/cpp/tests"
+        }
+      ]
+    },
+    {
+      "backtrace" : 49,
+      "command" : 
+      [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Migration.Cpp/abi_probe.py",
+        "--native-library",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/libnw_database_sqlite.so",
+        "--output",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/abi-status.json"
+      ],
+      "name" : "native.abi_status",
+      "properties" : 
+      [
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "abi",
+            "contract",
+            "native"
+          ]
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 60.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/native/cpp/tests"
+        }
+      ]
+    }
+  ],
+  "version" : 
+  {
+    "major" : 1,
+    "minor" : 0
+  }
+}+ ctest --test-dir /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release --output-on-failure --no-tests=error
+Test project /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+      Start  1: native.sqlite14
+ 1/20 Test  #1: native.sqlite14 ..................   Passed    0.19 sec
+      Start  2: native.errors.ordinary
+ 2/20 Test  #2: native.errors.ordinary ...........   Passed    0.00 sec
+      Start  3: native.errors.quarantine
+ 3/20 Test  #3: native.errors.quarantine .........   Passed    0.00 sec
+      Start  4: native.abi.bootstrap
+ 4/20 Test  #4: native.abi.bootstrap .............   Passed    0.00 sec
+      Start  5: native.interop
+ 5/20 Test  #5: native.interop ...................   Passed    0.02 sec
+      Start  6: native.execution
+ 6/20 Test  #6: native.execution .................   Passed    0.05 sec
+      Start  7: native.contracts
+ 7/20 Test  #7: native.contracts .................   Passed    0.01 sec
+      Start  8: native.query
+ 8/20 Test  #8: native.query .....................   Passed    0.01 sec
+      Start  9: native.scalar
+ 9/20 Test  #9: native.scalar ....................   Passed    0.00 sec
+      Start 10: native.administration
+10/20 Test #10: native.administration ............   Passed    0.08 sec
+      Start 11: native.provider
+11/20 Test #11: native.provider ..................   Passed    0.22 sec
+      Start 12: native.host_review
+12/20 Test #12: native.host_review ...............   Passed    3.25 sec
+      Start 13: native.transactions
+13/20 Test #13: native.transactions ..............   Passed    0.07 sec
+      Start 14: native.streaming
+14/20 Test #14: native.streaming .................   Passed    0.08 sec
+      Start 15: native.compatibility.old
+15/20 Test #15: native.compatibility.old .........   Passed    0.01 sec
+      Start 16: native.compatibility.new
+16/20 Test #16: native.compatibility.new .........   Passed    0.00 sec
+      Start 17: native.compatibility.semantics
+17/20 Test #17: native.compatibility.semantics ...   Passed    0.00 sec
+      Start 18: native.database.abi
+18/20 Test #18: native.database.abi ..............   Passed    0.01 sec
+      Start 19: native.relations.abi
+19/20 Test #19: native.relations.abi .............   Passed    0.75 sec
+      Start 20: native.abi_status
+20/20 Test #20: native.abi_status ................   Passed    0.11 sec
+
+100% tests passed, 0 tests failed out of 20
+
+Label Time Summary:
+abi         =   0.87 sec*proc (3 tests)
+contract    =   4.88 sec*proc (20 tests)
+native      =   4.88 sec*proc (20 tests)
+provider    =   0.19 sec*proc (1 test)
+
+Total Test time (real) =   4.89 sec
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/native-administration-postgresql -- /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -c import os,sys; os.execv(sys.argv[1], [sys.argv[1], os.environ["NW_TEST_POSTGRES"]]) /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/nw_administration_tests
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+{"status":"passed","checks":69,"sqlite_atomicity":true,"concurrent_idempotency":true,"sqlx_history_sha384":true,"catalog_pk_nullability":true,"cancellation_cleanup":true,"postgres_verified":true}
+
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/native-input-postgresql -- /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -c import os,sys; os.execv(sys.argv[1], [sys.argv[1], "input-postgresql", os.environ["NW_TEST_POSTGRES"]]) /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/nw_host_review_tests
+host review: input-postgresql passed
+
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/native-sync-postgresql -- /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -c import os,sys; os.execv(sys.argv[1], [sys.argv[1], os.environ["NW_TEST_POSTGRES"]]) /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/tests/nw_postgres_sync_tests
+CASE protocol states
+CASE first commit confirmation
+CASE recovery confirmation
+CASE bounded recovery owner
+CASE check-in confirmation
+CASE internal pool-return confirmation
+CASE healthy and terminated idle reuse
+FATAL:  terminating connection due to administrator command
+CASE idle pool acquisition deadline
+CASE idle pool acquisition cancellation
+CASE Source close pool receipt
+CASE independent from-lease initialization
+CASE partial stream retirement
+CASE EOF retirement
+CASE execute confirmation
+CASE execute error priority
+CASE describe confirmation
+CASE describe error priority
+PASS PostgreSQL protocol confirmations: 214 checks
+
++ /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/psql postgresql://korda@127.0.0.1:55432/postgres -X -At -v ON_ERROR_STOP=1 -c SHOW server_version
+18.0
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Query.Binding/generate.py --check --design /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design
+PASS exact signatures=42; outputs=2
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Interop.Negotiation/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Interop.Negotiation --plan-root /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-plan --design-root /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design
+{
+  "task": "A02",
+  "platform": "linux-x64",
+  "passed": true,
+  "native_aot_executed": true,
+  "test_modules_only": true,
+  "other_platforms_executed": false,
+  "restore_mode": "repository policy",
+  "package_scope": "local verification envelopes; no public publication or release expansion",
+  "source_commit": "9aa0b9092c6b2dfc19d5c98d82cb131699171d66",
+  "aot_cases": 26,
+  "assertions_per_mode": 428,
+  "compiled_public_symbols": 84,
+  "native_artifact_sha256": {
+    "alpha": "427f63a0cd9d00aa485f1cc9fc3e309ce177cd1045b97055857a84f3abb927c6",
+    "beta": "57305b27ccd766d1ec2f0b48cfc1563e30baf2447d2b8f2904a71c47dac97a90",
+    "minor-zero": "3738c57d3c304ef676c2e27925578802d9a2e1928d9e03492dffed702d162a88",
+    "future-size": "aa9e459eb370c970fc20092b3681f90661d89cd35b603c7c67128679728058d4",
+    "bad-major": "a7d15ecd5ea726594a2707abb86729904fc252986ed907d72f5a2a9fd4c147eb",
+    "bad-size": "2a40167e79e4f532829a45dbbc55febe5b84b53eeb569b1dac672999f80372f7",
+    "bad-pointer": "0f4c67a92ce59a1521a121d67ee2bee5e4b2f985d3c247c8c59ae51f4c6922a6",
+    "bad-reserved": "2fd3e5d6f9ba2e04ad2f7494122baf3dc76d51f9d1645893beadd49cfba0851c",
+    "bad-pending": "3f3f774cf7949e86508be27f8f67e9e15738544c93b486e7c70c6d84734cb06d",
+    "bad-unknown": "6baee9e9f4e321829a83a8641091d43c057455768ff39c626eeade5447349f61"
+  },
+  "aot_test_executable_sha256": "44625f45a46274fda8fe3d26744e182ca804e6590f171c20f98d81cb3c1130d4"
+}
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Interop.Execution/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Interop.Execution
+source-commit 0
+source-status 0
+dotnet-version 0
+clang-version 0
+source-files 0
+native-build 0
+native-tests 0
+downstream-exports 0
+native-conformance-exports 0
+tests-aot-restore 0
+tests-aot-publish 0
+tests-aot-run 0
+core-only-aot 0
+sample-aot-restore 0
+sample-aot-publish 0
+sample-aot-run 0
+api-restore 0
+api-build 0
+api-xml-reference 0
+managed-format 0
+diff-check 0
+Evidence: /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Interop.Execution
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.Abstractions/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Abstractions --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+sdk: exit 0
+sdk-info: exit 0
+clang: exit 0
+clang-target: exit 0
+cmake: exit 0
+ninja: exit 0
+schema: exit 0
+library-restore: exit 0
+library-build: exit 0
+api-restore: exit 0
+api-build: exit 0
+api-exact-xml-reference: exit 0
+native-format: exit 0
+native-ctest: exit 0
+native-artifact-comment: exit 0
+native-dependencies: exit 0
+openssl-version: exit 0
+data-pack: exit 0
+package-consumer-aot-restore: exit 0
+aot-linker-selection: exit 0
+aot-driver-linker-selection: exit 0
+aot-driver-version: exit 0
+aot-linker-version: exit 0
+package-consumer-aot-publish: exit 0
+package-consumer-aot-run: exit 0
+aot-artifact-comment: exit 0
+negative-wrong-value: exit 1
+negative-wrong-entity: exit 1
+negative-row-across-await: exit 1
+negative-value-entity: exit 1
+managed-aot-restore: exit 0
+managed-aot-publish: exit 0
+managed-aot-run: exit 0
+native-aot-goldens: exit 0
+B01 Linux x64 verification passed.
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.Transactions/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Transactions --design /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+sdk: 0
+sdk-info: 0
+native-clang: 0
+native-format-version: 0
+native-configure: 0
+native-build: 0
+native-format: 0
+native-tests: 0
+native-elf-linker: 0
+ordinary-restore-0: 0
+ordinary-build-0: 0
+ordinary-restore-1: 0
+ordinary-build-1: 0
+ordinary-restore-2: 0
+ordinary-build-2: 0
+managed-whitespace: 0
+compiled-api-xml-reference: 0
+aot-restore: 0
+aot-publish: 0
+aot-execution: 0
+aot-elf-linker: 0
+PASS: B05 component, exact API, C++ Host coordinator, actual Native AOT; provider-specific fault suites remain separate.
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.Streaming/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Streaming --design-root /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+toolchain-dotnet: 0
+native-clang: 0
+native-format-version: 0
+native-configure: 0
+native-build: 0
+native-format: 0
+native-tests: 0
+library-restore: 0
+library-build: 0
+api-check-restore: 0
+api-check-build: 0
+managed-format: 0
+compiled-api-reference: 0
+aot-publish: 0
+aot-providers: 0
+sample-aot-publish: 0
+sample-sqlite: 0
+sample-postgresql: 0
+{"task": "B06", "platform": "linux-x64", "status": "passed", "commands": 18, "source_manifest_sha256": "2f7be78153f808bcdf97344bf4573a20fec31a5d3d5a3335631209d00c4d4849", "offline_restore": false, "scope": "Retained native/managed bounded stream composition with actual C++ Host/libpq/SQLite providers, Linux Native AOT, compiled API/XML and sample. No pristine package, other-platform acceptance, or hard process RSS bound."}
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.Codecs/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Codecs --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+toolchain-dotnet: 0
+native-clang: 0
+native-format-version: 0
+native-configure: 0
+native-build: 0
+native-format: 0
+native-tests: 0
+library-restore: 0
+library-build: 0
+api-check-restore: 0
+api-check-build: 0
+aot-publish: 0
+aot-encode: 0
+compiled-api-reference: 0
+sample-aot-publish: 0
+sample-execution: 0
+aot-providers: 0
+aot-returned-values: 0
+{"task": "B07", "platform": "linux-x64", "status": "passed", "commands": 18, "source_manifest_sha256": "597bb87d6f43af154c437da6d6aa80b50649d9d8fd0c2721a6414e1cf8a351f2", "offline_restore": false, "scope": "Internal managed/native codecs; actual C++ libpq/SQLite and Native AOT value roundtrips; no B04 host, pristine package or other-platform acceptance."}
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Query.Binding/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Binding --design /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release
+RUN 01 source-diff-check
+PASS 01 source-diff-check
+RUN 02 pinned-signatures
+PASS 02 pinned-signatures
+RUN 03 native-format
+PASS 03 native-format
+RUN 04 native-state-properties
+PASS 04 native-state-properties
+RUN 05 c-header-signatures
+PASS 05 c-header-signatures
+RUN 06 managed-format
+PASS 06 managed-format
+RUN 07 restore-library
+PASS 07 restore-library
+RUN 08 build-library
+PASS 08 build-library
+RUN 09 restore-api-check
+PASS 09 restore-api-check
+RUN 10 build-api-check
+PASS 10 build-api-check
+RUN 11 compiled-api-xml-reference
+PASS 11 compiled-api-xml-reference
+RUN 12 restore-tests-aot
+PASS 12 restore-tests-aot
+RUN 13 publish-tests-aot
+PASS 13 publish-tests-aot
+RUN 14 managed-golden
+PASS 14 managed-golden
+RUN 15 actual-aot
+PASS 15 actual-aot
+RUN 16 restore-sample-aot
+PASS 16 restore-sample-aot
+RUN 17 publish-sample-aot
+PASS 17 publish-sample-aot
+RUN 18 actual-sample-aot
+PASS 18 actual-sample-aot
+RUN 19 native-dependencies
+PASS 19 native-dependencies
+RUN 20 dotnet-identity
+PASS 20 dotnet-identity
+RUN 21 cc-identity
+PASS 21 cc-identity
+RUN 22 cc-target
+PASS 22 cc-target
+RUN 23 linker-identity
+PASS 23 linker-identity
+PASS B09 Linux component verification
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Query.Native/verify.py --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Native --design /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/frozen-design --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --host-source /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux --native-build /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release --native-module /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/libkorda_database_host.so
+RUN diff-check
+PASS diff-check
+RUN canonical-cdecl
+PASS canonical-cdecl
+RUN native-format
+PASS native-format
+RUN native-state-and-sql-contracts
+PASS native-state-and-sql-contracts
+RUN managed-format
+PASS managed-format
+RUN postgres-identity
+PASS postgres-identity
+RUN postgres-init
+PASS postgres-init
+RUN restore-aot
+PASS restore-aot
+RUN publish-aot
+PASS publish-aot
+RUN actual-aot-host
+PASS actual-aot-host
+RUN dotnet-identity
+PASS dotnet-identity
+RUN clang-identity
+PASS clang-identity
+RUN clang-target
+PASS clang-target
+RUN native-dependencies
+PASS native-dependencies
+PASS retained B11 Linux C++ real-provider Native AOT acceptance
++ dotnet restore /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj --locked-mode -r linux-x64 -p:PublishAot=true -m:1 -nr:false -p:UseSharedCompilation=false
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/Korda.Database.csproj (in 218 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/Korda.Database.PostgreSql.csproj (in 218 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/DependencyInjection/Korda.Database.DependencyInjection.csproj (in 262 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/Korda.Database.Sqlite.csproj (in 262 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj (in 338 ms).
+  7 of 12 projects are up-to-date for restore.
++ dotnet publish /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:IlcTreatWarningsAsErrors=true -m:1 -nr:false -p:UseSharedCompilation=false -o /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.NativeHost/aot
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+  Korda.Database.PostgreSql -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+  Korda.Database.DependencyInjection -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/DependencyInjection/bin/Release/net11.0/Korda.Database.DependencyInjection.dll
+  Korda.Data.NativeHost.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.NativeHost/bin/Release/net11.0/linux-x64/Korda.Data.NativeHost.Tests.dll
+  Generating native code
+  Korda.Data.NativeHost.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.NativeHost/aot/
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Data.NativeHost-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.NativeHost/aot/Korda.Data.NativeHost.Tests
+host provider=Sqlite
+host provider=PostgreSql
+B04 actual Linux two-provider assertions=482; separately observed managed retirements=174; all source/session/operation/cursor/buffer/handle counters=0
+
++ dotnet restore /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Migrations/Korda.Data.Migrations.Tests.csproj --locked-mode -r linux-x64 -p:PublishAot=true -m:1 -nr:false -p:UseSharedCompilation=false
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Migrations/Korda.Data.Migrations.Tests.csproj (in 235 ms).
+  10 of 11 projects are up-to-date for restore.
++ dotnet publish /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Migrations/Korda.Data.Migrations.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:IlcTreatWarningsAsErrors=true -m:1 -nr:false -p:UseSharedCompilation=false -o /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Migrations/aot
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+  Korda.Database.PostgreSql -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+  Korda.Data.Migrations.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Migrations/bin/Release/net11.0/linux-x64/Korda.Data.Migrations.Tests.dll
+  Generating native code
+  Korda.Data.Migrations.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Migrations/aot/
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Data.Migrations-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Migrations/aot/Korda.Data.Migrations.Tests
+migrations provider=Sqlite
+DB-API-01 Sqlite reviewable schema drafts and scaffold safety passed
+migrations provider=PostgreSql
+DB-API-01 PostgreSql reviewable schema drafts and scaffold safety passed
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+NOTICE:  relation "_sqlx_migrations" already exists, skipping
+NOTICE:  relation "_nativeweave_migration_phases" already exists, skipping
+B08 actual Linux two-provider assertions=357; managed retirements=87; all native counters=0
+
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Data.Migrations-process-aot -- /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.Migrations/cross_process.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Migrations/process-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Migrations/aot/Korda.Data.Migrations.Tests
+B08 Linux actual process contention, SIGKILL recovery and identical replay passed for SQLite and PostgreSQL18
+
++ dotnet restore /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Materialization/Korda.Data.Materialization.Tests.csproj --locked-mode -r linux-x64 -p:PublishAot=true -m:1 -nr:false -p:UseSharedCompilation=false
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Materialization/Korda.Data.Materialization.Tests.csproj (in 277 ms).
+  10 of 11 projects are up-to-date for restore.
++ dotnet publish /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Materialization/Korda.Data.Materialization.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:IlcTreatWarningsAsErrors=true -m:1 -nr:false -p:UseSharedCompilation=false -o /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Materialization/aot
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+  Korda.Database.PostgreSql -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+  Korda.Data.Materialization.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Data.Materialization/bin/Release/net11.0/linux-x64/Korda.Data.Materialization.Tests.dll
+  Generating native code
+  Korda.Data.Materialization.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Materialization/aot/
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Data.Materialization-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Materialization/aot/Korda.Data.Materialization.Tests /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Data.Materialization/aot-results --require-aot
+PASS B12 actual two-provider materialization: 997 assertions; AOT=True; every failure retired managed batches/bytes and native cursor/operation/buffer owners
+
++ dotnet restore /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Query.Fluent/Korda.Query.Fluent.Tests.csproj --locked-mode -r linux-x64 -p:PublishAot=true -m:1 -nr:false -p:UseSharedCompilation=false
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Query.Fluent/Korda.Query.Fluent.Tests.csproj (in 230 ms).
+  10 of 11 projects are up-to-date for restore.
++ dotnet publish /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Query.Fluent/Korda.Query.Fluent.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:IlcTreatWarningsAsErrors=true -m:1 -nr:false -p:UseSharedCompilation=false -o /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Fluent/aot
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+  Korda.Database.PostgreSql -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+  Korda.Query.Fluent.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Query.Fluent/bin/Release/net11.0/linux-x64/Korda.Query.Fluent.Tests.dll
+  Generating native code
+  Korda.Query.Fluent.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Fluent/aot/
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Query.Fluent-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Fluent/aot/Korda.Query.Fluent.Tests /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Query.Fluent/aot-results --require-aot
+PROVIDER Sqlite
+CASE snapshot-filter-order-limit
+CASE pagination
+CASE joins-nullability-abort
+CASE expressions-null-arithmetic
+CASE text-pattern-collation
+CASE aggregate-window-case
+CASE set-subquery-cte
+CASE prepared-isolation
+CASE owners-streaming-cardinality
+CASE direct-composition-cost-input
+CASE mutation-row-lock
+PROVIDER PostgreSql
+CASE snapshot-filter-order-limit
+CASE pagination
+CASE joins-nullability-abort
+CASE expressions-null-arithmetic
+CASE text-pattern-collation
+CASE aggregate-window-case
+CASE set-subquery-cte
+CASE prepared-isolation
+CASE owners-streaming-cardinality
+CASE direct-composition-cost-input
+CASE mutation-row-lock
+PASS B13 actual two-provider Fluent: 1059 assertions; AOT=True
+
++ dotnet restore /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Orm.Relations/Korda.Orm.Relations.Tests.csproj --locked-mode -r linux-x64 -p:PublishAot=true -m:1 -nr:false -p:UseSharedCompilation=false
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Orm.Relations/Korda.Orm.Relations.Tests.csproj (in 231 ms).
+  10 of 11 projects are up-to-date for restore.
++ dotnet publish /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Orm.Relations/Korda.Orm.Relations.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true --no-restore -p:IlcTreatWarningsAsErrors=true -m:1 -nr:false -p:UseSharedCompilation=false -o /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Orm.Relations/aot
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+  Korda.Database.PostgreSql -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Postgres/bin/Release/net11.0/Korda.Database.PostgreSql.dll
+  Korda.Orm.Relations.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/tests/Orm.Relations/bin/Release/net11.0/linux-x64/Korda.Orm.Relations.Tests.dll
+  Generating native code
+  Korda.Orm.Relations.Tests -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Orm.Relations/aot/
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Data.NativeHost/run.py --postgres-bin /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin --output /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/postgres/Orm.Relations-aot -- /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/db-scope/regressions/Orm.Relations/aot/Korda.Orm.Relations.Tests --require-aot
+B14 bounded snapshot rejection allocations: text=5928; bytes=264; JSON=776; escaped JSON=776; aggregate JSON=13800
+B14 provider=Sqlite
+DB-API-01 Sqlite composite cursor, bounded indexed relations and transaction callback passed
+B14 Sqlite retained row budget=1024; rejection allocation=1288; wire budget=8192
+B14 provider=PostgreSql
+DB-API-01 PostgreSql composite cursor, bounded indexed relations and transaction callback passed
+B14 PostgreSql retained row budget=1024; rejection allocation=1288; wire budget=8192
+B14 actual Linux two-provider assertions=2207; managed retirements=777; all six native owner counters=0
+
++ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/Orm.Relations/compile_negative.py
+{"actual_product_compile_negatives": 7, "passed": true}
++ git rev-parse HEAD
+9aa0b9092c6b2dfc19d5c98d82cb131699171d66
++ git rev-parse HEAD^{tree}
+ddc4ec36cdade1749127fe5d50cbbf218b2878e6
+database.regressions: 320.53s
+[2/4] generator.test
++ python3 tests/Query.Generator/verify.py --component-only --design artifacts/frozen-design --sdk /workspace/scratch/82a414196324/tooling/dotnet --output artifacts/generator-checks
+RUN component-restore-aot
+RUN component-publish-aot
+RUN component-aot
+RUN api-restore
+RUN api-build
+RUN exact-api-diagnostics-incremental
+generator.test: 24.88s
+[3/4] api.tool
++ dotnet build src/Build.Integration/ApiReference -c Release -p:RestoreLockedMode=true
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  ApiReference -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Build.Integration/ApiReference/bin/Release/net11.0/Korda.Build.ApiReference.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.02
++ dotnet build src/Data.NativeHost/Korda.Database.csproj -c Release -p:RestoreLockedMode=true
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.81
+api.tool: 3.31s
+[4/4] relations.api
++ python3 tests/Orm.Relations/api.py --design artifacts/frozen-design --tool src/Build.Integration/ApiReference/bin/Release/net11.0/Korda.Build.ApiReference.dll
+{"status":"passed","compiled_symbols":523,"exact_pinned_signatures":523,"xml_complete":true,"generated_reference":true}
+{"status":"passed","compiled_symbols":523,"exact_pinned_signatures":523,"xml_complete":true,"generated_reference":true}
+{"status":"passed","compiled_symbols":163,"exact_pinned_signatures":163,"xml_complete":true,"generated_reference":true}
+{"status":"passed","compiled_symbols":163,"exact_pinned_signatures":163,"xml_complete":true,"generated_reference":true}
+{
+  "design_commit": "c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9",
+  "assemblies": [
+    {
+      "assembly": "Korda.Database",
+      "exact_signatures": 523,
+      "B14_signatures": 61,
+      "XML_complete": true,
+      "reference_complete": true
+    },
+    {
+      "assembly": "Korda.Data",
+      "exact_signatures": 163,
+      "B14_signatures": 20,
+      "XML_complete": true,
+      "reference_complete": true
+    }
+  ],
+  "required_B14_symbols": 81,
+  "missing": []
+}
+relations.api: 2.58s

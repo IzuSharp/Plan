@@ -1,0 +1,587 @@
+{
+  "schema_version": 1,
+  "task": "DB-Rename-01",
+  "reviewer_agent": "/root/rename_code",
+  "recorded_at_utc": "2026-11-24T07:46:14.155877+00:00",
+  "review_kind": "Post-execution package-byte and retained-evidence audit",
+  "scope": "Read-only review of the two locally built candidate archives, their release manifests, packed Korda.Data API audit receipts, three-phase order receipts, retained publish/execute logs and tutorial source bindings.",
+  "authorship_disclosure": "The reviewer authored portions of the rename and tutorial harness. Independent byte verification here means rechecking actual archive metadata, hashes and retained evidence; it is not an independent implementation review of that authored code or a separate human approval.",
+  "source_identity": {
+    "repository": "IzuSharp/Korda",
+    "commit": "9aa0b9092c6b2dfc19d5c98d82cb131699171d66",
+    "tree": "ddc4ec36cdade1749127fe5d50cbbf218b2878e6"
+  },
+  "clean_worktrees_observed": [
+    "Korda-DB-Rename-01-linux",
+    "Korda-DB-Rename-01-sqlite",
+    "Korda-DB-Rename-01-postgresql"
+  ],
+  "execution_boundary": {
+    "new_builds_or_product_runs_performed_by_this_review": 0,
+    "review_did_not_modify_product_code": true,
+    "candidate_only": "Version 0.1.0-ci.1 is a locally built candidate. This review observed no public package publication and does not authorize it.",
+    "not_a_task_acceptance": "This record does not assert that every selected runner action or PR CI check has completed."
+  },
+  "methods": [
+    "Read both git HEAD and tree identities and clean status; compare release and packed-audit source identities to the reviewed commit/tree.",
+    "Recompute each .nupkg SHA-256 and compare it to release.upload_archive_sha256, the packed-audit receipt and the order receipt tutorial_package_sha256.",
+    "Read every archive entry listed in release.unsigned_entries and recompute its SHA-256: 40 entries for SQLite and 41 for PostgreSQL.",
+    "Read Korda.Data.dll directly from each ZIP and parse PE headers, the CLI metadata root, #~ table sizes and public TypeDef rows. Enumerate the actual public type names; this check does not infer public API from a string grep or only trust the receipt.",
+    "Read packaged XML documentation, require all ten database Attribute type IDs, and scan all lib/tools XML entries for retired Attribute names. Read the actual ZIP README and verify its recorded content hash and absence of weave.",
+    "Match the extracted Korda.Data DLL/XML bytes and their hashes to the audit input files, and verify the compiled API log hash. Read the existing successful 163-symbol compiled API/XML/reference result; no compiler was rerun.",
+    "Recompute all twelve retained order publish/execute log hashes; check exit codes and match each DB_API_RESULT object to its receipt phase. Each publish log reports Generating native code.",
+    "Inspect the actual pinned-SDK forwarding wrapper and invocation JSONL. Match all six order publish invocations to the real SDK executable and PublishAot=true. The wrapper adds ordinary single-process/build-server options and forwards with os.execv; it does not synthesize SDK output.",
+    "Read VerificationDatabase.cs and Program.cs at the reviewed commit: SQLite uses a fresh file database; PostgreSQL requires an actual connection, creates a fresh database and drops it after the run. The consumer throws if RuntimeFeature.IsDynamicCodeSupported is true and executes the recorded migration/query/write/transaction checks.",
+    "Independently re-extract each of the four tutorial code fences from the actual candidate README or the reviewed source guide, reconstruct the two namespace wrappers, and recompute original source, fence and compiled-source hashes.",
+    "Compare original/edited source sets and hashes: only Models.cs changes. Independently reproduce the exact DTO source edit from the committed Models.cs and match its recorded hash; compare unchanged tutorial and scaffold hashes, distinct AOT executable hashes and identical packaged native hashes."
+  ],
+  "packages": [
+    {
+      "provider": "sqlite",
+      "id": "Korda.Database.Sqlite",
+      "version": "0.1.0-ci.1",
+      "archive": {
+        "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/feed/Korda.Database.Sqlite.0.1.0-ci.1.nupkg",
+        "sha256": "5078ad4f032cd3b7274156c42872f76489d184e4ced9ad6f3745e0582ebdda1a"
+      },
+      "native_sha256": "89fa27f38be811d9e300c1745b6f13e83fbd73cea973c868b36d5ee48190875c",
+      "data_dll_sha256": "84c031e7015eee60949866c61b529bb003a0275b91cec6dede1d80d59faa6c84",
+      "data_xml_sha256": "55c42a58e3d98599d8989127ebe76704b4d2dc9bd42f81c8b2c6c8a99a33e1d2",
+      "readme_sha256": "1cc9f73e5d43c84094db7f5f74576b2aa63b5a6160056da9877a145b8185c0e7",
+      "archive_entry_hashes_rechecked": 40,
+      "public_data_typedef_count_observed": 34,
+      "public_attribute_typedef_names_observed": [
+        "Korda.Data.DbCodecAttribute",
+        "Korda.Data.DbColumnAttribute",
+        "Korda.Data.DbConstructorAttribute",
+        "Korda.Data.DbIgnoreAttribute",
+        "Korda.Data.DbKeyAttribute",
+        "Korda.Data.DbParameterAttribute",
+        "Korda.Data.DbProjectionAttribute",
+        "Korda.Data.DbTableAttribute",
+        "Korda.Data.DbUseCodecAttribute",
+        "Korda.Data.DbVersionAttribute"
+      ],
+      "retired_public_attribute_typedef_names_observed": [],
+      "retired_attribute_xml_members_observed": [],
+      "compiled_data_api_log_result": {
+        "status": "passed",
+        "compiled_symbols": 163,
+        "exact_pinned_signatures": 163,
+        "xml_complete": true,
+        "generated_reference": true
+      },
+      "observed_order_phases": [
+        {
+          "phase": "scaffold",
+          "dto": "original",
+          "aot": true,
+          "business_check_count": 19,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 0,
+          "native_sha256": "89fa27f38be811d9e300c1745b6f13e83fbd73cea973c868b36d5ee48190875c",
+          "aot_executable_sha256_recorded_by_runner": "ca979456b30d97015d0c7611fa781c504a98add646a26e344b31950674da314c",
+          "models_sha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+            "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+          },
+          "tutorial_source_sha256": {},
+          "project_references_recorded_by_runner": 0
+        },
+        {
+          "phase": "original",
+          "dto": "original",
+          "aot": true,
+          "business_check_count": 21,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written",
+            "scaffolded-entity-compiled-and-executed",
+            "scaffolded-composite-key-compiled-and-executed"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 0,
+          "native_sha256": "89fa27f38be811d9e300c1745b6f13e83fbd73cea973c868b36d5ee48190875c",
+          "aot_executable_sha256_recorded_by_runner": "6c5ccffca45bc5950b28e4a7d7db86cf3a036f372565db168af84b6302a9510f",
+          "models_sha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+            "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+          },
+          "tutorial_source_sha256": {
+            "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+            "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+            "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+            "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+          },
+          "project_references_recorded_by_runner": 0
+        },
+        {
+          "phase": "edited",
+          "dto": "edited",
+          "aot": true,
+          "business_check_count": 21,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written",
+            "scaffolded-entity-compiled-and-executed",
+            "scaffolded-composite-key-compiled-and-executed"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 0,
+          "native_sha256": "89fa27f38be811d9e300c1745b6f13e83fbd73cea973c868b36d5ee48190875c",
+          "aot_executable_sha256_recorded_by_runner": "c0f0a27a0dbeba6af059048ea8f74a3e6b7f73c705e84b6d6ebf240743a6ae33",
+          "models_sha256": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+            "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+          },
+          "tutorial_source_sha256": {
+            "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+            "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+            "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+            "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+          },
+          "project_references_recorded_by_runner": 0
+        }
+      ],
+      "original_edited_source_difference_observed": [
+        "Models.cs"
+      ],
+      "tutorial_source_fences_rechecked": [
+        {
+          "source": "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-2fqdfx1l/cache/korda.database.sqlite/0.1.0-ci.1/korda.database.sqlite.0.1.0-ci.1.nupkg!/README.md",
+          "source_sha256": "1cc9f73e5d43c84094db7f5f74576b2aa63b5a6160056da9877a145b8185c0e7",
+          "marker": "## Define a model and DTO",
+          "code_sha256": "0417575d1f69130e437e747513f61c66d485b2844b387835ca7f19efa7a6e235",
+          "compiled_file": "Tutorial.PackageReadme.cs",
+          "compiled_sha256": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda"
+        },
+        {
+          "source": "docs/getting-started.md",
+          "source_sha256": "153de61c7dea4406fa35e07e1672890c9ea855c87d63927fa6738a7549936927",
+          "marker": "## 1. Define ordinary C# models",
+          "code_sha256": "303999aeeaf7dc79396f57a9cdd4bf2481a3791d83f1486192b36f2c0f3b9035",
+          "compiled_file": "Tutorial.GettingStarted.cs",
+          "compiled_sha256": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451"
+        },
+        {
+          "source": "docs/guides/query-generator.md",
+          "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+          "marker": "Add this DTO in `OrderRow.cs`",
+          "code_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+          "compiled_file": "Tutorial.OrderRow.cs",
+          "compiled_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc"
+        },
+        {
+          "source": "docs/guides/query-generator.md",
+          "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+          "marker": "Add the query method in a separate `OrderQueries.cs` file.",
+          "code_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+          "compiled_file": "Tutorial.OrderQueries.cs",
+          "compiled_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+        }
+      ],
+      "original_edited_tutorial_sources_identical": true,
+      "evidence_inputs": {
+        "release_manifest": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/release.json",
+          "sha256": "d70fb428ab482815d7b863409e048ba033e40d17bc08115997f0a33205409444"
+        },
+        "packed_api_receipt": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/db-rename-packed-api/receipt.json",
+          "sha256": "4558b299cb0d1332859259b91bb493b8864cdaa7b167ac9bba39b9a75701e904"
+        },
+        "order_receipt": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite.json",
+          "sha256": "6ea76063b30524a7586530070365334c6fbd7b90942d658a36b090b74bfbe9a1"
+        },
+        "compiled_data_api_log": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/db-rename-packed-api/compiled-api.log",
+          "sha256": "e7f8bdf094c719a1514783628b1d34bb692264796f3fcf963269a92c002c9003"
+        }
+      },
+      "retained_command_logs": [
+        {
+          "revision": "scaffold",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-scaffold-publish.log",
+          "sha256": "8e99007aca2289433bd58b3edf134a827b649c520833c7fa21b330d8665e5a79"
+        },
+        {
+          "revision": "scaffold",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-scaffold-execute.log",
+          "sha256": "76bfcab8b0693e7378772fec52f1e1c883b52b92a05e3ea85e6ea2bb7039e221"
+        },
+        {
+          "revision": "original",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-original-publish.log",
+          "sha256": "e87241684dea5e5d372e50b615aafd244693dc024d1f09487c05bdae742c801a"
+        },
+        {
+          "revision": "original",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-original-execute.log",
+          "sha256": "5e558e12fc5814de333647ffedae00bf605e5658f3f205d5f3523822de41a3cd"
+        },
+        {
+          "revision": "edited",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-edited-publish.log",
+          "sha256": "bef540c088b18c5fd0485c556ddc3db75633d02a411ea02bed5e122f95bbd109"
+        },
+        {
+          "revision": "edited",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/public/consumer-evidence/candidate/sqlite-edited-execute.log",
+          "sha256": "b5a2b22191fc45d3abe1729b6dbb7b58d60ae4a940264d42a315beca18b0dd3b"
+        }
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "id": "Korda.Database.PostgreSql",
+      "version": "0.1.0-ci.1",
+      "archive": {
+        "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/feed/Korda.Database.PostgreSql.0.1.0-ci.1.nupkg",
+        "sha256": "860550c3977585cab75a84d3caa269f57f29b9305dead1514fcdb80253069a57"
+      },
+      "native_sha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+      "data_dll_sha256": "1f38903c6b9c6f02c2b00d1e2fff8531981b9630d1b0e244d18b6b14aeef03da",
+      "data_xml_sha256": "55c42a58e3d98599d8989127ebe76704b4d2dc9bd42f81c8b2c6c8a99a33e1d2",
+      "readme_sha256": "74b424a49fa9c85560885504a5764ad66546b6146e4bee200e9de365e493e19e",
+      "archive_entry_hashes_rechecked": 41,
+      "public_data_typedef_count_observed": 34,
+      "public_attribute_typedef_names_observed": [
+        "Korda.Data.DbCodecAttribute",
+        "Korda.Data.DbColumnAttribute",
+        "Korda.Data.DbConstructorAttribute",
+        "Korda.Data.DbIgnoreAttribute",
+        "Korda.Data.DbKeyAttribute",
+        "Korda.Data.DbParameterAttribute",
+        "Korda.Data.DbProjectionAttribute",
+        "Korda.Data.DbTableAttribute",
+        "Korda.Data.DbUseCodecAttribute",
+        "Korda.Data.DbVersionAttribute"
+      ],
+      "retired_public_attribute_typedef_names_observed": [],
+      "retired_attribute_xml_members_observed": [],
+      "compiled_data_api_log_result": {
+        "status": "passed",
+        "compiled_symbols": 163,
+        "exact_pinned_signatures": 163,
+        "xml_complete": true,
+        "generated_reference": true
+      },
+      "observed_order_phases": [
+        {
+          "phase": "scaffold",
+          "dto": "original",
+          "aot": true,
+          "business_check_count": 19,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 10,
+          "native_sha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+          "aot_executable_sha256_recorded_by_runner": "6ce67d493bdb346152dfdc65debf91143566767c4e420042e9e818372ba9361a",
+          "models_sha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+            "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+          },
+          "tutorial_source_sha256": {},
+          "project_references_recorded_by_runner": 0
+        },
+        {
+          "phase": "original",
+          "dto": "original",
+          "aot": true,
+          "business_check_count": 21,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written",
+            "scaffolded-entity-compiled-and-executed",
+            "scaffolded-composite-key-compiled-and-executed"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 10,
+          "native_sha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+          "aot_executable_sha256_recorded_by_runner": "b745f3e7300152848b0db6f9724b64fc9b534d1a535319612e5e6fca502aa008",
+          "models_sha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+            "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+          },
+          "tutorial_source_sha256": {
+            "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+            "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+            "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+            "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+          },
+          "project_references_recorded_by_runner": 0
+        },
+        {
+          "phase": "edited",
+          "dto": "edited",
+          "aot": true,
+          "business_check_count": 21,
+          "business_checks": [
+            "model-generates-reviewable-create-sql",
+            "one-page-plus-one-detail-sql",
+            "page-results-and-empty-association",
+            "empty-batch-no-sql",
+            "composite-cursor-ties-and-no-overfetch",
+            "empty-final-page",
+            "optional-customer-filter",
+            "same-immutable-dto-for-fluent-and-parameterized-sql",
+            "typed-grouped-aggregate-dto",
+            "custom-id-decimal-json-and-nullable-mapping",
+            "omitted-fields-versus-written-null",
+            "stale-version-rejected",
+            "insert-returning-and-confirmed-callback",
+            "original-error-and-confirmed-rollback",
+            "rollback-business-result",
+            "precancel-does-not-invoke-callback",
+            "destructive-migration-needs-explicit-selection",
+            "explicit-destructive-script-is-reviewable",
+            "existing-table-scaffold-written",
+            "scaffolded-entity-compiled-and-executed",
+            "scaffolded-composite-key-compiled-and-executed"
+          ],
+          "page_and_detail_sql_executions": 2,
+          "page_and_detail_protocol_submissions": 10,
+          "native_sha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+          "aot_executable_sha256_recorded_by_runner": "1c5c9add33c8a89ef2809bf897b2370902a83d13a867cf37852a4328489afc57",
+          "models_sha256": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+          "scaffold_sha256_recorded_by_runner": {
+            "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+            "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+          },
+          "tutorial_source_sha256": {
+            "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+            "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+            "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+            "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+          },
+          "project_references_recorded_by_runner": 0
+        }
+      ],
+      "original_edited_source_difference_observed": [
+        "Models.cs"
+      ],
+      "tutorial_source_fences_rechecked": [
+        {
+          "source": "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/cache/korda.database.postgresql/0.1.0-ci.1/korda.database.postgresql.0.1.0-ci.1.nupkg!/README.md",
+          "source_sha256": "74b424a49fa9c85560885504a5764ad66546b6146e4bee200e9de365e493e19e",
+          "marker": "## Define a model and DTO",
+          "code_sha256": "0417575d1f69130e437e747513f61c66d485b2844b387835ca7f19efa7a6e235",
+          "compiled_file": "Tutorial.PackageReadme.cs",
+          "compiled_sha256": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda"
+        },
+        {
+          "source": "docs/getting-started.md",
+          "source_sha256": "153de61c7dea4406fa35e07e1672890c9ea855c87d63927fa6738a7549936927",
+          "marker": "## 1. Define ordinary C# models",
+          "code_sha256": "303999aeeaf7dc79396f57a9cdd4bf2481a3791d83f1486192b36f2c0f3b9035",
+          "compiled_file": "Tutorial.GettingStarted.cs",
+          "compiled_sha256": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451"
+        },
+        {
+          "source": "docs/guides/query-generator.md",
+          "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+          "marker": "Add this DTO in `OrderRow.cs`",
+          "code_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+          "compiled_file": "Tutorial.OrderRow.cs",
+          "compiled_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc"
+        },
+        {
+          "source": "docs/guides/query-generator.md",
+          "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+          "marker": "Add the query method in a separate `OrderQueries.cs` file.",
+          "code_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+          "compiled_file": "Tutorial.OrderQueries.cs",
+          "compiled_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+        }
+      ],
+      "original_edited_tutorial_sources_identical": true,
+      "evidence_inputs": {
+        "release_manifest": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/release.json",
+          "sha256": "f7e24ecc70fec73d70e35fc6ed2676910a05b912a7fa83ac48319dd928af3f72"
+        },
+        "packed_api_receipt": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/db-rename-packed-api/receipt.json",
+          "sha256": "cb8466e0ab93715ad95b9a0e17fe2aa632b33df869e1bd15de8cef2b9d3dcf36"
+        },
+        "order_receipt": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql.json",
+          "sha256": "6ce9c78e47aa36a44a9d2f44bf8ea73f0d595a187bcf1ad1d8020b2b9befc965"
+        },
+        "compiled_data_api_log": {
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/db-rename-packed-api/compiled-api.log",
+          "sha256": "e7f8bdf094c719a1514783628b1d34bb692264796f3fcf963269a92c002c9003"
+        }
+      },
+      "retained_command_logs": [
+        {
+          "revision": "scaffold",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-scaffold-publish.log",
+          "sha256": "f95303156ea97c4c2cdff8c91959c59cdfb567cb1556fec38769c5ef7cf4ef78"
+        },
+        {
+          "revision": "scaffold",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-scaffold-execute.log",
+          "sha256": "7f161d3f964ab0a8183331dd764e9a62952718d8236ce5c58a3eebf10db8385c"
+        },
+        {
+          "revision": "original",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-original-publish.log",
+          "sha256": "fc29519dfe77b41e20b53a8e81fb7be221715f1b65463e8232d0c84613d462b6"
+        },
+        {
+          "revision": "original",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-original-execute.log",
+          "sha256": "9f25970c63961dff391df38a96e3f044ad6a594854e6c39cf2de8ac254fec4f4"
+        },
+        {
+          "revision": "edited",
+          "stage": "publish",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-edited-publish.log",
+          "sha256": "c31cce0c4e07957281170c4163f1548015f150ab9cbc779defbd005c5da3437d"
+        },
+        {
+          "revision": "edited",
+          "stage": "execute",
+          "exit_code_observed": 0,
+          "workspace_path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-postgresql/artifacts/public/consumer-evidence/candidate/postgresql-edited-execute.log",
+          "sha256": "8473be38cbe3df9351cda354929b7045b25e18127a1220de92b81c818595cde5"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "observed_conclusion": "No discrepancy was found in the inspected package bytes, public type metadata, retained logs or source/hash bindings.",
+  "limitations": [
+    "The original consumer runner normally removed its temporary external consumer directories after completion. The reviewer did not subsequently open or rerun the deleted AOT ELF files, generated scaffold files or restored temporary project.assets.json.",
+    "AOT execution is supported by retained actual SDK native-code-generation logs, recorded execution results with Aot=true, and the reviewed enforcing consumer/runner checks. ELF format and absent JIT DLL checks were performed by that runner at execution time, not re-observed on deleted files by this reviewer.",
+    "The fresh database instances/files were disposable and removed by the verification consumer. No post-run database dump or independent database inspection was performed during this review.",
+    "SqlExecutions and ProtocolSubmissions are isolated deltas for one page plus its detail query, not totals for the full business workflow and not physical TCP packet or round-trip measurements.",
+    "The packed-api receipts reviewed here are the explicit candidate archive audits. Their success does not by itself claim completion of every registered sqlite/postgresql runner action or future PR CI check.",
+    "The retained order receipt task field remains DB-API-01 because this task reuses that existing business workflow; the exact current package SHA and source commit/tree bindings identify these DB-Rename-01 candidate runs."
+  ],
+  "sdk_wrapper_inspected": {
+    "workspace_path": "/workspace/scratch/82a414196324/tooling/serial-build/bin/dotnet",
+    "sha256": "ae9ddc3a458f2b1a51266f7af40de03ae5538f5adcd1d97b6c1a7519a3d47a6f"
+  },
+  "sdk_invocation_log_note": "Six order publish entries were individually matched while reading DB-Rename-01-sdk-invocations.jsonl. The log is append-only during other checks, so this review does not claim a fixed final whole-log digest."
+}

@@ -1,0 +1,31 @@
+[1/7] sqlite.build
++ python3 eng/ci/native_graph.py query artifacts/cmake/linux-x64-sqlite
++ python3 eng/task07_native.py --output artifacts/provider-native/sqlite --provider sqlite
++ cmake --preset linux-x64-sqlite -DCMAKE_C_COMPILER=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang -DCMAKE_CXX_COMPILER=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++ -DFETCHCONTENT_SOURCE_DIR_NW_JSON=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/nlohmann-json/json -DFETCHCONTENT_SOURCE_DIR_NW_SQLITE=/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/sqlite/sqlite-amalgamation-3510300
++ cmake --build --preset linux-x64-sqlite --parallel 2
++ cmake --install artifacts/cmake/linux-x64-sqlite
+{"manifest": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/provider-native/sqlite/manifest.json", "sha256": "2ec28a2b57e986f39d2f80f0a3ce08039c1aed8ff8bc9c3454b1b6e6f12fbaea"}
+sqlite.build: 36.29s
+[2/7] public.pack
++ python3 eng/ci/bundles.py --plan /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/plan.json --version 0.1.0-db-rename-01.1 --provider sqlite --native artifacts/provider-native/sqlite/manifest.json
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/bundles.py", line 197, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/bundles.py", line 164, in main
+    raise ValueError("Package or version differs from the verification plan")
+ValueError: Package or version differs from the verification plan
+public.pack: 0.08s
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/worker.py", line 149, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/worker.py", line 143, in main
+    ctx.execute(steps, names)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 68, in execute
+    steps[name].run(self)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 27, in run
+    ctx.call([str(word).format_map(ctx.variables) for word in command])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 61, in call
+    subprocess.run(command, check=True, env=os.environ | (env or {}))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'eng/ci/bundles.py', '--plan', '/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/plan.json', '--version', '0.1.0-db-rename-01.1', '--provider', 'sqlite', '--native', 'artifacts/provider-native/sqlite/manifest.json']' returned non-zero exit status 1.

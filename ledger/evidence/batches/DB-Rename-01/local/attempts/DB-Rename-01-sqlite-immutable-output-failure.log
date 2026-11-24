@@ -1,0 +1,24 @@
+[1/7] sqlite.build
++ python3 eng/ci/native_graph.py query artifacts/cmake/linux-x64-sqlite
++ python3 eng/task07_native.py --output artifacts/provider-native/sqlite --provider sqlite
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/task07_native.py", line 156, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/task07_native.py", line 47, in main
+    raise RuntimeError('Choose a fresh output; retained candidate evidence is immutable')
+RuntimeError: Choose a fresh output; retained candidate evidence is immutable
+sqlite.build: 0.07s
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/worker.py", line 149, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/worker.py", line 143, in main
+    ctx.execute(steps, names)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 68, in execute
+    steps[name].run(self)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 27, in run
+    ctx.call([str(word).format_map(ctx.variables) for word in command])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 61, in call
+    subprocess.run(command, check=True, env=os.environ | (env or {}))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'eng/task07_native.py', '--output', 'artifacts/provider-native/sqlite', '--provider', 'sqlite']' returned non-zero exit status 1.
