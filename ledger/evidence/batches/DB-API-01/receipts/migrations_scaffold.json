@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "task": "DB-API-01",
+  "platform": "linux-x64",
+  "check": "migrations_scaffold",
+  "status": "passed",
+  "sources": {
+    "Korda": {
+      "commit": "1794fbae14855f28842354c9649a66e58f5001ef",
+      "tree": "ea65de3644a170bb9b642157091a4b2279d4a373"
+    }
+  },
+  "observations": [
+    "Final main Linux CI passed the real two-provider schema/migration suite and eight emitted-source compilation/order checks.",
+    "Each destructive operation requires explicit reviewed IDs; unsupported conversions/backfills/rebuilds are rejected. Drafting opens no database connection or SQL dispatch.",
+    "The external workflow applies reviewed creation SQL and compiles/queries live-catalog customer and composite order entities; a destructive draft is reviewed but not applied."
+  ],
+  "files": [
+    {
+      "path": "ledger/evidence/batches/DB-API-01/results/observed-delivery.json",
+      "sha256": "b9c250c41eb8950a52637e2a7d98fab0f83b7ae5271aa3e635fe357ad3cd0d97"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-API-01/ci/main-linux-log.log",
+      "sha256": "994ab312639ac70ff55ed5a7d1b513c729bf56967fc18bbb427eeb1b4e6700f9"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-API-01/ci/main-postgresql-log.log",
+      "sha256": "891ca3be1dc66b46cb8e3e6e9f8f2e08529e013d577bd2ec5dd17f50b5cf4ced"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-API-01/ci/main-sqlite-log.log",
+      "sha256": "e1dc150cf28522ef3181c884e7f310f6c1a8a47ae07caac9e079f34d39fef674"
+    },
+    {
+      "path": "ledger/evidence/batches/DB-API-01/results/review-followup.json",
+      "sha256": "03369794498388318658403353552946f59797220a86e22cab1c0398c6136d0f"
+    }
+  ],
+  "urls": [
+    "https://github.com/IzuSharp/Korda/actions/runs/45269220542",
+    "https://github.com/IzuSharp/Korda/blob/1794fbae14855f28842354c9649a66e58f5001ef/docs/guides/schema-workflows.md"
+  ],
+  "execution_boundary": "Actual normal CI and reviewed source are distinguished in the shared observation/review records. No post-outage local execution or inspection of unavailable public temporary files is claimed."
+}
