@@ -1,5 +1,79 @@
 # DB-Perf-01 — Linux handoff
 
+Publication transport checkpoint: the full verified local Plan commit is
+`f0ba275fd759047f352d41d19379ae52193088bf`, tree `0a44b271746b0173db2d387bce50ed10b445f967`.
+The queued diagnostic-tools-v1 increment adds 41 binary objects after the
+existing queues. This remote checkpoint publishes only the recovery text;
+paths marked pending below are not yet available at this remote revision.
+
+## Live continuation — 2026-11-24 19:47 UTC
+
+The sole formal campaign remains
+[45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267),
+attempt 2 / measure job `138688263792`, observed in admission/calibration.
+**Accepted long segments remain 0/8, effective accepted seconds 0.** Do not
+start an overlapping formal campaign or count its planned durations. Its frozen
+runtime, actual packages, eight application ELF hashes, request and dedicated VM
+have not been changed by the separate diagnostics below.
+
+Korda task head is now `9acdc6a8cef25d6f51feaf69e553b36027ab3975`, tree
+`53600057025a1739c6c7521ddc4ab4f77e0cb1e9`. The measured production remains the
+exact `3d5ba3f` candidate; subsequent changes add release receipt retention,
+diagnostic controls and evidence validation. CPU entry `275920fa` passed normal
+CI [45470772884](https://github.com/IzuSharp/Korda/actions/runs/45470772884).
+Read the latest normal CI for dcb371 and 9acdc6 before claiming their completion.
+
+The separate CPU run
+[45470764239](https://github.com/IzuSharp/Korda/actions/runs/45470764239) preserves
+two unsuccessful sampling attempts. Attempt 1 rejected image `133.1` before
+checkout/build. Attempt 2 used required image `376.1` and recovered exact matching
+Native AOT symbols for before, after and Dapper. However, actual perf returned
+five bytes `61 63 6b 0a 00`; the original entry expected four bytes without the
+terminal NUL. All five original workload processes remained gated, every owned
+collector and PostgreSQL owner retired, and no CPU workload result is credited.
+The original ZIP `14956787494` is preserved with SHA
+`c53cc46d2fb2d00c0af1726aa46b7eabbb3ff07085388aced3b0464b49b994e7`.
+The first informal byte counts were off by one; the explicit correction addendum
+keeps the original ACK strings and source records unchanged.
+
+The two independent native plan cells in that same second attempt did complete:
+each reports 35 measured operations, 854 rows, 350 warmup operations, full 35-case
+coverage and drained owners. Their SQL/parameter/eleven-execution comparison is
+being independently finalized. They must not be discarded merely because CPU
+sampling failed, and they do not count as qualified throughput or long segments.
+
+The minimal ACK fix is independently reviewed against all five actual raw frames
+and 25 finite controls. Only parser handling and the request activation note
+changed; sampling privileges, PID scope, immutable executable inputs and workload
+contracts remain fixed. New separate run
+[45473095059](https://github.com/IzuSharp/Korda/actions/runs/45473095059),
+job `138726028027`, passed its image/source/control checks and entered tool/profile
+preparation. Actual stack collection remains unproven until its result is read.
+
+The `checkpoints/diagnostic-tools-v1/README.md` (verified locally; publication pending)
+retains original reviews, finite controls, the initial image failure and Plan CI
+repair. The archive auditor is fixed at Korda `dcb371f567dfa0d0b692ff76c2f5fed311a6b014`,
+tree `ed24130a128ae34abc41db6f62d03a22d884c179`. Its independent review resolved a
+deflate-tail payload defect. The Plan gate now requires the reviewed Git bytes,
+an index-bound receipt and all chunk records, then actually reconstructs and
+reads ZIP members. Ten finite integration tests and the existing full source/raw
+gate passed. No real new campaign capsule existed in that invocation; its first
+capture must still undergo the actual archive audit. This does not permit source,
+helper, runtime, ELF or package archives to be repackaged into Plan.
+
+Plan's thin remote head is `48aca52fac5540616807a23e0f09edf2c2797d80`. Its normal
+CI [45470976223](https://github.com/IzuSharp/Plan/actions/runs/45470976223) passed
+after pending local-only checkpoint links were explicitly marked. Full local
+evidence still awaits the existing blob queues: original queue most recently
+1,323/1,406, then a0b455b, c5dfd24, 56371d3 and e900daa; 0858d1a is a text-only
+overlay preserving the concurrent 00f8 review. Never replace that full local
+tree with the thin remote tree. Re-read the actual remote parent before publishing.
+
+Allocation interpretation remains: required DTO/List/string/JSON graphs are
+business costs; framework temporary work remains overhead. Process GC events
+are shared-heap observations. Full queries remain positive and partly unattributed;
+the measured zero claim is confined to the already-buffered scalar row window.
+
 ## Live continuation — 2026-11-24 19:11 UTC
 
 Read this section before the historical observations below. The active campaign
