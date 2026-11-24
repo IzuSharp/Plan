@@ -1,5 +1,30 @@
 # DB-Perf-01 — Linux handoff
 
+## Live update — 2026-11-24 17:56 UTC
+
+The current campaign is [45452087158](https://github.com/IzuSharp/Korda/actions/runs/45452087158),
+workflow source `75db602c59f3c3366488df9f1c1717934f7d850f`, unchanged collector
+`4ee348d8b9834a14327dcf68a105e34f52f81795`, request SHA
+`c32ab5e50fb38cfd1c9a45748e6085c903456bbd8f745112651a9767e84f93bb`.
+Its first preparation attempt rejected the older runner image before building;
+preparation retry `138653923314` passed the explicit `20261116.376.1` image
+check and completed successfully. Measurement job `138657301659` passed the
+same image check and is now in VM admission and load calibration. No qualified
+long segment has completed: **0/8** remains the only accepted count. Inspect the
+live run before any retry. The earlier `45449544703` measurement-only retry
+also rejected its image mismatch and remains uncredited.
+
+Latest product branch head is `c7c0347e30faa9e1d54a201dada7210ee7cd49b8`;
+the last commit only registers the new environment diagnostic workflow with
+its existing CI module. Local tracked-ownership, impact and Tooling checks passed
+(44 tests, one skip); [normal CI 45453261268](https://github.com/IzuSharp/Korda/actions/runs/45453261268)
+is still being observed. This does not change the measured production packages,
+consumer business source, workload or any performance threshold.
+
+The prior handoff-only commit `62ac70899a4add051c48dcdcf54ff96ce25cc8ed`
+passed [Plan CI 45451305502](https://github.com/IzuSharp/Plan/actions/runs/45451305502).
+Full raw checkpoint publication continues independently and is not yet complete.
+
 ## Latest live recovery observation — 2026-11-24 17:41 UTC
 
 Read this newer observation before the historical checkpoints below. The user
