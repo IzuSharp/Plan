@@ -1,5 +1,80 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-24 20:31 UTC
+
+The sole formal run remains [45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267),
+attempt 2 / job `138688263792`, on its original admitted VM. **One long segment is
+independently accepted: SQLite/direct_cpp, 1,800 effective seconds (1/8).**
+Its original start/end are 19:50:19.084887Z / 20:20:19.086406Z; all 348,866 planned
+operations succeeded, zero failed/rejected/retry, 8,512,405 rows, p99 1.376256 ms,
+and all observable native owners returned to zero. Checkpoint 1 artifact
+`14959984432` has SHA `35bfafc773c1fa63621ff356b44e0b6c3670e094dce544d8e28707e2a6075c3f`.
+The second segment is running. Do not restart the VM, overlap formal work, or
+credit the other seven planned durations. The independent segment receipt is
+currently local at `campaign-attempt5-long-checkpoint1/long-segment-audit.json`,
+SHA `10f264efe5e032a78a97d790530397543a6e7e155925be0668d7cb185b2c75fd`;
+its Plan capture remains pending.
+
+The preflight semantic checkpoint (`checkpoints/campaign-preflight-semantic-v1/README.md`, local evidence verified; publication pending)
+independently checks all 233 actual cells, 2,268 original members, 7,863 measurement
+samples and 122 PostgreSQL owners including seed initialization. Frozen rates are
+PG 180.627 and SQLite 193.814 planned ops/s. Full counts include deliberate
+overload; do not misreport its rejection total as ordinary-load errors.
+Fixed 15-second E2E allocation fell 31.963% (PG) and 30.968% (SQLite), but PG
+client CPU/op rose 10.101% in that short window. Preserve this and all other
+regressions; neither one short window nor allocation alone settles overall performance.
+
+The CPU/preparation checkpoint (`checkpoints/cpu-and-preparation-diagnostics-v1/README.md`, local evidence verified; publication pending)
+preserves the original ACK failure, two successful native plan comparisons,
+five real CPU sampling windows and their original zero-exit/empty-report errors.
+Offline recovery [45478326583](https://github.com/IzuSharp/Korda/actions/runs/45478326583)
+succeeded without new workloads or samples; all 165 retained original members
+match byte-for-byte. Its artifact is `14961052236`, ZIP SHA
+`a134dd2d3c4d2ef0fdeace739deee398e9b281311098443b97bf836681653657`.
+Actual period-weighted RhSpinWait self shares are after 50.76%, before 49.35%,
+Dapper 66.69%, with per-thread rounding retained. Runtime spin can be induced by
+framework scheduling; it is not excluded from E2E cost. A separate bounded
+runtime spin sensitivity candidate is being prepared, not executed or substituted
+for the formal measurements. No new production modification is implied.
+
+Current Korda task head is `7cf6c7db4957fdb27ea408b56d52ce1b28235a5b`, tree
+`4415bcec0595390513b52e945194097becd670d8`; normal CI
+[45478344194](https://github.com/IzuSharp/Korda/actions/runs/45478344194) succeeded.
+Measured production/package inputs remain the exact `3d5ba3f` candidate.
+Korda `9acd` CI 45473109770 and thin Plan `a9e19` CI 45474742579 also succeeded.
+No merge, automatic preview or downloaded public preview validation is claimed yet.
+
+**Evidence upload is stopped after automatic approval review rejected two opaque
+gzip blob calls.** Original 1,406 objects and the first 193 a0 increment objects
+are verified remotely. Rejected indexes 193/194 are the Dapper SQLite consumer's
+NuGet `project.assets.json.gz` (5,930 B compressed / 48,320 B original) and
+`publish.log.gz` (184 B / 347 B). The reviewer could not see a path, manifest binding
+or readable content proving the disclosure scope. Full rejection and verified
+content metadata remain in `plan-upload/incremental-a0b455b/auto-review-stop-20261124T202554.json`,
+SHA `56e1152fc4859c3e0c24596b06e7c12ca0dd02646bbd5f8abd6c2cc0976cc66a`.
+The original [automatic-review stop receipt](publication/upload-review-stop-20261124.json) is also retained as readable JSON.
+Do not clear STOP or resend these opaque payloads. A transparently readable,
+path-bound measurement representation is being evaluated before any further
+publication. All later compressed queues, including the new pure-measurement
+capsule, remain unsent. Never repackage the separately rejected historical
+implementation/helper archives into Plan.
+
+Thin public Plan remains `a9e19a15b18ce71bcc537da6e8c1973a68d8effe`; full local
+Plan contains the pending raw/source-bound checkpoints. Preserve the full local
+tree and all 00f8 concurrent reviews when eventually publishing against the actual
+remote head. Large new intermediate artifacts are stored under
+`/home/agent/DB-Perf-01-artifacts/` with exact hashes and local path receipts;
+repository sources remain in their task worktrees.
+
+Business List/DTO/string/typed-JSON objects are required business allocations,
+including those created by generated mappers. Framework overhead targets 0 B;
+unknown residuals remain unknown. GC counts are shared process events. The only
+measured zero claim remains the already-buffered scalar advancement window.
+Wait4 high-water includes child lifecycle across exec; sampled RSS/PSS and
+application-reported peak are separate. Original samples contain no VmHWM, so an
+exact native post-exec RSS high-water cannot be reconstructed retroactively.
+
+
 Publication transport checkpoint: the full verified local Plan commit is
 `f0ba275fd759047f352d41d19379ae52193088bf`, tree `0a44b271746b0173db2d387bce50ed10b445f967`.
 The queued diagnostic-tools-v1 increment adds 41 binary objects after the
