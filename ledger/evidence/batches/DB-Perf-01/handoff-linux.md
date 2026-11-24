@@ -1,5 +1,97 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-24 21:17 UTC
+
+The original formal campaign [45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267)
+remains on attempt 2 / job `138688263792`, the same admitted VM and frozen
+`3d5ba3f` candidate. **Two original long segments are independently qualified:
+SQLite/direct_cpp and SQLite/korda_before, 3,600 effective seconds (2/8).**
+Segment 3 is in progress. Keep this VM and its original runtime immutable.
+
+Checkpoint 2 artifact `14964600687` is 16,096,804 B, SHA-256
+`e701a017000e8c1c88471e7a7ee67ebb739166e5d9f911af1163e8e5ea7d6c17`.
+Its SQLite before interval is 20:20:31.0672606Z through 20:50:31.0755121Z,
+with an exact 1,800-second planned-arrival window. All 348,866 planned/sent
+operations succeeded; failures, rejections and retries are zero; 8,512,405 rows.
+Success throughput is 193.813334 ops/s; p50/p95/p99 histogram upper bounds are
+0.708608/21.102592/44.826624 ms. Client CPU user/system is
+1,102.856381/96.555582 seconds, or 3.438031 ms per successful operation.
+Whole-process allocated bytes are 23,863,249,224, or 68,402.335636 B/op and
+2,803.349843 B/row; GC generation deltas are 1439/127/14. These mixed-workload
+totals include business objects, framework, runtime and harness: exact business
+and framework components remain unknown. GC events are process-wide.
+
+The six Korda owner counters return to zero. Steady sampled RSS/PSS medians
+are 61,562,880/52,329,472 B; sampled peaks are 62,201,856/52,972,544 B.
+The separate wait4 lifecycle RSS peak is 64,045,056 B, including earlier exec
+images; it is not an exact isolated application or native-heap peak. The complete
+2,284-member ZIP audit and raw-count recomputation are retained locally under
+`/workspace/scratch/37c4f8cc3a91/campaign-attempt5-long-checkpoint2/`.
+The segment audit SHA is
+`706975c0731a676dc1eeffa4f6e853e0fcd7aafaf61cac742e65e815c8d019a6`;
+the original archive is under
+`/home/agent/DB-Perf-01-artifacts/campaign-45461269267/checkpoint-2.zip`.
+The first two segment captures and acceptance-index bindings still await the
+reviewed readable-storage integration; do not infer a completed batch from them.
+
+### A new measured production experiment is not yet a released candidate
+
+An isolated task worktree,
+`/home/agent/DB-Perf-01-worktrees/Korda-control-encoding-DB-Perf-01-linux`,
+starts at `7cf6c7db4957fdb27ea408b56d52ce1b28235a5b`.
+Only `src/Data.Abstractions/DbWire.cs` changes product behavior: already positive,
+strictly increasing control-field IDs skip temporary Distinct/sort state.
+Unordered/invalid inputs retain the old validation/sorting fallback; payload
+arithmetic remains checked. Public APIs and encoded bytes are unchanged.
+
+The actual isolated Native AOT comparison uses three independent processes per
+lane and 8,192 measured encodes per case after 2,048 warmups. A five-field frame
+falls from 1,064 to 136 managed B/op, four fields from 1,016 to 120, and 32 fields
+from 3,568 to 1,080; each lane's three processes agree exactly. Whole golden
+frames and seven exception type/message observations match; caller arrays remain
+unchanged. The output byte[] is **framework allocation**, including the remaining
+136 B. Business-result allocation is zero only in this prepared-input encoder
+fixture. This is neither an entire-encoder 0 B claim nor a public-package/DB test.
+
+The experiment is at `/home/agent/DB-Perf-01-artifacts/control-encoding-v1/`.
+Original comparison SHA:
+`cd07281aa0651eb8d1cd3ea0f4ad88849d76730203bb073d300e52c2dcfe8516`.
+Before/after product source SHA:
+`d9b3101900038e81707dea2d0d82ec793fd83b0e52d3b5de785ad8a896c101f4` /
+`a0178f6ccc63f0431e5f7af03caec691eefa90661e1cd591c920a3e6ed02eaa6`.
+Independent review found no blocker; receipt
+`/workspace/scratch/37c4f8cc3a91/control-encoding-independent-review-v1/independent-review.json`,
+SHA `9f99516aab4a68723f3ffe8666bcc2f8f32ccefbeaadc6afc1a8977bf48ec59c`.
+Short correctness/allocation regression integration is being prepared before
+normal affected-module checks and actual provider-package consumption.
+If retained, this new product change needs measurements bound to its actual new
+packages/ELFs. Never relabel the running old candidate's after measurements.
+The broader remaining-hotspot/stop decision is still open.
+
+### Readable publication recovery
+
+The old compressed upload queue remains stopped. A materially safer alternative
+was actually reviewed and accepted for the two specifically rejected records:
+their original UTF-8 NuGet assets metadata and successful publish log, under
+explicit paths, without content rewriting. The resulting unreferenced Git tree is
+`cc860978d154c52165231079074c11ed4a647dd1`; no incomplete full-evidence branch
+was published. Exact-byte, whole-index migration controls and independent review
+are retained; the full local storage correction commit is
+`1b6da786b03080536343529270d58a2d2f8e97d2`.
+Broader readable records and a complete original-member representation are under
+individual content and schema review. Do not restart the old opaque queue or
+repackage rejected implementation/helper/runtime archives.
+
+The full Plan worktree now resides at
+`/home/agent/DB-Perf-01-worktrees/Plan-DB-Perf-01-linux`;
+the old `/workspace/scratch/b94e2a0e0c3f/Plan-DB-Perf-01-linux` path is a compatible
+symlink. Preserve its full local history and the concurrent `00f8` review files.
+The thin public Plan `c90ad9cdf33ab36b25607c865648968ab3f9fae1` has passed
+[CI 45482414872](https://github.com/IzuSharp/Plan/actions/runs/45482414872).
+Both PRs remain draft and unmerged. No preview/public-NuGet acceptance is claimed.
+The runtime-spin source/ELF review is frozen; the separate sensitivity experiment
+has not executed or changed the formal workload.
+
 ## Live continuation — 2026-11-24 20:31 UTC
 
 The sole formal run remains [45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267),
