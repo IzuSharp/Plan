@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "task": "DB-Perf-01",
+  "scope": "native35_correctness_only",
+  "provider": "postgresql",
+  "executable_sha256": "055539a43c11a6e41a92ee0f54fdd1ac3245b7f2ce13f2921124d53dfc53e96d",
+  "build_receipt": {
+    "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/native35-postgresql-v3/build/build-receipt.json",
+    "sha256": "e0a0da3f95878aa2a05b2d6edb04951a0149e7bbe9126421fe05db3eabb6a38f"
+  },
+  "observations": [
+    {
+      "name": "normal35-dynamic",
+      "successful_operations": 35,
+      "rows": 854,
+      "sql_executions": 57,
+      "protocol_submissions": 171,
+      "physical_preparation": "per-operation",
+      "protocol_confirmation": "drain-only",
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/native35-postgresql-v3/normal35-dynamic.json",
+        "sha256": "f44d660b65818a7f046b1f3692516d46a5d5f61054fecf47db2c8603f96de348"
+      }
+    },
+    {
+      "name": "normal35-prepared",
+      "successful_operations": 35,
+      "rows": 854,
+      "sql_executions": 57,
+      "protocol_submissions": 57,
+      "physical_preparation": "reuse",
+      "protocol_confirmation": "drain-only",
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/native35-postgresql-v3/normal35-prepared.json",
+        "sha256": "bc6832d711865e3a5a0be276c38e2fee23ca1b21db33eb3adbdd68413f96009f"
+      }
+    },
+    {
+      "name": "matched35-prepared",
+      "successful_operations": 35,
+      "rows": 854,
+      "sql_executions": 57,
+      "protocol_submissions": 285,
+      "physical_preparation": "per-operation",
+      "protocol_confirmation": "product",
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/native35-postgresql-v3/matched35-prepared.json",
+        "sha256": "c07937dee886cdd5767663d3283579510ba783c671a60782960e62216cafb13c"
+      }
+    },
+    {
+      "name": "lifecycle-c4-offered",
+      "successful_operations": 100,
+      "rows": 280,
+      "sql_executions": 540,
+      "protocol_submissions": 540,
+      "physical_preparation": "reuse",
+      "protocol_confirmation": "drain-only",
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/native35-postgresql-v3/lifecycle-c4-offered.json",
+        "sha256": "6f40155a4ad4dedde05bd2749d6a4763afda684f25c95808ff3171635a13a574"
+      }
+    }
+  ],
+  "limitations": [
+    "Correctness/accounting execution only; sampled times do not establish comparative performance.",
+    "Native total allocation/free calls and complete heap peak remain uninstrumented.",
+    "Product-style native protocol mode does not reproduce Korda transaction control SQL exactly."
+  ],
+  "formal_short_run_credit": 0,
+  "long_segment_credit": 0,
+  "framework_wide_zero_claim": false
+}

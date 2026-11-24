@@ -1,0 +1,511 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/IzuSharp/Plan/schemas/db-perf-v1.schema.json",
+  "title": "DB-Perf-01 incomplete/observed acceptance record",
+  "$comment": "tools/verify_db_perf.py additionally verifies source identities, content hashes, immutable history, actual receipt kinds, raw count reconciliation, nonoverlapping effective intervals, environment admission and completion dependencies. A schema/document pass does not execute a benchmark.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task",
+    "platform",
+    "state",
+    "baseline",
+    "final_candidate",
+    "environment",
+    "checks",
+    "allocation",
+    "long_tests",
+    "publication",
+    "self_ci"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "task": {
+      "const": "DB-Perf-01"
+    },
+    "platform": {
+      "const": "linux-x64"
+    },
+    "state": {
+      "enum": [
+        "in_progress",
+        "blocked",
+        "accepted"
+      ]
+    },
+    "baseline": {
+      "const": {
+        "Korda": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+        "Plan": "bc1956936ee77a997a016856c97def6aabc0bbc6"
+      }
+    },
+    "final_candidate": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/source"
+        }
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "identity",
+        "evidence",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "unqualified",
+            "qualified"
+          ]
+        },
+        "identity": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fileReference"
+          }
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comparable_baselines",
+        "independent_orm_aot",
+        "business_correctness",
+        "public_allocation_coverage",
+        "allocation_resource_bounds",
+        "noise_and_fixed_load",
+        "capacity_and_recovery",
+        "eight_long_segments",
+        "cpu_memory_latency_throughput",
+        "optimization_stop_basis",
+        "package_aot_and_dto_reuse",
+        "api_and_selected_ci",
+        "independent_review",
+        "normal_merges_and_main",
+        "public_preview_verification",
+        "final_report_reproduction"
+      ],
+      "properties": {
+        "comparable_baselines": {
+          "$ref": "#/$defs/check"
+        },
+        "independent_orm_aot": {
+          "$ref": "#/$defs/check"
+        },
+        "business_correctness": {
+          "$ref": "#/$defs/check"
+        },
+        "public_allocation_coverage": {
+          "$ref": "#/$defs/check"
+        },
+        "allocation_resource_bounds": {
+          "$ref": "#/$defs/check"
+        },
+        "noise_and_fixed_load": {
+          "$ref": "#/$defs/check"
+        },
+        "capacity_and_recovery": {
+          "$ref": "#/$defs/check"
+        },
+        "eight_long_segments": {
+          "$ref": "#/$defs/check"
+        },
+        "cpu_memory_latency_throughput": {
+          "$ref": "#/$defs/check"
+        },
+        "optimization_stop_basis": {
+          "$ref": "#/$defs/check"
+        },
+        "package_aot_and_dto_reuse": {
+          "$ref": "#/$defs/check"
+        },
+        "api_and_selected_ci": {
+          "$ref": "#/$defs/check"
+        },
+        "independent_review": {
+          "$ref": "#/$defs/check"
+        },
+        "normal_merges_and_main": {
+          "$ref": "#/$defs/check"
+        },
+        "public_preview_verification": {
+          "$ref": "#/$defs/check"
+        },
+        "final_report_reproduction": {
+          "$ref": "#/$defs/check"
+        }
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "framework_wide_zero_bytes",
+        "coverage_complete",
+        "public_api_inventory",
+        "paths",
+        "residual_paths",
+        "status",
+        "notes"
+      ],
+      "properties": {
+        "framework_wide_zero_bytes": {
+          "type": "boolean"
+        },
+        "coverage_complete": {
+          "type": "boolean"
+        },
+        "public_api_inventory": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/fileReference"
+            }
+          ]
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/publicPath"
+          }
+        },
+        "residual_paths": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "status": {
+          "enum": [
+            "unproven",
+            "mixed",
+            "zero",
+            "unmet"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "long_tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_cells",
+        "minimum_seconds_per_cell",
+        "minimum_total_seconds",
+        "segments",
+        "accepted_count",
+        "effective_seconds"
+      ],
+      "properties": {
+        "required_cells": {
+          "const": [
+            "postgresql/direct_cpp",
+            "postgresql/korda_before",
+            "postgresql/korda_after",
+            "postgresql/independent_csharp_orm",
+            "sqlite/direct_cpp",
+            "sqlite/korda_before",
+            "sqlite/korda_after",
+            "sqlite/independent_csharp_orm"
+          ]
+        },
+        "minimum_seconds_per_cell": {
+          "const": 1800
+        },
+        "minimum_total_seconds": {
+          "const": 14400
+        },
+        "segments": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/longSegment"
+          }
+        },
+        "accepted_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "effective_seconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "package_inputs_changed",
+        "packages",
+        "evidence"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "verified",
+            "unchanged_inputs_skip"
+          ]
+        },
+        "package_inputs_changed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fileReference"
+          }
+        }
+      }
+    },
+    "self_ci": {
+      "const": "checked_separately"
+    }
+  },
+  "$defs": {
+    "fileReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "tree"
+      ],
+      "properties": {
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "requirement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "blocked",
+            "passed"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fileReference"
+          }
+        }
+      }
+    },
+    "publicPath": {
+      "type": "object",
+      "required": [
+        "provider",
+        "id",
+        "mode",
+        "scope",
+        "status"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "postgresql",
+            "sqlite"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "sync",
+            "suspended_async",
+            "concurrent"
+          ]
+        },
+        "scope": {
+          "enum": [
+            "operation",
+            "batch",
+            "row"
+          ]
+        },
+        "status": {
+          "enum": [
+            "unproven",
+            "unmet",
+            "zero"
+          ]
+        },
+        "measurement": {
+          "$ref": "#/$defs/fileReference"
+        }
+      }
+    },
+    "longSegment": {
+      "type": "object",
+      "required": [
+        "cell",
+        "environment_id",
+        "effective_start_utc",
+        "effective_end_utc",
+        "effective_seconds",
+        "source_commit",
+        "workload_sha256",
+        "application_sha256",
+        "native_sha256",
+        "correctness_passed",
+        "raw_files",
+        "operation_counts",
+        "metrics"
+      ],
+      "properties": {
+        "cell": {
+          "enum": [
+            "postgresql/direct_cpp",
+            "postgresql/korda_before",
+            "postgresql/korda_after",
+            "postgresql/independent_csharp_orm",
+            "sqlite/direct_cpp",
+            "sqlite/korda_before",
+            "sqlite/korda_after",
+            "sqlite/independent_csharp_orm"
+          ]
+        },
+        "environment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effective_start_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "effective_end_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "effective_seconds": {
+          "type": "integer",
+          "minimum": 1800
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "workload_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "application_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "correctness_passed": {
+          "const": true
+        },
+        "raw_files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/fileReference"
+          }
+        },
+        "operation_counts": {
+          "type": "object",
+          "required": [
+            "planned",
+            "issued",
+            "completed",
+            "succeeded",
+            "failed",
+            "rejected",
+            "retries"
+          ],
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "metrics": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

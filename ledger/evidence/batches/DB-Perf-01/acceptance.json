@@ -1,135 +1,199 @@
 {
   "schema_version": 1,
   "task": "DB-Perf-01",
-  "status": "in_progress",
-  "baseline_commit": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
-  "candidate_commit": null,
-  "public_contract_changed": false,
-  "zero_allocation_claims": [
-    {
-      "provider": "postgresql",
-      "status": "passed_narrow_path",
-      "path": "warmed public Fluent numeric synchronous rows within an already fetched/parsed batch",
-      "candidate_commit": "28110ee03391831c737a54204730730a01b77a34",
-      "candidate_version": "0.1.0-perf-lazy.1",
-      "independent_processes": 3,
-      "windows": 384,
-      "rows_per_window": 127,
-      "total_rows": 48768,
-      "allocated_bytes_raw": 0,
-      "control_subtraction": false,
-      "receipt": "preflight/korda-allocation-after-lazy-join/comparison.json",
-      "excluded": "query construction, parameter encoding, first fetch, refills, final false, disposal, connection acquire/return, high concurrency, cancellation, exceptions"
-    },
-    {
-      "provider": "sqlite",
-      "status": "passed_narrow_path",
-      "path": "warmed public Fluent numeric synchronous rows within an already fetched/parsed batch",
-      "candidate_commit": "28110ee03391831c737a54204730730a01b77a34",
-      "candidate_version": "0.1.0-perf-lazy.1",
-      "independent_processes": 3,
-      "windows": 384,
-      "rows_per_window": 127,
-      "total_rows": 48768,
-      "allocated_bytes_raw": 0,
-      "control_subtraction": false,
-      "receipt": "preflight/korda-allocation-after-lazy-join/comparison.json",
-      "excluded": "query construction, parameter encoding, first fetch, refills, final false, disposal, connection acquire/return, high concurrency, cancellation, exceptions"
-    }
-  ],
-  "business_cases_executed": [],
-  "long_runs": [
-    {
-      "id": "postgresql-native_cpp",
-      "database": "postgresql",
-      "route": "native_cpp",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "postgresql-korda_before",
-      "database": "postgresql",
-      "route": "korda_before",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "postgresql-korda_after",
-      "database": "postgresql",
-      "route": "korda_after",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "postgresql-independent_orm",
-      "database": "postgresql",
-      "route": "independent_orm",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "sqlite-native_cpp",
-      "database": "sqlite",
-      "route": "native_cpp",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "sqlite-korda_before",
-      "database": "sqlite",
-      "route": "korda_before",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "sqlite-korda_after",
-      "database": "sqlite",
-      "route": "korda_after",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    },
-    {
-      "id": "sqlite-independent_orm",
-      "database": "sqlite",
-      "route": "independent_orm",
-      "status": "not_started",
-      "effective_seconds": 0,
-      "receipt": null
-    }
-  ],
-  "merged_prs": [],
-  "published_candidate_packages": [],
-  "complete": false,
-  "whole_framework_zero_allocation": {
-    "status": "not_met",
-    "complete_query_totals": "nonzero",
-    "refill_totals": "nonzero",
-    "exact_framework_fraction_of_positive_totals": "unproved",
-    "source_audit": "allocation-audit.md"
+  "platform": "linux-x64",
+  "state": "in_progress",
+  "baseline": {
+    "Korda": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+    "Plan": "bc1956936ee77a997a016856c97def6aabc0bbc6"
   },
-  "preflight": {
-    "original_packages": "preflight/baseline-packages.json",
-    "korda_before": "preflight/korda-allocation/summary.json",
-    "korda_lazy_join_after": "preflight/korda-allocation-after-lazy-join/comparison.json",
-    "native": "preflight/native/README.md",
-    "independent_orm": "preflight/independent-orm/README.md",
-    "streaming_correctness": "preflight/streaming-lazy-join/summary.md"
+  "final_candidate": null,
+  "environment": {
+    "status": "unqualified",
+    "identity": null,
+    "evidence": [],
+    "reason": "Exclusive resources/quotas, stable dedicated host admission, separate PostgreSQL service accounting and before-only noise calibration are not established."
   },
-  "open_prs": [
-    {
-      "repository": "IzuSharp/Korda",
-      "number": 37,
-      "url": "https://github.com/IzuSharp/Korda/pull/37",
-      "draft": true,
-      "observed_head": "f9f0d6438feb9b29a9fdac05f3c10bdc86ed5d85",
-      "scope": "production candidate and independent probes; full campaign pending"
+  "checks": {
+    "comparable_baselines": {
+      "requirement": "Execute the four routes using source-bound binaries, equivalent consumption, SQL/parameters/plans and fixed database settings.",
+      "status": "pending",
+      "evidence": []
+    },
+    "independent_orm_aot": {
+      "requirement": "Prove a mature independent ORM with a minimal real Native AOT query per database; document true unsupported cases separately.",
+      "status": "pending",
+      "evidence": []
+    },
+    "business_correctness": {
+      "requirement": "Execute at least 24 semantically distinct cases per database with Fluent/raw-SQL coverage and persisted-state oracles.",
+      "status": "pending",
+      "evidence": []
+    },
+    "public_allocation_coverage": {
+      "requirement": "Measure normal public paths, sync completion, true suspension and concurrency with process-wide raw counters and explicit residual attribution.",
+      "status": "pending",
+      "evidence": []
+    },
+    "allocation_resource_bounds": {
+      "requirement": "Separate business and framework bytes; verify bounded pools, native allocation/copies, peak/retained memory and drain.",
+      "status": "pending",
+      "evidence": []
+    },
+    "noise_and_fixed_load": {
+      "requirement": "Interleave independent processes, quantify noise and freeze a sustainable offered load before/after comparison.",
+      "status": "pending",
+      "evidence": []
+    },
+    "capacity_and_recovery": {
+      "requirement": "Measure ramp, saturation, maximum success throughput under equal error/p99 limits and post-saturation recovery.",
+      "status": "pending",
+      "evidence": []
+    },
+    "eight_long_segments": {
+      "requirement": "Eight nonoverlapping continuous effective >=1800-second segments on one admitted dedicated resource set; >=14400 effective seconds.",
+      "status": "blocked",
+      "evidence": []
+    },
+    "cpu_memory_latency_throughput": {
+      "requirement": "Report complete client/service CPU, memory, latency, throughput, allocation and operation-ledger metrics for all cells.",
+      "status": "pending",
+      "evidence": []
+    },
+    "optimization_stop_basis": {
+      "requirement": "Bind every kept/rejected optimization to measured evidence, correct semantics, bounded resources, gaps and stopping reasons.",
+      "status": "pending",
+      "evidence": []
+    },
+    "package_aot_and_dto_reuse": {
+      "requirement": "Independently consume each exact candidate by outside-source PackageReference Native AOT, with ordinary DTO-only native reuse.",
+      "status": "pending",
+      "evidence": []
+    },
+    "api_and_selected_ci": {
+      "requirement": "Preserve public API/Db names and pass dependency-selected correctness, short allocation, packed API/XML and package gates.",
+      "status": "pending",
+      "evidence": []
+    },
+    "independent_review": {
+      "requirement": "Obtain scoped non-author review with truthful authorship/source/measurement limits and resolve findings.",
+      "status": "pending",
+      "evidence": []
+    },
+    "normal_merges_and_main": {
+      "requirement": "Normally merge exact verified product/Plan and any changed Design PRs, observe actual merged-main CI without bypass.",
+      "status": "pending",
+      "evidence": []
+    },
+    "public_preview_verification": {
+      "requirement": "Follow automatic preview and verify actual NuGet payload/native bytes plus public Native AOT consumption, or prove valid unchanged-input skip.",
+      "status": "pending",
+      "evidence": []
+    },
+    "final_report_reproduction": {
+      "requirement": "Publish absolute before/after values, deltas, native gaps, all eight cells, raw sources and executed reproduction commands; disclose unmet/unproven paths.",
+      "status": "pending",
+      "evidence": []
     }
-  ]
+  },
+  "allocation": {
+    "framework_wide_zero_bytes": false,
+    "coverage_complete": false,
+    "public_api_inventory": null,
+    "paths": [
+      {
+        "provider": "postgresql",
+        "id": "lazy_join_only_sync_numeric_in_batch",
+        "mode": "sync",
+        "scope": "row",
+        "status": "zero",
+        "measurement": {
+          "path": "ledger/evidence/batches/DB-Perf-01/reconciled-remote/ba380202/postgresql-narrow-allocation.json",
+          "sha256": "b3f82fc9474c40609d8790acccd33add6529c73166aaaf82333d8409891ac141"
+        },
+        "final_candidate_acceptance": false
+      },
+      {
+        "provider": "sqlite",
+        "id": "lazy_join_only_sync_numeric_in_batch",
+        "mode": "sync",
+        "scope": "row",
+        "status": "zero",
+        "measurement": {
+          "path": "ledger/evidence/batches/DB-Perf-01/reconciled-remote/ba380202/sqlite-narrow-allocation.json",
+          "sha256": "a1195449a30fce8c3ef81fedf4f3262773d042d44c467a1f88099605e639db88"
+        },
+        "final_candidate_acceptance": false
+      }
+    ],
+    "residual_paths": [
+      {
+        "provider": "postgresql",
+        "id": "complete_dynamic_query",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      },
+      {
+        "provider": "postgresql",
+        "id": "complete_prepared_query",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      },
+      {
+        "provider": "postgresql",
+        "id": "refill_including_first_row",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      },
+      {
+        "provider": "sqlite",
+        "id": "complete_dynamic_query",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      },
+      {
+        "provider": "sqlite",
+        "id": "complete_prepared_query",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      },
+      {
+        "provider": "sqlite",
+        "id": "refill_including_first_row",
+        "status": "unproven",
+        "reason": "Observed positive end-to-end bytes; exact framework fraction remains unproven in the recovered public probe."
+      }
+    ],
+    "status": "mixed",
+    "notes": [
+      "Internal diagnostics do not constitute normal public-provider allocation acceptance.",
+      "Task-returning genuinely asynchronous API completion ownership remains a known contract/source limitation; numerical costs require process-wide measurement.",
+      "The two measured zero paths bind the recovered concurrent lazy-only candidate 28110ee / 0.1.0-perf-lazy.1, not the combined or final candidate.",
+      "All twelve recovered public processes and actual source/package/executable/native bytes were independently rechecked; no benchmark was rerun by the reconciling executor."
+    ]
+  },
+  "long_tests": {
+    "required_cells": [
+      "postgresql/direct_cpp",
+      "postgresql/korda_before",
+      "postgresql/korda_after",
+      "postgresql/independent_csharp_orm",
+      "sqlite/direct_cpp",
+      "sqlite/korda_before",
+      "sqlite/korda_after",
+      "sqlite/independent_csharp_orm"
+    ],
+    "minimum_seconds_per_cell": 1800,
+    "minimum_total_seconds": 14400,
+    "segments": [],
+    "accepted_count": 0,
+    "effective_seconds": 0
+  },
+  "publication": {
+    "status": "pending",
+    "package_inputs_changed": null,
+    "packages": [],
+    "evidence": []
+  },
+  "self_ci": "checked_separately"
 }

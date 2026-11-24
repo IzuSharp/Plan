@@ -1,0 +1,42 @@
+{
+  "provider": "postgresql",
+  "postgres": {
+    "bin": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin",
+    "data": "/workspace/scratch/b94e2a0e0c3f/db-perf-pgdata",
+    "cpus": "4-7"
+  },
+  "commands": [
+    {
+      "name": "initialize",
+      "phase": "setup",
+      "cpus": "0-3",
+      "argv": [
+        "/workspace/scratch/b94e2a0e0c3f/consumer-before-postgresql-v1/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--initialize"
+      ]
+    },
+    {
+      "name": "verify-five-projections",
+      "phase": "correctness",
+      "cpus": "0-3",
+      "argv": [
+        "/workspace/scratch/b94e2a0e0c3f/consumer-before-postgresql-v1/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--mode",
+        "prepared",
+        "--warmup",
+        "1",
+        "--operations",
+        "5",
+        "--verify",
+        "--output",
+        "{output}/probe.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "name": "korda-per-operation-check",
+  "phase": "correctness-only",
+  "argv": [
+    "/workspace/scratch/b94e2a0e0c3f/consumer-before-postgresql-v5/out/DbPerf.Korda",
+    "--connection",
+    "postgresql://korda@127.0.0.1:48517/db_perf_01",
+    "--case",
+    "mixed",
+    "--cases",
+    "numeric,text",
+    "--mode",
+    "prepared",
+    "--session",
+    "per-operation",
+    "--concurrency",
+    "4",
+    "--warmup",
+    "2",
+    "--operations",
+    "16",
+    "--idle-seconds",
+    "0.1",
+    "--output",
+    "/workspace/scratch/b94e2a0e0c3f/measurements/pg-managed-final-v1/korda-per-operation-check.json"
+  ],
+  "startedUtc": "2026-11-24T10:03:52.716721+00:00",
+  "startedMonotonicNs": 10011674819177,
+  "timeoutSeconds": 90,
+  "resourceSamples": "korda-per-operation-check.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 217,
+    "startTicks": 1001167,
+    "state": "R",
+    "parentPid": 5,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 20480,
+      "Pss": 20480,
+      "Private_Clean": 0,
+      "Private_Dirty": 20480
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-24T10:03:52.930464+00:00",
+    "monotonicNs": 10011887551970,
+    "acquiredThroughMonotonicNs": 10011888554941,
+    "client": [
+      {
+        "pid": 217,
+        "startTicks": 1001167,
+        "state": "Z",
+        "parentPid": 5,
+        "userTicks": 2,
+        "systemTicks": 4,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 6,
+        "startTicks": 1000750,
+        "state": "S",
+        "parentPid": 5,
+        "userTicks": 1,
+        "systemTicks": 3,
+        "reapedChildUserTicks": 11,
+        "reapedChildSystemTicks": 16,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 23285760,
+          "Pss": 14852096,
+          "Private_Clean": 2985984,
+          "Private_Dirty": 8011776
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 2,
+      "ownAndReapedSystemTicks": 4,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 12,
+      "ownAndReapedSystemTicks": 19,
+      "sampledRssBytes": 23285760,
+      "sampledPssBytes": 14852096,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "hostCpuTicks": {
+      "user": 303240,
+      "nice": 0,
+      "system": 77254,
+      "idle": 8598159,
+      "iowait": 5504,
+      "irq": 0,
+      "softirq": 4281,
+      "steal": 12663,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 0.023698,
+  "processLifetimeSystemCpuSeconds": 0.046591999999999995,
+  "processLifetimeMaxRssBytes": 17231872,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-24T10:03:52.930615+00:00",
+  "finishedMonotonicNs": 10011888710260,
+  "files": {
+    "korda-per-operation-check.stdout.log": "da6def4e900bffe720a110177e70a8330e07d56af98ffbc22f511ce58f04e9b8",
+    "korda-per-operation-check.resources.jsonl": "940d39f0aa720dd4af4291b39004b35f93c31f80ffc5b1f8632e9aab31f17eff"
+  },
+  "success": true
+}

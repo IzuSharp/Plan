@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "observed-build-receipt",
+  "productionBase": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+  "sourceStatus": "Production sources unchanged during before publish; harness source copied unchanged; Program reconstructed from fixed base plus the observed five-line probe branch.",
+  "command": [
+    "dotnet",
+    "publish",
+    "tests/Data.Streaming/Korda.Data.Streaming.Tests.csproj",
+    "-c",
+    "Release",
+    "-r",
+    "linux-x64",
+    "-p:PublishAot=true",
+    "-p:UseSharedCompilation=false",
+    "-p:RestoreLockedMode=true",
+    "-m:1",
+    "-o",
+    "artifacts/db-perf-01/probe-before"
+  ],
+  "environmentFile": "/workspace/scratch/b94e2a0e0c3f/DB-Perf-01-env.sh",
+  "workingDirectory": "/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux",
+  "exitCode": 0,
+  "warningsObserved": 0,
+  "errorsObserved": 0,
+  "stdoutStatus": "Captured in exec tool result, not redirected to an on-disk publish log. This receipt is not represented as raw stdout.",
+  "outputs": {
+    "AllocationProbe.cs": "3328d624865e396eadea2cbcc66bd2d341e5a968f10bcf23a64f0cb940ca19dc",
+    "Korda.Data.Streaming.Tests": "15a82e56932efbc08e66cc7ad8557a5b9c7f2d76f566b570ac47ba0c45c98a05",
+    "Korda.Data.Streaming.Tests.dbg": "bf6b464aca392f87b26c421ff3995b25986586f1e751b41244c8b6f7fe27dfcd",
+    "Korda.Data.Streaming.pdb": "8e580473ad546b86dff367a27fb6a2814f67cb558d0028b7926f6cedb067e5af",
+    "Korda.Data.Streaming.xml": "a0ac70915635b7b277fa0cc5fb56a200828a0ae0895c58a3fbcf66bd2c5420f6",
+    "Korda.Data.pdb": "7c414f54a5a708241ed2acb785bdd1932b514648c84c7ad609d0af690f8f925a",
+    "Korda.Data.xml": "55c42a58e3d98599d8989127ebe76704b4d2dc9bd42f81c8b2c6c8a99a33e1d2",
+    "Program.before.cs": "0cc8b2488de94ac18935d0b6a29504926022b633d2667917ee4a76b26552bc89",
+    "TypedStream.before.cs": "8972c8d0e55ead50627b3a31555f29bd883115c7d8b658c59ba23a3d3f6fadc5"
+  },
+  "failedPriorInvocation": {
+    "exitCode": 1,
+    "reason": "dotnet publish does not accept --locked-mode; replaced with -p:RestoreLockedMode=true before successful build; no successful binary from that invocation"
+  }
+}

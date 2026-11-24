@@ -1,142 +1,375 @@
-# DB-Perf-01 — Linux recovery entry
+# DB-Perf-01 — Linux handoff
 
-## Current state
+## Current recovery point
 
-**In progress: immutable baseline acquired; first managed optimization passed scoped correctness and matching public-package allocation probes. Effective long-load segments: 0/8; accepted effective long-load time: 0 seconds.** No comparative throughput, latency, CPU, memory or whole-framework zero-allocation claim is established by this checkpoint. The first local experiment is not the final campaign candidate.
+This is an **in-progress measurement and implementation checkpoint**, not batch
+acceptance. Read [plan.md](plan.md), [baseline.json](baseline.json),
+[allocation-inventory.md](allocation-inventory.md) and
+[acceptance.json](acceptance.json). Long-test credit is **0/8**, with **0 accepted
+effective seconds**. No framework-wide zero-allocation claim is established.
 
-Read the [plan](plan.md), [allocation source audit](allocation-audit.md), [workload matrix](workloads.md) and [acceptance record](acceptance.json). All unexecuted workload and lifecycle entries remain pending. The original raw receipts, failed attempts, commands and hashes are retained under `preflight/`. A document or structural CI pass is not an execution or performance result.
+The active user has authorized production changes, required measurements, normal
+PR merges and automatic preview/public-package verification. Earlier DB-Rename
+review-only instructions are historical. Their original files and verifier bytes
+remain unchanged and are checked at Plan
+`bc1956936ee77a997a016856c97def6aabc0bbc6`; the new task does not relabel their
+recorded `awaiting_review` state as new acceptance.
 
-## Fixed inputs and recovered workspace
+| Identity | Fixed source |
+| --- | --- |
+| Korda before main | `771bc77cbd68d3f932b99ed2497c0697bbba5f02` |
+| Korda complete tree | `ddc4ec36cdade1749127fe5d50cbbf218b2878e6` |
+| Starting Plan main | `bc1956936ee77a997a016856c97def6aabc0bbc6` |
+| Starting Plan tree | `3dda25b1c0fd6ecb799d3c7359c68ef604b8f9d8` |
+| Branch | `task/DB-Perf-01-linux` |
+| Product worktree | `/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux` |
+| Plan worktree | `/workspace/scratch/b94e2a0e0c3f/Plan-DB-Perf-01-linux` |
 
-- Korda baseline main: `771bc77cbd68d3f932b99ed2497c0697bbba5f02`; tree `ddc4ec36cdade1749127fe5d50cbbf218b2878e6`.
-- Plan baseline main: `bc1956936ee77a997a016856c97def6aabc0bbc6`; tree `3dda25b1c0fd6ecb799d3c7359c68ef604b8f9d8`.
-- Design reference main: `d23fc89fb7436911b3f5a39995c7edb710a7be0a`.
-- Branch: `task/DB-Perf-01-linux` in each participating repository. Worktrees for this session are `/workspace/scratch/754bc732518e/Korda-DB-Perf-01-linux` and `/workspace/scratch/754bc732518e/Plan-DB-Perf-01-linux`.
-- An earlier clean worktree at `/workspace/scratch/b94e2a0e0c3f` had the same two baseline commits. New environment and baseline-artifact files appeared there during this session without being written by this session or its reviewers. Treat it as potentially active elsewhere; do not reset it or overwrite its files. This session uses separate git repositories and worktrees. Re-read remote branch heads before any push; integrate new work instead of force-pushing.
-- At initial recovery, neither remote repository had a DB-Perf-01 branch/PR and the requested Plan handoff did not exist on main. Korda #19 and Plan #23 are closed, unmerged historical Rust/Server work; none of their old load time is credited to this C++ campaign.
+At the initial remote check there was no existing DB-Perf-01 branch, PR or handoff.
+Re-read live branch/PR state before publishing or resuming; this statement does
+not predict the containing checkpoint's eventual commit, PR or CI.
 
-## Original candidate packages
+## Concurrent checkpoint reconciled without replacement
 
-The fixed-main [CI run 45356659607](https://github.com/IzuSharp/Korda/actions/runs/45356659607) completed successfully and produced both original `0.1.0-preview.3` candidates. The exact unsigned candidate archives were downloaded through GitHub. Their ZIP bytes matched the reported GitHub artifact digests:
+**Publication recovery:** automatic approval review rejected new full
+implementation/controller source snapshots being uploaded to Plan. The
+[source-location correction](source-scope-correction/README.md) replaces only
+93 locally added source copies with exact Korda source references. Raw measured
+files and all pre-existing remote evidence remain unchanged. The complete local
+snapshot is preserved at `b279f42674eb3e8db48b423482f38c6b955c4d82`; 82 references
+to 45 immutable archive inputs still await the actual Korda commit/tree. Do not
+publish the superseded full-source tree or invent those commit identities.
 
-| Provider | Artifact ID | Artifact ZIP SHA-256 |
+The later read found Plan branch commit
+`ba380202e7b36cbfe8dcd4bc2cfa0afe86048d92` (tree
+`cf94ab3a81351271a7dc0c7eaf49ea3acdbd2a02`) from a separate execution under
+`/workspace/scratch/754bc732518e`. It contains real public-package allocation,
+native/ORM capability and review records. This checkpoint merges that work
+additively with local recovery commits `5a7525437d17000952d553d662920582df6469a1`
+and `509e1b7c58172834b02795c7329e841a5b6effb0`; it does not overwrite the remote
+branch or edit the other active worktree. The three original overlapping reports
+and their provenance are retained under
+[reconciled-remote/ba380202](reconciled-remote/ba380202/README.md). Both `preflight/`
+and `checkpoints/` layouts remain intact.
+
+A new [read-only reconciliation](reconciled-remote/ba380202/public-preflight-verification.json)
+checked all twelve original raw result files, actual packages/executables/native
+images, unchanged consumer sources, complete package-member hashes, 386 producer
+inputs, cumulative allocation/GC counters and tracked ownership drain. These
+executions were recovered from the concurrent checkpoint; this executor did not
+rerun them. The original before packages match the fixed main. The after package
+is **`0.1.0-perf-lazy.1` at `28110ee03391831c737a54204730730a01b77a34`**, not the
+combined `ci.1` candidate or any later final candidate.
+
+For each provider, those three after processes contain 384 synchronous numeric
+in-batch windows / 48,768 rows with exactly **0 raw allocated bytes**. The matching
+before windows total 4,291,584 B / 48,768 rows, exactly 88 B/row. No control bytes
+were subtracted. The acceptance inventory now retains this narrowly bounded
+public path as a historical candidate result. Query construction, binding, first
+fetch, refill, final false, disposal, connection acquisition/return, concurrency,
+cancellation and exceptions are excluded from that zero claim. Complete-query
+and refill totals remain positive, with their exact framework fraction unproven;
+see the [original comparison](preflight/korda-allocation-after-lazy-join/comparison.md).
+No elapsed-time comparison from this shared sandbox is qualified.
+
+Korda [PR37](https://github.com/IzuSharp/Korda/pull/37) and the compatible concurrent
+preflight commit `f9f0d6438feb9b29a9fdac05f3c10bdc86ed5d85` now exist. Re-read live
+heads before any write. A further owned-batch-copy experiment is under evaluation;
+the final candidate stays unset until that decision and its measurements are
+complete. The eight qualifying long segments remain **0/8**.
+
+## Expanded correctness and campaign implementation checkpoint
+
+The following observations extend the earlier five/30-read-case checkpoints; the
+older receipts below remain unchanged historical observations. **Long credit is
+still 0/8.** Final optimized-package comparison, qualified host admission, merge,
+preview and public-package verification are not established by this checkpoint.
+
+The [managed final correctness index](checkpoints/managed-final-v1/summary.json)
+binds the original-package Korda and independent Dapper.AOT consumers to exact
+source, restore graph, executable and raw result hashes. Both databases and both
+managed routes completed all 35 cases in dynamic and prepared modes: **35
+successful operations, 854 consumed rows, zero failures per pass**. Each also
+completed the C4 mixed-write correctness probe with 36 successes and 276 rows.
+These counts are correctness evidence, not stable throughput estimates. Korda's
+source/project bytes match across providers, as do Dapper's.
+
+The shared workload is `queries-v3.json`, SHA-256
+`76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2`.
+It adds committed read/write transactions with restoration, rollback, partial
+updates, an expected stale concurrency exception, and early enumeration end.
+All write paths check the complete persisted original row after restoration or
+rollback. PostgreSQL normal35 observed 59 SQL executions and 276 protocol
+submissions for Korda; SQLite observed 61 SQL executions and no network protocol
+submissions. These counters are not physical network round trips.
+
+PostgreSQL final managed binaries passed genuinely suspended cancellation followed
+by connection reuse, pre-cancellation and overlapping optimistic conflict checks.
+SQLite Korda's cancellation/conflict verifier is explicitly bound to an earlier
+v5 executable with the same verifier, while the final v6 normal35 and mixed-write
+probes ran independently. Dapper/Microsoft.Data.Sqlite active cancellation is
+**unsupported in the observed path**: the real recursive database computation
+completed synchronously despite timed cancellation. Its prior failed probe and
+the final explicit unsupported receipt are retained. Dapper's ownership check
+covers application connections and cleared pools, not uninstrumented provider
+internals. Korda's tracked six native owner categories returned to zero.
+
+Direct native [SQLite](checkpoints/native35-sqlite-v3/summary.json) and
+[PostgreSQL](checkpoints/native35-postgresql-v3/summary.json) each passed three
+35-case correctness processes plus a C4 lifecycle process. Each normal35 pass
+consumed 854 rows in 35 successful operations with 57 business SQL statements;
+each lifecycle process completed 100 operations and 280 rows. Executable SHA-256
+is `055539a43c11a6e41a92ee0f54fdd1ac3245b7f2ce13f2921124d53dfc53e96d`.
+Prepared native reuse with ordinary complete driver drain is the primary
+comparison contract. Per-operation preparation/product confirmation remain
+separate attribution layers; they do not exactly reproduce Korda's internal
+transaction control SQL. Native whole-heap allocation/free counters and peak
+remain uninstrumented in these binaries.
+
+Independent review found a remaining workload gap: this frozen mixed35 contract
+fully consumes at most 53 rows per operation, usually 32; early-stop consumes only
+three of 1,024 requested rows. It does **not** prove a fully consumed large-result
+or heavy materialization lane. Add a separate validated large-stream contract
+instead of relabeling these results.
+
+The [controller checkpoint](checkpoints/controller-review-v1/summary.json)
+preserves 15 passing short tests, exact source snapshots, and independent source
+review notes. Korda contains the manual-only hosted workflow and a disabled
+request. Preparation binds four exact original/candidate artifacts and builds
+external consumers in a separate job. Measurement reserves one Ubuntu 24.04 VM
+for the eight sequential 30-minute segments, with a 360-minute job limit and
+distinct upload checkpoints. No workflow activation or remote long execution is
+claimed here.
+
+Admission checks actual cgroup-v2 membership plus every visible ancestor's CPU
+quota/throttle counters, disjoint client/server/observer affinity, VM boot/image
+identity, idle load/steal and interleaved before noise. The kernel defines
+[cpu.max on non-root groups and local bandwidth counters](https://docs.kernel.org/admin-guide/cgroup-v2.html#cpu-interface-files);
+checking only the mount root could miss a limited descendant. Missing/hidden
+ancestry, including this sandbox's unavailable `/sys`, cannot qualify. Resume
+revalidates raw/source hashes and rejected admission. Failed attempts require an
+explicit bounded retry with a retained reason; prior valid samples cannot be
+replaced by preferred samples. Closed-loop service calibration is distinct from
+the scheduled-rate SLO ladder. The current overload/recovery commands use fresh
+processes, so same-pool recovery remains a separate requirement.
+
+## Exact original candidate archives recovered
+
+Fixed-main [CI45356659607](https://github.com/IzuSharp/Korda/actions/runs/45356659607)
+built both original `0.1.0-preview.3` provider candidates. The parent downloaded
+the actual artifacts; a separate read-only review rehashed each artifact ZIP,
+each nupkg, every unsigned package member (41 PostgreSQL / 40 SQLite) and native
+payload, and checked source_commit/source_tree and the exact member set. The
+unchanged producer manifests and [archive review](baseline/archive-review.json)
+are retained here. This was byte/provenance inspection, not new execution.
+
+| Original candidate | nupkg SHA-256 | Native SHA-256 |
 | --- | --- | --- |
-| PostgreSQL | `14903585207` | `f24a34a23122401816083a53113b6b416d11e6a7c73db6d46bc3c385d5227990` |
-| SQLite | `14902997132` | `c49c4a971f8562383319323cd28e02c4aed38471bce877831e9dc26fbb54b8a5` |
+| Korda.Database.PostgreSql 0.1.0-preview.3 | `458c115e12d65ca0719f542ea262aeb3347f5bc3269f99d5ba14f3e36c038e0f` | `73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6` |
+| Korda.Database.Sqlite 0.1.0-preview.3 | `584d46aa5b08b1e0af46a454ac9f41704c28fe502884017e856ad1b66ca53ef5` | `970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40` |
 
-Local acquisition: `/workspace/scratch/754bc732518e/baseline-artifacts/{postgresql,sqlite}/`. Each contains `release.json`, its standalone nupkg and the original producer's order-consumer evidence. These original CI logs are historical package-correctness evidence, not new performance measurements. The package and loaded-image hashes must also be recorded in each DB-Perf-01 consumer run.
+Local archives are under
+`/workspace/scratch/b94e2a0e0c3f/baseline-artifacts/{postgresql,sqlite}/feed/`.
+The original artifact ZIPs are beside those provider directories. Their artifact
+IDs/digests are in [baseline.json](baseline.json); official expiry was
+2026-12-08. These are unsigned original candidate archives from fixed main, not
+downloaded NuGet-signed substitutes. Do not conflate artifact ZIP, nupkg,
+individual native payload or signed public archive hashes.
 
-## Execution environment and scope of current results
+The previous release jobs also succeeded for the same main:
+[PostgreSQL public AOT](https://github.com/IzuSharp/Korda/actions/runs/45356659607/job/138320638625)
+and [SQLite public AOT](https://github.com/IzuSharp/Korda/actions/runs/45356659607/job/138320638635).
+They establish previous correctness/publication observations. They do not execute
+the new benchmark consumer or provide DB-Perf allocation, latency or duration data.
 
-The recovered .NET SDK `11.0.100`, Clang `23.1.5`, CMake `4.3.3` and PostgreSQL `18.0` binaries were actually invoked. The tool paths are recoverable under `/workspace/scratch/82a414196324`; their source and archive identities must be checked before reuse. Direct loopback TCP was tested successfully. Creating an AF_UNIX socket returned `EPERM`; use ordinary single-process MSBuild options and a private PostgreSQL cluster with Unix sockets disabled. This is a host capability constraint, not a product change.
+## Recovered local tools and their limits
 
-The visible process affinity contains CPUs 0–8. Dedicated measurement-resource ownership has not yet been established; another session appears active. Short capability and allocation probes can establish their stated boundaries, but elapsed time collected during concurrent builds is diagnostic only. Do not convert it into an uncontended performance comparison or a qualifying 30-minute segment.
+[Recovery observations](recovery-observations.json) retain original clean worktree
+identities, actual old package rehashes and executable tool hashes/version output.
+The former workspace `/workspace/scratch/82a414196324` still contains .NET
+11.0.100, Clang 23.1.5, CMake 4.3.3, Ninja 1.13.2, PostgreSQL 18.0, pinned SQLite
+and JSON sources, and the required .NET 11 Native AOT/Roslyn cache. The old local
+`0.1.0-ci.1` archives match the same source tree but retain producer commit
+`9aa0b909…`; they are recovery aids, not the selected before packages now that
+the exact main archives have been recovered.
 
-## Actual preflight and first isolated optimization
+Use a task-specific environment and independent consumer directories. Do not
+source the old serial-build launcher unchanged: it appends to the old task's
+invocation log. Preserve telemetry opt-out and ordinary single-process compiler
+settings when needed. Old logs include a genuine full-workspace formatter failure
+from the sandbox's Unix socket restrictions; later unchanged GitHub CI passed.
+Do not claim that historical CI removes a current local limitation or rerun a
+denied action through a disguised launcher.
 
-The ordinary external `PackageReference` consumers ran as real Native AOT ELF
-processes. The [before record](preflight/korda-allocation/summary.md) contains three
-independent processes per provider, each with 128 complete queries per mode and
-256 consumed scalar `long` rows per query. Measurement uses raw process-wide
-`GC.GetTotalAllocatedBytes(true)` start/end counters; no empty control is subtracted.
-Business DTOs, strings, lists and result arrays are absent in those scalar intervals.
+The sandbox is **not qualified for the dedicated long campaign**. Visible affinity
+0–8 and `/proc` memory are not proof of exclusive cores, fixed quotas, client/
+PostgreSQL service isolation or stable host identity. The observed `/sys` CPU and
+cgroup quota files were absent. No dedicated admission or before-only noise study
+is recorded, and repository CI uses ordinary hosted Linux jobs. Root-owned
+environment investigation may qualify a suitable host later; until then no long
+segment may receive acceptance credit.
 
-The isolated lazy-join candidate changes only `TypedStream` production code. It
-creates a completion join only when disposal actually overlaps a pending move.
-The exact local producer is `28110ee03391831c737a54204730730a01b77a34`, version
-`0.1.0-perf-lazy.1`. The experiment is distinct from the later remote candidate,
-which also contains scalar validation improvements. Both provider packages retain
-the byte-identical original native libraries. Every unsigned original package
-member and every bound native input was checked before the repository's public
-bundle composer and closure validator composed the new managed candidate.
+A **single separate GitHub-hosted `ubuntu-24.04` campaign job** is a viable next
+admission candidate. Lack of a self-hosted runner is not itself a blocker.
+[GitHub's runner reference](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
+describes a fresh VM per ordinary hosted job and the public Linux x64 resource
+class; its [limits](https://docs.github.com/en/actions/reference/limits) permit up
+to six hours per job. Build all exact package/consumer/native inputs in a separate
+preparation job, then reserve one VM for the eight sequential segments. Record
+guest CPU affinity, quotas, boot identity, image, disk and tool/binary hashes;
+separate client, PostgreSQL and observer CPUs; admit measured idle/steal/noise and
+monitor them continuously. This is VM exclusivity within the job, not a claim of
+exclusive physical host cores. The proposed manual/opt-in workflow is still
+being implemented and has not run. Ordinary PR CI remains short. Acceptance is
+still 0/8 until actual admitted, matching observations are retained.
 
-[Matching before/after public-package evidence](preflight/korda-allocation-after-lazy-join/comparison.md):
+## Source findings and before diagnostics
 
-| Provider | Complete 256-row path | Before raw B / 384 queries | After raw B / 384 queries | Before B/query | After B/query | Change |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| PostgreSQL | Dynamic | 26,711,088 | 18,033,528 | 69,560.125 | 46,962.3125 | -32.486734% |
-| PostgreSQL | Parameterless prepared | 21,624,144 | 12,923,104 | 56,312.875 | 33,653.916667 | -40.237616% |
-| SQLite | Dynamic | 26,712,560 | 18,033,648 | 69,563.958333 | 46,962.625 | -32.490005% |
-| SQLite | Parameterless prepared | 21,623,952 | 12,933,248 | 56,312.375 | 33,680.333333 | -40.190174% |
+The fixed baseline allocates a TaskCompletionSource on every
+`TypedStream<T>.Enumerator.MoveNextAsync` call, copies each native batch into a
+managed array, and copies again while parsing DbWire. Parameter-shape rebuilding,
+validation-only UTF-8 strings, decimal re-encoding and async operation completion
+owners are additional source candidates. See the inventory for exact pinned
+paths and required controls; these are not measured saving estimates.
 
-Each row in that table consumes 98,304 total rows. Complete intervals include
-construction/stream creation, final `false`, enumeration disposal and dynamic
-query disposal; session acquisition and return are outside. Positive totals are
-end-to-end allocations, not an invented exact framework-only attribution.
+Actual isolated before diagnostics are now retained under
+[checkpoints/before-internal](checkpoints/before-internal/summary.json): 62 original
+JSON/log files and their byte hashes, 30 successful command records, three
+interleaved independent processes per streaming lane, and the exact AOT binary
+identities. The fixed production source diff was recorded empty before the
+candidate edits began. In-batch advance records 23,063,040 raw allocated bytes for
+262,080 measured rows in each repeat (88 B/row), with a separate matching control
+of exactly zero raw bytes. Full synchronous internal stream operations record
+24,584,456 bytes per 64 queries / 131,072 rows. Asynchronous internal stream totals
+are 24,731,504 / 24,736,680 / 24,736,680 bytes, with 576 observed suspensions each;
+the separate asynchronous driver control is 55,560 bytes per repeat. Do not
+silently subtract control totals to assert exact framework attribution.
 
-For each provider, the 384 before synchronous row windows allocated exactly
-11,176 B for 127 rows each (88 B/row). Every after window allocated **exactly
-0 raw B**. Across both providers, all 768 after windows / 97,536 rows were zero,
-with matching empty controls also zero. This passes only the warmed numeric
-batch-local synchronous path. Refills still allocate roughly 12 KB including the
-new batch's first row; whole queries remain nonzero. Actual thread-changing await
-resumptions and incomplete-await observations are recorded separately. All six
-native owner categories returned to zero in all twelve before/after processes.
-The private PostgreSQL clusters were stopped successfully with durability enabled.
+The [inventory summary](allocation-inventory.md) also preserves scalar lanes and
+the exploratory scalar probe's first 672-byte empty-driver contamination. These
+internal measurements establish a specific investigation baseline; they do not
+complete normal public-provider, independent ORM, direct-native or dedicated
+long-run acceptance. Candidate implementation is proceeding from these observed
+hotspots; no final candidate improvement is yet accepted by this checkpoint.
 
-[Internal and real-provider streaming checks](preflight/streaming-lazy-join/summary.md)
-passed 46 deterministic lifecycle assertions, a separate exact 0 B / 65,520 row
-regression gate, and 615 assertions across 60 real-provider cases plus six shape
-preflights. Reused native fixture provenance is explicitly checked against 95
-unchanged source/profile inputs. Certain cancellation/overlapping-disposal cases
-retire a connection as unusable by existing semantics; release is proven, reuse
-is not claimed for those cases.
+The isolated lazy-join candidate has three retained repeats under
+[after-lazy-join](checkpoints/after-lazy-join/summary.json): in-batch advance is
+exactly 0 raw bytes for 262,080 measured rows per repeat, while full synchronous
+stream work remains 13,013,944 bytes per 64 queries / 131,072 rows. The corresponding
+before value was 24,584,456 bytes. All 46 deterministic join/disposal race assertions
+passed. This is a bounded internal transport measurement, with stream creation,
+fetch and disposal excluded from the zero-byte window; it does not establish
+public-query or whole-framework zero allocation. A separate
+[short regression execution](checkpoints/after-gate/summary.json) records 0 raw
+bytes / 65,520 rows / 16 windows, with the same 46 race assertions and a preserved
+build log. Source hashes and binaries distinguish these candidate builds.
 
-The [native probe](preflight/native/README.md) actually exercised direct Clang
-23.1.5 / libc++ / SQLite 3.51.3 and patched libpq/PostgreSQL 18.0 query consumption,
-parameters, owned values, commit and rollback. The
-[independent ORM probe](preflight/independent-orm/README.md) actually exercised
-Dapper 2.1.79 / Dapper.AOT 1.1.0 with Npgsql 11.0.0 and
-Microsoft.Data.Sqlite.Core 11.0.0 as real Native AOT applications. These establish
-capability only. SQLite comparator compile-option alignment and complete mixed
-business coverage are separate campaign obligations.
+The before AOT build's original stdout was observed in the execution transcript,
+not redirected to a file. Its retained observed-build receipt states this limit
+and labels the small Program.cs harness reconstruction. The untouched allocation
+probe source and fixed-main TypedStream snapshot are hashed separately. The
+[scalar-v2 checkpoint](checkpoints/before-scalar-v2/summary.json) preserves a
+revised diagnostic setup and all nine zero-byte empty-driver windows. Its first
+UTF-8 window still contains an extra 1,136 bytes; that result is retained without
+normalization. Original v1 contamination remains visible.
 
-## Concurrent work reconciliation and comparison blockers
+Further scalar comparisons use an unchanged source-bound v3 probe, three
+independent AOT processes and three windows of 100,000 calls per process:
 
-Another task worktree became active during baseline recovery. Its remote
-production checkpoint opened PR37. This session preserved it, then added the
-independently validated preflight probes by a normal expected-head fast-forward.
-The local lazy-only experimental commit remains immutable for its measurements;
-it must not be relabeled as the remote combined candidate. Re-read remote heads
-before any mutation and use lease-checked fast-forwards; never overwrite an active
-worktree or create a competing campaign/PR.
+| Internal validation lane | Before raw bytes / window | After UTF-8 change | After decimal change |
+| --- | ---: | ---: | ---: |
+| Empty driver | 0 | 0 | 0 |
+| Strict UTF-8 | 8,000,000 | 0 | 0 |
+| Canonical 96-bit decimal | 28,000,000 | 28,000,000 | 0 |
+| Canonical decimal zero | 4,000,000 | 4,000,000 | 0 |
+| Typed JSON validation | 28,000,000 | 15,200,000 | 15,200,000 |
 
-Two [independent snapshot reviews](reviews/concurrent-harness-snapshot-001.md)
-and [native/stream review](reviews/concurrent-native-stream-snapshot-001.md)
-identified concrete blockers in an uncommitted earlier harness, not defects
-claimed to be merged product behavior:
+Every corresponding window has the listed raw value; cumulative before/after
+counters, GC counts, build logs and exact source snapshots are retained in
+[before-scalar-v3](checkpoints/before-scalar-v3/summary.json),
+[after-scalar-utf8-aot](checkpoints/after-scalar-utf8-aot/summary.json) and
+[after-scalar-decimal-aot](checkpoints/after-scalar-decimal-aot/summary.json).
+These are isolated validation paths, not complete provider operations. JSON
+remains allocating. Strict malformed UTF-8 and canonical/noncanonical decimal
+correctness checks passed in the corresponding actual AOT binaries. The initial
+UTF-8 launch omitted PublishAot and exited before its managed body because the
+apphost could not find a runtime; its failure log has zero measurement credit.
 
-- `per-operation` workers retained one setup session each, leaving only one free
-  connection when `MaxConnections = concurrency + 1`; that can serialize the ramp.
-- Korda `mixed` selected 30 reads while the native entry selected five; the minimal
-  Dapper application had no matching mixed entry. Those receipts are incomparable.
-- The old scheduler was closed-loop and did not represent a frozen offered load;
-  native stopped on first error while managed continued.
-- Native allocator statistics, physical packet observations and exact positive
-  framework allocation attribution remained unmeasured.
+## Real public and native correctness checkpoints
 
-The shared contract under `benchmarks/Database/campaign` is being reconciled with
-all routes. Its independently generated 30 read oracles reproduce the existing
-1,024-order SQLite result digests exactly; the expanded 8,192-order dataset and
-PostgreSQL dialect SQL require fresh execution. Source-level synthesis is not a
-business-case acceptance receipt. The [adaptation plan](shared-workload-adaptation.md)
-keeps transaction writes, conflict, rollback, cancellation and early enumeration
-as explicit remaining obligations.
+The original fixed-main packages have now executed through normal out-of-tree
+PackageReference Native AOT applications on both real databases. The
+[five-projection smoke receipts](checkpoints/before-public-smoke/summary.json)
+bind packages, generated projection sources, executables and loaded native bytes.
+The subsequent ten short cells per database (five projections × dynamic/prepared)
+completed 1,000 operations and consumed 32,000 rows on each provider, with no
+failures and all tracked owners at zero after drain. Their raw end-to-end bytes
+are retained in [SQLite](checkpoints/sqlite-before-short/summary.json) and
+[PostgreSQL](checkpoints/postgresql-before-short/summary.json). Framework-only
+attribution remains unproven. These v1 applications are not silently interchangeable
+with later expanded consumers.
 
-The [dedicated-runner design](preflight/github-runner/design.md) describes one
-Linux VM and one serial 8-segment campaign, separate from ordinary short PR CI.
-The available GitHub plugin has no workflow-dispatch tool; normal explicit PR
-activity triggers are being evaluated without changing access controls. No VM
-admission, offered-load calibration or long run has occurred yet.
+The expanded [SQLite v2 read workload](checkpoints/sqlite-before-public-v2/summary.json)
+completed all 30 query scenarios once in each construction mode, 840 consumed rows
+per pass, with zero failures and owners returned to zero. It adds joins,
+aggregations/HAVING, NULL cases, cursor/offset pagination, relationships,
+subqueries, CTEs, windows and set operations. Raw SQL in prepared mode reuses only
+the SqlCommand object; relation loading has no prepared overload. Transaction
+writes, conflicts, rollback, cancellation and early enumeration remain separate
+obligations. PostgreSQL's expanded workload was still being investigated when
+this checkpoint was written; do not infer its success from SQLite.
 
-## Resume order
+Direct C++20 with Clang 23.1.5 has completed 13 correctness processes per database:
+the same five projections in both construction modes and three separately labeled
+physical-preparation/confirmation layers. The exact build receipt and raw
+[SQLite](checkpoints/native-correctness-sqlite/summary.json) and
+[PostgreSQL](checkpoints/native-correctness-postgresql/summary.json) observations
+are retained. All consumed the complete expected results and drained tracked
+owners. Native full-heap allocation/free call counts remain uninstrumented; glibc
+snapshots and SQLite allocator high-water values are narrower observations.
+PostgreSQL protocol submission counts are not physical network round trips.
 
-1. Check remote main/task heads and PR state, then compare this checkpoint and all pending local files. Preserve the fixed baseline and historical records.
-2. Read actual preflight receipts and their source/executable/library hashes; reuse only matching results. Do not rerun completed probes just to recreate prose.
-3. Reuse the completed original-package allocation baseline, matching lazy-join public-package experiment, independent ORM proof and direct native proof. Their minimal queries do not count as the 30 business cases.
-4. Implement and validate the shared workload, dataset and result oracle, then establish short four-column baselines on isolated measurement resources.
-5. Perform one evidence-backed production change at a time, then short regressions, composite comparison, all eight long segments, independent review and normal PR/merge/release follow-up.
+Dapper.AOT 1.1.0 / Dapper 2.1.100 has passed minimal real Native AOT buffered and
+32-row streaming queries with [Microsoft.Data.Sqlite.Core 11.0.0](checkpoints/dapper-sqlite-minimal/summary.json)
+and [Npgsql 11.0.0](checkpoints/dapper-postgresql-minimal/summary.json). SQLite used
+the exact comparator's pinned SQLite 3.51.3 shared image. This proves basic real
+ORM support, not the full comparison workload. The first SQLite probes aborted
+while the workspace had zero free bytes; their empty logs and later successful
+argv observations are preserved. Only reproducible build intermediates and
+checksum-verified compressed tool downloads were removed to recover space;
+[cleanup provenance](tool-download-cache-cleanup.json) records the latter.
 
-## Release status
+These are correctness and exploratory diagnostics. No four-column comparative
+campaign, admitted fixed offered load, saturation/recovery study, or qualified
+long segment is complete.
 
-The canonical product review is [Korda PR37](https://github.com/IzuSharp/Korda/pull/37), observed as Draft at `f9f0d6438feb9b29a9fdac05f3c10bdc86ed5d85`. The earlier production checkpoint `a3ba5aded6677dcbb4f56c27ce79196bbbe18d0d` passed [CI45366971791](https://github.com/IzuSharp/Korda/actions/runs/45366971791); its descendant has its own CI and cannot borrow that status. No DB-Perf merge or automatic preview publication is claimed. Existing `0.1.0-preview.3` publication belongs to the fixed baseline. The owner already authorized normal compliant merges and publication verification for DB-Perf-01; do not ask again solely because older task text stopped for review.
+Public Task-returning genuinely asynchronous calls expose independently
+retainable non-resettable completion objects. Bounded reuse cannot silently
+change those semantics. A measured allocation-free row path may be achievable
+while per-query/refill/transaction costs remain. Report the latter as framework
+bytes and unmet or unproven paths instead of claiming whole-framework 0 GC.
+
+## Continue from here
+
+1. Reconcile remote branch/PR heads and all newly retained receipts. Preserve
+   current work and recovered baseline binaries; do not start a second campaign.
+2. Reuse the completed original-package and minimal independent-ORM AOT receipts.
+   Finish equivalent expanded workloads and bind one unchanged consumer source
+   set to both the original and final candidate packages.
+3. Freeze the workload/data/SQL/result manifest, define at least 24 business cases
+   per database, and complete correctness before timing.
+4. Admit the dedicated resource set, quantify before noise, then measure baseline
+   allocation and short/maximum-throughput curves. Production edits follow actual
+   measured hotspots, one isolated comparison at a time.
+5. Run the four routes × two databases as eight independent continuous effective
+   30-minute mixed segments on the admitted resource set; warmup/drain/idle are
+   extra. Keep raw bytes/time series and source/parameter/environment hashes.
+6. Finish scoped correctness/API/AOT/allocation checks and non-author review,
+   normally merge verified changes, observe main/preview, and consume actual
+   public NuGet packages. Keep incomplete paths and stopping reasons explicit.
+
+The new Plan record gate is `python3 tools/verify_db_perf.py`; optional
+`--verify-frozen-history` runs the unchanged DB-Rename and nested DB-API gates at
+their original inputs. `--archives /absolute/path/to/baseline-artifacts` rechecks
+the selected original package bytes. A document/integrity pass is not a benchmark
+result. The current evidence commit's own future CI is always checked separately.

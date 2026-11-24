@@ -1,3 +1,17 @@
+# Current task — DB-Perf-01
+
+The owner authorizes Linux x64 database and Fluent ORM performance work on the current C++20/libpq/sqlite3 Korda product: comparable baselines, profiling, implementation, real measurements, independent review, PRs, normal merges, automatic preview and actual public NuGet Native AOT consumption. Use `task/DB-Perf-01-linux` and task-named worktrees. Read the [plan](ledger/evidence/batches/DB-Perf-01/plan.md), [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md), [baseline](ledger/evidence/batches/DB-Perf-01/baseline.json) and [incomplete acceptance](ledger/evidence/batches/DB-Perf-01/acceptance.json).
+
+Preserve current public APIs, `Db*` attributes, separate provider packages, ownership/cancellation/backpressure/thread safety and ordinary C#-only Entity/DTO edits. Implementation and benchmarks belong in Korda; measurements, raw evidence indexes and recovery state belong in this batch. Synchronize Design if a public contract changes. Follow current Korda module routing and Native AOT package checks; do not add JIT consumers or run the four-hour campaign in ordinary PR CI.
+
+All four comparison columns and both databases require actual equivalent measurements. Retain raw cumulative allocation counts before division, process-wide async/concurrent attribution, CPU/memory/native costs and explicit unmet/unproven paths. Internal or per-row zero bytes never establish whole-framework zero GC. The eight continuous effective 30-minute mixed-load segments require an admitted dedicated Linux resource set and remain 0/8 until actual source/binary/workload/environment-bound evidence exists.
+
+Run `python3 tools/verify_db_perf.py`; use `--verify-frozen-history` for the unchanged previous task gate at frozen Plan `bc1956936ee77a997a016856c97def6aabc0bbc6`. The CI workflow separately checks that immutable DB-Rename snapshot and every existing historical gate. Preserve earlier verifier/evidence bytes and the original `awaiting_review` snapshot without relabeling it. This owner's new authority supersedes older task exclusions/review-only stop instructions below.
+
+Normal merge/publication authority is already granted, but acceptance requires actual correctness, measurements, review and observed CI/release results. Never bypass checks, change permissions or impersonate an approval account. Finish the Chinese evidence-backed report after verified delivery and stop. The containing evidence commit's own future CI is checked separately.
+
+## Earlier task authority (historical; original text preserved)
+
 # Current task — DB-Rename-01
 
 The owner authorizes renaming Korda's database attributes to natural `Db` names, preserving behavior, synchronizing current documentation, testing Linux x64 Native AOT consumers against both real databases, and pushing reviewable PRs. Read the [current plan](ledger/evidence/batches/DB-Rename-01/plan.md) and [handoff](ledger/evidence/batches/DB-Rename-01/handoff-linux.md). Use `task/DB-Rename-01-linux` and task-marked worktrees.
