@@ -1,5 +1,62 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-24 18:38 UTC
+
+The measured product remains actual package producer
+`3d5ba3f9884308caa691718f73a74aa42be19d94`, tree
+`74a76bc5d00671a48221d0ed19002a3ffffd319f`; the new work changes only the
+calibration controller and its request. Business List/DTO/string/typed JSON
+objects remain business allocation, including mapper-created results. Framework
+additional allocation targets steady-state 0 B; shared-process GC counts are
+reported once and are not split into invented framework/business collections.
+
+[Campaign 45452087158](https://github.com/IzuSharp/Korda/actions/runs/45452087158)
+ended at 2026-11-24 18:16 UTC before any long segment. Its exact checkpoint 0 ZIP
+is artifact `14952080637`, SHA
+`bc4f1195eba7fcd518120e8e3c61b0e1f6304f8a76dd1992ba7d3da4ebc1cb39`:
+783 original records, 69 completed PostgreSQL preflight cells. Initial idle and
+quota checks passed, and before-process noise CV was 0.024485870646359646 against
+0.1. Full campaign admission and fixed offered rates were not completed.
+At frozen concurrency 4, all four before-Korda scheduled rates failed the
+unchanged rejection threshold; only the lowest rate also exceeded the p99 limit.
+The C8 success cannot substitute for C4. Original planned/attempted/completed/
+failed/rejected counts, all histograms, time series and failed points remain.
+**Accepted long segments remain 0/8 and accepted effective seconds remain 0.**
+
+The independently reviewed controller repair is public commit
+`da153c22ef1093fccc3233ec76bfda96e6cc59df`, tree
+`3b3597bc5fbf28e28e7bd5fd9d91e575531b9266`. When every tested rate fails,
+it can halve the lowest observed rate using the existing maximum of three
+five-second refinement windows, then use midpoints once a success/failure
+bracket exists. It preserves every failed observation, the hard iteration
+budget, fixed concurrency, SLO and resource gates; if no rate passes it still
+fails calibration. Its 43 controller tests and selected routing checks passed.
+The source-only combined production review also found no concrete lifecycle
+blocker; this does not replace qualified comparative performance evidence.
+
+Activation commit `d665c0c9629922cfff0e48fa535d6f21393f8162`, tree
+`f979890608ba0c3f65d4575f55c59c8e5afdacb6`, changes only the request's
+harness commit and activation note. Request SHA is
+`189fc14ab799b152256c2d92c497c507a6ded2431cad8bdbd362bdc7538adfab`.
+The current campaign is
+[45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267).
+Its first preparation job `138684157567` rejected the older runner image before
+building; only that failed job was retried. Preparation `138685089344` has passed
+the frozen image guard and is building the runtime bundle. Re-read the live run
+before continuing; do not overlap campaigns or claim preparation as measurement.
+Original/final packages, compiled business consumers, data/workload, queue size,
+SLO and eight full 1,800-second durations are unchanged.
+
+[Normal CI 45453261268](https://github.com/IzuSharp/Korda/actions/runs/45453261268)
+completed successfully including Verify. The controller's
+[normal CI 45461107207](https://github.com/IzuSharp/Korda/actions/runs/45461107207)
+is being observed. The previous handoff-only Plan commit `a2c9149b07a37c6dd71a900010203e3de4bc992a`
+passed [CI 45454262082](https://github.com/IzuSharp/Plan/actions/runs/45454262082).
+Full raw publication remains in progress; content-addressed uploads retain their
+manifests/progress, while these handoff-only commits keep the recovery entry live.
+Local-only review commits are not asserted publicly fetchable: the reviewed
+local b4e9120 tree equals actual public da153c2, and local 5dbd06a equals d665c0c.
+
 ## Live update — 2026-11-24 17:56 UTC
 
 The current campaign is [45452087158](https://github.com/IzuSharp/Korda/actions/runs/45452087158),
