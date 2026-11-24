@@ -10514,71 +10514,90 @@
           "state": "complete"
         }
       ]
+    },
+    "DB-API-01": {
+      "task": "DB-API-01",
+      "branch": "task/DB-API-01-linux",
+      "platforms": [
+        "linux-x64"
+      ],
+      "authorization": "Owner-authorized Fluent ORM experience enhancements, tests, English documentation, normal merges and observation of repository-triggered publication. C++20/libpq/sqlite3 remain execution owners.",
+      "source_main": {
+        "Korda": "7275396176b928c8879d59f4bf20ad8fa7ffb62c",
+        "NativeWeave-Design": "de1f4796dc199250b405ea99f2129d611f17b1f6",
+        "Plan": "5be447a868be78713ada52f46cee16409f0edc13"
+      },
+      "plan": "ledger/evidence/batches/DB-API-01/plan.md",
+      "handoff": "ledger/evidence/batches/DB-API-01/handoff-linux.md",
+      "acceptance": "ledger/evidence/batches/DB-API-01/acceptance.json",
+      "phases": [
+        {
+          "id": "baseline",
+          "state": "complete",
+          "depends_on": []
+        },
+        {
+          "id": "plan-first",
+          "state": "complete",
+          "depends_on": [
+            "baseline"
+          ]
+        },
+        {
+          "id": "design-contract",
+          "state": "complete",
+          "depends_on": [
+            "plan-first"
+          ]
+        },
+        {
+          "id": "implementation",
+          "state": "complete",
+          "depends_on": [
+            "design-contract"
+          ]
+        },
+        {
+          "id": "aot-consumers",
+          "state": "complete",
+          "depends_on": [
+            "implementation"
+          ]
+        },
+        {
+          "id": "review-and-merge",
+          "state": "complete",
+          "depends_on": [
+            "aot-consumers"
+          ]
+        },
+        {
+          "id": "main-and-release",
+          "state": "complete",
+          "depends_on": [
+            "review-and-merge"
+          ]
+        }
+      ]
     }
   },
   "current_execution": {
-    "task": "DB-API-01",
-    "branch": "task/DB-API-01-linux",
+    "task": "DB-Rename-01",
+    "branch": "task/DB-Rename-01-linux",
     "platforms": [
       "linux-x64"
     ],
-    "authorization": "Owner-authorized Fluent ORM experience enhancements, tests, English documentation, normal merges and observation of repository-triggered publication. C++20/libpq/sqlite3 remain execution owners.",
+    "authorization": "Owner-authorized managed database attribute rename, current documentation sync, local tests, pushes and PRs; stop for review with passing checks. No merge or public publication.",
     "source_main": {
-      "Korda": "7275396176b928c8879d59f4bf20ad8fa7ffb62c",
-      "NativeWeave-Design": "de1f4796dc199250b405ea99f2129d611f17b1f6",
-      "Plan": "5be447a868be78713ada52f46cee16409f0edc13"
+      "Korda": "ea72031db6f9111a31c6f743b5babc345f96862d",
+      "NativeWeave-Design": "fcc2b3599066a467ce3d8bf52e4753bdeea6cd86",
+      "Plan": "85f7f83e29e67f6865c14c64585139541b8a1a1f"
     },
-    "plan": "ledger/evidence/batches/DB-API-01/plan.md",
-    "handoff": "ledger/evidence/batches/DB-API-01/handoff-linux.md",
-    "acceptance": "ledger/evidence/batches/DB-API-01/acceptance.json",
-    "phases": [
-      {
-        "id": "baseline",
-        "state": "complete",
-        "depends_on": []
-      },
-      {
-        "id": "plan-first",
-        "state": "complete",
-        "depends_on": [
-          "baseline"
-        ]
-      },
-      {
-        "id": "design-contract",
-        "state": "complete",
-        "depends_on": [
-          "plan-first"
-        ]
-      },
-      {
-        "id": "implementation",
-        "state": "complete",
-        "depends_on": [
-          "design-contract"
-        ]
-      },
-      {
-        "id": "aot-consumers",
-        "state": "complete",
-        "depends_on": [
-          "implementation"
-        ]
-      },
-      {
-        "id": "review-and-merge",
-        "state": "complete",
-        "depends_on": [
-          "aot-consumers"
-        ]
-      },
-      {
-        "id": "main-and-release",
-        "state": "complete",
-        "depends_on": [
-          "review-and-merge"
-        ]
-      }
-    ]
+    "plan": "ledger/evidence/batches/DB-Rename-01/plan.md",
+    "handoff": "ledger/evidence/batches/DB-Rename-01/handoff-linux.md",
+    "status": "awaiting_review",
+    "stop_condition": "passing_pr_checks_awaiting_maintainer_review",
+    "merge_authorized": false,
+    "publication_authorized": false
   }
 }

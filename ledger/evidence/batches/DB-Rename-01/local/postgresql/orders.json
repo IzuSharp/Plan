@@ -1,0 +1,319 @@
+{
+  "task": "DB-API-01",
+  "result": "passed",
+  "package": "Korda.Database.PostgreSql",
+  "version": "0.1.0-ci.1",
+  "commands": [
+    {
+      "revision": "scaffold",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=PostgreSql",
+        "-p:KordaVersion=0.1.0-ci.1",
+        "-p:DtoEdit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=false",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-scaffold"
+      ],
+      "exit_code": 0,
+      "seconds": 8.982,
+      "log": "postgresql-scaffold-publish.log",
+      "sha256": "f95303156ea97c4c2cdff8c91959c59cdfb567cb1556fec38769c5ef7cf4ef78"
+    },
+    {
+      "revision": "scaffold",
+      "stage": "execute",
+      "command": [
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-scaffold/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.265,
+      "log": "postgresql-scaffold-execute.log",
+      "sha256": "7f161d3f964ab0a8183331dd764e9a62952718d8236ce5c58a3eebf10db8385c"
+    },
+    {
+      "revision": "original",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=PostgreSql",
+        "-p:KordaVersion=0.1.0-ci.1",
+        "-p:DtoEdit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-original"
+      ],
+      "exit_code": 0,
+      "seconds": 8.444,
+      "log": "postgresql-original-publish.log",
+      "sha256": "fc29519dfe77b41e20b53a8e81fb7be221715f1b65463e8232d0c84613d462b6"
+    },
+    {
+      "revision": "original",
+      "stage": "execute",
+      "command": [
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-original/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.265,
+      "log": "postgresql-original-execute.log",
+      "sha256": "9f25970c63961dff391df38a96e3f044ad6a594854e6c39cf2de8ac254fec4f4"
+    },
+    {
+      "revision": "edited",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=PostgreSql",
+        "-p:KordaVersion=0.1.0-ci.1",
+        "-p:DtoEdit=true",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-edited"
+      ],
+      "exit_code": 0,
+      "seconds": 8.368,
+      "log": "postgresql-edited-publish.log",
+      "sha256": "c31cce0c4e07957281170c4163f1548015f150ab9cbc779defbd005c5da3437d"
+    },
+    {
+      "revision": "edited",
+      "stage": "execute",
+      "command": [
+        "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/orders-postgresql/out-edited/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.32,
+      "log": "postgresql-edited-execute.log",
+      "sha256": "8473be38cbe3df9351cda354929b7045b25e18127a1220de92b81c818595cde5"
+    }
+  ],
+  "rows": [
+    {
+      "Provider": "PostgreSql",
+      "Aot": true,
+      "Dto": "original",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 10,
+      "NativeSha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+      "Phase": "scaffold",
+      "ExecutableSha256": "6ce67d493bdb346152dfdc65debf91143566767c4e420042e9e818372ba9361a",
+      "ModelsSha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+        "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+      },
+      "TutorialSources": {},
+      "Sources": {
+        "Models.cs": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    },
+    {
+      "Provider": "PostgreSql",
+      "Aot": true,
+      "Dto": "original",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written",
+        "scaffolded-entity-compiled-and-executed",
+        "scaffolded-composite-key-compiled-and-executed"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 10,
+      "NativeSha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+      "Phase": "original",
+      "ExecutableSha256": "b745f3e7300152848b0db6f9724b64fc9b534d1a535319612e5e6fca502aa008",
+      "ModelsSha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+        "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+      },
+      "TutorialSources": {
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+      },
+      "Sources": {
+        "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+        "Models.cs": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+        "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    },
+    {
+      "Provider": "PostgreSql",
+      "Aot": true,
+      "Dto": "edited",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written",
+        "scaffolded-entity-compiled-and-executed",
+        "scaffolded-composite-key-compiled-and-executed"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 10,
+      "NativeSha256": "e206b098cd9d6215db5641b06eccf3d05d8637e9c06c429f1ae6dec94eab693e",
+      "Phase": "edited",
+      "ExecutableSha256": "1c5c9add33c8a89ef2809bf897b2370902a83d13a867cf37852a4328489afc57",
+      "ModelsSha256": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+        "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851"
+      },
+      "TutorialSources": {
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+      },
+      "Sources": {
+        "CustomerCopy.cs": "6071bb2d65602646aa009cb1a2b25a43faac316632bd234a85d3555b447f721d",
+        "Models.cs": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+        "OrderCopy.cs": "edf639beed3d591638ff134c95da697112e5277831f8b84767168abd6fefb851",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    }
+  ],
+  "tutorials": [
+    {
+      "source": "/workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-5fnfxa8l/cache/korda.database.postgresql/0.1.0-ci.1/korda.database.postgresql.0.1.0-ci.1.nupkg!/README.md",
+      "source_sha256": "74b424a49fa9c85560885504a5764ad66546b6146e4bee200e9de365e493e19e",
+      "marker": "## Define a model and DTO",
+      "code_sha256": "0417575d1f69130e437e747513f61c66d485b2844b387835ca7f19efa7a6e235",
+      "compiled_file": "Tutorial.PackageReadme.cs",
+      "compiled_sha256": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda"
+    },
+    {
+      "source": "docs/getting-started.md",
+      "source_sha256": "153de61c7dea4406fa35e07e1672890c9ea855c87d63927fa6738a7549936927",
+      "marker": "## 1. Define ordinary C# models",
+      "code_sha256": "303999aeeaf7dc79396f57a9cdd4bf2481a3791d83f1486192b36f2c0f3b9035",
+      "compiled_file": "Tutorial.GettingStarted.cs",
+      "compiled_sha256": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451"
+    },
+    {
+      "source": "docs/guides/query-generator.md",
+      "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+      "marker": "Add this DTO in `OrderRow.cs`",
+      "code_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+      "compiled_file": "Tutorial.OrderRow.cs",
+      "compiled_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc"
+    },
+    {
+      "source": "docs/guides/query-generator.md",
+      "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+      "marker": "Add the query method in a separate `OrderQueries.cs` file.",
+      "code_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+      "compiled_file": "Tutorial.OrderQueries.cs",
+      "compiled_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+    }
+  ],
+  "tutorial_package_sha256": "860550c3977585cab75a84d3caa269f57f29b9305dead1514fcdb80253069a57",
+  "tutorials_compiled_against_candidate": true,
+  "same_native_after_dto_edit": true
+}

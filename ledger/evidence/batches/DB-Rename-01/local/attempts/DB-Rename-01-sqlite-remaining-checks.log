@@ -1,0 +1,22 @@
+[1/2] sqlite.packed-api
++ python3 eng/ci/packed_api.py sqlite 0.1.0-ci.1 artifacts/packed-api/sqlite
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/packed_api.py", line 48, in <module>
+    stage(path, managed_outputs(args.provider), args.destination)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/packed_api.py", line 32, in stage
+    destination.mkdir(parents=True, exist_ok=False)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: 'artifacts/packed-api/sqlite'
+sqlite.packed-api: 0.07s
+Traceback (most recent call last):
+  File "<stdin>", line 23, in <module>
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 68, in execute
+    steps[name].run(self)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 27, in run
+    ctx.call([str(word).format_map(ctx.variables) for word in command])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 61, in call
+    subprocess.run(command, check=True, env=os.environ | (env or {}))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'eng/ci/packed_api.py', 'sqlite', '0.1.0-ci.1', 'artifacts/packed-api/sqlite']' returned non-zero exit status 1.

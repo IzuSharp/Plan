@@ -1,0 +1,89 @@
+{"resume": "sqlite", "completed_actions": ["sqlite.build"], "native_manifest_sha256": "2ec28a2b57e986f39d2f80f0a3ce08039c1aed8ff8bc9c3454b1b6e6f12fbaea", "source_commit": "9aa0b9092c6b2dfc19d5c98d82cb131699171d66", "version": "0.1.0-ci.1"}
+[1/6] public.pack
++ python3 eng/ci/bundles.py --plan /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/plan.json --version 0.1.0-ci.1 --provider sqlite --native artifacts/provider-native/sqlite/manifest.json
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Korda.Packaging.Tasks -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Packaging.Release/BuildTasks/bin/Release/net11.0/Korda.Packaging.Tasks.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.52
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Korda.Core/Korda.Core.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Query.Binding/Korda.Query.Binding.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Interop.Abi/Interop.Abi.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Abstractions/Korda.Data.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Streaming/Korda.Data.Streaming.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Transactions/Korda.Database.Transactions.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.NativeHost/Korda.Database.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Sqlite/Korda.Database.Sqlite.csproj (in 222 ms).
+  Restored /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Query.Generator/Korda.Query.Generator.csproj (in 248 ms).
+  Korda.Query.Generator -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Query.Generator/bin/Release/netstandard2.0/Korda.Query.Generator.dll
+  Korda.Data -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Abstractions/bin/Release/net11.0/Korda.Data.dll
+  Interop.Abi -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Interop.Abi/bin/Release/net11.0/Korda.Interop.Abi.dll
+  Korda.Core -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll
+  Korda.Database.Transactions -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Transactions/bin/Release/net11.0/Korda.Database.Transactions.dll
+  Korda.Data.Streaming -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Streaming/bin/Release/net11.0/Korda.Data.Streaming.dll
+  Korda.Query.Binding -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Query.Binding/bin/Release/net11.0/Korda.Query.Binding.dll
+  Korda.Database -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.NativeHost/bin/Release/net11.0/Korda.Database.dll
+  Korda.Database.Sqlite -> /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/src/Data.Sqlite/bin/Release/net11.0/Korda.Database.Sqlite.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:17.49
+public.pack: 21.55s
+[2/6] public.consume-aot
++ python3 eng/ci/consume.py artifacts/public/release.json /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/plan.json
+  Determining projects to restore...
+  Restored /workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-2fqdfx1l/sqlite/Consumer.csproj (in 13.74 sec).
+  Consumer -> /workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-2fqdfx1l/sqlite/bin/Release/net11.0/linux-x64/B24Consumer.dll
+  Generating native code
+  Consumer -> /workspace/scratch/82a414196324/DB-Rename-01-temp/korda-public-2fqdfx1l/sqlite/out/
+B24_RESULT {"schemaVersion":1,"task":"DB-CPP-01","provider":"sqlite","dynamicCodeSupported":false,"checks":["actual-native-aot","generated-table-descriptor","typed-entity-materialization","typed-native-database-roundtrip","typed-fluent-dto-query","only-selected-database-module","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","only-selected-database-module","single-database-module-path","actual-database-native-mapping","database-local-owners-retired"],"nativeLibraries":[{"file":"libnw_database_sqlite.so","sha256":"89fa27f38be811d9e300c1745b6f13e83fbd73cea973c868b36d5ee48190875c"}]}
+RUN orders Sqlite scaffold publish
+RUN orders Sqlite scaffold execute
+RUN orders Sqlite original publish
+RUN orders Sqlite original execute
+RUN orders Sqlite edited publish
+RUN orders Sqlite edited execute
+public.consume-aot: 59.21s
+[3/6] public.validate
++ python3 eng/ci/validate_public.py artifacts/public /workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/artifacts/plan.json 0.1.0-ci.1 --module sqlite
+artifacts/public/feed/Korda.Database.Sqlite.0.1.0-ci.1.nupkg
+public.validate: 0.19s
+[4/6] sqlite.dependencies
++ python3 eng/ci/native_graph.py verify artifacts/cmake/linux-x64-sqlite nw_database_sqlite
+sqlite.dependencies: 0.55s
+[5/6] sqlite.packed-api
++ python3 eng/ci/packed_api.py sqlite 0.1.0-ci.1 artifacts/packed-api/sqlite
++ python3 tests/Data.Sqlite/verify.py --api-only --design artifacts/frozen-design --output artifacts/provider-api/sqlite --native-build artifacts/cmake/linux-x64-sqlite --assembly-dir artifacts/packed-api/sqlite
+sdk: 0
+api-restore-ApiCheck: 0
+api-build-ApiCheck: 0
+compiled-api-xml-reference: -6
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/tests/Data.Sqlite/verify.py", line 190, in <module>
+    main()
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/tests/Data.Sqlite/verify.py", line 110, in main
+    api_result = json.loads(run("compiled-api-xml-reference", [dotnet, "tests/Data.Sqlite/ApiCheck/bin/Release/net11.0/Korda.Sqlite.ApiCheck.dll", ROOT, sdk, assembly]))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/tests/Data.Sqlite/verify.py", line 70, in run
+    raise RuntimeError(label + " failed; see retained raw logs")
+RuntimeError: compiled-api-xml-reference failed; see retained raw logs
+sqlite.packed-api: 4.10s
+Traceback (most recent call last):
+  File "/workspace/scratch/82a414196324/resume_db_rename_checks.py", line 58, in <module>
+    ctx.execute(steps, names[start:])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 68, in execute
+    steps[name].run(self)
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 27, in run
+    ctx.call([str(word).format_map(ctx.variables) for word in command])
+  File "/workspace/scratch/82a414196324/Korda-DB-Rename-01-sqlite/eng/ci/runner.py", line 61, in call
+    subprocess.run(command, check=True, env=os.environ | (env or {}))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', 'tests/Data.Sqlite/verify.py', '--api-only', '--design', 'artifacts/frozen-design', '--output', 'artifacts/provider-api/sqlite', '--native-build', 'artifacts/cmake/linux-x64-sqlite', '--assembly-dir', 'artifacts/packed-api/sqlite']' returned non-zero exit status 1.
