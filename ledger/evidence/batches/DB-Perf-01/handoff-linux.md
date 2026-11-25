@@ -1,3 +1,7 @@
+# Final record — tests complete; stop without merging
+
+The owner instructed completing tests, recording results and stopping with PRs only. All four local 1800-second cells are validated (43,335,131 successes); the 16-app/926-file post-run freeze is unchanged. The [final record](query-optimization/final-f0078da7/README.md) retains before/after results, substantial Dapper.AOT gaps, source/contract limits and unresolved failures. The final full archive remains local-only after upload rejection; selected summaries are published. [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34) remain unmerged. Do not restart measurements or implementation from the historical continuation below.
+
 # DB-Perf-01 — Linux handoff
 
 ## Active checkpoint — SQLite long 2/4 validated; PG coordinator 34628

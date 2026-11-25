@@ -1,3 +1,7 @@
+# Current stop — DB-Perf-01 final record
+
+The owner has instructed: complete the tests, record results in the existing PRs, do not merge, then stop. Four local long cells and the frozen-input rehash are complete. Read the final record at the top of the DB-Perf-01 plan and handoff. No additional benchmark, optimization, merge or release is selected. Earlier continuation/merge authorities below are historical.
+
 # Current continuation — DB-Perf-01 query optimization
 
 The owner has explicitly resumed DB-Perf-01 on 2026-11-25, retaining the C++ execution layer and existing C# Fluent API. Continue the existing [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34); companion PRs already exist from the latest main. Read the current continuation at the top of the existing [plan](ledger/evidence/batches/DB-Perf-01/plan.md) and [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md).
