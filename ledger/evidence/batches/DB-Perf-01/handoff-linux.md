@@ -1,5 +1,29 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — f0078da7, phase/short/resource complete, SQLite long started
+
+Read [pre-long evidence](query-optimization/prelong-f0078da7/README.md), then
+continue [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Branches and frozen product
+identity below remain unchanged. Phase **18/18**, short **36/36** and resource
+**12/12** have completed their distinct scopes; four long cells remain pending.
+
+At **2026-11-25 14:09 UTC**, root started the existing SQLite long coordinator
+(session `61233`): candidate 1800 seconds, then Dapper.AOT 1800 seconds.
+PostgreSQL long had not started. Check that coordinator and
+`/tmp/DB-Perf-01-measurements-v4/results` before any resumption; do not start
+parallel consumers, builds or heavyweight gates. The pre-launch numeric archive
+is an immutable snapshot with six long/setup entries still `not_observed`.
+Final post-run rehash and a new final extraction are still required.
+
+The [selected metrics and provenance](query-optimization/prelong-f0078da7/metrics-summary.json)
+retain the ordinary allocation regression, Dapper gap, RSS/GC/CPU regressions,
+resource qualification and both unresolved old aborts. Do not label current
+passes as cause fixes, infer timer causality, or add a buffer pool/physical cache
+to the frozen candidate. Design is unchanged while the long results are pending.
+No final performance acceptance or long-duration credit is assigned here.
+
 ## Active checkpoint — f0078da7, new freeze and phase diagnostic in progress
 
 Resume [the current plan](plan.md) and

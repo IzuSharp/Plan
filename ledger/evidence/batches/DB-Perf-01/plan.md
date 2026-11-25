@@ -1,5 +1,28 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## Pre-long evidence complete; four long cells pending — 2026-11-25, f0078da7
+
+Resume the [pre-long checkpoint](query-optimization/prelong-f0078da7/README.md)
+and its approved numeric archive before the earlier snapshots below. Current
+source remains `f0078da720e07031bc56464995af6791c41aaae8`; ordinary CI passed.
+The complete phase has **18 processes / 41,472 queries**, short comparison has
+**36 cells / 3,004,197 successful business operations**, and all **12** before/
+candidate resource processes are qualified for their diagnostic scope.
+
+Retain the remaining **+25.31% ordinary Fluent allocation versus recovered**,
+large Dapper.AOT gaps, higher short-load RSS and SQLite resource lifecycle CPU.
+Physical statement reuse is still unimplemented; timer/queue attribution is
+unproven. Lower allocation versus the earliest before is cumulative evidence,
+not isolated proof of the latest serializer's effect.
+
+At **14:09 UTC** SQLite candidate long load started, with Dapper.AOT next;
+PostgreSQL long had not started. This checkpoint has **0/4 completed long cells**
+and no final performance acceptance. The immutable pre-launch archive retains
+six `not_observed` long/setup entries. Continue the existing serial coordinator,
+preserve both old unexplained failures, and finish long qualification plus input
+rehashing before final Plan/Design alignment. All performance remains local Linux;
+ordinary CI retains independent providers and zero benchmark jobs.
+
 ## Serializer implemented; current ordinary CI passed — 2026-11-25, f0078da7
 
 **Resume this checkpoint before the historical observations below.** Continue
