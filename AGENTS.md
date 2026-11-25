@@ -1,3 +1,11 @@
+# Current maintenance — Korda-Design repository rename
+
+The owner authorizes updating current documentation and automation references after `IzuSharp/NativeWeave-Design` was renamed to [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design), including reviewable PRs and normal merges. Use `docs/korda-design-rename` for this maintenance. The owner has stopped DB-Perf-01; the earlier task authorities below are historical and do not authorize resuming implementation or performance work.
+
+Preserve all existing task acceptance states, source pins, graphs, packets, evidence and historical tool bytes. Current remote URLs and CI `repository` inputs use `IzuSharp/Korda-Design`; frozen tools retain `NativeWeave-Design` as their checkout-directory and evidence-key alias. See the [repository maintenance notes](README.md#repository-maintenance-and-historical-verification). The paired integrity workflow runs the original DB-Perf-01 record gate at frozen Plan `38f8ce8a01f88e6e4c4459926f197c5438c2f6fc` and retains every earlier frozen gate.
+
+## Prior task instructions (historical; original text preserved)
+
 # Current task — DB-Perf-01
 
 The owner authorizes Linux x64 database and Fluent ORM performance work on the current C++20/libpq/sqlite3 Korda product: comparable baselines, profiling, implementation, real measurements, independent review, PRs, normal merges, automatic preview and actual public NuGet Native AOT consumption. Use `task/DB-Perf-01-linux` and task-named worktrees. Read the [plan](ledger/evidence/batches/DB-Perf-01/plan.md), [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md), [baseline](ledger/evidence/batches/DB-Perf-01/baseline.json) and [incomplete acceptance](ledger/evidence/batches/DB-Perf-01/acceptance.json).
