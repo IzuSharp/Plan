@@ -1,5 +1,48 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — aggregate API references corrected, new CI pending
+
+Resume the [newest plan section](plan.md) and
+[034b40ea checkpoint](query-optimization/candidate-034b40ea/README.md).
+Korda [#37](https://github.com/IzuSharp/Korda/pull/37) current source is
+[`034b40ea0635027aa2132a4feb90343cf80a3081`](https://github.com/IzuSharp/Korda/commit/034b40ea0635027aa2132a4feb90343cf80a3081),
+tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`; Design
+[#20](https://github.com/IzuSharp/Korda-Design/pull/20) remains `439c9c2005e1633c08afce07c7652b35b31647a3`.
+Plan [#34](https://github.com/IzuSharp/Plan/pull/34) and Design use
+`task/DB-Perf-01-query-optimization`; Korda uses `task/DB-Perf-01-linux`.
+The earlier handoff below is unchanged and records earlier observations.
+
+The first CI failed formatting. The second, run `45610610153`, passed formatting,
+API checks and 20/20 native CTests, then correctly rejected dirty source at
+`Interop.Execution`. The uploaded artifact omits the dirty-file stdout; exact
+local regeneration separately reproduced three stale aggregate API documents.
+The published fix changes those documents only, 87/87 lines. Two runs of each
+original generator passed, preserving all 14 reference bytes and full diff on
+the second round. Keep both failure records and the
+[causal evidence boundary](query-optimization/candidate-034b40ea/aggregate-reference-fix.json);
+do not weaken the clean-source gate.
+
+Current [CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+producer is `b3f475aa05fa6c8a0c156be548e838286f10ae3d`, tree `fbb71d978`.
+Its outcome remains pending here. The actual planner keeps four ordinary scopes,
+independent provider runners and no benchmark jobs; reference ownership adds
+`api.tool`, `migrations.api`, `relations.api` to the shared Linux actions.
+
+Under `/tmp/DB-Perf-01-final-local-v2`, six consumers built against the prior
+`4ed20b09` producer and short correctness passed 280/280 scheduled operations,
+plus both-provider cancellation/optimistic-conflict checks with owners drained.
+These are diagnostic correctness inputs, not formal performance. Preserve their
+[exact identities](query-optimization/candidate-034b40ea/v2-local-correctness.json).
+Under `/tmp/DB-Perf-01-final-local-v3`, the new source audit confirms all 30
+consumer/build inputs are unchanged; fresh current-producer applications are
+still pending at this checkpoint. Do not relabel v2 binaries as v3 results.
+
+Next: observe all required ordinary CI checks, complete fresh package correctness,
+then run local same-Host phase/resource comparisons and the four local 30-minute
+Korda/Dapper.AOT cells. No formal performance has started or been accepted; all
+four cells remain pending. Prior implementation tests, physical statement reuse
+and other remaining gaps stay as recorded in the earlier checkpoint.
+
 ## Active checkpoint — published formatting follow-up, CI in progress
 
 Resume [Korda #37](https://github.com/IzuSharp/Korda/pull/37),

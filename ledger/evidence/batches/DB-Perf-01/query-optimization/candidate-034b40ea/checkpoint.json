@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task": "DB-Perf-01",
+  "kind": "published_aggregate_reference_followup",
+  "status": "normal_ci_in_progress_no_performance_acceptance",
+  "publication": {
+    "korda": {
+      "pr": 37,
+      "commit": "034b40ea0635027aa2132a4feb90343cf80a3081",
+      "tree": "fbb71d978af30999afb21c86d42b5237bbfbcb62",
+      "local_equivalent_commit": "4c6892187ecb6cbdf9af0b2ef0209678120db395"
+    },
+    "design": {
+      "pr": 20,
+      "commit": "439c9c2005e1633c08afce07c7652b35b31647a3",
+      "tree": "1968dbfebe57705caf7a35debd361059471169f5"
+    },
+    "plan": {
+      "pr": 34,
+      "branch": "task/DB-Perf-01-query-optimization"
+    }
+  },
+  "previous_checkpoint": "../candidate-4ed20b09/checkpoint.json",
+  "previous_checkpoint_content_preserved": true,
+  "implementation_boundary": "The complete-query implementation and public API are unchanged by this follow-up; only three generated aggregate API references changed. Native/managed correctness and unimplemented gaps remain in the preceding checkpoint.",
+  "prior_attempts": [
+    {
+      "commit": "dd990f2379c95bde25531de69f7b6f3be5aec3b0",
+      "ci_run": 45608927004,
+      "result": "failed existing formatter gate",
+      "evidence": "../candidate-4ed20b09/ci-format-failure.json"
+    },
+    {
+      "commit": "4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9",
+      "ci_run": 45610610153,
+      "result": "formatter/API/native passed; Interop.Execution rejected dirty source",
+      "evidence": "ci-source-failure.json"
+    }
+  ],
+  "current_ci": {
+    "run_id": 45614292641,
+    "url": "https://github.com/IzuSharp/Korda/actions/runs/45614292641",
+    "merge_producer": "b3f475aa05fa6c8a0c156be548e838286f10ae3d",
+    "parents": [
+      "e063f2eb6e2e857e3f19f96bf263cae372651a27",
+      "034b40ea0635027aa2132a4feb90343cf80a3081"
+    ],
+    "tree": "fbb71d978af30999afb21c86d42b5237bbfbcb62",
+    "observed_status": "in_progress",
+    "required_ci_pass_claimed": false
+  },
+  "aggregate_reference_fix": "aggregate-reference-fix.json",
+  "v2_correctness": "v2-local-correctness.json",
+  "final_accepted_source": null,
+  "performance_accepted": false,
+  "final_package_validation_accepted": false,
+  "merge_or_release_claimed": false,
+  "long_segments": [
+    {
+      "provider": "postgresql",
+      "route": "korda_final",
+      "required_seconds": 1800,
+      "accepted_seconds": 0,
+      "status": "pending_local_only"
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper_aot",
+      "required_seconds": 1800,
+      "accepted_seconds": 0,
+      "status": "pending_local_only"
+    },
+    {
+      "provider": "sqlite",
+      "route": "korda_final",
+      "required_seconds": 1800,
+      "accepted_seconds": 0,
+      "status": "pending_local_only"
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper_aot",
+      "required_seconds": 1800,
+      "accepted_seconds": 0,
+      "status": "pending_local_only"
+    }
+  ],
+  "pending_work": [
+    "Observe all ordinary required CI checks on the new producer; do not bypass the clean-source gate.",
+    "Build fresh v3 exact-producer Native AOT consumers and complete both-provider package correctness.",
+    "Run local same-SQL, same-Host ordinary Fluent / warm Prepare / complete parameterized SQL phase measurements and resource comparisons with builds stopped.",
+    "Complete the four local uninterrupted 1800-second mixed cells and retain allocation, GC, CPU, memory, throughput and p99 evidence.",
+    "Report measured remaining physical statement, parameter-copy and result-mapping gaps, final comparisons and the stopping basis."
+  ]
+}

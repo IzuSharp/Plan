@@ -1,0 +1,205 @@
+{
+  "task": "DB-Perf-01",
+  "publication_scope": "Only inspected numeric/results, exact small API logs, selected CI lines and the requested actual plan. No source, restore, environment, command-line or binary archive.",
+  "original_inputs": [
+    {
+      "label": "Actual committed-diff plan after aggregate reference fix",
+      "sha256": "34e93092e3901de5bc30e7b7ded14370724a26768f9b33650f33175e22520ae4",
+      "bytes": 48374,
+      "retained_as": "ci-plan.json",
+      "scope": "byte-identical planner output; selection, not execution"
+    },
+    {
+      "label": "Second normal CI failure receipt",
+      "sha256": "13b390b0b75d42f55377e1a4e088416898519227b70b349db9e0bcfa49143b0d",
+      "bytes": 2711,
+      "retained_as": "ci-source-failure.json",
+      "scope": "byte-identical diagnostic receipt; its hypothesis is resolved separately by aggregate-reference-fix.json"
+    },
+    {
+      "label": "Second normal CI job log",
+      "sha256": "26f54b6c2cad98658139fa3b9adc090b29f88b57fbdc714877a118d97ffc65ac",
+      "bytes": 144834,
+      "retained_as": "ci-source-excerpts.log",
+      "scope": "selected exact lines; missing nested git-status output is not reconstructed"
+    },
+    {
+      "label": "Aggregate API reproduction and idempotence receipt",
+      "sha256": "c0806aa5decc75dda038f3433795b50c595ecdacef79237ad75639f1116491e8",
+      "bytes": 7436,
+      "retained_as": "aggregate-reference-fix.json",
+      "scope": "selected identities, counts, hashes and results; no source/restore/environment archive"
+    },
+    {
+      "label": "Generated three-file API reference diff",
+      "sha256": "d8a37d7a72f36e91cb5337c40c17a6a057613b4a1ce211b40127716886571bf2",
+      "bytes": 53551,
+      "retained_as": "aggregate-reference-fix.json",
+      "scope": "digest and per-file 29/29 line counts only; full diff is in the product commit"
+    },
+    {
+      "label": "Data.NativeHost API stdout, identical in both local rounds and second CI",
+      "sha256": "f815d9d415fa7102ae9ef7c8faf760de84d82d423695884755d1d1812b3df246",
+      "bytes": 1411,
+      "retained_as": "Data.NativeHost-api.log",
+      "scope": "byte-identical public signature/XML result log"
+    },
+    {
+      "label": "Data.Migrations API stdout, identical in both local rounds and second CI",
+      "sha256": "57b02bb37b7adb03f410097d7270656f93526da5d7707039996ae13f5e4db914",
+      "bytes": 436,
+      "retained_as": "Data.Migrations-api.log",
+      "scope": "byte-identical public signature/XML result log"
+    },
+    {
+      "label": "Orm.Relations API stdout, identical in both local rounds and second CI",
+      "sha256": "b32efd51c33bf82e380eaef0b8d4773267e7d1b4d8394b80e4833ec30256e76f",
+      "bytes": 949,
+      "retained_as": "Orm.Relations-api.log",
+      "scope": "byte-identical public signature/XML result log"
+    },
+    {
+      "label": "V2 exact-package build and short correctness summary",
+      "sha256": "e0b05cef979c181853ce78dec8589788d8e3d44f6360ca30be95fc5b02f10e61",
+      "bytes": 9269,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "numeric correctness/build identity fields; paths and performance-shaped fields excluded"
+    },
+    {
+      "label": "V2 sqlite dynamic raw result",
+      "sha256": "0fc12912f7119e989ff9d692fdcd9c5d3b789d60c92c8eef4e89bdb4142f4598",
+      "bytes": 41247,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V2 sqlite prepared raw result",
+      "sha256": "df1b4c6ee1ab1d61c8351cae38b92d87361f42973c0b16efa5bebba57d63dedc",
+      "bytes": 41157,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V2 postgresql dynamic raw result",
+      "sha256": "b15306d3cb4ccb603c9e1d94da94ef64d2a38dc9d330748649d30d148a35e7fe",
+      "bytes": 41370,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V2 postgresql prepared raw result",
+      "sha256": "9bc36bda2ef6bbb912d50ac0973e45010c00906df7b8776f8d79fd6a31d12354",
+      "bytes": 41304,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V2 sqlite lifecycle raw result",
+      "sha256": "110e053787916f449e7cc95fe3c724a5a103731edb31ea94d797a32ecff747ae",
+      "bytes": 1818,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V2 postgresql lifecycle raw result",
+      "sha256": "30560eecd11f5b7a759b15f276d2edd06f67ad7ad9de135fbde314feff020f55",
+      "bytes": 1832,
+      "retained_as": "v2-local-correctness.json",
+      "scope": "verified digest and extracted correctness counts/cleanup only; raw timing not admitted"
+    },
+    {
+      "label": "V3 source/consumer input audit",
+      "sha256": "7c7748c3b603ad3a929226d602f8d219121741c70624e8beeb4aafed037f3ed8",
+      "bytes": 4914,
+      "retained_as": "ci-selection.json",
+      "scope": "source identities and equality counts only; no source archive"
+    },
+    {
+      "label": "Unchanged frozen DB-Perf-01 record gate stdout",
+      "sha256": "5205619495a637086cdf93d802c88750590dbe30eaebac1a3d18165965de8b42",
+      "bytes": 412,
+      "retained_as": "frozen-record-gate.json",
+      "scope": "byte-identical documentation integrity result; old pending acceptance is preserved"
+    }
+  ],
+  "previous_checkpoint_files_modified": false,
+  "previous_document_bodies": {
+    "plan.md": {
+      "sha256": "f33c9b8c0f9eda2e84f701e564cd4953dc196b5a8c836d91adac3bf02d4616e0",
+      "bytes": 41907,
+      "preserved_body_sha256": "99d1f337766b200708f2a00555f32efb1dc6b701f8312b17de85c1746a0891e5"
+    },
+    "handoff-linux.md": {
+      "sha256": "3cf10b3b665f0c258248cc226efc0aeaafba89dc56fb6111712a6a71bbb3623e",
+      "bytes": 148836,
+      "preserved_body_sha256": "93695937025fda369ea4fbff7ed39e8f608ab90ad0ebcacedfe6d94d36a903cc"
+    }
+  },
+  "retained_files": [
+    {
+      "path": "Data.Migrations-api.log",
+      "sha256": "57b02bb37b7adb03f410097d7270656f93526da5d7707039996ae13f5e4db914",
+      "bytes": 436
+    },
+    {
+      "path": "Data.NativeHost-api.log",
+      "sha256": "f815d9d415fa7102ae9ef7c8faf760de84d82d423695884755d1d1812b3df246",
+      "bytes": 1411
+    },
+    {
+      "path": "Orm.Relations-api.log",
+      "sha256": "b32efd51c33bf82e380eaef0b8d4773267e7d1b4d8394b80e4833ec30256e76f",
+      "bytes": 949
+    },
+    {
+      "path": "README.md",
+      "sha256": "12e1d01f42941108cbf4e51e64497cc0ee2b7c9db8b0eb5fe75e5337f193c10c",
+      "bytes": 2887
+    },
+    {
+      "path": "aggregate-reference-fix.json",
+      "sha256": "33116042d66c8bdbdd2ce6f9fa8488d45034796921e9c6f0979505f81d6f5eba",
+      "bytes": 7128
+    },
+    {
+      "path": "checkpoint.json",
+      "sha256": "55d0803cb8360bf8cb71de75c909afdd0f99499d664aa7724ef2516ca681bceb",
+      "bytes": 3592
+    },
+    {
+      "path": "ci-plan.json",
+      "sha256": "34e93092e3901de5bc30e7b7ded14370724a26768f9b33650f33175e22520ae4",
+      "bytes": 48374
+    },
+    {
+      "path": "ci-selection.json",
+      "sha256": "ee37668961645290072e649b10b575577e20be583829e50819af2e50f5e94bb3",
+      "bytes": 3161
+    },
+    {
+      "path": "ci-source-excerpts.log",
+      "sha256": "595014f4fedee06d39aca8edb9f4639cabd7fd78e206fd76e31ac85338527536",
+      "bytes": 1717
+    },
+    {
+      "path": "ci-source-failure.json",
+      "sha256": "13b390b0b75d42f55377e1a4e088416898519227b70b349db9e0bcfa49143b0d",
+      "bytes": 2711
+    },
+    {
+      "path": "documentation-validation.json",
+      "sha256": "312d58ec1c1b3ebc1cebb07851807f915e53934500802472f2a4e570cb3083ee",
+      "bytes": 885
+    },
+    {
+      "path": "frozen-record-gate.json",
+      "sha256": "5205619495a637086cdf93d802c88750590dbe30eaebac1a3d18165965de8b42",
+      "bytes": 412
+    },
+    {
+      "path": "v2-local-correctness.json",
+      "sha256": "7e551bd5a95edbc2f04dfe83932dc809e8e99f73b399366fea9279d61ef10a3e",
+      "bytes": 7808
+    }
+  ]
+}

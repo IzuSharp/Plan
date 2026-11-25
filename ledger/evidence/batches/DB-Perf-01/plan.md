@@ -1,5 +1,73 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## Aggregate reference follow-up — 2026-11-25, 034b40ea
+
+**Resume from this later checkpoint.** The earlier candidate sections below are
+preserved as historical observations. Continue [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Current Korda is
+[`034b40ea0635027aa2132a4feb90343cf80a3081`](https://github.com/IzuSharp/Korda/commit/034b40ea0635027aa2132a4feb90343cf80a3081),
+tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`; Design remains
+[`439c9c2005e1633c08afce07c7652b35b31647a3`](https://github.com/IzuSharp/Korda-Design/commit/439c9c2005e1633c08afce07c7652b35b31647a3).
+The [new evidence checkpoint](query-optimization/candidate-034b40ea/README.md)
+records a documentation-only correction. The complete-query implementation,
+public Fluent API, additive capability 26 and prior native/managed correctness
+boundaries remain as described in the preceding implementation checkpoint.
+
+[CI 45610610153](https://github.com/IzuSharp/Korda/actions/runs/45610610153)
+passed the existing full formatter, API checks and all 20 native CTests, then
+failed `Interop.Execution` because the committed source was no longer clean.
+The uploaded diagnostics do not include the nested `source-status.stdout`, so its
+actual dirty-file list is unavailable. Local execution of the three existing
+aggregate API generators reproduced **only three tracked `reference/database.md`
+changes** from the new Fluent XML: Data.NativeHost, Data.Migrations and Orm.Relations.
+These retained stale immediate-per-node descriptions while the compiled XML
+already described complete-command submission. The
+[failure record](query-optimization/candidate-034b40ea/ci-source-failure.json),
+[selected job lines](query-optimization/candidate-034b40ea/ci-source-excerpts.log)
+and [reproduction/fix](query-optimization/candidate-034b40ea/aggregate-reference-fix.json)
+keep observed CI facts separate from the local causal reproduction.
+
+The published correction changes those three generated documents only:
+**87 additions and 87 deletions**, no signatures or implementation changes.
+All three original API scripts ran twice with the pinned Design contract and
+current compiled XML; all six invocations passed. The second round left all
+**14 tracked references** and the full diff byte-identical. NativeHost verifies
+523/32/15/3 exact signatures across its four assemblies; Migrations verifies
+523 assembly signatures including 94 required members; Relations verifies
+523 Database and 163 Data signatures, including all 81 required members.
+The clean-source check remains unchanged and must pass in normal CI.
+
+The [actual new plan](query-optimization/candidate-034b40ea/ci-plan.json) still uses
+`interop`, shared `linux`, `postgresql` and `sqlite` scopes. Existing ownership of
+the three references adds **`api.tool`, `migrations.api`, `relations.api`** to the
+six previous Linux actions; `fluent.api` remains selected. PostgreSQL and SQLite
+continue independent package/Native AOT checks. Compatibility remains skipped
+because its verifier bytes match current main. Benchmark ownership records select
+**zero benchmark execution modules or jobs**. These are ordinary registered checks,
+not a new CI route. See the [selection delta](query-optimization/candidate-034b40ea/ci-selection.json).
+
+The prior `4ed20b09` packages now have six externally built Linux Native AOT
+consumers: mixed, phase and resource for each provider. Their short mixed
+correctness completed **280/280** scheduled operations across dynamic/prepared
+modes and both databases, with zero failures/oracle mismatches and all owners
+returned to zero. Both providers passed pre-cancellation, active cancellation
+and overlapping optimistic-conflict checks. The
+[extracted evidence](query-optimization/candidate-034b40ea/v2-local-correctness.json)
+preserves their actual package/producer/binary identities. Phase/resource apps
+have not been formally measured; short correctness overlapped preparation and
+does not count as performance evidence.
+
+New normal [CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+uses merge producer `b3f475aa05fa6c8a0c156be548e838286f10ae3d`, tree `fbb71d978`.
+Its required outcome and fresh v3 exact-producer applications are pending at this
+checkpoint. All 30 consumer/build input files match v2, but the older binaries
+are not relabeled as final source-bound results. Continue with fresh package
+correctness, local same-SQL phase/resource comparisons, and the four uninterrupted
+1800-second local final-Korda/Dapper.AOT cells. All four cells retain zero accepted
+seconds. Physical statement reuse and the other measured-gap/stop decisions remain
+pending. No final performance, package, merge or release acceptance is claimed.
+
 ## Published implementation candidate — 2026-11-25, 4ed20b09
 
 **Resume from this checkpoint.** The lower continuation and diagnostics sections
