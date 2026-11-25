@@ -78,3 +78,28 @@ New provider/source AOT execution has begun and exposed real failures, which mus
 - Transaction tests are being moved from controlled C++ fixtures to actual drivers and transparent PostgreSQL scheduling faults. The new controller records COMMIT/idle acknowledgment loss and independently reads persisted effects through psql. It also tests admission-token cancellation after actual dispatch and a deadline that retains the physical cleanup owner. These new transaction cases are not yet accepted.
 
 No optimization has been accepted. No 30-minute segment has started: **0/4**. Recovered Dapper harness short runs are development correctness checks only. Allocation attribution remains unknown unless supported by raw counts/control experiments; neither source inspection nor a component-only zero-allocation count establishes a database path at 0 B.
+
+## Verified module receipts and transaction faults — 2026-11-25
+
+[Compatibility checkpoint 01](receipts/compatibility-checkpoint-01/manifest.json) preserves the original module result bytes, hashes and local origins. This is partial evidence, not a compatible-package or optimization baseline.
+
+- Codecs: the two real providers completed 65 scalar vectors, 120 supported provider round trips and 268 assertions. SQL NULL/JSON null and finite temporal extremes were exercised. Source/executable bindings are being consolidated separately.
+- Streaming: 76 real-provider cases and 427 assertions passed. Cancellation is issued only after a SQLite callback or PostgreSQL server witness proves execution began. Same-session reuse and drained counters are checked. The independent public streaming sample also passed both providers; root runtime changes after that build still require the affected rerun.
+- Core `770486c`: the formal clean-source receipt passed, and another agent independently reviewed the implementation and reran the frozen ELF: 259 assertions, 14 releases and no remaining owners/backings/charged bytes. The 133 declarations remain. Legacy native Engine manifest/NativeAssetPath loading now rejects with InvalidManifest and is an explicit retired behavior; signature preservation is not a claim of every prior Core behavior.
+- Root product `2466271`: its actual Native AOT transaction executable (`8bb477a218b59b3699aa71c7829cc179d5939a22a81781eb87c85b8bf2fcfa3d`) completed 44 normal two-provider assertions. All four transparent PostgreSQL protocol fault cases passed: acknowledged COMMIT loss observed 1 persisted row and retained Unknown; COMMIT never forwarded observed 0 rows; post-dispatch cancellation retained a confirmed committed row; an 80 ms public deadline retained Unknown and its physical cleanup owner while the later server result committed. These are server/protocol witnesses plus independent psql reads, not injected transaction results.
+- Benchmark source `1e45e05` (integrated `43f0bd2`) prepares 39 cases. Dapper SQLite Native AOT has 81 audited intercepted call sites and passed short prepared/dynamic correctness and recovery probes. It does not establish Korda equivalence, performance, allocation attribution or long duration.
+
+Reproduce transaction normal and fault checks with the standard PostgreSQL tools and the frozen executable:
+
+```sh
+python3 tests/Data.NativeHost/run.py --postgres-bin "$PG_BIN" --output "$OUT/normal-cluster" -- "$TX_EXE" --require-aot
+python3 tests/Data.NativeHost/run.py --postgres-bin "$PG_BIN" --output "$OUT/fault-cluster" -- python3 tests/Data.Transactions/run_faults.py --postgres-bin "$PG_BIN" --executable "$TX_EXE" --output "$OUT/faults"
+```
+
+Independent runtime review found reader-construction compensation and source-disposal-finally gaps. Fixes and new relevant checks are pending; no whole-runtime approval is inferred. Native test coverage still has explicit pending obligations. The first .NET baseline remains unset and effective long segments remain **0/4**.
+
+Codec/streaming provenance supplement: [exact ELF and source tracing](receipts/compatibility-checkpoint-01/codec-streaming-provenance.json). These three publishes occurred at HEAD `a4a4836` with uncommitted changes, later included in frozen `6d89ca4` tree `9d8c174494e901586b0a47fea24156e214d3f55c`; this is retrospective source tracing, **not** a clean-source receipt. Root later runtime changes require affected reruns.
+
+Root `21305f1` fixed reviewed cleanup compensation, truthful safe-retirement observations and the full finite Fluent timeout range. `89a8b37` restores published exception types and admission-only BEGIN/savepoint control, keeps expert raw SQL at its original one-hour maximum, and ports remaining snapshot-budget assertions. Host at `21305f1` passed 110 real-provider assertions; the raw long-timeout assertion was subsequently corrected to Fluent after the original lower-layer raw limit was identified, so that exact new case awaits its rerun. ORM at `89a8b37` passed 535 real two-provider Native AOT assertions. Private duplicate native wire-grant rejection is retired; logical parameter caps, bounded snapshot preflight, near-limit driver roundtrip and zero-effect oversized rejection remain tested.
+
+The offline ORM restore could not refresh NuGet vulnerability metadata (`NU1900`). It was repeated in an isolated network namespace with that unavailable-feed warning retained as a warning for diagnostic AOT execution only. Repository audit settings are unchanged; this diagnostic pass is not a dependency-security gate and normal online CI audit remains required.

@@ -1,0 +1,178 @@
+{
+  "task": "DB-DotNet-01",
+  "source_commit": "770486c0ed1a178cbfcbc2b00dc2c7e81d306bf4",
+  "source_tree": "f284960bd5cb8458e043879c19ac729f9cf13a8f",
+  "source_dirty": false,
+  "status": "passed",
+  "commands": [
+    {
+      "label": "compatibility-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/tests/Interop.Memory/Interop.Memory.Tests.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit_code": 0,
+      "seconds": 1.323063263000222,
+      "log": "compatibility-restore.log",
+      "log_sha256": "9b98453b2b1007fee34884f511224a23c98f9836f21ff53c6bad4c751f2683b4"
+    },
+    {
+      "label": "compatibility-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/tests/Interop.Memory/Interop.Memory.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/artifacts/DB-DotNet-01/core-770486c/compatibility-aot"
+      ],
+      "exit_code": 0,
+      "seconds": 8.181868438001402,
+      "log": "compatibility-publish.log",
+      "log_sha256": "8b5b2e5b99fd93618f33df373077e2ac71d45b94af8131ab31f32516bc1d17ab"
+    },
+    {
+      "label": "compatibility-execute",
+      "command": [
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/artifacts/DB-DotNet-01/core-770486c/compatibility-aot/Korda.Interop.Memory.Tests",
+        "--require-aot"
+      ],
+      "exit_code": 0,
+      "seconds": 0.015888018999248743,
+      "log": "compatibility-execute.log",
+      "log_sha256": "5a6320d23452ca57ef429c00144459a2c7cb41ff51c6d28e31761ab7db8c6755"
+    },
+    {
+      "label": "sample-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/samples/api/interop-memory/Interop.Memory.Sample.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit_code": 0,
+      "seconds": 1.270249439001418,
+      "log": "sample-restore.log",
+      "log_sha256": "2d4f600c98b784c1692785909472839f026128b6b069f17a448990d4e357ec9e"
+    },
+    {
+      "label": "sample-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/samples/api/interop-memory/Interop.Memory.Sample.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/artifacts/DB-DotNet-01/core-770486c/sample-aot"
+      ],
+      "exit_code": 0,
+      "seconds": 5.529646538001543,
+      "log": "sample-publish.log",
+      "log_sha256": "cf5ae8f6b2221e4241ca798ab5f1f5be73c4b1dcbc3fdc0f87b3f5f3cddcaa08"
+    },
+    {
+      "label": "sample-execute",
+      "command": [
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/artifacts/DB-DotNet-01/core-770486c/sample-aot/Korda.Interop.Memory.Sample"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007827388999430696,
+      "log": "sample-execute.log",
+      "log_sha256": "0a087f081e2f42cf0eb1fa953bb41e443bb5df7c11bf0d02e68b42b9cc9189a2"
+    },
+    {
+      "label": "api-tool-restore",
+      "command": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/tests/Interop.Memory/ApiCheck/ApiCheck.csproj",
+        "--locked-mode",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0228915869993216,
+      "log": "api-tool-restore.log",
+      "log_sha256": "73c2472fdfbe2d5ef3e3dcba8b08e0a3cf2024ab2ff698c9c18f38824386e61d"
+    },
+    {
+      "label": "api-tool-build",
+      "command": [
+        "dotnet",
+        "build",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/tests/Interop.Memory/ApiCheck/ApiCheck.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit_code": 0,
+      "seconds": 2.736371342998609,
+      "log": "api-tool-build.log",
+      "log_sha256": "ec5615858cec2f7d75346e63b2606b23be11a2c10f9c7c7bb28fa3c3f1e39eaa"
+    },
+    {
+      "label": "buffer-api-negative-consumers",
+      "command": [
+        "dotnet",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/tests/Interop.Memory/ApiCheck/bin/Release/net11.0/Korda.Interop.Memory.ApiCheck.dll",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging",
+        "/workspace/scratch/a5a1dc9f7577/toolchain/dotnet",
+        "/workspace/scratch/a5a1dc9f7577/DB-DotNet-01-packaging/src/Korda.Core/bin/Release/net11.0/Korda.Core.dll"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6169580259993381,
+      "log": "buffer-api-negative-consumers.log",
+      "log_sha256": "c0dd7c5ded1c9c6f0fb72f3a5b436ecddd5b39abaef236b2fb47809523b8dc61"
+    }
+  ],
+  "native_aot": [
+    {
+      "project": "tests/Interop.Memory/Interop.Memory.Tests.csproj",
+      "executable_sha256": "ed33a7d212ef7bf056ce6b9adc51ae9a765752ba51ef12a17f98f901d6bec169",
+      "project_assets_sha256": "88d90d442b64c3505578d9dd1518bfcf6e0e4f70ccf3d93a5292c9c718921a11"
+    },
+    {
+      "project": "samples/api/interop-memory/Interop.Memory.Sample.csproj",
+      "executable_sha256": "2d6e7750c7f4ae967280bba1b84bc8a2eb9da67bb58dd17a9ed79deda4337885",
+      "project_assets_sha256": "5be0ecd74600c45d23d327027598f957216eb9f118c77b23171a23f4b7c25764"
+    }
+  ],
+  "suite": "Core.Compatibility",
+  "scope": "Published metadata, exceptions and SafeHandle buffer behavior; four negative compile cases. No native engine or ABI acceptance."
+}
