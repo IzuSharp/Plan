@@ -1,5 +1,108 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## Current continuation: query optimization, 2026-11-25
+
+This continuation supersedes the execution location and long-test scope of the
+historical plan below. The owner explicitly requires **local Linux x64 performance
+tests**, preserving C++ execution and the existing C# Fluent API. There is no
+authorization to migrate this task to .NET database drivers. Korda [PR #37](https://github.com/IzuSharp/Korda/pull/37)
+is the implementation PR. Plan #32 is merged; this Plan branch and a companion
+Korda-Design branch continue from the latest main. Existing results retain their
+original source, package and environment identities.
+
+### CI prerequisite: observed before changing product code
+
+The three required main files were read: Korda `AGENTS.md`,
+`eng/ci/modules/README.md`, and `.github/workflows/ci.yml`. Inspection followed
+`impact.py`, `catalog.py`, `database_plan.py`, `plan_run.py`, `worker.py`,
+`runner.py`, and the existing reusable build/module workflows.
+
+In the task worktree, `git fetch origin main` and
+`python3 eng/ci/impact.py origin/main --output artifacts/plan.json` succeeded for
+product head `c1aca12cadfe3f4e2431ded24c13f7afb58453a0` against main
+`e063f2eb6e2e857e3f19f96bf263cae372651a27`. The retained
+[actual plan](query-optimization/ci-before.json) selected:
+
+| Selection | Observed cause and purpose |
+| --- | --- |
+| `interop` / `interop.async` | Changes to `AsyncOperation.cs` and its retirement/handle tests. |
+| `linux` / database native, build, API, compatibility, dependencies, regressions | Shared Fluent, binding, codecs, NativeHost, streaming and transaction source/test changes. |
+| `postgresql` | Affected standalone provider package: build, dependency/API checks, provider tests, pack, exact-package Native AOT consumption and metadata validation. |
+| `sqlite` | The second affected standalone provider package, on its own independent runner with its own build/pack/AOT validation. |
+| Two benchmark module jobs | The prior PR registered `database-perf-probes` and `db-perf-benchmarks` with `run` commands. These extra CI jobs are now explicitly rejected by the owner and will be removed. Paths remain owned for planner validation. |
+
+No release, clean-image, CPU emulation or long benchmark was selected by this
+plan. Python reads committed Git trees and dependency edges; YAML provisions
+only the declared tools, restores the existing caches and carries internal or
+verified package artifacts. PR validation does not publish. On main, each
+registered public package is separately compared with its last published input
+fingerprint before the existing build/consume/publish path runs.
+
+The branch predated main's repository rename, explaining the old
+`NativeWeave-Design` checkout references visible in a direct two-tree diff.
+Merge latest main to preserve the existing `Korda-Design` references; do not
+reintroduce renamed URLs.
+
+The [reported failed job](https://github.com/IzuSharp/Korda/actions/runs/45568390591/job/139048722985)
+exited before checkout because observed hosted image `20261116.133.1` did not
+equal the hardcoded `20261116.376.1`. It produced zero effective measurement
+seconds. The existing [PostgreSQL package job](https://github.com/IzuSharp/Korda/actions/runs/45594188737/job/139135963900)
+already succeeded. Do not add another benchmark CI layer: remove all five
+task-specific benchmark workflows and both benchmark `run` registrations. Keep
+the existing provider jobs and verify routing with the existing Tooling suite,
+including that benchmark-only changes select no package or benchmark job.
+
+### Current gaps, evidence and ordered implementation
+
+These are source observations at the recovered head, not new measured claims.
+Earlier allocation improvements in #37 are inherited and must not be repeated.
+
+| Priority | Current evidence | Impact and selected next step |
+| --- | --- | --- |
+| P0 | Extra benchmark registrations and five task-specific workflows in #37; failed image guard above | Remove the unnecessary CI work. Run performance locally; record actual environment instead of requiring a hosted image build number. |
+| P1 | `src/Query.Fluent/QueryContext.cs` immediately calls `QueryBinding.Column/Value/Binary/Clause`; `src/Query.Binding/QueryBinding.cs` crosses FFI per operation | Define and implement a bounded, versioned complete-query command composed in C#. C++ retains semantic validation, SQL dialect generation and execution. Submission count is distinct from batched result reads. |
+| P1 | `NativeQuery::seal` snapshots query data; `NativePlan::compiled` uses `call_once` only when rendering | Explicitly compile fixed query shape at `.Prepare()` where valid, retain immutable SQL/parameter order/result layout, and distinguish initial preparation from warmed execution. Generated metadata/binders/mappers are not arbitrary compile-time Fluent translation. |
+| P1 | `provider.cpp` prepares and finalizes SQLite statements per execution; PostgreSQL uses unnamed prepare/describe per execution | Investigate bounded physical-connection statement reuse with schema/session invalidation, cancellation and ownership preserved. Measure it separately from logical `.Prepare()` reuse. |
+| P1 | `NativePlan::render` parses input, copies cells, re-encodes a batch before Host decoding; `host_abi.cpp` holds a shape mutex during render | Measure and reduce repeated parameter encoding and avoidable serialization without weakening validation or retirement. |
+| P1 | Existing mixed harness times full operations; the raw SQL case is a separate semantic case | Add a local same-SQL comparison for ordinary Fluent, warmed `.Prepare()` and parameterized SQL through the same C++ Host, recording construction, submit-to-first-row, remaining read and release. |
+| P2 | #37 already reduces batch copies, private iteration state, projection scratch and empty parameter frames | Reuse existing evidence, then verify remaining batch/DTO costs at first use, steady state and concurrent use. Keep business object allocation separate from uncertain attribution. |
+| P2 | Current-candidate acceptance is incomplete | Run both real databases, preserve raw observations, compare final candidate with Dapper.AOT, and record remaining gaps and a measured stopping reason. |
+
+Review SqlSugar's condition composition and complete SQL submission, EF Core's
+parameterized query-shape reuse and Dapper.AOT's generated parameter/row factories.
+Bind research conclusions to their actual source versions in the design. Publish
+this gap/priority record and the selected design before optimizing product code.
+
+### Local measurement and acceptance
+
+Use one local Linux environment per comparison group. Keep SQL, ordered typed
+parameters, complete results, dataset/indexes, connections/pool limits,
+transactions, warmup and workload identical. Build outside measured windows;
+record actual SDK, compiler, runtime, database/library, OS, CPU/affinity and
+available quota observations. Report unavailable metrics or shared-host noise
+explicitly; do not fabricate a dedicated host or require a GitHub image identity.
+
+Short comparisons cover original fixed before, recovered #37 and final candidate
+as applicable; the same-Host SQL route isolates query composition from execution.
+Report cold preparation, warmed steady execution and concurrency separately.
+Use real external PackageReference Native AOT consumers for both public packages
+and Dapper.AOT. Validate dynamic filters, changing prepared parameters,
+transactions, cancellation and streaming/early disposal before load measurement.
+
+Final long measurements are four local cells: PostgreSQL candidate and
+Dapper.AOT, SQLite candidate and Dapper.AOT, each for 1,800 continuous effective
+seconds. They are not ordinary PR checks. On shared resources measure routes
+sequentially. Retain operation counts, failures/rejections, raw allocation/GC,
+CPU, steady/peak memory, throughput and p99, and source/package/executable hashes.
+Earlier eight-cell campaign records remain historical; they are not silently
+rebound to this candidate or relabeled as the new four-cell acceptance.
+
+Final review must align Design, product code and observations, link all three
+PRs, disclose remaining gaps and explain the stopping decision. Until then this
+continuation is in progress, with no new performance acceptance claimed.
+
+## Historical plan preserved below
+
 ## Authority, scope and current state
 
 The owner authorizes baseline recovery, profiling, production improvements, real

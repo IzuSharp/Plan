@@ -1,5 +1,38 @@
 # DB-Perf-01 — Linux handoff
 
+## Current continuation — query optimization, 2026-11-25
+
+The owner resumed this task and explicitly clarified that performance tests run
+**locally on Linux, never in CI**. Ordinary CI keeps the existing Python impact
+planner and independent PostgreSQL/SQLite package jobs. Remove the five
+task-specific benchmark workflows and the two benchmark module `run`
+registrations added by #37. Do not replace them with another manual benchmark
+workflow. Read the current section of [plan.md](plan.md) before the historical
+snapshots below.
+
+Observed starting points are Korda #37 head
+`c1aca12cadfe3f4e2431ded24c13f7afb58453a0`, Korda main
+`e063f2eb6e2e857e3f19f96bf263cae372651a27`, Design main
+`dcf4cee8ed4d02a606733aec11bbb36a411d05a9` and Plan main
+`c73943c72b77cca0398e4034cb82663db0d20bd0`. Plan #32 and the two rename PRs
+are merged. No subsequent query-optimization Plan or Design PR existed when
+searched; new companion PRs will be linked here.
+
+Task worktrees are `/workspace/scratch/787156d4dd76/DB-Perf-01-Korda`,
+`DB-Perf-01-Design` and `DB-Perf-01-Plan`. Other local DB-DotNet-01 worktrees
+belong to a different task and are not implementation inputs. The present
+direction retains C++ and public C# Fluent APIs.
+
+The requested `fetch` and impact plan succeeded; [ci-before.json](query-optimization/ci-before.json)
+is the actual committed-diff plan. The image-guard failure is explained in the
+plan and earns zero measured seconds. Current .Prepare() does not yet eagerly
+compile SQL or reuse a physical connection's statement; current dynamic Fluent
+still issues per-node FFI calls. The new plan separates these gaps from #37's
+existing allocation work. Product optimization waits for the design/plan
+checkpoint, and no new load test or performance acceptance is claimed here.
+
+## Historical continuation records preserved below
+
 ## Live continuation — 2026-11-25 05:45 UTC (13:45 Asia/Shanghai)
 
 This is an **in-progress evidence checkpoint**, not final batch acceptance. The

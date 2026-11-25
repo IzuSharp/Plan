@@ -1,4 +1,10 @@
-# Current maintenance — Korda-Design repository rename
+# Current continuation — DB-Perf-01 query optimization
+
+The owner has explicitly resumed DB-Perf-01 on 2026-11-25, retaining the C++ execution layer and existing C# Fluent API. Continue implementation in Korda PR #37 and create companion Design and Plan PRs from their latest main. Read the current continuation at the top of the existing [plan](ledger/evidence/batches/DB-Perf-01/plan.md) and [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md).
+
+Performance measurements run locally on Linux x64. Do not add or retain benchmark jobs or benchmark workflows in GitHub Actions. Ordinary CI uses Korda's existing committed-diff planner, registered module execution and independent PostgreSQL/SQLite package runners, running Native AOT consumers directly. Preserve prior evidence and historical gates without granting it current-candidate credit. The earlier stopped state and hosted benchmark requirements below are historical, superseded by this explicit continuation.
+
+# Previous maintenance — Korda-Design repository rename
 
 The owner authorizes updating current documentation and automation references after `IzuSharp/NativeWeave-Design` was renamed to [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design), including reviewable PRs and normal merges. Use `docs/korda-design-rename` for this maintenance. The owner has stopped DB-Perf-01; the earlier task authorities below are historical and do not authorize resuming implementation or performance work.
 
