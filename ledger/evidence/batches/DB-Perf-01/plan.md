@@ -1,5 +1,73 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## First measured SQLite phase checkpoint — 2026-11-25, before serializer follow-up
+
+**Resume from this observation and the selected follow-up before further product edits.**
+[Korda #37](https://github.com/IzuSharp/Korda/pull/37) remains at
+[`034b40ea0635027aa2132a4feb90343cf80a3081`](https://github.com/IzuSharp/Korda/commit/034b40ea0635027aa2132a4feb90343cf80a3081),
+tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`; [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20)
+remains `439c9c2005e1633c08afce07c7652b35b31647a3`. Continue [Plan #34](https://github.com/IzuSharp/Plan/pull/34).
+The complete required ordinary [CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+now passes, including shared Linux, both independent provider jobs and Verify.
+The [CI receipt](query-optimization/phase-sqlite-r0-034b40ea/ordinary-ci.json)
+retains exact source/package identities and zero benchmark jobs. This resolves the
+preceding pending CI observation; it grants no performance or long-load acceptance.
+
+The first complete local SQLite comparison is recorded in
+[provisional r0 evidence](query-optimization/phase-sqlite-r0-034b40ea/README.md).
+The pre-measurement freeze SHA is
+`f493d3d315f7e1c9411d05cf41d94c0d15bdb0fc1c8270324348280df7e2f7b4`.
+The original baseline is preview.3 (`771bc77`), recovered package input is
+`7f67b43`, and the current candidate producer is `b3f475a` for head `034b40ea`.
+Only the first complete repetition is summarized here; later repetitions and
+PostgreSQL are not yet included in this analysis. Existing frozen inputs and
+all original result receipts remain unchanged.
+
+| Whole-process managed allocation, B/op | Original baseline | Recovered input | Current candidate |
+| --- | ---: | ---: | ---: |
+| Ordinary Fluent | 72,662.45 | 21,460.75 | 29,879.16 |
+| Warm Prepare | 53,803.01 | 14,430.32 | 14,435.28 |
+| Complete parameterized Host SQL | 61,909.63 | 17,899.57 | 17,981.26 |
+
+Each cell uses three 256-operation windows after 64 warmups. All routes materialize
+and verify the same 100-row DTO list with Int64 tenant values alternating 1/2;
+within each product run they share one session and C++ Host. Product runs reuse
+the same seeded database/connection argument. Fluent and prepared SQL match;
+SQLite raw-template compilation spells its sole ordinal parameter `?1` instead
+of `?`, which is retained as an explicit comparison limitation. The
+[numeric receipts](query-optimization/phase-sqlite-r0-034b40ea/sqlite-r0.json)
+preserve cumulative allocation endpoints before division, GC, CPU/RSS/native
+counters and separate construction, submit-to-first-row, read-complete and release
+phase durations. Preparation/first executions are separate observations after
+shared setup; they are not independent process-cold measurements.
+
+**High priority: the dynamic path regresses against the recovered input by
+8,418.41 B/op (+39.23%) in this first repetition.** Prepare and Host SQL allocations
+remain close to their recovered values. The selected next slice is a strict
+exclusive single-root serializer that avoids generic temporary traversal and
+indexing collections when there are no dependencies and every origin is private
+and uncaptured. Keep the native frame, required dense scalar origin IDs, typed
+root model sidecar, limits and cleanup unchanged. CreateCte, shared/captured
+origins, snapshots and imports retain the generic path. The existing ordinary
+`LockOrigins(false)` already returns its shared empty gate; do not claim its cold
+HashSets as ordinary-lane savings. This is a planned implementation detail under
+the current complete-command contract, **not an implemented or measured success**.
+See the [evidence, impact and guard conditions](query-optimization/phase-sqlite-r0-034b40ea/followup-priorities.json).
+
+Read-complete accounts for 90.5–94.1% of window wall across the nine r0 cells;
+process CPU is about 1.77–1.98 ms/op against 12.22–14.44 ms/op wall. The source
+contains a default 10 ms callback retry timer, but there are no instrumented retry
+counts or callback timelines here. Its contribution is **unproven**, and no
+spin/timer change is selected. Prior runtime-spin diagnostics and the withdrawn
+callback-dispatch change remain preserved historical evidence.
+
+Complete all repetitions/two-provider analysis, then validate and measure any new
+serializer candidate against the preserved inputs. Retain the remaining physical
+statement/parameter-copy/mapping gaps until actual evidence resolves them.
+The four final Korda/Dapper.AOT local 1800-second mixed cells have zero accepted
+seconds. Final comparative metrics, remaining-gap assessment and stopping basis
+are still pending; no merge/release or final performance acceptance is claimed.
+
 ## Aggregate reference follow-up — 2026-11-25, 034b40ea
 
 **Resume from this later checkpoint.** The earlier candidate sections below are

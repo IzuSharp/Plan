@@ -1,5 +1,36 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — ordinary CI passed; first SQLite allocation regression recorded
+
+Read the newest [plan section](plan.md) and
+[first-phase evidence](query-optimization/phase-sqlite-r0-034b40ea/README.md).
+Product is still `034b40ea0635027aa2132a4feb90343cf80a3081`, tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`;
+Design is `439c9c2005e1633c08afce07c7652b35b31647a3`. All required ordinary
+[CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+checks now pass, with independent providers and no benchmark jobs. Keep the earlier
+failed attempts and pending-state snapshots below unchanged.
+
+The frozen local input identity is
+`f493d3d315f7e1c9411d05cf41d94c0d15bdb0fc1c8270324348280df7e2f7b4` at
+`/tmp/DB-Perf-01-measurements/identity.json`. Three complete r0 receipts live under
+`/tmp/DB-Perf-01-measurements/results/phase-sqlite`; do not modify them or the
+frozen apps. Later SQLite/PG receipts are not aggregated by this checkpoint.
+Dynamic Fluent allocates 29,879.16 B/op versus recovered 21,460.75:
+**+8,418.41 B/op (+39.23%)**. Warm Prepare is 14,435.28 versus 14,430.32;
+Host SQL is 17,981.26 versus 17,899.57. Preserve the original baseline column and
+all cumulative counters in [the numeric extraction](query-optimization/phase-sqlite-r0-034b40ea/sqlite-r0.json).
+
+Next selected product slice: strict no-dependency single-root encoding, only with
+private uncaptured origins; retain all generic CTE/shared/snapshot/import behavior
+and native framing/sidecar/origin/limit contracts. Plan and Design must record this
+before the product edit. It has not been implemented or measured at this checkpoint.
+The separate read-complete/wall observation does not prove the 10 ms callback
+retry timer causes the delay; no spin/timer change is selected.
+
+Finish full short comparisons, bind any follow-up to fresh source/packages, and
+run the required local final Korda/Dapper.AOT long cells. All four 30-minute cells
+remain without accepted credit; no final performance or stopping conclusion yet.
+
 ## Active checkpoint — aggregate API references corrected, new CI pending
 
 Resume the [newest plan section](plan.md) and
