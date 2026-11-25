@@ -1,6 +1,6 @@
 # DB-Exec-02 current in-progress checkpoint
 
-Continue from [execution-refactor/current-checkpoint.md](execution-refactor/current-checkpoint.md) and [the current execution plan](execution-refactor/README.md). Candidate B source/package recovery and existing CI are complete; local paired data exposes a large-result regression, and a native transaction thread-tail owner failure remains blocking. Scheduling/fence/CI measurement-separation work is in progress. This refactor has **0/4 final long cells** and no merge/release acceptance yet. Older stop and environment-missing records below are historical.
+Continue from [execution-refactor/current-checkpoint.md](execution-refactor/current-checkpoint.md) and [the current execution plan](execution-refactor/README.md). Candidate B remains the frozen measured input. The transaction thread-tail correction, private query-arena transfer, occupied-slot scan and CI correctness separation are published in product `ada28311`; their isolated validation and all failed attempts are retained. Three scheduling experiments are complete and motivate the cursor pull-channel replacement now in progress. This refactor has **0/4 final long cells** and no merge/release acceptance yet. Older stop and environment-missing records below are historical.
 
 ---
 

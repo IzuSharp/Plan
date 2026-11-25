@@ -1,6 +1,6 @@
 # DB-Exec-02 — complete database execution-path refactor
 
-Status: **selected target and implementation plan; not implemented or accepted by this record**.
+Status: **candidate B measured; follow-up corrections published; cursor pull-channel refactor in progress; no final acceptance**. Use the [current checkpoint](current-checkpoint.md) for executed evidence and the selected next action.
 Authorization date: 2026-11-26 (Asia/Shanghai). Continue the open
 [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
 [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
@@ -86,9 +86,9 @@ PostgreSQL/libpq 18.0 and SQLite 3.51.3.
 | SQLite open | One prepared statement supplies description and binding for that same execution; open does not step | Preserve SQL-error versus parameter/shape-error precedence, binding ownership and first-step timing; finalize on every failure |
 | SQLite physical caching | Not selected without a separate schema/reset/clear-bindings compatibility proof | Do not infer safety from automatic schema reprepare or ignored reset errors |
 | Native result construction | Replace per-cell owning `Bytes`/row staging and reparsing with direct bounded writes into the transferred batch arena | Complete shape preflight, checked extents, typed conversion, row/field/byte limits and failure-atomic publication |
-| Native-to-managed batch ownership | Reuse the existing borrowed native batch and SafeHandle/row lease lifetime | Current code already avoids a whole-batch native-to-managed copy; do not claim removal of a nonexistent copy |
+| Native-to-managed batch ownership | Rewrite private per-batch wrappers as one stable scoped native owner and generation-checked Span lease | Current code already avoids a whole-batch native-to-managed copy; preserve held-reader lifetime and do not claim removal of a nonexistent copy |
 | Managed row access | Match/validate layout once per accepted result/batch, then use typed offsets/readers within the retained lease | Preserve malformed-wire, missing/duplicate/type/NULL/narrowing/UTF-8 errors and constructor-failure cleanup |
-| EOF and wake/retirement path | Evaluate a definitive end marker that can avoid an otherwise unnecessary empty fetch; measure queue/notification/retirement costs | No speculative extra row read, late error suppression, premature buffer release or cancellation-result fabrication |
+| EOF and wake/retirement path | Replace per-batch generic operations with a cursor pull channel; first request opens/validates/fetches, later requests fetch; retain observed EOF and final true join | Exactly one detached callback per accepted generation, no provider/read-guard use after readiness, no permanent idle self-root, no speculative row read or late error suppression |
 | Superseded adapters | Delete private unused encoders, parsers, staging objects and old entry routing after public consumers prove the replacement | Retain required ABI compatibility adapters separately; record remaining callers and costs instead of keeping silent product fallbacks |
 
 The [Design target](https://github.com/IzuSharp/Korda-Design/blob/task/DB-Perf-01-query-optimization/docs/database/query-semantics.md)

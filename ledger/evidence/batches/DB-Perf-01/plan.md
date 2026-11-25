@@ -1,6 +1,6 @@
 # Current continuation — DB-Exec-02 complete execution-path refactor
 
-Status: selected target and implementation planning; no refactor acceptance yet.
+Status: candidate B measured; follow-up corrections published; cursor pull-channel replacement in progress; no final refactor acceptance. The [current checkpoint](execution-refactor/current-checkpoint.md) records actual source, failures, tests and measurements.
 The owner resumed complete database-path work on 2026-11-26 (Asia/Shanghai),
 preserving C# Fluent behavior, Native AOT, C++ execution and both independent
 provider packages. Continue Korda #37, Design #20 and Plan #34 from their recorded

@@ -1,0 +1,171 @@
+[
+  {
+    "command": [
+      "python3",
+      "eng/ci/impact.py",
+      "origin/main",
+      "--output",
+      "artifacts/plan.json"
+    ],
+    "exitCode": 0,
+    "seconds": 0.24933171272277832,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-impact.log",
+    "logSha256": "fbb5e2f512b3ef8bdc1cdb3b2748851ce130fe705d41c77918776db173c8fd12"
+  },
+  {
+    "command": [
+      "python3",
+      "eng/ci/bundles.py",
+      "--plan",
+      "artifacts/plan.json",
+      "--version",
+      "0.1.0-ci.1",
+      "--provider",
+      "postgresql",
+      "--native",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/db-exec-b-postgresql/manifest.json"
+    ],
+    "exitCode": 0,
+    "seconds": 28.505745887756348,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-postgresql-package.log",
+    "logSha256": "ffb17873227baf615db2636d784b0ad03b0c03bbd5db9fb2dedf8832bf50a8fe"
+  },
+  {
+    "command": [
+      "python3",
+      "eng/ci/bundles.py",
+      "--plan",
+      "artifacts/plan.json",
+      "--version",
+      "0.1.0-ci.1",
+      "--provider",
+      "sqlite",
+      "--native",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/db-exec-b-sqlite/manifest.json"
+    ],
+    "exitCode": 0,
+    "seconds": 7.284683465957642,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-sqlite-package.log",
+    "logSha256": "5569652b6d1bd93a7c76b058cdf4564b05350dc4f1d42203e77ebafa5fe5c45a"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "postgresql",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "workload",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-postgresql-workload"
+    ],
+    "exitCode": 0,
+    "seconds": 36.35514688491821,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-postgresql-workload.log",
+    "logSha256": "15d5f0b720192e54c4e78660ff32e6523c10bf6d9517ed062a7bf55c8be51fb7"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "postgresql",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "query-phases",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-postgresql-phases"
+    ],
+    "exitCode": 0,
+    "seconds": 16.032498121261597,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-postgresql-phases.log",
+    "logSha256": "d30bb77d424eda5e45b599586963097acbc42ee2a9eeba6ef8bf9e06b9001ef3"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "postgresql",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "resource-probe",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-postgresql-resources"
+    ],
+    "exitCode": 0,
+    "seconds": 16.535343170166016,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-postgresql-resources.log",
+    "logSha256": "d9b8c7b35ef2d160d81a9e3513516a3356e83a678392a173c10c69e81c8c390a"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "sqlite",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "workload",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-sqlite-workload"
+    ],
+    "exitCode": 0,
+    "seconds": 38.726203203201294,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-sqlite-workload.log",
+    "logSha256": "2b5a165469fa984e9fe12867583a22b43cf6ad49a26cd86896a4a121a1061884"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "sqlite",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "query-phases",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-sqlite-phases"
+    ],
+    "exitCode": 0,
+    "seconds": 17.27743124961853,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-sqlite-phases.log",
+    "logSha256": "41c8e40805eb970f7558170cd6af59cc400b1740c38a7ba2537a89a11d5c5135"
+  },
+  {
+    "command": [
+      "python3",
+      "benchmarks/db-perf/managed/build.py",
+      "--provider",
+      "sqlite",
+      "--feed",
+      "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-retirement-one-ms/artifacts/public/feed",
+      "--version",
+      "0.1.0-ci.1",
+      "--kind",
+      "resource-probe",
+      "--output",
+      "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-sqlite-resources"
+    ],
+    "exitCode": 0,
+    "seconds": 17.573079109191895,
+    "log": "/workspace/scratch/17ac3f8f2fbf/tools/candidate-r1ms-sqlite-resources.log",
+    "logSha256": "bf644abe9105a5b264343c27ec2847588080723988ab8e57bdaee9445782245c"
+  }
+]

@@ -1,0 +1,38 @@
+--- original/host.cpp
++++ diagnostic/host.cpp
+@@ -9,6 +9,8 @@
+ 
+ namespace nw
+ {
++void diagnostic_transaction_worker_exit(Transaction*, bool);
++
+ std::atomic<std::uint64_t> source_count{0}, session_count{0}, operation_count{0}, cursor_count{0}, buffer_count{0};
+ namespace
+ {
+@@ -1874,7 +1876,7 @@
+             Clock::now() + std::chrono::nanoseconds(commit ? options.commit_timeout_ns : options.cleanup_timeout_ns);
+     }
+     auto self = shared_from_this();
+-    std::thread([self, commit, gate] { self->finish_worker(commit, gate); }).detach();
++    std::thread([self, commit, gate] { self->finish_worker(commit, gate); diagnostic_transaction_worker_exit(self.get(), false); }).detach();
+     {
+         std::unique_lock lock(mutex);
+         changed.wait(lock, [&] { return primary_ready; });
+@@ -1921,7 +1923,7 @@
+ {
+     gate->dispatched = true;
+     auto self = shared_from_this();
+-    std::thread([self] { self->deadline_worker(); }).detach();
++    std::thread([self] { self->deadline_worker(); diagnostic_transaction_worker_exit(self.get(), true); }).detach();
+     std::optional<Error> failure;
+     bool committed = false;
+     bool known_rollback = false;
+@@ -2152,7 +2154,7 @@
+     }
+     auto gate = std::make_shared<CommandGate>(session);
+     auto self = shared_from_this();
+-    std::thread([self, gate] { self->finish_worker(false, gate); }).detach();
++    std::thread([self, gate] { self->finish_worker(false, gate); diagnostic_transaction_worker_exit(self.get(), false); }).detach();
+ }
+ void Transaction::join()
+ {

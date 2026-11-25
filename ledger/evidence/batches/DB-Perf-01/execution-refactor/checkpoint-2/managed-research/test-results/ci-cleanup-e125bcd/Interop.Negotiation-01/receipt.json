@@ -1,0 +1,431 @@
+{
+  "scope": "affected AOT entry validation",
+  "fullVerifierAcceptance": false,
+  "performanceCampaign": false,
+  "component": "Interop.Negotiation",
+  "status": "passed",
+  "scriptSha256": "80fe321029f2eb3db3e2dd2c7f5956af75f3a3876aac2cc9b35c0485d63eab35",
+  "commands": [
+    {
+      "label": "restore",
+      "argv": [
+        "dotnet",
+        "restore",
+        "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-ci-correctness/tests/Interop.Negotiation/Interop.Negotiation.Tests.csproj",
+        "--locked-mode",
+        "-r",
+        "linux-x64",
+        "-p:RuntimeIdentifier=linux-x64",
+        "-p:PublishAot=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:KordaSqliteAssetPath=/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_sqlite.so",
+        "-p:KordaPostgresAssetPath=/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_postgresql.so"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/restore.log",
+      "sha256": "5401cfd3e0a457d3c963269abdc7cf90cea1d99e2abfb6cc8e4e8ec8ca6e51bf"
+    },
+    {
+      "label": "publish",
+      "argv": [
+        "dotnet",
+        "publish",
+        "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-ci-correctness/tests/Interop.Negotiation/Interop.Negotiation.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "--no-restore",
+        "-p:PublishAot=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:KordaSqliteAssetPath=/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_sqlite.so",
+        "-p:KordaPostgresAssetPath=/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_postgresql.so",
+        "-o",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/publish.log",
+      "sha256": "e02652b84a5088b8588eb28ba57986a64362813267cb407b274cd8ded9db8e2c"
+    },
+    {
+      "label": "default-aot-metadata",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "metadata",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-metadata.log",
+      "sha256": "fb046efab5737691bfa31dec511308b5d6864dfb2b3f2c8de656307c8525a17d"
+    },
+    {
+      "label": "default-aot-coexist",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "coexist",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-coexist.log",
+      "sha256": "d5d6d16d4d05d5e2d7664e1013577623188d4d7b1b60ec9e5b7c155712d5371d"
+    },
+    {
+      "label": "default-aot-concurrent",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "concurrent",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-concurrent.log",
+      "sha256": "b310a24ced6120d687a5577323463c4891168a9b990c1733eb04de21d741c580"
+    },
+    {
+      "label": "default-aot-output-record",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "output-record",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-output-record.log",
+      "sha256": "da03bce4a4ba1377c80a88e78b7653a6e35b0aec1edfb828b6d4664433ec7837"
+    },
+    {
+      "label": "default-aot-options",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "options",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-options.log",
+      "sha256": "2d5dc34f00a1e15f50b4ba4dc8383e30146c260a64a0a3b6087c93e9f1cbba63"
+    },
+    {
+      "label": "default-aot-minor-old",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "minor-old",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-minor-old.log",
+      "sha256": "77316c05c4c6873af033521a3e1b094ed9e02ffa70131a1fe9133e0c6847bf9e"
+    },
+    {
+      "label": "default-aot-future-size",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "future-size",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-future-size.log",
+      "sha256": "9fa1ad8eec4a485701a30dfbadfe1a13d661d3558c92b97bb52510ee2344bbc1"
+    },
+    {
+      "label": "default-aot-bad-major",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-major",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-major.log",
+      "sha256": "d0facff0f44e2362901fe9969036375831ad1fc068861185bd6988e9000aad5f"
+    },
+    {
+      "label": "default-aot-bad-size",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-size",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-size.log",
+      "sha256": "fd3c965cbaa892cbca793617fdb0fd89798da06453f5c314ecf7c3221ab9bd14"
+    },
+    {
+      "label": "default-aot-bad-pointer",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-pointer",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-pointer.log",
+      "sha256": "5d40c6258cb893baf31cf1c5a556bb8d0b1577b34035922c019691394e472890"
+    },
+    {
+      "label": "default-aot-bad-reserved",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-reserved",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-reserved.log",
+      "sha256": "1a168f223429c433ebbc750552a0207f5fd045ff25a3e6056745d2e87ba3e118"
+    },
+    {
+      "label": "default-aot-bad-pending",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-pending",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-pending.log",
+      "sha256": "23a1beba0290fc53858c2259563f903626e2959abd151195de6110e58d9a2873"
+    },
+    {
+      "label": "default-aot-bad-unknown",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "bad-unknown",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-bad-unknown.log",
+      "sha256": "0a9acd72687c93f6684f210018c655e5f1a7f9906be784dae6e41f62473e6176"
+    },
+    {
+      "label": "default-aot-missing-export",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "missing-export",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-missing-export.log",
+      "sha256": "c18ad6269f685b4114f07a4d109f2e861c551e805b1b30ce989d33d8a28bdbd0"
+    },
+    {
+      "label": "default-aot-major-requirement",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "major-requirement",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-major-requirement.log",
+      "sha256": "cce08a8c81999a25e311c17d6508c7dea9096b9b5eb1a2ebef07a4a48a3d0015"
+    },
+    {
+      "label": "default-aot-minor-requirement",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "minor-requirement",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-minor-requirement.log",
+      "sha256": "493e9a0cf64809029b64d83aa1c1cdb9ba877fcc33cbd392d9d636c2a9ac8b4d"
+    },
+    {
+      "label": "default-aot-missing-asset",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "missing-asset",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-missing-asset.log",
+      "sha256": "a8400c939d8377a4602aa8c7aa5a60adf497d9ba533475cf42802edae4874e15"
+    },
+    {
+      "label": "default-aot-hash-mismatch",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "hash-mismatch",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-hash-mismatch.log",
+      "sha256": "b245ab06cb83a18102740d9141560ce87a4ee00b72ebfcf2efbbc03b63aa6509"
+    },
+    {
+      "label": "default-aot-invalid-binary",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "invalid-binary",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-invalid-binary.log",
+      "sha256": "06e17ab9b6ba9927ba717e2329b677419839a443901a826ed2fae5f1c89f3668"
+    },
+    {
+      "label": "default-aot-wrong-rid",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "wrong-rid",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-wrong-rid.log",
+      "sha256": "87f2c6b499b6e9262f62b18015a488f9629e6bbd92454f544d7805e7a40f2c5d"
+    },
+    {
+      "label": "default-aot-cpu-profile",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "cpu-profile",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-cpu-profile.log",
+      "sha256": "d0090bc3a245f9ae6d73d11f6ded38bac3a66dfaf9d1bda1b9253aacbd4b1dab"
+    },
+    {
+      "label": "default-aot-conflict",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "conflict",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-conflict.log",
+      "sha256": "4d55216576ec552f63dde55c9b9324cbfee6b8811b40d556708d79c531260701"
+    },
+    {
+      "label": "default-aot-latched-failure",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "latched-failure",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-latched-failure.log",
+      "sha256": "9e102ae55b823716555d3a5cde19fb0f5dce61a513273e0074a66b02be3e6d2b"
+    },
+    {
+      "label": "default-aot-preload-retry",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "preload-retry",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-preload-retry.log",
+      "sha256": "d6df7547de29aca002a78980cbe12860a1a4bf3990a20dcd41d32275644357ee"
+    },
+    {
+      "label": "default-aot-default-missing",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "default-missing",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-default-missing.log",
+      "sha256": "c5080b5407e754ba9a57c96973eb09555b6c6798b679974d6063b0384e68cd5f"
+    },
+    {
+      "label": "default-aot-cached-override",
+      "argv": [
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+        "cached-override",
+        "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/fixtures",
+        "--require-aot"
+      ],
+      "exitCode": 0,
+      "log": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/default-aot-cached-override.log",
+      "sha256": "5f67cf309c724d559943ae53f0951a5a9ed9dd9d2e1576e7a3180e93721f1dfb"
+    }
+  ],
+  "source": {
+    "commit": "e125bcd8bebb27e60a1172ab64d9dec3a996e4e2",
+    "tree": "898ff6959cabfeab4c4725e2c9c277973b4ae30c",
+    "status": ""
+  },
+  "nativeProducer": {
+    "sourceCommit": "dc82792c519ee90be30f5c49b2f785ecd33ad915",
+    "manifest": "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/db-exec-b-native/manifest.json",
+    "sha256": "fc2dbb71ea7a2e7474123a45636b801f0c3ce75c7238b805d86f3483b796c1bc",
+    "verifiedSourceFiles": 113
+  },
+  "nativeBinarySha256": {
+    "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_sqlite.so": "49e8f8ea68a17a63d2c25f367338498c3ac602ecb1c7af2498d36e15cd799ca5",
+    "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/native-install/linux-x64-release/lib/libnw_database_postgresql.so": "2d34f1dce999b69545d0fdd8a12e28252b33f76aed00eb5148aa921be13bfdf5",
+    "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/cmake/linux-x64-release/fixtures/libkorda_query_binding_fixture.so": "593de812771268d5725e15b420b8fd2989d1ef34c01f4bae8cac2ca19937aa01",
+    "/workspace/scratch/17ac3f8f2fbf/worktrees/DB-Exec-02-korda/artifacts/cmake/linux-x64-release/fixtures/libkorda_streaming_fixture.so": "5401c05ac64264e4626e1bcbc55297a8a06aeffc26c7085d66eac1467545432f"
+  },
+  "executable": {
+    "path": "/workspace/scratch/17ac3f8f2fbf/managed-research/test-results/ci-cleanup-e125bcd/Interop.Negotiation-01/aot/Korda.Interop.Negotiation.Tests",
+    "sha256": "eab7d4e1c1256cb3eb443b528b8eb9c1c34912d914ca02c6b2dda4cf8e299146"
+  },
+  "negotiationFixtureSha256": {
+    "libnw_a02_beta.so": "073ad398f811bb84a394c2689766fe4f1a747dbd40b4a77f87df3ba6a9c69069",
+    "libnw_a02_bad_pending.so": "99b559eb49a2d56d2311586d0e58e0264746f14c20e613c32a178f6d7bc856a9",
+    "libnw_a02_alpha.so": "c7087c095e5355acf9ba7ac854db7013b2d35184580420884ffaa85597c74770",
+    "libnw_a02_bad_unknown.so": "89266b56f3e9b08112153bd2d222a1f89f07d2fafe68f03c4d6e33da0469dc44",
+    "libnw_a02_bad_pointer.so": "8bbed13e088b52a41aab2ee47d4372ceda9e0f037c2b796e132202f71fed67b2",
+    "libnw_a02_bad_reserved.so": "36c161994a33660e3ad758e2d233878db257f43444841761b33b7cf26deb3ec5",
+    "libnw_a02_bad_size.so": "e81cb8c7334891e3b7021e4062bdc9d4233f0b3918dfb6ad9abd48cca8e2343d",
+    "libnw_a02_minor_zero.so": "1553211dabc2069284f6794dbd5bf0cb1e6b0e24fee529464d3b622b0d5c36cc",
+    "libnw_a02_future_size.so": "0fb47290636ec0d42c9dc0408ac72010fdb06dd09048a7b183c0c7b0dafbb9df",
+    "libnw_a02_bad_major.so": "88f2df58a6a56cda7bfafdd4c6fd11fb42fc42f5cbcb3c89802cf0aa2f699181"
+  },
+  "defaultCaseList": [
+    "metadata",
+    "coexist",
+    "concurrent",
+    "output-record",
+    "options",
+    "minor-old",
+    "future-size",
+    "bad-major",
+    "bad-size",
+    "bad-pointer",
+    "bad-reserved",
+    "bad-pending",
+    "bad-unknown",
+    "missing-export",
+    "major-requirement",
+    "minor-requirement",
+    "missing-asset",
+    "hash-mismatch",
+    "invalid-binary",
+    "wrong-rid",
+    "cpu-profile",
+    "conflict",
+    "latched-failure",
+    "preload-retry",
+    "default-missing",
+    "cached-override"
+  ],
+  "sourceStable": true,
+  "nativeInputsStable": true
+}

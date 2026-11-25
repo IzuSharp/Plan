@@ -1,0 +1,46 @@
+--- original/sqlite.cpp
++++ diagnostic/sqlite.cpp
+@@ -20,6 +20,21 @@
+ 
+ namespace nw
+ {
++std::mutex diagnostic_worker_mutex;
++std::condition_variable diagnostic_worker_changed;
++bool diagnostic_worker_entered = false, diagnostic_worker_released = false;
++unsigned diagnostic_worker_mode = 0;
++void diagnostic_transaction_worker_exit(Transaction* tx, bool deadline)
++{
++    if (diagnostic_worker_mode != (deadline ? 2U : 1U))
++        return;
++    std::unique_lock lock(diagnostic_worker_mutex);
++    diagnostic_worker_entered = true;
++    diagnostic_worker_changed.notify_all();
++    diagnostic_worker_changed.wait_for(lock, std::chrono::seconds(15), [] { return diagnostic_worker_released; });
++    (void)tx;
++}
++
+ std::uint64_t module_identity()
+ {
+     return 0x4442435050423033ULL;
+@@ -782,6 +797,7 @@
+ void run_suite(const std::filesystem::path& root)
+ {
+     std::filesystem::create_directories(root);
++    diagnostic_worker_mode = static_cast<unsigned>(std::stoi(std::getenv("KORDA_DIAGNOSTIC_EPILOGUE")));
+     for (std::uint32_t diagnostic_round = 0; diagnostic_round < 300; ++diagnostic_round)
+     {
+         const std::uint32_t i = 4;
+@@ -853,6 +869,13 @@
+             if (auto source = diagnostic_source.lock())
+                 std::cerr << "DIAGNOSTIC source retained=" << source.use_count() << " retired=" << source->retired.load()
+                           << " leased=" << source->leased << " pending=" << source->pending.load() << std::endl;
++            {
++                std::unique_lock lock(diagnostic_worker_mutex);
++                diagnostic_worker_changed.wait_for(lock, 5s, [] { return diagnostic_worker_entered; });
++                std::cerr << "DIAGNOSTIC epilogue gate mode=" << diagnostic_worker_mode << " entered=" << diagnostic_worker_entered << std::endl;
++                diagnostic_worker_released = true;
++            }
++            diagnostic_worker_changed.notify_all();
+             const auto until = Clock::now() + 100ms;
+             while ((source_count || session_count || cursor_count || buffer_count || operation_count) && Clock::now() < until)
+                 std::this_thread::yield();

@@ -1,0 +1,456 @@
+diff --git a/benchmarks/db-perf/empty-parameters/Program.cs b/benchmarks/db-perf/empty-parameters/Program.cs
+index e601516..314e8aa 100644
+--- a/benchmarks/db-perf/empty-parameters/Program.cs
++++ b/benchmarks/db-perf/empty-parameters/Program.cs
+@@ -55,13 +55,13 @@
+         observations.Add(Measure(provider, profile, "dynamic-explicit-empty-fallback", () => context.Values(suppliedEmpty), expected, Operations, Warmup));
+         var prepared = new PreparedParameterLayout(source, context.Parameters.Values);
+         observations.Add(Measure(provider, profile, "prepared-empty-unchanged", () => prepared.Encode(source, null), expected, Operations, Warmup));
+-        var legacy = ParameterDefinition.Encode(source, context.Parameters.Values, null);
+-        Require(legacy.AsSpan().SequenceEqual(expected), "independent golden equals original encoder for " + provider);
++        var preparedFrame = prepared.Encode(source, null);
++        Require(preparedFrame.AsSpan().SequenceEqual(expected), "independent golden equals prepared encoder for " + provider);
+ 
+         using var parameterQuery = session.From(table);
+         var parameter = parameterQuery.Parameter("id", Codecs.Int64);
+         var supplied = new QueryParameters().Set(parameter, 17L);
+-        var nonemptyGolden = ParameterDefinition.Encode(source, parameterQuery.Context.Parameters.Values, supplied);
++        var nonemptyGolden = new PreparedParameterLayout(source, parameterQuery.Context.Parameters.Values).Encode(source, supplied);
+         observations.Add(Measure(provider, profile, "dynamic-one-parameter-unchanged", () => parameterQuery.Context.Values(supplied), nonemptyGolden, Operations, Warmup));
+         ObserveError(provider, "declared-missing-null", () => parameterQuery.Context.Values(null));
+         ObserveError(provider, "declared-missing-explicit-empty", () => parameterQuery.Context.Values(suppliedEmpty));
+diff --git a/benchmarks/db-perf/managed/README.md b/benchmarks/db-perf/managed/README.md
+index f565c29..50350f3 100644
+--- a/benchmarks/db-perf/managed/README.md
++++ b/benchmarks/db-perf/managed/README.md
+@@ -286,9 +286,10 @@ version, a dirty production patch hash and complete entry provenance; the normal
+ bundle composer must regenerate matching closure/shared digests, and the provider
+ facade's embedded identity must match that experimental version. Such experiments
+ do not replace final producer-CI or public NuGet package validation. The affected
+-Query.Fluent correctness suite includes a short all-thread allocation ceiling for
+-public lazy construction, plus snapshot/source/NULL/disposal/concurrency checks;
+-the ceiling is explicitly nonzero.
++Query.Fluent correctness suite retains snapshot/source/NULL/disposal/concurrency
++checks and verifies that first and repeated lazy construction dispatch no SQL and
++change no native ownership. Timing, allocation ceilings and whole-process GC
++sampling run only in these local diagnostics, outside CI correctness gates.
+ 
+ ## Evidence and limits
+ 
+@@ -310,3 +311,44 @@ Primary implementation guidance:
+ - Npgsql AOT compatibility: <https://www.npgsql.org/doc/compatibility.html>
+ - SQLite async behavior: <https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/async>
+ - SQLite native version selection: <https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/custom-versions>
++
++## Local streaming allocation diagnostics
++
++The `Data.Streaming` correctness verifier publishes the existing Native AOT test
++consumer and executes provider, storage identity, owner transfer/release,
++malformed-batch, row-lease and race assertions. It does not run allocation
++windows. A normal invocation and `--correctness-only` both select correctness.
++
++After the consumer has been built, run these diagnostics locally in separate
++processes with fresh output directories and no concurrent build or timing run:
++
++```bash
++/absolute/streaming-aot/Korda.Data.Streaming.Tests /absolute/inbatch-allocation \
++  --require-aot --allocation-gate-only
++/absolute/streaming-aot/Korda.Data.Streaming.Tests /absolute/owned-batch-allocation \
++  --require-aot --owned-batch-probe-only
++/absolute/streaming-aot/Korda.Data.Streaming.Tests /absolute/reused-lease-allocation \
++  --require-aot --row-lease-reuse-probe-only
++```
++
++These retain their existing raw process counters, exact-zero or bounded-byte
++criteria, and owner/checksum assertions. They isolate synthetic in-batch,
++exclusive managed storage, or reused-lease work. They do not establish complete
++public query allocation or measured PostgreSQL/SQLite throughput. No CI action,
++ordinary component verifier or release command invokes these profiling flags.
++
++### Additional explicit local diagnostics
++
++The default component verifiers run correctness, API and ownership tests. Allocation windows for abstraction codecs, control records, query projection encoding and Host snapshot parsing are local diagnostics only. The existing published AOT test executables retain these explicit entries:
++
++```bash
++<abstractions-aot>/Korda.Data.Tests <fresh-output> --require-aot --allocation-probe --allocation-regression
++<abstractions-aot>/Korda.Data.Tests <fresh-output> --require-aot --owned-wire-allocation-regression
++<abstractions-aot>/Korda.Data.Tests <fresh-output> --require-aot --control-record-allocation-regression
++<abstractions-aot>/Korda.Data.Tests <fresh-output> --require-aot --configured-scalar-probe --allocation-regression
++<binding-aot>/Korda.Query.Binding.Tests --projection-allocation <fresh-output>
++<binding-aot>/Korda.Query.Binding.Tests --projection-scratch-allocation <fresh-output>
++<host-aot>/Korda.Data.NativeHost.Tests --snapshot-probe <fresh-output> 10000 3
++```
++
++The parser-only snapshot entry also checks its existing allocation budget before collecting its explicit windows. These commands are not invoked by a default verifier, workflow, release script or package build. Keep their raw process allocation and GC counters with their exact source and binary identities; they do not establish complete-query performance. The ordinary suites still execute wire goldens, codec rejection matrices, snapshot parser equivalence, projection scratch/ownership checks, bounded-input rejection, and all batch lifetime checks.
+diff --git a/docs/guides/interop-negotiation.md b/docs/guides/interop-negotiation.md
+index f57eee7..61678b6 100644
+--- a/docs/guides/interop-negotiation.md
++++ b/docs/guides/interop-negotiation.md
+@@ -139,7 +139,7 @@ trust model described by the pinned consumption specification.
+ | Option snapshot | At most 64 unique capabilities and a 4,096-byte absolute override path |
+ | First Inspect | O(asset bytes) hashing, bounded metadata allocations, OS mapping, one bootstrap FFI; no native executor or domain owner |
+ | Compatible repeated Inspect | Cached metadata and local identity/option checks; explicit path overrides intentionally revalidate bytes |
+-| Supports/Require success | Ordinal hash lookup, no FFI and no managed allocation after initialization; the 10,000-call Supports check is measured in JIT and AOT |
++| Supports/Require success | Ordinal hash lookup, no FFI and no managed allocation after initialization; the initialized known/unknown Supports cases assert this per-call contract without a sampling window |
+ 
+ These bounds do not claim a limit on the OS loader, whole-process RSS or arbitrary
+ metadata objects created by application code. CPU profiles selected here are
+diff --git a/tests/Data.Abstractions/verify.py b/tests/Data.Abstractions/verify.py
+index 725c0b4..8ccf729 100644
+--- a/tests/Data.Abstractions/verify.py
++++ b/tests/Data.Abstractions/verify.py
+@@ -193,10 +193,6 @@ with tempfile.TemporaryDirectory(prefix='korda-b01-consumer-') as temporary:
+ run('managed-aot-restore', [DOTNET, 'restore', managed, '-r', 'linux-x64', '-p:PublishAot=true', '--locked-mode', '--disable-build-servers', *restore_options])
+ run('managed-aot-publish', [DOTNET, 'publish', managed, '-c', 'Release', '-r', 'linux-x64', '-p:PublishAot=true', '--self-contained', 'true', '--no-restore', '--disable-build-servers', '-o', OUT / 'aot-tests'])
+ run('managed-aot-run', [OUT / 'aot-tests/Korda.Data.Tests', OUT / 'managed-aot', '--require-aot'])
+-run('managed-allocation-regression', [OUT / 'aot-tests/Korda.Data.Tests', OUT / 'scalar-allocation', '--require-aot', '--allocation-probe', '--allocation-regression'])
+-run('owned-wire-allocation-regression', [OUT / 'aot-tests/Korda.Data.Tests', OUT / 'owned-wire-allocation', '--require-aot', '--owned-wire-allocation-regression'])
+-run('control-record-allocation-regression', [OUT / 'aot-tests/Korda.Data.Tests', OUT / 'control-record-allocation', '--require-aot', '--control-record-allocation-regression'])
+-run('managed-configured-scalar-regression', [OUT / 'aot-tests/Korda.Data.Tests', OUT / 'configured-scalar-allocation', '--require-aot', '--configured-scalar-probe', '--allocation-regression'])
+ native_results = json.loads(run('native-aot-goldens', [native_binary, OUT / 'managed-aot']))
+ tracked = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard',
+     'src/Data.Abstractions', 'tests/Data.Abstractions', 'native/database/interfaces',
+diff --git a/tests/Data.NativeHost/Program.cs b/tests/Data.NativeHost/Program.cs
+index 478cd49..9a4ffc3 100644
+--- a/tests/Data.NativeHost/Program.cs
++++ b/tests/Data.NativeHost/Program.cs
+@@ -14,7 +14,6 @@
+ if (await FetchProbe.RunIfRequested(args)) return;
+ if (await TransactionDefaultProbe.RunIfRequested(args)) return;
+ Console.WriteLine("snapshot parser oracle inputs=" + SnapshotProbe.Verify());
+-SnapshotProbe.VerifyAllocationBudget();
+ BatchResultTests.VerifyRecord();
+ try { await Suite.Run(); } catch (DatabaseException failure) { Console.Error.WriteLine($"kind={failure.Kind} provider={failure.ProviderCode} correlation={failure.CorrelationId}"); throw; }
+ 
+diff --git a/tests/Data.NativeHost/SnapshotProbe.cs b/tests/Data.NativeHost/SnapshotProbe.cs
+index 14d2f7d..2a3d121 100644
+--- a/tests/Data.NativeHost/SnapshotProbe.cs
++++ b/tests/Data.NativeHost/SnapshotProbe.cs
+@@ -44,6 +44,7 @@ internal static async Task<bool> RunIfRequested(string[] args)
+         var output = args[1]; var iterations = int.Parse(args[2]); var windows = int.Parse(args[3]);
+         Bounds(iterations, windows); Directory.CreateDirectory(output);
+         var oracleInputs = Verify();
++        VerifyAllocationBudget();
+         var normal = Frame(Standard()); var releasedFields = Standard();
+         releasedFields[3] = new(4, 1, U32(2)); releasedFields[5] = new(6, 1, U32(1));
+         var released = Frame(releasedFields); var provider = Frame(Standard("40001"));
+diff --git a/tests/Data.Streaming/OwnedBatchProbe.cs b/tests/Data.Streaming/OwnedBatchProbe.cs
+index ae09270..314229e 100644
+--- a/tests/Data.Streaming/OwnedBatchProbe.cs
++++ b/tests/Data.Streaming/OwnedBatchProbe.cs
+@@ -30,6 +30,31 @@ internal static class OwnedBatchProbe
+     private readonly record struct Window(string Lane, int Round, Counter Before, Counter After,
+         long Operations, long Rows, long Checksum);
+ 
++    internal static void RunCorrectness()
++    {
++        var payload = Encode(Rows);
++        Correctness(payload);
++        foreach (var owned in new[] { false, true })
++        {
++            var batches = Prepare(payload, 2, owned);
++            long rows = 0, checksum = 0;
++            foreach (var owner in batches)
++            {
++                using var lease = new RowBatchLease(owner, Expected, Shape.Fields, Limits);
++                for (uint row = 0; row < lease.Rows; row++)
++                {
++                    var value = lease.Materialize(row, Shape);
++                    Check(value == row + 1, "Complete batch consumption changed a numeric value.");
++                    rows++; checksum += value;
++                }
++            }
++            Check(rows == 2 * Rows && checksum == (long)Rows * (Rows + 1),
++                "Borrowed/owned batches changed their complete row count or checksum.");
++            AssertReleased(batches, takes: owned ? 1 : 0);
++        }
++        Console.WriteLine($"PASS owned batch correctness: {s_assertions} assertions; complete consumption, ownership and malformed-transfer compensation");
++    }
++
+     internal static void Run(string output)
+     {
+         var payload = Encode(Rows);
+diff --git a/tests/Data.Streaming/Program.cs b/tests/Data.Streaming/Program.cs
+index 3de73ba..cf1f4bb 100644
+--- a/tests/Data.Streaming/Program.cs
++++ b/tests/Data.Streaming/Program.cs
+@@ -42,17 +42,13 @@
+     await AllocationProbeGate.RunAsync(args[0]);
+     return;
+ }
+-if (!args.Contains("--correctness-only", StringComparer.Ordinal))
+-{
+-    await AllocationProbeGate.RunAsync(args[0]);
+-    OwnedBatchProbe.Run(args[0]);
+-}
++// The default and --correctness-only paths execute the same behavior checks.
++// Allocation probes remain explicit local diagnostic entry points above.
+ await AllocationProbeRaces.RunAsync();
++OwnedBatchProbe.RunCorrectness();
+ StableBatchTests.Run();
+ await RowLeaseReuseChecks.RunAsync();
+ var cases = new List<Observation>();
+-var allocatedBefore = GC.GetTotalAllocatedBytes(true);
+-var workingSetBefore = Process.GetCurrentProcess().WorkingSet64;
+ var assertions = 0;
+ var ordinary = Projection<Item>.Create([ResultField.Create("id", Codecs.Int64), ResultField.Create("label", Codecs.NullableReference(Codecs.String))], row => new(row.Read(0, Codecs.Int64), row.Read(1, Codecs.NullableReference(Codecs.String))));
+ var limits = new StreamLimits(3, 256, 100, 64 * 1024);
+@@ -274,9 +270,7 @@ void Clean(string name, uint provider, NativeFixtureTransport? transport, int ro
+     json.WriteStartObject(); json.WriteString("task", "B06"); json.WriteString("status", "passed"); json.WriteString("platform", "linux-x64");
+     json.WriteBoolean("dynamicCodeSupported", RuntimeFeature.IsDynamicCodeSupported); json.WriteNumber("assertions", assertions);
+     json.WriteNumber("nativeToManagedCopyBytes", NativeBatch.CopiedBytes); json.WriteNumber("peakTransportManagedBytes", NativeBatch.PeakBytes);
+-    json.WriteNumber("managedAllocatedBytes", GC.GetTotalAllocatedBytes(true) - allocatedBefore); json.WriteNumber("workingSetBefore", workingSetBefore);
+-    using var process = Process.GetCurrentProcess(); json.WriteNumber("workingSetAfter", process.WorkingSet64); json.WriteNumber("peakWorkingSet", process.PeakWorkingSet64);
+-    json.WriteString("memoryScope", "Owned reservation and wire/copy counters are bounded; measured CLR allocations and process RSS include SQLx/SQLite/Tokio/allocator/GC effects and are not asserted as hard bounds.");
++    json.WriteString("memoryScope", "Correctness records owned reservation and wire/copy counters. Process allocation, GC and RSS sampling belong to explicit local diagnostics.");
+     json.WriteStartArray("cases");
+     foreach (var item in cases)
+     {
+diff --git a/tests/Data.Streaming/verify.py b/tests/Data.Streaming/verify.py
+index da06d46..18af107 100644
+--- a/tests/Data.Streaming/verify.py
++++ b/tests/Data.Streaming/verify.py
+@@ -145,12 +145,9 @@ def main() -> int:
+                             "-p:PublishAot=true", "-p:RestoreLockedMode=true", *local_restore, *common, "-o", str(publish)])
+         executable = publish / "Korda.Data.Streaming.Tests"
+         native_env = dict(env, LD_LIBRARY_PATH=str(fixture_dir) + (":" + env["LD_LIBRARY_PATH"] if env.get("LD_LIBRARY_PATH") else ""))
+-        # Allocation boundaries use fresh processes. The high-allocation copy
+-        # stress fixture must not silently become part of the zero-row gate's
+-        # process history; both keep their original strict raw counters.
+-        run("aot-allocation-gate", [str(executable), str(output / "allocation-results"), "--require-aot", "--allocation-gate-only"], native_env)
+-        run("aot-owned-batch-gate", [str(executable), str(output / "owned-batch-results"), "--require-aot", "--owned-batch-probe-only"], native_env)
+-        run("aot-row-lease-reuse-gate", [str(executable), str(output / "row-lease-reuse-results"), "--require-aot", "--row-lease-reuse-probe-only"], native_env)
++        # The provider correctness run retains storage identity, transfer,
++        # disposal, malformed-batch and race assertions. Allocation windows are
++        # explicit local diagnostics and are not invoked by this CI verifier.
+         if args.postgres_bin:
+             pg = args.postgres_bin.resolve()
+             data = output / "postgres-data"
+diff --git a/tests/Interop.Negotiation/Program.cs b/tests/Interop.Negotiation/Program.cs
+index 4e05e9c..a90a875 100644
+--- a/tests/Interop.Negotiation/Program.cs
++++ b/tests/Interop.Negotiation/Program.cs
+@@ -140,11 +140,14 @@ private static void Coexist()
+         Assert(ReferenceEquals(a, Descriptor("coexist.alpha", "alpha").Inspect()));
+         var catalog = new EngineCatalog([beta, alpha]);
+         Assert(ReferenceEquals(catalog.Inspect("coexist.alpha"), a));
+-        // A successful hot capability test allocates no managed bytes after warm-up.
+-        for (int i = 0; i < 100; i++) Assert(a.Supports(Alpha));
++        // Supports publicly promises no per-call allocation or native dispatch.
++        // Check the initialized known/unknown cases without a sampling window.
+         long before = GC.GetAllocatedBytesForCurrentThread();
+-        for (int i = 0; i < 10000; i++) _ = a.Supports(Alpha);
+-        Assert(GC.GetAllocatedBytesForCurrentThread() == before);
++        bool known = a.Supports(Alpha), unknown = a.Supports(Beta);
++        long after = GC.GetAllocatedBytesForCurrentThread();
++        Assert(known && !unknown);
++        Assert(after == before);
++        Assert(Native.AlphaCalls() == 1);
+     }
+ 
+     private static void Concurrent()
+diff --git a/tests/Query.Binding/verify.py b/tests/Query.Binding/verify.py
+index 8a7ab5a..5fff5d6 100644
+--- a/tests/Query.Binding/verify.py
++++ b/tests/Query.Binding/verify.py
+@@ -61,8 +61,6 @@ try:
+     write('golden-comparison.json',{'expected':golden,'actual':actual,'equal':golden==actual})
+     if golden!=actual:raise RuntimeError('Cross-language golden inputs drifted.')
+     run('actual-aot',[out/'aot/Korda.Query.Binding.Tests',asset,out/'aot-results','--require-aot'])
+-    run('projection-allocation-aot',[out/'aot/Korda.Query.Binding.Tests','--projection-allocation',out/'projection-allocation'])
+-    run('projection-scratch-allocation-aot',[out/'aot/Korda.Query.Binding.Tests','--projection-scratch-allocation',out/'projection-scratch-allocation'])
+     run('restore-sample-aot',['dotnet','restore',sample,'-r','linux-x64','-p:PublishAot=true','--locked-mode',*config,*common])
+     run('publish-sample-aot',['dotnet','publish',sample,'-c','Release','-r','linux-x64','-p:PublishAot=true','-p:IlcTreatWarningsAsErrors=true','--no-restore','-o',out/'sample-aot',*common])
+     if (out/'sample-aot/Korda.Query.Binding.Sample').read_bytes()[:4]!=b'\x7fELF' or (out/'sample-aot/Korda.Query.Binding.Sample.dll').exists():raise RuntimeError('Expected an actual standalone Native AOT sample executable.')
+diff --git a/tests/Query.Fluent/Program.cs b/tests/Query.Fluent/Program.cs
+index d6b7783..eb650f3 100644
+--- a/tests/Query.Fluent/Program.cs
++++ b/tests/Query.Fluent/Program.cs
+@@ -1,6 +1,5 @@
+ using System.Runtime.CompilerServices;
+ using System.Buffers.Binary;
+-using System.Diagnostics;
+ using System.Security.Cryptography;
+ using System.Text.Json;
+ using System.Text.Json.Serialization;
+@@ -17,9 +16,6 @@ internal static class Suite
+ {
+     private static int _assertions, _retirements;
+     private static readonly List<string> Completed = [];
+-    private static readonly List<CompositionCost> Costs = [];
+-    private static readonly List<PreparedConstructionCost> PreparedCosts = [];
+-    private static readonly List<EmptyParameterCost> EmptyParameterCosts = [];
+     internal static void Check(bool value, string message) { _assertions++; if (!value) throw new InvalidOperationException(message); }
+     internal static T Throws<T>(Action action) where T : Exception
+     { try { action(); } catch (T error) { _assertions++; return error; } throw new InvalidOperationException("Expected " + typeof(T).Name); }
+@@ -48,7 +44,7 @@ internal static async Task Run(string[] args)
+         }
+         File.Delete(sqliteFile);
+         Check(hashes.SequenceEqual(nativeFiles.Select(f => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(f))))), "New C# DTOs and ordinary expressions reuse unchanged native assets");
+-        Directory.CreateDirectory(args[0]); File.WriteAllText(Path.Combine(args[0], "result.json"), JsonSerializer.Serialize(new Receipt(!RuntimeFeature.IsDynamicCodeSupported, _assertions, _retirements, Completed, hashes, Costs, PreparedCosts, EmptyParameterCosts), ReceiptJson.Default.Receipt));
++        Directory.CreateDirectory(args[0]); File.WriteAllText(Path.Combine(args[0], "result.json"), JsonSerializer.Serialize(new Receipt(!RuntimeFeature.IsDynamicCodeSupported, _assertions, _retirements, Completed, hashes), ReceiptJson.Default.Receipt));
+         Console.WriteLine($"PASS B13 actual two-provider Fluent: {_assertions} assertions; AOT={!RuntimeFeature.IsDynamicCodeSupported}");
+     }
+     private static async Task Provider(DataSession session, Diagnostic diagnostic)
+@@ -301,8 +297,8 @@ await ThrowsAsync<ObjectDisposedException>(async () =>
+         await Done("prepared-isolation");
+         await CheckPreparedStreamFailureTiming(session, diagnostic);
+         await Done("prepared-stream-validation-timing");
+-        MeasurePreparedConstruction(session, diagnostic);
+-        await Done("prepared-construction-allocation-regression");
++        CheckPreparedConstruction(session, diagnostic);
++        await Done("prepared-construction-lazy-admission");
+         using (var q = Q())
+         using (var other = Q())
+         {
+@@ -365,10 +361,10 @@ await ThrowsAsync<ObjectDisposedException>(async () =>
+             Check(plan.IsClosed, "Seal/Publish/Dispose releases published native plan");
+         }
+         await Done("owners-streaming-cardinality");
+-        MeasureEmptyParameters(session, diagnostic);
++        CheckEmptyParameters(session, diagnostic);
+         await Done("dynamic-empty-parameter-encoding");
+-        MeasureComposition(session);
+-        await Done("direct-composition-cost-input");
++        CheckComposition(session, diagnostic);
++        await Done("composition-render-no-dispatch");
+         if (session.Source.Provider == DatabaseProvider.Sqlite)
+         { using var q = Q(); Throws<DatabaseCapabilityException>(() => q.ForUpdate()); }
+         else
+@@ -387,7 +383,7 @@ await ThrowsAsync<ObjectDisposedException>(async () =>
+         await session.ExecuteAsync(SqlCommand.Create("DROP TABLE \"Children\"", kind: SqlCommandKind.Mutation));
+         await session.ExecuteAsync(SqlCommand.Create("DROP TABLE \"Parents\"", kind: SqlCommandKind.Mutation));
+     }
+-    private static void MeasureEmptyParameters(DataSession session, Diagnostic diagnostic)
++    private static void CheckEmptyParameters(DataSession session, Diagnostic diagnostic)
+     {
+         using var query = session.From(Models.People);
+         var profile = session.Source.Provider == DatabaseProvider.Sqlite ? 1u : 2u;
+@@ -402,32 +398,13 @@ private static void MeasureEmptyParameters(DataSession session, Diagnostic diagn
+         BinaryPrimitives.WriteUInt32LittleEndian(expected.AsSpan(76), profile);
+         BinaryPrimitives.WriteUInt64LittleEndian(expected.AsSpan(80), 96);
+         BinaryPrimitives.WriteUInt64LittleEndian(expected.AsSpan(88), 96);
+-        var expectedChecksum = ConsumeParameterFrame(expected, expected);
+-        const int warmup = 1024, iterations = 16384;
+-        for (var i = 0; i < warmup; i++) _ = ConsumeParameterFrame(query.Context.Values(null), expected);
+         var sql = diagnostic.Count(6); var owners = diagnostic.Counts();
+-        _ = GC.GetTotalAllocatedBytes(precise: true); _ = Stopwatch.GetTimestamp();
+-        var before0 = GC.CollectionCount(0); var before1 = GC.CollectionCount(1); var before2 = GC.CollectionCount(2);
+-        var before = GC.GetTotalAllocatedBytes(precise: true); var started = Stopwatch.GetTimestamp();
+-        long checksum = 0;
+-        for (var i = 0; i < iterations; i++) checksum += ConsumeParameterFrame(query.Context.Values(null), expected);
+-        var ended = Stopwatch.GetTimestamp(); var after = GC.GetTotalAllocatedBytes(precise: true);
+-        var after0 = GC.CollectionCount(0); var after1 = GC.CollectionCount(1); var after2 = GC.CollectionCount(2);
+-        // DB-Perf-01: all six warmed candidate windows (three independent AOT
+-        // processes per provider) measured exactly zero whole-process bytes.
+-        // This gate covers only internal encoding with an existing context; it
+-        // excludes query construction, native execution, and business results.
+-        const long maximumBytes = 0;
+-        EmptyParameterCosts.Add(new(session.Source.Provider.ToString(), profile, warmup, iterations,
+-            before, after, before0, before1, before2, after0, after1, after2, started, ended,
+-            Stopwatch.Frequency, checksum, Convert.ToHexStringLower(expected), maximumBytes,
+-            "Internal QueryContext.Values(null) only; GC counters cover the whole process heap."));
+-        Check(after - before <= maximumBytes, "Warmed internal empty-parameter encoding allocation ceiling");
+-        Check(checksum == expectedChecksum * iterations, "Every complete empty-parameter frame was consumed");
++        Check(query.Context.Values(null).AsSpan().SequenceEqual(expected), "Complete empty-parameter frame matches the independent wire golden");
++        Check(query.Context.Values(null).AsSpan().SequenceEqual(expected), "Repeated empty encoding preserves every byte");
+         Check(diagnostic.Count(6) == sql && diagnostic.Counts().SequenceEqual(owners), "Encoding does not dispatch SQL or change native ownership");
+ 
+-        // Explicit empty sets and every parameterized/invalid input retain the
+-        // existing snapshot/validation path; they are outside the zero window.
++        // Explicit empty, parameterized and invalid inputs keep the complete
++        // snapshot and identity checks; allocation sampling lives in db-perf.
+         var explicitEmpty = new QueryParameters();
+         Check(query.Context.Values(explicitEmpty).AsSpan().SequenceEqual(expected), "Explicit empty parameter frame keeps the same complete bytes");
+         using var declared = session.From(Models.People);
+@@ -443,29 +420,20 @@ private static void MeasureEmptyParameters(DataSession session, Diagnostic diagn
+         Check(Throws<ArgumentException>(() => declared.Context.Values(otherValues)).ParamName == "supplied", "A different declared identity still rejects");
+         Check(query.Context.Values(null).AsSpan().SequenceEqual(expected), "Fallback calls do not mutate the shared frame");
+     }
+-    [MethodImpl(MethodImplOptions.NoInlining)]
+-    private static long ConsumeParameterFrame(ReadOnlySpan<byte> bytes, ReadOnlySpan<byte> expected)
++    private static void CheckComposition(DataSession session, Diagnostic diagnostic)
+     {
+-        if (!bytes.SequenceEqual(expected)) throw new InvalidOperationException("Complete parameter frame changed.");
+-        long checksum = 0; foreach (var value in bytes) checksum += value; return checksum;
+-    }
+-    private static void MeasureComposition(DataSession session)
+-    {
+-        void Compose(long value)
++        var sql = diagnostic.Count(6); var owners = diagnostic.Counts();
++        using (var query = session.From(Models.People))
+         {
+-            using var query = session.From(Models.People);
+-            _ = query.WhereEqual(Models.Id, value).Take(1).SelectAll().ToSql();
++            var selection = query.WhereEqual(Models.Id, 0L).Take(1).SelectAll();
++            var first = selection.ToSql();
++            Check(first.Length != 0 && selection.ToSql() == first, "Repeated rendering preserves the complete SQL snapshot");
+         }
+-        Compose(0);
+-        const int iterations = 64;
+-        var before = GC.GetAllocatedBytesForCurrentThread(); var started = Stopwatch.GetTimestamp();
+-        for (var i = 0; i < iterations; i++) Compose(i % 3);
+-        var elapsed = Stopwatch.GetTimestamp() - started; var allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+         int encoded = Korda.Query.Internal.OperandEncoding.Value(session.Source.Binding.SemanticProfile, Codecs.Int64, 3, 1L).Length;
+-        Check(encoded > sizeof(long) && allocated > 0, "Direct boundary allocations and encoded copies are explicit");
+-        Costs.Add(new(session.Source.Provider.ToString(), iterations, allocated, elapsed, Stopwatch.Frequency, encoded, 15));
++        Check(encoded > sizeof(long), "An Int64 literal retains its complete typed wire representation");
++        Check(diagnostic.Count(6) == sql && diagnostic.Counts().SequenceEqual(owners), "Composition and rendering do not dispatch SQL or retain native owners");
+     }
+-    private static void MeasurePreparedConstruction(DataSession session, Diagnostic diagnostic)
++    private static void CheckPreparedConstruction(DataSession session, Diagnostic diagnostic)
+     {
+         using var zeroQuery = session.From(Models.People);
+         using var zero = zeroQuery.Select(zeroQuery.Column(Models.Id)).Prepare();
+@@ -474,26 +442,15 @@ private static void MeasurePreparedConstruction(DataSession session, Diagnostic
+         using var one = oneQuery.Where(oneQuery.Column(Models.Id).GreaterThanOrEqual(oneQuery.ParameterValue(parameter)))
+             .Select(oneQuery.Column(Models.Id)).Prepare();
+         var values = new QueryParameters().Set(parameter, 1L);
+-        for (var i = 0; i < 1000; i++) { GC.KeepAlive(zero.AsAsyncEnumerable(session)); GC.KeepAlive(one.AsAsyncEnumerable(session, values)); }
+-        const int iterations = 10000;
+-        for (var window = 0; window < 3; window++)
+-            for (var lane = 0; lane < 2; lane++)
+-            {
+-                var sql = diagnostic.Count(6); var owners = diagnostic.Counts();
+-                var before0 = GC.CollectionCount(0); var before1 = GC.CollectionCount(1); var before2 = GC.CollectionCount(2);
+-                var before = GC.GetTotalAllocatedBytes(precise: true);
+-                if (lane == 0) for (var i = 0; i < iterations; i++) GC.KeepAlive(zero.AsAsyncEnumerable(session));
+-                else for (var i = 0; i < iterations; i++) GC.KeepAlive(one.AsAsyncEnumerable(session, values));
+-                var after = GC.GetTotalAllocatedBytes(precise: true);
+-                var gen0 = GC.CollectionCount(0) - before0; var gen1 = GC.CollectionCount(1) - before1; var gen2 = GC.CollectionCount(2) - before2;
+-                // These are bounded construction regressions, not a zero-allocation
+-                // claim. The old metadata rebuild exceeds both ceilings by a wide margin.
+-                var maximum = lane == 0 ? 2_000_000L : 10_000_000L;
+-                PreparedCosts.Add(new(session.Source.Provider.ToString(), lane == 0 ? "parameterless" : "one-int64-snapshot",
+-                    window, iterations, before, after, after - before, gen0, gen1, gen2, maximum));
+-                Check(after - before <= maximum, "Prepared public construction allocation ceiling");
+-                Check(diagnostic.Count(6) == sql && diagnostic.Counts().SequenceEqual(owners), "Lazy construction performs no SQL or native ownership change");
+-            }
++        // Check first and repeated construction without an allocation or timing
++        // window. The public methods remain lazy and retain no execution owner.
++        for (var repeat = 0; repeat < 2; repeat++)
++        {
++            var sql = diagnostic.Count(6); var owners = diagnostic.Counts();
++            GC.KeepAlive(zero.AsAsyncEnumerable(session));
++            GC.KeepAlive(one.AsAsyncEnumerable(session, values));
++            Check(diagnostic.Count(6) == sql && diagnostic.Counts().SequenceEqual(owners), "Lazy construction performs no SQL or native ownership change");
++        }
+     }
+     private static async Task CheckPreparedStreamFailureTiming(DataSession session, Diagnostic diagnostic)
+     {
+@@ -545,14 +502,6 @@ static Models()
+         var cte = new TableBuilder<IdRow>("ChosenParents"); CteId = cte.Column("Id", Codecs.Int64); Cte = cte.Build(r => new(r.Get(CteId)), (r, v) => r.Set(CteId, v.Id));
+     }
+ }
+-internal sealed record CompositionCost(string Provider, int Iterations, long ManagedAllocatedBytes, long StopwatchTicks, long StopwatchFrequency, int OneInt64WireBytes, int InspectedDirectAbiCallsPerIteration);
+-internal sealed record PreparedConstructionCost(string Provider, string Lane, int Window, int Iterations, long AllocatedBefore,
+-    long AllocatedAfter, long AllocatedBytes, int Gen0, int Gen1, int Gen2, long MaximumBytes);
+-internal sealed record EmptyParameterCost(string Provider, uint SemanticProfile, int Warmup, int Iterations,
+-    long AllocatedBefore, long AllocatedAfter, int Gen0Before, int Gen1Before, int Gen2Before,
+-    int Gen0After, int Gen1After, int Gen2After, long StartedTicks, long EndedTicks, long StopwatchFrequency,
+-    long Checksum, string FullFrameHex, long MaximumBytes, string Scope);
+-internal sealed record Receipt(bool NativeAot, int Assertions, int ManagedRetirements, List<string> Cases, string[] NativeSha256,
+-    List<CompositionCost> CompositionCosts, List<PreparedConstructionCost> PreparedConstructionCosts, List<EmptyParameterCost> EmptyParameterCosts);
++internal sealed record Receipt(bool NativeAot, int Assertions, int ManagedRetirements, List<string> Cases, string[] NativeSha256);
+ [JsonSerializable(typeof(Receipt))]
+ internal partial class ReceiptJson : JsonSerializerContext { }
