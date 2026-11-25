@@ -1,5 +1,124 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-25 05:45 UTC (13:45 Asia/Shanghai)
+
+This is an **in-progress evidence checkpoint**, not final batch acceptance. The
+owner explicitly replied **“允许，现在继续 该合并的合并”** to the eleven-file
+raw-log disclosure request and authorized continuation and ordinary eligible
+merges. The earlier rejection below is historical and is retained unchanged.
+No approval identity, required check, performance threshold or ownership contract
+has been bypassed.
+
+### Recovery and its exact limits
+
+The replacement executor is usable. The old `/home/agent/DB-Perf-01-*` and
+`/workspace/scratch/b94e2a0e0c3f/` trees are absent. Do not interpret old local
+paths in the preserved sections below as files available on the current machine.
+Current repositories/worktrees are under
+`/workspace/scratch/37c4f8cc3a91/{repositories,worktrees}/`; use
+`worktrees/Korda-DB-Perf-01-linux` and `worktrees/Plan-DB-Perf-01-linux`.
+Both task worktrees use `task/DB-Perf-01-linux`.
+
+The [recovery manifest](recovery/20261125/recovery-manifest.json) and
+[recovery README](recovery/20261125/README.md) distinguish:
+
+- 32 original blobs recovered exactly from two previously successful Git trees,
+  totaling 448,617 bytes. The two trees were independent, not cumulative.
+- Three of the eleven authorized files recovered with their previously recorded
+  SHA-256 values; two retrieved again from the same original job, with new hashes
+  and no claim that their serialization equals the lost old local bytes.
+- Six original files still missing. No substitutes were invented. The additional
+  `prepareLog.json` outside the eleven-name scope was not added.
+
+The 37 restored evidence payloads total 588,834 bytes. This is not the full lost
+Plan snapshot, not all historical raw evidence, and not additional measurement
+credit. Source-reference validation currently sees 93 references, of which 82
+remain pending. Original reported results whose raw local files have not been
+recovered remain historical summaries with their original limitations.
+
+The exact historical campaign runtime and final checkpoint ZIPs were downloaded
+again from their original GitHub artifacts. A new read-only
+`verify_current.py --require-eight-long` verification passed with 241 observations,
+74 retained ordinary SLO failures and all eight original 1,800-second intervals.
+Its new result SHA is
+`2b22701a0cfbaa6e9377ef83cf6c2e3da6e7d072eff3b5a6648d45189c327406`;
+it does not replace the lost original verifier file/hash recorded below.
+Recovery root: `recovery-20261125/original-campaign/` in the current workspace.
+Historical after remains `3d5ba3f`, image `20261116.376.1`; final-candidate
+acceptance remains separate.
+
+### Current final candidate and the new isolated matrix
+
+The reviewed production/harness snapshot remains
+`db0f674f3849fa86f69d86eea2c830dc1c84da83`, tree
+`f2193bf688ce5460810d47be577cdddeadfde763`. Actual candidate package producer
+`3df4f4f3ac455cb8bae8901c80a4fefb33021970` has the same tree and successful
+[normal CI 45511550343](https://github.com/IzuSharp/Korda/actions/runs/45511550343).
+The provider package/native hashes below are unchanged and were reverified from
+actual downloads in this continuation. The candidate artifacts are not a public
+NuGet release.
+
+Two preparation attempts of
+[45553940210](https://github.com/IzuSharp/Korda/actions/runs/45553940210) stopped
+at the exact image guard: both actually received `ubuntu24/20261116.133.1`,
+while the earlier guard required `20261116.376.1`. Neither performed a build or
+measurement. One failed-job retry was attempted; both failures remain recorded
+and earn zero effective seconds.
+
+After independent exact-diff review, activation commit
+`456140129c3ef3ff1ea0412b2b8cb3da82d099fd`, tree
+`dcc806523bf7c48fdd95b6bea8b8ec645a7b1b39`, freezes both jobs on actual
+`ubuntu24/20261116.133.1` for a **new full matrix**. The only changes from its
+parent `bce370e` are the two exact workflow image constants and an explanatory
+request note. Harness, packages, workload, database/compiler versions, CPU
+partitions, admission/noise/quota rules, SLOs, operation accounting and eight
+continuous 1,800-second durations are unchanged. No real ImageVersion variable
+is overwritten; preparation/measurement image equality and full VM identity
+binding remain required. Do not resume or combine the old-image matrix.
+
+- [Final campaign 45555341689](https://github.com/IzuSharp/Korda/actions/runs/45555341689)
+  has started. Preparation job `139005934425` passed the actual image guard and
+  frozen-request checks; compilation/preparation is in progress at this checkpoint.
+- Request SHA-256:
+  `62a32d2bcf460d33dab1834805658e2ee576a0c4f41bf52eedbfb251f18c6749`.
+- Independent two-file review SHA-256:
+  `feca89c858bfbba9c1b923f6f3655a953e024038527483db74e590746424c42d`.
+- [Normal head CI 45555351833](https://github.com/IzuSharp/Korda/actions/runs/45555351833)
+  is tracked separately. Parent activation CI 45553951455 succeeded.
+
+**Historical verified matrix: 8/8. Current final candidate: 0/8 accepted at this
+checkpoint.** The acceptance record intentionally remains `in_progress`, with
+unfulfilled checks and public publication pending. A passing document gate does
+not promote those statuses.
+
+### Allocation ownership and remaining work
+
+The target is zero avoidable **library-internal extra allocation** on measured
+steady paths. Business List storage, DTOs, strings and typed JSON are business
+results, including objects constructed by source-generated mapping. Their cost
+is expected to remain positive. End-to-end totals retain business, library,
+runtime and harness bytes; uncertain attribution remains uncertain. Process-wide
+GC counts cannot be split into framework collections and business collections.
+The separate 7,480 B result-graph clone is not an exact allocation trace inside a
+real query and cannot be subtracted to prove exact framework bytes.
+
+The current local Debian 13/glibc 2.41 executor has a hash-verified .NET 11.0.100,
+Clang 23.1.5 and PostgreSQL 18.0 toolchain at `tooling/env.sh`. It is not the
+qualified performance VM. Fresh external PackageReference Native AOT List100
+diagnostics are being prepared with separately labeled source/package/ELF/native
+and fixture identities, because previous local ELF/raw files were lost. These
+local runs can establish their actual correctness/allocation observations, not
+formal CPU/latency/throughput or long-test credit.
+
+Continue by observing the final campaign and preserving each raw checkpoint,
+finishing exact remaining-hotspot/stopping analysis, reviewing recovered/current
+evidence, and performing normal eligible merges. Korda merge awaits the matching
+final matrix; automatic preview, actual NuGet download and public Native AOT
+consumption follow the merge. Plan may merge this explicitly incomplete recovery
+checkpoint after its own review and CI; doing so does not accept the batch.
+
+## Previous continuation snapshot — preserved below
+
 ## Live continuation — 2026-11-25 00:01 UTC (08:01 Asia/Shanghai)
 
 Resume from the observed results in this section. The local execution environment

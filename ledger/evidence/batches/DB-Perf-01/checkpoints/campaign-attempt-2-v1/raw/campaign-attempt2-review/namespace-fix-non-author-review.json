@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Perf-01",
+  "reviewer": "allocation_review",
+  "kind": "independent_namespace_collection_fix_review",
+  "reviewedUtc": "2026-11-24T17:28:14.320822+00:00",
+  "parent": "a5a7338f2e62803b5a5b44d6b459e4491aa626e1",
+  "decision": "accept",
+  "blockingFindings": [],
+  "files": {
+    ".github/workflows/db-perf-environment.yml": "7855e903e46c4399af95e1853d7a5bdbed4a2bcb56a0f9842c8899778bdcc883",
+    "benchmarks/db-perf/run.py": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86",
+    "benchmarks/db-perf/campaign.py": "b8feb89aefe2425a9e93fcfec5ee062b94fce24cad8a5269cb4ece4aeb0224c3",
+    "benchmarks/db-perf/test_controller.py": "9ffaaf421773eb35d3bd10a8eb422ffc64465ee91ec49e9de681b846368751e9"
+  },
+  "diffSha256": "d4208d6588c0cfee3144132fe338c600a3e9274d8ab2dba28e776d1a113b90db",
+  "testEvidence": {
+    "validationSha256": "691c2f9b694d432350e2cba6347bfd1504ce84d771d042b6d43471cba56395ae",
+    "logSha256": "624b27b74e53e2d4f349bbb94201aff02c2341b5c2789d7810b33fed25fa5e5c",
+    "reportedExitCode": 0,
+    "observedPassingTests": 41,
+    "rerunByReviewer": false
+  },
+  "realEnvironmentEvidence": {
+    "path": "/workspace/scratch/37c4f8cc3a91/campaign-attempt2/environment-observation.json",
+    "sha256": "9d778c2803a937d6130394f72e9e67070f5f1794cf4e4e64ebf41730dfa2f8fd",
+    "downloadedZipSha256": "b64c1bc0605e69f8db8ed5061e0de41837721bd945fdb40c07e4105cf4a133c6",
+    "zipMemberExactMatch": true,
+    "githubRunId": "45447986595",
+    "namespaceError": 13,
+    "namespaceIdentity": "cgroup:[4026531835]",
+    "ancestorCount": 3,
+    "qualified": false,
+    "longSegmentsCredited": 0
+  },
+  "reviewFindings": [
+    "Direct reads remain preferred and never launch the helper on success.",
+    "Fallback is limited to EACCES/EPERM on the explicitly hosted GitHub Actions path.",
+    "The fixed absolute sudo/readlink argv uses the original observer PID, no shell, noninteractive mode and a five-second timeout.",
+    "Exit zero, empty stderr, exactly two syntactically valid namespace identities and unchanged original/fallback/after observer identity are all required before comparison with PID1.",
+    "Namespace inequality, malformed output, timeout, wrong runner context, other errno or identity change cannot set sameAsInit=true.",
+    "Original errno, command/result evidence and per-invocation elapsed time remain in raw snapshots; no successful result is cached.",
+    "The pre-admission raw quota observation is persisted before the unchanged quota assessor runs.",
+    "Workflow trigger additions only rerun the read-only environment observer on collection-source changes; request activation and workload/product files remain unchanged."
+  ],
+  "nonBlockingNotes": [
+    "TimeoutExpired retains error type/message and elapsed time but not any partial stdout/stderr carried by that exception; this remains fail closed and cannot grant admission."
+  ],
+  "limits": [
+    "This is source/evidence review, not independent re-execution of tests or the remote observer.",
+    "New VM evidence explains the observed permissions restriction on that diagnostic VM; it does not reconstruct the missing second-attempt snapshot.",
+    "The helper consumes observer and host resources, which must remain recorded; separate observer affinity is not proof of no perturbation.",
+    "This review grants zero benchmark duration or qualification and does not relax any quota, ancestry, noise or resource gate."
+  ],
+  "sourceFilesModifiedByReviewer": false,
+  "databaseExecuted": false
+}

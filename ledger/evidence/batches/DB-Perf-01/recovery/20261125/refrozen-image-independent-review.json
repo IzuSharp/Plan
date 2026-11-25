@@ -1,0 +1,45 @@
+{
+  "reviewer": "campaign_activation_review",
+  "reviewed_utc": "2026-11-25T05:36:41.453960+00:00",
+  "base_commit": "bce370e6074828f99ffb324c937d27a803131115",
+  "scope": "Read-only independent exact two-file change review; no remote write or workflow dispatch",
+  "files": {
+    ".github/workflows/db-perf-campaign.yml": {
+      "before_sha256": "c98db6812f9b3b87be0f5fbf9e6216dcc0bbdc2e87a7798083f192cab4f2a667",
+      "after_sha256": "38190b6a115e1c020e3665eb4d37b3554823229128ae7caeeba3d4cf39a0b01d"
+    },
+    "benchmarks/db-perf/campaign-request.json": {
+      "before_sha256": "edd0bd10cf175eb2e627716aa6d11d2f6990c887d80760d3e6a2d258fc9da923",
+      "after_sha256": "62a32d2bcf460d33dab1834805658e2ee576a0c4f41bf52eedbfb251f18c6749"
+    }
+  },
+  "diff_sha256": "3013ed988a1c84a8ea14c1ff487e34187429cb8a5b7bc21d22fe71e04e10c5df",
+  "decision": "Exact new-campaign environment re-freeze supported; no weakening of image equality or measurement gates",
+  "semantic_request_changes": [
+    "activationNote append only"
+  ],
+  "workflow_changes": [
+    "prepare DB_PERF_REQUIRED_IMAGE_VERSION 20261116.376.1 -> 20261116.133.1",
+    "measure DB_PERF_REQUIRED_IMAGE_VERSION 20261116.376.1 -> 20261116.133.1"
+  ],
+  "preserved_checks": [
+    "actual ImageOS must equal ubuntu24 in both jobs",
+    "actual ImageVersion must equal exact constant in both jobs",
+    "no ImageVersion override",
+    "bundle records actual prepare ImageOS/ImageVersion",
+    "campaign and independent verifier require exact preparation/measurement image equality",
+    "resume binds request SHA, bundle SHA and full VM identity",
+    "fixed harness db0 and exact same 3df package artifacts",
+    "all 35 cases, CPU partitions, noise/quality/quota/SLO/finite-budget checks and 8 sequential 1800-second segments unchanged",
+    "new campaign will perform fresh admission and before/native/ORM-only common-rate calibration"
+  ],
+  "other_376_reference": "runtime-spin-request.json belongs to independent historical runtime_spin workflow/path, not invoked by db-perf-campaign.yml; retained unchanged",
+  "evidence_boundary": "Historical 45461269267 on 20261116.376.1 remains separate. Failed 45553940210 prepare attempts carry no measurement credit. New exact-image guard may still reject a different assigned image; this review does not imply future VM admission or measurement success.",
+  "source_sha256": {
+    "benchmarks/db-perf/campaign.py": "68f1abc5676bb0a23b3e648029d034f47519c3a9f0b5e6faf34db3a5bc5eb05e",
+    "benchmarks/db-perf/campaign_build.py": "10f8717f07cc7edf2b233ac24e3c02a3ec457c6d19abcc795599ee41a8d2529c",
+    "benchmarks/db-perf/analysis/verify_current.py": "bd53bbfb5abcbbca992ddd4fc30dde419666a1551b91ec186c9a6c7d79fcfa3b",
+    "benchmarks/db-perf/analysis/identity_binding.py": "4d29d3c2a4b5e12fa7881bbb33c03eee0f27bf3ad6360f3f24eab9c8fbae0f2f",
+    "benchmarks/db-perf/runtime-spin-request.json": "f2ac74a4befb65f0554bba1287c26c8ba04c61b1171b37a9f37232e22b2b1890"
+  }
+}

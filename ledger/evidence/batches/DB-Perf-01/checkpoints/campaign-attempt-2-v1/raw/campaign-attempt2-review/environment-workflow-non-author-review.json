@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Perf-01",
+  "reviewKind": "independent_read_only_environment_workflow_review",
+  "reviewer": "allocation_review",
+  "reviewedUtc": "2026-11-24T17:24:16.619717+00:00",
+  "decision": "accept",
+  "blockingFindings": [],
+  "workflow": {
+    "path": "/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux/.github/workflows/db-perf-environment.yml",
+    "sha256": "901a047b8c0143f36f65fa15473a8c6870ca53c8a764a0644f1983933ad22bf0",
+    "lines": 56
+  },
+  "fixedSources": [
+    {
+      "path": "benchmarks/db-perf/run.py",
+      "sha256": "50226a2f83ef2bc1a22d1f6cb06529d4872c779c29df5d8c6228fc10ee74138a",
+      "fixedSourceCommit": "f91f3d24579d7c65199df1c4cdd60a577cdcd8f9",
+      "byteMatch": true
+    },
+    {
+      "path": "benchmarks/db-perf/campaign.py",
+      "sha256": "93cf51ac56838b11ea946e69e12692f5b0cbc523ab11c20a09c40129b2d791a6",
+      "fixedSourceCommit": "f91f3d24579d7c65199df1c4cdd60a577cdcd8f9",
+      "byteMatch": true
+    }
+  ],
+  "facts": [
+    "Only the new workflow is staged or modified in the reviewed working tree.",
+    "Branch and repository guards restrict execution to IzuSharp/Korda task/DB-Perf-01-linux.",
+    "The original frozen snapshot and quota assessor are run without changing admission rules.",
+    "The fixed privileged command reads cgroup namespace links for the original observer PID and PID1; it changes no cgroup, namespace, permissions, affinity or quota.",
+    "The observation records original raw snapshot, original assessment/error, probe argv/stdout/stderr/exit code, environment identity and pre/post observer namespace.",
+    "The output explicitly gives qualified=false and longSegmentsCredited=0; there is no database or timing workload."
+  ],
+  "nonBlockingNotes": [
+    "A privileged-probe timeout or failure to start currently occurs before observation.json is persisted. If actually encountered, retain that exception while still writing the already acquired raw snapshot."
+  ],
+  "limits": [
+    "This is a review of the diagnostic workflow only, not a diagnosis of the campaign failure or approval to relax complete cgroup ancestry requirements.",
+    "A new job VM observation cannot retroactively reconstruct the missing snapshot from the second campaign attempt."
+  ],
+  "sourceOrMeasurementFilesModified": false,
+  "databaseOrBenchmarkExecuted": false
+}
