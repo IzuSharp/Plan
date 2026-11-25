@@ -149,6 +149,35 @@ checks, then local interleaved short comparisons and four final 1,800-second
 candidate/Dapper.AOT segments. Record physical statement-cache and parameter/
 locking gaps that remain; do not relabel source observations as measured gains.
 
+### Local mixed-consumer correctness checkpoint
+
+The original package and Dapper.AOT are now built as four external Linux Native
+AOT consumers, using the existing mixed harness. [The checked summary](query-optimization/mixed-smoke/summary.json)
+records eight provider/mode cells: **560/560 successful scheduled operations**,
+zero failures and zero result-oracle failures. All 35 cases execute twice in each
+cell with the frozen complete row/digest expectations. Dynamic filters, varying
+parameters, transaction commit/rollback, optimistic updates, full streams and
+early stop are covered. These short runs overlapped builds and earn no timing or
+long-test acceptance.
+
+The four lifecycle diagnostics passed 11 checks. Dapper with Microsoft.Data.Sqlite
+reports active cancellation as unsupported because its synchronous engine call
+was not interrupted; that limitation remains in the raw result. Its pre-cancel
+and conflict checks pass. Korda passes pre-cancel, active-cancel and conflict checks
+on both databases; Dapper passes all three on PostgreSQL. Native owners/application
+connections drain and the task-owned PostgreSQL 18 server exits successfully.
+
+[The publication note](query-optimization/mixed-smoke/README.md) and
+[correctness ledger](query-optimization/mixed-smoke/correctness-ledger.json) retain
+the synthetic case outcomes and hashes. The ledger is an explicit extraction of
+the unchanged raw results, excluding local paths, command lines, generated source,
+restore graphs and host-environment logs. Automatic approval review rejected
+attaching the broader archive; it is not included in this PR. Current-tool baseline
+package validation also passed for both original packages without bypassing their
+integrity checks or downgrading validators. The phase smoke's compiled inputs are
+publicly retained at Korda
+[`5e0bf89`](https://github.com/IzuSharp/Korda/commit/5e0bf8929a8873e7620eb814e44b27ee84dfab08).
+
 ## Historical plan preserved below
 
 ## Authority, scope and current state

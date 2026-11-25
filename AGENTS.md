@@ -1,6 +1,6 @@
 # Current continuation — DB-Perf-01 query optimization
 
-The owner has explicitly resumed DB-Perf-01 on 2026-11-25, retaining the C++ execution layer and existing C# Fluent API. Continue implementation in Korda PR #37 and create companion Design and Plan PRs from their latest main. Read the current continuation at the top of the existing [plan](ledger/evidence/batches/DB-Perf-01/plan.md) and [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md).
+The owner has explicitly resumed DB-Perf-01 on 2026-11-25, retaining the C++ execution layer and existing C# Fluent API. Continue the existing [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34); companion PRs already exist from the latest main. Read the current continuation at the top of the existing [plan](ledger/evidence/batches/DB-Perf-01/plan.md) and [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md).
 
 Performance measurements run locally on Linux x64. Do not add or retain benchmark jobs or benchmark workflows in GitHub Actions. Ordinary CI uses Korda's existing committed-diff planner, registered module execution and independent PostgreSQL/SQLite package runners, running Native AOT consumers directly. Preserve prior evidence and historical gates without granting it current-candidate credit. The earlier stopped state and hosted benchmark requirements below are historical, superseded by this explicit continuation.
 
