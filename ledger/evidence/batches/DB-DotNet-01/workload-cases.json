@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "task": "DB-DotNet-01",
+  "source_contract": "DB-Perf-01 workload specification retained by reference; no prior results transferred",
+  "distinct_case_minimum": 24,
+  "cases": [
+    {
+      "id": "Q01",
+      "business_operation": "Composite-key order lookup, including an absent key; normal",
+      "korda_route": "Available: `FindAsync` (`O`), plus a matching generated narrow projection (`D/R`). Distinguish full-entity from narrow-projection measurements.",
+      "equivalence_oracle": "`S`: tenant and order predicates. Verify 0/1 row, all selected fields, exact key, version, and absence.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q02",
+      "business_operation": "Order search with optional customer, minimum amount, and time range; normal",
+      "korda_route": "Available: `WhereIf` and typed predicates (`D`); a finite reusable shape per enabled-filter combination (`R`). Bind only active predicates.",
+      "equivalence_oracle": "`S`: actually construct the same enabled predicates. An all-purpose nullable-OR SQL shape is a different plan and must be labelled. Compare ordered matches and optional-filter truth tables.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q03",
+      "business_operation": "Order page with nullable customer display name; normal",
+      "korda_route": "Available: `LeftJoin`, nullable join projection (`D/R`).",
+      "equivalence_oracle": "`S`: equivalent LEFT JOIN. Check missing customer separately from a matched customer with a NULL field, stable order, and exact page.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q04",
+      "business_operation": "Order/customer/detail three-table item view; normal",
+      "korda_route": "Available: two explicit joins and a generated projection (`D/R`).",
+      "equivalence_oracle": "`S`: three-table JOIN with tenant/order composite association. Check multiplicity, item values, and no cross-tenant leakage.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q05",
+      "business_operation": "Customer spending and order counts filtered by HAVING; normal heavy read",
+      "korda_route": "Available: `GroupBy`, `CountRows`, `Sum`, `Having` (`D/R`).",
+      "equivalence_oracle": "`S`: identical grouping and HAVING. Check NULL-customer group, exact monetary total, count, and group ordering.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q06",
+      "business_operation": "Product sales-quantity ranking; normal heavy read",
+      "korda_route": "Available: detail root, product grouping, quantity sum, deterministic rank order (`D/R`).",
+      "equivalence_oracle": "`S`: equivalent aggregate and top-N. Check every group, ties, secondary ordering, and integer overflow bounds in the seeded data.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q07",
+      "business_operation": "Next order page across repeated timestamps; normal",
+      "korda_route": "Available: complete composite `QueryCursor`/`SeekAfter` ordering (`D`). A separate `R` variant may declare the equivalent typed lexicographic predicate with query parameters only after equivalence is verified; do not assume the cursor helper itself exposes reusable placeholders.",
+      "equivalence_oracle": "`S`: identical lexicographic continuation predicate. Check first, middle, and final pages without duplicate or missing rows.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q08",
+      "business_operation": "Deep offset page of the same ordered order list; normal heavy read",
+      "korda_route": "Available: complete unique `OrderBy`/`ThenBy`, `Skip`, `Take` (`D/R` for a fixed page shape).",
+      "equivalence_oracle": "`S`: same OFFSET/LIMIT and index/statistics state. Compare the exact slice from the canonical full sequence.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q09",
+      "business_operation": "Order page followed by bounded batch loading of details; normal",
+      "korda_route": "Available: `LoadRelatedAsync` with composite `EntityKey` list (`O`), page query `D/R`. Include key construction/grouping required by the normal API.",
+      "equivalence_oracle": "`S`: page plus the same association batching contract. Check parent input order, duplicate keys, empty associations, child order if promised, SQL count, and empty-input no-SQL behavior.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q10",
+      "business_operation": "Narrow reconciliation queue containing only keys and versions; normal",
+      "korda_route": "Available: generated narrow `DbProjection` (`D/R`).",
+      "equivalence_oracle": "`S`: return exactly the same columns. Fully consume and verify all keys/versions; do not let native fetch fewer fields or skip decoding.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q11",
+      "business_operation": "Wide manual-review detail with memo, JSON, and money; normal",
+      "korda_route": "Available: generated wide `DbProjection` (`D/R`).",
+      "equivalence_oracle": "`S`: exact wide projection. Materialize equivalent owned strings/JSON/money; verify lengths, bytes or typed values, NULLs, and no silent truncation.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q12",
+      "business_operation": "Large streaming ledger export; normal heavy read",
+      "korda_route": "Available: `AsAsyncEnumerable` (`D/R`). Keep ownership until enumeration/disposal completes.",
+      "equivalence_oracle": "`S`: direct streamed result. Consume every row into the same business digest/aggregate, record rows/batches and peak retained buffers; counting rows alone is insufficient.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q13",
+      "business_operation": "Orders having no detail rows; normal",
+      "korda_route": "Available: LEFT JOIN with `HasMatch().Not()` (`D/R`).",
+      "equivalence_oracle": "`S`: matching anti-join. Verify all empty associations and no false positives from nullable child fields.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q14",
+      "business_operation": "Customers missing contact details with a display fallback; normal",
+      "korda_route": "Available: `IsNull` plus `CoalesceReference` (`D/R`).",
+      "equivalence_oracle": "`S`: matching NULL/COALESCE expression. Compare canonical string values and count; distinguish NULL from empty string.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q15",
+      "business_operation": "Typed order settings and exact monetary values; normal",
+      "korda_route": "Available: `DbCodec`, source-generated JSON context, provider-specific money codec (`D/R`). This is typed JSON mapping, not a JSON-path claim.",
+      "equivalence_oracle": "`S`: same columns and decoding. Compare JSON members semantically, exact decimal value/scale, and nullable values.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q16",
+      "business_operation": "Orders containing a qualifying product/quantity selected by a subquery; normal",
+      "korda_route": "Available: typed `IN(QuerySelection<T>)` (`D/R`). Constrain the same tenant in both inner and outer queries.",
+      "equivalence_oracle": "`S`: same IN subquery. Check duplicate inner matches, empty inner result, and reused local IDs in other tenants.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q17",
+      "business_operation": "Filtered work queue built through a bounded CTE; normal heavy read",
+      "korda_route": "Available: `CommonTable<T>.Create` and `With` (`D/R`). Preserve immutable CTE-body and declared projection rules.",
+      "equivalence_oracle": "`S`: same CTE body and outer filter. Verify exact selected fields/order; capture materialization/inlining plan differences.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q18",
+      "business_operation": "Per-customer running spending and row number; normal heavy read",
+      "korda_route": "Available: `Window`, `Sum(...).Over`, `RowNumber` (`D/R`).",
+      "equivalence_oracle": "`S`: identical PARTITION BY, full tie-breaking ORDER BY, and ROWS frame. Verify each cumulative amount and sequence number.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q19",
+      "business_operation": "Combined order population from two business partitions; normal",
+      "korda_route": "Available: `Combine(UnionAll)` (`D/R`).",
+      "equivalence_oracle": "`S`: UNION ALL with the same final deterministic ordering. Preserve duplicates and verify partition contributions and total rows.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q20",
+      "business_operation": "Intersection of two independently filtered order groups; normal",
+      "korda_route": "Available: `Combine(Intersect)` (`D/R`).",
+      "equivalence_oracle": "`S`: INTERSECT. Verify duplicate elimination, exact common keys, and the empty-intersection case.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q21",
+      "business_operation": "Distinct active-customer population or distinct count; normal",
+      "korda_route": "Available: `Distinct` or `Count(..., distinct: true)` (`D/R`). Freeze one chosen result contract per case variant.",
+      "equivalence_oracle": "`S`: matching DISTINCT/COUNT DISTINCT. Verify NULL rules and repeated-customer deduplication; do not compare a list producer to a scalar count producer.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q22",
+      "business_operation": "Escaped literal customer/product search; normal",
+      "korda_route": "Available: `ContainsLiteral`, `StartsWithLiteral`, or explicit `Like` (`D/R`). Freeze the chosen business predicate.",
+      "equivalence_oracle": "`S`: identical escaping and allowed collation. Seed `%`, `_`, escape characters, and empty values; keep an explicitly comparable primary character set and report Unicode edge cases separately.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q23",
+      "business_operation": "Create an order and consume returned fields; normal write",
+      "korda_route": "Available: `InsertReturningAsync` (`O`). Include normal entity/parameter preparation and completion; list application-owned entity allocation separately.",
+      "equivalence_oracle": "`S`: matching INSERT RETURNING and transaction boundary. Verify affected row, returned values, and durable row; include equivalent decoding.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q24",
+      "business_operation": "Patch only note/version, including explicit NULL; normal write",
+      "korda_route": "Available: `Changes<T>.Set` and `UpdateAsync` (`O`), or root-only Fluent update (`D`).",
+      "equivalence_oracle": "`S`: exactly the same SET columns and predicates. Verify written NULL versus omitted columns; money/settings must remain unchanged.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q25",
+      "business_operation": "Two writers race an optimistic version update; separate contention scenario",
+      "korda_route": "Available: `UpdateCheckedAsync` (`O`). Freeze the shared key/version and retry policy.",
+      "equivalence_oracle": "`S`: matching version predicate and affected-row check. Record both planned operations, winner, stale-version conflict, retries, durable values, and final version; never omit losers from counts.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q26",
+      "business_operation": "Transaction reads validation state, updates order/detail, then commits; normal write",
+      "korda_route": "Available: `InTransactionAsync` or explicit `BeginTransactionAsync` (`O`). Use the same public route before/after.",
+      "equivalence_oracle": "`S`: same BEGIN/isolation, read/write order, COMMIT, and acknowledgment boundary. Verify cross-table invariant and durable state.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q27",
+      "business_operation": "Business failure after partial transaction work, followed by rollback; separate fault scenario",
+      "korda_route": "Available: transaction callback/explicit rollback (`O`). Preserve original business exception and recorded transaction outcome.",
+      "equivalence_oracle": "`S`: same partial work and ROLLBACK. Check no partial durability, reusable connection or documented discard, and original error versus cleanup error.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q28",
+      "business_operation": "Bounded batch insertion of order details; normal write",
+      "korda_route": "Available: `InsertManyAsync` (`O`). Freeze batch size, all-versus-per-batch atomicity, input enumeration, and generated/owned results.",
+      "equivalence_oracle": "`S`: same insert batching and parameter counts. Native COPY is a separate optimization comparison, not the equivalent primary cell. Verify rows, batch progress, atomicity, and duplicates/errors.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q29",
+      "business_operation": "Upsert using an explicit unique conflict target; normal write",
+      "korda_route": "Available: `UpsertAsync` (`O`). Freeze update columns and insert/update branch distribution.",
+      "equivalence_oracle": "`S`: same conflict target and update expressions. Verify both insert and update branches, affected rows as each provider defines them, and durable business values.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q30",
+      "business_operation": "Version-checked deletion of a detail record; normal write",
+      "korda_route": "Available: `DeleteCheckedAsync` (`O`). Expected-conflict variants belong to the separate contention classification.",
+      "equivalence_oracle": "`S`: matching key/version delete. Verify affected row, parent retention, stale version handling, and durable deletion.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    },
+    {
+      "id": "Q31",
+      "business_operation": "Exactly 100 order-summary DTOs in a list, including owned customer strings, keys, timestamps and exact money.",
+      "korda_route": "Public Fluent projection and ToListAsync, generated mapping; separate dynamic and reusable-shape variants.",
+      "equivalence_oracle": "Dapper.AOT returns the same DTO type and list ownership, exactly 100 rows and all identical fields. Attribute business list/DTO/string allocation separately from library overhead.",
+      "status": "pending",
+      "required_databases": [
+        "postgresql",
+        "sqlite"
+      ],
+      "required_routes": [
+        "Korda",
+        "Dapper.AOT"
+      ]
+    }
+  ]
+}

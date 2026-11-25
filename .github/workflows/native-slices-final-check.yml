@@ -47,6 +47,9 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
+      - name: Validate current DB-DotNet-01 records
+        working-directory: Plan
+        run: python3 tools/verify_db_dotnet.py
       - name: Check out the immutable DB-Perf-01 record
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -164,3 +167,4 @@ jobs:
             Plan/ledger/evidence/batches/DB-API-01/
             Plan/ledger/evidence/batches/DB-Rename-01/
             Plan/ledger/evidence/batches/DB-Perf-01/
+            Plan/ledger/evidence/batches/DB-DotNet-01/

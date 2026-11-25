@@ -1,3 +1,15 @@
+# Current task — DB-DotNet-01
+
+The owner's current instruction authorizes a behavior-compatible PostgreSQL/SQLite migration to Npgsql and Microsoft.Data.Sqlite, then measured optimization against Dapper.AOT. Read [the Plan](ledger/evidence/batches/DB-DotNet-01/plan.md), [Linux handoff](ledger/evidence/batches/DB-DotNet-01/handoff-linux.md), [baseline](ledger/evidence/batches/DB-DotNet-01/baseline.json) and [pending acceptance](ledger/evidence/batches/DB-DotNet-01/acceptance.json). Work uses branch/worktrees marked `DB-DotNet-01`. Preserve two top-level package identities and existing C# business behavior; remove Korda-owned database native execution only after retained behavior tests exist.
+
+Migrate and validate before freezing the first compatible .NET baseline and optimizing. Dapper.AOT is the only external performance comparator. Four exclusive continuous 30-minute effective mixed-load cells require actual dedicated-environment evidence. Run `python3 tools/verify_db_dotnet.py`; document validation is not product execution. Product AGENTS.md governs affected-module checks and separate Native AOT package runners. No JIT consumers or unrequested clean-image/CPU-emulation checks.
+
+The owner already authorizes implementation, tests, independent review, PRs, normal merges, automatic preview and actual public NuGet AOT consumption. Preserve required checks and truthful review authorship. Preserve all previous evidence/acceptance/verifier bytes, including cancelled DB-Perf-01 and its original 0/8 long-test state. Historical task-specific architecture or merge stops below do not override this new authorization. New acceptance remains pending until evidence is observed.
+
+## Previous task instructions and repository history
+
+The following original narratives are historical. Canonical repository identity and frozen replay aliases remain as recorded.
+
 # Current maintenance — Design repository references
 
 The Design repository is now [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design). The owner has stopped DB-Perf-01; this maintenance updates repository references and preserves all recorded task and acceptance states. See the [current repository and historical verification notes](README.md#repository-maintenance-and-historical-verification) for the canonical remote and the `NativeWeave-Design` alias required by frozen checks.
