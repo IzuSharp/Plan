@@ -101,6 +101,54 @@ Final review must align Design, product code and observations, link all three
 PRs, disclose remaining gaps and explain the stopping decision. Until then this
 continuation is in progress, with no new performance acceptance claimed.
 
+## CI correction and local diagnostics checkpoint
+
+The three active PRs are [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). The initial paragraphs above
+record the starting state; the CI correction is now complete. Implementation
+commit `42f852cd1999a198d7f844f5261144649ef5b12b` removed all five benchmark
+workflows and both benchmark execution registrations, and merged current main.
+The ordinary [CI run](https://github.com/IzuSharp/Korda/actions/runs/45598220233)
+passed. Existing Tooling routing tests verify benchmark-only changes select no
+jobs/packages, provider-only changes stay isolated, and shared query changes
+select both public packages and their Native AOT consumers. The original suite
+passed 44 tests with one missing-CMake skip; that exact remaining case then passed
+with locked CMake 4.3.3 ([log](query-optimization/environment/cmake-routing-test.log)).
+All 45 test cases have now executed successfully; no benchmark CI was introduced.
+
+Local tools and exact before/recovered package identities are recorded under
+[environment](query-optimization/environment/toolchain-observation.json), including
+[package hashes](query-optimization/environment/package-inputs.json).
+The observed environment is Debian 13, .NET SDK 11.0.100, Clang 23.1.5,
+PostgreSQL 18.0 and SQLite 3.51.3. Native executables match the repository's locked
+hashes. The installed LLVM subset contains the required compiler/tools/headers
+and runtimes; its compressed inventory is retained. The local PostgreSQL server
+uses TCP and is started, exercised and stopped within one observer process.
+No hosted image build number is required or invented.
+
+The same-Host phase diagnostic is committed locally as
+`b410cbd2415b3a704683f245563415e81901c45c`. The existing public consumer builder
+publishes it outside Korda with only PackageReference, and records source,
+package, executable and loaded-native identities, retaining generated code. Its
+[committed benchmark-only plan](query-optimization/phase-only-plan.json) selects
+no build scopes, modules, packages or public checks. Baseline and recovered #37
+packages both passed all three routes on both databases, validating the complete
+100-row result and draining all six native ownership counts. See the
+[smoke summary](query-optimization/phase-smoke-summary.json) and linked raw records.
+These are correctness observations during ongoing builds, not performance claims.
+SQLite's existing Fluent `?` versus raw-template `?1` marker difference is disclosed;
+the ordinal, typed value and relational query are identical. PostgreSQL uses `$1`
+in both. A failed first diagnostic marker assumption is also preserved.
+
+The published Design decision precedes the new product implementation. Complete
+query-command transport and eager prepared-shape compilation are in development;
+new product coverage and final-candidate performance remain unclaimed. Next:
+finish/review that implementation, run existing module and real-provider/AOT
+checks, then local interleaved short comparisons and four final 1,800-second
+candidate/Dapper.AOT segments. Record physical statement-cache and parameter/
+locking gaps that remain; do not relabel source observations as measured gains.
+
 ## Historical plan preserved below
 
 ## Authority, scope and current state
