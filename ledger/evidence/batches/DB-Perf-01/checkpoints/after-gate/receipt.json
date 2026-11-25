@@ -1,0 +1,41 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux/artifacts/db-perf-01/probe-after-gate/Korda.Data.Streaming.Tests",
+        "/workspace/scratch/b94e2a0e0c3f/measurements/after-gate/zero-gate",
+        "--require-aot",
+        "--allocation-gate-only"
+      ],
+      "exitCode": 0,
+      "log": "zero-gate.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux/artifacts/db-perf-01/probe-after-gate/Korda.Data.Streaming.Tests",
+        "/workspace/scratch/b94e2a0e0c3f/measurements/after-gate/races",
+        "--require-aot",
+        "--allocation-probe-races"
+      ],
+      "exitCode": 0,
+      "log": "races.log"
+    }
+  ],
+  "executable": "/workspace/scratch/b94e2a0e0c3f/Korda-DB-Perf-01-linux/artifacts/db-perf-01/probe-after-gate/Korda.Data.Streaming.Tests",
+  "executableSha256": "203241631cc546e32d9c18d1b53a90853a22cff841b106ee65ad076cf2749a0d",
+  "scope": "short isolated in-batch allocation gate and deterministic lazy-join races; no public-provider acceptance",
+  "baseCommit": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+  "sourceHashes": {
+    "src/Data.Streaming/TypedStream.cs": "91294bd51fcba16aec116512ce89f08866108de73751dd47ef255218201bf6af",
+    "tests/Data.Streaming/AllocationProbe.cs": "3328d624865e396eadea2cbcc66bd2d341e5a968f10bcf23a64f0cb940ca19dc",
+    "tests/Data.Streaming/AllocationProbeGate.cs": "367956a0a9c034325789c356a57ec61aa7fd4f5feb1638151fed24bab39610ba",
+    "tests/Data.Streaming/AllocationProbeRaces.cs": "4454d2c7731f31c525e1d31f18f90200f15fe95a3c89bd5067a0f136147c6ffe",
+    "tests/Data.Streaming/Program.cs": "5243b341b117a599ae055433c0bad0e735dfa852147fce7059194ad700822eff",
+    "src/Data.Abstractions/DbWire.cs": "bc4070dd7b97b14b8888ff3648dda76832acef51f07ae5471e1875b389296696",
+    "src/Data.Abstractions/Codecs.cs": "e52520cca6565933c95fbf25ae44e7dd0f2a3132ee79966ae77f3bc89da5e826"
+  },
+  "buildLog": "/workspace/scratch/b94e2a0e0c3f/probe-after-gate-build.log",
+  "buildLogSha256": "22a5b095911b5b65c40b5d53f047f93969814c0eac453f4a442dcc8bac0c644c",
+  "buildExitCode": 0,
+  "buildCommand": "dotnet publish tests/Data.Streaming/Korda.Data.Streaming.Tests.csproj -c Release -r linux-x64 -p:PublishAot=true -p:UseSharedCompilation=false -p:RestoreLockedMode=true -m:1 -o artifacts/db-perf-01/probe-after-gate"
+}

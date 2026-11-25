@@ -1,0 +1,649 @@
+{
+  "schema": "DB-Perf-01.allocation-comparison.v1",
+  "scope": "Short matching allocation preflight only; no throughput, CPU, RSS or latency ranking.",
+  "before_manifest_sha256": "9ed38a654f52cb033263441f7e60481ec41355343d9bba00ebe477c9e87aaa45",
+  "after_manifest_sha256": "b9c382b0244a88ce8c7baf1150ff64f2ed923c74d37d275552d6dc24d2a50d35",
+  "controls_subtracted_bytes": 0,
+  "consumer_sources_identical": true,
+  "providers": {
+    "postgresql": {
+      "before_identity": {
+        "package_id": "Korda.Database.PostgreSql",
+        "version": "0.1.0-preview.3",
+        "source_commit": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+        "package_path": "/workspace/scratch/754bc732518e/baseline-artifacts/postgresql/feed/Korda.Database.PostgreSql.0.1.0-preview.3.nupkg",
+        "package_sha256": "458c115e12d65ca0719f542ea262aeb3347f5bc3269f99d5ba14f3e36c038e0f",
+        "executable_path": "/workspace/scratch/754bc732518e/allocation-consumers-attempt-001/postgresql/app/publish/AllocationProbe",
+        "executable_sha256": "dd762d02adebe83cdd85e6911ce3951f41c8d8d1b930a7a7e50988e677bf001b",
+        "native_path": "/workspace/scratch/754bc732518e/allocation-consumers-attempt-001/postgresql/app/publish/libnw_database_postgresql.so",
+        "native_sha256": "73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6",
+        "resolved_korda_packages": [
+          "Korda.Database.PostgreSql/0.1.0-preview.3"
+        ],
+        "release_receipt_sha256": "9176f52347136af4371d377a1d75130a9f2b98d6a1aa6b30146aa2ba173dd183"
+      },
+      "after_identity": {
+        "package_id": "Korda.Database.PostgreSql",
+        "version": "0.1.0-perf-lazy.1",
+        "source_commit": "28110ee03391831c737a54204730730a01b77a34",
+        "package_path": "/workspace/scratch/754bc732518e/lazy-join-candidates-attempt-001/postgresql/feed/Korda.Database.PostgreSql.0.1.0-perf-lazy.1.nupkg",
+        "package_sha256": "59eee79602c5f7d25487e840d1ac78198d3632456d8ae39c4fc72d8a463dcd38",
+        "executable_path": "/workspace/scratch/754bc732518e/allocation-consumers-after-lazy-join/postgresql/app/publish/AllocationProbe",
+        "executable_sha256": "135c3e6820597ef5e5ba3404d7a38d7e149b6b6e36ca42d16be1039856072e1c",
+        "native_path": "/workspace/scratch/754bc732518e/allocation-consumers-after-lazy-join/postgresql/app/publish/libnw_database_postgresql.so",
+        "native_sha256": "73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6",
+        "resolved_korda_packages": [
+          "Korda.Database.PostgreSql/0.1.0-perf-lazy.1"
+        ],
+        "release_receipt_sha256": "95ef29ec11e4947d24e188ed8dc58164b8c3cfe333d6378bea65b67b65b119ca"
+      },
+      "complete_queries": {
+        "dynamic_complete": {
+          "before": {
+            "allocated_bytes_total": 26711088,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "69560.125",
+            "total_bytes_per_row": "271.71923828125",
+            "process_totals": [
+              8903792,
+              8903976,
+              8903320
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 532
+          },
+          "after": {
+            "allocated_bytes_total": 18033528,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "46962.3125",
+            "total_bytes_per_row": "183.446533203125",
+            "process_totals": [
+              6010104,
+              6011712,
+              6011712
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 531
+          },
+          "change_bytes_per_operation": "-22597.8125",
+          "change_percent": "-32.48673359917050177813797776",
+          "framework_allocated_bytes": null,
+          "framework_attribution": "unproved; no estimated subtraction"
+        },
+        "prepared_parameterless_complete": {
+          "before": {
+            "allocated_bytes_total": 21624144,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "56312.875",
+            "total_bytes_per_row": "219.97216796875",
+            "process_totals": [
+              7208048,
+              7208048,
+              7208048
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 578
+          },
+          "after": {
+            "allocated_bytes_total": 12923104,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "33653.91666666666666666666667",
+            "total_bytes_per_row": "131.4606119791666666666666667",
+            "process_totals": [
+              4305976,
+              4311152,
+              4305976
+            ],
+            "process_gc_deltas": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 495
+          },
+          "change_bytes_per_operation": "-22658.95833333333333333333333",
+          "change_percent": "-40.23761587973147052664836120",
+          "framework_allocated_bytes": null,
+          "framework_attribution": "unproved; no estimated subtraction"
+        }
+      },
+      "narrow_windows": {
+        "within_first_batch": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 4291584,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 11176,
+            "max_bytes_per_window": 11176,
+            "total_bytes_per_operation": "88",
+            "total_bytes_per_row": "88",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "supplemental_fetch_including_first_row": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 4677856,
+            "operations": 384,
+            "rows": 384,
+            "min_bytes_per_window": 12128,
+            "max_bytes_per_window": 17304,
+            "total_bytes_per_operation": "12181.91666666666666666666667",
+            "total_bytes_per_row": "12181.91666666666666666666667",
+            "incomplete_move_observations": 384,
+            "await_thread_changes": 202,
+            "gc_deltas": [
+              2,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 4620288,
+            "operations": 384,
+            "rows": 384,
+            "min_bytes_per_window": 12032,
+            "max_bytes_per_window": 12032,
+            "total_bytes_per_operation": "12032",
+            "total_bytes_per_row": "12032",
+            "incomplete_move_observations": 384,
+            "await_thread_changes": 174,
+            "gc_deltas": [
+              1,
+              0,
+              0
+            ]
+          }
+        },
+        "empty_sync_control": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "before_processes": 3,
+      "after_processes": 3,
+      "synchronous_in_batch_zero_gate": true,
+      "controls": {
+        "before": [
+          {
+            "repetition": 1,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 2,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 3,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          }
+        ],
+        "after": [
+          {
+            "repetition": 1,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 2,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 3,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          }
+        ]
+      }
+    },
+    "sqlite": {
+      "before_identity": {
+        "package_id": "Korda.Database.Sqlite",
+        "version": "0.1.0-preview.3",
+        "source_commit": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+        "package_path": "/workspace/scratch/754bc732518e/baseline-artifacts/sqlite/feed/Korda.Database.Sqlite.0.1.0-preview.3.nupkg",
+        "package_sha256": "584d46aa5b08b1e0af46a454ac9f41704c28fe502884017e856ad1b66ca53ef5",
+        "executable_path": "/workspace/scratch/754bc732518e/allocation-consumers-attempt-001/sqlite/app/publish/AllocationProbe",
+        "executable_sha256": "d5f3a27fe4b04fed2ba87f6d45b6d1c991158ccc5bce1f31d2d3e15d3518f229",
+        "native_path": "/workspace/scratch/754bc732518e/allocation-consumers-attempt-001/sqlite/app/publish/libnw_database_sqlite.so",
+        "native_sha256": "970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40",
+        "resolved_korda_packages": [
+          "Korda.Database.Sqlite/0.1.0-preview.3"
+        ],
+        "release_receipt_sha256": "675a05510ed507c8cf5330a4dffe3ca05f3224f3806b0f8fa7e837ddb642f324"
+      },
+      "after_identity": {
+        "package_id": "Korda.Database.Sqlite",
+        "version": "0.1.0-perf-lazy.1",
+        "source_commit": "28110ee03391831c737a54204730730a01b77a34",
+        "package_path": "/workspace/scratch/754bc732518e/lazy-join-candidates-attempt-001/sqlite/feed/Korda.Database.Sqlite.0.1.0-perf-lazy.1.nupkg",
+        "package_sha256": "80db70b602c38858b3afde9952ef27e4c2ef8db1ffcf8b8d5b7ce40274fee617",
+        "executable_path": "/workspace/scratch/754bc732518e/allocation-consumers-after-lazy-join/sqlite/app/publish/AllocationProbe",
+        "executable_sha256": "4422cca581fc155af9a71a2223b629f9a75246bbdffa99b6118e6367366d37e1",
+        "native_path": "/workspace/scratch/754bc732518e/allocation-consumers-after-lazy-join/sqlite/app/publish/libnw_database_sqlite.so",
+        "native_sha256": "970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40",
+        "resolved_korda_packages": [
+          "Korda.Database.Sqlite/0.1.0-perf-lazy.1"
+        ],
+        "release_receipt_sha256": "f2e554899b8af213caa8d44fda9523b273f5727eee29eecf6f2c33a0a0a5d666"
+      },
+      "complete_queries": {
+        "dynamic_complete": {
+          "before": {
+            "allocated_bytes_total": 26712560,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "69563.95833333333333333333333",
+            "total_bytes_per_row": "271.7342122395833333333333333",
+            "process_totals": [
+              8905064,
+              8903792,
+              8903704
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1150,
+            "await_thread_changes": 591
+          },
+          "after": {
+            "allocated_bytes_total": 18033648,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "46962.625",
+            "total_bytes_per_row": "183.44775390625",
+            "process_totals": [
+              6011216,
+              6011216,
+              6011216
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 646
+          },
+          "change_bytes_per_operation": "-22601.33333333333333333333333",
+          "change_percent": "-32.49000470190801630394091768",
+          "framework_allocated_bytes": null,
+          "framework_attribution": "unproved; no estimated subtraction"
+        },
+        "prepared_parameterless_complete": {
+          "before": {
+            "allocated_bytes_total": 21623952,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "56312.375",
+            "total_bytes_per_row": "219.97021484375",
+            "process_totals": [
+              7208048,
+              7207856,
+              7208048
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1151,
+            "await_thread_changes": 648
+          },
+          "after": {
+            "allocated_bytes_total": 12933248,
+            "operations": 384,
+            "rows": 98304,
+            "total_bytes_per_operation": "33680.33333333333333333333333",
+            "total_bytes_per_row": "131.5638020833333333333333333",
+            "process_totals": [
+              4311152,
+              4311032,
+              4311064
+            ],
+            "process_gc_deltas": [
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ]
+            ],
+            "incomplete_move_observations": 1152,
+            "await_thread_changes": 640
+          },
+          "change_bytes_per_operation": "-22632.04166666666666666666667",
+          "change_percent": "-40.19017430301362119190793617",
+          "framework_allocated_bytes": null,
+          "framework_attribution": "unproved; no estimated subtraction"
+        }
+      },
+      "narrow_windows": {
+        "within_first_batch": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 4291584,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 11176,
+            "max_bytes_per_window": 11176,
+            "total_bytes_per_operation": "88",
+            "total_bytes_per_row": "88",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "supplemental_fetch_including_first_row": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 4656504,
+            "operations": 384,
+            "rows": 384,
+            "min_bytes_per_window": 11872,
+            "max_bytes_per_window": 12248,
+            "total_bytes_per_operation": "12126.3125",
+            "total_bytes_per_row": "12126.3125",
+            "incomplete_move_observations": 381,
+            "await_thread_changes": 206,
+            "gc_deltas": [
+              2,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 4634824,
+            "operations": 384,
+            "rows": 384,
+            "min_bytes_per_window": 11784,
+            "max_bytes_per_window": 17208,
+            "total_bytes_per_operation": "12069.85416666666666666666667",
+            "total_bytes_per_row": "12069.85416666666666666666667",
+            "incomplete_move_observations": 380,
+            "await_thread_changes": 211,
+            "gc_deltas": [
+              1,
+              0,
+              0
+            ]
+          }
+        },
+        "empty_sync_control": {
+          "before": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          },
+          "after": {
+            "windows": 384,
+            "allocated_bytes_total": 0,
+            "operations": 48768,
+            "rows": 48768,
+            "min_bytes_per_window": 0,
+            "max_bytes_per_window": 0,
+            "total_bytes_per_operation": "0",
+            "total_bytes_per_row": "0",
+            "incomplete_move_observations": 0,
+            "await_thread_changes": 0,
+            "gc_deltas": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "before_processes": 3,
+      "after_processes": 3,
+      "synchronous_in_batch_zero_gate": true,
+      "controls": {
+        "before": [
+          {
+            "repetition": 1,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 2,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 3,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          }
+        ],
+        "after": [
+          {
+            "repetition": 1,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 2,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          },
+          {
+            "repetition": 3,
+            "empty_async_bytes": 0,
+            "source_open_idle_bytes": 0
+          }
+        ]
+      }
+    }
+  },
+  "synchronous_in_batch_zero_gate": true
+}

@@ -1,0 +1,63 @@
+diff --git a/src/Data.Streaming/TypedStream.cs b/src/Data.Streaming/TypedStream.cs
+index 51ec26a..8b05b47 100644
+--- a/src/Data.Streaming/TypedStream.cs
++++ b/src/Data.Streaming/TypedStream.cs
+@@ -102,7 +102,8 @@ private sealed class Enumerator : IAsyncEnumerator<T>
+         private readonly int _fetchRows;
+         private readonly bool _buffered;
+         private readonly object _gate = new();
+-        private TaskCompletionSource? _activeMove;
++        private bool _moving;
++        private TaskCompletionSource? _moveJoin;
+         private TaskCompletionSource? _cleanup;
+         private IStreamTransport? _transport;
+         private CancellationTokenRegistration _registration;
+@@ -124,17 +125,15 @@ internal Enumerator(TypedStream<T> parent, CancellationToken token, int fetchRow
+         public T Current => _current;
+         public ValueTask<bool> MoveNextAsync()
+         {
+-            TaskCompletionSource completion;
+             lock (_gate)
+             {
+                 ObjectDisposedException.ThrowIf(_closed, this);
+-                if (_activeMove is not null) throw new DatabaseException("Another MoveNext is active.", DatabaseErrorKind.ConcurrentUse);
+-                completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
+-                _activeMove = completion;
++                if (_moving) throw new DatabaseException("Another MoveNext is active.", DatabaseErrorKind.ConcurrentUse);
++                _moving = true;
+             }
+-            return new(MoveAsync(completion));
++            return new(MoveAsync());
+         }
+-        private async Task<bool> MoveAsync(TaskCompletionSource completion)
++        private async Task<bool> MoveAsync()
+         {
+             try
+             {
+@@ -186,7 +185,12 @@ private async Task<bool> MoveAsync(TaskCompletionSource completion)
+             }
+             finally
+             {
+-                lock (_gate) { _activeMove = null; completion.TrySetResult(); }
++                lock (_gate)
++                {
++                    _moving = false;
++                    var join = _moveJoin; _moveJoin = null;
++                    join?.TrySetResult();
++                }
+             }
+         }
+         private Task CleanupAsync()
+@@ -225,7 +229,11 @@ public ValueTask DisposeAsync()
+             Task active;
+             lock (_gate)
+             {
+-                _closed = true; active = _activeMove?.Task ?? Task.CompletedTask;
++                _closed = true;
++                // Normal row moves need no separate completion owner. Only an
++                // overlapping Dispose waits here, sharing one immutable Task
++                // until the active move has finished mapping and cleanup.
++                active = _moving ? (_moveJoin ??= new(TaskCreationOptions.RunContinuationsAsynchronously)).Task : Task.CompletedTask;
+             }
+             RequestStop();
+             return new(DisposeAfterMoveAsync(active));

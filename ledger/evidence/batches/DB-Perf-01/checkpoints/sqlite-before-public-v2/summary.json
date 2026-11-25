@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "task": "DB-Perf-01",
+  "scope": "public_before_business_smoke_only",
+  "provider": "sqlite",
+  "build_receipt": {
+    "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/sqlite-before-public-v2/build-receipt.json",
+    "sha256": "5625f260d4d2197edd84763bb4a2f7121a346d2909250cfa317007df4a41db47"
+  },
+  "observations": [
+    {
+      "mode": "prepared",
+      "completed": 30,
+      "rows": 840,
+      "actual_suspensions": 59,
+      "raw_allocated_bytes": 1508176,
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/sqlite-before-public-v2/probe-prepared-space-restored.json",
+        "sha256": "bf1213a67293571ebed1d2c0631e2dfff7cc1a37d5cfed60c3b86e15edf1d073"
+      }
+    },
+    {
+      "mode": "dynamic",
+      "completed": 30,
+      "rows": 840,
+      "actual_suspensions": 59,
+      "raw_allocated_bytes": 2223880,
+      "raw_result": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/sqlite-before-public-v2/probe-dynamic.json",
+        "sha256": "2a23608f64b87fcc30b76e135b87ad0d5e1eb528da7e35d2651f128259a1f2ed"
+      }
+    }
+  ],
+  "formal_short_run_credit": 0,
+  "long_segment_credit": 0,
+  "framework_wide_zero_claim": false,
+  "limitations": [
+    "Thirty read/query scenarios only; transaction writes, rollback, conflicts, cancellation and early enumeration remain separate obligations.",
+    "One correctness pass per construction mode on an unqualified environment; no sustained or comparative timing claim.",
+    "Prepared raw SQL reuses SqlCommand only; relation loading has no prepared overload and remains LoadRelatedAsync.",
+    "Raw allocation includes business outputs, framework, harness and runtime; framework-only attribution remains unproven."
+  ]
+}

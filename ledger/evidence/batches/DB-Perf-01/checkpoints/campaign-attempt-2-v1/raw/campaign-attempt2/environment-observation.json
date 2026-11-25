@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Perf-01",
+  "kind": "read_only_environment_diagnostic",
+  "observedUtc": "2026-11-24T17:23:20.056138+00:00",
+  "commit": "a5a7338f2e62803b5a5b44d6b459e4491aa626e1",
+  "identity": {
+    "hostname": "runnervmeozm8",
+    "bootId": {
+      "path": "/proc/sys/kernel/random/boot_id",
+      "value": "a6bce921-1f0e-4aca-9d7f-595bc1930762"
+    },
+    "githubRunId": "45447986595",
+    "githubRunAttempt": "1",
+    "githubJob": "observe",
+    "runnerName": "GitHub Actions 1000001981",
+    "runnerEnvironment": "github-hosted",
+    "imageOS": "ubuntu24",
+    "imageVersion": "20261116.376.1"
+  },
+  "uid": 1001,
+  "pid": 2204,
+  "availableCpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "originalSnapshot": {
+    "schemaVersion": 2,
+    "membershipSource": "0::/system.slice/hosted-compute-agent.service",
+    "available": true,
+    "ancestors": [
+      {
+        "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+        "root": false,
+        "cpu.max": "max 100000",
+        "cpu.stat": "usage_usec 2841714\nuser_usec 1993547\nsystem_usec 848167\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "memory.max": "max",
+        "cpuset.cpus.effective": "0-3",
+        "cgroup.subtree_control": "",
+        "quotaStatus": "read"
+      },
+      {
+        "path": "/sys/fs/cgroup/system.slice",
+        "root": false,
+        "cpu.max": "max 100000",
+        "cpu.stat": "usage_usec 10967588\nuser_usec 6407812\nsystem_usec 4559775\nnice_usec 11000\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "memory.max": "max",
+        "cpuset.cpus.effective": "0-3",
+        "cgroup.subtree_control": "cpuset cpu io memory pids",
+        "quotaStatus": "read"
+      },
+      {
+        "path": "/sys/fs/cgroup",
+        "root": true,
+        "cpu.max": {
+          "unavailableErrno": 2
+        },
+        "cpu.stat": "usage_usec 15262000\nuser_usec 8229000\nsystem_usec 7033000\nnice_usec 11000\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+        "memory.max": {
+          "unavailableErrno": 2
+        },
+        "cpuset.cpus.effective": "0-3",
+        "cgroup.subtree_control": "cpuset cpu io memory pids",
+        "quotaStatus": "root_has_no_cpu_max"
+      }
+    ],
+    "membership": "/system.slice/hosted-compute-agent.service",
+    "mountRoot": "/",
+    "mountPoint": "/sys/fs/cgroup",
+    "hostInit": "systemd",
+    "namespaceError": 13
+  },
+  "originalQuotaAssessment": null,
+  "originalQuotaFailure": {
+    "type": "ValueError",
+    "message": "The VM's complete cgroup-v2 quota ancestry is not observable"
+  },
+  "namespaceBefore": "cgroup:[4026531835]",
+  "namespaceAfter": "cgroup:[4026531835]",
+  "privilegedReadOnlyProbe": {
+    "argv": [
+      "sudo",
+      "-n",
+      "/usr/bin/readlink",
+      "--",
+      "/proc/2204/ns/cgroup",
+      "/proc/1/ns/cgroup"
+    ],
+    "exitCode": 0,
+    "stdout": "cgroup:[4026531835]\ncgroup:[4026531835]\n",
+    "stderr": ""
+  },
+  "qualified": false,
+  "longSegmentsCredited": 0,
+  "scope": "Read-only observation on a new job VM; no quota, namespace, affinity, permission or admission rule is modified; no database or timing workload executes."
+}

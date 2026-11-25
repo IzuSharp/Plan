@@ -1,0 +1,280 @@
+name: DB-Perf-01 isolated Linux campaign
+# Intentionally manual-only while the request and harness are being reviewed.
+# A task-branch push trigger limited to campaign-request.json may be added only
+# with the final enabled, source/artifact-bound request. Ordinary PR CI stays short.
+on:
+  workflow_dispatch:
+    inputs:
+      short_only:
+        description: "Admit and calibrate the dedicated VM without the eight long segments"
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: db-perf-01-linux-campaign
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.repository == 'IzuSharp/Korda' && github.ref == 'refs/heads/task/DB-Perf-01-linux'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    outputs:
+      bundle_sha256: ${{ steps.prepare.outputs.bundle_sha256 }}
+    env:
+      CI: "true"
+      DOTNET_NOLOGO: "true"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      NUGET_PACKAGES: ${{ github.workspace }}/artifacts/nuget-packages
+      CMAKE_BUILD_PARALLEL_LEVEL: "4"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require the reviewed frozen opt-in request
+        run: python3 benchmarks/db-perf/campaign.py validate-request benchmarks/db-perf/campaign-request.json
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: |
+            global.json
+            **/packages*.lock.json
+      - name: Restore pinned tool downloads
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          key: linux-x64-tools-${{ hashFiles('native/dependencies.lock.json','eng/ci/sccache.sh') }}
+          path: |
+            artifacts/toolchain/downloads
+            artifacts/toolchain/sccache/tool.tar.gz
+            artifacts/dependencies/downloads
+      - name: Install exact compiler and PostgreSQL build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends zstd libssl-dev zlib1g-dev bison flex
+          python3 eng/cpp_toolchain.py
+      - id: pg
+        run: echo "key=$(python3 eng/postgres-cache-key.py full)" >> "$GITHUB_OUTPUT"
+      - name: Restore verified PostgreSQL 18 installation
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          key: postgres-full-ubuntu24-x64-${{ steps.pg.outputs.key }}
+          path: artifacts/postgres-tools/install
+      - name: Verify or build the pinned PostgreSQL installation
+        run: bash eng/postgres-tools.sh
+      - name: Bind exact original/candidate packages and build all external AOT/native routes
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python3 benchmarks/db-perf/campaign.py prepare
+          --request benchmarks/db-perf/campaign-request.json
+          --repo "$GITHUB_WORKSPACE"
+          --output "$RUNNER_TEMP/db-perf-prepared"
+      - name: Transfer immutable runtime bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-runtime-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/db-perf-prepared/runtime-bundle.tar.gz
+            ${{ runner.temp }}/db-perf-prepared/preparation.json
+          retention-days: 30
+          if-no-files-found: error
+      - name: Preserve preparation diagnostics
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-preparation-failure-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/db-perf-prepared/*.log
+            ${{ runner.temp }}/db-perf-prepared/build/**/publish.log
+            ${{ runner.temp }}/db-perf-prepared/build/**/build-receipt.json
+          retention-days: 30
+          if-no-files-found: ignore
+  measure:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      CI: "true"
+      DOTNET_NOLOGO: "true"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_EnableDiagnostics: "1"
+    steps:
+      - name: Download the complete frozen runtime bundle
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: db-perf-runtime-${{ github.run_id }}
+          path: ${{ runner.temp }}/db-perf-incoming
+      - name: Verify transport bytes and safely unpack runtime files
+        env:
+          EXPECTED_BUNDLE_SHA256: ${{ needs.prepare.outputs.bundle_sha256 }}
+        run: |
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          import hashlib,os,tarfile
+          root=Path(os.environ['RUNNER_TEMP'])
+          archive=root/'db-perf-incoming/runtime-bundle.tar.gz'
+          with archive.open('rb') as stream:
+              assert hashlib.file_digest(stream,'sha256').hexdigest()==os.environ['EXPECTED_BUNDLE_SHA256']
+          with tarfile.open(archive) as stream:
+              stream.extractall(root/'db-perf-runtime',filter='data')
+          with Path(os.environ['GITHUB_ENV']).open('a') as stream:
+              stream.write('DB_PERF_BUNDLE='+str(root/'db-perf-runtime/bundle')+'\n')
+              stream.write('LD_LIBRARY_PATH='+str(root/'db-perf-runtime/bundle/postgres/lib')+':'+str(root/'db-perf-runtime/bundle/native')+'\n')
+          PYTHON
+      - name: Admit this VM and freeze noise, capacity and offered load
+        timeout-minutes: 70
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --short-only
+      - name: Preserve campaign checkpoint 0
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-0
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 1 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 1
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-1
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 2 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 2
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-2
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 3 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 3
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-3
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 4 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 4
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-4
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 5 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 5
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-5
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 6 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 6
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-6
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 7 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 7
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-7
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Execute sequential long segment 8 of 8 on the same VM
+        if: ${{ github.event.inputs.short_only != 'true' }}
+        timeout-minutes: 35
+        run: >-
+          python3 "$DB_PERF_BUNDLE/harness/campaign.py" measure
+          --bundle "$DB_PERF_BUNDLE" --output "$RUNNER_TEMP/db-perf-campaign" --resume --next-segment
+      - name: Preserve campaign checkpoint 8
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: db-perf-evidence-${{ github.run_id }}-checkpoint-8
+          path: |
+            ${{ runner.temp }}/db-perf-campaign/**
+            !${{ runner.temp }}/db-perf-campaign/**/pgdata/**
+            !${{ runner.temp }}/db-perf-campaign/**/database.sqlite*
+          retention-days: 30
+          if-no-files-found: warn

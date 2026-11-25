@@ -47,8 +47,19 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - name: Verify current naming task and completed Fluent ORM history
+      - name: Verify current database performance scope and evidence integrity
         working-directory: Plan
+        run: python3 tools/verify_db_perf.py
+      - name: Check out the immutable DB-Rename-01 input
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/Plan
+          ref: bc1956936ee77a997a016856c97def6aabc0bbc6
+          fetch-depth: 0
+          path: rename-history/Plan
+          persist-credentials: false
+      - name: Run unchanged naming and completed Fluent ORM history gates
+        working-directory: rename-history/Plan
         run: python3 tools/verify_db_rename.py
       - name: Check out the immutable completed DB-CPP-01 input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -114,6 +125,18 @@ jobs:
               jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
           print('PASS all three graph schemas')
           PY
+      - name: Validate the current performance acceptance schema
+        working-directory: Plan
+        run: |
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          import json,jsonschema
+          schema=json.loads(Path('schemas/db-perf-v1.schema.json').read_text())
+          record=json.loads(Path('ledger/evidence/batches/DB-Perf-01/acceptance.json').read_text())
+          jsonschema.Draft202012Validator.check_schema(schema)
+          jsonschema.Draft202012Validator(schema).validate(record)
+          print('PASS DB-Perf-01 acceptance schema; no performance execution inferred')
+          PYTHON
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -131,3 +154,4 @@ jobs:
             Plan/ledger/evidence/batches/DB-CPP-01/
             Plan/ledger/evidence/batches/DB-API-01/
             Plan/ledger/evidence/batches/DB-Rename-01/
+            Plan/ledger/evidence/batches/DB-Perf-01/

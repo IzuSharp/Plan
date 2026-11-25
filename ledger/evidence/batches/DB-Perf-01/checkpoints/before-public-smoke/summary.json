@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "task": "DB-Perf-01",
+  "scope": "ordinary_PackageReference_Native_AOT_before_smoke_not_full_campaign",
+  "results": [
+    {
+      "provider": "sqlite",
+      "build_receipt": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/before-public-smoke/sqlite/build-receipt.json",
+        "sha256": "bd51096f499e6771b3294aa397149c723d7bbc36607f3eaf113368a043c0478b"
+      },
+      "probe": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/before-public-smoke/sqlite/probe.json",
+        "sha256": "6d62b02650c62db77328d2f313ff2be805c6f8579c641d667632db21434e8c4a"
+      },
+      "package_sha256": "584d46aa5b08b1e0af46a454ac9f41704c28fe502884017e856ad1b66ca53ef5",
+      "executable_sha256": "a91dc957767628dd90408891255543622c235306e0f0898e7ea336da2d612938",
+      "loaded_native_sha256": "970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40",
+      "operations": 5,
+      "rows": 160,
+      "suspensions": 10,
+      "raw_allocated_bytes": 213584,
+      "framework_attribution": "unproven",
+      "owners_returned_to_zero": true
+    },
+    {
+      "provider": "postgresql",
+      "build_receipt": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/before-public-smoke/postgresql/build-receipt.json",
+        "sha256": "cac460022ded447fc70f7428a15e9d6b666d56c15f5cfb70ff5ecee21d62144d"
+      },
+      "probe": {
+        "path": "ledger/evidence/batches/DB-Perf-01/checkpoints/before-public-smoke/postgresql/execution/probe.json",
+        "sha256": "682faa6b8e4d8462a922b0cd4db01f71e9f25495303db9c940b4c2a6d627a4f1"
+      },
+      "package_sha256": "458c115e12d65ca0719f542ea262aeb3347f5bc3269f99d5ba14f3e36c038e0f",
+      "executable_sha256": "4e2c6685ab6d56a8f28fa4a59ee96bdf81df944f3c5eca73906bf2c3069d16b9",
+      "loaded_native_sha256": "73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6",
+      "operations": 5,
+      "rows": 160,
+      "suspensions": 10,
+      "raw_allocated_bytes": 236048,
+      "framework_attribution": "unproven",
+      "owners_returned_to_zero": true
+    }
+  ],
+  "long_segment_credit": 0,
+  "framework_wide_zero_claim": false,
+  "limitations": [
+    "Five projection operations per provider establish an early real-database AOT smoke path, not 24 semantically distinct cases.",
+    "Raw end-to-end process allocation includes business results and harness activity; no exact framework attribution is claimed.",
+    "These short closed-loop correctness probes do not establish sustainable arrival-rate tails, capacity, independent ORM/native comparisons or long-run acceptance."
+  ]
+}

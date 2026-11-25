@@ -1,0 +1,74 @@
+{
+  "task": "DB-Perf-01",
+  "kind": "root_validation_record",
+  "scope": "recovery checkpoint; no benchmark or acceptance credit",
+  "commands": [
+    {
+      "command": "python3 tools/verify_db_perf.py --verify-frozen-history",
+      "exit_code": 0,
+      "observed_output": {
+        "state": "in_progress",
+        "record_integrity": "passed",
+        "negative_controls": 13,
+        "source_reference_negative_controls": 4,
+        "accepted_long_segments": 0,
+        "source_references": {
+          "references": 93,
+          "pending": 82,
+          "fixed_bytes_verified": false
+        },
+        "frozen_history_executed": true,
+        "historical_DB_Rename": "passed at bc1956936ee77a997a016856c97def6aabc0bbc6",
+        "historical_DB_API": "accepted at 85f7f83e29e67f6865c14c64585139541b8a1a1f"
+      }
+    },
+    {
+      "command": "python3 tools/verify_db_perf.py --korda-source /workspace/scratch/37c4f8cc3a91/worktrees/Korda-DB-Perf-01-linux",
+      "exit_code": 0,
+      "observed_output": {
+        "state": "in_progress",
+        "record_integrity": "passed",
+        "negative_controls": 13,
+        "source_reference_negative_controls": 4,
+        "accepted_long_segments": 0,
+        "source_references": {
+          "references": 93,
+          "pending": 82,
+          "fixed_bytes_verified": true
+        }
+      }
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "scope": "unstaged handoff edit; restored untracked raw files were not included at that point"
+    }
+  ],
+  "payload_hash_validation": {
+    "files": 37,
+    "bytes": 588834,
+    "checks": [
+      "original Git blob SHA-1",
+      "SHA-256",
+      "byte size"
+    ],
+    "status": "passed"
+  },
+  "process_GC_scope": "whole process only",
+  "framework_exact_total_claimed": false,
+  "current_candidate_long_credit_transferred_from_historical_campaign": false,
+  "own_future_ci": "not predicted",
+  "staged_original_raw_whitespace": {
+    "command": "git diff --cached --check",
+    "exit_code": 2,
+    "lines": 21,
+    "paths": [
+      "ledger/evidence/batches/DB-Perf-01/checkpoints/campaign-attempt-2-v1/raw/campaign-attempt2/environment-job.decoded-original.log",
+      "ledger/evidence/batches/DB-Perf-01/checkpoints/campaign-attempt-2-v1/raw/campaign-attempt2/fixed-environment-job.decoded-original.log",
+      "ledger/evidence/batches/DB-Perf-01/checkpoints/campaign-image-recovery-v1/raw/campaign-attempt3/prepareLog.decoded-original.log"
+    ],
+    "reason": "Original runner-log timestamp-only lines contain a trailing space. Exact original blob/hash preservation forbids trimming or rewriting them. This is an observed formatting diagnostic, not a failed product/acceptance gate.",
+    "original_bytes_preserved": true,
+    "diagnostic_output_sha256": "947e12e339562f7fe7bafb1faac64d45276c3290c3945f8476ef43afca38ec72"
+  }
+}

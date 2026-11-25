@@ -1,0 +1,457 @@
+{
+  "task": "DB-Perf-01",
+  "kind": "minimal_direct_native_real_database_probe",
+  "performance_result": false,
+  "product_baseline": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+  "started_utc": "20261124T091747Z",
+  "status": "passed",
+  "commands": [
+    {
+      "label": "compiler-version",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++",
+        "--version"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:48.660831+00:00",
+      "log": "01-compiler-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.01598529700004292,
+      "log_sha256": "139f9fcc01a4c3c1e72421a5d2d8684a93568faf5250465d31f242401bed6d58"
+    },
+    {
+      "label": "postgres-version",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/postgres",
+        "--version"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:48.677179+00:00",
+      "log": "02-postgres-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.0036285310006860527,
+      "log_sha256": "909de18f93a76dee62f191207d7caca9edc9f32ae5181e66be744c1a17a8c4d0"
+    },
+    {
+      "label": "host",
+      "argv": [
+        "uname",
+        "-a"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:48.681050+00:00",
+      "log": "03-host.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.0018605389996082522,
+      "log_sha256": "8170366fd02d5d2666446ac290ab3716aa11fe747409572961e600da440233bb"
+    },
+    {
+      "label": "compile-sqlite",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-stdlib=libc++",
+        "-nostdlib++",
+        "/workspace/scratch/754bc732518e/native-probe/native_probe.cpp",
+        "-DPROBE_POSTGRES=0",
+        "-I/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/sqlite/sqlite-amalgamation-3510300",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/libnw_sqlite_engine.a",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++.a",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++abi.a",
+        "-lpthread",
+        "-ldl",
+        "-lm",
+        "-o",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-sqlite"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:48.683218+00:00",
+      "log": "04-compile-sqlite.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.9664378719999149,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-postgresql",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-stdlib=libc++",
+        "-nostdlib++",
+        "/workspace/scratch/754bc732518e/native-probe/native_probe.cpp",
+        "-DPROBE_POSTGRES=1",
+        "-I/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/include",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpq.a",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpgcommon_shlib.a",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpgport_shlib.a",
+        "-lssl",
+        "-lcrypto",
+        "-lz",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++.a",
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++abi.a",
+        "-lpthread",
+        "-ldl",
+        "-lm",
+        "-o",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-postgresql"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:49.650616+00:00",
+      "log": "05-compile-postgresql.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.9664842839993071,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "ldd-sqlite",
+      "argv": [
+        "ldd",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-sqlite"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.622406+00:00",
+      "log": "06-ldd-sqlite.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.008099185999526526,
+      "log_sha256": "ae05d00112a95b91ddd440012b20f8b5d1a692519aa740638d43b4d9a566e8ad"
+    },
+    {
+      "label": "elf-dynamic-sqlite",
+      "argv": [
+        "readelf",
+        "-d",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-sqlite"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.637486+00:00",
+      "log": "07-elf-dynamic-sqlite.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.004022953999992751,
+      "log_sha256": "3c71482a7b0f7a36354a713932c78e40b2ff0d1ac0d81d317a290951f2be26c4"
+    },
+    {
+      "label": "ldd-postgresql",
+      "argv": [
+        "ldd",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-postgresql"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.643300+00:00",
+      "log": "08-ldd-postgresql.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.007814464999682968,
+      "log_sha256": "e1cef1fd0ab8fd1f16d0928864662ef97737daec78ccefb49410babd6b0df144"
+    },
+    {
+      "label": "elf-dynamic-postgresql",
+      "argv": [
+        "readelf",
+        "-d",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-postgresql"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.697217+00:00",
+      "log": "09-elf-dynamic-postgresql.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.0018665179995878134,
+      "log_sha256": "1a0197be519d149aff72293d01db1bc3b12f232ee46a167754e2ef2821b3d554"
+    },
+    {
+      "label": "execute-sqlite",
+      "argv": [
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-sqlite",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/probe.sqlite"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.699441+00:00",
+      "log": "10-execute-sqlite.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.00791498299986415,
+      "log_sha256": "20516ff2243278ab9a5f3655ece9a43c45bb87d17fdfd47f50d8a3b6c25d0334"
+    },
+    {
+      "label": "postgres-initdb",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/initdb",
+        "-D",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/postgres-data",
+        "--no-locale",
+        "-E",
+        "UTF8",
+        "--auth=trust"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:50.707813+00:00",
+      "log": "11-postgres-initdb.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.565584401999331,
+      "log_sha256": "3ec9f9af497b74b323d6c6f07a5b4588d6fd07a9807fc0d73dc65668b0d2a2ca"
+    },
+    {
+      "label": "execute-postgresql",
+      "argv": [
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-postgresql",
+        "host=127.0.0.1 port=42147 dbname=postgres user=agent sslmode=disable connect_timeout=5"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:51.350303+00:00",
+      "log": "12-execute-postgresql.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.016206473000238475,
+      "log_sha256": "0fc6f751758abcecf951269c1c506532d2230964878ee57621367b49b4d16fc9"
+    },
+    {
+      "label": "postgres-stop",
+      "argv": [
+        "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/pg_ctl",
+        "-D",
+        "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/postgres-data",
+        "-m",
+        "fast",
+        "-w",
+        "stop"
+      ],
+      "cwd": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z",
+      "started_utc": "2026-11-24T09:17:51.367346+00:00",
+      "log": "13-postgres-stop.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11450616000001901,
+      "log_sha256": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d"
+    }
+  ],
+  "files": {
+    "/workspace/scratch/754bc732518e/native-probe/native_probe.cpp": {
+      "sha256": "0f23505b223dd3d6aed7d1efedf11950a020400df81fe4c6b642afee239aaa01",
+      "size": 11849,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/native-probe/run_probe.py": {
+      "sha256": "671116537553f725e35f677e22a3ea0b95f3d9ff52dd970d73eaf310b4691924",
+      "size": 9493,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/Korda-DB-Perf-01-linux/native/dependencies.lock.json": {
+      "sha256": "dca7f396bce6f438e5ed3a41dcbeeab8d350f8653f43cd60c753713a2758bb55",
+      "size": 10893,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/bin/clang++": {
+      "sha256": "2033aa32d783adec2a3d30a5d9229b60d9a7594ad73e19e87c3fd2b5ed21a9c2",
+      "size": 282474496,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/sqlite/sqlite-amalgamation-3510300/sqlite3.c": {
+      "sha256": "9512509b1bccb7461f79bea8aad6280ae4699e925fa4804381b71f59e7efb0c5",
+      "size": 9390466,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/dependencies/sqlite/sqlite-amalgamation-3510300/sqlite3.h": {
+      "sha256": "19585c8b5230e9d4f223bf31b709ece7b6a0bb3faf00d8310625d8e58cda1b1d",
+      "size": 671786,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/libnw_sqlite_engine.a": {
+      "sha256": "1c9e2dbc483347ca93bfe43604ca99b3856191f9049261336cfc300540cad7cd",
+      "size": 2596944,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/korda-postgresql-build.json": {
+      "sha256": "29b15774374bb1fb53dc85bb0a8b18d93cdc664018f217d5f37222800af7202d",
+      "size": 194094,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/Korda-DB-Perf-01-linux/native/cpp/patches/libpq-explicit-configuration.patch": {
+      "sha256": "a6c33133d9900b5bd6460245331ad7d9a8b256786dcd1bd927b5491b52921ddd",
+      "size": 3581,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpq.a": {
+      "sha256": "97c8aeb3f4db8bcc2e1232900395df746354b72fb910a5c6cdcfe3725a4a24e5",
+      "size": 358464,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpgcommon_shlib.a": {
+      "sha256": "c401dde0b5262e0e05948a5bc2cab9caf2db7a83b6293ef1c3fe3a671a7b4388",
+      "size": 490580,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/lib/libpgport_shlib.a": {
+      "sha256": "74fb59bcb52fd8a36bf63a6eeef7ca1607eaea9e37abb206e71472dfe882ec2d",
+      "size": 119792,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/include/libpq-fe.h": {
+      "sha256": "fd66591f14d5dc880e851e1bbabde75a6c7ca5a18edf6040c119e56d3fa227b7",
+      "size": 30973,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/postgres": {
+      "sha256": "fefb0371d9a96ad1e19848065de1585b646510c27fb0ec596bbf65d87c783b88",
+      "size": 10537248,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/initdb": {
+      "sha256": "69ba8ade253c525da6df85d3916b628b58e5d3cc37d6e4d6e52f0d3bf0ce9a6f",
+      "size": 205936,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/pg_ctl": {
+      "sha256": "f93d3dc2d920e1f89d11f0ad7fa1e18f1830853d5aca49fb2039b3a3a8415840",
+      "size": 89336,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/pg_isready": {
+      "sha256": "35202c390834fe49094187b2f30c005b3f999fdbe263e01e6d61061f3fcdb491",
+      "size": 109880,
+      "expected_hash_verified": true
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++.a": {
+      "sha256": "91ad2e76b5c991ea3700f4a9909f0ad7ec1b5a87ba05db6afbe69f186e818724",
+      "size": 2444040,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/toolchain/llvm-23.1.5/lib/x86_64-unknown-linux-gnu/libc++abi.a": {
+      "sha256": "3ab150f0530e938d706b5d63b26711df9d299dad3f5e77231cf616e1a7f0d47e",
+      "size": 722406,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-sqlite": {
+      "sha256": "7205db060cb0a303a8e01f37d5640667142de310a24c355e50d0b75eb254d985",
+      "size": 2981080,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libm.so.6": {
+      "sha256": "6d567d53e895273ca14a1f9dc164fc6c8d39aed2f60aa46a733c2784228915f3",
+      "size": 977112,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libgcc_s.so.1": {
+      "sha256": "30c61ab012a4241bed033725a09b61f5fdd3bb7df95ee852d0b096520524c7af",
+      "size": 182856,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libc.so.6": {
+      "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92",
+      "size": 1995216,
+      "expected_hash_verified": false
+    },
+    "/lib64/ld-linux-x86-64.so.2": {
+      "sha256": "c8438e4fde1934e61c88311633f00949ff645d5c04cdb8671fa3d78164d2f307",
+      "size": 225672,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/native-postgresql": {
+      "sha256": "5037d4fdec6555a937f2e0d56159c3b914e74e12795e719d41e15597d49e0bdb",
+      "size": 1436728,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libssl.so.3": {
+      "sha256": "9592038e92d1f41affcbb625334d0b6e788714c889104fa6d5b107cf9fd657f2",
+      "size": 1109952,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libcrypto.so.3": {
+      "sha256": "8ae56f0a9481280a68c19f59809cd242a07a91ad7142944d21a878221992244b",
+      "size": 6521408,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libz.so.1": {
+      "sha256": "6c13931760210e8b391b63a337dfe4071346c4ad6e3827694edb7b6989bb16dd",
+      "size": 125376,
+      "expected_hash_verified": false
+    },
+    "/lib/x86_64-linux-gnu/libzstd.so.1": {
+      "sha256": "27f07c9a49c2c956bcfb64cd4712976586a66facbf15fc7f09bc37413b5f2b21",
+      "size": 825336,
+      "expected_hash_verified": false
+    },
+    "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/postgres-server.log": {
+      "sha256": "fd74bfdab24ea8fde6a92afb1d3424e7da5f3de148c67a08ce8a318a4d86b456",
+      "size": 1255,
+      "expected_hash_verified": false
+    }
+  },
+  "results": [
+    {
+      "provider": "sqlite",
+      "status": "passed",
+      "rows_materialized": 2,
+      "prepared_reuse": true,
+      "parameter_binding": true,
+      "unicode": true,
+      "null": true,
+      "exact_scaled_money": true,
+      "json_field": true,
+      "commit": true,
+      "rollback": true,
+      "statements_finalized": true,
+      "connection_closed": true,
+      "performance_result": false
+    },
+    {
+      "provider": "postgresql",
+      "status": "passed",
+      "rows_materialized": 2,
+      "prepared_reuse": true,
+      "parameter_binding": true,
+      "unicode": true,
+      "null": true,
+      "exact_decimal_text": true,
+      "json_field": true,
+      "commit": true,
+      "rollback": true,
+      "binary_single_row_results": true,
+      "performance_result": false
+    }
+  ],
+  "limitations": [
+    "Not a workload campaign or throughput/latency result.",
+    "PostgreSQL numeric is explicitly cast to text for this minimal correctness probe; final numeric decoding equivalence is pending.",
+    "Native allocations are not measured globally. SQLite memory counters cover SQLite only."
+  ],
+  "dependency_versions": {
+    "clang": "23.1.5",
+    "sqlite": "3.51.3",
+    "libpq": "18.0",
+    "postgresql_server": "18.0",
+    "libcxx": "23.1.5"
+  },
+  "sqlite_archive_provenance": {
+    "path": "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/cmake/linux-x64-release/libnw_sqlite_engine.a",
+    "reused_existing_release_archive": true,
+    "source_files_verified_against_lock": true,
+    "runtime_version_and_compile_options_checked_in_probe": true,
+    "archive_is_not_rebuilt_by_this_probe": true
+  },
+  "postgres_endpoint": {
+    "host": "127.0.0.1",
+    "port": 42147,
+    "unix_socket_directories": "",
+    "temporary_isolated_cluster": "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/postgres-data"
+  },
+  "postgres_server_argv": [
+    "/workspace/scratch/82a414196324/Korda-DB-Rename-01-linux/artifacts/postgres-tools/install/bin/postgres",
+    "-D",
+    "/workspace/scratch/754bc732518e/native-probe/attempt-20261124T091747Z/postgres-data",
+    "-h",
+    "127.0.0.1",
+    "-k",
+    "",
+    "-p",
+    "42147"
+  ],
+  "postgres_process_exited": true,
+  "ended_utc": "2026-11-24T09:17:51.482664+00:00"
+}
