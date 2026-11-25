@@ -1,0 +1,1308 @@
+{
+  "scope": "Computed summaries only. Source receipts retain environment and measurement eligibility; no acceptance is inferred.",
+  "summarizerSha256": "8507ccc867109613c3340080d950d10a87a722254da3637426be878027616e36",
+  "inputs": [
+    {
+      "SchemaVersion": 3,
+      "Provider": "Sqlite",
+      "DatabaseVersion": "3.51.3",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "17d2827db202b50afbb0365313b9dd0d4c993b89139411ea2ebf3cb7d2464534",
+      "NativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = ? AND \"query_phases\".\"Id\" = ? ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" = @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 1 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 1,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-sqlite/phase-1.json",
+      "inputSha256": "092a42419677f3b7b99070eb3f8ccc33adff7a2aa38eab2610e17a910facd23c",
+      "preparationMicroseconds": 514.848,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 73451,
+          "SubmitToFirstRowTicks": 361046,
+          "ReadCompleteTicks": 169356,
+          "ReleaseTicks": 21602,
+          "Rows": 1
+        },
+        {
+          "ConstructTicks": 25037,
+          "SubmitToFirstRowTicks": 210980,
+          "ReadCompleteTicks": 5036456,
+          "ReleaseTicks": 691,
+          "Rows": 1
+        },
+        {
+          "ConstructTicks": 42474,
+          "SubmitToFirstRowTicks": 12071864,
+          "ReadCompleteTicks": 204159,
+          "ReleaseTicks": 461,
+          "Rows": 1
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 1075032,
+          "bytesPerOperation": 22396.5,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.052422,
+          "processCpuMicrosecondsPerOperation": 1092.125,
+          "windowSecondsIncludingVerification": 0.463800655,
+          "operationsPerSecondIncludingVerification": 103.49273870689122,
+          "maxObservedWindowRssBytes": 20705280,
+          "processLifetimePeakRssBytes": 20705280,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 161.75447916666667,
+              "p50Microseconds": 125.971,
+              "p95Microseconds": 314.37600000000003,
+              "p99Microseconds": 826.24,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3453.1003333333338,
+              "p50Microseconds": 223.518,
+              "p95Microseconds": 12149.135,
+              "p99Microseconds": 20101.116,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 6044.2283125,
+              "p50Microseconds": 7635.1810000000005,
+              "p95Microseconds": 18007.769,
+              "p99Microseconds": 19942.015,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 1.952125,
+              "p50Microseconds": 1.933,
+              "p95Microseconds": 2.805,
+              "p99Microseconds": 3.4050000000000002,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 9661.03525,
+            "p50Microseconds": 8260.841,
+            "p95Microseconds": 20362.926,
+            "p99Microseconds": 32580.606,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 289128,
+          "bytesPerOperation": 6023.5,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.042967,
+          "processCpuMicrosecondsPerOperation": 895.1458333333334,
+          "windowSecondsIncludingVerification": 0.414813445,
+          "operationsPerSecondIncludingVerification": 115.71466783098123,
+          "maxObservedWindowRssBytes": 20705280,
+          "processLifetimePeakRssBytes": 20705280,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 8.195479166666667,
+              "p50Microseconds": 5.128,
+              "p95Microseconds": 27.481,
+              "p99Microseconds": 60.582,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3919.1194375,
+              "p50Microseconds": 208.275,
+              "p95Microseconds": 12364.843,
+              "p99Microseconds": 20457.485,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 4712.771770833333,
+              "p50Microseconds": 176.673,
+              "p95Microseconds": 18329.091,
+              "p99Microseconds": 20391.765,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.5738541666666667,
+              "p50Microseconds": 0.501,
+              "p95Microseconds": 0.982,
+              "p99Microseconds": 1.122,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 8640.660541666666,
+            "p50Microseconds": 8131.059,
+            "p95Microseconds": 26244.901,
+            "p99Microseconds": 30250.992000000002,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 535336,
+          "bytesPerOperation": 11152.833333333334,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.04588,
+          "processCpuMicrosecondsPerOperation": 955.8333333333334,
+          "windowSecondsIncludingVerification": 0.404098283,
+          "operationsPerSecondIncludingVerification": 118.78298428701811,
+          "maxObservedWindowRssBytes": 20705280,
+          "processLifetimePeakRssBytes": 20705280,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 49.787875,
+              "p50Microseconds": 42.204,
+              "p95Microseconds": 76.896,
+              "p99Microseconds": 242.296,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3525.3892291666666,
+              "p50Microseconds": 232.61700000000002,
+              "p95Microseconds": 12132.229,
+              "p99Microseconds": 19464.337,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 4841.312333333333,
+              "p50Microseconds": 191.415,
+              "p95Microseconds": 18376.042,
+              "p99Microseconds": 19883.852,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.9443125,
+              "p50Microseconds": 0.531,
+              "p95Microseconds": 1.182,
+              "p99Microseconds": 16.635,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 8417.43375,
+            "p50Microseconds": 7837.447,
+            "p95Microseconds": 20385.565,
+            "p99Microseconds": 26019.634000000002,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        }
+      ]
+    },
+    {
+      "SchemaVersion": 3,
+      "Provider": "Sqlite",
+      "DatabaseVersion": "3.51.3",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "17d2827db202b50afbb0365313b9dd0d4c993b89139411ea2ebf3cb7d2464534",
+      "NativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = ? AND \"query_phases\".\"Id\" <= ? ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" <= @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 100 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 100,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-sqlite/phase-100.json",
+      "inputSha256": "1017564172c20ee95bb90a7e2ae98bf27b9fde03d058afe5d0767e6f6f145fa4",
+      "preparationMicroseconds": 457.411,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 92040,
+          "SubmitToFirstRowTicks": 325281,
+          "ReadCompleteTicks": 6650107,
+          "ReleaseTicks": 2263,
+          "Rows": 100
+        },
+        {
+          "ConstructTicks": 14282,
+          "SubmitToFirstRowTicks": 241465,
+          "ReadCompleteTicks": 19923918,
+          "ReleaseTicks": 671,
+          "Rows": 100
+        },
+        {
+          "ConstructTicks": 67182,
+          "SubmitToFirstRowTicks": 489540,
+          "ReadCompleteTicks": 8045730,
+          "ReleaseTicks": 1022,
+          "Rows": 100
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 1485504,
+          "bytesPerOperation": 30948.0,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.083587,
+          "processCpuMicrosecondsPerOperation": 1741.3958333333333,
+          "windowSecondsIncludingVerification": 0.501593205,
+          "operationsPerSecondIncludingVerification": 95.69507625207962,
+          "maxObservedWindowRssBytes": 20164608,
+          "processLifetimePeakRssBytes": 20164608,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 141.58579166666667,
+              "p50Microseconds": 117.82900000000001,
+              "p95Microseconds": 244.092,
+              "p99Microseconds": 312.085,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1796.584625,
+              "p50Microseconds": 241.638,
+              "p95Microseconds": 11835.769,
+              "p99Microseconds": 12084.847,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 8505.912083333335,
+              "p50Microseconds": 7866.726000000001,
+              "p95Microseconds": 20209.146,
+              "p99Microseconds": 20511.351,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 2.3102083333333336,
+              "p50Microseconds": 2.093,
+              "p95Microseconds": 3.966,
+              "p99Microseconds": 6.359,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 10446.392708333335,
+            "p50Microseconds": 8511.963,
+            "p95Microseconds": 20588.694,
+            "p99Microseconds": 28528.287,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 709000,
+          "bytesPerOperation": 14770.833333333334,
+          "gc": {
+            "Gen0": 1,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.08719,
+          "processCpuMicrosecondsPerOperation": 1816.4583333333333,
+          "windowSecondsIncludingVerification": 0.711743485,
+          "operationsPerSecondIncludingVerification": 67.44002721710899,
+          "maxObservedWindowRssBytes": 20340736,
+          "processLifetimePeakRssBytes": 20340736,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 38.149145833333336,
+              "p50Microseconds": 7.902,
+              "p95Microseconds": 14.853,
+              "p99Microseconds": 1429.376,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 2063.89675,
+              "p50Microseconds": 300.63800000000003,
+              "p95Microseconds": 11962.756,
+              "p99Microseconds": 13223.15,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 12720.0335625,
+              "p50Microseconds": 11908.9,
+              "p95Microseconds": 28238.865,
+              "p99Microseconds": 32196.286,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.8048125,
+              "p50Microseconds": 0.801,
+              "p95Microseconds": 1.352,
+              "p99Microseconds": 1.693,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 14822.884270833334,
+            "p50Microseconds": 12423.854,
+            "p95Microseconds": 32174.813000000002,
+            "p99Microseconds": 38382.558,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 934552,
+          "bytesPerOperation": 19469.833333333332,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.071978,
+          "processCpuMicrosecondsPerOperation": 1499.5416666666667,
+          "windowSecondsIncludingVerification": 0.562725697,
+          "operationsPerSecondIncludingVerification": 85.29910799506283,
+          "maxObservedWindowRssBytes": 20160512,
+          "processLifetimePeakRssBytes": 20160512,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 61.56341666666667,
+              "p50Microseconds": 49.415,
+              "p95Microseconds": 126.283,
+              "p99Microseconds": 472.089,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1411.3515,
+              "p50Microseconds": 247.11100000000002,
+              "p95Microseconds": 8111.389,
+              "p99Microseconds": 12019.288,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 10246.05875,
+              "p50Microseconds": 8275.499,
+              "p95Microseconds": 28164.087,
+              "p99Microseconds": 31038.022,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.6928333333333334,
+              "p50Microseconds": 0.641,
+              "p95Microseconds": 1.302,
+              "p99Microseconds": 1.393,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 11719.6665,
+            "p50Microseconds": 10146.176,
+            "p95Microseconds": 28540.55,
+            "p99Microseconds": 32569.273,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        }
+      ]
+    },
+    {
+      "SchemaVersion": 3,
+      "Provider": "Sqlite",
+      "DatabaseVersion": "3.51.3",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "17d2827db202b50afbb0365313b9dd0d4c993b89139411ea2ebf3cb7d2464534",
+      "NativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = ? AND \"query_phases\".\"Id\" <= ? ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" <= @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 1000 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 1000,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-sqlite/phase-1000.json",
+      "inputSha256": "dc01edfb3ce5386a5d79f2202a2a99c1c2ddc6b003535edeca4ae0b6753d3663",
+      "preparationMicroseconds": 709.37,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 179333,
+          "SubmitToFirstRowTicks": 346668,
+          "ReadCompleteTicks": 93706758,
+          "ReleaseTicks": 5949,
+          "Rows": 1000
+        },
+        {
+          "ConstructTicks": 61974,
+          "SubmitToFirstRowTicks": 341860,
+          "ReadCompleteTicks": 91083224,
+          "ReleaseTicks": 821,
+          "Rows": 1000
+        },
+        {
+          "ConstructTicks": 109627,
+          "SubmitToFirstRowTicks": 455648,
+          "ReadCompleteTicks": 79072975,
+          "ReleaseTicks": 1702,
+          "Rows": 1000
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 5561352,
+          "bytesPerOperation": 115861.5,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.395707,
+          "processCpuMicrosecondsPerOperation": 8243.895833333334,
+          "windowSecondsIncludingVerification": 2.877091353,
+          "operationsPerSecondIncludingVerification": 16.683516131647835,
+          "maxObservedWindowRssBytes": 20897792,
+          "processLifetimePeakRssBytes": 20897792,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 273.25195833333333,
+              "p50Microseconds": 242.132,
+              "p95Microseconds": 534.65,
+              "p99Microseconds": 929.371,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3709.5166041666666,
+              "p50Microseconds": 369.684,
+              "p95Microseconds": 11840.997,
+              "p99Microseconds": 22395.385000000002,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 55921.97002083334,
+              "p50Microseconds": 60440.246,
+              "p95Microseconds": 110368.94,
+              "p99Microseconds": 119699.168,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 5.377041666666667,
+              "p50Microseconds": 3.906,
+              "p95Microseconds": 5.549,
+              "p99Microseconds": 82.002,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 59910.115625,
+            "p50Microseconds": 61082.532,
+            "p95Microseconds": 119840.835,
+            "p99Microseconds": 120259.076,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 4788320,
+          "bytesPerOperation": 99756.66666666667,
+          "gc": {
+            "Gen0": 2,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.386914,
+          "processCpuMicrosecondsPerOperation": 8060.708333333333,
+          "windowSecondsIncludingVerification": 3.065504143,
+          "operationsPerSecondIncludingVerification": 15.658109648818048,
+          "maxObservedWindowRssBytes": 20897792,
+          "processLifetimePeakRssBytes": 20897792,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 20.52989583333333,
+              "p50Microseconds": 15.212,
+              "p95Microseconds": 61.582,
+              "p99Microseconds": 156.755,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 2060.134354166667,
+              "p50Microseconds": 359.819,
+              "p95Microseconds": 10201.949,
+              "p99Microseconds": 16289.03,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 61760.13733333334,
+              "p50Microseconds": 69400.046,
+              "p95Microseconds": 100151.432,
+              "p99Microseconds": 121784.119,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 1.5664791666666669,
+              "p50Microseconds": 1.0110000000000001,
+              "p95Microseconds": 1.923,
+              "p99Microseconds": 26.92,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 63842.3680625,
+            "p50Microseconds": 69703.54000000001,
+            "p95Microseconds": 100512.092,
+            "p99Microseconds": 122182.335,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 5035328,
+          "bytesPerOperation": 104902.66666666667,
+          "gc": {
+            "Gen0": 2,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.390208,
+          "processCpuMicrosecondsPerOperation": 8129.333333333333,
+          "windowSecondsIncludingVerification": 3.093263555,
+          "operationsPerSecondIncludingVerification": 15.51759141971981,
+          "maxObservedWindowRssBytes": 20893696,
+          "processLifetimePeakRssBytes": 20893696,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 104.04164583333333,
+              "p50Microseconds": 94.762,
+              "p95Microseconds": 155.78300000000002,
+              "p99Microseconds": 324.757,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1693.9745,
+              "p50Microseconds": 329.67400000000004,
+              "p95Microseconds": 12003.646,
+              "p99Microseconds": 20444.311,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 62624.67704166666,
+              "p50Microseconds": 65802.101,
+              "p95Microseconds": 100069.753,
+              "p99Microseconds": 108301.87700000001,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 1.1800625,
+              "p50Microseconds": 0.961,
+              "p95Microseconds": 1.5230000000000001,
+              "p99Microseconds": 9.795,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 64423.873250000004,
+            "p50Microseconds": 66238.775,
+            "p95Microseconds": 100500.689,
+            "p99Microseconds": 110404.493,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 0
+        }
+      ]
+    },
+    {
+      "SchemaVersion": 3,
+      "Provider": "PostgreSql",
+      "DatabaseVersion": "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "92ff56bb82603f4d34db1653060d5b18af7195204293fed46a938ce1ce472c95",
+      "NativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = $1 AND \"query_phases\".\"Id\" = $2 ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" = @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 1 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 1,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-postgresql/phase-1.json",
+      "inputSha256": "28c2af0e38dc4806f614fa27f2839eb05033a4137002e600c54ab0852be8a5d9",
+      "preparationMicroseconds": 498.892,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 61573,
+          "SubmitToFirstRowTicks": 926197,
+          "ReadCompleteTicks": 221184,
+          "ReleaseTicks": 1592,
+          "Rows": 1
+        },
+        {
+          "ConstructTicks": 17516,
+          "SubmitToFirstRowTicks": 664983,
+          "ReadCompleteTicks": 9963329,
+          "ReleaseTicks": 831,
+          "Rows": 1
+        },
+        {
+          "ConstructTicks": 57337,
+          "SubmitToFirstRowTicks": 746125,
+          "ReadCompleteTicks": 7133396,
+          "ReleaseTicks": 531,
+          "Rows": 1
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 1074328,
+          "bytesPerOperation": 22381.833333333332,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.049781,
+          "processCpuMicrosecondsPerOperation": 1037.1041666666667,
+          "windowSecondsIncludingVerification": 0.262087548,
+          "operationsPerSecondIncludingVerification": 183.14490850973203,
+          "maxObservedWindowRssBytes": 19501056,
+          "processLifetimePeakRssBytes": 19501056,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 167.33422916666666,
+              "p50Microseconds": 124.828,
+              "p95Microseconds": 373.705,
+              "p99Microseconds": 722.07,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1194.5564375000001,
+              "p50Microseconds": 476.931,
+              "p95Microseconds": 8241.624,
+              "p99Microseconds": 11036.644,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 4095.0893958333336,
+              "p50Microseconds": 182.556,
+              "p95Microseconds": 15942.207,
+              "p99Microseconds": 17762.058,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 1.7614166666666669,
+              "p50Microseconds": 1.6620000000000001,
+              "p95Microseconds": 2.574,
+              "p99Microseconds": 3.224,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 5458.741479166667,
+            "p50Microseconds": 1314.034,
+            "p95Microseconds": 18459.091,
+            "p99Microseconds": 20372.704,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 287984,
+          "bytesPerOperation": 5999.666666666667,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.036839,
+          "processCpuMicrosecondsPerOperation": 767.4791666666666,
+          "windowSecondsIncludingVerification": 0.270945121,
+          "operationsPerSecondIncludingVerification": 177.15764662173046,
+          "maxObservedWindowRssBytes": 19501056,
+          "processLifetimePeakRssBytes": 19501056,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 8.6223125,
+              "p50Microseconds": 4.547,
+              "p95Microseconds": 16.365000000000002,
+              "p99Microseconds": 141.023,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 2446.9907291666664,
+              "p50Microseconds": 407.461,
+              "p95Microseconds": 12111.967,
+              "p99Microseconds": 17650.293,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 3187.5168958333334,
+              "p50Microseconds": 150.668,
+              "p95Microseconds": 11772.217,
+              "p99Microseconds": 12224.978000000001,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.4919791666666667,
+              "p50Microseconds": 0.441,
+              "p95Microseconds": 0.8310000000000001,
+              "p99Microseconds": 1.592,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 5643.621916666667,
+            "p50Microseconds": 768.19,
+            "p95Microseconds": 20379.369,
+            "p99Microseconds": 29434.137,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 533968,
+          "bytesPerOperation": 11124.333333333334,
+          "gc": {
+            "Gen0": 1,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.060432,
+          "processCpuMicrosecondsPerOperation": 1259.0,
+          "windowSecondsIncludingVerification": 0.216346228,
+          "operationsPerSecondIncludingVerification": 221.86659062066013,
+          "maxObservedWindowRssBytes": 19496960,
+          "processLifetimePeakRssBytes": 19496960,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 197.75764583333336,
+              "p50Microseconds": 34.813,
+              "p95Microseconds": 108.995,
+              "p99Microseconds": 7557.251,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 2180.609125,
+              "p50Microseconds": 447.065,
+              "p95Microseconds": 11325.209,
+              "p99Microseconds": 21070.117000000002,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 2104.4196875000002,
+              "p50Microseconds": 144.948,
+              "p95Microseconds": 11542.578,
+              "p99Microseconds": 12043.744,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.5570833333333334,
+              "p50Microseconds": 0.491,
+              "p95Microseconds": 1.041,
+              "p99Microseconds": 1.1320000000000001,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 4483.343541666667,
+            "p50Microseconds": 743.9730000000001,
+            "p95Microseconds": 20017.994,
+            "p99Microseconds": 23209.263,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        }
+      ]
+    },
+    {
+      "SchemaVersion": 3,
+      "Provider": "PostgreSql",
+      "DatabaseVersion": "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "92ff56bb82603f4d34db1653060d5b18af7195204293fed46a938ce1ce472c95",
+      "NativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = $1 AND \"query_phases\".\"Id\" <= $2 ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" <= @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 100 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 100,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-postgresql/phase-100.json",
+      "inputSha256": "52ac2169732710b94cfa0503209111fcf67302924ad2eee105fe22395b05c35d",
+      "preparationMicroseconds": 294.435,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 66581,
+          "SubmitToFirstRowTicks": 1165219,
+          "ReadCompleteTicks": 487110,
+          "ReleaseTicks": 1863,
+          "Rows": 100
+        },
+        {
+          "ConstructTicks": 22864,
+          "SubmitToFirstRowTicks": 489554,
+          "ReadCompleteTicks": 5226396,
+          "ReleaseTicks": 441,
+          "Rows": 100
+        },
+        {
+          "ConstructTicks": 47582,
+          "SubmitToFirstRowTicks": 12008296,
+          "ReadCompleteTicks": 8099654,
+          "ReleaseTicks": 511,
+          "Rows": 100
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 1485152,
+          "bytesPerOperation": 30940.666666666668,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.094543,
+          "processCpuMicrosecondsPerOperation": 1969.6458333333333,
+          "windowSecondsIncludingVerification": 0.517812189,
+          "operationsPerSecondIncludingVerification": 92.69770202338748,
+          "maxObservedWindowRssBytes": 19148800,
+          "processLifetimePeakRssBytes": 19148800,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 140.72902083333335,
+              "p50Microseconds": 121.24300000000001,
+              "p95Microseconds": 235.715,
+              "p99Microseconds": 682.317,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 929.1916458333334,
+              "p50Microseconds": 595.787,
+              "p95Microseconds": 2854.6040000000003,
+              "p99Microseconds": 8472.28,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 9710.6564375,
+              "p50Microseconds": 10253.496000000001,
+              "p95Microseconds": 20112.55,
+              "p99Microseconds": 39958.897,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 4.239,
+              "p50Microseconds": 2.213,
+              "p95Microseconds": 4.807,
+              "p99Microseconds": 91.708,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 10784.816104166666,
+            "p50Microseconds": 10827.231,
+            "p95Microseconds": 26310.018,
+            "p99Microseconds": 40629.638,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 708624,
+          "bytesPerOperation": 14763.0,
+          "gc": {
+            "Gen0": 1,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.094197,
+          "processCpuMicrosecondsPerOperation": 1962.4375,
+          "windowSecondsIncludingVerification": 0.43315373,
+          "operationsPerSecondIncludingVerification": 110.81516024345444,
+          "maxObservedWindowRssBytes": 19288064,
+          "processLifetimePeakRssBytes": 19288064,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 34.14002083333334,
+              "p50Microseconds": 7.692,
+              "p95Microseconds": 200.201,
+              "p99Microseconds": 764.702,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1587.7115625000001,
+              "p50Microseconds": 660.455,
+              "p95Microseconds": 7053.0070000000005,
+              "p99Microseconds": 13430.111,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 7394.408979166667,
+              "p50Microseconds": 5844.993,
+              "p95Microseconds": 20181.373,
+              "p99Microseconds": 32181.445,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.6434375,
+              "p50Microseconds": 0.611,
+              "p95Microseconds": 0.992,
+              "p99Microseconds": 1.542,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 9016.904,
+            "p50Microseconds": 7049.176,
+            "p95Microseconds": 20716.760000000002,
+            "p99Microseconds": 32869.001000000004,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 934728,
+          "bytesPerOperation": 19473.5,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.066402,
+          "processCpuMicrosecondsPerOperation": 1383.375,
+          "windowSecondsIncludingVerification": 0.346617323,
+          "operationsPerSecondIncludingVerification": 138.48124953639436,
+          "maxObservedWindowRssBytes": 19132416,
+          "processLifetimePeakRssBytes": 19132416,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 168.17729166666666,
+              "p50Microseconds": 37.556,
+              "p95Microseconds": 114.392,
+              "p99Microseconds": 5945.714,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 618.466,
+              "p50Microseconds": 531.826,
+              "p95Microseconds": 847.711,
+              "p99Microseconds": 2957.119,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 6431.570458333334,
+              "p50Microseconds": 6550.3640000000005,
+              "p95Microseconds": 18849.417,
+              "p99Microseconds": 19720.705,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.5897291666666666,
+              "p50Microseconds": 0.551,
+              "p95Microseconds": 1.112,
+              "p99Microseconds": 1.292,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 7218.803479166667,
+            "p50Microseconds": 7226.724,
+            "p95Microseconds": 19528.75,
+            "p99Microseconds": 20521.205,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        }
+      ]
+    },
+    {
+      "SchemaVersion": 3,
+      "Provider": "PostgreSql",
+      "DatabaseVersion": "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit",
+      "PackageVersion": "0.1.0-ci.1+f0078da720e07031bc56464995af6791c41aaae8",
+      "ExecutableSha256": "92ff56bb82603f4d34db1653060d5b18af7195204293fed46a938ce1ce472c95",
+      "NativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "Sql": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = $1 AND \"query_phases\".\"Id\" <= $2 ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "RawTemplate": "SELECT \"query_phases\".\"Id\" AS \"Id\", \"query_phases\".\"Note\" AS \"Note\" FROM \"query_phases\" WHERE \"query_phases\".\"TenantId\" = @tenant AND \"query_phases\".\"Id\" <= @id ORDER BY \"query_phases\".\"Id\" ASC NULLS LAST",
+      "ParametersAndResults": "Int64 tenant alternates 1 and 2; ordered full List<PhaseRow> with 1000 rows, exact Id/Note/null checks; the one-row case binds the complete composite primary key",
+      "ResultRows": 1000,
+      "Scope": "Local phase diagnostic. Construction includes the route's query/parameter/stream construction and result List. Submit-to-first-row includes GetAsyncEnumerator/first MoveNextAsync/first DTO mapping. Read-complete includes all remaining rows and EOF. Release includes enumerator retirement and dynamic query disposal. All routes materialize and verify the complete List with the same mapper. Fluent and prepared SQL text are identical. SQLite raw SQL numbers ? markers; all routes bind the same ordered Int64 values. PostgreSQL markers are identical. Preparation and first execution are reported separately; SQL rendering and shared metadata setup precede the first route executions, which are not independent process-cold measurements. Window allocation and GC are whole process; phase samples are timestamp durations, not thread-local allocation attribution. CPU/RSS are local process observations. Protocol submissions are not physical network-round-trip measurements. No hosted-runner identity is required. Failure diagnostics add scalar progress/stage assignments within the existing windows and phase boundaries; no per-operation logging or diagnostic counter reads occur on success.",
+      "input": "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-postgresql/phase-1000.json",
+      "inputSha256": "1697eee3aac995ee4700485dd89905642f6fc91f4570bb9f915423a6085a7f1f",
+      "preparationMicroseconds": 340.262,
+      "firstExecutionRouteOrder": [
+        "fluent",
+        "prepared",
+        "host-sql"
+      ],
+      "firstExecutions": [
+        {
+          "ConstructTicks": 57396,
+          "SubmitToFirstRowTicks": 1156542,
+          "ReadCompleteTicks": 26318005,
+          "ReleaseTicks": 3435,
+          "Rows": 1000
+        },
+        {
+          "ConstructTicks": 65008,
+          "SubmitToFirstRowTicks": 12343470,
+          "ReadCompleteTicks": 18094856,
+          "ReleaseTicks": 1312,
+          "Rows": 1000
+        },
+        {
+          "ConstructTicks": 90807,
+          "SubmitToFirstRowTicks": 675101,
+          "ReadCompleteTicks": 19926975,
+          "ReleaseTicks": 381,
+          "Rows": 1000
+        }
+      ],
+      "routes": [
+        {
+          "route": "fluent",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 5560360,
+          "bytesPerOperation": 115840.83333333333,
+          "gc": {
+            "Gen0": 0,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.315476,
+          "processCpuMicrosecondsPerOperation": 6572.416666666667,
+          "windowSecondsIncludingVerification": 1.860381862,
+          "operationsPerSecondIncludingVerification": 25.80115458038152,
+          "maxObservedWindowRssBytes": 19845120,
+          "processLifetimePeakRssBytes": 19845120,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 218.83341666666666,
+              "p50Microseconds": 164.99,
+              "p95Microseconds": 257.819,
+              "p99Microseconds": 2754.418,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 1930.2123541666667,
+              "p50Microseconds": 651.133,
+              "p95Microseconds": 9098.193,
+              "p99Microseconds": 12582.041000000001,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 36574.08422916666,
+              "p50Microseconds": 23391.778000000002,
+              "p95Microseconds": 109023.66500000001,
+              "p99Microseconds": 119134.095,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 4.9975000000000005,
+              "p50Microseconds": 2.894,
+              "p95Microseconds": 8.112,
+              "p99Microseconds": 89.58500000000001,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 38728.1275,
+            "p50Microseconds": 24407.191,
+            "p95Microseconds": 110020.645,
+            "p99Microseconds": 120390.371,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "prepared",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 4789368,
+          "bytesPerOperation": 99778.5,
+          "gc": {
+            "Gen0": 2,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.325237,
+          "processCpuMicrosecondsPerOperation": 6775.770833333333,
+          "windowSecondsIncludingVerification": 1.994598496,
+          "operationsPerSecondIncludingVerification": 24.06499357953993,
+          "maxObservedWindowRssBytes": 19845120,
+          "processLifetimePeakRssBytes": 19845120,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 36.660354166666664,
+              "p50Microseconds": 14.212,
+              "p95Microseconds": 155.244,
+              "p99Microseconds": 440.886,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3556.8505833333334,
+              "p50Microseconds": 780.308,
+              "p95Microseconds": 12313.147,
+              "p99Microseconds": 12539.778,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 37944.4669375,
+              "p50Microseconds": 38074.270000000004,
+              "p95Microseconds": 87533.554,
+              "p99Microseconds": 100552.849,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.7637708333333334,
+              "p50Microseconds": 0.731,
+              "p95Microseconds": 1.262,
+              "p99Microseconds": 1.592,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 41538.74164583334,
+            "p50Microseconds": 40061.0,
+            "p95Microseconds": 97986.57400000001,
+            "p99Microseconds": 110376.417,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        },
+        {
+          "route": "host-sql",
+          "windows": 3,
+          "operations": 48,
+          "allocatedBytes": 5035504,
+          "bytesPerOperation": 104906.33333333333,
+          "gc": {
+            "Gen0": 2,
+            "Gen1": 0,
+            "Gen2": 0
+          },
+          "processCpuSeconds": 0.32701,
+          "processCpuMicrosecondsPerOperation": 6812.708333333333,
+          "windowSecondsIncludingVerification": 1.953311868,
+          "operationsPerSecondIncludingVerification": 24.57364888134699,
+          "maxObservedWindowRssBytes": 19845120,
+          "processLifetimePeakRssBytes": 19845120,
+          "phases": {
+            "ConstructTicks": {
+              "meanMicroseconds": 106.65802083333332,
+              "p50Microseconds": 71.367,
+              "p95Microseconds": 110.95700000000001,
+              "p99Microseconds": 1722.109,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "SubmitToFirstRowTicks": {
+              "meanMicroseconds": 3093.4096458333333,
+              "p50Microseconds": 699.866,
+              "p95Microseconds": 13495.151,
+              "p99Microseconds": 18565.173,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReadCompleteTicks": {
+              "meanMicroseconds": 37479.20210416667,
+              "p50Microseconds": 39176.224,
+              "p95Microseconds": 68550.913,
+              "p99Microseconds": 82393.167,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            },
+            "ReleaseTicks": {
+              "meanMicroseconds": 0.725875,
+              "p50Microseconds": 0.711,
+              "p95Microseconds": 1.091,
+              "p99Microseconds": 1.332,
+              "method": "nearest-rank observed durations; no trimming or subtraction"
+            }
+          },
+          "fourPhaseTotal": {
+            "meanMicroseconds": 40679.99564583334,
+            "p50Microseconds": 40241.942,
+            "p95Microseconds": 76384.503,
+            "p99Microseconds": 95400.392,
+            "method": "nearest-rank observed durations; no trimming or subtraction"
+          },
+          "sqlExecutions": 48,
+          "protocolSubmissions": 240
+        }
+      ]
+    }
+  ]
+}

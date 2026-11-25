@@ -1,0 +1,154 @@
+{
+  "name": "before-c4",
+  "phase": "paired-closed-loop-short",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-5",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/before-postgresql-workload/out/DbPerf.Korda",
+    "--connection",
+    "postgresql://korda@127.0.0.1:48989/db_perf_01",
+    "--case",
+    "mixed",
+    "--mode",
+    "prepared",
+    "--session",
+    "persistent",
+    "--concurrency",
+    "4",
+    "--warmup",
+    "35",
+    "--rows",
+    "32",
+    "--batch-rows",
+    "32",
+    "--seconds",
+    "5",
+    "--output",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-b-postgresql/before-c4.json"
+  ],
+  "startedUtc": "2026-11-25T19:26:55.447715+00:00",
+  "startedMonotonicNs": 50746171040122,
+  "timeoutSeconds": 180,
+  "resourceSamples": "before-c4.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 6049,
+    "startTicks": 5074617,
+    "state": "R",
+    "parentPid": 4958,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 8192,
+      "Pss": 8192,
+      "Private_Clean": 0,
+      "Private_Dirty": 8192
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-25T19:27:01.268406+00:00",
+    "monotonicNs": 50751990550925,
+    "acquiredThroughMonotonicNs": 50751991724397,
+    "client": [
+      {
+        "pid": 6049,
+        "startTicks": 5074617,
+        "state": "Z",
+        "parentPid": 4958,
+        "userTicks": 213,
+        "systemTicks": 94,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 4972,
+        "startTicks": 5071735,
+        "state": "S",
+        "parentPid": 4958,
+        "userTicks": 0,
+        "systemTicks": 3,
+        "reapedChildUserTicks": 1432,
+        "reapedChildSystemTicks": 410,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 20910080,
+          "Pss": 11856896,
+          "Private_Clean": 2867200,
+          "Private_Dirty": 4816896
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 213,
+      "ownAndReapedSystemTicks": 94,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 1432,
+      "ownAndReapedSystemTicks": 413,
+      "sampledRssBytes": 20910080,
+      "sampledPssBytes": 11856896,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 2687343,
+      "nice": 0,
+      "system": 622959,
+      "idle": 41763748,
+      "iowait": 105688,
+      "irq": 0,
+      "softirq": 162823,
+      "steal": 207984,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 2.138823,
+  "processLifetimeSystemCpuSeconds": 0.9466199999999999,
+  "processLifetimeMaxRssBytes": 35045376,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-25T19:27:01.268582+00:00",
+  "finishedMonotonicNs": 50751991904949,
+  "files": {
+    "before-c4.stdout.log": "51200cdc93591de6a9464d92e11495f58c4ec313abfc7f147c93f5ba927683e8",
+    "before-c4.resources.jsonl": "ca64bdfc10ed08ca00c4287d98c8de2b05df930c7c6e96ed634d0c5a9a3d0ff0"
+  },
+  "success": true
+}

@@ -1,0 +1,138 @@
+{
+  "name": "dapper-c1",
+  "phase": "closed-loop-calibration",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-5",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/dapper-sqlite/out/DbPerf.Dapper",
+    "--connection",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-sqlite.sqlite",
+    "--case",
+    "mixed",
+    "--mode",
+    "prepared",
+    "--session",
+    "persistent",
+    "--concurrency",
+    "1",
+    "--warmup",
+    "35",
+    "--rows",
+    "32",
+    "--batch-rows",
+    "32",
+    "--seconds",
+    "5",
+    "--output",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/calibration-before-sqlite/dapper-c1.json",
+    "--native-library",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/native-control/libsqlite3.so",
+    "--verify"
+  ],
+  "startedUtc": "2026-11-25T18:21:15.747539+00:00",
+  "startedMonotonicNs": 46806470865460,
+  "timeoutSeconds": 180,
+  "resourceSamples": "dapper-c1.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 195,
+    "startTicks": 4680647,
+    "state": "R",
+    "parentPid": 5,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 90112,
+      "Pss": 37888,
+      "Private_Clean": 0,
+      "Private_Dirty": 36864
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-25T18:21:21.032614+00:00",
+    "monotonicNs": 46811755010444,
+    "acquiredThroughMonotonicNs": 46811755931164,
+    "client": [
+      {
+        "pid": 195,
+        "startTicks": 4680647,
+        "state": "Z",
+        "parentPid": 5,
+        "userTicks": 384,
+        "systemTicks": 23,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 384,
+      "ownAndReapedSystemTicks": 23,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 0,
+      "ownAndReapedSystemTicks": 0,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 0,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 2505006,
+      "nice": 0,
+      "system": 595058,
+      "idle": 38451862,
+      "iowait": 101257,
+      "irq": 0,
+      "softirq": 160268,
+      "steal": 195896,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 3.847432,
+  "processLifetimeSystemCpuSeconds": 0.235142,
+  "processLifetimeMaxRssBytes": 24080384,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-25T18:21:21.032930+00:00",
+  "finishedMonotonicNs": 46811756275123,
+  "files": {
+    "dapper-c1.stdout.log": "19419f0d0a2524e62bb74c07dfd031ef69802434e66afb395be3290ba73d66db",
+    "dapper-c1.resources.jsonl": "86378006f74ef8b9f197763109b188510df0be22d751964236246436faa71631"
+  },
+  "success": true
+}

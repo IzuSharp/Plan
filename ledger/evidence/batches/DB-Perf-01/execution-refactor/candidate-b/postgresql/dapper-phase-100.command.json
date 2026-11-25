@@ -1,0 +1,146 @@
+{
+  "name": "dapper-phase-100",
+  "phase": "same-sql-reference",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-5",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/dapper-postgresql-phases-v2/out/DbPerf.DapperQueryPhases",
+    "--connection",
+    "postgresql://korda@127.0.0.1:48989/db_perf_01",
+    "--output",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-b-postgresql/dapper-phase-100.json",
+    "--korda-receipt",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-b-postgresql/candidate-b-phase-100.json",
+    "--rows",
+    "100",
+    "--iterations",
+    "16",
+    "--windows",
+    "3"
+  ],
+  "startedUtc": "2026-11-25T19:27:45.434945+00:00",
+  "startedMonotonicNs": 50796158269971,
+  "timeoutSeconds": 300,
+  "resourceSamples": "dapper-phase-100.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 13096,
+    "startTicks": 5079615,
+    "state": "R",
+    "parentPid": 4958,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 8192,
+      "Pss": 8192,
+      "Private_Clean": 0,
+      "Private_Dirty": 8192
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-25T19:27:45.687647+00:00",
+    "monotonicNs": 50796409896967,
+    "acquiredThroughMonotonicNs": 50796410964669,
+    "client": [
+      {
+        "pid": 13096,
+        "startTicks": 5079615,
+        "state": "Z",
+        "parentPid": 4958,
+        "userTicks": 3,
+        "systemTicks": 1,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 4972,
+        "startTicks": 5071735,
+        "state": "S",
+        "parentPid": 4958,
+        "userTicks": 0,
+        "systemTicks": 6,
+        "reapedChildUserTicks": 4579,
+        "reapedChildSystemTicks": 1396,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 20889600,
+          "Pss": 11778048,
+          "Private_Clean": 2863104,
+          "Private_Dirty": 4743168
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 3,
+      "ownAndReapedSystemTicks": 1,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 4579,
+      "ownAndReapedSystemTicks": 1402,
+      "sampledRssBytes": 20889600,
+      "sampledPssBytes": 11778048,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 2692633,
+      "nice": 0,
+      "system": 624468,
+      "idle": 41794905,
+      "iowait": 105778,
+      "irq": 0,
+      "softirq": 163549,
+      "steal": 208358,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 0.031277,
+  "processLifetimeSystemCpuSeconds": 0.017613999999999998,
+  "processLifetimeMaxRssBytes": 22188032,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-25T19:27:45.687817+00:00",
+  "finishedMonotonicNs": 50796411140495,
+  "files": {
+    "dapper-phase-100.stdout.log": "2bdb687eb64f33a0f754a8080838c35aa890f42fe861c858cbb7ecdfcb156293",
+    "dapper-phase-100.resources.jsonl": "bd9535bd005dc42143ceab85aeecf4a647ae6a8e21aec1988aabfae8a1baec7d"
+  },
+  "success": true
+}

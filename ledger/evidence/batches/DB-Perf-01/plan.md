@@ -1,4 +1,29 @@
-# Final record — tests complete; stop without merging
+# Current continuation — DB-Exec-02 complete execution-path refactor
+
+Status: selected target and implementation planning; no refactor acceptance yet.
+The owner resumed complete database-path work on 2026-11-26 (Asia/Shanghai),
+preserving C# Fluent behavior, Native AOT, C++ execution and both independent
+provider packages. Continue Korda #37, Design #20 and Plan #34 from their recorded
+heads. The [execution-refactor plan](execution-refactor/README.md) specifies fixed
+source inputs, upstream responsibilities, reuse/rewrite/delete decisions, E0–E8
+gates and the new four-cell local campaign. The [handoff](handoff-linux.md) records
+the current worktrees, actual tool recovery and CI-planner observations.
+
+The initial selected path removes repeated native parameter encode/parse, uses
+one statement for SQLite description/binding, groups fresh PostgreSQL Parse and
+Describe under one Sync, writes native batches directly and validates the managed
+row layout once. PostgreSQL cross-execution statements/descriptions are not
+selected because external-DDL error behavior is not equivalent. The complete
+command representation has a separate mandatory direct-compilation-versus-replay
+gate; its result and deleted paths must be recorded before completion.
+
+These are targets, not implementation or performance claims. Preserve the old
+results and stop instruction below as historical records. The current request
+authorizes normal reviewed merges after full verification; it does not change the
+identity or acceptance of any previous candidate. All performance remains local,
+with no added CI actions. Current candidate long credit is **0/4**.
+
+## Previous final record — tests complete; stop without merging
 
 The owner instructed completing tests, recording results and stopping with PRs only. All four local 1800-second cells are validated (43,335,131 successes); the 16-app/926-file post-run freeze is unchanged. The [final record](query-optimization/final-f0078da7/README.md) retains before/after results, substantial Dapper.AOT gaps, source/contract limits and unresolved failures. The final full archive remains local-only after upload rejection; selected summaries are published. [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34) remain unmerged. Do not restart measurements or implementation from the historical continuation below.
 

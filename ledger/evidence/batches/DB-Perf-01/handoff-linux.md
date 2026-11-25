@@ -1,4 +1,73 @@
-# Final record — tests complete; stop without merging
+# DB-Exec-02 current in-progress checkpoint
+
+Continue from [execution-refactor/current-checkpoint.md](execution-refactor/current-checkpoint.md) and [the current execution plan](execution-refactor/README.md). Candidate B source/package recovery and existing CI are complete; local paired data exposes a large-result regression, and a native transaction thread-tail owner failure remains blocking. Scheduling/fence/CI measurement-separation work is in progress. This refactor has **0/4 final long cells** and no merge/release acceptance yet. Older stop and environment-missing records below are historical.
+
+---
+
+# Current handoff — DB-Exec-02, design and environment recovery
+
+The owner resumed the complete database execution-path refactor on 2026-11-26
+(Asia/Shanghai). Read [the new execution gates](execution-refactor/README.md)
+before the preserved historical handoffs below. Continue the open product #37,
+Design #20 and Plan #34. No new product/database performance acceptance is claimed
+by this recovery record; normal reviewed merge/release verification is authorized
+after the current work is complete.
+
+Current local root is `/workspace/scratch/17ac3f8f2fbf`. The task checkouts are
+`worktrees/DB-Exec-02-korda`, `DB-Exec-02-design` and `DB-Exec-02-plan`, based on
+product `f0078da720e07031bc56464995af6791c41aaae8`,
+Design `335706d1d2c76f11d4e0eaffc4a35bf404776a19` and
+Plan `bfe4aa3f074789dfac046412eff37fe6ba58b0f7`.
+The independent `worktrees/DB-Exec-02-before` also starts at product f0078da7.
+These local names do not rename the open PR branches. Recheck live heads and
+local changes before publication and reconcile any concurrent writer.
+
+The former `/tmp/DB-Perf-01*` trees and
+`/workspace/scratch/787156d4dd76` artifacts were not recovered. The historical
+session IDs further down are not current process handles. Reuse the published
+numeric evidence under its original source identity, and rebuild before/candidate
+binaries for this host instead of claiming missing binaries were recovered.
+
+## Observed recovery and existing CI routing
+
+The initial actual
+`python3 eng/ci/impact.py origin/main --output artifacts/plan.json` selected
+`interop`, `linux`, `postgresql` and `sqlite` from the cumulative #37 diff.
+Its [preserved plan](execution-refactor/ci-plan-initial.json) contains all exact
+module reasons/actions. Shared database/native/API checks and both independently
+built provider consumers are selected; there is **no benchmark execution action**.
+Benchmark paths may appear as source ownership reasons without scheduling them.
+Rerun the planner after current edits; this initial selection is not a future
+candidate's observed CI result.
+
+The existing `python3 eng/ci/worker.py check-index` passed, and
+`python3 -m unittest discover -s tests/Tooling -v` reported 45 tests,
+OK with one skipped. The [original output](execution-refactor/tooling-baseline.log)
+retains that skip. These are routing/tooling checks, not native or AOT execution.
+
+SDK 11.0.100 was restored and checked using the official archive SHA-512 pin and
+actual SDK info. Clang 23.1.5, CMake 4.3.3 and Ninja 1.13.2 were restored through
+the existing pinned toolchain verifier. Local environment entry:
+`tools/toolchain/environment.sh`; SDK pin:
+`tools/dotnet-sdk-pin.json`. Unneeded LLVM tools were removed for disk capacity
+while keeping the original archive and required pinned build/check tools;
+`tools/toolchain-pruned.json` records that installation subset.
+At this checkpoint PostgreSQL restoration and this round's database/native/AOT
+tests remain pending. The [recovery receipt](execution-refactor/recovery-initial.json)
+records input hashes and the scope of these observations.
+
+## Next work and custody
+
+Review and publish the Plan-first / Design-before-product target. Preserve the
+selected PostgreSQL fresh-Parse/Describe metadata boundary and SQLite no-step
+opening while implementing ordered typed parameters, direct batch writing and
+validated typed reading. Resolve the complete-command representation gate before
+calling the full refactor complete. Bind actual generated Dapper consumer code,
+new source/package/ELF inputs, local results and deletion inventory in this
+directory. Follow E0–E8, including same-host immediate-before comparisons and four
+serial new 1800-second cells. No new long duration is credited here.
+
+## Previous final record — tests complete; stop without merging
 
 The owner instructed completing tests, recording results and stopping with PRs only. All four local 1800-second cells are validated (43,335,131 successes); the 16-app/926-file post-run freeze is unchanged. The [final record](query-optimization/final-f0078da7/README.md) retains before/after results, substantial Dapper.AOT gaps, source/contract limits and unresolved failures. The final full archive remains local-only after upload rejection; selected summaries are published. [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34) remain unmerged. Do not restart measurements or implementation from the historical continuation below.
 

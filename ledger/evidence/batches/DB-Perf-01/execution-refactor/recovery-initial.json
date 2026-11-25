@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Exec-02",
+  "kind": "initial_recovery_observation",
+  "productHead": "f0078da720e07031bc56464995af6791c41aaae8",
+  "designHead": "335706d1d2c76f11d4e0eaffc4a35bf404776a19",
+  "planHead": "bfe4aa3f074789dfac046412eff37fe6ba58b0f7",
+  "workspaceRoot": "/workspace/scratch/17ac3f8f2fbf",
+  "missingHistoricalInputs": [
+    "/tmp/DB-Perf-01*",
+    "/workspace/scratch/787156d4dd76/DB-Perf-01-resource-results-v4",
+    "DB-Perf-01-evidence-v4-final-numeric.tar.gz"
+  ],
+  "planner": {
+    "command": "python3 eng/ci/impact.py origin/main --output artifacts/plan.json",
+    "scope": "linux",
+    "actions": {
+      "interop": [
+        "interop.async"
+      ],
+      "linux": [
+        "database.native",
+        "database.build",
+        "database.api",
+        "database.dependencies",
+        "database.regressions",
+        "fluent.api",
+        "api.tool",
+        "migrations.api",
+        "relations.api"
+      ],
+      "postgresql": [
+        "postgresql.build",
+        "postgresql.dependencies",
+        "public.pack",
+        "postgresql.packed-api",
+        "postgresql.test",
+        "public.consume-aot",
+        "public.validate"
+      ],
+      "sqlite": [
+        "sqlite.build",
+        "public.pack",
+        "public.consume-aot",
+        "public.validate",
+        "sqlite.dependencies",
+        "sqlite.packed-api",
+        "sqlite.test"
+      ]
+    },
+    "inputScope": "cumulative current PR diff at the starting product head",
+    "benchmarkExecutionActions": []
+  },
+  "routingChecks": {
+    "checkIndex": {
+      "command": "python3 eng/ci/worker.py check-index",
+      "status": "passed",
+      "observedBy": "coordinator",
+      "rawOutputPublishedHere": false
+    },
+    "tooling": {
+      "command": "python3 -m unittest discover -s tests/Tooling -v",
+      "reportedTests": 45,
+      "skipped": 1,
+      "status": "OK",
+      "log": "tooling-baseline.log"
+    }
+  },
+  "toolchain": {
+    "sdk": "11.0.100",
+    "runtime": "11.0.0",
+    "clang": "23.1.5",
+    "cmake": "4.3.3",
+    "ninja": "1.13.2",
+    "verification": "Coordinator observed SDK SHA-512/archive verification and actual SDK info, plus existing cpp_toolchain.py archive/executable pin checks. This record preserves pins and installation subset; it does not recreate those commands as an independent execution.",
+    "environmentScript": "/workspace/scratch/17ac3f8f2fbf/tools/toolchain/environment.sh",
+    "installationScope": "Required pinned build/check executables retained; unused LLVM tools pruned for disk capacity with original archive retained."
+  },
+  "databaseRestoreAtCheckpoint": "postgresql_pending",
+  "nativeOrAotProductTestsAtCheckpoint": "not_run",
+  "newPerformanceObservations": 0,
+  "newLongCellsAccepted": 0,
+  "records": [
+    {
+      "path": "ci-plan-initial.json",
+      "sha256": "6bf117f09da20ae523ce5666f5d22e11daa76b3ad614cfe90792a924514cd7c3",
+      "bytes": 48411
+    },
+    {
+      "path": "tooling-baseline.log",
+      "sha256": "92b2ecc2efb97835f4835fbff3dee9c23b792960d26f573ebcdac26122cd7d5e",
+      "bytes": 6712
+    },
+    {
+      "path": "dotnet-sdk-pin.json",
+      "sha256": "6a1e1257402447054e7c41a60a2f0e0cf182dc363b90b7b0b564fb21bd873dc1",
+      "bytes": 313
+    },
+    {
+      "path": "toolchain-pruned.json",
+      "sha256": "db3d33aa49cedabe49c9b3bf1a99f07f6bdcbf765d0f572f178ad5b1d7c3fdf2",
+      "bytes": 4439
+    }
+  ],
+  "performanceAcceptance": false,
+  "productAcceptance": false
+}

@@ -1,0 +1,146 @@
+{
+  "name": "dapper-phase-1",
+  "phase": "same-sql-reference",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-5",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/dapper-postgresql-phases-v2/out/DbPerf.DapperQueryPhases",
+    "--connection",
+    "postgresql://korda@127.0.0.1:48989/db_perf_01",
+    "--output",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-b-postgresql/dapper-phase-1.json",
+    "--korda-receipt",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-b-postgresql/candidate-b-phase-1.json",
+    "--rows",
+    "1",
+    "--iterations",
+    "16",
+    "--windows",
+    "3"
+  ],
+  "startedUtc": "2026-11-25T19:27:37.339229+00:00",
+  "startedMonotonicNs": 50788062553442,
+  "timeoutSeconds": 300,
+  "resourceSamples": "dapper-phase-1.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 13051,
+    "startTicks": 5078806,
+    "state": "R",
+    "parentPid": 4958,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 94208,
+      "Pss": 37888,
+      "Private_Clean": 0,
+      "Private_Dirty": 36864
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-25T19:27:37.591689+00:00",
+    "monotonicNs": 50788313746294,
+    "acquiredThroughMonotonicNs": 50788315006896,
+    "client": [
+      {
+        "pid": 13051,
+        "startTicks": 5078806,
+        "state": "Z",
+        "parentPid": 4958,
+        "userTicks": 3,
+        "systemTicks": 0,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 4972,
+        "startTicks": 5071735,
+        "state": "S",
+        "parentPid": 4958,
+        "userTicks": 0,
+        "systemTicks": 5,
+        "reapedChildUserTicks": 4566,
+        "reapedChildSystemTicks": 1387,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 20889600,
+          "Pss": 11778048,
+          "Private_Clean": 2863104,
+          "Private_Dirty": 4743168
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 3,
+      "ownAndReapedSystemTicks": 0,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 4566,
+      "ownAndReapedSystemTicks": 1392,
+      "sampledRssBytes": 20889600,
+      "sampledPssBytes": 11778048,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 2692596,
+      "nice": 0,
+      "system": 624440,
+      "idle": 41787786,
+      "iowait": 105778,
+      "irq": 0,
+      "softirq": 163540,
+      "steal": 208347,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 0.035232,
+  "processLifetimeSystemCpuSeconds": 0.0058649999999999996,
+  "processLifetimeMaxRssBytes": 21164032,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-25T19:27:37.591927+00:00",
+  "finishedMonotonicNs": 50788315251405,
+  "files": {
+    "dapper-phase-1.stdout.log": "fe417e89b61d07a21dbfddae6b7d53fb76a69b540f7fff365530dfbd2bceb875",
+    "dapper-phase-1.resources.jsonl": "05db783053b2bcf2b88c1d58e57e7818f66fbc708510f51b077c9691007768fb"
+  },
+  "success": true
+}

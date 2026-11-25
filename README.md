@@ -2,6 +2,19 @@
 
 The Design repository is now [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design), renamed from `IzuSharp/NativeWeave-Design`. Use the canonical name for current links, remotes and CI repository selection. This repository remains [IzuSharp/Plan](https://github.com/IzuSharp/Plan).
 
+## Current continuation — DB-Exec-02
+
+The owner has resumed a complete Linux x64 database execution-path refactor in
+the existing Korda #37, Korda-Design #20 and Plan #34. Start from the
+[current plan](ledger/evidence/batches/DB-Perf-01/plan.md),
+[handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md) and
+[execution gates](ledger/evidence/batches/DB-Perf-01/execution-refactor/README.md).
+The public Fluent contract, Native AOT, C++ and independent provider packages
+remain; internal paths may be replaced or deleted. This record is a proposed
+target, with implementation and new performance acceptance pending. All
+performance is local; existing correctness/package CI is retained. The former
+stop and repository maintenance text below remains historical.
+
 ## Repository maintenance and historical verification
 
 The owner has stopped DB-Perf-01. The current maintenance only updates references for the Design repository rename; the task instructions below are retained as history. Existing acceptance states, source commits, graphs, packets and evidence remain unchanged.

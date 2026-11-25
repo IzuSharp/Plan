@@ -1,0 +1,1046 @@
+{
+  "schemaVersion": 1,
+  "scope": "New local Linux x64 short calibration only; not final performance acceptance or long-run credit",
+  "beforeSource": "f0078da720e07031bc56464995af6791c41aaae8",
+  "localRuntime": "Release Native AOT .NET 11.0.0, SDK 11.0.100",
+  "cpuAffinity": {
+    "client": "0-5",
+    "postgresServer": "6-8",
+    "dotnetProcessorCount": 4
+  },
+  "workload": {
+    "case": "mixed",
+    "caseCount": 35,
+    "mode": "prepared",
+    "session": "persistent",
+    "rows": 32,
+    "batchRows": 32,
+    "warmupPerWorker": 35,
+    "requestedSeconds": 5,
+    "concurrency": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "scheduledArrivalRate": null
+  },
+  "controls": [
+    "All 26 provider commands ran serially; build and test owners were paused for the observation window",
+    "Each provider ran initialize, eight mixed calibration cells, three phase row counts, and one resource diagnostic",
+    "C1 uses full 35-case --verify before measurement; every result retains oracle counters and owner settlement",
+    "Dapper SQLite uses the independently built locked SQLite 3.51.3 library",
+    "PG server lifecycle and clients share one invocation; client/server affinity are disjoint",
+    "No exclusive physical-host claim; observer retains cgroup visibility limitations and hostQualifiedForLongRuns=false"
+  ],
+  "metricLimits": [
+    "Closed-loop has no external arrivals or measured arrival rejection population; rejection is null, not zero",
+    "Whole-process allocations include business DTO/string/JSON and harness async state; no framework-only subtraction",
+    "These are single five-second points, not confidence intervals or final comparisons",
+    "Public package and consumer source/package/native/ELF hashes are bound by build-recovery.json and original build receipts",
+    "Historical final f007 measurements on the prior host remain separate",
+    "ProtocolSubmissions counts successful provider send calls, not messages, FFI calls, waits, RTTs, or SQL executions"
+  ],
+  "records": [
+    {
+      "provider": "sqlite",
+      "route": "before",
+      "concurrency": 1,
+      "seconds": 5.011226003,
+      "completed": 618,
+      "opsPerSecond": 123.32311486850337,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 7340.032,
+      "p95us": 28311.552,
+      "p99us": 39845.888,
+      "processAllocatedBytes": 20310496,
+      "bytesPerSuccessfulOperation": 32864.88025889968,
+      "gcGenerations": [
+        5,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 0.717913,
+      "clientSystemCpuSeconds": 0.201074,
+      "peakRssBytes": 28749824,
+      "rawPath": "before-local/sqlite/before-c1.json",
+      "commandPath": "before-local/sqlite/before-c1.command.json",
+      "loadedNativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "executableSha256": "5a071ea5b0b0f7cdd5a78fdf826ba5f32a703052b14b17edbdd23254cbdda98d"
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper",
+      "concurrency": 1,
+      "seconds": 5.000050348,
+      "completed": 28426,
+      "opsPerSecond": 5685.142752886535,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 61.184,
+      "p95us": 786.432,
+      "p99us": 966.656,
+      "processAllocatedBytes": 201319120,
+      "bytesPerSuccessfulOperation": 7082.217688032083,
+      "gcGenerations": [
+        48,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 3.825108,
+      "clientSystemCpuSeconds": 0.201846,
+      "peakRssBytes": 24080384,
+      "rawPath": "before-local/sqlite/dapper-c1.json",
+      "commandPath": "before-local/sqlite/dapper-c1.command.json",
+      "loadedNativeSha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "executableSha256": "f53f202254c291bb81e1899434bb163076037aa25b830e37e16a2c06e57ba6cd"
+    },
+    {
+      "provider": "sqlite",
+      "route": "before",
+      "concurrency": 4,
+      "seconds": 5.037915467,
+      "completed": 1984,
+      "opsPerSecond": 393.81367412689855,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 6914.048,
+      "p95us": 32899.072,
+      "p99us": 91750.4,
+      "processAllocatedBytes": 66405792,
+      "bytesPerSuccessfulOperation": 33470.66129032258,
+      "gcGenerations": [
+        15,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 1.7478120000000001,
+      "clientSystemCpuSeconds": 0.5176350000000001,
+      "peakRssBytes": 37773312,
+      "rawPath": "before-local/sqlite/before-c4.json",
+      "commandPath": "before-local/sqlite/before-c4.command.json",
+      "loadedNativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "executableSha256": "5a071ea5b0b0f7cdd5a78fdf826ba5f32a703052b14b17edbdd23254cbdda98d"
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper",
+      "concurrency": 4,
+      "seconds": 5.025402508,
+      "completed": 65447,
+      "opsPerSecond": 13023.23543155282,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 89.088,
+      "p95us": 1130.496,
+      "p99us": 2146.304,
+      "processAllocatedBytes": 463477408,
+      "bytesPerSuccessfulOperation": 7081.72120952832,
+      "gcGenerations": [
+        112,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 10.506694,
+      "clientSystemCpuSeconds": 1.8762610000000002,
+      "peakRssBytes": 29188096,
+      "rawPath": "before-local/sqlite/dapper-c4.json",
+      "commandPath": "before-local/sqlite/dapper-c4.command.json",
+      "loadedNativeSha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "executableSha256": "f53f202254c291bb81e1899434bb163076037aa25b830e37e16a2c06e57ba6cd"
+    },
+    {
+      "provider": "sqlite",
+      "route": "before",
+      "concurrency": 8,
+      "seconds": 5.321654019,
+      "completed": 2958,
+      "opsPerSecond": 555.8422230079215,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 1728.512,
+      "p95us": 31588.352,
+      "p99us": 141557.76,
+      "processAllocatedBytes": 98976576,
+      "bytesPerSuccessfulOperation": 33460.640973630834,
+      "gcGenerations": [
+        22,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 2.3819790000000003,
+      "clientSystemCpuSeconds": 0.731876,
+      "peakRssBytes": 48586752,
+      "rawPath": "before-local/sqlite/before-c8.json",
+      "commandPath": "before-local/sqlite/before-c8.command.json",
+      "loadedNativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "executableSha256": "5a071ea5b0b0f7cdd5a78fdf826ba5f32a703052b14b17edbdd23254cbdda98d"
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper",
+      "concurrency": 8,
+      "seconds": 5.010859639,
+      "completed": 69173,
+      "opsPerSecond": 13804.617367770576,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 98.816,
+      "p95us": 1449.984,
+      "p99us": 3424.256,
+      "processAllocatedBytes": 489791064,
+      "bytesPerSuccessfulOperation": 7080.6682376071585,
+      "gcGenerations": [
+        118,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 12.179707,
+      "clientSystemCpuSeconds": 2.601302,
+      "peakRssBytes": 33996800,
+      "rawPath": "before-local/sqlite/dapper-c8.json",
+      "commandPath": "before-local/sqlite/dapper-c8.command.json",
+      "loadedNativeSha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "executableSha256": "f53f202254c291bb81e1899434bb163076037aa25b830e37e16a2c06e57ba6cd"
+    },
+    {
+      "provider": "sqlite",
+      "route": "before",
+      "concurrency": 16,
+      "seconds": 5.331938128,
+      "completed": 3317,
+      "opsPerSecond": 622.1002420454193,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 2310.144,
+      "p95us": 39059.456,
+      "p99us": 641728.512,
+      "processAllocatedBytes": 110960664,
+      "bytesPerSuccessfulOperation": 33452.114561350616,
+      "gcGenerations": [
+        24,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 2.663453,
+      "clientSystemCpuSeconds": 1.038148,
+      "peakRssBytes": 69591040,
+      "rawPath": "before-local/sqlite/before-c16.json",
+      "commandPath": "before-local/sqlite/before-c16.command.json",
+      "loadedNativeSha256": "722dd4a53c5eb86ed5167d15d6d03d576e44b4d1e166e8d0f4fcdfd828c76ba8",
+      "executableSha256": "5a071ea5b0b0f7cdd5a78fdf826ba5f32a703052b14b17edbdd23254cbdda98d"
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper",
+      "concurrency": 16,
+      "seconds": 5.053814147,
+      "completed": 65065,
+      "opsPerSecond": 12874.434656174151,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 103.936,
+      "p95us": 1540.096,
+      "p99us": 3702.784,
+      "processAllocatedBytes": 460638200,
+      "bytesPerSuccessfulOperation": 7079.6618765849535,
+      "gcGenerations": [
+        112,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 11.75022,
+      "clientSystemCpuSeconds": 2.956361,
+      "peakRssBytes": 39792640,
+      "rawPath": "before-local/sqlite/dapper-c16.json",
+      "commandPath": "before-local/sqlite/dapper-c16.command.json",
+      "loadedNativeSha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "executableSha256": "f53f202254c291bb81e1899434bb163076037aa25b830e37e16a2c06e57ba6cd"
+    },
+    {
+      "provider": "postgresql",
+      "route": "before",
+      "concurrency": 1,
+      "seconds": 5.009278967,
+      "completed": 557,
+      "opsPerSecond": 111.19364756273116,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 6750.208,
+      "p95us": 30277.632,
+      "p99us": 52953.088,
+      "processAllocatedBytes": 18826264,
+      "bytesPerSuccessfulOperation": 33799.396768402155,
+      "gcGenerations": [
+        4,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 0.588889,
+      "clientSystemCpuSeconds": 0.33636499999999997,
+      "peakRssBytes": 28954624,
+      "rawPath": "before-local/postgresql/before-c1.json",
+      "commandPath": "before-local/postgresql/before-c1.command.json",
+      "loadedNativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "executableSha256": "6a68a0a939cc0eb72dd87ebe634405e3931168733e450087cda8df90e8853be6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper",
+      "concurrency": 1,
+      "seconds": 5.000105173,
+      "completed": 11651,
+      "opsPerSecond": 2330.1509862060657,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 276.48,
+      "p95us": 1384.448,
+      "p99us": 1605.632,
+      "processAllocatedBytes": 76884240,
+      "bytesPerSuccessfulOperation": 6598.939146854347,
+      "gcGenerations": [
+        18,
+        1,
+        0
+      ],
+      "clientUserCpuSeconds": 2.138004,
+      "clientSystemCpuSeconds": 0.707012,
+      "peakRssBytes": 32833536,
+      "rawPath": "before-local/postgresql/dapper-c1.json",
+      "commandPath": "before-local/postgresql/dapper-c1.command.json",
+      "loadedNativeSha256": null,
+      "executableSha256": "991457ddbb7a937619606fddca00177b4d71884f3c02f553a41f0b46a4cb7ac6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "before",
+      "concurrency": 4,
+      "seconds": 5.022907375,
+      "completed": 2515,
+      "opsPerSecond": 500.7060278510511,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 4456.448,
+      "p95us": 28180.48,
+      "p99us": 48758.784,
+      "processAllocatedBytes": 84070520,
+      "bytesPerSuccessfulOperation": 33427.642147117294,
+      "gcGenerations": [
+        19,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 2.3032440000000003,
+      "clientSystemCpuSeconds": 1.0867909999999998,
+      "peakRssBytes": 35848192,
+      "rawPath": "before-local/postgresql/before-c4.json",
+      "commandPath": "before-local/postgresql/before-c4.command.json",
+      "loadedNativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "executableSha256": "6a68a0a939cc0eb72dd87ebe634405e3931168733e450087cda8df90e8853be6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper",
+      "concurrency": 4,
+      "seconds": 5.00043393,
+      "completed": 33721,
+      "opsPerSecond": 6743.614748650424,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 337.92,
+      "p95us": 1892.352,
+      "p99us": 2998.272,
+      "processAllocatedBytes": 222276872,
+      "bytesPerSuccessfulOperation": 6591.645324871742,
+      "gcGenerations": [
+        49,
+        2,
+        1
+      ],
+      "clientUserCpuSeconds": 4.859016,
+      "clientSystemCpuSeconds": 1.671014,
+      "peakRssBytes": 38936576,
+      "rawPath": "before-local/postgresql/dapper-c4.json",
+      "commandPath": "before-local/postgresql/dapper-c4.command.json",
+      "loadedNativeSha256": null,
+      "executableSha256": "991457ddbb7a937619606fddca00177b4d71884f3c02f553a41f0b46a4cb7ac6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "before",
+      "concurrency": 8,
+      "seconds": 5.010494971,
+      "completed": 4656,
+      "opsPerSecond": 929.2495106667576,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 4096,
+      "p95us": 33423.36,
+      "p99us": 63963.136,
+      "processAllocatedBytes": 155000104,
+      "bytesPerSuccessfulOperation": 33290.400343642614,
+      "gcGenerations": [
+        35,
+        0,
+        0
+      ],
+      "clientUserCpuSeconds": 3.355288,
+      "clientSystemCpuSeconds": 1.711741,
+      "peakRssBytes": 43872256,
+      "rawPath": "before-local/postgresql/before-c8.json",
+      "commandPath": "before-local/postgresql/before-c8.command.json",
+      "loadedNativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "executableSha256": "6a68a0a939cc0eb72dd87ebe634405e3931168733e450087cda8df90e8853be6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper",
+      "concurrency": 8,
+      "seconds": 5.002148907,
+      "completed": 33411,
+      "opsPerSecond": 6679.3293484815495,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 589.824,
+      "p95us": 4489.216,
+      "p99us": 8781.824,
+      "processAllocatedBytes": 219745000,
+      "bytesPerSuccessfulOperation": 6577.025530513903,
+      "gcGenerations": [
+        43,
+        14,
+        1
+      ],
+      "clientUserCpuSeconds": 4.699720999999999,
+      "clientSystemCpuSeconds": 1.742272,
+      "peakRssBytes": 39821312,
+      "rawPath": "before-local/postgresql/dapper-c8.json",
+      "commandPath": "before-local/postgresql/dapper-c8.command.json",
+      "loadedNativeSha256": null,
+      "executableSha256": "991457ddbb7a937619606fddca00177b4d71884f3c02f553a41f0b46a4cb7ac6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "before",
+      "concurrency": 16,
+      "seconds": 5.103270079,
+      "completed": 7005,
+      "opsPerSecond": 1372.6492800813414,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 2572.288,
+      "p95us": 61865.984,
+      "p99us": 137363.456,
+      "processAllocatedBytes": 234367920,
+      "bytesPerSuccessfulOperation": 33457.23340471092,
+      "gcGenerations": [
+        48,
+        2,
+        1
+      ],
+      "clientUserCpuSeconds": 4.496116000000001,
+      "clientSystemCpuSeconds": 2.4083210000000004,
+      "peakRssBytes": 60751872,
+      "rawPath": "before-local/postgresql/before-c16.json",
+      "commandPath": "before-local/postgresql/before-c16.command.json",
+      "loadedNativeSha256": "ad5a93a7c7c423a85ee1c24eaf81ff85ef0f03a9944eda2bac60128417286088",
+      "executableSha256": "6a68a0a939cc0eb72dd87ebe634405e3931168733e450087cda8df90e8853be6"
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper",
+      "concurrency": 16,
+      "seconds": 5.004617101,
+      "completed": 37823,
+      "opsPerSecond": 7557.621139975399,
+      "failed": 0,
+      "externalArrivalRate": null,
+      "rejectedArrivals": null,
+      "p50us": 782.336,
+      "p95us": 10027.008,
+      "p99us": 21757.952,
+      "processAllocatedBytes": 249071624,
+      "bytesPerSuccessfulOperation": 6585.189540755625,
+      "gcGenerations": [
+        41,
+        13,
+        1
+      ],
+      "clientUserCpuSeconds": 4.912595,
+      "clientSystemCpuSeconds": 1.950802,
+      "peakRssBytes": 40636416,
+      "rawPath": "before-local/postgresql/dapper-c16.json",
+      "commandPath": "before-local/postgresql/dapper-c16.command.json",
+      "loadedNativeSha256": null,
+      "executableSha256": "991457ddbb7a937619606fddca00177b4d71884f3c02f553a41f0b46a4cb7ac6"
+    }
+  ],
+  "rawManifest": [
+    {
+      "path": "before-local/sqlite/before-c1.command.json",
+      "sha256": "56a09c9534bf4aa3fc7c29e4f30dbe8ce0d0254cdd6e5d869cee34b5535db422",
+      "bytes": 3580
+    },
+    {
+      "path": "before-local/sqlite/before-c1.json",
+      "sha256": "b823680e355a75ab360fe2f6cfdf5c3a3ce0f3090f61ed4079c4893b242eee8b",
+      "bytes": 41574
+    },
+    {
+      "path": "before-local/sqlite/before-c1.resources.jsonl",
+      "sha256": "baf9a4689b05668af48e7cc36b7283f29d0e57622dbdd94e5da8e9b7b3a58d9f",
+      "bytes": 29913
+    },
+    {
+      "path": "before-local/sqlite/before-c1.stdout.log",
+      "sha256": "94c7268a80702ff90002e8928c339cb8f252a515063a90ce2fce25f1452b7fbe",
+      "bytes": 41589
+    },
+    {
+      "path": "before-local/sqlite/before-c16.command.json",
+      "sha256": "1e1a3e2956538923ed0d6c97a7803f3489d7f772345d257f11bf8338777f2101",
+      "bytes": 3579
+    },
+    {
+      "path": "before-local/sqlite/before-c16.json",
+      "sha256": "dae410bf43561b36f621048b448d6dccb3f78afc6f95117f753dc2b9a26f6f58",
+      "bytes": 41693
+    },
+    {
+      "path": "before-local/sqlite/before-c16.resources.jsonl",
+      "sha256": "c9db4395b4820aab306db12b0f4bdbcd5b006e3cc36b7b758b2c0638e8fe31e5",
+      "bytes": 34865
+    },
+    {
+      "path": "before-local/sqlite/before-c16.stdout.log",
+      "sha256": "e740174427c37f130e5d2c8b2185b414461a74c27303b049324a8d4f675b7ffe",
+      "bytes": 41708
+    },
+    {
+      "path": "before-local/sqlite/before-c4.command.json",
+      "sha256": "f2ad9c3297e2edd7bf5675f6d28bd25b286d28e320cd94627fa5cf9530ccd689",
+      "bytes": 3579
+    },
+    {
+      "path": "before-local/sqlite/before-c4.json",
+      "sha256": "165c3d2858df287f908585b69244b5d9080c2049812da79052218017319ece2c",
+      "bytes": 41685
+    },
+    {
+      "path": "before-local/sqlite/before-c4.resources.jsonl",
+      "sha256": "7eb58ef20700407034c348543148a885ff795b3c858886d474374bb672113d83",
+      "bytes": 28782
+    },
+    {
+      "path": "before-local/sqlite/before-c4.stdout.log",
+      "sha256": "fc4d270569d911dc044b8394b55acce85530c835d6e07d47204acd26333f37cf",
+      "bytes": 41700
+    },
+    {
+      "path": "before-local/sqlite/before-c8.command.json",
+      "sha256": "410a579a2b38b1f9ddaba46ec08583ad6d1845c59bf834eca7ea0f0761894598",
+      "bytes": 3579
+    },
+    {
+      "path": "before-local/sqlite/before-c8.json",
+      "sha256": "6314dee93af11dc7b8f2b2f79813f4a8fe0201307779019dbf8e3f4f2bfb4d10",
+      "bytes": 41689
+    },
+    {
+      "path": "before-local/sqlite/before-c8.resources.jsonl",
+      "sha256": "d284dd1d8f7ec37c1038807122ec013e683776e6f23c88c394c08313a53fc7c6",
+      "bytes": 30000
+    },
+    {
+      "path": "before-local/sqlite/before-c8.stdout.log",
+      "sha256": "577f169ff36992f2ac915d8be8fadb5969f7cc93c5a0c73ed10a7349f65eda07",
+      "bytes": 41704
+    },
+    {
+      "path": "before-local/sqlite/dapper-c1.command.json",
+      "sha256": "9a46354768ba3159db5f5b99d40bf4c5f3f540e332fe5cd88c32fbb5d7e6f467",
+      "bytes": 3679
+    },
+    {
+      "path": "before-local/sqlite/dapper-c1.json",
+      "sha256": "c6441578d010245d3e434046eaa417131ab14f3c348ca9d9642f0bf1c9e5ba92",
+      "bytes": 62434
+    },
+    {
+      "path": "before-local/sqlite/dapper-c1.resources.jsonl",
+      "sha256": "86378006f74ef8b9f197763109b188510df0be22d751964236246436faa71631",
+      "bytes": 26355
+    },
+    {
+      "path": "before-local/sqlite/dapper-c1.stdout.log",
+      "sha256": "19419f0d0a2524e62bb74c07dfd031ef69802434e66afb395be3290ba73d66db",
+      "bytes": 62449
+    },
+    {
+      "path": "before-local/sqlite/dapper-c16.command.json",
+      "sha256": "49ef654c05aee4e5c64a39b9f9495e453fda9d8bc2a11da97c38498735a5f639",
+      "bytes": 3676
+    },
+    {
+      "path": "before-local/sqlite/dapper-c16.json",
+      "sha256": "8bcf9b920d68f24a46bbaeb55b138816faa4963d4c0b4ad0ce94be8cb897c490",
+      "bytes": 63021
+    },
+    {
+      "path": "before-local/sqlite/dapper-c16.resources.jsonl",
+      "sha256": "d868e46a501b36326667d0fbf0c04e86072d0694f519a1aa5796dcf23c90bb51",
+      "bytes": 26436
+    },
+    {
+      "path": "before-local/sqlite/dapper-c16.stdout.log",
+      "sha256": "cc2b841f228ad0a9906af3a3e534ecab0a42293443f4c0eba9ae15ac6f128bdc",
+      "bytes": 63036
+    },
+    {
+      "path": "before-local/sqlite/dapper-c4.command.json",
+      "sha256": "790eebcaacb1045f2446c049abe18c040950472ccb69b2dafa79d4a4cef1fe86",
+      "bytes": 3668
+    },
+    {
+      "path": "before-local/sqlite/dapper-c4.json",
+      "sha256": "719a320cee8ecadfadc4419c49cf4c7716896e4e13985f7534ea9a11fed5d368",
+      "bytes": 62971
+    },
+    {
+      "path": "before-local/sqlite/dapper-c4.resources.jsonl",
+      "sha256": "a26d3d05faaaf23f8fe3c28c9a17e84d2e7d62173850326efffea2ea7fe178c7",
+      "bytes": 26400
+    },
+    {
+      "path": "before-local/sqlite/dapper-c4.stdout.log",
+      "sha256": "242ff85777d81afb5fd557bdbe31aa4c3e723bae6cf859574ac37267057d5968",
+      "bytes": 62986
+    },
+    {
+      "path": "before-local/sqlite/dapper-c8.command.json",
+      "sha256": "65f34f7396d6f6e01f2ea32d38ff79755ed550a5a0f132e2ad7a6b0f0e03d657",
+      "bytes": 3670
+    },
+    {
+      "path": "before-local/sqlite/dapper-c8.json",
+      "sha256": "53094c364a89859bf54f5e248af14c5fd197b9d36130159bfa71afc122b87609",
+      "bytes": 63036
+    },
+    {
+      "path": "before-local/sqlite/dapper-c8.resources.jsonl",
+      "sha256": "0b793dd942667b4d4199b0e680723f35445e54f601373f7c487543f7ac71b793",
+      "bytes": 26444
+    },
+    {
+      "path": "before-local/sqlite/dapper-c8.stdout.log",
+      "sha256": "6e32cd329c8c57b65feb04172437b000d541d11fceba838b84186c6523ea4ea0",
+      "bytes": 63051
+    },
+    {
+      "path": "before-local/sqlite/initialize.command.json",
+      "sha256": "4f2c585df32a7e9ec9aea9a81b0fa807aa7cda6ed652276d1158d373b7f550d2",
+      "bytes": 3232
+    },
+    {
+      "path": "before-local/sqlite/initialize.resources.jsonl",
+      "sha256": "3342f88c561c2cbdde8c618ea7e347123aa486cc25e89433d8f49c26239b3a32",
+      "bytes": 3511
+    },
+    {
+      "path": "before-local/sqlite/initialize.stdout.log",
+      "sha256": "b8e9d9aaa8d862226da3ce02dfa1c745cabd45e6c5ea6ca6f9678a10b61692e3",
+      "bytes": 109
+    },
+    {
+      "path": "before-local/sqlite/phase-1.command.json",
+      "sha256": "ba3054fc0a909103e38e3409e182b201a3e0f55d93e3464b011574e9b44366aa",
+      "bytes": 3358
+    },
+    {
+      "path": "before-local/sqlite/phase-1.json",
+      "sha256": "092a42419677f3b7b99070eb3f8ccc33adff7a2aa38eab2610e17a910facd23c",
+      "bytes": 24477
+    },
+    {
+      "path": "before-local/sqlite/phase-1.resources.jsonl",
+      "sha256": "617ed019e9ebe6c59e2dbc96eb247106f288b6617ed3a69253d2a5f0fdee755a",
+      "bytes": 20299
+    },
+    {
+      "path": "before-local/sqlite/phase-1.stdout.log",
+      "sha256": "b2519d375e7cb7f86c6e6e3f32fa2ac1887dfd7d51f769e65e7c1a0e5210c7ad",
+      "bytes": 105
+    },
+    {
+      "path": "before-local/sqlite/phase-100.command.json",
+      "sha256": "478690cd1d36885352139f690b266a4dff785e5ac04df952406e3bd44d375119",
+      "bytes": 3352
+    },
+    {
+      "path": "before-local/sqlite/phase-100.json",
+      "sha256": "1017564172c20ee95bb90a7e2ae98bf27b9fde03d058afe5d0767e6f6f145fa4",
+      "bytes": 24870
+    },
+    {
+      "path": "before-local/sqlite/phase-100.resources.jsonl",
+      "sha256": "e34d05fbb0bc2ae520a82c0b1eae6893e7aea2598e04f135188b77bddf2ad8f8",
+      "bytes": 25131
+    },
+    {
+      "path": "before-local/sqlite/phase-100.stdout.log",
+      "sha256": "d9a0c4d30c6fa6a9edfcf5f6968573cf030f0791965ecfdd1f437d73dd9b7939",
+      "bytes": 107
+    },
+    {
+      "path": "before-local/sqlite/phase-1000.command.json",
+      "sha256": "e25fc2d449c37409ae4b7819c6eafdf01e67106563a7a277a2850e98ec655bd4",
+      "bytes": 3360
+    },
+    {
+      "path": "before-local/sqlite/phase-1000.json",
+      "sha256": "dc01edfb3ce5386a5d79f2202a2a99c1c2ddc6b003535edeca4ae0b6753d3663",
+      "bytes": 25240
+    },
+    {
+      "path": "before-local/sqlite/phase-1000.resources.jsonl",
+      "sha256": "74cf317395a54c67d53302f000211c9df75b344b01382923cafb5fb14cd351ca",
+      "bytes": 116570
+    },
+    {
+      "path": "before-local/sqlite/phase-1000.stdout.log",
+      "sha256": "e16c60b5771ccbd11c6c7f065f4fbe7bf06379b404efb9a2264c7448f3048c28",
+      "bytes": 108
+    },
+    {
+      "path": "before-local/sqlite/plan.json",
+      "sha256": "0e96b7eb39d6c42129e6587ba86f3fbe600dafc72fa68a2aeb565800ce875f27",
+      "bytes": 7683
+    },
+    {
+      "path": "before-local/sqlite/resources.command.json",
+      "sha256": "8b2af11088707e1cd425afff14c210f0e377da7de9e603cbfa1d395431f8ae3f",
+      "bytes": 3495
+    },
+    {
+      "path": "before-local/sqlite/resources.json",
+      "sha256": "89ac4ed4755fe0eec0afe06e06ef0d3d42153b19ca1cd932be69681d032c3d20",
+      "bytes": 40160
+    },
+    {
+      "path": "before-local/sqlite/resources.resources.jsonl",
+      "sha256": "e8ccf47f859bdbef2d4f0ac5407db920b9b7525bbe959bf43bfe8f5b737f472e",
+      "bytes": 14336
+    },
+    {
+      "path": "before-local/sqlite/resources.stdout.log",
+      "sha256": "baf971475e0f8ebb4ff4f06b95d0a2f54621768e694132eb3b77658ad0eebc34",
+      "bytes": 110
+    },
+    {
+      "path": "before-local/sqlite/runner.json",
+      "sha256": "f5bc73f9f688cb7b2b6af338f8607410d23070fa90b60455656c95c4bd68c1f7",
+      "bytes": 575
+    },
+    {
+      "path": "before-local/postgresql/before-c1.command.json",
+      "sha256": "eaf3c75613124d111a37adfe2d022c41f5b0f93581a5084ef2b0f34420bd9290",
+      "bytes": 4058
+    },
+    {
+      "path": "before-local/postgresql/before-c1.json",
+      "sha256": "431f1d858f8923ff1f2ced3b91da0b195bdfe04b82ff561efa4d669387fb3d95",
+      "bytes": 41721
+    },
+    {
+      "path": "before-local/postgresql/before-c1.resources.jsonl",
+      "sha256": "a3703f9bcba777fc496ba8334e627febd1e21ec96c404470516ac25bf58ad312",
+      "bytes": 35572
+    },
+    {
+      "path": "before-local/postgresql/before-c1.stdout.log",
+      "sha256": "f02f3671c52186f3c73048f02c034022d544555767999c2f31c641fbd4e4c53b",
+      "bytes": 41736
+    },
+    {
+      "path": "before-local/postgresql/before-c16.command.json",
+      "sha256": "e62bfa4316c4f15f0ac78211c2895cfdca300f2f0ad0955c1b867c8b47388f79",
+      "bytes": 4037
+    },
+    {
+      "path": "before-local/postgresql/before-c16.json",
+      "sha256": "2d59cc5cbd4ba4df77648a5525f0b9ee93994cde7a50996b167915f50a5e618e",
+      "bytes": 42190
+    },
+    {
+      "path": "before-local/postgresql/before-c16.resources.jsonl",
+      "sha256": "2cede332f2f5c63c38ebfc3bead9594c643473729298e7b888bb9a99e676e022",
+      "bytes": 37288
+    },
+    {
+      "path": "before-local/postgresql/before-c16.stdout.log",
+      "sha256": "ddba346e731905fb928782f85fc14c35431146ed377781bdd367ca79f0eb2c0c",
+      "bytes": 42205
+    },
+    {
+      "path": "before-local/postgresql/before-c4.command.json",
+      "sha256": "efbc1fcef5148fa55775d04ec6b7d4d03cc7dbe16112101182ca216cde992db2",
+      "bytes": 4029
+    },
+    {
+      "path": "before-local/postgresql/before-c4.json",
+      "sha256": "674dd9dc2773e8bab80c768db6d1afe667b9ddb05f8ad3ddf33df94d5d3fdf58",
+      "bytes": 41840
+    },
+    {
+      "path": "before-local/postgresql/before-c4.resources.jsonl",
+      "sha256": "a99468fe1074244e2e89c6716b7c42d02238fd891421d746c9b756e1d10db29a",
+      "bytes": 34182
+    },
+    {
+      "path": "before-local/postgresql/before-c4.stdout.log",
+      "sha256": "953a3533d2c542a01d1a035fdcec899834a1918b21baf5714b6347b4b0c215eb",
+      "bytes": 41855
+    },
+    {
+      "path": "before-local/postgresql/before-c8.command.json",
+      "sha256": "3f888e2b8d6bfbda551ac4351ffb3c65c0c527526e5d8fc280d67b0e793c91cd",
+      "bytes": 4030
+    },
+    {
+      "path": "before-local/postgresql/before-c8.json",
+      "sha256": "e6ee82f75c0c89fe8e1857aea89e08ad751b527984dd124d0068ec05f2e94ae2",
+      "bytes": 41990
+    },
+    {
+      "path": "before-local/postgresql/before-c8.resources.jsonl",
+      "sha256": "a172bf7fcb592e237b63d764a44792dbe0e6728f12b827322a4b004f141475d1",
+      "bytes": 34290
+    },
+    {
+      "path": "before-local/postgresql/before-c8.stdout.log",
+      "sha256": "7c1cbda591076753fa59771c1264d813d9298402f8da43836bc5129d10ed4641",
+      "bytes": 42005
+    },
+    {
+      "path": "before-local/postgresql/dapper-c1.command.json",
+      "sha256": "687135b903723c033fdd7b34e52043beaf32e6bd86be39bb1dc7a53f38d90e7e",
+      "bytes": 4031
+    },
+    {
+      "path": "before-local/postgresql/dapper-c1.json",
+      "sha256": "8087e462aecadf8f64a0ec7f48bfb229ecca032de6a5f1dfc4578e95a9b1f8fe",
+      "bytes": 60975
+    },
+    {
+      "path": "before-local/postgresql/dapper-c1.resources.jsonl",
+      "sha256": "45e9ab2f9c74bf0ecbfe31e32e9e1f2aba669ae3bb93312c80751c3db2753390",
+      "bytes": 32695
+    },
+    {
+      "path": "before-local/postgresql/dapper-c1.stdout.log",
+      "sha256": "35724d44f83ff81e22c0c650276bb7a467beef0551a4d5c789e0280e41451540",
+      "bytes": 60990
+    },
+    {
+      "path": "before-local/postgresql/dapper-c16.command.json",
+      "sha256": "fe2e5ea09b44ac4d51ede7f146d817ac275330011d3d5bf3097d39d18c4d55bc",
+      "bytes": 4031
+    },
+    {
+      "path": "before-local/postgresql/dapper-c16.json",
+      "sha256": "e742ef26abeac61b0a7cbb10ae0a90169d94a77f3ffe3f0ee23f2db15c66e7e9",
+      "bytes": 61580
+    },
+    {
+      "path": "before-local/postgresql/dapper-c16.resources.jsonl",
+      "sha256": "bba615a265d10c5cdde544f73188ec7183b8ed89c07f158ece0a4645ac6444e7",
+      "bytes": 32846
+    },
+    {
+      "path": "before-local/postgresql/dapper-c16.stdout.log",
+      "sha256": "b7a26e3782d9bb66d373575d997233392446d618fdd986c38714f5b5a29c1217",
+      "bytes": 61595
+    },
+    {
+      "path": "before-local/postgresql/dapper-c4.command.json",
+      "sha256": "173884b0436978e73f9ae7f9bf7d35db3a04c5b921469f29ac98a7030a5629b5",
+      "bytes": 4021
+    },
+    {
+      "path": "before-local/postgresql/dapper-c4.json",
+      "sha256": "fcf5fb12ebf94621bcb51f68b41e345eaf075cdfda52802efd4c52484506088c",
+      "bytes": 61274
+    },
+    {
+      "path": "before-local/postgresql/dapper-c4.resources.jsonl",
+      "sha256": "791936fbc3a81b3c68d756018f714f2223e9f6bf61af846641e00268dfee33fc",
+      "bytes": 32796
+    },
+    {
+      "path": "before-local/postgresql/dapper-c4.stdout.log",
+      "sha256": "3c5ba12b7b63d59b519fa20bcc01d5815a604b9c0b74cf28ecb903f2f6dbfc0f",
+      "bytes": 61289
+    },
+    {
+      "path": "before-local/postgresql/dapper-c8.command.json",
+      "sha256": "5716399877cbae01a2929b6fa30eda7124c2a157db511d10deae272c5b0f35a7",
+      "bytes": 4033
+    },
+    {
+      "path": "before-local/postgresql/dapper-c8.json",
+      "sha256": "55aa1e38f9b671a46801c40fa0388342118344523d33e5cee9b173aac50c1d6e",
+      "bytes": 61350
+    },
+    {
+      "path": "before-local/postgresql/dapper-c8.resources.jsonl",
+      "sha256": "a316c1d24749d622723a51c6f246a16fa0596094fabd293215fbda2179f53423",
+      "bytes": 32842
+    },
+    {
+      "path": "before-local/postgresql/dapper-c8.stdout.log",
+      "sha256": "06f0dfd2f91f05857a8c1c41587c81d4f8f23e8a3f7b12879a9b3f35078b7025",
+      "bytes": 61365
+    },
+    {
+      "path": "before-local/postgresql/initialize.command.json",
+      "sha256": "0d51e4d843ba96559550b98bd1cb5c6e4648502c896b30b31c17873b56222e6f",
+      "bytes": 3693
+    },
+    {
+      "path": "before-local/postgresql/initialize.resources.jsonl",
+      "sha256": "a360ce6ae92f85ec480f5c8bd66e686c3fc89eb56f86afa6046d313df6642524",
+      "bytes": 7320
+    },
+    {
+      "path": "before-local/postgresql/initialize.stdout.log",
+      "sha256": "42b361769ce69957727f3a50a9c5df2c6936cd2154270cef5bf8e5adb5f68ceb",
+      "bytes": 113
+    },
+    {
+      "path": "before-local/postgresql/phase-1.command.json",
+      "sha256": "e7549586d074911ce346b2de6c4f5d0c7536b62541e0079935fcc6e3c4d51daa",
+      "bytes": 3829
+    },
+    {
+      "path": "before-local/postgresql/phase-1.json",
+      "sha256": "28c2af0e38dc4806f614fa27f2839eb05033a4137002e600c54ab0852be8a5d9",
+      "bytes": 24636
+    },
+    {
+      "path": "before-local/postgresql/phase-1.resources.jsonl",
+      "sha256": "b3386153fcc0b942090cb66bc7fc4cffa0a2a3ad1b7574e1d3a925216b9485d8",
+      "bytes": 16331
+    },
+    {
+      "path": "before-local/postgresql/phase-1.stdout.log",
+      "sha256": "27faa1fdd34e9758e7bafef967959326381607402abe4a8826acf2cf746c48ce",
+      "bytes": 109
+    },
+    {
+      "path": "before-local/postgresql/phase-100.command.json",
+      "sha256": "1b7f2f3f7ea7882732292d6cddc0a02d5d5c220a03cccf30fca84400c0401831",
+      "bytes": 3823
+    },
+    {
+      "path": "before-local/postgresql/phase-100.json",
+      "sha256": "52ac2169732710b94cfa0503209111fcf67302924ad2eee105fe22395b05c35d",
+      "bytes": 25036
+    },
+    {
+      "path": "before-local/postgresql/phase-100.resources.jsonl",
+      "sha256": "e0a5e09b033c288fbd38e372c7893e9888f709173af28a23f29c79bfede71e4d",
+      "bytes": 23796
+    },
+    {
+      "path": "before-local/postgresql/phase-100.stdout.log",
+      "sha256": "a1a0a439c8e3535d91cc0874b9a3805e276f2689ee87c8adc1bae2bf5a68f009",
+      "bytes": 111
+    },
+    {
+      "path": "before-local/postgresql/phase-1000.command.json",
+      "sha256": "ffb104d37bf3bbf9bfd561755ffc4c2bc6b1f2bcca83d35062b5c736eba7e6bb",
+      "bytes": 3830
+    },
+    {
+      "path": "before-local/postgresql/phase-1000.json",
+      "sha256": "1697eee3aac995ee4700485dd89905642f6fc91f4570bb9f915423a6085a7f1f",
+      "bytes": 25408
+    },
+    {
+      "path": "before-local/postgresql/phase-1000.resources.jsonl",
+      "sha256": "4daef2dd8ad775e8d1f90a4c396f441c45d6a39d82f04e6ecf4861fc01b916a6",
+      "bytes": 86556
+    },
+    {
+      "path": "before-local/postgresql/phase-1000.stdout.log",
+      "sha256": "f8f75c95ed9542d1122bf615fdb8106cc0d448fb92c47de3cbddcdcfc20f55cb",
+      "bytes": 112
+    },
+    {
+      "path": "before-local/postgresql/plan.json",
+      "sha256": "e18322ffdf89fd7de19190cf2fe386bb9b56f915a37450326872ee2be47ee8eb",
+      "bytes": 7469
+    },
+    {
+      "path": "before-local/postgresql/postgres-init.log",
+      "sha256": "7cffbf87a6aad4e7420e369d13d3c6626c73007365d50164fd3bfc5dd2edc062",
+      "bytes": 973
+    },
+    {
+      "path": "before-local/postgresql/postgres-owner.json",
+      "sha256": "8a34f1a8c74788a6ca8a78839eb8e64558bc0e3105a6c80d7482e994dd165b74",
+      "bytes": 3161
+    },
+    {
+      "path": "before-local/postgresql/postgres-settings.txt",
+      "sha256": "36b4641ca6d7ff07582bc3bdd0484b0f14a8520085f3ee022018cd2345224927",
+      "bytes": 219
+    },
+    {
+      "path": "before-local/postgresql/postgres.log",
+      "sha256": "b905a31e2bacdffadfcc2e798aeb6daad6b6352c007004c65630cc56b0b4eb23",
+      "bytes": 1362
+    },
+    {
+      "path": "before-local/postgresql/resources.command.json",
+      "sha256": "631a596a3576576b685c3ea9cfdc116e7564476a7fb657a785bc9e39d0194163",
+      "bytes": 3957
+    },
+    {
+      "path": "before-local/postgresql/resources.json",
+      "sha256": "a58866c4ab4eb044124d92ff089eddccb353e31ba11fb7050540b8c5c8f30226",
+      "bytes": 40251
+    },
+    {
+      "path": "before-local/postgresql/resources.resources.jsonl",
+      "sha256": "24b57806c09d87037dd3a9615d6812815436f1ab295d545020c7b524307baba9",
+      "bytes": 20786
+    },
+    {
+      "path": "before-local/postgresql/resources.stdout.log",
+      "sha256": "166bdb5296af83157a20ca91a11dda4d388b9e02f3ab724214f4f2494aa3e51b",
+      "bytes": 177
+    },
+    {
+      "path": "before-local/postgresql/runner.json",
+      "sha256": "e9be2f8bc1afaca3d22fd46d75248c322d8dafe99d67173884e1a925c6821d92",
+      "bytes": 575
+    }
+  ]
+}
