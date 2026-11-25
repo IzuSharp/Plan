@@ -1,5 +1,61 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — f0078da7, new freeze and phase diagnostic in progress
+
+Resume [the current plan](plan.md) and
+[serializer checkpoint](query-optimization/serializer-f0078da7/README.md), then
+check [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Product branch remains
+`task/DB-Perf-01-linux`; companion branches remain
+`task/DB-Perf-01-query-optimization`. Published source is
+`f0078da720e07031bc56464995af6791c41aaae8`, tree
+`1e56f5466fa02640dcb68389f283e5c03c2c09ec`, actual CI producer
+`46ef09477b75dd5ce05e1941a739652bc685a9e2`. Full ordinary
+[CI 45624813071](https://github.com/IzuSharp/Korda/actions/runs/45624813071) passed;
+its receipt is `/tmp/DB-Perf-01-final-local-v5/ci-gate.json`.
+
+The private-root stack serializer is implemented with local correctness and exact
+API checks. Its effect on the allocation regression is not established. Preserve
+both unexplained incidents: original PG `r1-recovered` prepared failure and CI
+`45622268417` SQLite B03 AOT -6. Three PG diagnostics and eleven local SQLite gate
+invocations did not reproduce those incidents. The separate forced PG 42P01 run
+only validates failure reporting. All attempts retain their own source/ELF identity.
+
+Current paths and custody:
+
+- `/tmp/DB-Perf-01-measurements-v4/identity.json`: SHA
+  `f83df84a57af07a927f4955b91e8a64561bccafa8f92d2bd7181bc3a83efa269`, 16 apps/926 files.
+  Phase diagnostics have started, SQLite nine processes then PostgreSQL nine.
+  Inspect the existing coordinator/results before starting another process;
+  do not create a parallel measurement or build load.
+- `/tmp/DB-Perf-01-final-local-v5`: six exact-package external Native AOT apps;
+  `summary.json`/`readiness.json` bind 280 correct operations and six lifecycle
+  checks, drained owners, and unchanged preparation inputs. Baseline/recovered
+  phase apps are under `/tmp/DB-Perf-01-phase-v3`.
+- `/workspace/scratch/787156d4dd76/DB-Perf-01-resource-results-v4`: six before
+  diagnostic processes qualified, zero long credit; candidate comparison remains
+  to be completed against the new input set.
+- `/tmp/DB-Perf-01-measurement-tools-v4.py`: SHA
+  `feabf37ceea2d834419b8588d661032bd79d1297c29178fc5c0d623c4b8b34a7`;
+  `measurements-v4/summary-guard-validation.json` binds four positive/48 negative
+  checks. `/tmp/DB-Perf-01-evidence-tools/extract.py` and `make_manifest.py` are
+  also frozen; create a new version and explicit record if a real defect is found.
+- `/tmp/DB-Perf-01-measurements/identity-post-phase-verification.json` binds the
+  old freeze's unchanged 867 files; old results are immutable. Preserve
+  `measurements-v4/plans-3e2bda3-not-run` without assigning execution credit.
+- `/tmp/DB-Perf-01-phase-diagnostic-recovered-pg/review.json` and
+  `/tmp/DB-Perf-01-sqlite-ci-repro/{run-1,repeats}.json` retain unresolved-failure
+  and local non-reproduction evidence. `/tmp/DB-Perf-01-ci-diagnostics/receipt.json`
+  binds the upload-only fix and unchanged routing checks.
+
+Next: finish phase/resource/short analyses, retaining all failures; execute and
+assess the four final local 30-minute candidate/Dapper.AOT cells; report remaining
+allocation/CPU/memory/throughput/p99 gaps and the stopping basis. All four long
+cells currently have zero accepted credit. Physical statement reuse and optional
+fixed-query generation remain unimplemented. No merge/release or final performance
+acceptance is claimed. Preserve every prior section below byte-for-byte.
+
 ## Active checkpoint — ordinary CI passed; first SQLite allocation regression recorded
 
 Read the newest [plan section](plan.md) and

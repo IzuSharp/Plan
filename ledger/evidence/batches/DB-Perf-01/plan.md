@@ -1,5 +1,60 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## Serializer implemented; current ordinary CI passed — 2026-11-25, f0078da7
+
+**Resume this checkpoint before the historical observations below.** Continue
+[Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Product head is
+[`f0078da720e07031bc56464995af6791c41aaae8`](https://github.com/IzuSharp/Korda/commit/f0078da720e07031bc56464995af6791c41aaae8),
+tree `1e56f5466fa02640dcb68389f283e5c03c2c09ec`; actual CI producer is
+`46ef09477b75dd5ce05e1941a739652bc685a9e2`. The
+[checkpoint and source-bound receipts](query-optimization/serializer-f0078da7/README.md)
+retain the prior allocation regression and both unexplained failures.
+
+The selected single-root serializer is now implemented, with local Binding
+**165 assertions / 13 cases**, including **81 command-only assertions**, and
+**1321 Fluent assertions across SQLite/PostgreSQL, 14 cases each**. Public API
+checks retain 221 Fluent symbols/13 typed cases and 42 frozen Cdecl signatures.
+The path requires no dependencies, private uncaptured origins and, when sealing,
+no pending origin-publication gates. It uses a 4096-byte bounded stack frame;
+larger or shared/captured/CTE/imported commands retain the generic encoder.
+This slice changes neither the native protocol nor callback timing. **No new
+measurement yet establishes that it removes the earlier 8.4 KB/op regression.**
+
+[CI 45624813071](https://github.com/IzuSharp/Korda/actions/runs/45624813071) now
+passes all required ordinary gates. Both providers remain independent package
+runners; the shared scope includes Fluent and aggregate API validation. Modules
+and publish are skipped by normal PR rules, with zero benchmark jobs. The prior
+run `45622268417` failed SQLite B03 AOT with exit -6 and missing uploaded exception
+stderr. Eleven fresh local gate invocations did not reproduce it; the binary
+identities differ, and the cause remains unknown. The follow-up only retains
+precise provider diagnostic files. All 45 existing Tooling tests executed
+successfully, with unchanged planner fields, routing and thresholds.
+
+The original PostgreSQL prepared-query failure also remains unexplained. Three
+bounded diagnostics did not reproduce it; one separate missing-table run only
+validated Provider/42P01 failure reporting. Neither the new CI pass nor these
+local successes retroactively accept a failed attempt.
+
+Six exact-package external Native AOT applications are built under
+`final-local-v5`; four 35-case mixes pass **280/280** scheduled operations, and six
+cancellation/concurrent-conflict checks pass with owners drained. Six before
+resource processes are qualified for diagnostic scope only. The previous freeze
+`f493d3d…` ended with all **867 files / 16 apps unchanged**. The current freeze
+`f83df84a57af07a927f4955b91e8a64561bccafa8f92d2bd7181bc3a83efa269` binds
+**926 files / 16 apps**. The new SQLite-then-PostgreSQL same-query phase sequence
+has started; its result is pending. The four final local 1800-second Korda/Dapper.AOT
+cells still have **zero accepted seconds**, and final comparison/stopping reasons
+remain open. Preserve frozen inputs and the earlier unrun plan sets.
+
+Nine workload-option bindings and unique stdout/result equality were checked
+with four positive receipts and 48 rejected negative mutations before the new
+freeze. Their helper and the numeric extraction tools are now immutable campaign
+inputs. [Recovery paths](handoff-linux.md) identify the active artifacts. This
+checkpoint reuses the prior 20 Plan/two Design historical gates and adds only
+fresh link, JSON, diff and historical-byte checks; no old acceptance is changed.
+
 ## First measured SQLite phase checkpoint — 2026-11-25, before serializer follow-up
 
 **Resume from this observation and the selected follow-up before further product edits.**
