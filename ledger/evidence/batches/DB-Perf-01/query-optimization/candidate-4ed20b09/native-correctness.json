@@ -1,0 +1,80 @@
+{
+  "native_component_commit": "94e3e7d25bd02f54adde722e41c26dc9650e28bb",
+  "native_paths_equal_to_published_candidate": true,
+  "query": {
+    "checks": 926,
+    "sql_and_ordered_argument_goldens": 52,
+    "providers": [
+      "sqlite",
+      "postgresql"
+    ],
+    "count_scope": "combined two-provider suite, not per-provider totals",
+    "release_passed": true,
+    "asan_ubsan_passed": true,
+    "leak_sanitizer_verified": false,
+    "asan_options": "detect_leaks=0:strict_string_checks=1",
+    "ubsan_options": "halt_on_error=1:print_stacktrace=1",
+    "leak_sanitizer_limitation": "The earlier 866-check attempt completed assertions then LSan failed under the environment ptrace restriction. No system restriction was changed. The later ASan/UBSan pass does not certify leaks."
+  },
+  "host_review": {
+    "mode": "all",
+    "passed": true
+  },
+  "cross_cte_origin_budget": [
+    {
+      "provider": 1,
+      "limit": 9000,
+      "direct_status": 0,
+      "unseeded_status": 13,
+      "seeded_status": 0,
+      "direct_owned": 7028,
+      "direct_expanded": 18,
+      "direct_literal": 6002,
+      "unseeded_owned": 7028,
+      "unseeded_expanded": 18,
+      "unseeded_literal": 12004,
+      "seeded_literal": 6002
+    },
+    {
+      "provider": 2,
+      "limit": 9000,
+      "direct_status": 0,
+      "unseeded_status": 13,
+      "seeded_status": 0,
+      "direct_owned": 7028,
+      "direct_expanded": 18,
+      "direct_literal": 6002,
+      "unseeded_owned": 7028,
+      "unseeded_expanded": 18,
+      "unseeded_literal": 12004,
+      "seeded_literal": 6002
+    }
+  ],
+  "frozen_c_abi": {
+    "rejection_cases": 24,
+    "passed": true,
+    "native_owner_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "concurrency": {
+    "render_workers": 4,
+    "prepared_shapes": 3,
+    "cache_entries": 2,
+    "cache_bytes": 8192,
+    "iterations_per_worker": 256,
+    "concurrent_clear_iterations": 256,
+    "checks": [
+      "SQL identity",
+      "actual per-call parameter bytes",
+      "entry/byte bounds",
+      "retained shape survives clear or eviction"
+    ]
+  },
+  "scope": "local native component correctness; not packaged consumer or performance acceptance"
+}

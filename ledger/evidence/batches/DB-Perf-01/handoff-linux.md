@@ -1,5 +1,89 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — published formatting follow-up, CI in progress
+
+Resume [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Product branch is
+`task/DB-Perf-01-linux`; Design and Plan use
+`task/DB-Perf-01-query-optimization`. The current Plan worktree is
+`/tmp/DB-Perf-01-worktrees/DB-Perf-01-Plan`, also reached through the original
+`/workspace/scratch/787156d4dd76/DB-Perf-01-Plan` symlink. Read the newest
+[implementation checkpoint](plan.md)
+before the earlier starting-state and recovery records below. Preserve their bytes.
+
+Current published candidate:
+[`4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9`](https://github.com/IzuSharp/Korda/commit/4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9),
+tree `1c95420b34a2291e4b63fdc08caf32409a3eb4ee`. Preserve the prior attempt:
+[`dd990f2379c95bde25531de69f7b6f3be5aec3b0`](https://github.com/IzuSharp/Korda/commit/dd990f2379c95bde25531de69f7b6f3be5aec3b0),
+tree `2643545ab41562bebe6c8d1f1811da9d3ced5257`. Aligned Design:
+[`439c9c2005e1633c08afce07c7652b35b31647a3`](https://github.com/IzuSharp/Korda-Design/commit/439c9c2005e1633c08afce07c7652b35b31647a3).
+Final acceptance is pending required CI and actual source-bound measurement.
+
+[CI 45608927004](https://github.com/IzuSharp/Korda/actions/runs/45608927004)
+failed the shared Linux `dotnet format` gate: two files, 180 WHITESPACE diagnostics
+(173 `QueryCommand.Clauses.cs`, 7 `QueryCommand.cs`), formatter exit 2. Native and
+managed compilation succeeded with zero managed warnings/errors; independent
+provider jobs succeeded, but the aggregate result is a failure. Retain the
+[actual receipt](query-optimization/candidate-4ed20b09/ci-format-failure.json).
+Do not mark that attempt accepted or bypass the gate. The two-file correction is
+published in `4ed20b09`. The same SDK's repository-folder formatter and idempotence
+check pass, with identical non-whitespace character streams. The exact generated
+solution invocation was locally blocked by the Roslyn BuildHost Unix socket
+restriction; its required CI gate remains in force. See the
+[correction receipt](query-optimization/candidate-4ed20b09/formatting-followup.json).
+Normal [CI 45610610153](https://github.com/IzuSharp/Korda/actions/runs/45610610153)
+uses merge producer `8626e714534119909ff978c34d2af515bf10694c`, tree `1c95420b`.
+Plan passed/modules skipped; independent jobs were in progress when observed.
+Current exact-producer applications under the task's `final-local-v2` work area
+remain pending. Do not substitute the old SQLite diagnostic binaries.
+
+The [actual committed-diff plan](query-optimization/candidate-4ed20b09/ci-plan.json)
+selects interop, shared Linux and separate PostgreSQL/SQLite checks. `fluent.api`
+is selected by API-checker/reference edits. `database.compatibility` is absent
+because main's rename merge restored its verifier to byte equality with main;
+the [blob comparison](query-optimization/candidate-4ed20b09/ci-selection.json)
+explains the change from the initial plan. Benchmark paths remain owned, with
+zero execution modules/jobs. Keep Native AOT consumers directly on ordinary
+Linux runners; all performance work stays local Linux.
+
+Implemented candidate: one NWQC command with bit 26/three additive exports,
+22 clause operations/topological imports, typed owner sidecars, eager `.Prepare()`
+SQL/parameter-metadata compilation, bounded origin sharing across clone/CTE
+owners, and ShapeCache locking limited to LRU bookkeeping. Physical statement
+reuse and arbitrary build-time Fluent SQL generation remain unimplemented.
+Origin sharing preserves literal budgets and ownership; it does not deduplicate
+SQL placeholders. The direct/unseeded/seeded 9000-byte case is 6002/12004/6002
+retained literal bytes, with status 0/13/0 on both providers.
+
+Local component checkpoint: native query 926 checks/52 goldens in release and
+ASan/UBSan; Host review all; Binding AOT 137 assertions/13 cases including 53
+command-only assertions; two-provider Fluent AOT 1321 combined assertions;
+API/XML 221 symbols/13 typed consumers. Native C ABI 24 rejection cases and six
+zero owner counts pass. The [index and limitations](query-optimization/candidate-4ed20b09/README.md)
+retain exact hashes and distinguish runtime-tested behavior from later comment/XML
+edits. LSan remains blocked by the environment's ptrace restriction; it did not
+pass. These results are not final packaged-consumer or performance acceptance.
+
+Next work, in order:
+
+1. Observe the full existing formatter and required CI result at published
+   `4ed20b09`; its fetch/impact/check-index selection already passed. Keep the
+   prior failed attempt and its artifact identities separate.
+2. Bind the final PostgreSQL and SQLite packages and execute their actual external
+   Native AOT consumers. Three SQLite consumers built from the failed attempt's
+   CI artifacts remain diagnostic; local PostgreSQL final workload builds have
+   not started. These are distinct from the provider CI package consumers.
+3. Reuse the six prebuilt before/recovered phase/resource applications at their
+   recorded identities. They have not been measured. Build final equivalents
+   outside measurement windows, then stop competing builds for local comparison.
+4. Finish same-SQL ordinary Fluent / warm Prepare / same-Host SQL phase attribution
+   and resource checks, then the four local candidate/Dapper.AOT 1800-second cells.
+   All four cells currently have zero accepted effective seconds.
+5. Record complete metrics, remaining physical-statement/parameter/mapping gaps,
+   design consistency and the measured stopping reason. Preserve the historical
+   eight-cell record and acceptance/tool bytes unchanged.
+
 ## Current continuation — query optimization, 2026-11-25
 
 The owner resumed this task and explicitly clarified that performance tests run

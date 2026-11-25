@@ -1,0 +1,119 @@
+{
+  "task": "DB-Perf-01",
+  "kind": "observed_committed_diff_selection",
+  "published_product_commit": "4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9",
+  "local_equivalent_commit": "38c37783ce058a215c7f39d5d68ec5ae8eea8740",
+  "product_tree": "1c95420b34a2291e4b63fdc08caf32409a3eb4ee",
+  "base_main": "e063f2eb6e2e857e3f19f96bf263cae372651a27",
+  "actions": {
+    "interop": [
+      "interop.async"
+    ],
+    "linux": [
+      "database.native",
+      "database.build",
+      "database.api",
+      "database.dependencies",
+      "database.regressions",
+      "fluent.api"
+    ],
+    "postgresql": [
+      "postgresql.build",
+      "postgresql.dependencies",
+      "public.pack",
+      "postgresql.packed-api",
+      "postgresql.test",
+      "public.consume-aot",
+      "public.validate"
+    ],
+    "sqlite": [
+      "sqlite.build",
+      "public.pack",
+      "public.consume-aot",
+      "public.validate",
+      "sqlite.dependencies",
+      "sqlite.packed-api",
+      "sqlite.test"
+    ]
+  },
+  "build_scopes": [
+    "interop",
+    "linux",
+    "postgresql",
+    "sqlite"
+  ],
+  "packages": [
+    "postgresql",
+    "sqlite"
+  ],
+  "public_checks": [
+    "postgresql",
+    "sqlite"
+  ],
+  "benchmark_execution_modules": [],
+  "benchmark_jobs": [],
+  "releases": [],
+  "compatibility_selection": {
+    "selected": false,
+    "reason": "The main rename merge restored byte equality in the compatibility module; no compatibility-owned committed diff remains. No checker was manually disabled.",
+    "path": "tests/Verification.Compatibility/verify.py",
+    "recovered_blob": "2f1f6171f13d56ce7e3fb41e32afceb6c50faa3e",
+    "main_blob": "62da12f55c237fbfc6b7958de5d012ba58c3455b",
+    "candidate_blob": "62da12f55c237fbfc6b7958de5d012ba58c3455b"
+  },
+  "fluent_api_reasons": [
+    "src/Query.Fluent/api-reference.md",
+    "tests/Query.Fluent/ApiCheck/Program.cs"
+  ],
+  "plan_is_execution_evidence": false,
+  "previous_failed_ci": {
+    "url": "https://github.com/IzuSharp/Korda/actions/runs/45608927004",
+    "observed_by": "ci_review followed by local digest and complete-diagnostic recount",
+    "overall_passed": false,
+    "failed_scope": "linux",
+    "failed_step": "dotnet format artifacts/db-scope/database.slnx --verify-no-changes --no-restore",
+    "diagnostic": "WHITESPACE",
+    "files": [
+      "src/Query.Binding/QueryCommand.cs",
+      "src/Query.Binding/QueryCommand.Clauses.cs"
+    ],
+    "compile_warnings": 0,
+    "compile_errors": 0,
+    "provider_package_jobs": "passed and artifacts available; this does not pass shared Linux",
+    "follow_up": "exact-scope formatter correction and final source/package validation pending",
+    "job_id": 139187188128,
+    "formatter_exit_code": 2,
+    "diagnostic_counts": {
+      "src/Query.Binding/QueryCommand.Clauses.cs": {
+        "diagnostics": 173,
+        "codes": [
+          "WHITESPACE"
+        ]
+      },
+      "src/Query.Binding/QueryCommand.cs": {
+        "diagnostics": 7,
+        "codes": [
+          "WHITESPACE"
+        ]
+      }
+    },
+    "failure_receipt": "ci-format-failure.json"
+  },
+  "previous_plan": "ci-plan-dd990f23.json",
+  "current_ci": {
+    "run_id": 45610610153,
+    "url": "https://github.com/IzuSharp/Korda/actions/runs/45610610153",
+    "merge_producer": "8626e714534119909ff978c34d2af515bf10694c",
+    "parents": [
+      "e063f2eb6e2e857e3f19f96bf263cae372651a27",
+      "4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9"
+    ],
+    "tree": "1c95420b34a2291e4b63fdc08caf32409a3eb4ee",
+    "observed_status": "in_progress",
+    "plan": "success",
+    "modules": "skipped",
+    "independent_standard_jobs": "in_progress",
+    "final_result_claimed": false
+  },
+  "formatter_followup": "formatting-followup.json"
+}

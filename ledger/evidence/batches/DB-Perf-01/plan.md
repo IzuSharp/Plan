@@ -1,5 +1,163 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## Published implementation candidate — 2026-11-25, 4ed20b09
+
+**Resume from this checkpoint.** The lower continuation and diagnostics sections
+retain their earlier observations and pending-state wording. They do not override
+this later state. The current work remains in [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34), preserving C++ execution and
+the public C# Fluent API.
+
+The current published candidate is Korda
+[`4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9`](https://github.com/IzuSharp/Korda/commit/4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9),
+tree `1c95420b34a2291e4b63fdc08caf32409a3eb4ee`. It follows the implementation attempt
+[`dd990f2379c95bde25531de69f7b6f3be5aec3b0`](https://github.com/IzuSharp/Korda/commit/dd990f2379c95bde25531de69f7b6f3be5aec3b0),
+tree `2643545ab41562bebe6c8d1f1811da9d3ced5257`. The aligned Design candidate is
+[`439c9c2005e1633c08afce07c7652b35b31647a3`](https://github.com/IzuSharp/Korda-Design/commit/439c9c2005e1633c08afce07c7652b35b31647a3).
+The [checkpoint](query-optimization/candidate-4ed20b09/checkpoint.json) distinguishes
+published identities, local component observations and pending exact-package work.
+No final performance, merge or release acceptance is claimed.
+
+### Required CI failure and observed routing
+
+[CI run 45608927004](https://github.com/IzuSharp/Korda/actions/runs/45608927004)
+does **not** pass. Shared Linux reached the existing
+`dotnet format artifacts/db-scope/database.slnx --verify-no-changes --no-restore`
+gate after native and managed compilation, then the formatter returned 2.
+The complete formatter log contains exactly **180 WHITESPACE diagnostics**:
+173 in `QueryCommand.Clauses.cs` and 7 in `QueryCommand.cs`. Managed compilation
+has zero warnings and errors. The PostgreSQL/SQLite package jobs, interop and
+security jobs succeeded; their success does not replace the failed shared gate.
+Modules/publication skipped, and aggregate Verify failed. The
+[failure receipt](query-optimization/candidate-4ed20b09/ci-format-failure.json)
+retains the actual producer merge, job/artifact identities, complete-log hashes
+and independently recounted diagnostics. That failed attempt and its consumer
+artifacts remain diagnostic inputs; the existing gate was not weakened or bypassed.
+
+The follow-up `4ed20b09` changes only those two files through the same SDK 11.0.100
+whitespace formatter. Repository-folder formatting and its idempotence check both
+returned zero; an independent comparison confirms identical non-whitespace
+character streams. The exact generated-solution formatter invocation was blocked
+locally by Roslyn BuildHost's Unix socket permission error, so it is not recorded
+as a local pass. The [correction receipt](query-optimization/candidate-4ed20b09/formatting-followup.json)
+retains that limitation. Normal [CI 45610610153](https://github.com/IzuSharp/Korda/actions/runs/45610610153)
+has started with merge producer `8626e714534119909ff978c34d2af515bf10694c` and the
+same `1c95420b` tree. Plan passed and modules skipped; the ordinary independent
+jobs were in progress at this observation. The full required gate and final CI
+result remain pending. New exact-producer consumer preparation is also pending.
+
+The retained [actual plan](query-optimization/candidate-4ed20b09/ci-plan.json) was
+generated from the local equivalent tree against main
+`e063f2eb6e2e857e3f19f96bf263cae372651a27`. Its
+[selection explanation](query-optimization/candidate-4ed20b09/ci-selection.json)
+has four ordinary build scopes:
+
+| Scope | Selected checks and reason |
+| --- | --- |
+| `interop` | `interop.async` remains selected by the inherited async retirement/handle changes. |
+| `linux` | Native, managed build, database API, dependency and regression checks cover the shared query/Host changes. `fluent.api` is also selected because the compiled API checker and generated reference changed. |
+| `postgresql` | Build, dependencies, packed API, provider tests, pack, exact-package Native AOT consumption and metadata validation run on the existing independent provider runner. |
+| `sqlite` | Its own build/dependency/API/test/pack/AOT/metadata actions run independently and in parallel with PostgreSQL. |
+
+`database.compatibility` is absent for an explained committed-diff reason. The
+main rename merge restored `tests/Verification.Compatibility/verify.py` to the
+same Git blob as main, `62da12f55c237fbfc6b7958de5d012ba58c3455b`; the recovered
+starting head had blob `2f1f6171f13d56ce7e3fb41e32afceb6c50faa3e`.
+No compatibility-owned path remains changed and no checker was manually disabled.
+The separate API/reference edits select `fluent.api`. Both benchmark modules
+retain path ownership only: the plan has zero execution modules, module packages
+or custom run steps, and no benchmark jobs. Ordinary Native AOT consumers execute
+directly on the existing Linux runners. PR validation does not release; main still
+decides publication separately for each package's changed inputs.
+
+### Implemented candidate versus the initial gaps
+
+| Priority | Candidate state and evidence | Remaining work |
+| --- | --- | --- |
+| P0 CI isolation | Five task benchmark workflows and both module execution registrations were removed at `42f852c`; the current plan still selects only ordinary independent checks. The two-file formatter correction is published at `4ed20b09`. | Observe the actual full gate and required CI result at that head. Performance stays local Linux. |
+| P1 complete query | C# records a bounded NWQC command; C++ replays the existing operation inventory, including all 22 clause opcodes and topological subquery blocks. Typed model/plan/CTE sidecars are registry/source checked; bytes never contain native pointers. | Finish final exact-package and real-provider validation at the successful corrected head. There is no product fallback to per-node composition. |
+| P1 earlier fixed work | `.Prepare()` now finishes native SQL/argument compilation before returning. Immutable execution-parameter expectation, schema/hash and descriptor data are cached in the compiled plan. | Every execution still validates values and performs copies/encoding. The final measurement must show which remaining work matters. This is runtime preparation, not arbitrary build-time SQL generation. |
+| P1 origin and lifetime | Bounded origin bindings preserve shared scalar identity across clone/CTE compilation. Captures use owner leases, without a global literal pool or native owner cycle. | Retain capture/body-snapshot memory cost in measurements; do not call this SQL-placeholder deduplication. |
+| P1 contention | `ShapeCache` now locks its own lookup/LRU/counts/clear bookkeeping. Compilation/key calculation and per-call parameter parse/copy/encode are outside that mutex. Concurrent render/clear/evict tests pass. | Measure contention and queueing; local correctness is not a throughput or p99 result. Admission, retirement and per-row gates remain. |
+| P1 physical statements | Provider statement reuse remains unimplemented. SQLite still prepares/finalizes and PostgreSQL uses unnamed prepare/describe per command. | Any later cache must preserve schema/Describe error timing, transaction/session state, cancellation and drain/discard; never replay writes or unknown transactions to repair a cache. |
+| P1 phase attribution | Same-Host ordinary Fluent, warm Prepare and parameterized SQL probes exist; four v2 before/recovered applications and two before resource applications are built. | They are not measured at this checkpoint. Bind final candidate applications and measure construction, first row, remaining read and release under matched conditions. |
+| P2 mapping and generation | Existing allocation work and generated table/projection readers remain; no new fixed-query template generator is claimed. | Measure remaining batch/DTO allocation, GC, CPU and memory before another optimization; preserve optional generator work as a separate future item. |
+
+Review fixed several concrete semantic hazards before publication: aborted JOIN
+aliases no longer let invalidated deep expressions poison a later valid snapshot;
+window creation charges its native-equivalent expanded node; failed mutators do
+not intern validation shapes before quota admission; an Enter/Dispose race calls
+the common exit path so the last command lease is released. Snapshot import avoids
+a second complete clone. Shared subquery snapshots participate in first-capture
+coordination even when an individual record's reference count is one. The final
+tests cover disposal of original builders/owners followed by reuse of surviving
+snapshots and CTEs.
+
+The cross-CTE budget failure was reproduced, not inferred from timing. Under a
+9000-byte limit, a constructed but unused escaped LIKE literal retains 6002 bytes
+on the direct path. Independent replay without its origin binding retains 12004
+bytes and fails with status 13. The corrected seeded path succeeds with 6002
+bytes; both providers report owned bytes 7028 and expanded nodes 18. Independent
+equal values remain distinct, and an over-budget rejected import leaves the
+previous query usable. See the [failure](query-optimization/candidate-4ed20b09/origin-reproduction.log)
+and [actual differential counts](query-optimization/candidate-4ed20b09/native-correctness.json).
+This is ownership/value-budget preservation, not placeholder-count reduction.
+
+### Local correctness and exact evidence limits
+
+| Check | Actual observation |
+| --- | --- |
+| Native query | 926 checks and 52 SQL/ordered-argument goldens, combined across SQLite/PostgreSQL; release and ASan/UBSan pass. |
+| Native Host review | Existing `all` mode passes. Shared-cache tests use four render workers, three prepared shapes and a two-entry cache with concurrent clear/eviction. |
+| Native ABI/assets | 24 frozen C ABI rejection cases match with all six native owner counters zero. Both local ELF profiles have exactly 48 exports and maximum GLIBC 2.38. The 42 frozen declarations/fingerprint remain unchanged; three additive extension exports use capability bit 26. |
+| Binding Native AOT | 137 assertions in 13 cases, including 53 command-only assertions with direct composition exports unavailable; native owners/operations/buffers finish at zero. |
+| Real-provider Fluent Native AOT | 1321 combined assertions across both providers and 502 managed retirements, including dynamic filters, joins, CTEs, changing prepared values, streams and mutation/row-lock cases. |
+| Compiled public API/XML | Binding exposes zero public types and preserves 42 Cdecl calls; Fluent retains 221 exact symbols and 13 valid/negative typed-consumer checks. |
+
+The [evidence index](query-optimization/candidate-4ed20b09/evidence-index.json),
+[native results](query-optimization/candidate-4ed20b09/native-correctness.json),
+[binding result](query-optimization/candidate-4ed20b09/binding-result.json) and
+[Fluent correctness extraction](query-optimization/candidate-4ed20b09/fluent-correctness.json)
+bind the reported values to original result hashes and retained logs. Native files
+match both published trees. Managed runtime tests ran before final XML/comment/
+generated-guide-only edits; final product libraries and API/XML checks were rebuilt
+after those edits. The retained AOT executable is not relabeled as an exact build
+of the entire comment-final or later formatting tree. These are component observations, not
+final exact-package acceptance or a performance comparison.
+
+LeakSanitizer remains unverified. An earlier run completed 866 assertions and then
+LSan failed under the environment's ptrace restriction. The final ASan/UBSan pass
+used `detect_leaks=0`; no system restriction was changed. The
+[failure excerpt](query-optimization/candidate-4ed20b09/lsan-limitation-excerpts.log)
+is retained, and zero owner counters are not substituted for a leak-detector pass.
+
+Only checked synthetic outcomes, ABI/export metadata, selected result/log content,
+hashes and the requested CI plan are attached. The [publication note](query-optimization/candidate-4ed20b09/README.md)
+distinguishes exact copies from extractions. Broad source, restore, environment,
+command-line and binary archives are not copied into Plan.
+
+### Pending local measurement and acceptance
+
+[Prepared-application identities](query-optimization/candidate-4ed20b09/prepared-applications.json)
+record the six before/recovered phase/resource builds without claiming execution.
+Three SQLite mixed/phase/resource consumers were subsequently built from the
+failed `dd990f23` attempt's CI artifacts, then preparation stopped for the formatter correction;
+those remain diagnostic inputs. No local PostgreSQL mixed/phase/resource consumer
+build or performance measurement is credited to that attempt. Current `4ed20b09` exact-producer
+applications are pending. The earlier 560/560 mixed smoke belongs
+to its before/Dapper source identities and is not reassigned to the NWQC candidate.
+
+All four required local 1800-second cells remain **pending, 0 accepted effective
+seconds**: PostgreSQL candidate/Dapper.AOT and SQLite candidate/Dapper.AOT. First
+bind the corrected successful head and its independently verified packages, finish
+real-provider correctness, stop competing builds, and run the matched local short
+phase/resource comparisons. Then run the four uninterrupted segments sequentially
+on the same environment, reporting allocation, process-wide GC, CPU, memory,
+successful throughput, p99, failures and all actual source/package/binary identities.
+Final gaps and the stopping decision require these results. No historical
+acceptance, long-test credit or verifier is changed by this checkpoint.
+
 ## Current continuation: query optimization, 2026-11-25
 
 This continuation supersedes the execution location and long-test scope of the
