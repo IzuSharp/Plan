@@ -1,5 +1,20 @@
 # DB-Perf-01 — Linux database and Fluent ORM performance
 
+## SQLite long validated; PostgreSQL running — 2026-11-25, f0078da7
+
+Resume the [SQLite long checkpoint](query-optimization/sqlite-long-f0078da7/README.md).
+Both SQLite 1800-second cells are validated: **2/4** final cells complete.
+Candidate/Dapper achieved 490.39 / 13,712.35 ops/s, 33,855.12 / 7,080.69 B/op
+and 220.201 / 4.915 ms p99. GC per operation, RSS/PSS and the large remaining gap
+are retained. Dapper's zero application connections are not symmetric native-owner
+instrumentation. No final acceptance or parity is claimed.
+
+PostgreSQL coordinator **34628** started at **15:10:38 UTC**, Dapper then candidate,
+1800 seconds each. Both results remain pending here. The new immutable numeric
+archive was captured before that start: 68 results, three setups and three
+unobserved PG entries. Continue the existing run; finish all four result reviews,
+full input rehash and final Plan/Design alignment before final conclusions.
+
 ## Pre-long evidence complete; four long cells pending — 2026-11-25, f0078da7
 
 Resume the [pre-long checkpoint](query-optimization/prelong-f0078da7/README.md)

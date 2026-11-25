@@ -1,5 +1,23 @@
 # DB-Perf-01 — Linux handoff
 
+## Active checkpoint — SQLite long 2/4 validated; PG coordinator 34628
+
+Read [SQLite long evidence](query-optimization/sqlite-long-f0078da7/README.md)
+before the previous snapshots. Product/freeze remain f0078da7 / 46ef0947 /
+1e56f546, 16 apps / 926 files. Both SQLite routes completed their real 1800-second
+segments; state and numeric evidence retain all gaps and asymmetric owner scope.
+
+At **2026-11-25 15:10:38 UTC**, root started PostgreSQL session **34628**,
+Dapper 1800 seconds followed by candidate 1800 seconds. Inspect the existing
+coordinator and `/tmp/DB-Perf-01-measurements-v4/results` before starting anything;
+do not run parallel consumers, builds or heavy gates. PG result slots are pending.
+The archive's three PG `not_observed` entries reflect capture before launch.
+
+Keep both archives immutable, preserve earlier failures, and finish final input
+rehashing and Plan/Design review after all four cells. The temporary final draft
+must then adopt this checkpoint's actual published parent. No future final CI or
+performance acceptance is assigned by the pre-long CI success.
+
 ## Active checkpoint — f0078da7, phase/short/resource complete, SQLite long started
 
 Read [pre-long evidence](query-optimization/prelong-f0078da7/README.md), then
