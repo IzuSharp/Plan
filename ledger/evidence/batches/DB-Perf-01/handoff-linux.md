@@ -1,5 +1,237 @@
 # DB-Perf-01 — Linux handoff
 
+## Live continuation — 2026-11-25 00:01 UTC (08:01 Asia/Shanghai)
+
+Resume from the observed results in this section. The local execution environment
+became unavailable during the next isolated baseline build. Do not assume that a
+pending publish or local handoff write completed. The GitHub connector remains
+available, so this recovery checkpoint is being saved directly to the existing
+Plan branch; it contains conclusions and recovery references, not rejected raw logs.
+
+### Current product and actual package verification
+
+[Korda #37](https://github.com/IzuSharp/Korda/pull/37) remains draft at
+`db0f674f3849fa86f69d86eea2c830dc1c84da83`, tree
+`f2193bf688ce5460810d47be577cdddeadfde763`.
+[Normal CI 45511550343](https://github.com/IzuSharp/Korda/actions/runs/45511550343)
+completed successfully. The merge preserves both bounded projection scratch
+(`359b215`) and the separately delivered source-only continuation probe
+(`0410da7`). Actual package producer
+`3df4f4f3ac455cb8bae8901c80a4fefb33021970` has the same tree and was independently
+verified as a Git object; it is not relabeled as the branch commit. Both independent
+provider packages were downloaded, fully inventoried and consumed outside the
+source tree through ordinary PackageReference Native AOT. Public API/ABI are unchanged.
+
+| Provider | Actual nupkg SHA-256 | Actually loaded native SHA-256 |
+| --- | --- | --- |
+| PostgreSQL | `f4e8ddbbd154d513ba4f78f11ec99ff9973f49f87465899ba4183418134cb0b3` | `73f725104fb1bee5fc86a9bc371e556ea8358ac3a2d774c4823185e6da8984c6` |
+| SQLite | `2724680534384262e5a289e741da506a9ad40d4e37bc21c47ed14f77683feefc` | `970a8868290cec37c353bbd8e48bb7bf4ef18cfa1da9e495fc06d7eb08d71d40` |
+
+Independent direct-source scratch review passed, receipt SHA
+`0341a288e968528f79d42958370074dff2f1a9de4dcad95a9169561d93046554`.
+The normal B09 gate passed 25 commands (84 direct and 625 encoder assertions);
+normal Fluent passed 1,265 assertions on both real providers with Native AOT;
+the affected benchmark gate also passed. Failure receipts from earlier unsuccessful
+invocations remain preserved. Wide projection fallback and public owned encoding
+remain intact; borrowed stack storage is confined to a synchronous native call.
+
+### Allocation ownership and the new actual public comparison
+
+List/backing-array/DTO/string/typed-JSON objects are business-result allocation,
+including generated mapping. GC counts describe the shared process heap and are
+never split into framework GC and business GC. Whole-query totals include business,
+library, runtime and harness. Unknown attribution remains unknown. The separate
+7,480 B same-graph clone is not an exact allocation trace inside the real query and
+must not be subtracted as a precise framework total.
+
+The previously completed six-process internal encode-and-consume comparison and
+nine regression windows establish literal all-thread 0 B only for the measured
+fitting scratch-encoding paths. This operation constructs no business result.
+The 32-expression 4,266-byte frame retains 4,296 B/call and 128-field fallbacks
+retain 13,824/16,896 B. This does not establish zero allocation for a public query.
+
+Twelve interleaved scalar processes compare the unchanged actual prior `6f827`
+and new `3df4` consumers. Source/package/ELF/native identities, complete results,
+all-thread cumulative allocation arithmetic and final owner cleanup were checked.
+
+| Scalar public query | Before B/query | After B/query | Delta B/query |
+| --- | ---: | ---: | ---: |
+| PostgreSQL dynamic | 12182.145833 | 11051.395833 | -1130.750000 |
+| SQLite dynamic | 12157.833333 | 11056.666667 | -1101.166666 |
+| PostgreSQL prepared | 5191.125000 | 5176.187500 | -14.937500 |
+| SQLite prepared | 5188.125000 | 5184.375000 | -3.750000 |
+
+Prepared execution does not re-encode projections; its small changes remain
+unattributed. Two final scalar cells overlapped an unrelated List100 AOT compilation
+for about 8.1 seconds; the overlap is recorded. No CPU/latency/throughput acceptance
+is taken from these shared-host allocation diagnostics. Strict comparison SHA:
+`85ca9b24a186a10131c4a53aa5d06938d0a20b76f4338ffba57f1697c807cf3a`.
+
+Twelve additional List100 processes ran sequentially and interleaved before/after.
+Every result has 100 DTOs, list capacity 128, 80 strings, 20 nulls, 668 UTF-16
+characters and digest `12366612025187139697`. Each provider/lane measures
+1,152 queries and 115,200 rows.
+
+| Same business result | Before total B/query | After total B/query | Process GC 0/1/2 before → after |
+| --- | ---: | ---: | --- |
+| PostgreSQL | 22738.375000 | 21218.958333 | 6/0/0 → 6/0/0 |
+| SQLite | 22730.291667 | 21227.423611 | 6/0/0 → 6/0/0 |
+
+The independent graph control remains 7,480 B on its measuring thread. Additional
+whole-process bytes vary and remain in the records. Exact business allocation
+inside the real query and exact framework-only bytes remain unproved/null.
+Comparison SHA:
+`b31aa95528379617a7e8b7b9b3e068116cc591de113e3491bb159a716377e314`.
+
+Recovery artifacts under /home/agent/DB-Perf-01-artifacts/:
+`candidate-db0f674/`,
+`projection-scratch-public-allocation-db0-v1/`,
+`projection-scratch-public-allocation-interleaved-v1/`,
+`projection-scratch-business-results-db0-v1/`.
+All completed consumer/DB processes had exited and validation finished at
+23:57:41 UTC before the next baseline was started.
+
+### Original full four-column / two-provider matrix: 8/8 verified
+
+[Original campaign 45461269267](https://github.com/IzuSharp/Korda/actions/runs/45461269267)
+attempt 2 completed successfully at 23:52:07 UTC. Archive, unchanged-member delta
+and full independent `verify_current.py --require-eight-long` all passed.
+The verifier recomputes 241 observations, retaining 74 ordinary preflight SLO
+failures. There are **8 actual continuous 1,800-second segments, 14,400 effective
+seconds**, on the same admitted VM/boot with no overlap. Warmup, calibration,
+drain and idle are additional. All 35 mixed business cases ran; each long segment's
+planned/attempted/sent/started/completed/success counts match, with zero errors,
+rejections, retries and oracle failures.
+
+This complete historical matrix compares fixed before
+`771bc77cbd68d3f932b99ed2497c0697bbba5f02` with original after
+`3d5ba3f9884308caa691718f73a74aa42be19d94`. It cannot be relabeled as
+`2e9`, `6f827`, `3df4` or a later package. A complete matching final
+candidate matrix remains outstanding.
+
+| Original long metric | Direct C++ | Fixed before Korda | Original after Korda | Independent C# ORM |
+| --- | ---: | ---: | ---: | ---: |
+| SQLite success ops/s | 193.814379 | 193.813334 | 193.813870 | 193.814287 |
+| SQLite p50/p95/p99 ms | 0.101888/0.630784/1.376256 | 0.708608/21.102592/44.826624 | 0.696320/21.495808/46.923776 | 0.159744/0.991232/1.400832 |
+| SQLite CPU user/system s | 754.713448/6.862146 | 1102.856381/96.555582 | 1097.552831/96.379242 | 798.969268/10.759949 |
+| SQLite client CPU ms/success | 2.183003 | 3.438031 | 3.422323 | 2.321032 |
+| SQLite managed B/success | N/A | 68402.335636 | 47223.985324 | 7368.832824 |
+| SQLite process GC 0/1/2 | N/A | 1439/127/14 | 987/87/10 | 154/14/2 |
+| PostgreSQL success ops/s | 180.627184 | 180.627050 | 180.627047 | 180.627071 |
+| PostgreSQL p50/p95/p99 ms | 0.268288/0.966656/1.720320 | 1.064960/17.432576/32.112640 | 1.056768/17.039360/31.326208 | 0.387072/1.720320/2.375680 |
+| PostgreSQL CPU user/system s | 442.305458/10.032169 | 797.205778/172.250985 | 785.409011/171.127154 | 531.018909/28.219851 |
+| PostgreSQL client CPU ms/success | 1.391256 | 2.981760 | 2.942020 | 1.720052 |
+| PostgreSQL managed B/success | N/A | 69440.626951 | 47322.259042 | 6858.972088 |
+| PostgreSQL process GC 0/1/2 | N/A | 1362/120/14 | 922/81/9 | 133/23/2 |
+
+Each SQLite segment has 348,866 successes / 8,512,405 rows; each PostgreSQL
+segment has 325,129 successes / 7,933,200 rows. These fixed offered rates are not
+maximum-throughput claims. Old-after allocation changes are -30.961443% SQLite
+and -31.852201% PostgreSQL; CPU/success changes are -0.456881% and -1.332767%.
+The SQLite p99 regression +4.678363% remains recorded; PostgreSQL p99 is -2.448980%.
+Do not infer CPU or tail-latency gains merely from reduced allocations.
+
+All Korda six exported owner categories and direct C++ connection/statement/result
+categories drain to zero. The independent ORM proves application connection closure
+only, not all internal ownership. PostgreSQL server CPU/RSS/PSS is measured
+separately; all four service cgroups are empty after shutdown. SQLite engine costs
+remain inside the application process. Guest isolation is observed; physical-host
+exclusivity and physical network RTT are not established. SQL executions and
+protocol submissions remain separately recorded.
+
+The full matrix retains steady/peak/drained/idle RSS and PSS, idle CPU, actual
+package/ELF/native identities, result checks and all raw references. Native
+allocation has 16 separate short instrumented companions, not 148 profiles and
+not primary-long heap totals. The 148-second number is a configured time budget.
+Public glibc allocation instrumentation is not a complete address-space or
+PostgreSQL-server native-heap measurement. Original primary GC fields are actual
+generation differences; full start/end GC endpoints were not serialized.
+
+Final original checkpoint: artifact `14976622248`, 20,543,568 B, SHA
+`fe96228a5d9c40d873c405dd52c8609491af745c0af0d401350ccf23a09cd142`.
+Full independent result SHA:
+`6f840ea5b4c1d728749fd4e933a278907f131fa2714fec56e4019721e642f132`.
+Matrix SHA:
+`4f80495aa8e7c312de227931e0422e92ef6aa92c523d487914605dff84adbce3`.
+Recovery/audit/reproduction entry:
+`/workspace/scratch/37c4f8cc3a91/campaign-attempt5-long-checkpoint8/`.
+The original ZIP remains under
+`/home/agent/DB-Perf-01-artifacts/campaign-45461269267/checkpoint-8.zip`.
+
+### Exact interruption and continuation
+
+The next dynamic-empty-parameter experiment has **not modified production**.
+Prepared execution already caches its empty frame. Baseline v1 retained its
+240-second restore timeout and eight MSBuild named-pipe permission failures.
+Baseline v2 added an explicit single MSBuild node with no parallel restore/build
+server. Its offline restore actually passed at 23:58:03.755417–23:58:05.574694 UTC,
+log SHA `b618c14dd7dbdc5f92c53303dba05d7559f9188ac6510998914553178b59dfb4`.
+AOT publish session `25856` was still pending when the environment reported
+transport disconnection and became unavailable. No completed ELF or six-process
+baseline is claimed.
+
+Recovery: inspect `publish-1.json`, `publish-1.log`, published ELF and any raw
+results under `/home/agent/DB-Perf-01-artifacts/empty-parameters-baseline-v2/`
+before running anything. Do not blindly restart its exclusive-create total script.
+Runner SHA `32f6c11a34184387692765f7e8c7f2362ec76c6dd14d2cc2523b8b7b509d1b4a`.
+The Source-scoped private immutable-frame proposal remains conditional on the actual
+before baseline, preserving validation precedence, lazy execution and ownership.
+
+The separate Find same-SQL diagnostic has 13 source-only files under
+`/home/agent/DB-Perf-01-worktrees/Korda-find-sql-layer-DB-Perf-01-linux/benchmarks/db-perf/find-sql-layer/`.
+No AOT or query execution occurred. Its existing initializer Dataset.cs identity
+differs from the frozen current source and is deliberately rejected; inspect the
+actual diff or select a matching existing initializer before executing.
+
+The completed 36-cell runtime-spin diagnostic remains runtime sensitivity only.
+No production default was changed. Directly disabling retired continuation dispatch
+was withdrawn because actual callback exception handling and subsequent admission
+changed; the four source-only consumer files are preserved. Remaining ownership/
+native-cache/render/parameter-buffer hotspots are under source review; no claim is
+made that every further optimization has been excluded. The interrupted reviewer
+has not yet written its remaining-hotspots files.
+
+A new final campaign must freeze the actual final reviewed harness and actual
+normal-CI package producer, then use a separate request-only activation commit.
+The older full benchmark-tree gate must not be weakened. Preserve all existing
+successful measurements that match their binary/workload/environment. Do not merge
+or claim final acceptance/public preview before the remaining actual gates.
+
+### Existing raw-publication approval block
+
+Automatic approval rejected raw Plan upload batch 0003 because it includes runner,
+environment and failure-log metadata and the reviewer required more specific
+disclosure authorization. No later same-class raw upload, alternate transport,
+encoding or content-review verdict overrides this rejection. Original bytes and
+the refusal receipt remain local. This checkpoint contains no rejected raw payload.
+
+The blocked eleven files are under
+`ledger/evidence/batches/DB-Perf-01/checkpoints/campaign-image-recovery-v1/raw/campaign-attempt3/`:
+
+- ci-registration-index.log
+- ci-registration-publication.json
+- ci-registration-tooling-v2.log
+- ci-registration-tooling.log
+- image-pin-publication.json
+- image-pin-validation.json
+- measureAttempt1Log.decoded-original.log
+- measureAttempt1Log.json
+- measureAttempt2Log.decoded-original.log
+- measureAttempt2Log.json
+- prepareLog.decoded-original.log
+
+Exact scope/hash receipt:
+`/workspace/scratch/37c4f8cc3a91/remaining-binary-review-v1/supplement/blocked-0003-scope.json`,
+SHA `aecf0e5f56eb3dc4defbd422db88afa7b25447701c5304fdcfdc07f09c73210c`.
+Finish unaffected work and resolve this exact disclosure block before raw delivery.
+
+The full local Plan remains at `56289444cb1cb94d1d4ac16a83622102ed802fb3` as last
+observed. A local prefix-v11 write was interrupted and is unconfirmed. After recovery,
+integrate this prefix into the full history without resetting it to the thin public
+branch. Preserve schema-5 evidence, prior failures and both histories.
+
+---
+
 ## Live continuation — 2026-11-24 23:17 UTC (2026-11-25 07:17 Asia/Shanghai)
 
 Resume from actual receipts below, not from an earlier pending-state paragraph.
