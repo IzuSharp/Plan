@@ -1,3 +1,17 @@
+# Korda Plan
+
+The Design repository is now [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design), renamed from `IzuSharp/NativeWeave-Design`. Use the canonical name for current links, remotes and CI repository selection. This repository remains [IzuSharp/Plan](https://github.com/IzuSharp/Plan).
+
+## Repository maintenance and historical verification
+
+The owner has stopped DB-Perf-01. The current maintenance only updates references for the Design repository rename; the task instructions below are retained as history. Existing acceptance states, source commits, graphs, packets and evidence remain unchanged.
+
+New working checkouts can use sibling `Plan/` and `Korda-Design/` directories. Frozen verification tools still require the original `NativeWeave-Design/` directory and repository-qualified evidence keys. When reproducing those checks, check out the canonical `IzuSharp/Korda-Design` repository at the recorded commit into that historical directory name. The old name in a pinned input, review, log, archived command or historical tool is part of its provenance, not the current GitHub repository name.
+
+The [paired integrity workflow](.github/workflows/native-slices-final-check.yml) fetches Design from the canonical repository while retaining its historical checkout path and fixed source commit. It runs the unchanged DB-Perf-01 record and schema checks at Plan `38f8ce8a01f88e6e4c4459926f197c5438c2f6fc`, alongside the existing frozen DB-Rename-01, DB-CPP-01, DB-Scope-01 and research/design gates. These checks verify the historical snapshot's recorded incomplete state; they do not resume performance work or grant acceptance.
+
+## Prior task instructions (historical; original text preserved)
+
 # Current task — DB-Rename-01
 
 The owner authorizes renaming Korda's database attributes to natural `Db` names, preserving behavior, synchronizing current documentation, testing Linux x64 Native AOT consumers against both real databases, and pushing reviewable PRs. Read the [current plan](ledger/evidence/batches/DB-Rename-01/plan.md) and [handoff](ledger/evidence/batches/DB-Rename-01/handoff-linux.md). Use `task/DB-Rename-01-linux` and task-marked worktrees.

@@ -47,8 +47,16 @@ jobs:
           fetch-depth: 0
           path: Plan
           persist-credentials: false
-      - name: Verify current database performance scope and evidence integrity
-        working-directory: Plan
+      - name: Check out the immutable DB-Perf-01 record
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: IzuSharp/Plan
+          ref: 38f8ce8a01f88e6e4c4459926f197c5438c2f6fc
+          fetch-depth: 0
+          path: perf-history/Plan
+          persist-credentials: false
+      - name: Run the unchanged historical performance record gate
+        working-directory: perf-history/Plan
         run: python3 tools/verify_db_perf.py
       - name: Check out the immutable DB-Rename-01 input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -94,9 +102,10 @@ jobs:
       - name: Check out its immutable Design input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          repository: IzuSharp/NativeWeave-Design
+          repository: IzuSharp/Korda-Design
           ref: c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
           fetch-depth: 0
+          # Frozen tools and evidence keys require the original directory name.
           path: historical/NativeWeave-Design
           persist-credentials: false
       - name: Run every unchanged historical provenance and graph gate
@@ -125,8 +134,8 @@ jobs:
               jsonschema.Draft202012Validator(s).validate(json.loads(Path(k+'-graph.json').read_text()))
           print('PASS all three graph schemas')
           PY
-      - name: Validate the current performance acceptance schema
-        working-directory: Plan
+      - name: Validate the historical performance acceptance schema
+        working-directory: perf-history/Plan
         run: |
           python3 - <<'PYTHON'
           from pathlib import Path

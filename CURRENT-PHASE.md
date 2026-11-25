@@ -1,3 +1,9 @@
+# Current maintenance — Design repository references
+
+The Design repository is now [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design). The owner has stopped DB-Perf-01; this maintenance updates repository references and preserves all recorded task and acceptance states. See the [current repository and historical verification notes](README.md#repository-maintenance-and-historical-verification) for the canonical remote and the `NativeWeave-Design` alias required by frozen checks.
+
+## Prior phase instructions (historical; original text preserved)
+
 # Current task — DB-API-01
 
 The owner authorizes Korda's existing PostgreSQL/SQLite Fluent ORM experience enhancements on Linux x64, including implementation, tests, English documentation, pushes, PRs, normal merges and verification of repository-triggered publication. Read the [current plan](ledger/evidence/batches/DB-API-01/plan.md), [handoff](ledger/evidence/batches/DB-API-01/handoff-linux.md) and [acceptance](ledger/evidence/batches/DB-API-01/acceptance.json). `delivery-graph.json.current_execution` owns this batch. Use `task/DB-API-01-linux` and `.worktree/DB-API-01-linux/{Korda,NativeWeave-Design,Plan}`.
