@@ -1,0 +1,482 @@
+{
+  "scope": "Independent read-only PostgreSQL allocation receipt/source/hash audit; no build, test or consumer execution",
+  "scriptSha256": "8a7817dca29348dd59fa40fcc7e82c65b1353d09389491479944fa6454604f64",
+  "status": "passed",
+  "files": 9,
+  "totals": {
+    "windows": 63,
+    "operations": 16128,
+    "mapperCalls": 5918976,
+    "listConstructors": 16128,
+    "listAdds": 5918976
+  },
+  "timingCredit": false,
+  "frameworkOnlyBytes": null,
+  "gcScope": "Original process-wide GC.CollectionCount deltas in each measured window, matched exactly; not per-thread and not a reconstructed whole-lifetime total including setup/warmup gaps",
+  "resultOracleEvidence": "All sample counts and operations checked; completed hash-bound original source performs per-row Id/order/Note/null assertions before reporting success. JSON contains no independent per-row digest.",
+  "builds": {
+    "/workspace/scratch/4a65d70f0fe1/consumers/allocation-before-postgresql/out/allocation-build-receipt.json": {
+      "sha256": "8433805d2a8c29459176bd4deffa1b1583ad367e872d787eb2ea945092810dd1",
+      "executable": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-before-postgresql/out/DbPerf.QueryPhases",
+      "executableSha256": "c7834a16be64546333c728ffbcb1a1c97eb3386a62d8cf38b585cea152989968",
+      "generatedFilesVerified": 25,
+      "instrumentedSourceHashes": {
+        "BusinessAllocation.cs": "3cd87e22b476fac01bb3933b0c1949174d4c5816640189e76faf772e88a5923b",
+        "Program.cs": "ebf1253b908a371359dcf76a3c74855577599f4d2ece6e02e9539839b0a753ad"
+      }
+    },
+    "/workspace/scratch/4a65d70f0fe1/consumers/allocation-candidate-postgresql/out/allocation-build-receipt.json": {
+      "sha256": "c8aba4bc2c64632200fbdec7e1c8af68449ce3cdb7d6fb81f0493ec1efa20c24",
+      "executable": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-candidate-postgresql/out/DbPerf.QueryPhases",
+      "executableSha256": "bf46cb9bf331c62ea90c551372f21ad61768a466bb1967c5f065ea8d678d97d7",
+      "generatedFilesVerified": 25,
+      "instrumentedSourceHashes": {
+        "BusinessAllocation.cs": "3cd87e22b476fac01bb3933b0c1949174d4c5816640189e76faf772e88a5923b",
+        "Program.cs": "ebf1253b908a371359dcf76a3c74855577599f4d2ece6e02e9539839b0a753ad"
+      }
+    },
+    "/workspace/scratch/4a65d70f0fe1/consumers/allocation-dapper-postgresql/out/allocation-build-receipt.json": {
+      "sha256": "62e2d1228337a3bdd048a629816a83538b0843f0458d2a1ccc1d964ab4617746",
+      "executable": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-dapper-postgresql/out/DbPerf.DapperQueryPhases",
+      "executableSha256": "8985f08ca835c1f3027d486b8eac79e4309692db723d66cbd304ca9f0658ba00",
+      "generatedFilesVerified": 21,
+      "instrumentedSourceHashes": {
+        "BusinessAllocation.cs": "3cd87e22b476fac01bb3933b0c1949174d4c5816640189e76faf772e88a5923b",
+        "Driver.cs": "0c7b1c0513afadf81892f01177faafd980920db250c3a88d742b2f1ce7dcd57f",
+        "Options.cs": "c6c3fec47441df8242d32ae38ebb8979742bcd6c398f2bf9e66958c9a5adedb8",
+        "PhaseProbe.cs": "566eb350b596df2d4de59faf645a9e6c4462d82e1a1f98d47a8655c0201a26be",
+        "Program.cs": "fe065e7a1a0dbdf0a6a83774af138367b9117ef11fdd9ef9ad5a11e3c4142318",
+        "Records.cs": "3b77b5ee2a0dcd6241689396a7e016775638171c9c49e05b232f4fe5ed657f66"
+      }
+    }
+  },
+  "oracleSources": [
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-before-postgresql/Program.cs",
+      "sha256": "ebf1253b908a371359dcf76a3c74855577599f4d2ece6e02e9539839b0a753ad",
+      "checks": [
+        "exact full count",
+        "Id ascending position",
+        "tenant-specific Note",
+        "every fifth Note is null"
+      ]
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-candidate-postgresql/Program.cs",
+      "sha256": "ebf1253b908a371359dcf76a3c74855577599f4d2ece6e02e9539839b0a753ad",
+      "checks": [
+        "exact full count",
+        "Id ascending position",
+        "tenant-specific Note",
+        "every fifth Note is null"
+      ]
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/allocation-dapper-postgresql/PhaseProbe.cs",
+      "sha256": "566eb350b596df2d4de59faf645a9e6c4462d82e1a1f98d47a8655c0201a26be",
+      "checks": [
+        "exact full count",
+        "Id ascending position",
+        "tenant-specific Note",
+        "every fifth Note is null"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows1.json.allocation.json",
+      "sha256": "314a524e3ec77a4fb5daaabdf8522139db33b2e5a3b26267bf72842958c9cf8e",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows1.json",
+      "baseReceiptSha256": "a5349229ee0228e06e1cb72e1fc9d9d70d13f61eb5cff2973e8a66e47d5c7d92",
+      "family": "before",
+      "rows": 1,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 17230688,
+          "ProcessGen0": 7,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 4612864,
+          "ProcessGen0": 3,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 8341144,
+          "ProcessGen0": 4,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows100.json.allocation.json",
+      "sha256": "8b0a9b1232e0635c92316e13f0cfc50f66f25ada96e7104dfe9ee9792623ddec",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows100.json",
+      "baseReceiptSha256": "2540928f79ffdaff283ec1ed9105af3815ae5839647df02a8d7b5d2841099d5c",
+      "family": "before",
+      "rows": 100,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 23826672,
+          "ProcessGen0": 10,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 11285736,
+          "ProcessGen0": 6,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 15042312,
+          "ProcessGen0": 8,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows1000.json.allocation.json",
+      "sha256": "3ce53c46c5d5639d2b759a9e68c1aa1496377af388deb55e675d583a17e8631f",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/before-rows1000.json",
+      "baseReceiptSha256": "45abb0c563a56921e15ad61e42855155ff1801324a0358afb598555f2feeb927",
+      "family": "before",
+      "rows": 1000,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 89199184,
+          "ProcessGen0": 41,
+          "ProcessGen1": 3,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 76636408,
+          "ProcessGen0": 36,
+          "ProcessGen1": 2,
+          "ProcessGen2": 1
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 80585720,
+          "ProcessGen0": 40,
+          "ProcessGen1": 3,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows1.json.allocation.json",
+      "sha256": "38961d2ddbff37afb3be4a6f2e19289be32eaa55f6582082ff218b430d99e6f7",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows1.json",
+      "baseReceiptSha256": "7eeb980a03bb5d0cc5bd12616b2480834c28c19362642b074f7432a5cd7c8850",
+      "family": "candidate",
+      "rows": 1,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 15468432,
+          "ProcessGen0": 6,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 2494608,
+          "ProcessGen0": 1,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 6810544,
+          "ProcessGen0": 3,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows100.json.allocation.json",
+      "sha256": "f15f172a4f40fd0fe5e33ee2cfe0cda3e93becca3ffce1a22b23e7332b662abb",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows100.json",
+      "baseReceiptSha256": "63232c08782ecaac5eab8de33ceadbc6eb4be54bf9c3621e715abca6ee36cc4d",
+      "family": "candidate",
+      "rows": 100,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 20825664,
+          "ProcessGen0": 9,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 7896720,
+          "ProcessGen0": 4,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 12058032,
+          "ProcessGen0": 6,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows1000.json.allocation.json",
+      "sha256": "28142e43877d09bd6fc3accbead4688058d174708d8ee842ddf960ec2fa39a65",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/candidate-rows1000.json",
+      "baseReceiptSha256": "e66232a4451a7f1c843ca4c3d428926cb6502c29444311e9cafb7dc35949cd72",
+      "family": "candidate",
+      "rows": 1000,
+      "routes": {
+        "fluent": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 75243264,
+          "ProcessGen0": 36,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "prepared": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 62302600,
+          "ProcessGen0": 30,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        },
+        "host-sql": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53575680,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59762688,
+          "ProcessAllocatedBytes": 66670888,
+          "ProcessGen0": 31,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows1.json.allocation.json",
+      "sha256": "fa87daeb831804d0d3d077d3c5a0b1e1d0c9b443150ee394e8901d6251ab65d0",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows1.json",
+      "baseReceiptSha256": "a74794dddd813ec61fe799579a9d4fac651310df4d81ad713dddccb323203064",
+      "family": "dapper",
+      "rows": 1,
+      "routes": {
+        "dapper-aot": {
+          "Operations": 768,
+          "MapperCalls": 768,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768,
+          "MapperBytes": 55296,
+          "ListConstructorBytes": 49152,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 104448,
+          "ProcessAllocatedBytes": 1622616,
+          "ProcessGen0": 1,
+          "ProcessGen1": 0,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows100.json.allocation.json",
+      "sha256": "e259571596d422d9459cc78c27019d32d4c50e09dc67bf6f621ca086534431f3",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows100.json",
+      "baseReceiptSha256": "dda596626008a0f25fd0517569b6ed8f21e9eaf52c21c0e0e4c959222b0066c8",
+      "family": "dapper",
+      "rows": 100,
+      "routes": {
+        "dapper-aot": {
+          "Operations": 768,
+          "MapperCalls": 76800,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 76800,
+          "MapperBytes": 4915200,
+          "ListConstructorBytes": 657408,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 5572608,
+          "ProcessAllocatedBytes": 7100568,
+          "ProcessGen0": 2,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    },
+    {
+      "file": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows1000.json.allocation.json",
+      "sha256": "f67394b9314f9a2d98fe41f14131acae848f778fafadf89aa96c3b23febfd25e",
+      "baseReceipt": "/workspace/scratch/4a65d70f0fe1/measurements/allocation-postgresql-01/dapper-rows1000.json",
+      "baseReceiptSha256": "a6f3a6cf91cbb8c6021d1bc32360326034f50f37143f772d5fb1a9d489856427",
+      "family": "dapper",
+      "rows": 1000,
+      "routes": {
+        "dapper-aot": {
+          "Operations": 768,
+          "MapperCalls": 768000,
+          "ListConstructorCalls": 768,
+          "ListAddCalls": 768000,
+          "MapperBytes": 53634120,
+          "ListConstructorBytes": 6187008,
+          "ListAddBytes": 0,
+          "ObservedMapperAndListBytes": 59821128,
+          "ProcessAllocatedBytes": 61471456,
+          "ProcessGen0": 27,
+          "ProcessGen1": 1,
+          "ProcessGen2": 0
+        }
+      },
+      "allDeclaredInvariantsPassed": true
+    }
+  ],
+  "postgresAllocationRead": true,
+  "sqliteReportUnchanged": true
+}

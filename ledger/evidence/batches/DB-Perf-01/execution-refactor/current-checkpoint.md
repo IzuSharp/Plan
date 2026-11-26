@@ -1,3 +1,41 @@
+> **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
+
+# Continuation 3 — final public source frozen
+
+The final published implementation is [0f3816c4](https://github.com/IzuSharp/Korda/commit/0f3816c4006488821f40afde91bbbd717d57ccd6),
+tree `9935773d28b3043618285cf0ecd5c476539b2f8c`, identical to reviewed local
+`6da0074513d9cb1ff9f13748b058211ec706f230`. Read
+[continuation-3/README.md](continuation-3/README.md),
+[final parity](continuation-3/source-parity-final.json) and source-bound receipts.
+The prior scratch workspace is absent; the missing channel was reconstructed
+on ada28311. Ordinary, relation and CRUD streams use lazy native channels and
+stable scoped spans. Per-batch generic operations and obsolete wrappers are
+removed. Primary-error and refused-scheduler corrections/tests are included.
+
+The final source's [CI45734731584](https://github.com/IzuSharp/Korda/actions/runs/45734731584)
+is successful: Linux, interop, both independent providers, security and Verify
+passed; modules/publish were skipped. The earlier e0 CI is retained separately.
+Both final native producer profiles completed with exit0, both local packages
+and four ordinary candidate consumers were built. Those build receipts do not
+relabel the isolated development suites as one final local package execution.
+Final long credit is **0/4**; no final timing gain, framework-zero allocation,
+merge or publication is inferred from these gates.
+
+The workspace is `/workspace/scratch/4a65d70f0fe1`. Its `tools/task-env.sh`
+selects the hash-verified toolchain. The 12 ordinary consumer source sets,
+including actual generated C#, are preserved in
+[consumer-inputs.tar.gz](continuation-3/consumer-inputs.tar.gz) with an external
+[manifest](continuation-3/consumer-inputs.manifest.json). Build-only processor/
+compiler settings must not be applied to measurement processes. Product
+editing uses task worktrees; GitHub updates use expected-head fast-forwards.
+Keep the fetched public product/package identity distinct from local-only
+diagnostic tool repairs. Continue with separately recorded local measurements
+and the required four serial1800-second candidate/Dapper cells.
+
+---
+
+## Previous checkpoint retained below
+
 # DB-Exec-02 current checkpoint — 2026-11-26 Asia/Shanghai
 
 This is an in-progress checkpoint, not final acceptance. Continue the user-authorized complete refactor, local measurements, review, normal merge and existing release verification. Current candidate long cells remain **0/4**.

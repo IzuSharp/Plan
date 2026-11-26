@@ -1,3 +1,17 @@
+> **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
+
+# Latest continuation — public0f3816c frozen
+
+The [current checkpoint](current-checkpoint.md) and [continuation-3 record](continuation-3/README.md)
+supersede the older pending-channel status below. Final public0f3816c is
+tree-identical to reviewed local6da0074; both native profiles and external
+candidate consumers are built. Its existing CI45734731584 passed all selected
+checks, including independent provider scopes. Development checks retain their
+original stage identities. Final local long-test credit remains **0/4**;
+performance acceptance and normal merge/release remain pending.
+
+---
+
 # DB-Exec-02 — complete database execution-path refactor
 
 Status: **candidate B measured; follow-up corrections published; cursor pull-channel refactor in progress; no final acceptance**. Use the [current checkpoint](current-checkpoint.md) for executed evidence and the selected next action.

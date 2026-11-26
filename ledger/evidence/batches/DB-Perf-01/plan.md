@@ -1,3 +1,20 @@
+> **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](execution-refactor/continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
+
+# Latest execution-path continuation — frozen public source
+
+Continue from [the current checkpoint](execution-refactor/current-checkpoint.md)
+and [continuation-3 evidence](execution-refactor/continuation-3/README.md).
+The final product source is [0f3816c4](https://github.com/IzuSharp/Korda/commit/0f3816c4006488821f40afde91bbbd717d57ccd6),
+tree `9935773d28b3043618285cf0ecd5c476539b2f8c`; reviewed local6da0074 has the same
+tree. Both native profiles and ordinary external candidate consumers are built.
+The final source's existing [CI45734731584](https://github.com/IzuSharp/Korda/actions/runs/45734731584)
+passed, including both independent providers. Isolated development checks keep
+their original identities. Final local long-test credit is **0/4**; measurement,
+merge and release acceptance remain separate. Earlier pending-channel and
+missing-workspace statements below are historical.
+
+---
+
 # Current continuation — DB-Exec-02 complete execution-path refactor
 
 Status: candidate B measured; follow-up corrections published; cursor pull-channel replacement in progress; no final refactor acceptance. The [current checkpoint](execution-refactor/current-checkpoint.md) records actual source, failures, tests and measurements.

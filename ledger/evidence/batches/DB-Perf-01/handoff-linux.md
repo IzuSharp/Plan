@@ -1,3 +1,20 @@
+> **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](execution-refactor/continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
+
+# Latest execution-path continuation — frozen public source
+
+Continue from [the current checkpoint](execution-refactor/current-checkpoint.md)
+and [continuation-3 evidence](execution-refactor/continuation-3/README.md).
+The final product source is [0f3816c4](https://github.com/IzuSharp/Korda/commit/0f3816c4006488821f40afde91bbbd717d57ccd6),
+tree `9935773d28b3043618285cf0ecd5c476539b2f8c`; reviewed local6da0074 has the same
+tree. Both native profiles and ordinary external candidate consumers are built.
+The final source's existing [CI45734731584](https://github.com/IzuSharp/Korda/actions/runs/45734731584)
+passed, including both independent providers. Isolated development checks keep
+their original identities. Final local long-test credit is **0/4**; measurement,
+merge and release acceptance remain separate. Earlier pending-channel and
+missing-workspace statements below are historical.
+
+---
+
 # DB-Exec-02 current in-progress checkpoint
 
 Continue from [execution-refactor/current-checkpoint.md](execution-refactor/current-checkpoint.md) and [the current execution plan](execution-refactor/README.md). Candidate B remains the frozen measured input. The transaction thread-tail correction, private query-arena transfer, occupied-slot scan and CI correctness separation are published in product `ada28311`; their isolated validation and all failed attempts are retained. Three scheduling experiments are complete and motivate the cursor pull-channel replacement now in progress. This refactor has **0/4 final long cells** and no merge/release acceptance yet. Older stop and environment-missing records below are historical.

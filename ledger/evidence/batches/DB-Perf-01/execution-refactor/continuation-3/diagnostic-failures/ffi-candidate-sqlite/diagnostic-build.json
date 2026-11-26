@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "diagnostic": "actual-managed-to-native-ABI-counts",
+  "timingCredit": false,
+  "allocationCredit": false,
+  "sourceConsumer": "/workspace/scratch/4a65d70f0fe1/consumers/candidate-sqlite-phases",
+  "sourceReceiptSha256": "e74ae8f620c6c821ea88c49b63b2e9c80a1cee0d978005c299e790cc999e915e",
+  "sourceExecutableSha256": "4f8d4b8dd5b6fa234432b3f470938f53bb493d86d4e8b8c98d770d6d1cba67db",
+  "sourcePackageSha256": "263dc206fab5f6076c300c8c14c86ea95f53b36eca7480743583bc2abff6f63d",
+  "sourceNativeImages": {
+    "libnw_database_sqlite.so": "139512bac39ce301c5bddc5af8eaa6e8adfc6a1d11d7469411d4432270992d9c"
+  },
+  "symbols": [
+    "nw_db_operation_start_v1",
+    "nw_db_operation_request_cancel_v1",
+    "nw_db_operation_take_owner_v1",
+    "nw_db_operation_take_buffer_v1",
+    "nw_db_operation_take_count_v1",
+    "nw_db_operation_take_error_v1",
+    "nw_db_operation_try_retire_v1",
+    "nw_db_operation_release_v1",
+    "nw_db_source_create_v1",
+    "nw_db_session_open_create_v1",
+    "nw_db_codec_register_v1",
+    "nw_db_metadata_register_v1",
+    "nw_db_projection_register_v1",
+    "nw_db_relation_register_v1",
+    "nw_db_relation_load_create_v1",
+    "nw_db_query_create_v1",
+    "nw_db_expr_column_v1",
+    "nw_db_expr_value_v1",
+    "nw_db_expr_parameter_v1",
+    "nw_db_expr_binary_v1",
+    "nw_db_expr_unary_v1",
+    "nw_db_expr_list_v1",
+    "nw_db_query_import_v1",
+    "nw_db_query_clause_v1",
+    "nw_db_query_seal_v1",
+    "nw_db_query_clone_v1",
+    "nw_db_query_render_v1",
+    "nw_db_cte_create_v1",
+    "nw_db_execute_create_v1",
+    "nw_db_sql_create_v1",
+    "nw_db_cursor_fetch_create_v1",
+    "nw_db_tx_begin_create_v1",
+    "nw_db_tx_finish_create_v1",
+    "nw_db_savepoint_create_v1",
+    "nw_db_savepoint_action_create_v1",
+    "nw_db_mutation_create_v1",
+    "nw_db_admin_create_v1",
+    "nw_db_close_create_v1",
+    "nw_db_snapshot_v1",
+    "nw_db_owner_release_v1",
+    "nw_db_buffer_view_v1",
+    "nw_db_buffer_release_v1",
+    "nw_db_query_command_compile_v1",
+    "nw_db_query_command_render_v1",
+    "nw_db_query_command_cte_v1",
+    "nw_db_cursor_pull_create_v1",
+    "nw_db_cursor_pull_relation_create_v1",
+    "nw_db_cursor_pull_mutation_create_v1",
+    "nw_db_cursor_pull_request_v1",
+    "nw_db_cursor_pull_take_v1",
+    "nw_db_cursor_pull_take_error_v1",
+    "nw_db_cursor_pull_check_read_v1",
+    "nw_db_cursor_pull_stop_v1"
+  ],
+  "scope": "Resolved nw_db_* calls and their Pending returns. Provider-originated poll calls are OS waits, not physical RTT or counts of mandatory protocol replies. Native-to-managed notifications are not intercepted.",
+  "inventories": {
+    "native/database/binding/signatures-v1.json": "67e6c5480220dde85e4e36f0a1f09f9fcc4084666f2ec7fc389e53f35b9b747d",
+    "native/database/binding/query-command-v1.json": "d54178eadfc3777f1fd6afc3b6c682db94ebc6a48d82e37998b5581e23080c09",
+    "native/database/binding/cursor-pull-v1.json": "f47eb12496d5cd792fe26f92d03182d40cfdcaaf55432e7230608ea84a4b1423"
+  },
+  "tools": {
+    "build.py": "26cef9bdd86358ec22b71499e5c77afa6f0a0a218cdcadf6a7dd9ea302d89584",
+    "probe.c.in": "e43657965d620f7a05ae24c9a72c5d789cb65cfa7bcc57494cb6246608fbdffd"
+  },
+  "compilerSha256": "2033aa32d783adec2a3d30a5d9229b60d9a7594ad73e19e87c3fd2b5ed21a9c2",
+  "commands": [
+    {
+      "label": "shim",
+      "argv": [
+        "/workspace/scratch/4a65d70f0fe1/tools/locked/llvm-23.1.5/bin/clang-23",
+        "-std=c17",
+        "-O2",
+        "-g",
+        "-fPIC",
+        "-shared",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-02-candidate-0f3816c/native/database/binding",
+        "/workspace/scratch/4a65d70f0fe1/consumers/ffi-candidate-sqlite/probe.c",
+        "-ldl",
+        "-o",
+        "/workspace/scratch/4a65d70f0fe1/consumers/ffi-candidate-sqlite/out/libcursor_probe.so"
+      ],
+      "exitCode": 1,
+      "logSha256": "d0cf13364c42c42bebc9d83bda42589f16dee79712ae8c0a1ebd5f322f3a6a1b"
+    }
+  ],
+  "inputSources": {
+    "Program.cs": "c3ae71fc50c450912b75ec443c288381a1151e635612b6d947c04de8580d21c2"
+  },
+  "overlaySources": {
+    "FfiProbe.cs": "25e7d713d74f882ce977538340351d97ee3e40ecab8bff4c3ac192c2849dda13",
+    "Program.cs": "6af26274a9a63a949d613fed14c20d6d321bbcf2a524e2e1cf43f7982763b639"
+  },
+  "outputs": {},
+  "runEnvironment": {
+    "LD_PRELOAD": "/workspace/scratch/4a65d70f0fe1/consumers/ffi-candidate-sqlite/out/libcursor_probe.so"
+  },
+  "nativeImagesUnchanged": false
+}

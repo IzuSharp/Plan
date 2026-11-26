@@ -1,0 +1,203 @@
+{
+  "scope": "development correctness only; no performance, package, or final frozen-source acceptance",
+  "testCommits": [
+    "089ef3c0a751c5ba3366e53cd944c24017415e57",
+    "f5b7b584e68cc836d2f02c92756a7dd7fbdde068"
+  ],
+  "nativeHostSuccessfulSourceHead": "f5b7b584e68cc836d2f02c92756a7dd7fbdde068",
+  "managedProductIncludes": [
+    "a7ac3fa",
+    "8a72ee0",
+    "8ff7a1c",
+    "5cf8343",
+    "b461c99"
+  ],
+  "managedProductExcludesAtTestTime": [
+    "fac1b55"
+  ],
+  "nativeSourceHeadAtReceipt": "6e3d2dfb37f5d30cc78c7d6cde7fbf3e6096a9ef",
+  "streamingSourceNote": "First Streaming AOT compilation used the migrated test working tree before final whitespace formatting and two assertion-message wording corrections. All behavioral code is in 089ef3c; final integrated-source gates remain required.",
+  "results": {
+    "streaming": {
+      "nativeAot": true,
+      "providers": [
+        "SQLite",
+        "PostgreSQL 18"
+      ],
+      "cases": 60,
+      "mainAssertions": 615,
+      "additionalAssertions": {
+        "borrowed": 19,
+        "races": 118,
+        "scopedCorrectness": 276,
+        "stableOwner": 30,
+        "rowLeaseReuse": 290
+      },
+      "nativeScratchLiveBytes": 0,
+      "nativeWrappers": 0
+    },
+    "nativeHost": {
+      "nativeAot": true,
+      "recordAssertions": 42,
+      "heldMapperCases": 32,
+      "publicFetchCases": 12,
+      "parentTransactionCases": 12,
+      "mainAssertions": 590,
+      "observedGenericRetirements": 148,
+      "zeroNativeOwnerCounterIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8
+      ]
+    }
+  },
+  "retainedFailure": {
+    "path": "nativehost-pull-01/providers/consumer.log",
+    "stage": "SQLite 100 rows after 0/1/32/64 passed",
+    "reason": "New test incorrectly required exactly one final generic close. Existing CloseController can skip it after the new pull snapshot proves both worker fence and cursor cleanup quiet. Corrected test requires no generic retirement while delivering rows, zero or one final close, exact request/take/publication count, and one SQL execution. Native and managed source owners confirmed this contract."
+  },
+  "artifacts": [
+    {
+      "path": "streaming-scoped-01/aot/Korda.Data.Streaming.Tests",
+      "bytes": 4074864,
+      "sha256": "89aa18ad0462f471279443904a75688650bce9deecf23d381a948687819b47c3"
+    },
+    {
+      "path": "streaming-scoped-01/providers-run.log",
+      "bytes": 7287,
+      "sha256": "98112ba4b962280b52a8d4fae3a340682f5d1f7dfcc15739a6674296ee590cae"
+    },
+    {
+      "path": "streaming-scoped-01/providers/consumer.log",
+      "bytes": 7286,
+      "sha256": "5c53ee983de1b9e9428b112d0270e51f2a33c8f5637017e6674afe2107762be4"
+    },
+    {
+      "path": "streaming-scoped-01/publish.log",
+      "bytes": 829,
+      "sha256": "62c74895c6ea1187bd5c03817bca058bf443825010fb8a3a48487db7bd2b6f5e"
+    },
+    {
+      "path": "nativehost-pull-01/aot/Korda.Data.NativeHost.Tests",
+      "bytes": 4957040,
+      "sha256": "ecd04ea8b6d449617d005d4fa3f75a57d32263d78d9a59c86864e6587f908470"
+    },
+    {
+      "path": "nativehost-pull-01/aot/runtimes/linux-x64/native/libnw_database_sqlite.so",
+      "bytes": 3967208,
+      "sha256": "b28a15b7fb91cf2fa1a9fc07334502462e9bcdbf9bc93a3de0d707bd4388c1c0"
+    },
+    {
+      "path": "nativehost-pull-01/aot/runtimes/linux-x64/native/libnw_database_postgresql.so",
+      "bytes": 3111144,
+      "sha256": "92bab28ea9046360b0ac282f57b88ea9591ebee324544b923eec0752224a7c2f"
+    },
+    {
+      "path": "nativehost-pull-01/providers/consumer.log",
+      "bytes": 14535,
+      "sha256": "f93db5e25c980641111e62f2d52895a9bb4f94dbb16441ddf5f0a5e756a71f8f"
+    },
+    {
+      "path": "nativehost-pull-01/providers-close-contract/consumer.log",
+      "bytes": 16797,
+      "sha256": "d6681f2e5d2bd45cfd66d7585b1cf7ef77a0d6bc9f2ad42f28698358883c915b"
+    },
+    {
+      "path": "nativehost-pull-01/publish-close-contract.log",
+      "bytes": 2103,
+      "sha256": "b72d89b97ab3d4333a3c675d62efeff58cf7a233eb6636f1111e1d65316495c0"
+    }
+  ],
+  "runnerSources": {
+    "tests/Data.NativeHost/run.py": "7c0309be3b5db315729fa38000cb37b9b678d945e09a99bcddb97cf435fa5b96",
+    "tests/Data.Streaming/verify.py": "9081ca20be7fade2326bbff8d953a9ab7dcf3f5b0fc7c5c3ee1cb32eb890a6d8",
+    "tests/Data.Streaming/Korda.Data.Streaming.Tests.csproj": "6fcd370b3ff54e1c2bf4a443da1e2162d26d306ee2fbd8afa2cde707fb519741",
+    "tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj": "0c93dbbcf9ef88af3c7ed8c77c0c4982ee8cfc3ea222a02df937f44654dfdf10"
+  },
+  "commandEnvironment": {
+    "source": "/workspace/scratch/4a65d70f0fe1/tools/task-env.sh",
+    "DOTNET_PROCESSOR_COUNT": "1",
+    "workingDirectory": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-02-validation"
+  },
+  "commands": [
+    {
+      "name": "streaming-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "tests/Data.Streaming/Korda.Data.Streaming.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:RestoreLockedMode=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-o",
+        "/workspace/scratch/4a65d70f0fe1/validation-evidence/streaming-scoped-01/aot"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "streaming-real-providers",
+      "command": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin",
+        "--output",
+        "/workspace/scratch/4a65d70f0fe1/validation-evidence/streaming-scoped-01/providers",
+        "--",
+        "bash",
+        "-c",
+        "export KORDA_TEST_POSTGRES_URL=\"$NW_TEST_POSTGRES\"; exec /workspace/scratch/4a65d70f0fe1/validation-evidence/streaming-scoped-01/aot/Korda.Data.Streaming.Tests /workspace/scratch/4a65d70f0fe1/validation-evidence/streaming-scoped-01/results --require-aot --correctness-only"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-02-native-pull/artifacts/cmake/linux-x64-release/fixtures"
+      },
+      "exitCode": 0
+    },
+    {
+      "name": "nativehost-publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:RestoreLockedMode=true",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:KordaSqliteAssetPath=/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-02-native-pull/artifacts/cmake/linux-x64-release/libnw_database_sqlite.so",
+        "-p:KordaPostgresAssetPath=/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-02-native-pull/artifacts/cmake/linux-x64-release/libnw_database_postgresql.so",
+        "-o",
+        "/workspace/scratch/4a65d70f0fe1/validation-evidence/nativehost-pull-01/aot"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "nativehost-real-providers-close-contract",
+      "command": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin",
+        "--output",
+        "/workspace/scratch/4a65d70f0fe1/validation-evidence/nativehost-pull-01/providers-close-contract",
+        "--",
+        "/workspace/scratch/4a65d70f0fe1/validation-evidence/nativehost-pull-01/aot/Korda.Data.NativeHost.Tests"
+      ],
+      "exitCode": 0
+    }
+  ]
+}

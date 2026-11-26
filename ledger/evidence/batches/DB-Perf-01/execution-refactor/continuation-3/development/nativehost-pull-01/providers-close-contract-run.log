@@ -1,0 +1,166 @@
+snapshot parser oracle inputs=5942
+PULL_RESULT_RECORD_PASS assertions=42; x64 layouts, generation-specific take, held reads, malformed ownership and every missing export
+host provider=Sqlite
+PULL_REUSE_PASS provider=Sqlite; same owner, one-shot ValueTasks, generation rejection and held reader admission
+host provider=PostgreSql
+PULL_REUSE_PASS provider=PostgreSql; same owner, one-shot ValueTasks, generation rejection and held reader admission
+BORROWED_HOST_CASE provider=Sqlite stop=Dispose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Dispose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Dispose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Dispose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Cancel mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Cancel mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Cancel mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Cancel mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SourceClose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SourceClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SourceClose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SourceClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SessionClose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SessionClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SessionClose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SessionClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Dispose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Dispose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Dispose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Dispose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Dispose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Cancel mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Cancel mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=Cancel mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=Cancel mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=Cancel mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SourceClose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SourceClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SourceClose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SourceClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SourceClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SessionClose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SessionClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=Sqlite stop=SessionClose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=Sqlite stop=SessionClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=Sqlite stop=SessionClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_PASS provider=Sqlite scenarios=16 assertions=248; unknown/known EOF buffers survive complete mapper scopes and decoded values own their data
+BORROWED_HOST_CASE provider=PostgreSql stop=Dispose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Dispose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Dispose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Dispose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Cancel mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Cancel mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Cancel mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Cancel mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SourceClose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SourceClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SourceClose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SourceClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SessionClose mapperFailure=False batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SessionClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SessionClose mapperFailure=True batchRows=1
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SessionClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Dispose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Dispose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Dispose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Dispose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Dispose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Cancel mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Cancel mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=Cancel mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=Cancel mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=Cancel mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SourceClose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SourceClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SourceClose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SourceClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SourceClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SessionClose mapperFailure=False batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=False phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=False phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SessionClose mapperFailure=False; native-buffer-held=1; final-owners=0
+BORROWED_HOST_CASE provider=PostgreSql stop=SessionClose mapperFailure=True batchRows=2
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=True phase=mapper-entered
+BORROWED_HOST_PHASE provider=PostgreSql stop=SessionClose mapperFailure=True phase=stop-or-close-observed
+BORROWED_HOST_CASE_PASS provider=PostgreSql stop=SessionClose mapperFailure=True; native-buffer-held=1; final-owners=0
+BORROWED_HOST_PASS provider=PostgreSql scenarios=16 assertions=251; unknown/known EOF buffers survive complete mapper scopes and decoded values own their data
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=0 requests=1 takes=1 publications=1 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=1 requests=1 takes=1 publications=1 retiredOperations=0 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=32 requests=2 takes=2 publications=2 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=64 requests=3 takes=3 publications=3 retiredOperations=0 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=100 requests=4 takes=4 publications=4 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite rows=1000 requests=32 takes=32 publications=32 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=Sqlite assertions=1311; public entry, single SQL execution, partial EOF and exact row boundaries
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=0 requests=1 takes=1 publications=1 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=1 requests=1 takes=1 publications=1 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=32 requests=2 takes=2 publications=2 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=64 requests=3 takes=3 publications=3 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=100 requests=4 takes=4 publications=4 retiredOperations=1 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql rows=1000 requests=32 takes=32 publications=32 retiredOperations=0 sqlExecutions=1
+PULL_RESULT_FETCH_PASS provider=PostgreSql assertions=1312; public entry, single SQL execution, partial EOF and exact row boundaries
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=1 control=commit; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=1 control=rollback; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=1 control=dispose; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=2 control=commit; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=2 control=rollback; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite batchRows=2 control=dispose; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=Sqlite assertions=34; transaction close/control preserves unknown and known EOF behavior
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=1 control=commit; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=1 control=rollback; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=1 control=dispose; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=2 control=commit; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=2 control=rollback; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql batchRows=2 control=dispose; cursor completed and transaction retired
+BATCH_RESULT_PARENT_PASS provider=PostgreSql assertions=34; transaction close/control preserves unknown and known EOF behavior
+B04 actual Linux two-provider assertions=590; separately observed managed retirements=148; all source/session/operation/cursor/buffer/handle/pull counters=0
+

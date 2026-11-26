@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-CPP-01",
+  "languageStandards": {
+    "C": 17,
+    "CXX": 20
+  },
+  "toolchain": {
+    "llvm": {
+      "version": "23.1.5",
+      "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.5/LLVM-23.1.5-Linux-X64.tar.zst",
+      "sha256": "c3107384835f788768f614db610e87fba7077f125ca950eb02a78bab0a308065",
+      "filename": "LLVM-23.1.5-Linux-X64.tar.zst",
+      "directory": "llvm-23.1.5",
+      "stripComponents": 1,
+      "sourceCommit": "392dfff97d29b59d77e5cac6d4b6ef2585fe7117",
+      "executables": {
+        "clang": "2033aa32d783adec2a3d30a5d9229b60d9a7594ad73e19e87c3fd2b5ed21a9c2",
+        "clang++": "2033aa32d783adec2a3d30a5d9229b60d9a7594ad73e19e87c3fd2b5ed21a9c2",
+        "clang-format": "c954f89878843d325e99c0edf41eed785898157f9388222b175138bcc7b5a229",
+        "clang-tidy": "286e675ca17b2e9d65432f23da56188fbb4d450de8b06dde52d830909e447c60"
+      }
+    },
+    "cmake": {
+      "version": "4.3.3",
+      "url": "https://github.com/Kitware/CMake/releases/download/v4.3.3/cmake-4.3.3-linux-x86_64.tar.gz",
+      "sha256": "927b2368a946c37269c3a66225ab00544e756459cdd0b5d0da438694fb9ff802",
+      "filename": "cmake-4.3.3-linux-x86_64.tar.gz",
+      "directory": "cmake-4.3.3",
+      "stripComponents": 1,
+      "executables": {
+        "cmake": "1dbfc5a9a87ad82bfa1adefdb206854bfbb37b8d48e9455ad6bba68634ceff7e"
+      }
+    },
+    "ninja": {
+      "version": "1.13.2",
+      "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.2/ninja-linux.zip",
+      "sha256": "5749cbc4e668273514150a80e387a957f933c6ed3f5f11e03fb30955e2bbead6",
+      "filename": "ninja-linux-1.13.2.zip",
+      "directory": "ninja-1.13.2",
+      "stripComponents": 0,
+      "executables": {
+        "ninja": "607e668f90dd6cd82e1a42ae572647ad1b1fd43063964295b9547836d8c15d99"
+      }
+    }
+  },
+  "dependencies": [
+    {
+      "name": "nlohmann-json",
+      "version": "3.12.0",
+      "url": "https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz",
+      "archiveSha256": "42f6e95cad6ec532fd372391373363b62a14af6d771056dbfc86160e6dfff7aa",
+      "linkage": "header-only",
+      "providers": [
+        "sqlite",
+        "postgresql"
+      ],
+      "license": "MIT",
+      "notice": "native/cpp/licenses/nlohmann-json-LICENSE.txt",
+      "sourceFiles": {
+        "include/nlohmann/adl_serializer.hpp": "80742b0081e0ac5094ad4d7a3549e969b004bb7ed86807911a8177c843701262",
+        "include/nlohmann/byte_container_with_subtype.hpp": "2b75a051d2f82fd95f613c70472b85a281d085f1973791c1118244099bf38942",
+        "include/nlohmann/detail/abi_macros.hpp": "cebb5441f1ce851444f47a7d8ea0446339ee499df83215ebd873c8347a191bd7",
+        "include/nlohmann/detail/conversions/from_json.hpp": "5f227d243c0d5c0d67c4c72b2b57fb8a7d50053ab2d667fb6a5880b1481fc9f1",
+        "include/nlohmann/detail/conversions/to_chars.hpp": "20b9bc4469ee490bc626d8dbcdee060a494292473df4bdbcecfe2f2145ed562d",
+        "include/nlohmann/detail/conversions/to_json.hpp": "46429c1b87ea71962ffb68dcb0a7e7811a3ebf5f102bcf318688e48ff1f6b73e",
+        "include/nlohmann/detail/exceptions.hpp": "5c9b21e0a13ac0bab8dea676b9804d739dfd2adc24f036f97ab243ef70e2aae7",
+        "include/nlohmann/detail/hash.hpp": "a025807281c5d92fdfddcc993b2b2a9658146435cc10b003723b130698445c80",
+        "include/nlohmann/detail/input/binary_reader.hpp": "9e617825317910352f2a2025bb8749898287fa3003e81ce22a57b52c535d0eab",
+        "include/nlohmann/detail/input/input_adapters.hpp": "01fa7af8fdd1ba7b1c12089bf92783f70d09a93db7564e4df70544fc85304de6",
+        "include/nlohmann/detail/input/json_sax.hpp": "0ed6fdb0ef91f163cca312b7ffd6e0842f12e1b8340204ab2d0c05277e0d1f18",
+        "include/nlohmann/detail/input/lexer.hpp": "a8b73e55242731375c088133f3a355af7b1bb82d6b9531678cb20560d3733c1d",
+        "include/nlohmann/detail/input/parser.hpp": "b4a762967b174de0c43896b465e4a7c8c92c3a8636f669debdec836050f7912a",
+        "include/nlohmann/detail/input/position_t.hpp": "0239037872b622a5f3f42fa1b453d201f977d21829b2dc4a19abe2594515eada",
+        "include/nlohmann/detail/iterators/internal_iterator.hpp": "bf015623518c5aab4762d9a4d21af0e85a26cdcb3fc6e69e464c8575a3b87aba",
+        "include/nlohmann/detail/iterators/iter_impl.hpp": "c6f0664c4965287154505837dde4ae13e7625978745e8876951fc90da61b5068",
+        "include/nlohmann/detail/iterators/iteration_proxy.hpp": "3c562f1783e1fc9476ed53d8054bc50309caa425d993996a9ddf9194fb2129cc",
+        "include/nlohmann/detail/iterators/iterator_traits.hpp": "960d1fefbe7cb220292b07e4ec047bfa9a3ccbd753adaf62e5d583f746e71e47",
+        "include/nlohmann/detail/iterators/json_reverse_iterator.hpp": "6f072fb2b9e151ad9645cb03a9aa23231480bf447e53b2e0ecb41f45fb7503e1",
+        "include/nlohmann/detail/iterators/primitive_iterator.hpp": "40a03177d519ba378e59bed0a53a9be8022fd3d0ee701409781c0e856d5bf510",
+        "include/nlohmann/detail/json_custom_base_class.hpp": "e622910868b019ba09460c96a6092c1018ed501f34cce4ed633641400c2d2500",
+        "include/nlohmann/detail/json_pointer.hpp": "9c5b54a455e96c63788c157d914b70cde6a3f36ef1e5df037f4fc17bb92f235d",
+        "include/nlohmann/detail/json_ref.hpp": "5d133945d0859acaa82c50c1a044b1e1f806c0a38107eae24bf07ff5944fc1e3",
+        "include/nlohmann/detail/macro_scope.hpp": "76012b860dc76e7c28efead61311d588596417f5b476fc20f762b1ad81858ae0",
+        "include/nlohmann/detail/macro_unscope.hpp": "626b7e10290a2bb558634b8bbfbc5118b5ce696151b5bc87418142c578bd501e",
+        "include/nlohmann/detail/meta/call_std/begin.hpp": "4629b547aa6b6629c266b1b474f576cbde5ce898c96502c828a72d99212b9f34",
+        "include/nlohmann/detail/meta/call_std/end.hpp": "e09dd80f2263ff192d60bad19bdbdc5402866d0b0c8caeb9c2759b26ba864a39",
+        "include/nlohmann/detail/meta/cpp_future.hpp": "71e606c586174ff875f5996a00bc6e84a49e0919eafd6fb38c7cb928dfdf5795",
+        "include/nlohmann/detail/meta/detected.hpp": "d144ac2ab6bb92be35bfda7eec560b9d030760e4330b7f951a2aca63469488a1",
+        "include/nlohmann/detail/meta/identity_tag.hpp": "37ff788879d4b14ffa2e79bdc75b470d2c2ca5ebadafef649312f653455d45fa",
+        "include/nlohmann/detail/meta/is_sax.hpp": "e60398b282767374747db20ab06101804c7345eea0761a313a298bf87b913f91",
+        "include/nlohmann/detail/meta/std_fs.hpp": "257716f0958e9fd6c1dc3f0335716d779550353c58bc929e8dda1c79bd336701",
+        "include/nlohmann/detail/meta/type_traits.hpp": "d5da966796c089fa89cba5474309fd2124b083d99adf17991084a6a532fdf55d",
+        "include/nlohmann/detail/meta/void_t.hpp": "c340e7b148543b0abfd719ddbc3759e23c2feffc63656136a15fd80b98ca8bf8",
+        "include/nlohmann/detail/output/binary_writer.hpp": "cdf56265d14b80505796dfb94d79896a226e8888e4f730ff6e92c31a2b891cd1",
+        "include/nlohmann/detail/output/output_adapters.hpp": "3322dce8f63e69930806bd8691c2cd9ece8a76b54b34f617641329c44559bbb5",
+        "include/nlohmann/detail/output/serializer.hpp": "4c079acb8f6936c4f787fd5706a52c77a1751dd34787a821705845698ec8540e",
+        "include/nlohmann/detail/string_concat.hpp": "fb30fb50c325a1b5610a62a9061a1966b4e850dd964635c1ad1c4c9da48f7daa",
+        "include/nlohmann/detail/string_escape.hpp": "cb12b0e5903b1ec90aaa96a4a71e0cf7106440ca9cedcff6495677d01f244733",
+        "include/nlohmann/detail/string_utils.hpp": "85e2fbdfe07f1a44b90d5422ee1b951d1053f32e429dc4aee36274fb03fd9354",
+        "include/nlohmann/detail/value_t.hpp": "67ed7b164db48556bb4ae409a645401faba459081570f9b9f9ff977fd32c6114",
+        "include/nlohmann/json.hpp": "88d7eb42b19599cab48856576dd4ea52538df72ad7c57200c50de98bda246458",
+        "include/nlohmann/json_fwd.hpp": "8777a878c20a412dd04c8011c87c3d72d74e48a4dda5e52f7948e26dd2168931",
+        "include/nlohmann/ordered_map.hpp": "2d4e2d9f6e6a0c2d2adadcb620da1f49585fa4e54e54cfa16b6d20e01d857d61",
+        "include/nlohmann/thirdparty/hedley/hedley.hpp": "1547b367895f8be9f8283ae21f583182db572ad990236220002b632a15238712",
+        "include/nlohmann/thirdparty/hedley/hedley_undef.hpp": "ddf06784ca9448b4899db96a409ec1cbc65a0f682db9c966c011f00b77ae75c4"
+      }
+    },
+    {
+      "name": "sqlite",
+      "version": "3.51.3",
+      "url": "https://sqlite.org/2026/sqlite-amalgamation-3510300.zip",
+      "archiveSha256": "acb1e6f5d832484bf6d32b681e858c38add8b2acdfd42ac5df24b8afb46552b4",
+      "linkage": "static",
+      "providers": [
+        "sqlite"
+      ],
+      "license": "public-domain",
+      "notice": "native/cpp/licenses/sqlite-public-domain.txt",
+      "sourceFiles": {
+        "sqlite3.c": "9512509b1bccb7461f79bea8aad6280ae4699e925fa4804381b71f59e7efb0c5",
+        "sqlite3.h": "19585c8b5230e9d4f223bf31b709ece7b6a0bb3faf00d8310625d8e58cda1b1d"
+      }
+    },
+    {
+      "name": "libpq",
+      "version": "18.0",
+      "url": "https://ftp.postgresql.org/pub/source/v18.0/postgresql-18.0.tar.bz2",
+      "archiveSha256": "0d5b903b1e5fe361bca7aa9507519933773eb34266b1357c4e7780fdee6d6078",
+      "linkage": "static",
+      "providers": [
+        "postgresql"
+      ],
+      "license": "PostgreSQL",
+      "notice": "native/cpp/licenses/postgresql-COPYRIGHT.txt",
+      "patches": [
+        {
+          "path": "native/cpp/patches/libpq-explicit-configuration.patch",
+          "sha256": "a6c33133d9900b5bd6460245331ad7d9a8b256786dcd1bd927b5491b52921ddd",
+          "reason": "Match SQLx explicit configuration without reading ambient PG service, TLS, or session defaults; no process-wide environment mutation."
+        }
+      ]
+    }
+  ],
+  "systemLibraries": {
+    "linux-x64": {
+      "requiredSONAMEs": [
+        "libc.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "ld-linux-x86-64.so.2",
+        "libcrypto.so.3"
+      ],
+      "postgresqlAdditionalSONAMEs": [
+        "libssl.so.3",
+        "libz.so.1"
+      ],
+      "maximumGlibc": "2.39",
+      "OpenSSL": "3.x platform security updates; actual binary and version bound per build",
+      "zlib": "1.x ABI libz.so.1; actual binary and version bound per build"
+    }
+  },
+  "referenceOnly": [
+    {
+      "name": "SeaQuery",
+      "version": "1.0.2",
+      "commit": "f2d5e04d30919c342da1f8845ff1fde46e3308fc",
+      "license": "MIT",
+      "notice": "native/cpp/licenses/sea-query-LICENSE-MIT.txt",
+      "reason": "Adapted runtime query AST and dialect algorithms; no Rust runtime or build dependency"
+    },
+    {
+      "name": "SQLx",
+      "version": "0.9.0",
+      "reason": "Execution, codec and lifecycle behavior reference only; no linked code"
+    }
+  ],
+  "runtime": {
+    "name": "LLVM libc++ and libc++abi",
+    "version": "23.1.5",
+    "sourceCommit": "392dfff97d29b59d77e5cac6d4b6ef2585fe7117",
+    "linkage": "static on Linux; no C++ objects cross C ABI",
+    "license": "Apache-2.0 WITH LLVM-exception",
+    "notices": [
+      "native/cpp/licenses/libcxx-LICENSE.txt",
+      "native/cpp/licenses/libcxxabi-LICENSE.txt"
+    ]
+  },
+  "systemNotices": [
+    "native/cpp/licenses/openssl-LICENSE.txt",
+    "native/cpp/licenses/zlib-LICENSE.txt"
+  ]
+}
