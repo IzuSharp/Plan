@@ -9,10 +9,10 @@ pre-run state and are superseded by this current handoff. Both Korda #39 and
 Plan #35 must remain **open drafts, unmerged, with auto-merge disabled**.
 
 [The final report](final-report.md) contains the complete measured outcomes;
-[comparison.json](comparison.json) retains full-precision arithmetic. Current
-closeout work verifies immutable remote bytes, retains previously overlooked
-historical evidence, then removes the owner's local source/worktree/build/cache
-content. The actual removal receipts are recorded only after deletion succeeds.
+[comparison.json](comparison.json) retains full-precision arithmetic. The [closeout record](closeout.md) documents completed project-source, worktree,
+build, database and cache removal, including the preserved original refusal and
+the successfully reviewed narrower continuation. Only the current temporary
+closeout workspace awaits its final removal after these receipts are durable.
 
 The owner requested only two new local Linux x64 cells on 2026-11-26:
 SQLite for 1,800 seconds, then PostgreSQL for 1,800 seconds. Reuse the frozen
@@ -56,7 +56,7 @@ The latest owner instruction is explicit: **keep Korda #39 and Plan #35 as open 
 - [Go evidence archive](archive/go/evidence.tar.gz), [member manifest](archive/go/manifest.json) and [local archive readback](archive/go/receipt.json): 186 retained original files / 31,309,236 bytes; compressed SHA-256 `eac700a195dce834006a56a50df1f2934a095e15f6a2b1f66fc21a0931d9ce3d`.
 - [Legacy text supplement](archive/legacy/evidence.tar.gz), [manifest](archive/legacy/manifest.json) and [receipt](archive/legacy/receipt.json): 1,538 unique text objects / 9,643 original path mappings; compressed SHA-256 `51b6fa864fc108c71365d5e356a0672453d1cf0df4def65df209ff362da15787`. These include previous logs and rejected attempts, without giving them new measurement credit.
 - [Exact local source commit bundle](source-history.bundle) preserves build VCS identities; public source is in Korda #39.
-- [Cleanup inventory](cleanup/cleanup-inventory.json) and [post-run addendum](cleanup/cleanup-inventory-addendum-01.md) cover 62 registered worktrees, three exact task roots, 32 temporary paths and task-created Go telemetry. Local files are removed only after fixed-commit remote archive readback. The actual cleanup receipt is added after removal.
+- [Cleanup inventory](cleanup/cleanup-inventory.json) and [post-run addendum](cleanup/cleanup-inventory-addendum-01.md) cover 62 registered worktrees, three exact task roots, 32 temporary paths and task-created Go telemetry. Local files are removed only after fixed-commit remote archive readback. Actual removal and the platform-directory exception are documented in [closeout.md](closeout.md).
 
 The archives deliberately omit database files, compiler/module caches and executable binaries; original identity/disposition records are retained. Local deletion will remove those omitted bytes, so this is not a binary recovery archive. All benchmark and pressure work was local; existing CI routing is unchanged.
 
@@ -66,9 +66,10 @@ The archives deliberately omit database files, compiler/module caches and execut
 - [Whole-machine source cleanup scope](cleanup/closeout-scope.md), [additional archive](archive/additional/evidence.tar.gz) and [manifest](archive/additional/manifest.json).
 - [Independent cleanup safety review](cleanup/cleanup-safety-review.md), [exact extra inventory](cleanup/cleanup-additional-inventory.json) and [residual temporary inventory](cleanup/residual-temporary-inventory.json).
 
-These documents retain older unique work before its removal. Actual cleanup
-receipts are recorded after execution; a preparation dry run is not a deletion
-claim.
+The [actual closeout and cleanup receipts](closeout.md) record successful removal
+of 65 worktrees and all inventoried project content, while preserving platform
+control metadata. The initial permission refusal remains part of the record.
+The last temporary closeout workspace is removed after durable receipt readback.
 
 ## Historical frozen checkpoint
 

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "observedUtc": "2026-11-26T14:59:53Z",
+  "decision": "NARROW_NON_PLATFORM_CHILD_CLEANUP_SUPPORTED; READ_ONLY_GO_MODULE_CACHE_REQUIRES_NORMAL_CACHE_MAINTENANCE_OR_EXPLICIT_REMAINING_STATUS",
+  "reviewerActions": {
+    "receiptAndStateRead": true,
+    "nonPlatformMetadataWalk": true,
+    "platformControlContentsRead": false,
+    "credentialsRead": false,
+    "deletion": false,
+    "permissionOrOwnershipChanges": false,
+    "signalsSent": 0,
+    "benchmarkOrBuildExecutions": 0
+  },
+  "primaryReceipt": {
+    "path": "/workspace/scratch/2dfe9fb1bc53/primary-cleanup-receipt.json",
+    "sha256": "566a4b738cbe5da5c876ee4a14fe669cc8cc111bf64741c715d276b62ad013b4",
+    "status": "refused-or-partially-completed",
+    "errorType": "PermissionError",
+    "errorPath": "/workspace/scratch/fd78534029f7/.codex",
+    "completedActions": 94,
+    "removedWorktrees": 62,
+    "temporaryTargetActions": 32,
+    "allRecordedActionPathsObservedAbsent": true,
+    "processActions": []
+  },
+  "retainedPrimaryState": {
+    "path": "/tmp/DB-Go-01-final-cleanup-state.json",
+    "sha256": "ffd76ed4b6ebbe02a0b28255aceec327da0dc4e603df2aed3884ef628add2fb0",
+    "helperSha256": "79088224364dd5b1321e83c30aa462a2e3bd79efc7e1a692b3638257b4cdabb7",
+    "acceptanceSha256": "fb895126254fa1f5c60d1f2877d098fcd96f771b8a2c3637b7dac0f3361ded53",
+    "archivalChecksPassed": true,
+    "originalHelperChanged": false
+  },
+  "additionalReceiptStatus": "completed",
+  "additionalRemovedWorktrees": 3,
+  "combinedRemovedWorktrees": 65,
+  "effectiveUid": 1000,
+  "targetOrNestedMountsObserved": [],
+  "remainingRoots": [
+    {
+      "path": "/workspace/scratch/fd78534029f7",
+      "preservedPlatformControl": {
+        "name": ".codex",
+        "device": 65040,
+        "inode": 307620,
+        "uid": 65534,
+        "gid": 65534
+      },
+      "nonPlatformTopLevelEntries": 1,
+      "nonPlatformDirectories": 10,
+      "nonPlatformRegularFiles": 61,
+      "internalSymlinks": 0
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1",
+      "preservedPlatformControl": {
+        "name": ".codex",
+        "device": 65040,
+        "inode": 283551,
+        "uid": 65534,
+        "gid": 65534
+      },
+      "nonPlatformTopLevelEntries": 7,
+      "nonPlatformDirectories": 6068,
+      "nonPlatformRegularFiles": 64081,
+      "internalSymlinks": 2129
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9",
+      "preservedPlatformControl": {
+        "name": ".codex",
+        "device": 65040,
+        "inode": 320500,
+        "uid": 65534,
+        "gid": 65534
+      },
+      "nonPlatformTopLevelEntries": 17,
+      "nonPlatformDirectories": 2407,
+      "nonPlatformRegularFiles": 24687,
+      "internalSymlinks": 0
+    }
+  ],
+  "nonPlatformMetadataFindings": {
+    "foreignOwnedDirectories": 0,
+    "specialFilesystemNodes": 0,
+    "walkErrors": 0,
+    "topLevelSymlinks": 0,
+    "allNonPlatformTopLevelOwnedByEffectiveUid": true
+  },
+  "additionalPermissionObstacle": {
+    "path": "/workspace/scratch/166b48a091b9/go-comparison-01/toolchain/modcache",
+    "readonlyDirectoryCount": 198,
+    "allReadonlyDirectoriesUid": 1000,
+    "mode": "0555",
+    "metadataObservationFile": "primary-cleanup-readonly-cache-observation.json",
+    "ordinaryRmtreeSufficient": false,
+    "normalGoCacheMaintenanceObservedInSource": "clean -modcache calls modfetch.RemoveAll; the latter adjusts module-directory modes before removing the cache",
+    "normalCacheMaintenanceExecutedByReviewer": false
+  },
+  "continuationRequirements": [
+    "Keep original helper, failure receipt and state unchanged",
+    "Delete only individually identity-bound non-platform children under the three authorized roots",
+    "Preserve platform control directories and the containing roots; do not alter their permissions or ownership",
+    "Reject symlinked ancestors and nested mounts; do not traverse internal symlinks",
+    "Keep archive/source retention gates and quiescent process checks",
+    "Treat task-owned read-only Go cache through its standard maintenance path or report it as remaining",
+    "Record continuation separately; never relabel the original failed helper as successful",
+    "Verify final source absence without claiming that preserved root directories vanished"
+  ],
+  "cleanupCompleteClaim": false,
+  "machineWideFinalInventoryClaim": false,
+  "followUpReview": {
+    "reviewedUtc": "2026-11-26T15:02:34Z",
+    "decision": "PASS_FOR_NARROWED_CONTINUATION",
+    "helperPath": "/workspace/scratch/2dfe9fb1bc53/finish_project_cleanup.py",
+    "helperSha256": "3c9a8580ab78bae5d36649fafe78206fba44a0e344d419d6baa32b6c3e6c1258",
+    "goModuleCacheReceiptSha256": "08465599626c101a7b2c99db54183441c3a8c9c7c0ab2e09e44f074286de0956",
+    "goModuleCacheExitCode": 0,
+    "goModuleCacheObservedAbsent": true,
+    "readonlyCacheObstacleResolved": true,
+    "reviewedGuards": [
+      "Original helper hash, archival acceptance and retained state are checked before continuation",
+      "Exactly 25 direct task-owned children are bound to device/inode/type/uid and current child enumeration",
+      "Three UID-65534 platform control directories and containing roots remain preserved",
+      "Original failure remains a separate receipt; no claim that original helper succeeded",
+      "Symlink-resistant rmtree with canonical non-symlink ancestors and mount checks",
+      "Fresh combined process-only check; continuation sends no signal",
+      "Task-owned official Go cache maintenance is recorded separately; platform permissions unchanged",
+      "Bytecode generation disabled before import; execution uses python3 -B without optimization"
+    ],
+    "executionConstraint": "Assertions must remain enabled: no -O/-OO and no active PYTHONOPTIMIZE; keep other task writers idle",
+    "reviewerExecutedDeletion": false,
+    "originalFailureReceiptRewritten": false,
+    "finalCleanupCompletionClaim": false
+  }
+}
