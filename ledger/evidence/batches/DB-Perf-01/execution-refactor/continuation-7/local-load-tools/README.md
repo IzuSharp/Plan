@@ -138,5 +138,8 @@ generated-source hashes, package/ELF/loaded-native identities, SQL contract,
 generator/selector/runner hashes and each segment's actual start/end times.
 The unchanged arithmetic analyzer is not a package producer attestation. Its
 six owner checks plus `PullChannels` also predate `CommandCompletions`.
-The separately versioned final identity/ownership auditor will bind these
-additional facts without changing historical tools or measurement outputs.
+[`audit_final_identity.py`](audit_final_identity.py) adds those checks with
+`freeze` before execution and `audit` after the existing arithmetic report.
+Its [complete specification and collection procedure](final-freeze-and-audit.md)
+keep source identity, business arithmetic and historical observations explicit.
+The original analysis tools and measurement outputs remain unchanged.

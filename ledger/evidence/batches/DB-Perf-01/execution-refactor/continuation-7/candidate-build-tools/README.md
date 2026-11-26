@@ -5,6 +5,9 @@ one clean, already published producer checkout. Supply its full commit and tree
 IDs, one provider, a new output directory outside that checkout and the pinned
 PostgreSQL binary directory. Source the retained task-local tool environment
 before invoking it. This script is local evidence tooling, not a CI action.
+Each provider/attempt uses its own fresh worktree with no previous public-package
+staging directory. The explicit test-server directory must equal that environment's
+`NW_POSTGRES_BIN`, so native libpq provenance and correctness use the same install.
 
 It verifies the actual diff/module plan before building. The expected scopes
 are interop, Linux correctness and the two independently checked provider

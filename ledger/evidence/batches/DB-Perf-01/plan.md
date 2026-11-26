@@ -1,3 +1,36 @@
+# Active continuation — DB-Exec-10, 2026-11-26 Asia/Shanghai
+
+Continue from [continuation 7](execution-refactor/continuation-7/plan.md). The recovered
+product head is [47fe650](https://github.com/IzuSharp/Korda/commit/47fe650dfed5d7bba1c4d74c4a127c5d08b66082);
+its existing [CI45761578521](https://github.com/IzuSharp/Korda/actions/runs/45761578521)
+passed after the retained formatting failure at8789a45. All nine preceding short
+measurement groups actually completed. Their [strict results and raw archive](execution-refactor/continuation-7/recovered-short-results.md)
+are now published in [Plan af65936](https://github.com/IzuSharp/Plan/commit/af65936a1bb951836cbcd7f61b1dacaff9cc639d),
+with actual producer identities, failed analyses and independent negative controls.
+They are historical short observations, not the current candidate's final runs.
+
+The [native path review](execution-refactor/continuation-7/native-path-review.md) accepts the
+conditional PostgreSQL pre-COMMIT state proof for integration and identifies the
+retained NWQC semantic compiler precisely. The Source-owned fixed-key Find path
+is selected in [Design 1e0f444](https://github.com/IzuSharp/Korda-Design/commit/1e0f444f5410e1f492191b2b8f923e50d58e7e4c)
+and is undergoing bounded-cache, key-snapshot, mapper-identity and original-error
+boundary checks. Do not treat its in-progress worktree as a frozen candidate.
+The independent [package/AOT build driver](execution-refactor/continuation-7/candidate-build-tools/README.md)
+and [local load selector](execution-refactor/continuation-7/local-load-tools/README.md)
+retain their own inputs and do not execute performance work in CI.
+
+Next: finish Find correctness and independent review, integrate/publish the exact
+candidate, build and consume both standalone packages, measure matched phases
+and mixed-load calibration, then the same-condition before supplement and four
+serial1800-second candidate/Dapper cells. Final long credit is **0/4**. Normal
+reviewed merge and existing rule-selected release verification remain authorized
+and outstanding. Existing CI scopes and performance-only-local restrictions
+remain unchanged. Worktrees are under `/workspace/scratch/fd78534029f7/worktrees`;
+recovered tools, original consumers and measurements remain under
+`/workspace/scratch/4a65d70f0fe1`.
+
+## Previous checkpoint retained — public8789a45
+
 > **Current checkpoint — 2026-11-26 (Asia/Shanghai):** public [8789a45](https://github.com/IzuSharp/Korda/commit/8789a45a52cc0cc0a0b62737542d9c120b753c9b), tree `c8f398ae4db2d39302335a51a6378b737409f2fb`, is identical to integrated local `d8beff6`. One-shot command completion and its development correctness are complete. Count/Any, nonreturning CRUD and transaction/savepoint/child-close terminals use the new request/ready/typed-take path; generic Source/administration/cold compatibility paths remain explicit. Read [continuation 6](execution-refactor/continuation-6/README.md) for the exact source bindings, all failed attempts, successful Native AOT suites and recoverable actual generated Dapper factories.
 
 > Root is building formal independent provider packages and ordinary consumers from the fetched public source. [Existing CI45759068704](https://github.com/IzuSharp/Korda/actions/runs/45759068704) is pending at this checkpoint. New matched Dapper.AOT consumers compiled for both databases; runtime SQL/timing remain separately unverified. Final long credit is **0/4**. Development gates, compilation and source publication do not grant performance or release acceptance. The independent DB-Exec-08 PostgreSQL commit-probe experiment is not part of this candidate and has no measured benefit credited here.

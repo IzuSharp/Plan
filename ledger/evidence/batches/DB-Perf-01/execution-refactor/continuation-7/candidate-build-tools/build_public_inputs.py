@@ -46,6 +46,10 @@ def main():
 
     if not unchanged():
         raise RuntimeError('Exact clean published producer required')
+    if (source / 'artifacts/public').exists():
+        raise RuntimeError('Use a fresh independent producer worktree for each package attempt')
+    if Path(os.environ.get('NW_POSTGRES_BIN', '')).resolve() != args.postgres_bin.resolve():
+        raise RuntimeError('Native libpq provenance and test server must use the same pinned installation')
     output.mkdir(parents=True)
     (output / 'logs').mkdir()
     receipt = {'schemaVersion': 1, 'source': str(source), 'sourceCommit': args.commit,
