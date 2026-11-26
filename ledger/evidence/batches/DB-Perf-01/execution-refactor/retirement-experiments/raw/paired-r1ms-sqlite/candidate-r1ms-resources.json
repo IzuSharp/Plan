@@ -1,0 +1,1812 @@
+{
+  "Schema": "DB-Perf-01.public-resource-inventory.v1",
+  "Scope": "Separate cold, bounded concurrent, exhaustion and retention diagnostic; no throughput/long-segment credit. Raw process bytes include runtime/continuations. No control subtraction or whole-framework zero claim. Forced GC occurs only in explicitly labelled memory observations outside allocation intervals.",
+  "BusinessOutput": "Int64 rows/checksums; no required DTO/string/list/result-array inside query intervals. Exception identities are formatted after the separately labelled exhaustion interval.",
+  "SetupBoundary": "Builder configuration, fixed command/projection/parameter construction, fixture DDL and probe arrays are outside their named operation windows. These are narrower diagnostic boundaries, not a complete lifecycle allocation total.",
+  "RetentionScope": "Whole process after forced GC, including probe report collections, possible live async locals and runtime caches. RSS/PSS samples here follow GC; observer time series and process peak RSS are retained separately. Heap differences are not attributed exclusively to a framework pool.",
+  "SuspensionScope": "Same-thread first Move calls are not consumed until all are issued. Actual incomplete returns are counted. Exceeding ProcessorCount\u002B1 is a cache-capacity pressure observation; it proves pooled Move box misses only for a candidate independently shown to use the exact .NET 11 pooling builder. It does not assert that the before implementation has such a pool.",
+  "SourceCommit": "6afbeeb",
+  "ProcessId": 12781,
+  "NativeAot": true,
+  "PackageSha256": "f5c9a3ff7293d53d886af810ea5b0957679c59de64be70df1728c594e8878632",
+  "ExecutableSha256": "a1437f69957eb99ded77e14fb95bfe12de244cacd36f1d7e96d8917a4bee3d7a",
+  "Provider": "Sqlite",
+  "NativePath": "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-r1ms-sqlite-resources/out/libnw_database_sqlite.so",
+  "NativeSha256": "49e8f8ea68a17a63d2c25f367338498c3ac602ecb1c7af2498d36e15cd799ca5",
+  "Runtime": ".NET 11.0.0",
+  "ProcessorCount": 4,
+  "ProcessorCountOverride": "4",
+  "Concurrency": 8,
+  "SuspendedQuerySql": "WITH RECURSIVE walk(n) AS (SELECT 0 UNION ALL SELECT n \u002B 1 FROM walk WHERE n \u003C @steps) SELECT CAST(SUM(n) AS BIGINT) AS value FROM walk",
+  "SuspendedQuerySteps": 200000,
+  "StartedUtc": "2026-11-25T20:33:09.7023861+00:00",
+  "FinishedUtc": "2026-11-25T20:33:12.1643585+00:00",
+  "Windows": [
+    {
+      "Name": "cold-source-build",
+      "Start": {
+        "AllocatedBytes": 166352,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720426632339
+      },
+      "End": {
+        "AllocatedBytes": 481144,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720445945608
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 314792,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "cold-open-sessions",
+      "Start": {
+        "AllocatedBytes": 619176,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720449546543
+      },
+      "End": {
+        "AllocatedBytes": 633888,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720463080099
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 14712,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "cold-fluent-prepare-and-query-dispose",
+      "Start": {
+        "AllocatedBytes": 654216,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720470005141
+      },
+      "End": {
+        "AllocatedBytes": 683072,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720470333947
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 28856,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "cold-raw-suspended-burst",
+      "Start": {
+        "AllocatedBytes": 742992,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720472918318
+      },
+      "End": {
+        "AllocatedBytes": 807728,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720560879898
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 160000800000,
+      "PendingFirstMovesBeforeAnyConsumption": 8,
+      "IssuingThread": 6,
+      "EndingThread": 6,
+      "RawAllocatedBytes": 64736,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "warm-raw-suspended-burst-0",
+      "Start": {
+        "AllocatedBytes": 851760,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720562444479
+      },
+      "End": {
+        "AllocatedBytes": 913552,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720645100961
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 160000800000,
+      "PendingFirstMovesBeforeAnyConsumption": 8,
+      "IssuingThread": 6,
+      "EndingThread": 6,
+      "RawAllocatedBytes": 61792,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-c1-0",
+      "Start": {
+        "AllocatedBytes": 914728,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720645154592
+      },
+      "End": {
+        "AllocatedBytes": 919400,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720648414041
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 36,
+      "PendingFirstMovesBeforeAnyConsumption": 1,
+      "IssuingThread": 19,
+      "EndingThread": 19,
+      "RawAllocatedBytes": 4672,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 1,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-concurrent-0",
+      "Start": {
+        "AllocatedBytes": 920672,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720648483126
+      },
+      "End": {
+        "AllocatedBytes": 955776,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720660577454
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 64,
+      "Checksum": 288,
+      "PendingFirstMovesBeforeAnyConsumption": 7,
+      "IssuingThread": 6,
+      "EndingThread": 4,
+      "RawAllocatedBytes": 35104,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "warm-raw-suspended-burst-1",
+      "Start": {
+        "AllocatedBytes": 957136,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720660689899
+      },
+      "End": {
+        "AllocatedBytes": 1011520,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751527734
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 160000800000,
+      "PendingFirstMovesBeforeAnyConsumption": 8,
+      "IssuingThread": 6,
+      "EndingThread": 19,
+      "RawAllocatedBytes": 54384,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-c1-1",
+      "Start": {
+        "AllocatedBytes": 1012696,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751583223
+      },
+      "End": {
+        "AllocatedBytes": 1016840,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751930663
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 36,
+      "PendingFirstMovesBeforeAnyConsumption": 1,
+      "IssuingThread": 4,
+      "EndingThread": 19,
+      "RawAllocatedBytes": 4144,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 1,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-concurrent-1",
+      "Start": {
+        "AllocatedBytes": 1018264,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720752025771
+      },
+      "End": {
+        "AllocatedBytes": 1053264,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720757330763
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 64,
+      "Checksum": 288,
+      "PendingFirstMovesBeforeAnyConsumption": 5,
+      "IssuingThread": 4,
+      "EndingThread": 21,
+      "RawAllocatedBytes": 35000,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "warm-raw-suspended-burst-2",
+      "Start": {
+        "AllocatedBytes": 1054536,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720757410468
+      },
+      "End": {
+        "AllocatedBytes": 1108568,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847149820
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 160000800000,
+      "PendingFirstMovesBeforeAnyConsumption": 8,
+      "IssuingThread": 4,
+      "EndingThread": 21,
+      "RawAllocatedBytes": 54032,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-c1-2",
+      "Start": {
+        "AllocatedBytes": 1109808,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847226181
+      },
+      "End": {
+        "AllocatedBytes": 1114040,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847721624
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 8,
+      "Checksum": 36,
+      "PendingFirstMovesBeforeAnyConsumption": 1,
+      "IssuingThread": 7,
+      "EndingThread": 6,
+      "RawAllocatedBytes": 4232,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 1,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "prepared-fluent-concurrent-2",
+      "Start": {
+        "AllocatedBytes": 1115464,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847761043
+      },
+      "End": {
+        "AllocatedBytes": 1150816,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720849618772
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 64,
+      "Checksum": 288,
+      "PendingFirstMovesBeforeAnyConsumption": 8,
+      "IssuingThread": 21,
+      "EndingThread": 19,
+      "RawAllocatedBytes": 35352,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "PendingBeforeConsumption": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "SingleIssuingThread": true,
+      "PendingAtReturnCount": 8,
+      "RuntimePoolCacheCapacityForIssuingThread": 5,
+      "UnconsumedSuspensionsExceedCacheCapacity": true,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "pool-exhaustion-and-cancel",
+      "Start": {
+        "AllocatedBytes": 1208648,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720851346519
+      },
+      "End": {
+        "AllocatedBytes": 1226024,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720874161855
+      },
+      "Operations": 3,
+      "Succeeded": 0,
+      "Failed": 3,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 17376,
+      "PlannedOperations": 3,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "dispose-prepared",
+      "Start": {
+        "AllocatedBytes": 1373920,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721878331348
+      },
+      "End": {
+        "AllocatedBytes": 1373920,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721878347843
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 0,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "return-all-sessions",
+      "Start": {
+        "AllocatedBytes": 1374088,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721878357728
+      },
+      "End": {
+        "AllocatedBytes": 1384464,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721881401026
+      },
+      "Operations": 8,
+      "Succeeded": 8,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 10376,
+      "PlannedOperations": 8,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    },
+    {
+      "Name": "close-source-including-public-cleanup-observation",
+      "Start": {
+        "AllocatedBytes": 1384632,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721881401867
+      },
+      "End": {
+        "AllocatedBytes": 1386464,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721884687321
+      },
+      "Operations": 1,
+      "Succeeded": 1,
+      "Failed": 0,
+      "Rows": 0,
+      "Checksum": 0,
+      "PendingFirstMovesBeforeAnyConsumption": 0,
+      "IssuingThread": 0,
+      "EndingThread": 0,
+      "RawAllocatedBytes": 1832,
+      "PlannedOperations": 1,
+      "PendingAtReturn": [],
+      "PendingBeforeConsumption": [],
+      "SingleIssuingThread": false,
+      "PendingAtReturnCount": 0,
+      "RuntimePoolCacheCapacityForIssuingThread": 0,
+      "UnconsumedSuspensionsExceedCacheCapacity": false,
+      "BoundaryError": null,
+      "FrameworkAllocatedBytes": null,
+      "FrameworkStatus": "Unproved exact split; all-process raw bytes retained without subtraction."
+    }
+  ],
+  "Memory": [
+    {
+      "Phase": "before-source",
+      "Timestamp": 54720426311625,
+      "ManagedLiveBytesAfterForcedGc": 60088,
+      "ThreadPoolThreads": 0,
+      "RssBytes": 11591680,
+      "PeakRssBytes": 11591680,
+      "PssBytes": 10047488,
+      "UserSeconds": 0.013793,
+      "SystemSeconds": 0.009195,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 60864,
+        "Gen0": 0,
+        "Gen1": 0,
+        "Gen2": 0,
+        "Timestamp": 54720425715265
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 61736,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720426115088
+      }
+    },
+    {
+      "Phase": "sessions-open-before-first-stream",
+      "Timestamp": 54720471579417,
+      "ManagedLiveBytesAfterForcedGc": 143992,
+      "ThreadPoolThreads": 3,
+      "RssBytes": 17166336,
+      "PeakRssBytes": 17166336,
+      "PssBytes": 15605760,
+      "UserSeconds": 0.028404,
+      "SystemSeconds": 0.021828,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 686568,
+        "Gen0": 2,
+        "Gen1": 2,
+        "Gen2": 2,
+        "Timestamp": 54720470341609
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 689352,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720471191982
+      }
+    },
+    {
+      "Phase": "after-cold-burst",
+      "Timestamp": 54720562049593,
+      "ManagedLiveBytesAfterForcedGc": 160624,
+      "ThreadPoolThreads": 4,
+      "RssBytes": 17362944,
+      "PeakRssBytes": 17362944,
+      "PssBytes": 15794176,
+      "UserSeconds": 0.411363,
+      "SystemSeconds": 0.021828,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 808368,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720560903844
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 810672,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720561564511
+      }
+    },
+    {
+      "Phase": "after-warm-concurrent-bursts",
+      "Timestamp": 54720851086627,
+      "ManagedLiveBytesAfterForcedGc": 168408,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 18075648,
+      "PeakRssBytes": 18075648,
+      "PssBytes": 16515072,
+      "UserSeconds": 1.537156,
+      "SystemSeconds": 0.048324,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1151400,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720849670770
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1153704,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720850684830
+      }
+    },
+    {
+      "Phase": "after-exhaustion",
+      "Timestamp": 54720874978107,
+      "ManagedLiveBytesAfterForcedGc": 185320,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 18497536,
+      "PeakRssBytes": 18497536,
+      "PssBytes": 16936960,
+      "UserSeconds": 1.539405,
+      "SystemSeconds": 0.048394,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1228840,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720874185761
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1231144,
+        "Gen0": 10,
+        "Gen1": 10,
+        "Gen2": 10,
+        "Timestamp": 54720874687929
+      }
+    },
+    {
+      "Phase": "idle-start",
+      "Timestamp": 54720875906508,
+      "ManagedLiveBytesAfterForcedGc": 198808,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 18006016,
+      "PeakRssBytes": 18051072,
+      "PssBytes": 16437248,
+      "UserSeconds": 1.540243,
+      "SystemSeconds": 0.048414,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1286032,
+        "Gen0": 10,
+        "Gen1": 10,
+        "Gen2": 10,
+        "Timestamp": 54720875226271
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1288336,
+        "Gen0": 12,
+        "Gen1": 12,
+        "Gen2": 12,
+        "Timestamp": 54720875753337
+      }
+    },
+    {
+      "Phase": "idle-end",
+      "Timestamp": 54721877592313,
+      "ManagedLiveBytesAfterForcedGc": 198968,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 18092032,
+      "PeakRssBytes": 18092032,
+      "PssBytes": 16516096,
+      "UserSeconds": 1.574451,
+      "SystemSeconds": 0.049357,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1330112,
+        "Gen0": 12,
+        "Gen1": 12,
+        "Gen2": 12,
+        "Timestamp": 54721876212500
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1332416,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721877134902
+      }
+    },
+    {
+      "Phase": "after-source-close",
+      "Timestamp": 54721885967473,
+      "ManagedLiveBytesAfterForcedGc": 187608,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 17985536,
+      "PeakRssBytes": 18051072,
+      "PssBytes": 16402432,
+      "UserSeconds": 1.574452,
+      "SystemSeconds": 0.054786,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1387384,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721884720581
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1390360,
+        "Gen0": 16,
+        "Gen1": 16,
+        "Gen2": 16,
+        "Timestamp": 54721885646789
+      }
+    },
+    {
+      "Phase": "after-close-idle",
+      "Timestamp": 54722887528580,
+      "ManagedLiveBytesAfterForcedGc": 201088,
+      "ThreadPoolThreads": 5,
+      "RssBytes": 17985536,
+      "PeakRssBytes": 18051072,
+      "PssBytes": 16402432,
+      "UserSeconds": 1.574452,
+      "SystemSeconds": 0.056393,
+      "BeforeForcedGc": {
+        "AllocatedBytes": 1430608,
+        "Gen0": 16,
+        "Gen1": 16,
+        "Gen2": 16,
+        "Timestamp": 54722886200035
+      },
+      "AfterForcedGc": {
+        "AllocatedBytes": 1432912,
+        "Gen0": 18,
+        "Gen1": 18,
+        "Gen2": 18,
+        "Timestamp": 54722886966152
+      }
+    }
+  ],
+  "NativeObservations": [
+    {
+      "Phase": "cold-raw-suspended-burst",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        35,
+        0
+      ]
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-0",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        43,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-c1-0",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        44,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-0",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        52,
+        0
+      ]
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-1",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        60,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-c1-1",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        61,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-1",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        69,
+        0
+      ]
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-2",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        77,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-c1-2",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        78,
+        0
+      ]
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-2",
+      "Counters": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        86,
+        0
+      ]
+    }
+  ],
+  "OwnerSettlements": [
+    {
+      "Phase": "initial-open-session-baseline",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Expected": null,
+      "Start": {
+        "AllocatedBytes": 742208,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720471808833
+      },
+      "End": {
+        "AllocatedBytes": 742208,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720472902694
+      },
+      "Polls": 2,
+      "Matched": true
+    },
+    {
+      "Phase": "cold-raw-suspended-burst",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        35,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        35,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 808248,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720560883463
+      },
+      "End": {
+        "AllocatedBytes": 808248,
+        "Gen0": 4,
+        "Gen1": 4,
+        "Gen2": 4,
+        "Timestamp": 54720560902031
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-0",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        43,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        43,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 914104,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720645118428
+      },
+      "End": {
+        "AllocatedBytes": 914104,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720645120080
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-c1-0",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        44,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        44,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 919864,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720648416896
+      },
+      "End": {
+        "AllocatedBytes": 919864,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720648433761
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-0",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        52,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        52,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 956240,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720660609082
+      },
+      "End": {
+        "AllocatedBytes": 956240,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720660636193
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-1",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        60,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        60,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1012072,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751542577
+      },
+      "End": {
+        "AllocatedBytes": 1012072,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751543989
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-c1-1",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        61,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        61,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1017456,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751952255
+      },
+      "End": {
+        "AllocatedBytes": 1017456,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720751972175
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-1",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        69,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        69,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1053728,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720757351845
+      },
+      "End": {
+        "AllocatedBytes": 1053728,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720757371965
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "warm-raw-suspended-burst-2",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        77,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        77,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1109032,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847175318
+      },
+      "End": {
+        "AllocatedBytes": 1109032,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847196260
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-c1-2",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        78,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        78,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1114656,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847736426
+      },
+      "End": {
+        "AllocatedBytes": 1114656,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720847737458
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "prepared-fluent-concurrent-2",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        86,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        86,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1151280,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720849651391
+      },
+      "End": {
+        "AllocatedBytes": 1151280,
+        "Gen0": 6,
+        "Gen1": 6,
+        "Gen2": 6,
+        "Timestamp": 54720849652723
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "after-exhaustion",
+      "Immediate": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        86,
+        0
+      ],
+      "Settled": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        86,
+        0
+      ],
+      "Expected": [
+        1,
+        8,
+        0,
+        0,
+        0,
+        11,
+        27,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1228720,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720874184098
+      },
+      "End": {
+        "AllocatedBytes": 1228720,
+        "Gen0": 8,
+        "Gen1": 8,
+        "Gen2": 8,
+        "Timestamp": 54720874184899
+      },
+      "Polls": 1,
+      "Matched": true
+    },
+    {
+      "Phase": "final-source-close",
+      "Immediate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        86,
+        0
+      ],
+      "Settled": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        86,
+        0
+      ],
+      "Expected": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Start": {
+        "AllocatedBytes": 1387264,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721884688994
+      },
+      "End": {
+        "AllocatedBytes": 1387264,
+        "Gen0": 14,
+        "Gen1": 14,
+        "Gen2": 14,
+        "Timestamp": 54721884706550
+      },
+      "Polls": 1,
+      "Matched": true
+    }
+  ],
+  "ExhaustionExceptions": [
+    "System.Threading.Tasks.TaskCanceledException:",
+    "Korda.Data.DatabaseException:ResourceLimit",
+    "Korda.Data.DatabaseException:ResourceLimit"
+  ],
+  "CleanupErrors": [],
+  "PendingOpensBeforeCancellation": 1,
+  "MatchingCanceledOpenResults": 1,
+  "ResourceLimitOpenResults": 2,
+  "ExhaustionAdmissionWaitMilliseconds": 20,
+  "PendingCancellationObserved": true,
+  "WarmOwners": [
+    1,
+    8,
+    0,
+    0,
+    0,
+    11,
+    27,
+    0
+  ],
+  "OwnersAfterExhaustion": [
+    1,
+    8,
+    0,
+    0,
+    0,
+    11,
+    86,
+    0
+  ],
+  "FinalOwners": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    86,
+    0
+  ],
+  "IdleUserSeconds": 0.03210899999999994,
+  "IdleSystemSeconds": 0.0008780000000000038,
+  "IdleElapsedSeconds": 1.000082495,
+  "SourceReleased": true,
+  "Passed": true,
+  "Error": null
+}

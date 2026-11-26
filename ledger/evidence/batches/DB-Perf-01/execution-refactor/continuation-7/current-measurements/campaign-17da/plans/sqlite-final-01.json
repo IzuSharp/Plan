@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "provider": "sqlite",
+  "lane": "final",
+  "scope": "Derived local final plan; no execution, host admission or acceptance is granted",
+  "longRunAcceptance": false,
+  "sourceDirectory": "/tmp/DB-Exec-10-pack-sqlite-02",
+  "inputs": {
+    "runner": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+      "sha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86"
+    },
+    "manifest": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2"
+    },
+    "consumers": {
+      "before": {
+        "path": "/workspace/scratch/4a65d70f0fe1/consumers/before-current-sqlite-workload-01/out/DbPerf.Korda",
+        "sha256": "1b08b1a2b3aae201d3e3fc62609ca763344ea253d5ed34e2d951cbf5c030b4ee"
+      },
+      "candidate": {
+        "path": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+        "sha256": "1ce8d74112e6dff217bb69d39c1f939474d04617b4f7961fb4e9b7edc5bf8953"
+      },
+      "dapper": {
+        "path": "/workspace/scratch/4a65d70f0fe1/consumers/dapper-matched-sqlite-01/out/DbPerf.Dapper",
+        "sha256": "7807793fb59a25fb466f1f76928084cab64c64279cf16fc60e4670c20e75d7e9"
+      }
+    },
+    "sqliteLibrary": {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+      "sha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282"
+    }
+  },
+  "manifestCaseNames": [
+    "numeric",
+    "text",
+    "money",
+    "json",
+    "wide",
+    "optional-filter",
+    "range",
+    "left-join",
+    "inner-join",
+    "null-notes",
+    "literal-note",
+    "customer-totals",
+    "product-totals",
+    "empty-sum",
+    "cursor",
+    "offset",
+    "exists",
+    "in-subquery",
+    "cte",
+    "window",
+    "union-all",
+    "union",
+    "intersect",
+    "except",
+    "running-total",
+    "three-join",
+    "anti-association",
+    "nullable-order",
+    "raw-sql",
+    "related",
+    "tx-commit",
+    "tx-rollback",
+    "partial-update",
+    "stale-conflict",
+    "early-stop"
+  ],
+  "mixedDataset": {
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "requestedRows": 32,
+    "batchRows": 32
+  },
+  "phaseDataset": {
+    "tenants": 2,
+    "rowsPerTenant": 1000,
+    "batchRows": 32
+  },
+  "affinity": {
+    "client": "0-3",
+    "postgres": "4-7",
+    "observer": "8"
+  },
+  "hostAdmission": "not established by plan generation; observe actual host and cgroup visibility",
+  "commands": [
+    {
+      "name": "fixture-mixed",
+      "cohort": "candidate",
+      "phase": "fixture",
+      "timingRequested": false,
+      "longRunAcceptance": false,
+      "comparisonRole": "candidate",
+      "argv": [
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--cases",
+        "numeric,text,money,json,wide,optional-filter,range,left-join,inner-join,null-notes,literal-note,customer-totals,product-totals,empty-sum,cursor,offset,exists,in-subquery,cte,window,union-all,union,intersect,except,running-total,three-join,anti-association,nullable-order,raw-sql,related,tx-commit,tx-rollback,partial-update,stale-conflict,early-stop",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "1",
+        "--rows",
+        "32",
+        "--batch-rows",
+        "32",
+        "--tenants",
+        "8",
+        "--orders-per-tenant",
+        "1024",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--initialize",
+        "--operations",
+        "0"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 600
+    },
+    {
+      "name": "candidate-c4",
+      "cohort": "candidate",
+      "phase": "final",
+      "timingRequested": true,
+      "longRunAcceptance": false,
+      "comparisonRole": "candidate",
+      "argv": [
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--cases",
+        "numeric,text,money,json,wide,optional-filter,range,left-join,inner-join,null-notes,literal-note,customer-totals,product-totals,empty-sum,cursor,offset,exists,in-subquery,cte,window,union-all,union,intersect,except,running-total,three-join,anti-association,nullable-order,raw-sql,related,tx-commit,tx-rollback,partial-update,stale-conflict,early-stop",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "4",
+        "--rows",
+        "32",
+        "--batch-rows",
+        "32",
+        "--tenants",
+        "8",
+        "--orders-per-tenant",
+        "1024",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--verify",
+        "--seconds",
+        "1800",
+        "--idle-seconds",
+        "15",
+        "--output",
+        "{output}/candidate-c4.json",
+        "--rate",
+        "3000.0"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 2115
+    },
+    {
+      "name": "dapper-c4",
+      "cohort": "dapper",
+      "phase": "final",
+      "timingRequested": true,
+      "longRunAcceptance": false,
+      "comparisonRole": "dapper",
+      "argv": [
+        "/workspace/scratch/4a65d70f0fe1/consumers/dapper-matched-sqlite-01/out/DbPerf.Dapper",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--cases",
+        "numeric,text,money,json,wide,optional-filter,range,left-join,inner-join,null-notes,literal-note,customer-totals,product-totals,empty-sum,cursor,offset,exists,in-subquery,cte,window,union-all,union,intersect,except,running-total,three-join,anti-association,nullable-order,raw-sql,related,tx-commit,tx-rollback,partial-update,stale-conflict,early-stop",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "4",
+        "--rows",
+        "32",
+        "--batch-rows",
+        "32",
+        "--tenants",
+        "8",
+        "--orders-per-tenant",
+        "1024",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--native-library",
+        "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+        "--verify",
+        "--seconds",
+        "1800",
+        "--idle-seconds",
+        "15",
+        "--output",
+        "{output}/dapper-c4.json",
+        "--rate",
+        "3000.0"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 2115
+    }
+  ],
+  "connection": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/fixture.sqlite",
+  "runnerCommand": [
+    "taskset",
+    "-c",
+    "8",
+    "python3",
+    "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+    "/workspace/scratch/fd78534029f7/measurements/plans/sqlite-final-01.json",
+    "--output",
+    "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01"
+  ],
+  "derivedFrom": {
+    "plan": {
+      "path": "/workspace/scratch/fd78534029f7/measurements/plans/sqlite-final-source-01.json",
+      "sha256": "8099add863040d52900c8876c041bf5c8d9dccf13b1adcfa96b5490fe3fb26bb"
+    },
+    "generator": {
+      "path": "/workspace/scratch/fd78534029f7/worktrees/DB-Exec-10-plan/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-4/generate_local_plan.py",
+      "sha256": "68deb860bd8ae1f0f268220e5c3b72606ff666b08a7511e1245d750b3fb1cc78"
+    },
+    "selector": {
+      "path": "/workspace/scratch/fd78534029f7/worktrees/DB-Exec-10-plan/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-7/local-load-tools/select_load_cohorts.py",
+      "sha256": "507afc98c5b448bba3daeae3c3fb77ea748d983029f42a6baf5870098abba43d"
+    },
+    "runnerSourceCommit": "17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa",
+    "runnerSourceTree": "bc9087d843d8d741d83d44f53d0b2c5af26dcffc",
+    "consumerIdentityScope": "Consumer/native/package freeze is separate; binary hashes are inherited unchanged from the input plan",
+    "originalLane": "final",
+    "originalSecondsPerCohort": 1800
+  },
+  "selection": {
+    "kind": "final",
+    "measuredCohorts": [
+      "candidate",
+      "dapper"
+    ],
+    "measuredSecondsPerCohort": 1800,
+    "fixturePreservedFirst": true,
+    "fixtureTimingCredit": false,
+    "sourceInputCohortsRetainedForIdentity": [
+      "before",
+      "candidate",
+      "dapper"
+    ],
+    "concurrency": 4,
+    "rate": 3000.0,
+    "queueCapacity": 64,
+    "finalCreditRequestedFor": [
+      "candidate",
+      "dapper"
+    ],
+    "transformations": [
+      "Select explicitly named measured cohorts while retaining the original fixture",
+      "Set measured duration to 1800 seconds",
+      "Rebind plan, result and database locations to a fresh output directory"
+    ]
+  }
+}

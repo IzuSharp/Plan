@@ -1,0 +1,60 @@
+{
+  "scope": "Local Linux Native AOT phase diagnostic correctness only; builds were in progress, so timings are not performance conclusions.",
+  "baselineProducerCommit": "771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+  "recoveredProducerCommit": "7f67b43c0e4ab08d1552c3b5a522e2669d73a604",
+  "routes": [
+    "fluent",
+    "prepared",
+    "host-sql"
+  ],
+  "rowsPerOperation": 100,
+  "warmupPerRoute": 64,
+  "longMeasurementSeconds": 0,
+  "cells": [
+    {
+      "provider": "sqlite",
+      "lane": "baseline",
+      "packageVersion": "0.1.0-preview.3+771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+      "nativeAot": true,
+      "resultFile": "phase-smoke/sqlite/baseline.json",
+      "measuredWindowOperations": 12,
+      "nativeOwnershipDrained": true,
+      "performanceComparison": false
+    },
+    {
+      "provider": "sqlite",
+      "lane": "recovered",
+      "packageVersion": "0.1.0-ci.1+7f67b43c0e4ab08d1552c3b5a522e2669d73a604",
+      "nativeAot": true,
+      "resultFile": "phase-smoke/sqlite/recovered.json",
+      "measuredWindowOperations": 12,
+      "nativeOwnershipDrained": true,
+      "performanceComparison": false
+    },
+    {
+      "provider": "postgresql",
+      "lane": "baseline",
+      "packageVersion": "0.1.0-preview.3+771bc77cbd68d3f932b99ed2497c0697bbba5f02",
+      "nativeAot": true,
+      "resultFile": "phase-smoke/postgresql/baseline.json",
+      "measuredWindowOperations": 12,
+      "nativeOwnershipDrained": true,
+      "performanceComparison": false
+    },
+    {
+      "provider": "postgresql",
+      "lane": "recovered",
+      "packageVersion": "0.1.0-ci.1+7f67b43c0e4ab08d1552c3b5a522e2669d73a604",
+      "nativeAot": true,
+      "resultFile": "phase-smoke/postgresql/recovered.json",
+      "measuredWindowOperations": 12,
+      "nativeOwnershipDrained": true,
+      "performanceComparison": false
+    }
+  ],
+  "sqlEquivalence": "PostgreSQL: identical rendered $1 SQL. SQLite: Fluent/prepared text identical; raw-template compiler emits ?1 instead of Fluent ?. Sole ordinal-one Int64 value, relational query, ordered complete DTO fields and session/connection are identical. Not claimed byte-identical SQLite text.",
+  "compressedEvidence": "*.resources.jsonl.gz and environment/*.json.gz preserve exact decompressed bytes; command receipt hashes address their original uncompressed filenames.",
+  "harnessLocalCommit": "b410cbd2415b3a704683f245563415e81901c45c",
+  "harnessPublicCommit": "5e0bf8929a8873e7620eb814e44b27ee84dfab08",
+  "harnessPublicMapping": "Public snapshot contains identical compiled source/project/builder bytes; only README provenance wording changed from the local smoke checkpoint."
+}

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <LangVersion>15.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PublishAot>true</PublishAot>
+    <IlcTreatWarningsAsErrors>true</IlcTreatWarningsAsErrors>
+    <UseSharedCompilation>false</UseSharedCompilation>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <AssemblyName>DbPerf.QueryPhases</AssemblyName>
+    <Provider Condition="'$(Provider)' == ''">Sqlite</Provider>
+    <KordaVersion Condition="'$(KordaVersion)' == ''">0.1.0-preview.3</KordaVersion>
+    <DefineConstants Condition="'$(Provider)' == 'PostgreSql'">$(DefineConstants);POSTGRES</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Korda.Database.$(Provider)" Version="$(KordaVersion)" />
+  </ItemGroup>
+<ItemGroup><Compile Remove="generated-original/**/*.cs;generated-instrumented/**/*.cs" /></ItemGroup><Target Name="CompileCapturedAllocationSources" BeforeTargets="CoreCompile" Condition="'$(AllocationCapturedGeneration)' == 'true'"><ItemGroup><Analyzer Remove="@(Analyzer)" /><Compile Include="generated-instrumented/**/*.cs" /></ItemGroup></Target></Project>

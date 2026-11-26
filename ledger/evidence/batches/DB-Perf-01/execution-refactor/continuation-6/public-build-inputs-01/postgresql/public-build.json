@@ -1,0 +1,134 @@
+{
+  "sourceCommit": "8789a45a52cc0cc0a0b62737542d9c120b753c9b",
+  "sourceTree": "c8f398ae4db2d39302335a51a6378b737409f2fb",
+  "sourceDirty": false,
+  "provider": "postgresql",
+  "scriptSha256": "9dddeacc05c022d3a813be01ae7c388806580bb6437ddc70592c4cf89f9e791f",
+  "records": [
+    {
+      "stage": "impact",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/impact.py",
+        "origin/main",
+        "--output",
+        "artifacts/plan.json"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:05:02.248337+00:00",
+      "buildOnlyProcessorCount": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:05:02.553629+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-impact-01.log",
+      "logSha256": "7aadc00fa3a2c38ba418fc4fb90e6a470a5ea553c10454e9f01588fb5b87779c"
+    },
+    {
+      "stage": "native",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/task07_native.py",
+        "--provider",
+        "postgresql",
+        "--output",
+        "/workspace/scratch/4a65d70f0fe1/artifacts/command-native-postgresql-01"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:05:02.554678+00:00",
+      "buildOnlyProcessorCount": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:05:42.760467+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-native-01.log",
+      "logSha256": "00717f6189043db31b756cf147866c4f56e8e578c36568f828c4545e08022cb4"
+    },
+    {
+      "stage": "bundle",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/bundles.py",
+        "--provider",
+        "postgresql",
+        "--plan",
+        "artifacts/plan.json",
+        "--version",
+        "0.1.0-ci.1",
+        "--native",
+        "/workspace/scratch/4a65d70f0fe1/artifacts/command-native-postgresql-01/manifest.json"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:05:42.761236+00:00",
+      "buildOnlyProcessorCount": 1,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:06:12.202134+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-bundle-01.log",
+      "logSha256": "ca6cfa2d999792b41f5d8ea166843fcaf7c14ecf6921e25642ab523be9d782f2"
+    },
+    {
+      "stage": "public-validate",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/validate_public.py",
+        "artifacts/public",
+        "artifacts/plan.json",
+        "0.1.0-ci.1",
+        "--module",
+        "postgresql"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:06:12.202592+00:00",
+      "buildOnlyProcessorCount": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:06:12.382794+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-public-validate-01.log",
+      "logSha256": "5107a29515917e3f26e592be6e35ca5c3f5eb9570aa645710e98ae61c65ab490"
+    },
+    {
+      "stage": "consumer-phases",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "benchmarks/db-perf/managed/build.py",
+        "--provider",
+        "postgresql",
+        "--feed",
+        "/workspace/scratch/4a65d70f0fe1/artifacts/command-packages-01/postgresql/feed",
+        "--version",
+        "0.1.0-ci.1",
+        "--kind",
+        "query-phases",
+        "--output",
+        "/workspace/scratch/4a65d70f0fe1/consumers/command-postgresql-phases-01"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:06:12.385027+00:00",
+      "buildOnlyProcessorCount": 1,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:06:29.440713+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-consumer-phases-01.log",
+      "logSha256": "dead9408fc611e8451f473f460a1d6b6be61424b6c83a587167cf79a89541961"
+    },
+    {
+      "stage": "consumer-workload",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "benchmarks/db-perf/managed/build.py",
+        "--provider",
+        "postgresql",
+        "--feed",
+        "/workspace/scratch/4a65d70f0fe1/artifacts/command-packages-01/postgresql/feed",
+        "--version",
+        "0.1.0-ci.1",
+        "--kind",
+        "workload",
+        "--output",
+        "/workspace/scratch/4a65d70f0fe1/consumers/command-postgresql-workload-01"
+      ],
+      "cwd": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-07-pack-postgresql",
+      "startedUtc": "2026-11-26T05:06:29.441259+00:00",
+      "buildOnlyProcessorCount": 1,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T05:07:05.545547+00:00",
+      "log": "/workspace/scratch/4a65d70f0fe1/artifacts/command-public-postgresql-consumer-workload-01.log",
+      "logSha256": "56ffc1ae490be01e829ee2af7db5ec1f32f19756cef170866185aeaacce13ba6"
+    }
+  ],
+  "scope": "Independent package and external Native AOT build inputs; execution and performance are separate."
+}

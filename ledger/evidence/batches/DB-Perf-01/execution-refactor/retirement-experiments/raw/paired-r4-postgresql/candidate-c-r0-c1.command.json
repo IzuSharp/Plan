@@ -1,0 +1,155 @@
+{
+  "name": "candidate-c-r0-c1",
+  "phase": "paired-retirement-short",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-5",
+    "/workspace/scratch/17ac3f8f2fbf/consumers/candidate-c-postgresql-workload/out/DbPerf.Korda",
+    "--connection",
+    "postgresql://korda@127.0.0.1:34635/db_perf_01",
+    "--case",
+    "mixed",
+    "--mode",
+    "prepared",
+    "--session",
+    "persistent",
+    "--concurrency",
+    "1",
+    "--warmup",
+    "35",
+    "--rows",
+    "32",
+    "--batch-rows",
+    "32",
+    "--seconds",
+    "5",
+    "--output",
+    "/workspace/scratch/17ac3f8f2fbf/measurements/paired-r4-postgresql/candidate-c-r0-c1.json",
+    "--verify"
+  ],
+  "startedUtc": "2026-11-25T20:15:34.495649+00:00",
+  "startedMonotonicNs": 53665218976814,
+  "timeoutSeconds": 180,
+  "resourceSamples": "candidate-c-r0-c1.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 9318,
+    "startTicks": 5366521,
+    "state": "R",
+    "parentPid": 9265,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 77824,
+      "Pss": 37888,
+      "Private_Clean": 0,
+      "Private_Dirty": 36864
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-25T20:15:40.056820+00:00",
+    "monotonicNs": 53670778903724,
+    "acquiredThroughMonotonicNs": 53670780137530,
+    "client": [
+      {
+        "pid": 9318,
+        "startTicks": 5366521,
+        "state": "Z",
+        "parentPid": 9265,
+        "userTicks": 76,
+        "systemTicks": 39,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 9279,
+        "startTicks": 5366425,
+        "state": "S",
+        "parentPid": 9265,
+        "userTicks": 0,
+        "systemTicks": 4,
+        "reapedChildUserTicks": 59,
+        "reapedChildSystemTicks": 29,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 20914176,
+          "Pss": 12017664,
+          "Private_Clean": 2867200,
+          "Private_Dirty": 5103616
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 76,
+      "ownAndReapedSystemTicks": 39,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 59,
+      "ownAndReapedSystemTicks": 33,
+      "sampledRssBytes": 20914176,
+      "sampledPssBytes": 12017664,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 2781395,
+      "nice": 0,
+      "system": 643826,
+      "idle": 44253304,
+      "iowait": 108183,
+      "irq": 0,
+      "softirq": 165780,
+      "steal": 218766,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 0.7625109999999999,
+  "processLifetimeSystemCpuSeconds": 0.392854,
+  "processLifetimeMaxRssBytes": 27303936,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-25T20:15:40.057060+00:00",
+  "finishedMonotonicNs": 53670780385437,
+  "files": {
+    "candidate-c-r0-c1.stdout.log": "b90dab62d588e7b39e5e2ced1fedca707d1b6c12df6c68abf558141183d83dba",
+    "candidate-c-r0-c1.resources.jsonl": "448066d767b2d0ea4f0ede18983236e4e33cf0cdbb6e9a473d056d0ffb5bb899"
+  },
+  "success": true
+}

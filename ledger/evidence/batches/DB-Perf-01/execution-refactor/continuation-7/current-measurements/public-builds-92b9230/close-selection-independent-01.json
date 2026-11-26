@@ -1,0 +1,718 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "scope": "Independently recompute the precommitted close selection from raw phase ticks.",
+  "scriptSha256": "8b0f96b43d26501f1eba95ffce0d91ff4985c39e3d6664d9aa2b62d833e362ea",
+  "checkedUtc": "2026-11-26T08:05:46.679771+00:00",
+  "rule": {
+    "commit": "9d1d0726f1048d9b1903b624d5549b860f142238",
+    "committedUtc": "2026-11-25T23:51:35-08:00",
+    "path": "ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-7/close-quiet-experiment.md",
+    "sha256": "e261456b61c5b69f820aaedbb3fb8cd590a630b921b732df93318e4df0b6e779"
+  },
+  "firstMeasuredStartUtc": "2026-11-26T07:53:22.802910+00:00",
+  "observationsTimingEligible": 36,
+  "rounds": [
+    {
+      "round": 1,
+      "provider": "sqlite",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 119.578,
+            "p95Microseconds": 222.316,
+            "p99Microseconds": 714.042,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 52.218,
+            "p95Microseconds": 112.582,
+            "p99Microseconds": 291.373,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 109.533,
+            "p95Microseconds": 180.548,
+            "p99Microseconds": 356.215,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 38.602,
+            "p95Microseconds": 92.858,
+            "p99Microseconds": 160.174,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.7392470029491744,
+      "singleRowGate": true
+    },
+    {
+      "round": 1,
+      "provider": "sqlite",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 293.657,
+            "p95Microseconds": 474.926,
+            "p99Microseconds": 1258.487,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 198.685,
+            "p95Microseconds": 330.296,
+            "p99Microseconds": 996.633,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 291.047,
+            "p95Microseconds": 415.322,
+            "p99Microseconds": 665.029,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 194.088,
+            "p95Microseconds": 290.683,
+            "p99Microseconds": 447.756,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9768628733925561,
+      "singleRowGate": null
+    },
+    {
+      "round": 1,
+      "provider": "sqlite",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 1698.938,
+            "p95Microseconds": 2809.079,
+            "p99Microseconds": 8685.863,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 1586.61,
+            "p95Microseconds": 2638.004,
+            "p99Microseconds": 5439.163,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 1782.552,
+            "p95Microseconds": 2354.503,
+            "p99Microseconds": 3012.401,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 1668.472,
+            "p95Microseconds": 2209.973,
+            "p99Microseconds": 2888.397,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 1.051595540176855,
+      "singleRowGate": null
+    },
+    {
+      "round": 1,
+      "provider": "postgresql",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 214.473,
+            "p95Microseconds": 320.346,
+            "p99Microseconds": 470.007,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 34.972,
+            "p95Microseconds": 89.673,
+            "p99Microseconds": 123.133,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 223.792,
+            "p95Microseconds": 354.627,
+            "p99Microseconds": 457.068,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 50.58,
+            "p95Microseconds": 108.847,
+            "p99Microseconds": 144.49,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 1.4462998970605054,
+      "singleRowGate": false
+    },
+    {
+      "round": 1,
+      "provider": "postgresql",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 526.092,
+            "p95Microseconds": 746.279,
+            "p99Microseconds": 1276.147,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 226.366,
+            "p95Microseconds": 348.313,
+            "p99Microseconds": 713.591,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 514.409,
+            "p95Microseconds": 899.244,
+            "p99Microseconds": 2604.994,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 214.328,
+            "p95Microseconds": 388.027,
+            "p99Microseconds": 1278.878,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9468206356078209,
+      "singleRowGate": null
+    },
+    {
+      "round": 1,
+      "provider": "postgresql",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 2646.623,
+            "p95Microseconds": 3929.47,
+            "p99Microseconds": 6799.701,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 2264.208,
+            "p95Microseconds": 3298.775,
+            "p99Microseconds": 5559.046,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 2421.913,
+            "p95Microseconds": 3214.012,
+            "p99Microseconds": 3786.232,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 2054.536,
+            "p95Microseconds": 2763.737,
+            "p99Microseconds": 3266.724,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9073972002572201,
+      "singleRowGate": null
+    },
+    {
+      "round": 2,
+      "provider": "sqlite",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 123.323,
+            "p95Microseconds": 196.501,
+            "p99Microseconds": 292.072,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 47.475,
+            "p95Microseconds": 103.113,
+            "p99Microseconds": 142.085,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 109.082,
+            "p95Microseconds": 211.343,
+            "p99Microseconds": 335.797,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 40.019,
+            "p95Microseconds": 118.054,
+            "p99Microseconds": 164.974,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.8429489204844655,
+      "singleRowGate": true
+    },
+    {
+      "round": 2,
+      "provider": "sqlite",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 319.335,
+            "p95Microseconds": 445.693,
+            "p99Microseconds": 743.166,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 211.444,
+            "p95Microseconds": 310.071,
+            "p99Microseconds": 549.988,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 302.74,
+            "p95Microseconds": 467.481,
+            "p99Microseconds": 836.489,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 198.776,
+            "p95Microseconds": 336.33,
+            "p99Microseconds": 654.585,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9400881557291766,
+      "singleRowGate": null
+    },
+    {
+      "round": 2,
+      "provider": "sqlite",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 1839.848,
+            "p95Microseconds": 2570.745,
+            "p99Microseconds": 3683.071,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 1706.599,
+            "p95Microseconds": 2410.087,
+            "p99Microseconds": 3541.701,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 1966.331,
+            "p95Microseconds": 3983.358,
+            "p99Microseconds": 12424.137,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 1837.234,
+            "p95Microseconds": 3721.099,
+            "p99Microseconds": 12219.141,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 1.0765469802806635,
+      "singleRowGate": null
+    },
+    {
+      "round": 2,
+      "provider": "postgresql",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 277.112,
+            "p95Microseconds": 518.282,
+            "p99Microseconds": 2143.67,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 65.898,
+            "p95Microseconds": 165.957,
+            "p99Microseconds": 1685.568,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 249.421,
+            "p95Microseconds": 444.922,
+            "p99Microseconds": 814.467,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 39.909,
+            "p95Microseconds": 109.653,
+            "p99Microseconds": 181.47,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.6056177729217882,
+      "singleRowGate": true
+    },
+    {
+      "round": 2,
+      "provider": "postgresql",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 559.953,
+            "p95Microseconds": 998.125,
+            "p99Microseconds": 2754.719,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 244.473,
+            "p95Microseconds": 464.2,
+            "p99Microseconds": 812.559,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 520.745,
+            "p95Microseconds": 789.735,
+            "p99Microseconds": 1876.763,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 226.196,
+            "p95Microseconds": 377.978,
+            "p99Microseconds": 880.941,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9252391879675874,
+      "singleRowGate": null
+    },
+    {
+      "round": 2,
+      "provider": "postgresql",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 2502.403,
+            "p95Microseconds": 3343.911,
+            "p99Microseconds": 5537.971,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 2116.93,
+            "p95Microseconds": 2880.827,
+            "p99Microseconds": 4735.592,
+            "samples": 768
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 2366.271,
+            "p95Microseconds": 3343.516,
+            "p99Microseconds": 6460.359,
+            "samples": 768
+          },
+          "readComplete": {
+            "p50Microseconds": 1999.356,
+            "p95Microseconds": 2834.277,
+            "p99Microseconds": 4169.284,
+            "samples": 768
+          }
+        }
+      },
+      "readCompleteP50Ratio": 0.9444601380300719,
+      "singleRowGate": null
+    }
+  ],
+  "pooled": [
+    {
+      "provider": "sqlite",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 121.09,
+            "p95Microseconds": 207.885,
+            "p99Microseconds": 449.804,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 49.879,
+            "p95Microseconds": 107.499,
+            "p99Microseconds": 221.75,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 109.412,
+            "p95Microseconds": 200.587,
+            "p99Microseconds": 335.797,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 39.278,
+            "p95Microseconds": 108.16,
+            "p99Microseconds": 161.831,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 0.9035593360310513,
+      "nonRegressionGate": true
+    },
+    {
+      "provider": "sqlite",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 307.318,
+            "p95Microseconds": 456.88,
+            "p99Microseconds": 951.495,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 205.151,
+            "p95Microseconds": 321.048,
+            "p99Microseconds": 606.167,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 297.543,
+            "p95Microseconds": 442.518,
+            "p99Microseconds": 805.012,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 196.778,
+            "p95Microseconds": 308.899,
+            "p99Microseconds": 516.72,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 0.9681925562446717,
+      "nonRegressionGate": true
+    },
+    {
+      "provider": "sqlite",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 1755.582,
+            "p95Microseconds": 2646.553,
+            "p99Microseconds": 4325.92,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 1638.553,
+            "p95Microseconds": 2462.244,
+            "p99Microseconds": 4176.661,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 1874.589,
+            "p95Microseconds": 3270.378,
+            "p99Microseconds": 7223.163,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 1750.233,
+            "p95Microseconds": 3089.319,
+            "p99Microseconds": 6792.43,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 1.0677877763613433,
+      "nonRegressionGate": false
+    },
+    {
+      "provider": "postgresql",
+      "rows": 1,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 242.394,
+            "p95Microseconds": 423.23,
+            "p99Microseconds": 1223.971,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 48.222,
+            "p95Microseconds": 130.064,
+            "p99Microseconds": 387.256,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 236.476,
+            "p95Microseconds": 401.421,
+            "p99Microseconds": 713.827,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 44.466,
+            "p95Microseconds": 109.552,
+            "p99Microseconds": 153.698,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 0.9755852042542307,
+      "nonRegressionGate": true
+    },
+    {
+      "provider": "postgresql",
+      "rows": 100,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 543.639,
+            "p95Microseconds": 844.026,
+            "p99Microseconds": 2113.27,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 234.919,
+            "p95Microseconds": 408.358,
+            "p99Microseconds": 716.646,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 518.802,
+            "p95Microseconds": 803.641,
+            "p99Microseconds": 2431.319,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 221.394,
+            "p95Microseconds": 382.117,
+            "p99Microseconds": 974.887,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 0.954313432259275,
+      "nonRegressionGate": true
+    },
+    {
+      "provider": "postgresql",
+      "rows": 1000,
+      "routes": {
+        "before": {
+          "total": {
+            "p50Microseconds": 2587.058,
+            "p95Microseconds": 3683.072,
+            "p99Microseconds": 6622.771,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 2199.861,
+            "p95Microseconds": 3153.144,
+            "p99Microseconds": 4993.688,
+            "samples": 1536
+          }
+        },
+        "candidate": {
+          "total": {
+            "p50Microseconds": 2395.434,
+            "p95Microseconds": 3261.188,
+            "p99Microseconds": 5398.132,
+            "samples": 1536
+          },
+          "readComplete": {
+            "p50Microseconds": 2030.941,
+            "p95Microseconds": 2786.346,
+            "p99Microseconds": 3828.737,
+            "samples": 1536
+          }
+        }
+      },
+      "totalP50Ratio": 0.9259297626879646,
+      "nonRegressionGate": true
+    }
+  ],
+  "selected": false,
+  "selectedCommit": "17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa",
+  "candidateCorrectnessPassed": true,
+  "candidatePerformanceRejected": true,
+  "earlier0aaTimedInThisPair": false,
+  "earlier0aaNotTimedBeforeThisPair": "Root continuation record; no earlier timing is reassigned here.",
+  "inputs": {
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-selection-01.json": "48395f4c14ffe598e97e2c6154355cb633e24920a3f661a8087d16541bcd1335",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-analysis-r1": "e4a27c044b78b32420c563707edecfbac101b3d6b023ba3bd5b9ab6c4c9f51a5",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/before-rows1.json": "1937dfd7b44e6c174e2b6525927521d81a99faa819f0b729921a1c5981c89cfc",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/candidate-rows1.json": "9b203d40cdc20d8af703d44b5e86b49d309b9df36cc93d0d3e9b98e5babf20df",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/before-rows100.json": "30c7854e3143c1f21808df6be23c64bc9635611512637e8b7f847c68b92b40b5",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/candidate-rows100.json": "ccec041aa08d997316ac4fcf396b71e5512c0b9ea91e7c19d84553e58231244f",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/before-rows1000.json": "de64934dc4c31b5673b5288095254a33746c185d59efd350e5607bd794fe2b0b",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r1/candidate-rows1000.json": "19ef80214319e7e78dcbe7d6edad1b4ff4afd667d55ce58ef687baa8a42e2a19",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/before-rows1.json": "adff602d36cb82b085859040c64755ba82b991c870b57597f442fc3a05f44167",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/candidate-rows1.json": "d6ce787a97ae8dc667a7364212f171b4ce0a1d4421d9747fc5f17a72f391440b",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/before-rows100.json": "dfca91f33dc3088d364975ec43683e73acd1ead693475bde8ea7e83e082812f7",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/candidate-rows100.json": "a85f8e391d422a09ebd804c76bf772b743e360985a3bae191102204981d4a4bc",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/before-rows1000.json": "46b2ce5dfd292943ee49ba2e949634b2c6bb494ff9f46951786f278446794d04",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r1/candidate-rows1000.json": "9e714c3f677dcb5431146c962bc9d427ee7fb65b9d3fdd30e6e1b171f1700d6c",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-analysis-r2": "c43e8eb3445c2bb720475869e524920bd334713cd5da54bceb87afbb02422f25",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/before-rows1.json": "c5597765b507cf0edcf4a450e0a3530c44dc8705133361faa78977d0494d61c2",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/candidate-rows1.json": "6699a25694c507995f85bff1ab6d4a074f94d77cd627e63230f1ddd760acde4d",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/before-rows100.json": "e69f0558c5a6a119d583829ea579a105b4527672a6ace6af0812ee18d4f8a09c",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/candidate-rows100.json": "8d99c4a6a04eef4af98b1356376a25199673e269b8dc3dc5708f211dcc1d41a3",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/before-rows1000.json": "3cb7c5995a51863e6bb154c4d3ce98c2c0ebfda431d226b13581faf4a63de36e",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-sqlite-r2/candidate-rows1000.json": "3b679f3ef534364e65f6f7681847f5d76fdae3a3300bb42105920e08bd19f03e",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/before-rows1.json": "356c6847ea08c1ad55f2b24b1769ddd99a01860718c4bc4d5f3836bf3fc88947",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/candidate-rows1.json": "b0b86de60b04755f7357c2cd1d5dc662f9736bdfb2ab18b08fc7f041f3202430",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/before-rows100.json": "2bb8be538b405c73acd7298516533c9ec579128645e228a76222e98330c6175a",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/candidate-rows100.json": "c8b3a5e95f666e86f4def56dc30836e494be400219537b7e97551600d8d376d0",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/before-rows1000.json": "78964ff2619065b10d4fa24e4adfae3418a7bff985aa5bd600b98f329b46130e",
+    "/workspace/scratch/fd78534029f7/measurements/close-paired-postgresql-r2/candidate-rows1000.json": "1cdc17f1ea53c42c2a4dcb230c7aa701b3242dbc46db64c2b4c1e06ef31a26cb"
+  },
+  "inputsUnchanged": true,
+  "binaryHashSweep": false,
+  "productExecutions": 0,
+  "performanceAcceptanceCredit": false
+}

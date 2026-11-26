@@ -1,0 +1,740 @@
+diff --git a/native/cpp/include/nw/host.hpp b/native/cpp/include/nw/host.hpp
+index 87a5841..297b2b7 100644
+--- a/native/cpp/include/nw/host.hpp
++++ b/native/cpp/include/nw/host.hpp
+@@ -89,6 +89,24 @@ class WorkerPool
+     std::mutex stop_mutex_;
+ };
+ 
++// Independent of the owners whose last references a worker releases. A worker
++// may destroy those owners before completing its ticket without accessing them
++// again, and an explicit parent join can await all descendant accessors.
++class RetirementFence
++{
++  public:
++    void add();
++    void complete();
++    void wait();
++    void wait_until(Clock::time_point deadline);
++    [[nodiscard]] bool done() const;
++
++  private:
++    mutable std::mutex mutex_;
++    std::condition_variable changed_;
++    std::size_t pending_ = 0;
++};
++
+ struct Source : std::enable_shared_from_this<Source>
+ {
+     HostConfig config;
+@@ -96,12 +114,14 @@ struct Source : std::enable_shared_from_this<Source>
+     std::shared_ptr<ParameterRegistry> parameters;
+     std::atomic<bool> closing{false}, retired{false}, poisoned{false};
+     std::atomic<std::size_t> pending{0}, close_waiters{0};
++    std::shared_ptr<RetirementFence> transaction_workers = std::make_shared<RetirementFence>();
+     WorkerPool workers;
+     WorkerPool controls{2};
+     std::mutex mutex, registry_mutex, join_mutex;
+     std::condition_variable changed;
+ #ifdef NW_HOST_TEST_HOOKS
+     std::function<void()> test_before_join_wait;
++    std::function<void()> test_before_transaction_wait;
+ #endif
+     std::vector<std::weak_ptr<Session>> children;
+     std::vector<std::shared_ptr<ProviderConnection>> idle;
+@@ -333,6 +353,11 @@ struct Transaction : std::enable_shared_from_this<Transaction>
+     // provider binaries contain neither these fields nor either dispatch seam.
+     std::function<bool(bool)> test_finish;
+     std::function<void()> test_retire_gate;
++    std::function<void()> test_after_finish_worker;
++    std::function<void()> test_after_deadline_worker;
++    std::function<void()> test_before_finish_dispatch;
++    std::function<void()> test_before_join_wait;
++    std::function<void(std::uint32_t)> test_before_worker_start;
+ #endif
+     static std::shared_ptr<Transaction> begin(std::shared_ptr<Session> session, TransactionOptions options,
+                                               std::shared_ptr<Cancel> cancel, std::shared_ptr<CommandGate> gate);
+@@ -350,6 +375,9 @@ struct Transaction : std::enable_shared_from_this<Transaction>
+     Bytes dispose_savepoint(std::uint64_t token);
+ 
+   private:
++    struct Worker;
++    class WorkerLaunch;
++    std::shared_ptr<RetirementFence> completion_ = std::make_shared<RetirementFence>();
+     void finish_worker(bool commit, std::shared_ptr<CommandGate> gate);
+     void deadline_worker();
+ };
+diff --git a/native/cpp/src/host.cpp b/native/cpp/src/host.cpp
+index 06a8f77..f24d6ab 100644
+--- a/native/cpp/src/host.cpp
++++ b/native/cpp/src/host.cpp
+@@ -306,6 +306,37 @@ void WorkerPool::stop()
+         }
+ }
+ 
++void RetirementFence::add()
++{
++    std::lock_guard lock(mutex_);
++    ++pending_;
++}
++void RetirementFence::complete()
++{
++    {
++        std::lock_guard lock(mutex_);
++        if (!pending_)
++            std::terminate();
++        --pending_;
++    }
++    changed_.notify_all();
++}
++void RetirementFence::wait()
++{
++    std::unique_lock lock(mutex_);
++    changed_.wait(lock, [&] { return pending_ == 0; });
++}
++void RetirementFence::wait_until(Clock::time_point deadline)
++{
++    std::unique_lock lock(mutex_);
++    changed_.wait_until(lock, deadline, [&] { return pending_ == 0; });
++}
++bool RetirementFence::done() const
++{
++    std::lock_guard lock(mutex_);
++    return pending_ == 0;
++}
++
+ Source::Source(HostConfig value)
+     : config(std::move(value)), identity{module_identity(), next_source.fetch_add(1), 1, config.provider.profile},
+       parameters(std::make_shared<ParameterRegistry>(identity, config.limits.nodes)),
+@@ -324,6 +355,9 @@ std::shared_ptr<Source> Source::create(HostConfig config)
+ }
+ Source::~Source()
+ {
++    // A detached transaction's last reference may destroy this Source before
++    // its independent ticket completes. Only explicit join waits that fence;
++    // waiting here would make the worker wait for its own final release.
+     {
+         std::lock_guard lock(mutex);
+         admission_stop = true;
+@@ -587,6 +621,13 @@ void Source::join()
+     changed.notify_all();
+     if (admission_thread.joinable())
+         admission_thread.join();
++    // The join caller retains this Source. Wait without its state mutex and
++    // before stopping the pools which descendant cleanup can still use.
++#ifdef NW_HOST_TEST_HOOKS
++    if (!transaction_workers->done() && test_before_transaction_wait)
++        test_before_transaction_wait();
++#endif
++    transaction_workers->wait();
+     workers.stop();
+     controls.stop();
+     retired.store(true);
+@@ -1855,14 +1896,171 @@ void Transaction::command_failed()
+     if (!retired && state == 0)
+         state = 1;
+ }
++
++struct Transaction::Worker
++{
++    struct Start
++    {
++        std::mutex mutex;
++        std::condition_variable changed;
++        bool decided = false, run = false, dispatched = false;
++        void publish(bool value)
++        {
++            {
++                std::lock_guard lock(mutex);
++                if (decided)
++                    return;
++                decided = true;
++                run = value;
++            }
++            changed.notify_all();
++        }
++        bool wait()
++        {
++            std::unique_lock lock(mutex);
++            changed.wait(lock, [&] { return decided; });
++            return run;
++        }
++        void permit_deadline()
++        {
++            {
++                std::lock_guard lock(mutex);
++                dispatched = true;
++            }
++            changed.notify_all();
++        }
++        void await_dispatch()
++        {
++            std::unique_lock lock(mutex);
++            changed.wait(lock, [&] { return dispatched; });
++        }
++    };
++
++    std::shared_ptr<Transaction> owner;
++    std::shared_ptr<CommandGate> gate;
++    std::shared_ptr<Start> start;
++    std::shared_ptr<RetirementFence> completion, parent;
++    bool finish, commit;
++
++    Worker(std::shared_ptr<Transaction> value, std::shared_ptr<CommandGate> command, std::shared_ptr<Start> launch,
++           bool finishing, bool committing)
++        : owner(std::move(value)), gate(std::move(command)), start(std::move(launch)), completion(owner->completion_),
++          parent(owner->session->source->transaction_workers), finish(finishing), commit(committing)
++    {
++        completion->add();
++        parent->add();
++    }
++    ~Worker()
++    {
++        // CommandGate destruction can schedule cleanup. Release it while the
++        // Transaction is still retained, then release every parent owner before
++        // publishing either independent ticket. No Source is held by a ticket.
++        gate.reset();
++        owner.reset();
++        completion->complete();
++        parent->complete();
++    }
++    void run()
++    {
++        if (!start->wait())
++            return;
++        if (finish)
++        {
++#ifdef NW_HOST_TEST_HOOKS
++            if (owner->test_before_finish_dispatch)
++                owner->test_before_finish_dispatch();
++#endif
++            // Previously the deadline thread was created inside finish_worker,
++            // after this dispatch marker. Preserve that order even though both
++            // workers are now prepared before publishing finish admission.
++            gate->dispatched = true;
++            start->permit_deadline();
++            owner->finish_worker(commit, gate);
++#ifdef NW_HOST_TEST_HOOKS
++            if (owner->test_after_finish_worker)
++                owner->test_after_finish_worker();
++#endif
++        }
++        else
++        {
++            start->await_dispatch();
++            owner->deadline_worker();
++#ifdef NW_HOST_TEST_HOOKS
++            if (owner->test_after_deadline_worker)
++                owner->test_after_deadline_worker();
++#endif
++        }
++    }
++};
++
++class Transaction::WorkerLaunch
++{
++  public:
++    WorkerLaunch(const std::shared_ptr<Transaction>& owner, bool commit, const std::shared_ptr<CommandGate>& gate)
++        : completion_(owner->completion_)
++    {
++        try
++        {
++            for (std::uint32_t index = 0; index != 2; ++index)
++            {
++                auto worker = std::make_unique<Worker>(owner, index == 0 ? gate : nullptr, start_, index == 0, commit);
++#ifdef NW_HOST_TEST_HOOKS
++                if (owner->test_before_worker_start)
++                    owner->test_before_worker_start(index);
++#endif
++                std::thread thread([worker = std::move(worker)] { worker->run(); });
++                try
++                {
++                    thread.detach();
++                }
++                catch (...)
++                {
++                    start_->publish(false);
++                    thread.join();
++                    throw;
++                }
++            }
++        }
++        catch (...)
++        {
++            // No worker enters Transaction methods until both launches succeed.
++            // The caller retains owner and gate while these canceled workers
++            // release their captures, so compensation cannot reenter its lock.
++            start_->publish(false);
++            completion_->wait();
++            throw;
++        }
++    }
++    ~WorkerLaunch()
++    {
++        if (!started_)
++        {
++            start_->publish(false);
++            completion_->wait();
++        }
++    }
++    void start()
++    {
++        start_->publish(true);
++        started_ = true;
++    }
++
++  private:
++    std::shared_ptr<Worker::Start> start_ = std::make_shared<Worker::Start>();
++    std::shared_ptr<RetirementFence> completion_;
++    bool started_ = false;
++};
++
+ Bytes Transaction::finish(bool commit, std::shared_ptr<Cancel> cancel, std::shared_ptr<CommandGate> gate)
+ {
++    std::optional<WorkerLaunch> launch;
+     {
+         std::lock_guard lock(mutex);
+         if (closing || finishing || retired || (commit ? state != 0 : (state != 0 && state != 1)))
+             throw Error::state("transaction admission rejected");
+         if (cancel->requested())
+             throw Error::canceled();
++        launch.emplace(shared_from_this(), commit, gate);
+         finishing = true;
+         closing = true;
+         state = commit ? 2 : 3;
+@@ -1873,8 +2071,7 @@ Bytes Transaction::finish(bool commit, std::shared_ptr<Cancel> cancel, std::shar
+         phase_deadline =
+             Clock::now() + std::chrono::nanoseconds(commit ? options.commit_timeout_ns : options.cleanup_timeout_ns);
+     }
+-    auto self = shared_from_this();
+-    std::thread([self, commit, gate] { self->finish_worker(commit, gate); }).detach();
++    launch->start();
+     {
+         std::unique_lock lock(mutex);
+         changed.wait(lock, [&] { return primary_ready; });
+@@ -1919,9 +2116,6 @@ void Transaction::deadline_worker()
+ }
+ void Transaction::finish_worker(bool commit, std::shared_ptr<CommandGate> gate)
+ {
+-    gate->dispatched = true;
+-    auto self = shared_from_this();
+-    std::thread([self] { self->deadline_worker(); }).detach();
+     std::optional<Error> failure;
+     bool committed = false;
+     bool known_rollback = false;
+@@ -2129,20 +2323,40 @@ void Transaction::request_close()
+ Bytes Transaction::wait_close(std::uint64_t wait_ns)
+ {
+     request_close();
++    const auto deadline = Clock::now() + std::chrono::nanoseconds(wait_ns);
+     {
+         std::unique_lock lock(mutex);
+-        changed.wait_for(lock, std::chrono::nanoseconds(wait_ns), [&] { return retired; });
++        changed.wait_until(lock, deadline, [&] { return retired; });
+     }
++    completion_->wait_until(deadline);
+     return snapshot();
+ }
+ void Transaction::schedule_cleanup()
+ {
++    std::optional<WorkerLaunch> launch;
++    std::shared_ptr<CommandGate> gate;
+     {
+         std::lock_guard lock(mutex);
+         if (!closing || retired || finishing || session->active.load())
+             return;
+         if (session->active.exchange(true))
+             return;
++        try
++        {
++            gate = std::make_shared<CommandGate>(session);
++            launch.emplace(shared_from_this(), false, gate);
++        }
++        catch (...)
++        {
++            // A launch failure has run no provider work and published no
++            // finishing state. Leave automatic cleanup retryable, without a
++            // gate destructor recursively retrying while this mutex is held.
++            if (gate)
++                gate->completed = true;
++            session->active.store(false);
++            session->changed.notify_all();
++            throw;
++        }
+         finishing = true;
+         state = 3;
+         cleanup = 1;
+@@ -2150,21 +2364,26 @@ void Transaction::schedule_cleanup()
+         deadline_phase = 2;
+         phase_deadline = Clock::now() + std::chrono::nanoseconds(options.cleanup_timeout_ns);
+     }
+-    auto gate = std::make_shared<CommandGate>(session);
+-    auto self = shared_from_this();
+-    std::thread([self, gate] { self->finish_worker(false, gate); }).detach();
++    launch->start();
+ }
+ void Transaction::join()
+ {
+     request_close();
+-    std::unique_lock lock(mutex);
+-    changed.wait(lock, [&] { return retired; });
++    {
++        std::unique_lock lock(mutex);
++        changed.wait(lock, [&] { return retired; });
++    }
++#ifdef NW_HOST_TEST_HOOKS
++    if (!completion_->done() && test_before_join_wait)
++        test_before_join_wait();
++#endif
++    completion_->wait();
+ }
+ Bytes Transaction::snapshot() const
+ {
+     std::lock_guard lock(mutex);
+-    return snapshot_record(state, outcome, attempted, cleanup, disposition, retired, deadline_exceeded, correlation,
+-                           provider);
++    return snapshot_record(state, outcome, attempted, cleanup, disposition, retired && completion_->done(),
++                           deadline_exceeded, correlation, provider);
+ }
+ std::shared_ptr<Savepoint> Transaction::create_savepoint(std::shared_ptr<Cancel> cancel,
+                                                          std::shared_ptr<CommandGate> gate)
+diff --git a/native/cpp/tests/fixtures/sqlite.cpp b/native/cpp/tests/fixtures/sqlite.cpp
+index 3a51fde..167b9af 100644
+--- a/native/cpp/tests/fixtures/sqlite.cpp
++++ b/native/cpp/tests/fixtures/sqlite.cpp
+@@ -301,7 +301,8 @@ void codecs(const std::filesystem::path& file)
+     (void)rejects([&] { (void)decode_parameters(encoded, wrong, 4096, MAX_BYTES, 65536); });
+     check(!session->active.load(), "no admitted command retained after codecs");
+ }
+-void savepoints(const std::filesystem::path& file)
++void savepoints(const std::filesystem::path& file,
++                const std::function<void(const std::shared_ptr<Transaction>&)>& configure = {})
+ {
+     Scope scope(configuration(file.string()));
+     auto session = scope.open();
+@@ -309,6 +310,8 @@ void savepoints(const std::filesystem::path& file)
+     execute(session, "CREATE TABLE parent(id INTEGER PRIMARY KEY)");
+     execute(session, "CREATE TABLE child(id INTEGER REFERENCES parent(id))");
+     auto tx = begin(session);
++    if (configure)
++        configure(tx);
+     auto point = tx->create_savepoint(token(), session->admit(true));
+     (void)rejects([&] { execute(session, "INSERT INTO child VALUES (9)"); });
+     check(!tx->active(), "constraint failure closes ordinary transaction admission");
+@@ -364,6 +367,37 @@ struct ReleaseGate
+         gate->release();
+     }
+ };
++void savepoint_worker_epilogues(const std::filesystem::path& root)
++{
++    for (const bool deadline : {false, true})
++    {
++        auto gate = std::make_shared<Gate>();
++        std::future<void> work;
++        ReleaseGate release{gate};
++        const auto file = root / (deadline ? "case-4-deadline-epilogue.db" : "case-4-finish-epilogue.db");
++        work = std::async(std::launch::async,
++                          [file, gate, deadline]
++                          {
++                              savepoints(file,
++                                         [gate, deadline](const auto& tx)
++                                         {
++                                             auto hook = [gate] { gate->enter(); };
++                                             if (deadline)
++                                                 tx->test_after_deadline_worker = std::move(hook);
++                                             else
++                                                 tx->test_after_finish_worker = std::move(hook);
++                                         });
++                          });
++        gate->wait();
++        check(work.wait_for(20ms) != std::future_status::ready,
++              "case 4 returned before its transaction worker released the last references");
++        gate->release();
++        joined(work);
++        check(!gate->timed_out && source_count == 0 && session_count == 0 && cursor_count == 0 && buffer_count == 0 &&
++                  operation_count == 0,
++              "case 4 worker completion did not release every native owner");
++    }
++}
+ sqlite3* handle(const std::shared_ptr<Session>& session)
+ {
+     auto* result = static_cast<sqlite3*>(session->connection->test_sqlite_handle());
+@@ -791,6 +825,7 @@ void run_suite(const std::filesystem::path& root)
+                 break;
+             case 4:
+                 savepoints(file);
++                savepoint_worker_epilogues(root);
+                 break;
+             case 5:
+                 cancellation(file);
+diff --git a/native/cpp/tests/transaction_tests.cpp b/native/cpp/tests/transaction_tests.cpp
+index 8445dc2..8840012 100644
+--- a/native/cpp/tests/transaction_tests.cpp
++++ b/native/cpp/tests/transaction_tests.cpp
+@@ -8,6 +8,7 @@
+ #include <iostream>
+ #include <semaphore>
+ #include <stdexcept>
++#include <system_error>
+ 
+ namespace nw
+ {
+@@ -117,9 +118,13 @@ struct Scope
+         probe->proceed.release(4);
+         if (tx)
+             tx->join();
+-        session->request_close();
+-        session->join();
+-        source->join();
++        if (session)
++        {
++            session->request_close();
++            session->join();
++        }
++        if (source)
++            source->join();
+     }
+     void finish(bool commit, std::shared_ptr<Cancel> cancel = std::make_shared<Cancel>())
+     {
+@@ -452,6 +457,229 @@ void final_owner()
+     await([&] { return weak.expired(); });
+     check(weak.expired(), "cleanup eventually releases final transaction owner");
+ }
++
++struct EpilogueGate
++{
++    std::binary_semaphore entered{0}, proceed{0};
++    std::atomic<bool> released{false}, timed_out{false};
++    void enter()
++    {
++        entered.release();
++        if (!proceed.try_acquire_for(std::chrono::seconds(3)))
++            timed_out.store(true);
++    }
++    void wait()
++    {
++        check(entered.try_acquire_for(std::chrono::seconds(3)), "transaction reached its exact worker epilogue");
++    }
++    void release()
++    {
++        if (!released.exchange(true))
++            proceed.release();
++    }
++};
++struct ReleaseEpilogue
++{
++    std::shared_ptr<EpilogueGate> gate;
++    ~ReleaseEpilogue()
++    {
++        gate->release();
++    }
++};
++bool released_receipt(const std::shared_ptr<Transaction>& tx)
++{
++    const auto bytes = tx->snapshot();
++    return Fields::parse(bytes, 7,
++                         {{1, 1, true},
++                          {2, 1, true},
++                          {3, 1, true},
++                          {4, 1, true},
++                          {5, 1, true},
++                          {6, 1, true},
++                          {7, 1, true},
++                          {8, 2, true},
++                          {9, 4, false}})
++        .boolean(6);
++}
++void hold_epilogue(const std::shared_ptr<Transaction>& tx, const std::shared_ptr<EpilogueGate>& gate, bool deadline)
++{
++    auto hook = [gate] { gate->enter(); };
++    if (deadline)
++        tx->test_after_deadline_worker = std::move(hook);
++    else
++        tx->test_after_finish_worker = std::move(hook);
++}
++void transaction_epilogue_join()
++{
++    for (const bool deadline : {false, true})
++    {
++        Scope scope;
++        auto gate = std::make_shared<EpilogueGate>();
++        ReleaseEpilogue release{gate};
++        hold_epilogue(scope.tx, gate, deadline);
++        scope.finish(true);
++        gate->wait();
++        {
++            std::lock_guard lock(scope.tx->mutex);
++            check(scope.tx->retired && scope.tx->outcome == 1 && scope.tx->cleanup == 2,
++                  "worker epilogue changed confirmed transaction cleanup");
++        }
++        check(!released_receipt(scope.tx), "transaction receipt released a retained worker accessor");
++        (void)scope.tx->wait_close(0);
++        check(!released_receipt(scope.tx), "bounded close inferred release from provider cleanup alone");
++        std::atomic<bool> waiting{false};
++        scope.tx->test_before_join_wait = [&] { waiting.store(true); };
++        auto joined = std::async(std::launch::async, [tx = scope.tx] { tx->join(); });
++        await([&] { return waiting.load(); });
++        check(joined.wait_for(std::chrono::milliseconds(20)) != std::future_status::ready,
++              "transaction join returned while its exact worker epilogue was held");
++        gate->release();
++        check(joined.wait_for(std::chrono::seconds(3)) == std::future_status::ready,
++              "transaction worker ticket lost completion");
++        joined.get();
++        check(!gate->timed_out && released_receipt(scope.tx), "transaction ticket did not publish final release");
++        scope.tx->test_before_join_wait = {};
++    }
++}
++void parent_epilogue_join()
++{
++    for (const bool deadline : {false, true})
++    {
++        Scope scope;
++        auto gate = std::make_shared<EpilogueGate>();
++        ReleaseEpilogue release{gate};
++        hold_epilogue(scope.tx, gate, deadline);
++        scope.finish(true);
++        gate->wait();
++        auto source = std::move(scope.source);
++        auto session = std::move(scope.session);
++        auto tx = std::move(scope.tx);
++        std::weak_ptr<Transaction> weak_tx = tx;
++        std::weak_ptr<Session> weak_session = session;
++        std::weak_ptr<Source> weak_source = source;
++        tx.reset();
++        session->request_close();
++        session->join();
++        session.reset();
++        std::atomic<bool> waiting{false};
++        source->test_before_transaction_wait = [&] { waiting.store(true); };
++        // The explicit join caller itself owns Source throughout its wait.
++        auto joined = std::async(std::launch::async, [source] { source->join(); });
++        await([&] { return waiting.load(); });
++        check(!source->retired && !weak_tx.expired() && !weak_session.expired(),
++              "source join dropped a retained transaction descendant");
++        check(joined.wait_for(std::chrono::milliseconds(20)) != std::future_status::ready,
++              "source join ignored a detached transaction worker");
++        source.reset();
++        gate->release();
++        check(joined.wait_for(std::chrono::seconds(3)) == std::future_status::ready,
++              "source descendant fence lost completion");
++        joined.get();
++        joined = {};
++        check(!gate->timed_out && weak_tx.expired() && weak_session.expired() && weak_source.expired(),
++              "parent join left transaction or parent references after returning");
++        check(source_count == 0 && session_count == 0, "parent join did not release actual native owners");
++    }
++}
++void last_source_destruction()
++{
++    for (const bool deadline : {false, true})
++    {
++        Scope scope;
++        auto gate = std::make_shared<EpilogueGate>();
++        ReleaseEpilogue release{gate};
++        hold_epilogue(scope.tx, gate, deadline);
++        scope.finish(true);
++        gate->wait();
++        auto source = std::move(scope.source);
++        auto session = std::move(scope.session);
++        auto tx = std::move(scope.tx);
++        auto parent_ticket = source->transaction_workers;
++        source->request_close();
++        session->join();
++        source->admission_thread.join();
++        source->workers.stop();
++        source->controls.stop();
++        tx.reset();
++        session.reset();
++        source.reset();
++        check(source_count == 1 && session_count == 1 && !parent_ticket->done(),
++              "test did not retain exactly the epilogue's last parent chain");
++        gate->release();
++        await([&] { return parent_ticket->done(); });
++        check(!gate->timed_out && source_count == 0 && session_count == 0,
++              "last worker reference self-waited in Source destruction");
++    }
++}
++void worker_launch_compensation()
++{
++    for (const std::uint32_t failed_index : {0u, 1u})
++        for (const bool implicit_close : {false, true})
++        {
++            Scope scope;
++            scope.tx->test_before_worker_start = [failed_index](std::uint32_t index)
++            {
++                if (index == failed_index)
++                    throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
++            };
++            bool failed = false;
++            try
++            {
++                if (implicit_close)
++                    scope.tx->request_close();
++                else
++                    scope.finish(true);
++            }
++            catch (const std::system_error&)
++            {
++                failed = true;
++            }
++            check(failed, "controlled thread creation failure was not propagated");
++            await([&] { return scope.source->transaction_workers->done(); });
++            {
++                std::lock_guard lock(scope.tx->mutex);
++                check(!scope.tx->finishing && !scope.tx->driver_active && !scope.tx->attempted && scope.tx->state == 0,
++                      "failed worker launch published transaction finish state");
++            }
++            check(!scope.session->active && scope.probe->commits == 0 && scope.probe->rollbacks == 0,
++                  "failed worker launch retained admission or executed provider SQL");
++            scope.tx->test_before_worker_start = {};
++            if (!implicit_close)
++                scope.finish(true);
++            scope.tx->join();
++            check(released_receipt(scope.tx) && scope.tx->outcome == (implicit_close ? 2u : 1u),
++                  "transaction could not recover from a compensated worker launch");
++        }
++}
++void deadline_waits_for_dispatch()
++{
++    Scope scope(1'000);
++    scope.probe->block_commit = true;
++    auto before_dispatch = std::make_shared<EpilogueGate>();
++    std::future<void> work;
++    ReleaseEpilogue release{before_dispatch};
++    scope.tx->test_before_finish_dispatch = [before_dispatch] { before_dispatch->enter(); };
++    auto command = scope.session->admit(true);
++    work = std::async(std::launch::async,
++                      [tx = scope.tx, command] { (void)tx->finish(true, std::make_shared<Cancel>(), command); });
++    before_dispatch->wait();
++    check(work.wait_for(std::chrono::milliseconds(20)) != std::future_status::ready,
++          "deadline completed primary result before the original dispatch boundary");
++    {
++        std::lock_guard lock(scope.tx->mutex);
++        check(Clock::now() >= scope.tx->phase_deadline && !scope.tx->primary_ready && scope.tx->outcome == 0 &&
++                  !scope.tx->deadline_exceeded && !command->dispatched,
++              "undispatched finish published deadline Unknown");
++    }
++    before_dispatch->release();
++    check(work.wait_for(std::chrono::seconds(3)) == std::future_status::ready,
++          "deadline did not start after its dispatch permission");
++    check(reject([&] { work.get(); }).code == 9, "dispatched blocked commit did not report deadline Unknown");
++    scope.probe->proceed.release();
++    scope.tx->join();
++    check(!before_dispatch->timed_out && scope.tx->outcome == 3 && scope.tx->retired,
++          "late commit changed the published Unknown outcome");
++}
+ } // namespace
+ int main()
+ {
+@@ -473,6 +701,11 @@ int main()
+         stale_owner();
+         capability_preflight();
+         final_owner();
++        transaction_epilogue_join();
++        parent_epilogue_join();
++        last_source_destruction();
++        worker_launch_compensation();
++        deadline_waits_for_dispatch();
+         await([] { return source_count == 0 && session_count == 0; });
+         check(source_count == 0 && session_count == 0, "all transaction parent owner counters returned");
+         std::cout << "PASS transaction lifecycle: 13 retained families, " << checks << " checks\n";

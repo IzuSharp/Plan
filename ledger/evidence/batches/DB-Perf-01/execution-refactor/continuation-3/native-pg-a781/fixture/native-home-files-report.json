@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "platform": "linux-x64",
+  "cases": [
+    {
+      "case": "transaction-parent-retirement",
+      "driver_parent_released_before_return": true,
+      "already_last_parent_joined": true,
+      "retired_driver_rejects_operations": true,
+      "pool_permits_restored": true
+    },
+    {
+      "case": "tls",
+      "server_identity": "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit",
+      "application_name": "Korda",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_AES_256_GCM_SHA384",
+      "wrong_hostname_rejected": true,
+      "untrusted_root_rejected": true,
+      "expired_certificate_rejected": true,
+      "plaintext_requires_explicit_opt_in": true,
+      "connection_string_tls_override_rejected": true,
+      "unrelated_pg_environment_ignored": true
+    },
+    {
+      "case": "timeout-rollback",
+      "timeout_sqlstate": "57014",
+      "failed_sqlstate": "25P02",
+      "original_pid": 564,
+      "reused_pid": 564,
+      "failed_commit": "RolledBack"
+    },
+    {
+      "case": "early-stream-drop",
+      "same_backend_pid": 575,
+      "provider_rows_peak": 1,
+      "acquire_cancel_permit_restored": true,
+      "empty_result_metadata": true
+    },
+    {
+      "case": "codecs",
+      "actual_b07_roundtrips": 5,
+      "wide_numeric_rejected": true
+    },
+    {
+      "case": "b05-savepoints",
+      "rollback_to_keeps_tracked_depth": true,
+      "durable_rows": 1,
+      "pre_dispatch_cancel_no_commit": true,
+      "b05_native_retired": true
+    },
+    {
+      "case": "commit-response-loss",
+      "proxy_saw_commit_and_idle": true,
+      "client_outcome": "Unknown",
+      "durable_rows": 1,
+      "cleanup_preserved_unknown": true,
+      "native_retired": true
+    },
+    {
+      "case": "conflict-cte-snapshot",
+      "synchronized_on_server_lock": true,
+      "same_statement_rows": 0,
+      "separate_statement_operation": 1
+    },
+    {
+      "case": "quarantine",
+      "drain_timeout_pid": 634,
+      "replacement_different_pid": true,
+      "broken_pid": 636,
+      "native_owners_joined": true,
+      "pool_permits_restored": true
+    },
+    {
+      "case": "migration-lock-cleanup",
+      "negative_control_locks": 1,
+      "after_product_dedicated_retirement_locks": 0,
+      "dedicated_pid": 645,
+      "native_retired": true,
+      "legacy_defect": "SQLx checksum-mismatch lock retention is isolated as explicit contaminated-lease setup; migration history/checksum contracts run in native.administration"
+    },
+    {
+      "case": "admitted-operation-close",
+      "admitted_before_close": true,
+      "pending_close_keeps_pool_permit": true,
+      "retired_after_operation": true,
+      "same_backend_pid": 652
+    }
+  ],
+  "component_only": true,
+  "full_b04_host": false
+}

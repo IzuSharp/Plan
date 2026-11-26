@@ -1,4 +1,42 @@
-# Current maintenance — Korda-Design repository rename
+# Current continuation — DB-Exec-02 complete database execution path
+
+The owner has authorized a complete Linux x64 database execution-path refactor on
+2026-11-26 (Asia/Shanghai), continuing Korda #37, Korda-Design #20 and Plan #34.
+Preserve public C# Fluent behavior, Native AOT, C++ execution and independent
+provider packages. Internal Host structure, ABI granularity, command/parameter
+formats, batch construction and mapping are in scope, including deletion of
+superseded paths. Read the [current plan](ledger/evidence/batches/DB-Perf-01/plan.md),
+[handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md) and
+[execution gates](ledger/evidence/batches/DB-Perf-01/execution-refactor/README.md).
+Use DB-Exec-02 worktrees and continue the open PR branches after checking for
+another writer. Plan precedes the new Design decision and product edits.
+
+This authority supersedes the previous stop record below. Normal reviewed merges
+and verification of existing CI/rule-selected publication are authorized after
+complete correctness and measurement acceptance. All benchmark, profiling,
+calibration and pressure work runs locally; CI keeps its existing diff/module
+routing, correctness and independent provider package jobs. No performance
+workflow, job, manual button, scheduled run or hidden benchmark action is allowed.
+
+Keep the old eight-cell acceptance snapshot, source pins, failed attempts and
+final four-cell historical results unchanged. This new continuation requires
+its own same-host before evidence and four serial 1800-second candidate/Dapper.AOT
+cells, recorded under the existing batch's execution-refactor directory. Do not
+claim an internal zero window as whole-query/framework zero, an unrun design as
+implemented, or partial optimization as complete refactoring. Use the existing
+document/history gates; their success grants no product execution credit.
+
+## Previous stop record — DB-Perf-01 final record
+
+The owner has instructed: complete the tests, record results in the existing PRs, do not merge, then stop. Four local long cells and the frozen-input rehash are complete. Read the final record at the top of the DB-Perf-01 plan and handoff. No additional benchmark, optimization, merge or release is selected. Earlier continuation/merge authorities below are historical.
+
+# Current continuation — DB-Perf-01 query optimization
+
+The owner has explicitly resumed DB-Perf-01 on 2026-11-25, retaining the C++ execution layer and existing C# Fluent API. Continue the existing [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34); companion PRs already exist from the latest main. Read the current continuation at the top of the existing [plan](ledger/evidence/batches/DB-Perf-01/plan.md) and [handoff](ledger/evidence/batches/DB-Perf-01/handoff-linux.md).
+
+Performance measurements run locally on Linux x64. Do not add or retain benchmark jobs or benchmark workflows in GitHub Actions. Ordinary CI uses Korda's existing committed-diff planner, registered module execution and independent PostgreSQL/SQLite package runners, running Native AOT consumers directly. Preserve prior evidence and historical gates without granting it current-candidate credit. The earlier stopped state and hosted benchmark requirements below are historical, superseded by this explicit continuation.
+
+# Previous maintenance — Korda-Design repository rename
 
 The owner authorizes updating current documentation and automation references after `IzuSharp/NativeWeave-Design` was renamed to [IzuSharp/Korda-Design](https://github.com/IzuSharp/Korda-Design), including reviewable PRs and normal merges. Use `docs/korda-design-rename` for this maintenance. The owner has stopped DB-Perf-01; the earlier task authorities below are historical and do not authorize resuming implementation or performance work.
 

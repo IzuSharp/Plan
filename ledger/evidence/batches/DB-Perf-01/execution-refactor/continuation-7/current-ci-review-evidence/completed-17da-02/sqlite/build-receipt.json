@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "source": "/tmp/DB-Exec-10-pack-sqlite-02",
+  "sourceCommit": "17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa",
+  "sourceTree": "bc9087d843d8d741d83d44f53d0b2c5af26dcffc",
+  "sourceDirty": false,
+  "provider": "sqlite",
+  "script": "/workspace/scratch/fd78534029f7/worktrees/DB-Exec-10-plan/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-7/candidate-build-tools/build_public_inputs.py",
+  "scriptSha256": "80d01c9ac48bd4db7a9fef8bd640db1b8f3ae8fe15a2b7b7df568fcc985287bf",
+  "startedUtc": "2026-11-26T07:03:20.090914+00:00",
+  "performanceCredit": false,
+  "records": [
+    {
+      "stage": "impact",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/impact.py",
+        "origin/main",
+        "--output",
+        "artifacts/plan.json"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:03:20.091408+00:00",
+      "buildOnlyProcessorCount": null,
+      "buildOnlyNuGetAudit": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:03:20.404321+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/impact.log",
+      "logSha256": "c29d60281cef458688a223c3923692d594318503d0a649d78430652dd26b5635",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "native",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/task07_native.py",
+        "--provider",
+        "sqlite",
+        "--output",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/native"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:03:20.422791+00:00",
+      "buildOnlyProcessorCount": null,
+      "buildOnlyNuGetAudit": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:03:51.150811+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/native.log",
+      "logSha256": "85548f57b4d1dc2be84497944cfb7cfdd1dd1b3e7b1aca23fab78c0d37c21935",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "native-correctness",
+      "argv": [
+        "ctest",
+        "--preset",
+        "linux-x64-sqlite",
+        "--output-on-failure"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:03:51.163398+00:00",
+      "buildOnlyProcessorCount": null,
+      "buildOnlyNuGetAudit": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:03:51.708476+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/native-correctness.log",
+      "logSha256": "5f51f31e90dba4d8170d6eb6a20dc6a1f327bac47373d677f8c489805e78a7e6",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "bundle",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/bundles.py",
+        "--provider",
+        "sqlite",
+        "--plan",
+        "/tmp/DB-Exec-10-pack-sqlite-02/artifacts/plan.json",
+        "--version",
+        "0.1.0-ci.1",
+        "--native",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/native/manifest.json"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:03:51.728837+00:00",
+      "buildOnlyProcessorCount": 1,
+      "buildOnlyNuGetAudit": false,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:04:29.180001+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/bundle.log",
+      "logSha256": "37fe76cd5f296522b42ffc8a2bfbced18c3ff436969fbeaa2334499fc4ac9b88",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "public-consume-aot",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/consume.py",
+        "artifacts/public/release.json",
+        "/tmp/DB-Exec-10-pack-sqlite-02/artifacts/plan.json"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:04:29.192290+00:00",
+      "buildOnlyProcessorCount": 1,
+      "buildOnlyNuGetAudit": false,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:05:59.870831+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/public-consume-aot.log",
+      "logSha256": "db12c49648bfb63144bae392d3402af6e97b597b93b8e2468994ac71e65d8874",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "public-validate",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "eng/ci/validate_public.py",
+        "artifacts/public",
+        "/tmp/DB-Exec-10-pack-sqlite-02/artifacts/plan.json",
+        "0.1.0-ci.1",
+        "--module",
+        "sqlite"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:05:59.886118+00:00",
+      "buildOnlyProcessorCount": null,
+      "buildOnlyNuGetAudit": null,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:06:00.122241+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/public-validate.log",
+      "logSha256": "7670ad8c637b7c9c87a4a5797f72ffc0fd2d3effc3a7f4828c989c243ac7d91e",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "consumer-query-phases",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "benchmarks/db-perf/managed/build.py",
+        "--provider",
+        "sqlite",
+        "--feed",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/public/feed",
+        "--version",
+        "0.1.0-ci.1",
+        "--kind",
+        "query-phases",
+        "--output",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-query-phases"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:06:00.135299+00:00",
+      "buildOnlyProcessorCount": 1,
+      "buildOnlyNuGetAudit": false,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:06:18.109084+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/consumer-query-phases.log",
+      "logSha256": "9c02fe15f67836dc227249a0a8f58253c961e68f111e59b9c6d3489e68df36bd",
+      "sourceUnchanged": true
+    },
+    {
+      "stage": "consumer-workload",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "benchmarks/db-perf/managed/build.py",
+        "--provider",
+        "sqlite",
+        "--feed",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/public/feed",
+        "--version",
+        "0.1.0-ci.1",
+        "--kind",
+        "workload",
+        "--output",
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload"
+      ],
+      "cwd": "/tmp/DB-Exec-10-pack-sqlite-02",
+      "startedUtc": "2026-11-26T07:06:18.121540+00:00",
+      "buildOnlyProcessorCount": 1,
+      "buildOnlyNuGetAudit": false,
+      "exitCode": 0,
+      "finishedUtc": "2026-11-26T07:06:54.144000+00:00",
+      "log": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/logs/consumer-workload.log",
+      "logSha256": "00fb828f59ddeb8cd77d393d37ec0b56b4857151314870e413082143614252db",
+      "sourceUnchanged": true
+    }
+  ],
+  "version": "0.1.0-ci.1",
+  "ciPlanSha256": "c29d60281cef458688a223c3923692d594318503d0a649d78430652dd26b5635",
+  "finishedUtc": "2026-11-26T07:06:54.157121+00:00",
+  "passed": true,
+  "nativeManifestSha256": "be7d22056b1b389e235139b158f85a6593586897ee925d01111732a7f4e463f6",
+  "releaseReceiptSha256": "4bbc8484fc7fbe1143a2a3359b0ba6742b21674d2e00eaf4f6e631dfdf32d2c2"
+}

@@ -1,0 +1,68 @@
+{
+  "scope": "Original bc6 public-source Orm.Relations correctness reproduction; no ready-fast product or test modifications",
+  "sourceHead": "bc6ba1ae0ece02ecc2c0860776605f3c838f3ff8",
+  "sourceTree": "78e6c419a7e1ee2134a5c4aac86e5d5e21483eba",
+  "sourceDirty": false,
+  "startedUtc": "2026-11-26T02:49:51.253856+00:00",
+  "scriptSha256": "10839ad22952ad0a6435e645f47bdb594e6506cd3fbd36698ba36c1865d6bb04",
+  "testSources": {
+    "tests/Orm.Relations/CompoundAdmission.cs": "1af91fefd9087f4770566c44514332d934268dfa2281535699f754a3cc3cb7dc",
+    "tests/Orm.Relations/Contracts.cs": "3b8c02b8feda066b8a6de30e10f81c2e4828e9b333ada8d0adc280ee5b52f230",
+    "tests/Orm.Relations/Failures.cs": "cb398ecbd97a304d0edab34cce8dae45814c1a5c1276756e993570834ff0ee00",
+    "tests/Orm.Relations/FluentExperience.cs": "7e56c6ffa6535cc9b6f0c11d3b14a485e64e9429d62f09234237170bc383892e",
+    "tests/Orm.Relations/Korda.Orm.Relations.Tests.csproj": "37742476af03e8761877b0930af9339fe00e88f7e3372cfa8209cf73fcb2206c",
+    "tests/Orm.Relations/Models.cs": "a449a757b02793a2d617a17b58cbf1b4c54261dafbec068788afdb937189e4f7",
+    "tests/Orm.Relations/Program.cs": "036e9f659230998c1ad46869c019b4854b3aa71e46c8bd39ec238a3385b231d7",
+    "tests/Orm.Relations/README.md": "9abcff10f9a166aa853954c51509ec0ce6b97b7abd37dd954f27603ec0a04220",
+    "tests/Orm.Relations/SnapshotBounds.cs": "fcb8477be3bd8f9dccf85ea53764920577d74acfa50eea6c5fcb6c81ae876195",
+    "tests/Orm.Relations/api.py": "cb3fda5be3c26a5e29de69233f4fb6c49119ee5bdca873d88d91e5ede674ed99",
+    "tests/Orm.Relations/compile_negative.py": "bb2521086094f313a4cd6f4dd53b3f83d66a4f97f4bc53e44a710b5dbfc063c4",
+    "tests/Orm.Relations/package_probe.py": "0ab865c21b31cd0685ea7ec944a6c42b6b54ce45b68446b2a6775f0b277ef329",
+    "tests/Orm.Relations/packages.linux-x64.aot.lock.json": "e9412f1c714997f2c9a2aeef82496b3820f838089b4a78935ba18e8dc6550773",
+    "tests/Orm.Relations/packages.lock.json": "3ffc6253e29aa4afbb317c374dfa266b67a3ae235ab0472b86f44718a794a7f8"
+  },
+  "runnerSha256": "7c0309be3b5db315729fa38000cb37b9b678d945e09a99bcddb97cf435fa5b96",
+  "environmentScriptSha256": "077ee19a98cfd0c81aff3b1089bbd700ba75fb4686d6c46f33e179afa6ab0e80",
+  "nativeAssets": {
+    "sqlite": {
+      "buildLabel": "sqlite",
+      "bytes": 3997488,
+      "compilerArtifactPath": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-03-candidate-bc6ba1a/artifacts/cmake/linux-x64-sqlite/libnw_database_sqlite.so",
+      "engineId": "database.sqlite",
+      "installedArtifactPath": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-03-candidate-bc6ba1a/artifacts/native-install/linux-x64-sqlite/lib/libnw_database_sqlite.so",
+      "path": "/workspace/scratch/4a65d70f0fe1/artifacts/close-native-sqlite/libnw_database_sqlite.so",
+      "sha256": "19f48a405354c765f0467bcd5e228f22bcfec283137c5cbab5b0d205cda093b8"
+    },
+    "postgresql": {
+      "buildLabel": "postgresql",
+      "bytes": 3133232,
+      "compilerArtifactPath": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-03-candidate-bc6ba1a/artifacts/cmake/linux-x64-postgresql/libnw_database_postgresql.so",
+      "engineId": "database.postgresql",
+      "installedArtifactPath": "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-03-candidate-bc6ba1a/artifacts/native-install/linux-x64-postgresql/lib/libnw_database_postgresql.so",
+      "path": "/workspace/scratch/4a65d70f0fe1/artifacts/close-native-postgresql/libnw_database_postgresql.so",
+      "sha256": "5d9d1fd9729c49e03799a58768ba4dcc1aa105735d337897da1b850cccae2018"
+    }
+  },
+  "publishCommand": [
+    "dotnet",
+    "publish",
+    "tests/Orm.Relations/Korda.Orm.Relations.Tests.csproj",
+    "-c",
+    "Release",
+    "-r",
+    "linux-x64",
+    "-p:PublishAot=true",
+    "-p:RestoreLockedMode=true",
+    "-p:IlcTreatWarningsAsErrors=true",
+    "-p:UseSharedCompilation=false",
+    "-m:1",
+    "-nr:false",
+    "-p:KordaSqliteAssetPath=/workspace/scratch/4a65d70f0fe1/artifacts/close-native-sqlite/libnw_database_sqlite.so",
+    "-p:KordaPostgresAssetPath=/workspace/scratch/4a65d70f0fe1/artifacts/close-native-postgresql/libnw_database_postgresql.so",
+    "-o",
+    "/workspace/scratch/4a65d70f0fe1/validation-evidence/cancel-bc6-01/aot"
+  ],
+  "publishOnlyEnvironment": {
+    "DOTNET_PROCESSOR_COUNT": "1"
+  }
+}

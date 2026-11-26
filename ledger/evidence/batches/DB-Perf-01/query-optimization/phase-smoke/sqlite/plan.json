@@ -1,0 +1,31 @@
+{
+  "provider": "sqlite",
+  "commands": [
+    {
+      "name": "baseline-sqlite-smoke",
+      "phase": "correctness-smoke-not-performance",
+      "argv": [
+        "/tmp/DB-Perf-01-query-phases/baseline-sqlite/out/DbPerf.QueryPhases",
+        "{connection}",
+        "{output}/baseline.json",
+        "4",
+        "1",
+        "initialize"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "recovered-sqlite-smoke",
+      "phase": "correctness-smoke-not-performance",
+      "argv": [
+        "/tmp/DB-Perf-01-query-phases/recovered-sqlite/out/DbPerf.QueryPhases",
+        "{connection}",
+        "{output}/recovered.json",
+        "4",
+        "1"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "connection": "/tmp/DB-Perf-01-query-phases/fixture-smoke.sqlite"
+}

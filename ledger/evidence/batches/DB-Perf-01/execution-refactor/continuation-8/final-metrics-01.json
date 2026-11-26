@@ -1,0 +1,986 @@
+{
+  "schemaVersion": 1,
+  "scope": "Extracted verified final metrics; original arithmetic and identity reports decide eligibility. No new threshold or gate.",
+  "analysis": {
+    "path": "/workspace/scratch/166b48a091b9/recovery/final-analysis-01.json",
+    "sha256": "aefeda74c71bd55710a727823ab0ce916580dca7b4a4a79bfa306510f73d3de9"
+  },
+  "audit": {
+    "path": "/workspace/scratch/166b48a091b9/recovery/final-identity-audit-01.json",
+    "sha256": "71d30a985665ae57aceda35c033abee60633f33bacb9c74433145fa09b0e5b93"
+  },
+  "finalFour": {
+    "scope": "Current user requirement: four serial 1800-second candidate/Dapper cells, two providers. No performance threshold or historical eight-cell acceptance is applied.",
+    "cells": [
+      {
+        "provider": "sqlite",
+        "cohort": "candidate",
+        "observationIds": [
+          "sqlite-final-01/candidate-c4"
+        ],
+        "state": "complete-raw-evidence"
+      },
+      {
+        "provider": "sqlite",
+        "cohort": "dapper",
+        "observationIds": [
+          "sqlite-final-01/dapper-c4"
+        ],
+        "state": "complete-raw-evidence"
+      },
+      {
+        "provider": "postgresql",
+        "cohort": "candidate",
+        "observationIds": [
+          "postgresql-final-01/candidate-c8"
+        ],
+        "state": "complete-raw-evidence"
+      },
+      {
+        "provider": "postgresql",
+        "cohort": "dapper",
+        "observationIds": [
+          "postgresql-final-01/dapper-c8"
+        ],
+        "state": "complete-raw-evidence"
+      }
+    ],
+    "pairwiseIntervals": [
+      {
+        "left": "sqlite-final-01/candidate-c4",
+        "right": "sqlite-final-01/dapper-c4",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      },
+      {
+        "left": "sqlite-final-01/candidate-c4",
+        "right": "postgresql-final-01/candidate-c8",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      },
+      {
+        "left": "sqlite-final-01/candidate-c4",
+        "right": "postgresql-final-01/dapper-c8",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      },
+      {
+        "left": "sqlite-final-01/dapper-c4",
+        "right": "postgresql-final-01/candidate-c8",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      },
+      {
+        "left": "sqlite-final-01/dapper-c4",
+        "right": "postgresql-final-01/dapper-c8",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      },
+      {
+        "left": "postgresql-final-01/candidate-c8",
+        "right": "postgresql-final-01/dapper-c8",
+        "sameRecordedHost": true,
+        "steadyThroughDrainOverlap": false,
+        "includingRecordedIdleOverlap": false
+      }
+    ],
+    "fourCompleteRawReceipts": true,
+    "sameHostAndSerialIncludingRecordedIdle": true,
+    "taskAcceptance": "Not decided by this arithmetic report."
+  },
+  "observations": [
+    {
+      "id": "sqlite-final-01/candidate-c4",
+      "provider": "sqlite",
+      "cohort": "candidate",
+      "sourcePointer": "/observations/0",
+      "rawIdentity": {
+        "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/candidate-c4.json",
+        "storedSha256": "77bb05387cfa0f286b50a0e64c2e3fd537e698e13a17b01a5b6912fa36ffa40d",
+        "contentSha256": "77bb05387cfa0f286b50a0e64c2e3fd537e698e13a17b01a5b6912fa36ffa40d",
+        "bytes": 430481
+      },
+      "issues": [
+        {
+          "level": "note",
+          "code": "observed_failures_or_rejections",
+          "message": "Raw ledger retains 0 failed operations and 527440 rejected arrivals; no SLO is invented."
+        }
+      ],
+      "interval": {
+        "requestedSeconds": 1800.0,
+        "requiredSeconds": 1800,
+        "rawSeriesLength": 1802,
+        "missingSeconds": [],
+        "secondsWithoutSuccessfulBusinessProgress": [],
+        "secondsWithoutConsumedRows": [],
+        "observedCases": 35,
+        "manifestCases": 35,
+        "missingCases": [],
+        "allRawCountersReconciled": true,
+        "startMonotonicNs": 30082630020142,
+        "offeredEndMonotonicNs": 31882630020427,
+        "drainedMonotonicNs": 31882657774684,
+        "startedUtc": "2026-11-26T08:38:20.4594249+00:00",
+        "finishedUtc": "2026-11-26T09:08:20.4855602+00:00",
+        "idleFinishedUtc": "2026-11-26T09:08:35.4959753+00:00"
+      },
+      "counts": {
+        "planned": 5400000,
+        "attempted": 5400000,
+        "sent": 4872560,
+        "started": 4872560,
+        "completed": 4872560,
+        "succeeded": 4872560,
+        "failed": 0,
+        "rejected": 527440,
+        "retries": 0,
+        "rows": 119018074
+      },
+      "correctnessPassed": true,
+      "oracleFailures": 0,
+      "fullCaseCoverage": true,
+      "elapsedThroughDrainSeconds": 1800.027754542,
+      "successfulOperationsPerSecond": 2706.9360390166744,
+      "arrivalRate": 3000,
+      "histograms": {
+        "offered": {
+          "samples": 4872560,
+          "p50_us_upper": 20185.088,
+          "p95_us_upper": 33423.36,
+          "p99_us_upper": 49545.216
+        },
+        "service": {
+          "samples": 4872560,
+          "p50_us_upper": 544.768,
+          "p95_us_upper": 4882.432,
+          "p99_us_upper": 12976.128
+        },
+        "all_terminal_offered": {
+          "samples": 4872560,
+          "p50_us_upper": 20185.088,
+          "p95_us_upper": 33423.36,
+          "p99_us_upper": 49545.216
+        },
+        "start_delay": {
+          "samples": 4872560,
+          "p50_us_upper": 19136.512,
+          "p95_us_upper": 30801.92,
+          "p99_us_upper": 43778.048
+        }
+      },
+      "cpu": {
+        "userCpuSeconds": 4066.199259,
+        "systemCpuSeconds": 793.154379,
+        "seconds_per_success": 0.0009972896460997915,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "peakRssBytes": 45772800,
+      "idle": {
+        "StartedUtc": "2026-11-26T09:08:20.4959356+00:00",
+        "FinishedUtc": "2026-11-26T09:08:35.4959753+00:00",
+        "RequestedSeconds": 15,
+        "ObservedSeconds": 15.000038471,
+        "Before": {
+          "UserCpuSeconds": 4066.420184,
+          "SystemCpuSeconds": 793.261918,
+          "RssBytes": 38989824,
+          "PeakRssBytes": 45772800,
+          "PssBytes": 38102016
+        },
+        "After": {
+          "UserCpuSeconds": 4066.421908,
+          "SystemCpuSeconds": 793.262254,
+          "RssBytes": 38989824,
+          "PeakRssBytes": 45772800,
+          "PssBytes": 38102016
+        },
+        "UserCpuSeconds": 0.0017239999997400446,
+        "SystemCpuSeconds": 0.0003359999999474894,
+        "ManagedBytesBefore": 5203520,
+        "ManagedBytesAfter": 5203520,
+        "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+      },
+      "idleRssBytes": 38989824,
+      "managed": {
+        "status": "end_to_end_total",
+        "allocated_before": 15570568,
+        "allocated_after": 120806783392,
+        "total_bytes": 120791212824,
+        "successful_operations": 4872560,
+        "rows": 119018074,
+        "bytes_per_success": 24790.09244093454,
+        "bytes_per_row": 1014.8980634991623,
+        "gc_delta_counts": [
+          42245,
+          12822,
+          20
+        ],
+        "gc_scope": "source-bound GC.CollectionCount(after)-before; raw deltas preserved; cumulative GC endpoints were not serialized",
+        "attribution_as_reported": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+        "framework_only_bytes": null,
+        "framework_attribution_status": "unproven; no empty-driver subtraction or per-component GC split",
+        "offered_and_drain_raw": {
+          "allocated_at_actual_offered_end": 120804964920,
+          "before_to_actual_offered_end_bytes": 120789394352,
+          "actual_offered_end_to_after_bytes": 1818472,
+          "gc_cumulative_at_actual_offered_end": [
+            42248,
+            12823,
+            20
+          ],
+          "scope": "actual producer offered-end counter, not an invented exact-deadline counter; no per-phase B/op or GC delta inferred without matching operation/GC endpoints"
+        }
+      },
+      "nativeCounters": {
+        "Before": {
+          "Sources": 1,
+          "Sessions": 4,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 126,
+          "SqlExecutions": 618,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "After": {
+          "Sources": 1,
+          "Sessions": 4,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 126,
+          "SqlExecutions": 8381258,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "Drained": {
+          "Sources": 0,
+          "Sessions": 0,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 0,
+          "SqlExecutions": 8381258,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        }
+      },
+      "runtimeFfiCountsInThisOrdinaryRun": null,
+      "protocolReplyCountsInThisOrdinaryRun": null,
+      "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+      "resourceObservation": {
+        "input": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/candidate-c4.resources.jsonl",
+          "storedSha256": "a620fed3104f4e5c1b48525a5aa530cfe1db33df03c538664c0f5aa9352f4dfe",
+          "contentSha256": "a620fed3104f4e5c1b48525a5aa530cfe1db33df03c538664c0f5aa9352f4dfe",
+          "bytes": 8690877
+        },
+        "samples": 7175,
+        "firstMonotonicNs": 30082438782022,
+        "lastAcquiredThroughMonotonicNs": 31897952274293,
+        "processLifetimeWait4": {
+          "processLifetimeUserCpuSeconds": 4066.434307,
+          "processLifetimeSystemCpuSeconds": 793.284735,
+          "processLifetimeMaxRssBytes": 45772800
+        },
+        "sampledMemory": {
+          "client": {
+            "maximumCompleteSampleRssBytes": 45920256,
+            "completeSamples": 7174,
+            "incompleteOrAbsentSamples": 1,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          },
+          "server": {
+            "maximumCompleteSampleRssBytes": null,
+            "completeSamples": 0,
+            "incompleteOrAbsentSamples": 7175,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          }
+        },
+        "observerTicksPerSecond": 100,
+        "quotaAtFirstSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "quotaAtLastSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "serverCpuGroupPresent": false,
+        "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+        "scope": "Observer evidence is not an environment admission. Missing cgroup visibility is retained; no historical cgroup/schema gate is applied.",
+        "samplesFullyWithinConsumerInterval": 7113
+      }
+    },
+    {
+      "id": "sqlite-final-01/dapper-c4",
+      "provider": "sqlite",
+      "cohort": "dapper",
+      "sourcePointer": "/observations/1",
+      "rawIdentity": {
+        "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/dapper-c4.json",
+        "storedSha256": "0ca96974cd1aeb7357cfcf62b3354356fa455f1f260b749f19571c4a0b931c31",
+        "contentSha256": "0ca96974cd1aeb7357cfcf62b3354356fa455f1f260b749f19571c4a0b931c31",
+        "bytes": 450314
+      },
+      "issues": [
+        {
+          "level": "note",
+          "code": "observed_failures_or_rejections",
+          "message": "Raw ledger retains 0 failed operations and 10114 rejected arrivals; no SLO is invented."
+        }
+      ],
+      "interval": {
+        "requestedSeconds": 1800.0,
+        "requiredSeconds": 1800,
+        "rawSeriesLength": 1802,
+        "missingSeconds": [],
+        "secondsWithoutSuccessfulBusinessProgress": [],
+        "secondsWithoutConsumedRows": [],
+        "observedCases": 35,
+        "manifestCases": 35,
+        "missingCases": [],
+        "allRawCountersReconciled": true,
+        "startMonotonicNs": 31898087336461,
+        "offeredEndMonotonicNs": 33698087336566,
+        "drainedMonotonicNs": 33698090173303,
+        "startedUtc": "2026-11-26T09:08:35.9167316+00:00",
+        "finishedUtc": "2026-11-26T09:38:35.9186596+00:00",
+        "idleFinishedUtc": "2026-11-26T09:38:50.9272725+00:00"
+      },
+      "counts": {
+        "planned": 5400000,
+        "attempted": 5400000,
+        "sent": 5389886,
+        "started": 5389886,
+        "completed": 5389886,
+        "succeeded": 5389886,
+        "failed": 0,
+        "rejected": 10114,
+        "retries": 0,
+        "rows": 131513488
+      },
+      "correctnessPassed": true,
+      "oracleFailures": 0,
+      "fullCaseCoverage": true,
+      "elapsedThroughDrainSeconds": 1800.002836842,
+      "successfulOperationsPerSecond": 2994.3763919040484,
+      "arrivalRate": 3000,
+      "histograms": {
+        "offered": {
+          "samples": 5389886,
+          "p50_us_upper": 207.872,
+          "p95_us_upper": 3031.04,
+          "p99_us_upper": 8585.216
+        },
+        "service": {
+          "samples": 5389886,
+          "p50_us_upper": 110.592,
+          "p95_us_upper": 1597.44,
+          "p99_us_upper": 4325.376
+        },
+        "all_terminal_offered": {
+          "samples": 5389886,
+          "p50_us_upper": 207.872,
+          "p95_us_upper": 3031.04,
+          "p99_us_upper": 8585.216
+        },
+        "start_delay": {
+          "samples": 5389886,
+          "p50_us_upper": 34.816,
+          "p95_us_upper": 942.08,
+          "p99_us_upper": 4784.128
+        }
+      },
+      "cpu": {
+        "userCpuSeconds": 3069.977985,
+        "systemCpuSeconds": 72.269564,
+        "seconds_per_success": 0.0005829896122107221,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "peakRssBytes": 33923072,
+      "idle": {
+        "StartedUtc": "2026-11-26T09:38:35.9247347+00:00",
+        "FinishedUtc": "2026-11-26T09:38:50.9272725+00:00",
+        "RequestedSeconds": 15,
+        "ObservedSeconds": 15.002442593,
+        "Before": {
+          "UserCpuSeconds": 3070.040624,
+          "SystemCpuSeconds": 72.313308,
+          "RssBytes": 31285248,
+          "PeakRssBytes": 33923072,
+          "PssBytes": 30387200
+        },
+        "After": {
+          "UserCpuSeconds": 3070.044519,
+          "SystemCpuSeconds": 72.313327,
+          "RssBytes": 31293440,
+          "PeakRssBytes": 33923072,
+          "PssBytes": 30395392
+        },
+        "UserCpuSeconds": 0.0038949999998294516,
+        "SystemCpuSeconds": 1.8999999994662176e-05,
+        "ManagedBytesBefore": 3141096,
+        "ManagedBytesAfter": 3141096,
+        "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+      },
+      "idleRssBytes": 31293440,
+      "managed": {
+        "status": "end_to_end_total",
+        "allocated_before": 6807496,
+        "allocated_after": 40063182184,
+        "total_bytes": 40056374688,
+        "successful_operations": 5389886,
+        "rows": 131513488,
+        "bytes_per_success": 7431.766588013179,
+        "bytes_per_row": 304.5799734853052,
+        "gc_delta_counts": [
+          19390,
+          180,
+          18
+        ],
+        "gc_scope": "source-bound GC.CollectionCount(after)-before; raw deltas preserved; cumulative GC endpoints were not serialized",
+        "attribution_as_reported": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+        "framework_only_bytes": null,
+        "framework_attribution_status": "unproven; no empty-driver subtraction or per-component GC split",
+        "offered_and_drain_raw": {
+          "allocated_at_actual_offered_end": 40063179792,
+          "before_to_actual_offered_end_bytes": 40056372296,
+          "actual_offered_end_to_after_bytes": 2392,
+          "gc_cumulative_at_actual_offered_end": [
+            19391,
+            180,
+            18
+          ],
+          "scope": "actual producer offered-end counter, not an invented exact-deadline counter; no per-phase B/op or GC delta inferred without matching operation/GC endpoints"
+        }
+      },
+      "nativeCounters": {
+        "Before": {
+          "ApplicationConnections": 4,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "After": {
+          "ApplicationConnections": 4,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "Drained": {
+          "ApplicationConnections": 0,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        }
+      },
+      "runtimeFfiCountsInThisOrdinaryRun": null,
+      "protocolReplyCountsInThisOrdinaryRun": null,
+      "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+      "resourceObservation": {
+        "input": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/dapper-c4.resources.jsonl",
+          "storedSha256": "1f0cd86e8b9d141c0780e18ae8e52bc283c4e16f572005d6045603de4335c22b",
+          "contentSha256": "1f0cd86e8b9d141c0780e18ae8e52bc283c4e16f572005d6045603de4335c22b",
+          "bytes": 8739495
+        },
+        "samples": 7198,
+        "firstMonotonicNs": 31897970733897,
+        "lastAcquiredThroughMonotonicNs": 33713363744036,
+        "processLifetimeWait4": {
+          "processLifetimeUserCpuSeconds": 3070.06082,
+          "processLifetimeSystemCpuSeconds": 72.342731,
+          "processLifetimeMaxRssBytes": 35479552
+        },
+        "sampledMemory": {
+          "client": {
+            "maximumCompleteSampleRssBytes": 33775616,
+            "completeSamples": 7197,
+            "incompleteOrAbsentSamples": 1,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          },
+          "server": {
+            "maximumCompleteSampleRssBytes": null,
+            "completeSamples": 0,
+            "incompleteOrAbsentSamples": 7198,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          }
+        },
+        "observerTicksPerSecond": 100,
+        "quotaAtFirstSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "quotaAtLastSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "serverCpuGroupPresent": false,
+        "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+        "scope": "Observer evidence is not an environment admission. Missing cgroup visibility is retained; no historical cgroup/schema gate is applied.",
+        "samplesFullyWithinConsumerInterval": 7136
+      }
+    },
+    {
+      "id": "postgresql-final-01/candidate-c8",
+      "provider": "postgresql",
+      "cohort": "candidate",
+      "sourcePointer": "/observations/2",
+      "rawIdentity": {
+        "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/candidate-c8.json",
+        "storedSha256": "e2e46a43807d6a332465d2b16b20d213bc2d9254abb03c249ab339ed7653af9a",
+        "contentSha256": "e2e46a43807d6a332465d2b16b20d213bc2d9254abb03c249ab339ed7653af9a",
+        "bytes": 430964
+      },
+      "issues": [
+        {
+          "level": "note",
+          "code": "observed_failures_or_rejections",
+          "message": "Raw ledger retains 0 failed operations and 359927 rejected arrivals; no SLO is invented."
+        }
+      ],
+      "interval": {
+        "requestedSeconds": 1800.0,
+        "requiredSeconds": 1800,
+        "rawSeriesLength": 1802,
+        "missingSeconds": [],
+        "secondsWithoutSuccessfulBusinessProgress": [],
+        "secondsWithoutConsumedRows": [],
+        "observedCases": 35,
+        "manifestCases": 35,
+        "missingCases": [],
+        "allRawCountersReconciled": true,
+        "startMonotonicNs": 33715726138393,
+        "offeredEndMonotonicNs": 35515726139041,
+        "drainedMonotonicNs": 35515741099134,
+        "startedUtc": "2026-11-26T09:38:53.5554591+00:00",
+        "finishedUtc": "2026-11-26T10:08:53.5694611+00:00",
+        "idleFinishedUtc": "2026-11-26T10:09:08.5817231+00:00"
+      },
+      "counts": {
+        "planned": 6480000,
+        "attempted": 6480000,
+        "sent": 6120073,
+        "started": 6120073,
+        "completed": 6120073,
+        "succeeded": 6120073,
+        "failed": 0,
+        "rejected": 359927,
+        "retries": 0,
+        "rows": 149540544
+      },
+      "correctnessPassed": true,
+      "oracleFailures": 0,
+      "fullCaseCoverage": true,
+      "elapsedThroughDrainSeconds": 1800.014960741,
+      "successfulOperationsPerSecond": 3400.01229627591,
+      "arrivalRate": 3600,
+      "histograms": {
+        "offered": {
+          "samples": 6120073,
+          "p50_us_upper": 14876.672,
+          "p95_us_upper": 27131.904,
+          "p99_us_upper": 38273.024
+        },
+        "service": {
+          "samples": 6120073,
+          "p50_us_upper": 888.832,
+          "p95_us_upper": 10551.296,
+          "p99_us_upper": 16580.608
+        },
+        "all_terminal_offered": {
+          "samples": 6120073,
+          "p50_us_upper": 14876.672,
+          "p95_us_upper": 27131.904,
+          "p99_us_upper": 38273.024
+        },
+        "start_delay": {
+          "samples": 6120073,
+          "p50_us_upper": 12976.128,
+          "p95_us_upper": 22282.24,
+          "p99_us_upper": 32243.712
+        }
+      },
+      "cpu": {
+        "userCpuSeconds": 3898.183729,
+        "systemCpuSeconds": 1243.042446,
+        "seconds_per_success": 0.000840059616118958,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "peakRssBytes": 52674560,
+      "idle": {
+        "StartedUtc": "2026-11-26T10:08:53.5778693+00:00",
+        "FinishedUtc": "2026-11-26T10:09:08.5817231+00:00",
+        "RequestedSeconds": 15,
+        "ObservedSeconds": 15.00385223,
+        "Before": {
+          "UserCpuSeconds": 3898.57952,
+          "SystemCpuSeconds": 1243.269653,
+          "RssBytes": 43261952,
+          "PeakRssBytes": 52674560,
+          "PssBytes": 41239552
+        },
+        "After": {
+          "UserCpuSeconds": 3898.581565,
+          "SystemCpuSeconds": 1243.272813,
+          "RssBytes": 43261952,
+          "PeakRssBytes": 52674560,
+          "PssBytes": 41290752
+        },
+        "UserCpuSeconds": 0.0020450000001801527,
+        "SystemCpuSeconds": 0.0031599999999798456,
+        "ManagedBytesBefore": 7722880,
+        "ManagedBytesAfter": 7722880,
+        "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+      },
+      "idleRssBytes": 43261952,
+      "managed": {
+        "status": "end_to_end_total",
+        "allocated_before": 29806336,
+        "allocated_after": 156030743520,
+        "total_bytes": 156000937184,
+        "successful_operations": 6120073,
+        "rows": 149540544,
+        "bytes_per_success": 25490.04516514754,
+        "bytes_per_row": 1043.201616171732,
+        "gc_delta_counts": [
+          51230,
+          17717,
+          19
+        ],
+        "gc_scope": "source-bound GC.CollectionCount(after)-before; raw deltas preserved; cumulative GC endpoints were not serialized",
+        "attribution_as_reported": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+        "framework_only_bytes": null,
+        "framework_attribution_status": "unproven; no empty-driver subtraction or per-component GC split",
+        "offered_and_drain_raw": {
+          "allocated_at_actual_offered_end": 156029089984,
+          "before_to_actual_offered_end_bytes": 155999283648,
+          "actual_offered_end_to_after_bytes": 1653536,
+          "gc_cumulative_at_actual_offered_end": [
+            51235,
+            17717,
+            19
+          ],
+          "scope": "actual producer offered-end counter, not an invented exact-deadline counter; no per-phase B/op or GC delta inferred without matching operation/GC endpoints"
+        }
+      },
+      "nativeCounters": {
+        "Before": {
+          "Sources": 1,
+          "Sessions": 8,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 246,
+          "SqlExecutions": 1180,
+          "ProtocolSubmissions": 4979,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "After": {
+          "Sources": 1,
+          "Sessions": 8,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 246,
+          "SqlExecutions": 9905170,
+          "ProtocolSubmissions": 42370987,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "Drained": {
+          "Sources": 0,
+          "Sessions": 0,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 0,
+          "SqlExecutions": 9905170,
+          "ProtocolSubmissions": 42371003,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        }
+      },
+      "runtimeFfiCountsInThisOrdinaryRun": null,
+      "protocolReplyCountsInThisOrdinaryRun": null,
+      "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+      "resourceObservation": {
+        "input": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/candidate-c8.resources.jsonl",
+          "storedSha256": "7bdf3a6bf07d41c02e95eda89b5a7e905f646325b006c12b7efbe0ed96838b66",
+          "contentSha256": "7bdf3a6bf07d41c02e95eda89b5a7e905f646325b006c12b7efbe0ed96838b66",
+          "bytes": 10803775
+        },
+        "samples": 7155,
+        "firstMonotonicNs": 33715309672500,
+        "lastAcquiredThroughMonotonicNs": 35530909628813,
+        "processLifetimeWait4": {
+          "processLifetimeUserCpuSeconds": 3898.600712,
+          "processLifetimeSystemCpuSeconds": 1243.3128,
+          "processLifetimeMaxRssBytes": 52674560
+        },
+        "sampledMemory": {
+          "client": {
+            "maximumCompleteSampleRssBytes": 52908032,
+            "completeSamples": 7154,
+            "incompleteOrAbsentSamples": 1,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          },
+          "server": {
+            "maximumCompleteSampleRssBytes": 21434368,
+            "completeSamples": 7155,
+            "incompleteOrAbsentSamples": 0,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          }
+        },
+        "observerTicksPerSecond": 100,
+        "quotaAtFirstSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "quotaAtLastSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "serverCpuGroupPresent": false,
+        "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+        "scope": "Observer evidence is not an environment admission. Missing cgroup visibility is retained; no historical cgroup/schema gate is applied.",
+        "samplesFullyWithinConsumerInterval": 7093
+      }
+    },
+    {
+      "id": "postgresql-final-01/dapper-c8",
+      "provider": "postgresql",
+      "cohort": "dapper",
+      "sourcePointer": "/observations/3",
+      "rawIdentity": {
+        "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/dapper-c8.json",
+        "storedSha256": "89bf8e963dec4b9f1d414cdfdab465a9451a89adc9aefc5a31107a62acef7d19",
+        "contentSha256": "89bf8e963dec4b9f1d414cdfdab465a9451a89adc9aefc5a31107a62acef7d19",
+        "bytes": 446959
+      },
+      "issues": [
+        {
+          "level": "note",
+          "code": "observed_failures_or_rejections",
+          "message": "Raw ledger retains 0 failed operations and 14376 rejected arrivals; no SLO is invented."
+        }
+      ],
+      "interval": {
+        "requestedSeconds": 1800.0,
+        "requiredSeconds": 1800,
+        "rawSeriesLength": 1802,
+        "missingSeconds": [],
+        "secondsWithoutSuccessfulBusinessProgress": [],
+        "secondsWithoutConsumedRows": [],
+        "observedCases": 35,
+        "manifestCases": 35,
+        "missingCases": [],
+        "allRawCountersReconciled": true,
+        "startMonotonicNs": 35531182365755,
+        "offeredEndMonotonicNs": 37331182366245,
+        "drainedMonotonicNs": 37331190603352,
+        "startedUtc": "2026-11-26T10:09:09.0117447+00:00",
+        "finishedUtc": "2026-11-26T10:39:09.0177989+00:00",
+        "idleFinishedUtc": "2026-11-26T10:39:24.0234104+00:00"
+      },
+      "counts": {
+        "planned": 6480000,
+        "attempted": 6480000,
+        "sent": 6465624,
+        "started": 6465624,
+        "completed": 6465624,
+        "succeeded": 6465624,
+        "failed": 0,
+        "rejected": 14376,
+        "retries": 0,
+        "rows": 157761545
+      },
+      "correctnessPassed": true,
+      "oracleFailures": 0,
+      "fullCaseCoverage": true,
+      "elapsedThroughDrainSeconds": 1800.008237597,
+      "successfulOperationsPerSecond": 3591.9968947650864,
+      "arrivalRate": 3600,
+      "histograms": {
+        "offered": {
+          "samples": 6465624,
+          "p50_us_upper": 370.688,
+          "p95_us_upper": 3325.952,
+          "p99_us_upper": 8519.68
+        },
+        "service": {
+          "samples": 6465624,
+          "p50_us_upper": 342.016,
+          "p95_us_upper": 2752.512,
+          "p99_us_upper": 4587.52
+        },
+        "all_terminal_offered": {
+          "samples": 6465624,
+          "p50_us_upper": 370.688,
+          "p95_us_upper": 3325.952,
+          "p99_us_upper": 8519.68
+        },
+        "start_delay": {
+          "samples": 6465624,
+          "p50_us_upper": 15.04,
+          "p95_us_upper": 391.168,
+          "p99_us_upper": 5799.936
+        }
+      },
+      "cpu": {
+        "userCpuSeconds": 2597.09115,
+        "systemCpuSeconds": 398.233756,
+        "seconds_per_success": 0.00046326926929249215,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "peakRssBytes": 43024384,
+      "idle": {
+        "StartedUtc": "2026-11-26T10:39:09.0239853+00:00",
+        "FinishedUtc": "2026-11-26T10:39:24.0234104+00:00",
+        "RequestedSeconds": 15,
+        "ObservedSeconds": 14.999423321,
+        "Before": {
+          "UserCpuSeconds": 2597.212986,
+          "SystemCpuSeconds": 398.307656,
+          "RssBytes": 34185216,
+          "PeakRssBytes": 43024384,
+          "PssBytes": 33185792
+        },
+        "After": {
+          "UserCpuSeconds": 2597.220366,
+          "SystemCpuSeconds": 398.307829,
+          "RssBytes": 34226176,
+          "PeakRssBytes": 43024384,
+          "PssBytes": 33245184
+        },
+        "UserCpuSeconds": 0.007380000000011933,
+        "SystemCpuSeconds": 0.00017300000001796434,
+        "ManagedBytesBefore": 10750240,
+        "ManagedBytesAfter": 10750240,
+        "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+      },
+      "idleRssBytes": 34226176,
+      "managed": {
+        "status": "end_to_end_total",
+        "allocated_before": 14281072,
+        "allocated_after": 47319588584,
+        "total_bytes": 47305307512,
+        "successful_operations": 6465624,
+        "rows": 157761545,
+        "bytes_per_success": 7316.433419574043,
+        "bytes_per_row": 299.85322159465414,
+        "gc_delta_counts": [
+          10949,
+          6996,
+          122
+        ],
+        "gc_scope": "source-bound GC.CollectionCount(after)-before; raw deltas preserved; cumulative GC endpoints were not serialized",
+        "attribution_as_reported": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+        "framework_only_bytes": null,
+        "framework_attribution_status": "unproven; no empty-driver subtraction or per-component GC split",
+        "offered_and_drain_raw": {
+          "allocated_at_actual_offered_end": 47319565848,
+          "before_to_actual_offered_end_bytes": 47305284776,
+          "actual_offered_end_to_after_bytes": 22736,
+          "gc_cumulative_at_actual_offered_end": [
+            10951,
+            6997,
+            122
+          ],
+          "scope": "actual producer offered-end counter, not an invented exact-deadline counter; no per-phase B/op or GC delta inferred without matching operation/GC endpoints"
+        }
+      },
+      "nativeCounters": {
+        "Before": {
+          "ApplicationConnections": 8,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "After": {
+          "ApplicationConnections": 8,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "Drained": {
+          "ApplicationConnections": 0,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        }
+      },
+      "runtimeFfiCountsInThisOrdinaryRun": null,
+      "protocolReplyCountsInThisOrdinaryRun": null,
+      "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+      "resourceObservation": {
+        "input": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/dapper-c8.resources.jsonl",
+          "storedSha256": "96c52f61a6a14f27d26eaeb48525ee144830d8ce6d490fb38675e5a48dc74d68",
+          "contentSha256": "96c52f61a6a14f27d26eaeb48525ee144830d8ce6d490fb38675e5a48dc74d68",
+          "bytes": 10950836
+        },
+        "samples": 7182,
+        "firstMonotonicNs": 35530946131951,
+        "lastAcquiredThroughMonotonicNs": 37346522228511,
+        "processLifetimeWait4": {
+          "processLifetimeUserCpuSeconds": 2597.265699,
+          "processLifetimeSystemCpuSeconds": 398.368511,
+          "processLifetimeMaxRssBytes": 43024384
+        },
+        "sampledMemory": {
+          "client": {
+            "maximumCompleteSampleRssBytes": 42663936,
+            "completeSamples": 7181,
+            "incompleteOrAbsentSamples": 1,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          },
+          "server": {
+            "maximumCompleteSampleRssBytes": 15781888,
+            "completeSamples": 7182,
+            "incompleteOrAbsentSamples": 0,
+            "scope": "Whole-command non-atomic process-tree RSS samples; missing process memory is never zero; this is not a steady-only high-water."
+          }
+        },
+        "observerTicksPerSecond": 100,
+        "quotaAtFirstSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "quotaAtLastSample": {
+          "schemaVersion": 2,
+          "membershipSource": "0::/",
+          "available": false,
+          "ancestors": [],
+          "reason": "The current cgroup-v2 mount is unavailable"
+        },
+        "serverCpuGroupPresent": false,
+        "serverCpuScope": "Raw server PID/start-tick CPU records remain in the JSONL. No complete server CPU total is inferred from non-atomic trees or an unavailable cgroup.",
+        "scope": "Observer evidence is not an environment admission. Missing cgroup visibility is retained; no historical cgroup/schema gate is applied.",
+        "samplesFullyWithinConsumerInterval": 7120
+      }
+    }
+  ]
+}

@@ -1,4 +1,528 @@
+# Current result — DB-Exec-11, 2026-11-26 (Asia/Shanghai)
+
+Four current frozen 1,800-second local cells completed from16:38:19 to18:39:24.
+All four pass the unchanged arithmetic and identity/owner checks:35 cases,
+every required second with successful work, zero business/oracle failures,
+recorded refusals, no interval overlap, and all373 original frozen inputs unchanged.
+The selected product remains17da/treebc9087d. Raw evidence has been archived,
+read back and compared with its originals. See the [final report](execution-refactor/continuation-8/final-report.md)
+and [current evidence/reviews](execution-refactor/continuation-8/README.md).
+
+The same-condition120-second before/current data and all historical/rejected
+experiments remain separate. Framework-only0 B and global optimality are not
+established. Product and Design are normally merged; the actual product main
+CI and both independent `0.1.0-preview.4` signed NuGet/public-AOT results passed.
+The [delivery record](execution-refactor/continuation-8/delivery-01/README.md) preserves exact merge trees,
+package identities, the initial PostgreSQL indexing timeout and the successful
+same-version retry. This containing Plan record's own checks and normal merge
+are observed separately in PR34. Do not rerun completed long cells.
+
+## Previous checkpoint retained
+
+# Active continuation — DB-Exec-10, 2026-11-26 Asia/Shanghai
+
+Continue from [continuation 7](execution-refactor/continuation-7/plan.md). The recovered
+product head is [47fe650](https://github.com/IzuSharp/Korda/commit/47fe650dfed5d7bba1c4d74c4a127c5d08b66082);
+its existing [CI45761578521](https://github.com/IzuSharp/Korda/actions/runs/45761578521)
+passed after the retained formatting failure at8789a45. All nine preceding short
+measurement groups actually completed. Their [strict results and raw archive](execution-refactor/continuation-7/recovered-short-results.md)
+are now published in [Plan af65936](https://github.com/IzuSharp/Plan/commit/af65936a1bb951836cbcd7f61b1dacaff9cc639d),
+with actual producer identities, failed analyses and independent negative controls.
+They are historical short observations, not the current candidate's final runs.
+
+The [native path review](execution-refactor/continuation-7/native-path-review.md) accepts the
+conditional PostgreSQL pre-COMMIT state proof for integration and identifies the
+retained NWQC semantic compiler precisely. The Source-owned fixed-key Find path
+is selected in [Design 1e0f444](https://github.com/IzuSharp/Korda-Design/commit/1e0f444f5410e1f492191b2b8f923e50d58e7e4c)
+and is undergoing bounded-cache, key-snapshot, mapper-identity and original-error
+boundary checks. Do not treat its in-progress worktree as a frozen candidate.
+The independent [package/AOT build driver](execution-refactor/continuation-7/candidate-build-tools/README.md)
+and [local load selector](execution-refactor/continuation-7/local-load-tools/README.md)
+retain their own inputs and do not execute performance work in CI.
+
+Next: finish Find correctness and independent review, integrate/publish the exact
+candidate, build and consume both standalone packages, measure matched phases
+and mixed-load calibration, then the same-condition before supplement and four
+serial1800-second candidate/Dapper cells. Final long credit is **0/4**. Normal
+reviewed merge and existing rule-selected release verification remain authorized
+and outstanding. Existing CI scopes and performance-only-local restrictions
+remain unchanged. Worktrees are under `/workspace/scratch/fd78534029f7/worktrees`;
+recovered tools, original consumers and measurements remain under
+`/workspace/scratch/4a65d70f0fe1`.
+
+## Previous checkpoint retained — public8789a45
+
+> **Current checkpoint — 2026-11-26 (Asia/Shanghai):** public [8789a45](https://github.com/IzuSharp/Korda/commit/8789a45a52cc0cc0a0b62737542d9c120b753c9b), tree `c8f398ae4db2d39302335a51a6378b737409f2fb`, is identical to integrated local `d8beff6`. One-shot command completion and its development correctness are complete. Count/Any, nonreturning CRUD and transaction/savepoint/child-close terminals use the new request/ready/typed-take path; generic Source/administration/cold compatibility paths remain explicit. Read [continuation 6](execution-refactor/continuation-6/README.md) for the exact source bindings, all failed attempts, successful Native AOT suites and recoverable actual generated Dapper factories.
+
+> Root is building formal independent provider packages and ordinary consumers from the fetched public source. [Existing CI45759068704](https://github.com/IzuSharp/Korda/actions/runs/45759068704) is pending at this checkpoint. New matched Dapper.AOT consumers compiled for both databases; runtime SQL/timing remain separately unverified. Final long credit is **0/4**. Development gates, compilation and source publication do not grant performance or release acceptance. The independent DB-Exec-08 PostgreSQL commit-probe experiment is not part of this candidate and has no measured benefit credited here.
+
+## Previous checkpoint retained — public933d16b
+
+> **Current checkpoint — 2026-11-26 (Asia/Shanghai):** published source [933d16b](https://github.com/IzuSharp/Korda/commit/933d16bf673dff5310db37cc444ba5019842d81d) contains the cancellation, ready-scheduling, dead-bridge deletion, buffered row-scope and primary-error corrections. Existing CI for 8058128, 31693e3 and 933d16b succeeded under the original Linux/interop and independent provider checks; PR publication was skipped. Exact 805/316 packages completed ten local short-run groups (76 commands including ten fixtures). Read [continuation 5](execution-refactor/continuation-5/README.md) for immutable raw/build evidence, mixed buffered A/B results, the retained analysis-01 Find expectation failure and corrected analysis 02.
+
+> Ordinary transaction tails plus separate exact ABI counts select [one-shot command completion](execution-refactor/continuation-5/command-completion-proposal.md) for Count/Any, nonreturning CRUD and transaction/savepoint controls. Current published source still uses generic completion there; the new private interface is selected, with implementation and public-package validation pending. Final long credit remains **0/4**. Short or instrumented data, source publication and green CI do not grant framework 0 B, merge or release acceptance.
+
+## Previous checkpoint retained — public bc6ba1a
+
+> **Current checkpoint — 2026-11-26 (Asia/Shanghai):** public bc6ba1a completed exact-package phase/ABI/allocation observations and removed the final-close tail, but existing CI and the unchanged local Orm.Relations test both failed in immediate callback cancellation. Read [continuation 4](execution-refactor/continuation-4/README.md) for the original failure, measured results and next action. Fix and verify the accepted-request stop ordering before selecting the isolated ready-drain experiment. Final long credit remains **0/4**; no merge/release acceptance. The checkpoints below retain their historical identities.
+
+> **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](execution-refactor/continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
+
+# Latest execution-path continuation — frozen public source
+
+Continue from [the current checkpoint](execution-refactor/current-checkpoint.md)
+and [continuation-3 evidence](execution-refactor/continuation-3/README.md).
+The final product source is [0f3816c4](https://github.com/IzuSharp/Korda/commit/0f3816c4006488821f40afde91bbbd717d57ccd6),
+tree `9935773d28b3043618285cf0ecd5c476539b2f8c`; reviewed local6da0074 has the same
+tree. Both native profiles and ordinary external candidate consumers are built.
+The final source's existing [CI45734731584](https://github.com/IzuSharp/Korda/actions/runs/45734731584)
+passed, including both independent providers. Isolated development checks keep
+their original identities. Final local long-test credit is **0/4**; measurement,
+merge and release acceptance remain separate. Earlier pending-channel and
+missing-workspace statements below are historical.
+
+---
+
+# DB-Exec-02 current in-progress checkpoint
+
+Continue from [execution-refactor/current-checkpoint.md](execution-refactor/current-checkpoint.md) and [the current execution plan](execution-refactor/README.md). Candidate B remains the frozen measured input. The transaction thread-tail correction, private query-arena transfer, occupied-slot scan and CI correctness separation are published in product `ada28311`; their isolated validation and all failed attempts are retained. Three scheduling experiments are complete and motivate the cursor pull-channel replacement now in progress. This refactor has **0/4 final long cells** and no merge/release acceptance yet. Older stop and environment-missing records below are historical.
+
+---
+
+# Current handoff — DB-Exec-02, design and environment recovery
+
+The owner resumed the complete database execution-path refactor on 2026-11-26
+(Asia/Shanghai). Read [the new execution gates](execution-refactor/README.md)
+before the preserved historical handoffs below. Continue the open product #37,
+Design #20 and Plan #34. No new product/database performance acceptance is claimed
+by this recovery record; normal reviewed merge/release verification is authorized
+after the current work is complete.
+
+Current local root is `/workspace/scratch/17ac3f8f2fbf`. The task checkouts are
+`worktrees/DB-Exec-02-korda`, `DB-Exec-02-design` and `DB-Exec-02-plan`, based on
+product `f0078da720e07031bc56464995af6791c41aaae8`,
+Design `335706d1d2c76f11d4e0eaffc4a35bf404776a19` and
+Plan `bfe4aa3f074789dfac046412eff37fe6ba58b0f7`.
+The independent `worktrees/DB-Exec-02-before` also starts at product f0078da7.
+These local names do not rename the open PR branches. Recheck live heads and
+local changes before publication and reconcile any concurrent writer.
+
+The former `/tmp/DB-Perf-01*` trees and
+`/workspace/scratch/787156d4dd76` artifacts were not recovered. The historical
+session IDs further down are not current process handles. Reuse the published
+numeric evidence under its original source identity, and rebuild before/candidate
+binaries for this host instead of claiming missing binaries were recovered.
+
+## Observed recovery and existing CI routing
+
+The initial actual
+`python3 eng/ci/impact.py origin/main --output artifacts/plan.json` selected
+`interop`, `linux`, `postgresql` and `sqlite` from the cumulative #37 diff.
+Its [preserved plan](execution-refactor/ci-plan-initial.json) contains all exact
+module reasons/actions. Shared database/native/API checks and both independently
+built provider consumers are selected; there is **no benchmark execution action**.
+Benchmark paths may appear as source ownership reasons without scheduling them.
+Rerun the planner after current edits; this initial selection is not a future
+candidate's observed CI result.
+
+The existing `python3 eng/ci/worker.py check-index` passed, and
+`python3 -m unittest discover -s tests/Tooling -v` reported 45 tests,
+OK with one skipped. The [original output](execution-refactor/tooling-baseline.log)
+retains that skip. These are routing/tooling checks, not native or AOT execution.
+
+SDK 11.0.100 was restored and checked using the official archive SHA-512 pin and
+actual SDK info. Clang 23.1.5, CMake 4.3.3 and Ninja 1.13.2 were restored through
+the existing pinned toolchain verifier. Local environment entry:
+`tools/toolchain/environment.sh`; SDK pin:
+`tools/dotnet-sdk-pin.json`. Unneeded LLVM tools were removed for disk capacity
+while keeping the original archive and required pinned build/check tools;
+`tools/toolchain-pruned.json` records that installation subset.
+At this checkpoint PostgreSQL restoration and this round's database/native/AOT
+tests remain pending. The [recovery receipt](execution-refactor/recovery-initial.json)
+records input hashes and the scope of these observations.
+
+## Next work and custody
+
+Review and publish the Plan-first / Design-before-product target. Preserve the
+selected PostgreSQL fresh-Parse/Describe metadata boundary and SQLite no-step
+opening while implementing ordered typed parameters, direct batch writing and
+validated typed reading. Resolve the complete-command representation gate before
+calling the full refactor complete. Bind actual generated Dapper consumer code,
+new source/package/ELF inputs, local results and deletion inventory in this
+directory. Follow E0–E8, including same-host immediate-before comparisons and four
+serial new 1800-second cells. No new long duration is credited here.
+
+## Previous final record — tests complete; stop without merging
+
+The owner instructed completing tests, recording results and stopping with PRs only. All four local 1800-second cells are validated (43,335,131 successes); the 16-app/926-file post-run freeze is unchanged. The [final record](query-optimization/final-f0078da7/README.md) retains before/after results, substantial Dapper.AOT gaps, source/contract limits and unresolved failures. The final full archive remains local-only after upload rejection; selected summaries are published. [Korda #37](https://github.com/IzuSharp/Korda/pull/37), [Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and [Plan #34](https://github.com/IzuSharp/Plan/pull/34) remain unmerged. Do not restart measurements or implementation from the historical continuation below.
+
 # DB-Perf-01 — Linux handoff
+
+## Active checkpoint — SQLite long 2/4 validated; PG coordinator 34628
+
+Read [SQLite long evidence](query-optimization/sqlite-long-f0078da7/README.md)
+before the previous snapshots. Product/freeze remain f0078da7 / 46ef0947 /
+1e56f546, 16 apps / 926 files. Both SQLite routes completed their real 1800-second
+segments; state and numeric evidence retain all gaps and asymmetric owner scope.
+
+At **2026-11-25 15:10:38 UTC**, root started PostgreSQL session **34628**,
+Dapper 1800 seconds followed by candidate 1800 seconds. Inspect the existing
+coordinator and `/tmp/DB-Perf-01-measurements-v4/results` before starting anything;
+do not run parallel consumers, builds or heavy gates. PG result slots are pending.
+The archive's three PG `not_observed` entries reflect capture before launch.
+
+Keep both archives immutable, preserve earlier failures, and finish final input
+rehashing and Plan/Design review after all four cells. The temporary final draft
+must then adopt this checkpoint's actual published parent. No future final CI or
+performance acceptance is assigned by the pre-long CI success.
+
+## Active checkpoint — f0078da7, phase/short/resource complete, SQLite long started
+
+Read [pre-long evidence](query-optimization/prelong-f0078da7/README.md), then
+continue [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Branches and frozen product
+identity below remain unchanged. Phase **18/18**, short **36/36** and resource
+**12/12** have completed their distinct scopes; four long cells remain pending.
+
+At **2026-11-25 14:09 UTC**, root started the existing SQLite long coordinator
+(session `61233`): candidate 1800 seconds, then Dapper.AOT 1800 seconds.
+PostgreSQL long had not started. Check that coordinator and
+`/tmp/DB-Perf-01-measurements-v4/results` before any resumption; do not start
+parallel consumers, builds or heavyweight gates. The pre-launch numeric archive
+is an immutable snapshot with six long/setup entries still `not_observed`.
+Final post-run rehash and a new final extraction are still required.
+
+The [selected metrics and provenance](query-optimization/prelong-f0078da7/metrics-summary.json)
+retain the ordinary allocation regression, Dapper gap, RSS/GC/CPU regressions,
+resource qualification and both unresolved old aborts. Do not label current
+passes as cause fixes, infer timer causality, or add a buffer pool/physical cache
+to the frozen candidate. Design is unchanged while the long results are pending.
+No final performance acceptance or long-duration credit is assigned here.
+
+## Active checkpoint — f0078da7, new freeze and phase diagnostic in progress
+
+Resume [the current plan](plan.md) and
+[serializer checkpoint](query-optimization/serializer-f0078da7/README.md), then
+check [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Product branch remains
+`task/DB-Perf-01-linux`; companion branches remain
+`task/DB-Perf-01-query-optimization`. Published source is
+`f0078da720e07031bc56464995af6791c41aaae8`, tree
+`1e56f5466fa02640dcb68389f283e5c03c2c09ec`, actual CI producer
+`46ef09477b75dd5ce05e1941a739652bc685a9e2`. Full ordinary
+[CI 45624813071](https://github.com/IzuSharp/Korda/actions/runs/45624813071) passed;
+its receipt is `/tmp/DB-Perf-01-final-local-v5/ci-gate.json`.
+
+The private-root stack serializer is implemented with local correctness and exact
+API checks. Its effect on the allocation regression is not established. Preserve
+both unexplained incidents: original PG `r1-recovered` prepared failure and CI
+`45622268417` SQLite B03 AOT -6. Three PG diagnostics and eleven local SQLite gate
+invocations did not reproduce those incidents. The separate forced PG 42P01 run
+only validates failure reporting. All attempts retain their own source/ELF identity.
+
+Current paths and custody:
+
+- `/tmp/DB-Perf-01-measurements-v4/identity.json`: SHA
+  `f83df84a57af07a927f4955b91e8a64561bccafa8f92d2bd7181bc3a83efa269`, 16 apps/926 files.
+  Phase diagnostics have started, SQLite nine processes then PostgreSQL nine.
+  Inspect the existing coordinator/results before starting another process;
+  do not create a parallel measurement or build load.
+- `/tmp/DB-Perf-01-final-local-v5`: six exact-package external Native AOT apps;
+  `summary.json`/`readiness.json` bind 280 correct operations and six lifecycle
+  checks, drained owners, and unchanged preparation inputs. Baseline/recovered
+  phase apps are under `/tmp/DB-Perf-01-phase-v3`.
+- `/workspace/scratch/787156d4dd76/DB-Perf-01-resource-results-v4`: six before
+  diagnostic processes qualified, zero long credit; candidate comparison remains
+  to be completed against the new input set.
+- `/tmp/DB-Perf-01-measurement-tools-v4.py`: SHA
+  `feabf37ceea2d834419b8588d661032bd79d1297c29178fc5c0d623c4b8b34a7`;
+  `measurements-v4/summary-guard-validation.json` binds four positive/48 negative
+  checks. `/tmp/DB-Perf-01-evidence-tools/extract.py` and `make_manifest.py` are
+  also frozen; create a new version and explicit record if a real defect is found.
+- `/tmp/DB-Perf-01-measurements/identity-post-phase-verification.json` binds the
+  old freeze's unchanged 867 files; old results are immutable. Preserve
+  `measurements-v4/plans-3e2bda3-not-run` without assigning execution credit.
+- `/tmp/DB-Perf-01-phase-diagnostic-recovered-pg/review.json` and
+  `/tmp/DB-Perf-01-sqlite-ci-repro/{run-1,repeats}.json` retain unresolved-failure
+  and local non-reproduction evidence. `/tmp/DB-Perf-01-ci-diagnostics/receipt.json`
+  binds the upload-only fix and unchanged routing checks.
+
+Next: finish phase/resource/short analyses, retaining all failures; execute and
+assess the four final local 30-minute candidate/Dapper.AOT cells; report remaining
+allocation/CPU/memory/throughput/p99 gaps and the stopping basis. All four long
+cells currently have zero accepted credit. Physical statement reuse and optional
+fixed-query generation remain unimplemented. No merge/release or final performance
+acceptance is claimed. Preserve every prior section below byte-for-byte.
+
+## Active checkpoint — ordinary CI passed; first SQLite allocation regression recorded
+
+Read the newest [plan section](plan.md) and
+[first-phase evidence](query-optimization/phase-sqlite-r0-034b40ea/README.md).
+Product is still `034b40ea0635027aa2132a4feb90343cf80a3081`, tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`;
+Design is `439c9c2005e1633c08afce07c7652b35b31647a3`. All required ordinary
+[CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+checks now pass, with independent providers and no benchmark jobs. Keep the earlier
+failed attempts and pending-state snapshots below unchanged.
+
+The frozen local input identity is
+`f493d3d315f7e1c9411d05cf41d94c0d15bdb0fc1c8270324348280df7e2f7b4` at
+`/tmp/DB-Perf-01-measurements/identity.json`. Three complete r0 receipts live under
+`/tmp/DB-Perf-01-measurements/results/phase-sqlite`; do not modify them or the
+frozen apps. Later SQLite/PG receipts are not aggregated by this checkpoint.
+Dynamic Fluent allocates 29,879.16 B/op versus recovered 21,460.75:
+**+8,418.41 B/op (+39.23%)**. Warm Prepare is 14,435.28 versus 14,430.32;
+Host SQL is 17,981.26 versus 17,899.57. Preserve the original baseline column and
+all cumulative counters in [the numeric extraction](query-optimization/phase-sqlite-r0-034b40ea/sqlite-r0.json).
+
+Next selected product slice: strict no-dependency single-root encoding, only with
+private uncaptured origins; retain all generic CTE/shared/snapshot/import behavior
+and native framing/sidecar/origin/limit contracts. Plan and Design must record this
+before the product edit. It has not been implemented or measured at this checkpoint.
+The separate read-complete/wall observation does not prove the 10 ms callback
+retry timer causes the delay; no spin/timer change is selected.
+
+Finish full short comparisons, bind any follow-up to fresh source/packages, and
+run the required local final Korda/Dapper.AOT long cells. All four 30-minute cells
+remain without accepted credit; no final performance or stopping conclusion yet.
+
+## Active checkpoint — aggregate API references corrected, new CI pending
+
+Resume the [newest plan section](plan.md) and
+[034b40ea checkpoint](query-optimization/candidate-034b40ea/README.md).
+Korda [#37](https://github.com/IzuSharp/Korda/pull/37) current source is
+[`034b40ea0635027aa2132a4feb90343cf80a3081`](https://github.com/IzuSharp/Korda/commit/034b40ea0635027aa2132a4feb90343cf80a3081),
+tree `fbb71d978af30999afb21c86d42b5237bbfbcb62`; Design
+[#20](https://github.com/IzuSharp/Korda-Design/pull/20) remains `439c9c2005e1633c08afce07c7652b35b31647a3`.
+Plan [#34](https://github.com/IzuSharp/Plan/pull/34) and Design use
+`task/DB-Perf-01-query-optimization`; Korda uses `task/DB-Perf-01-linux`.
+The earlier handoff below is unchanged and records earlier observations.
+
+The first CI failed formatting. The second, run `45610610153`, passed formatting,
+API checks and 20/20 native CTests, then correctly rejected dirty source at
+`Interop.Execution`. The uploaded artifact omits the dirty-file stdout; exact
+local regeneration separately reproduced three stale aggregate API documents.
+The published fix changes those documents only, 87/87 lines. Two runs of each
+original generator passed, preserving all 14 reference bytes and full diff on
+the second round. Keep both failure records and the
+[causal evidence boundary](query-optimization/candidate-034b40ea/aggregate-reference-fix.json);
+do not weaken the clean-source gate.
+
+Current [CI 45614292641](https://github.com/IzuSharp/Korda/actions/runs/45614292641)
+producer is `b3f475aa05fa6c8a0c156be548e838286f10ae3d`, tree `fbb71d978`.
+Its outcome remains pending here. The actual planner keeps four ordinary scopes,
+independent provider runners and no benchmark jobs; reference ownership adds
+`api.tool`, `migrations.api`, `relations.api` to the shared Linux actions.
+
+Under `/tmp/DB-Perf-01-final-local-v2`, six consumers built against the prior
+`4ed20b09` producer and short correctness passed 280/280 scheduled operations,
+plus both-provider cancellation/optimistic-conflict checks with owners drained.
+These are diagnostic correctness inputs, not formal performance. Preserve their
+[exact identities](query-optimization/candidate-034b40ea/v2-local-correctness.json).
+Under `/tmp/DB-Perf-01-final-local-v3`, the new source audit confirms all 30
+consumer/build inputs are unchanged; fresh current-producer applications are
+still pending at this checkpoint. Do not relabel v2 binaries as v3 results.
+
+Next: observe all required ordinary CI checks, complete fresh package correctness,
+then run local same-Host phase/resource comparisons and the four local 30-minute
+Korda/Dapper.AOT cells. No formal performance has started or been accepted; all
+four cells remain pending. Prior implementation tests, physical statement reuse
+and other remaining gaps stay as recorded in the earlier checkpoint.
+
+## Active checkpoint — published formatting follow-up, CI in progress
+
+Resume [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). Product branch is
+`task/DB-Perf-01-linux`; Design and Plan use
+`task/DB-Perf-01-query-optimization`. The current Plan worktree is
+`/tmp/DB-Perf-01-worktrees/DB-Perf-01-Plan`, also reached through the original
+`/workspace/scratch/787156d4dd76/DB-Perf-01-Plan` symlink. Read the newest
+[implementation checkpoint](plan.md)
+before the earlier starting-state and recovery records below. Preserve their bytes.
+
+Current published candidate:
+[`4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9`](https://github.com/IzuSharp/Korda/commit/4ed20b09a245a787a3efccc9dcf2ab3c9f85d4d9),
+tree `1c95420b34a2291e4b63fdc08caf32409a3eb4ee`. Preserve the prior attempt:
+[`dd990f2379c95bde25531de69f7b6f3be5aec3b0`](https://github.com/IzuSharp/Korda/commit/dd990f2379c95bde25531de69f7b6f3be5aec3b0),
+tree `2643545ab41562bebe6c8d1f1811da9d3ced5257`. Aligned Design:
+[`439c9c2005e1633c08afce07c7652b35b31647a3`](https://github.com/IzuSharp/Korda-Design/commit/439c9c2005e1633c08afce07c7652b35b31647a3).
+Final acceptance is pending required CI and actual source-bound measurement.
+
+[CI 45608927004](https://github.com/IzuSharp/Korda/actions/runs/45608927004)
+failed the shared Linux `dotnet format` gate: two files, 180 WHITESPACE diagnostics
+(173 `QueryCommand.Clauses.cs`, 7 `QueryCommand.cs`), formatter exit 2. Native and
+managed compilation succeeded with zero managed warnings/errors; independent
+provider jobs succeeded, but the aggregate result is a failure. Retain the
+[actual receipt](query-optimization/candidate-4ed20b09/ci-format-failure.json).
+Do not mark that attempt accepted or bypass the gate. The two-file correction is
+published in `4ed20b09`. The same SDK's repository-folder formatter and idempotence
+check pass, with identical non-whitespace character streams. The exact generated
+solution invocation was locally blocked by the Roslyn BuildHost Unix socket
+restriction; its required CI gate remains in force. See the
+[correction receipt](query-optimization/candidate-4ed20b09/formatting-followup.json).
+Normal [CI 45610610153](https://github.com/IzuSharp/Korda/actions/runs/45610610153)
+uses merge producer `8626e714534119909ff978c34d2af515bf10694c`, tree `1c95420b`.
+Plan passed/modules skipped; independent jobs were in progress when observed.
+Current exact-producer applications under the task's `final-local-v2` work area
+remain pending. Do not substitute the old SQLite diagnostic binaries.
+
+The [actual committed-diff plan](query-optimization/candidate-4ed20b09/ci-plan.json)
+selects interop, shared Linux and separate PostgreSQL/SQLite checks. `fluent.api`
+is selected by API-checker/reference edits. `database.compatibility` is absent
+because main's rename merge restored its verifier to byte equality with main;
+the [blob comparison](query-optimization/candidate-4ed20b09/ci-selection.json)
+explains the change from the initial plan. Benchmark paths remain owned, with
+zero execution modules/jobs. Keep Native AOT consumers directly on ordinary
+Linux runners; all performance work stays local Linux.
+
+Implemented candidate: one NWQC command with bit 26/three additive exports,
+22 clause operations/topological imports, typed owner sidecars, eager `.Prepare()`
+SQL/parameter-metadata compilation, bounded origin sharing across clone/CTE
+owners, and ShapeCache locking limited to LRU bookkeeping. Physical statement
+reuse and arbitrary build-time Fluent SQL generation remain unimplemented.
+Origin sharing preserves literal budgets and ownership; it does not deduplicate
+SQL placeholders. The direct/unseeded/seeded 9000-byte case is 6002/12004/6002
+retained literal bytes, with status 0/13/0 on both providers.
+
+Local component checkpoint: native query 926 checks/52 goldens in release and
+ASan/UBSan; Host review all; Binding AOT 137 assertions/13 cases including 53
+command-only assertions; two-provider Fluent AOT 1321 combined assertions;
+API/XML 221 symbols/13 typed consumers. Native C ABI 24 rejection cases and six
+zero owner counts pass. The [index and limitations](query-optimization/candidate-4ed20b09/README.md)
+retain exact hashes and distinguish runtime-tested behavior from later comment/XML
+edits. LSan remains blocked by the environment's ptrace restriction; it did not
+pass. These results are not final packaged-consumer or performance acceptance.
+
+Next work, in order:
+
+1. Observe the full existing formatter and required CI result at published
+   `4ed20b09`; its fetch/impact/check-index selection already passed. Keep the
+   prior failed attempt and its artifact identities separate.
+2. Bind the final PostgreSQL and SQLite packages and execute their actual external
+   Native AOT consumers. Three SQLite consumers built from the failed attempt's
+   CI artifacts remain diagnostic; local PostgreSQL final workload builds have
+   not started. These are distinct from the provider CI package consumers.
+3. Reuse the six prebuilt before/recovered phase/resource applications at their
+   recorded identities. They have not been measured. Build final equivalents
+   outside measurement windows, then stop competing builds for local comparison.
+4. Finish same-SQL ordinary Fluent / warm Prepare / same-Host SQL phase attribution
+   and resource checks, then the four local candidate/Dapper.AOT 1800-second cells.
+   All four cells currently have zero accepted effective seconds.
+5. Record complete metrics, remaining physical-statement/parameter/mapping gaps,
+   design consistency and the measured stopping reason. Preserve the historical
+   eight-cell record and acceptance/tool bytes unchanged.
+
+## Current continuation — query optimization, 2026-11-25
+
+The owner resumed this task and explicitly clarified that performance tests run
+**locally on Linux, never in CI**. Ordinary CI keeps the existing Python impact
+planner and independent PostgreSQL/SQLite package jobs. Remove the five
+task-specific benchmark workflows and the two benchmark module `run`
+registrations added by #37. Do not replace them with another manual benchmark
+workflow. Read the current section of [plan.md](plan.md) before the historical
+snapshots below.
+
+Observed starting points are Korda #37 head
+`c1aca12cadfe3f4e2431ded24c13f7afb58453a0`, Korda main
+`e063f2eb6e2e857e3f19f96bf263cae372651a27`, Design main
+`dcf4cee8ed4d02a606733aec11bbb36a411d05a9` and Plan main
+`c73943c72b77cca0398e4034cb82663db0d20bd0`. Plan #32 and the two rename PRs
+are merged. No subsequent query-optimization Plan or Design PR existed when
+searched; new companion PRs will be linked here.
+
+Task worktrees are `/workspace/scratch/787156d4dd76/DB-Perf-01-Korda`,
+`DB-Perf-01-Design` and `DB-Perf-01-Plan`. Other local DB-DotNet-01 worktrees
+belong to a different task and are not implementation inputs. The present
+direction retains C++ and public C# Fluent APIs.
+
+The requested `fetch` and impact plan succeeded; [ci-before.json](query-optimization/ci-before.json)
+is the actual committed-diff plan. The image-guard failure is explained in the
+plan and earns zero measured seconds. Current .Prepare() does not yet eagerly
+compile SQL or reuse a physical connection's statement; current dynamic Fluent
+still issues per-node FFI calls. The new plan separates these gaps from #37's
+existing allocation work. Product optimization waits for the design/plan
+checkpoint, and no new load test or performance acceptance is claimed here.
+
+## CI correction and local diagnostics checkpoint
+
+The three active PRs are [Korda #37](https://github.com/IzuSharp/Korda/pull/37),
+[Design #20](https://github.com/IzuSharp/Korda-Design/pull/20) and
+[Plan #34](https://github.com/IzuSharp/Plan/pull/34). The initial paragraphs above
+record the starting state; the CI correction is now complete. Implementation
+commit `42f852cd1999a198d7f844f5261144649ef5b12b` removed all five benchmark
+workflows and both benchmark execution registrations, and merged current main.
+The ordinary [CI run](https://github.com/IzuSharp/Korda/actions/runs/45598220233)
+passed. Existing Tooling routing tests verify benchmark-only changes select no
+jobs/packages, provider-only changes stay isolated, and shared query changes
+select both public packages and their Native AOT consumers. The original suite
+passed 44 tests with one missing-CMake skip; that exact remaining case then passed
+with locked CMake 4.3.3 ([log](query-optimization/environment/cmake-routing-test.log)).
+All 45 test cases have now executed successfully; no benchmark CI was introduced.
+
+Local tools and exact before/recovered package identities are recorded under
+[environment](query-optimization/environment/toolchain-observation.json), including
+[package hashes](query-optimization/environment/package-inputs.json).
+The observed environment is Debian 13, .NET SDK 11.0.100, Clang 23.1.5,
+PostgreSQL 18.0 and SQLite 3.51.3. Native executables match the repository's locked
+hashes. The installed LLVM subset contains the required compiler/tools/headers
+and runtimes; its compressed inventory is retained. The local PostgreSQL server
+uses TCP and is started, exercised and stopped within one observer process.
+No hosted image build number is required or invented.
+
+The same-Host phase diagnostic is committed locally as
+`b410cbd2415b3a704683f245563415e81901c45c`. The existing public consumer builder
+publishes it outside Korda with only PackageReference, and records source,
+package, executable and loaded-native identities, retaining generated code. Its
+[committed benchmark-only plan](query-optimization/phase-only-plan.json) selects
+no build scopes, modules, packages or public checks. Baseline and recovered #37
+packages both passed all three routes on both databases, validating the complete
+100-row result and draining all six native ownership counts. See the
+[smoke summary](query-optimization/phase-smoke-summary.json) and linked raw records.
+These are correctness observations during ongoing builds, not performance claims.
+SQLite's existing Fluent `?` versus raw-template `?1` marker difference is disclosed;
+the ordinal, typed value and relational query are identical. PostgreSQL uses `$1`
+in both. A failed first diagnostic marker assumption is also preserved.
+
+The published Design decision precedes the new product implementation. Complete
+query-command transport and eager prepared-shape compilation are in development;
+new product coverage and final-candidate performance remain unclaimed. Next:
+finish/review that implementation, run existing module and real-provider/AOT
+checks, then local interleaved short comparisons and four final 1,800-second
+candidate/Dapper.AOT segments. Record physical statement-cache and parameter/
+locking gaps that remain; do not relabel source observations as measured gains.
+
+### Local mixed-consumer correctness checkpoint
+
+The original package and Dapper.AOT are now built as four external Linux Native
+AOT consumers, using the existing mixed harness. [The checked summary](query-optimization/mixed-smoke/summary.json)
+records eight provider/mode cells: **560/560 successful scheduled operations**,
+zero failures and zero result-oracle failures. All 35 cases execute twice in each
+cell with the frozen complete row/digest expectations. Dynamic filters, varying
+parameters, transaction commit/rollback, optimistic updates, full streams and
+early stop are covered. These short runs overlapped builds and earn no timing or
+long-test acceptance.
+
+The four lifecycle diagnostics passed 11 checks. Dapper with Microsoft.Data.Sqlite
+reports active cancellation as unsupported because its synchronous engine call
+was not interrupted; that limitation remains in the raw result. Its pre-cancel
+and conflict checks pass. Korda passes pre-cancel, active-cancel and conflict checks
+on both databases; Dapper passes all three on PostgreSQL. Native owners/application
+connections drain and the task-owned PostgreSQL 18 server exits successfully.
+
+[The publication note](query-optimization/mixed-smoke/README.md) and
+[correctness ledger](query-optimization/mixed-smoke/correctness-ledger.json) retain
+the synthetic case outcomes and hashes. The ledger is an explicit extraction of
+the unchanged raw results, excluding local paths, command lines, generated source,
+restore graphs and host-environment logs. Automatic approval review rejected
+attaching the broader archive; it is not included in this PR. Current-tool baseline
+package validation also passed for both original packages without bypassing their
+integrity checks or downgrading validators. The phase smoke's compiled inputs are
+publicly retained at Korda
+[`5e0bf89`](https://github.com/IzuSharp/Korda/commit/5e0bf8929a8873e7620eb814e44b27ee84dfab08).
+
+## Historical continuation records preserved below
 
 ## Live continuation — 2026-11-25 05:45 UTC (13:45 Asia/Shanghai)
 

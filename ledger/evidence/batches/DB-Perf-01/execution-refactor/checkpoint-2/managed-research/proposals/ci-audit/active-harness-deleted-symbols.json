@@ -1,0 +1,41 @@
+{
+  "base": "a27ff3189bd48b9c08d58e38338b2bfde7669bdd",
+  "searchArgv": [
+    "rg",
+    "-n",
+    "--glob",
+    "*.cpp",
+    "--glob",
+    "*.hpp",
+    "--glob",
+    "*.cs",
+    "--glob",
+    "*.py",
+    "(ParameterDefinition\\.Encode|ProviderStatement::next\\b|\\bnw::Row\\b|\\bsqlite_decode\\s*\\(|\\bpostgres_decode\\s*\\(|\\bdecode_parameters\\s*\\(|->next\\s*\\(|\\.next\\s*\\()",
+    "benchmarks",
+    "-g",
+    "!**/reproduction-inputs/**",
+    "-g",
+    "!**/obj/**",
+    "-g",
+    "!**/bin/**",
+    "-g",
+    "!**/artifacts/**"
+  ],
+  "classification": {
+    "benchmarks/db-perf/empty-parameters/Program.cs:58": "removed ParameterDefinition.Encode; fixed in combined proposal",
+    "benchmarks/db-perf/empty-parameters/Program.cs:64": "removed ParameterDefinition.Encode; fixed in combined proposal",
+    "benchmarks/Database/campaign/native/correctness.cpp:576": "independent local PgConnection::next, defined at line321, direct libpq PGresult; not deleted ProviderStatement method",
+    "benchmarks/Database/campaign/native/correctness.cpp:643": "same independent PgConnection",
+    "benchmarks/Database/campaign/native/correctness.cpp:653": "same independent PgConnection"
+  },
+  "removedNativeSymbolsChecked": [
+    "nw::ProviderStatement::next",
+    "nw::Row",
+    "nw::sqlite_decode",
+    "nw::postgres_decode",
+    "nw::decode_parameters"
+  ],
+  "archivedReproductionBytesEdited": false,
+  "scope": "Static symbol reachability only. No claim that all benchmark projects were compiled."
+}

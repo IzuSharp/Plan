@@ -1,0 +1,49 @@
+{
+  "command": [
+    "python3",
+    "eng/ci/impact.py",
+    "origin/main",
+    "--output",
+    "artifacts/plan.json"
+  ],
+  "basePlanSha256": "dab15a96c0c6e320ceecaf9f6164938ac522842db36c8eca0f96b80fc430cd35",
+  "cleanupPlanSha256": "5cc7851d1e7be7cc6157ac2dd0bbcb908065603e3911287821c9658b1255da7d",
+  "actionsIdentical": true,
+  "actions": {
+    "interop": [
+      "interop.async"
+    ],
+    "linux": [
+      "database.native",
+      "database.build",
+      "database.api",
+      "database.dependencies",
+      "database.regressions",
+      "fluent.api",
+      "api.tool",
+      "migrations.api",
+      "relations.api"
+    ],
+    "postgresql": [
+      "postgresql.build",
+      "postgresql.dependencies",
+      "public.pack",
+      "postgresql.packed-api",
+      "postgresql.test",
+      "public.consume-aot",
+      "public.validate"
+    ],
+    "sqlite": [
+      "sqlite.build",
+      "public.pack",
+      "public.consume-aot",
+      "public.validate",
+      "sqlite.dependencies",
+      "sqlite.packed-api",
+      "sqlite.test"
+    ]
+  },
+  "newReasonGroups": [
+    "interop-negotiation-tests"
+  ]
+}

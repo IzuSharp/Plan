@@ -1,0 +1,53 @@
+#define _GNU_SOURCE
+#include <dlfcn.h>
+#include <poll.h>
+#include <stdatomic.h>
+#include <stdint.h>
+#include <string.h>
+#include <time.h>
+@HEADERS@
+
+#define SYMBOL_COUNT @COUNT@
+static _Atomic(void*) targets[SYMBOL_COUNT];
+static _Atomic uint64_t calls[SYMBOL_COUNT], pending[SYMBOL_COUNT], waits[4];
+
+@BODIES@
+
+void* dlsym(void* handle, const char* name)
+{
+    void* (*original)(void*, const char*) = dlvsym(RTLD_NEXT, "dlsym", "GLIBC_2.2.5");
+    void* address = original(handle, name);
+    if (!address) return address;
+@RESOLVE@
+    return address;
+}
+
+uint64_t db_perf_ffi_count(uint32_t group, uint32_t index)
+{
+    if (group == 0 && index < SYMBOL_COUNT) return atomic_load(&calls[index]);
+    if (group == 1 && index < SYMBOL_COUNT) return atomic_load(&pending[index]);
+    if (group == 2 && index < 4) return atomic_load(&waits[index]);
+    return 0;
+}
+
+int poll(struct pollfd* fds, nfds_t count, int timeout)
+{
+    int (*original)(struct pollfd*, nfds_t, int) = dlvsym(RTLD_NEXT, "poll", "GLIBC_2.2.5");
+    Dl_info caller;
+    int tracked = dladdr(__builtin_return_address(0), &caller) && caller.dli_fname
+        && strstr(caller.dli_fname, "libnw_database_") != NULL;
+    struct timespec before, after;
+    if (tracked) clock_gettime(CLOCK_MONOTONIC, &before);
+    int result = original(fds, count, timeout);
+    if (tracked)
+    {
+        clock_gettime(CLOCK_MONOTONIC, &after);
+        uint64_t elapsed = (uint64_t)(after.tv_sec - before.tv_sec) * 1000000000
+            + after.tv_nsec - before.tv_nsec;
+        atomic_fetch_add(&waits[0], 1);
+        if (!result) atomic_fetch_add(&waits[1], 1);
+        if (result < 0) atomic_fetch_add(&waits[2], 1);
+        atomic_fetch_add(&waits[3], elapsed);
+    }
+    return result;
+}

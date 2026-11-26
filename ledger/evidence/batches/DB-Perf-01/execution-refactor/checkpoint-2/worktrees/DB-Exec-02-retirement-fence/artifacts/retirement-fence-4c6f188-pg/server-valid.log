@@ -1,0 +1,36 @@
+2026-11-25 12:48:00.659 PST [22] LOG:  starting PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit
+2026-11-25 12:48:00.659 PST [22] LOG:  listening on IPv4 address "127.0.0.1", port 57009
+2026-11-25 12:48:00.662 PST [29] LOG:  database system was shut down at 2026-11-25 12:48:00 PST
+2026-11-25 12:48:00.665 PST [22] LOG:  database system is ready to accept connections
+2026-11-25 12:48:00.711 PST [34] FATAL:  role "agent" does not exist
+2026-11-25 12:48:02.384 PST [91] LOG:  could not accept SSL connection: tlsv1 alert unknown ca
+2026-11-25 12:48:02.454 PST [95] ERROR:  canceling statement due to statement timeout
+2026-11-25 12:48:02.454 PST [95] STATEMENT:  SELECT pg_sleep(1)
+2026-11-25 12:48:02.455 PST [95] ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2026-11-25 12:48:02.455 PST [95] STATEMENT:  SELECT 1
+2026-11-25 12:48:02.456 PST [95] ERROR:  division by zero
+2026-11-25 12:48:02.456 PST [95] STATEMENT:  SELECT 1/0
+2026-11-25 12:48:07.908 PST [101] ERROR:  division by zero
+2026-11-25 12:48:07.908 PST [101] STATEMENT:  SELECT (CASE WHEN n=5 THEN 1/(n-5) ELSE n END)::bigint FROM generate_series(1,10) AS n
+2026-11-25 12:48:07.929 PST [102] ERROR:  relation "absent_prepare_table" does not exist at character 21
+2026-11-25 12:48:07.929 PST [102] STATEMENT:  SELECT missing FROM absent_prepare_table
+2026-11-25 12:48:07.943 PST [104] FATAL:  terminating connection due to administrator command
+2026-11-25 12:48:08.006 PST [127] LOG:  could not accept SSL connection: tlsv1 alert unknown ca
+2026-11-25 12:48:08.093 PST [138] ERROR:  canceling statement due to statement timeout
+2026-11-25 12:48:08.093 PST [138] STATEMENT:  SELECT pg_sleep(2)
+2026-11-25 12:48:08.094 PST [138] ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2026-11-25 12:48:08.094 PST [138] STATEMENT:  SELECT 1
+2026-11-25 12:48:08.095 PST [138] ERROR:  division by zero
+2026-11-25 12:48:08.095 PST [138] STATEMENT:  SELECT 1/0
+2026-11-25 12:48:08.095 PST [138] ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2026-11-25 12:48:08.095 PST [138] STATEMENT:  SELECT 1
+2026-11-25 12:48:09.764 PST [210] FATAL:  terminating connection due to administrator command
+waiting for server to shut down....2026-11-25 12:48:47.537 PST [22] LOG:  received fast shutdown request
+2026-11-25 12:48:47.539 PST [22] LOG:  aborting any active transactions
+2026-11-25 12:48:47.540 PST [22] LOG:  background worker "logical replication launcher" (PID 32) exited with exit code 1
+2026-11-25 12:48:47.540 PST [27] LOG:  shutting down
+2026-11-25 12:48:47.541 PST [27] LOG:  checkpoint starting: shutdown immediate
+2026-11-25 12:48:47.549 PST [27] LOG:  checkpoint complete: wrote 59 buffers (0.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.005 s, total=0.010 s; sync files=50, longest=0.001 s, average=0.001 s; distance=283 kB, estimate=283 kB; lsn=0/174A988, redo lsn=0/174A988
+2026-11-25 12:48:47.554 PST [22] LOG:  database system is shut down
+ done
+server stopped
