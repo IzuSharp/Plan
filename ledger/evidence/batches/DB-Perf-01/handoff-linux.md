@@ -1,3 +1,16 @@
+# Active recovery — DB-Exec-11, 2026-11-26 (Asia/Shanghai)
+
+The original373-input freeze and public17da candidate were revalidated. Four
+serial1800-second local cells started at16:38:19 Asia/Shanghai; at this checkpoint
+the first SQLite Korda cell is running and final accepted credit remains **0/4**.
+Read the [exact recovery, invocation order and independent reviews](execution-refactor/continuation-8/README.md).
+The120-second before/current supplement is complete and remains separate.
+Existing CI passed for Korda17da, Designca1933e and Plan9e4aad4; no source or
+measurement input changed. Finish actual long evidence, review, normal merges
+and the existing independently selected publication path.
+
+## Previous checkpoint retained
+
 # Active continuation — DB-Exec-10, 2026-11-26 Asia/Shanghai
 
 Continue from [continuation 7](execution-refactor/continuation-7/plan.md). The recovered
