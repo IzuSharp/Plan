@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "reviewedUtc": "2026-11-26T14:47:18Z",
+  "decision": "PASS_WITH_EXISTING_EXECUTION_GATES_AND_QUIESCENT_WORKSPACE",
+  "reviewMethod": "Read both complete helper sources and fixed inventories; verify hashes and canonical plan against existing supplementary dry run; no repeated large tree scan",
+  "deletionExecutedByReviewer": false,
+  "signalsSentByReviewer": 0,
+  "databaseBuildOrTestExecutions": 0,
+  "originalHelper": {
+    "path": "/workspace/scratch/166b48a091b9/go-comparison-01/final_cleanup.py",
+    "sha256": "79088224364dd5b1321e83c30aa462a2e3bd79efc7e1a692b3638257b4cdabb7",
+    "inventorySha256": "ff44db8a718951a07c15d00035c5ea516ddd0b0af3628d532c8c57e9ef87f71b",
+    "taskRoots": 3,
+    "exactTemporaryTargets": 32,
+    "executionCopy": "/tmp/DB-Go-01-final-cleanup.py",
+    "unchanged": true,
+    "canSignalProvenTaskOwnedProcesses": true,
+    "signalProtection": "pidfd, start ticks, executable identity, task ownership, protected process exclusion"
+  },
+  "supplementaryHelper": {
+    "path": "/workspace/scratch/2dfe9fb1bc53/additional_cleanup.py",
+    "sha256": "7d7534391d956839fb721d06fed8409fd984d17a2432bcee381710a039031721",
+    "inventorySha256": "ac1bcdcbba1ef5a704b330fd0924861a1f5b680c734a7287001cc7ff3c13f277",
+    "dryRunSha256": "cc7a4e2e1f048126795c71433bf190e5d554b3a78a347be833b4494422f7b10f",
+    "canonicalPlanSha256": "9360a3466d774a20358f65e2632292832c47b0df6ab36dcca54f572ef2f9ec07",
+    "sourceRoots": 2,
+    "registeredWorktrees": 3,
+    "msbuildTemporaryDirectories": 66,
+    "nugetHttpCacheFiles": 57,
+    "emptyNugetScratchLocks": 1243,
+    "telemetryFiles": 9,
+    "emptyOnlyWrappers": 4,
+    "recursiveTopLevelTargets": 70,
+    "currentRecoveryWorkspaceDeleted": false,
+    "originalTargetsAreProcessWatchOnly": true,
+    "canSignalProcesses": false,
+    "recordedDryRunHadBlockers": false,
+    "dryRunHashBindingsRecomputed": true
+  },
+  "reviewedGuards": [
+    "Fixed inventories and canonical helper/plan hash acceptance",
+    "Exact scope, path normalization, symlink target and ancestor rejection",
+    "Device/inode identity, ownership, file metadata and content checks",
+    "Target and nested-mount rejection",
+    "Git worktree, head, diff and reference checks before removal",
+    "Symlink-resistant recursive deletion and empty-only wrapper removal",
+    "Archive and critical source rehash with immutable commit URLs",
+    "Supplementary process checks across original and extra scopes",
+    "Progress receipts retained outside targets and refusal after interrupted work"
+  ],
+  "requiredExecutionSequence": [
+    "Complete actual remote archive readback and source-retention review before writing acceptance",
+    "Keep every other task writer, build and benchmark idle during cleanup",
+    "Run supplemental cleanup before primary cleanup if its gate reads files under primary roots",
+    "Use a fresh primary dry run after final record publication changes",
+    "Immediately before original helper execution require supplemental --process-check-only blockers to be empty",
+    "Capture original helper stdout outside removed roots and inspect actual process actions",
+    "Publish actual final receipts and verify post-cleanup paths; never infer success from a dry run"
+  ],
+  "limits": [
+    "Archive coverage and readback flags rely on actual root-performed remote verification; helpers do not fetch GitHub",
+    "No global filesystem lock or atomic whole-tree transaction; residual concurrent-writer TOCTOU risk remains",
+    "Expected worktree removals change source-root snapshots before final root deletion",
+    "Original process scan is narrower and may skip unreadable processes; supplementary process-only scan is required immediately before it",
+    "Review covers listed task targets, not a claim that the entire machine has no other project content",
+    "No deletion or process signalling was performed by this reviewer"
+  ],
+  "requiredCodeChanges": [],
+  "unresolvedBlockingDesignFindings": []
+}

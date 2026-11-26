@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Go-01 closeout",
+  "observedAtUtc": "2026-11-26T14:41:41.931678+00:00",
+  "newBenchmarkRuns": 0,
+  "newProductBuilds": 0,
+  "attempts": [
+    {
+      "command": "python3 tools/verify_db_perf.py",
+      "worktree": "DB-Go-01-plan",
+      "exitCode": 1,
+      "result": "Unrelated/historical input changed",
+      "disposition": "Wrong historical input selection for this frozen verifier. The same out-of-scope historical differences exist in unmodified HEAD; no evidence or check was changed to suppress the rejection."
+    },
+    {
+      "command": "python3 tools/verify_db_perf.py",
+      "worktree": "DB-Exec-02-perf-history",
+      "sourceCommit": "38f8ce8a01f88e6e4c4459926f197c5438c2f6fc",
+      "exitCode": 0,
+      "recordIntegrity": "passed",
+      "negativeControls": 13,
+      "sourceReferenceNegativeControls": 4,
+      "performanceExecutionClaimed": false,
+      "selectionBasis": ".github/workflows/native-slices-final-check.yml checks out this exact immutable commit for the historical DB-Perf-01 gate."
+    }
+  ],
+  "observedExistingCI": [
+    {
+      "repository": "IzuSharp/Plan",
+      "commit": "3aef334c5c44aac364ca500d9bafffd66a8152b1",
+      "runId": 45838894844,
+      "conclusion": "success"
+    },
+    {
+      "repository": "IzuSharp/Korda",
+      "commit": "d5f4f9d6616bad54a08aebb7d1aca7937b18eb93",
+      "runId": 45825411327,
+      "conclusion": "success"
+    }
+  ],
+  "note": "Historical gates retain their historical acceptance state. They confer no new Go timed-run credit. Raw Go outcome acceptance is independently documented in the final report and resumption evidence review."
+}

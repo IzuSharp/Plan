@@ -1,5 +1,19 @@
 # DB-Go-01 — additional Go comparison
 
+## Current handoff — completed measurements; record only
+
+The 2026-11-26 resumption re-read the completed local Go evidence. Both requested
+30-minute cells are complete; **do not restart any Go, Korda or Dapper benchmark**.
+The archived `RESUME.md` and the historical frozen checkpoint below describe the
+pre-run state and are superseded by this current handoff. Both Korda #39 and
+Plan #35 must remain **open drafts, unmerged, with auto-merge disabled**.
+
+[The final report](final-report.md) contains the complete measured outcomes;
+[comparison.json](comparison.json) retains full-precision arithmetic. Current
+closeout work verifies immutable remote bytes, retains previously overlooked
+historical evidence, then removes the owner's local source/worktree/build/cache
+content. The actual removal receipts are recorded only after deletion succeeds.
+
 The owner requested only two new local Linux x64 cells on 2026-11-26:
 SQLite for 1,800 seconds, then PostgreSQL for 1,800 seconds. Reuse the frozen
 35-case SQL, data, result digests, offered rates, worker counts, queue, affinity,
@@ -45,6 +59,16 @@ The latest owner instruction is explicit: **keep Korda #39 and Plan #35 as open 
 - [Cleanup inventory](cleanup/cleanup-inventory.json) and [post-run addendum](cleanup/cleanup-inventory-addendum-01.md) cover 62 registered worktrees, three exact task roots, 32 temporary paths and task-created Go telemetry. Local files are removed only after fixed-commit remote archive readback. The actual cleanup receipt is added after removal.
 
 The archives deliberately omit database files, compiler/module caches and executable binaries; original identity/disposition records are retained. Local deletion will remove those omitted bytes, so this is not a binary recovery archive. All benchmark and pressure work was local; existing CI routing is unchanged.
+
+## Resumption evidence and machine cleanup
+
+- [Resumption audit](resumption-evidence-review.md) and [remote 61-file byte readback](cleanup/remote-evidence-readback.json).
+- [Whole-machine source cleanup scope](cleanup/closeout-scope.md), [additional archive](archive/additional/evidence.tar.gz) and [manifest](archive/additional/manifest.json).
+- [Independent cleanup safety review](cleanup/cleanup-safety-review.md), [exact extra inventory](cleanup/cleanup-additional-inventory.json) and [residual temporary inventory](cleanup/residual-temporary-inventory.json).
+
+These documents retain older unique work before its removal. Actual cleanup
+receipts are recorded after execution; a preparation dry run is not a deletion
+claim.
 
 ## Historical frozen checkpoint
 
