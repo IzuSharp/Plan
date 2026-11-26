@@ -1,3 +1,5 @@
+> **Current checkpoint — 2026-11-26 (Asia/Shanghai):** public bc6ba1a completed exact-package phase/ABI/allocation observations and removed the final-close tail, but existing CI and the unchanged local Orm.Relations test both failed in immediate callback cancellation. Read [continuation 4](continuation-4/README.md) for the original failure, measured results and next action. Fix and verify the accepted-request stop ordering before selecting the isolated ready-drain experiment. Final long credit remains **0/4**; no merge/release acceptance. The checkpoints below retain their historical identities.
+
 > **Measured continuation, 2026-11-26 (Asia/Shanghai):** public0f completed 18 ordinary phase, 12 ABI and 18 allocation commands on the restored Linux host. See the [actual evidence and final-close decision](continuation-3/measured-checkpoint-0f3816c.md). The remaining generic final-close retirement timer is now being replaced in subordinate DB-Exec-03-close worktrees. Current final long credit stays **0/4**; no new final-candidate or merge acceptance is inferred.
 
 # Latest continuation — public0f3816c frozen
