@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "scope": "Documentation/history verification only; no product correctness or performance acceptance",
+  "planBase": "1d162e9bab6b46fbd81a58efa81247629eb2abe0",
+  "designBase": "eb464ea518ea318aada2970dee8c3732890ec2c3",
+  "designCommands": [
+    [
+      "python3",
+      "tools/verify_db_rename.py"
+    ],
+    [
+      "python3",
+      "tools/verify_db_scope_history.py"
+    ]
+  ],
+  "planCurrentAttempt": {
+    "argv": [
+      "python3",
+      "tools/verify_db_perf.py",
+      "--verify-frozen-history",
+      "--korda-source",
+      "/workspace/scratch/4a65d70f0fe1/worktrees/DB-Exec-05-ffi-public-316"
+    ],
+    "exitCode": 1,
+    "reason": "Frozen DB-Perf scope excludes already committed repository-rename files in current tree; failure precedes this continuation evidence. Original tool was not changed.",
+    "rejectedPreviouslyCommittedPaths": [
+      ".github/workflows/logical-admission-plan.yml",
+      ".github/workflows/native-slices-checkpoint.yml",
+      ".github/workflows/research-assets-reference-migration.yml",
+      ".github/workflows/rust-1100-align.yml",
+      ".github/workflows/source-driven-recovery.yml",
+      ".github/workflows/verify-merged-design.yml",
+      "CURRENT-PHASE.md",
+      "README.md"
+    ]
+  },
+  "planFrozenAttempt": {
+    "source": "38f8ce8a01f88e6e4c4459926f197c5438c2f6fc",
+    "argv": [
+      "python3",
+      "tools/verify_db_perf.py",
+      "--verify-frozen-history"
+    ],
+    "exitCode": 0,
+    "selection": "Existing AGENTS.md repository-maintenance section and native-slices-final-check.yml pin the unchanged verifier to this snapshot."
+  },
+  "files": [
+    {
+      "path": "design-naming.log",
+      "sourcePath": "/workspace/scratch/4a65d70f0fe1/artifacts/design-source-audit-docs-01/verify_db_rename.log",
+      "bytes": 1324,
+      "sha256": "269564e5b7fb7952f1accc9ed9f9b1687c33d61e22c23607cb52ae6a79b2f908",
+      "exitCode": 0
+    },
+    {
+      "path": "design-history.log",
+      "sourcePath": "/workspace/scratch/4a65d70f0fe1/artifacts/design-source-audit-docs-01/verify_db_scope_history.log",
+      "bytes": 2792,
+      "sha256": "61233d71f84a43af48f70ea2c18a5dc190514d2c0da1421b9feed46fbdb67141",
+      "exitCode": 0
+    },
+    {
+      "path": "plan-current-historical-gate-failure.log",
+      "sourcePath": "/workspace/scratch/4a65d70f0fe1/artifacts/design-source-audit-plan-01/verify_db_perf.log",
+      "bytes": 728,
+      "sha256": "45f3e4688d8c90e8fb1dd0dd89ce061710f84c7e0fe3fc90961ac9e9eb7d409d",
+      "exitCode": 1
+    },
+    {
+      "path": "plan-frozen-history.log",
+      "sourcePath": "/workspace/scratch/4a65d70f0fe1/artifacts/design-source-audit-plan-02/verify_db_perf.log",
+      "bytes": 1104,
+      "sha256": "6d3005db0310e479aac959b59af1f08ca0d8f638dac63863dc573119a4f32328",
+      "exitCode": 0
+    }
+  ],
+  "historicalAcceptanceChanged": false,
+  "currentLongAcceptanceClaimed": false
+}
