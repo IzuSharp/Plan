@@ -1,3 +1,13 @@
+# Current task — DB-Exec-Parity-01
+
+The owner authorizes a measurement-first Linux x64 Korda/Dapper.AOT execution-path parity task from the latest merged mains. Preserve C# Fluent, Native AOT, C++ libpq/sqlite3 and two independent provider packages. Use `task/DB-Exec-Parity-01-linux` and task-marked worktrees. Read the [current checkpoint](ledger/evidence/batches/DB-Perf-01/execution-refactor/DB-Exec-Parity-01/README.md) and its status/receipts before resuming.
+
+Stage 1 permits read-only product analysis and separately identified local diagnostic builds/instrumentation. Complete the measured dual-database stage table in Plan before selecting a Design strategy or changing the product execution path. Source expectations and historical measurements do not close that gate. Normal reviewed merges and existing rule-selected release verification are authorized after actual correctness and measurement acceptance. Keep the Go drafts Plan #35 and Korda #39 unchanged.
+
+All profiling, calibration, benchmark and pressure execution stays local. Never add, invoke or indirectly trigger it in CI. Preserve existing committed-diff/module routing and independent top-level provider verification. Run and explain `python3 eng/ci/impact.py origin/main --output artifacts/plan.json` on committed product changes before push. Historical graphs, acceptance bytes, failed attempts and frozen gates retain their identities. The current final campaign is four serial 1800-second cells, with warmup separate; its acceptance starts at 0/4.
+
+## Historical task authority retained below
+
 # Current continuation — DB-Exec-02 complete database execution path
 
 The owner has authorized a complete Linux x64 database execution-path refactor on

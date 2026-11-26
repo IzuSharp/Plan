@@ -1,0 +1,77 @@
+{
+  "utc": "2026-11-26T16:23:30.029792+00:00",
+  "scope": "self-thread capability probe only",
+  "environment": {
+    "LD_LIBRARY_PATH": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "commands": [
+    {
+      "name": "record",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "record",
+        "-e",
+        "cpu-clock:u",
+        "-F",
+        "199",
+        "--call-graph",
+        "dwarf",
+        "--clockid",
+        "monotonic_raw",
+        "-o",
+        "perf-cli-self-04.data",
+        "--",
+        "./self_probe_sched"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "f9902a61178d4ec29e6c4d27b1d49d65f9eda15b77c06d46fa9bc07bb7c031af",
+      "stderr": "Failed to read max cpus, using default of 4096\nlibperf: Miscounted nr_mmaps 0 vs 1\nWARNING: No sample_id_all support, falling back to unordered processing\n[ perf record: Woken up 1 times to write data ]\n[ perf record: Captured and wrote 0.000 MB perf-cli-self-04.data ]\n"
+    },
+    {
+      "name": "report",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "report",
+        "--stdio",
+        "--no-children",
+        "--percent-limit",
+        "0.5",
+        "--sort",
+        "dso,symbol",
+        "-i",
+        "perf-cli-self-04.data"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "6daeed63048ac069d798ba9f80f7ca173d959dc45e0bfd09d3d6531efe9a4767",
+      "stderr": "Error:\nThe perf-cli-self-04.data data has no samples!\n"
+    },
+    {
+      "name": "annotate",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "annotate",
+        "--stdio",
+        "-s",
+        "measured_busy_work",
+        "-i",
+        "perf-cli-self-04.data"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "Error:\nThe perf-cli-self-04.data data has no samples!\n"
+    },
+    {
+      "name": "script",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "script",
+        "-i",
+        "perf-cli-self-04.data"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    }
+  ]
+}

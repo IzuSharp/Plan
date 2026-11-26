@@ -1,3 +1,9 @@
+# Current continuation — DB-Exec-Parity-01
+
+Continue from the [measurement-first checkpoint](execution-refactor/DB-Exec-Parity-01/README.md) and [current status](execution-refactor/DB-Exec-Parity-01/status.json). The three latest mains are restored in task-marked worktrees; locked baseline builds are in progress. No product execution-path change or current performance acceptance is claimed. Complete measured SQLite and PostgreSQL attribution before selecting an optimization. Historical completed long cells and the Go drafts remain unchanged.
+
+## Previous checkpoint retained
+
 # Current result — DB-Exec-11, 2026-11-26 (Asia/Shanghai)
 
 Four current frozen 1,800-second local cells completed from16:38:19 to18:39:24.

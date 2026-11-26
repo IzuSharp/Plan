@@ -1,0 +1,79 @@
+{
+  "utc": "2026-11-26T16:22:56.972642+00:00",
+  "scope": "self-thread capability probe only",
+  "environment": {
+    "LD_LIBRARY_PATH": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "commands": [
+    {
+      "name": "record",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "record",
+        "-e",
+        "cpu-clock:u",
+        "-F",
+        "199",
+        "--call-graph",
+        "dwarf",
+        "--switch-events",
+        "--clockid",
+        "mono_raw",
+        "-o",
+        "perf-cli-self-02.data",
+        "--",
+        "./self_probe_sched"
+      ],
+      "exit_code": 129,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "Warning:\nunknown clockid mono_raw, check man page\n\n Usage: perf record [<options>] [<command>]\n    or: perf record [<options>] -- <command> [<options>]\n\n    -k, --clockid <clockid>\n                          clockid to use for events, see clock_gettime()\n"
+    },
+    {
+      "name": "report",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "report",
+        "--stdio",
+        "--no-children",
+        "--percent-limit",
+        "0.5",
+        "--sort",
+        "dso,symbol",
+        "-i",
+        "perf-cli-self-02.data"
+      ],
+      "exit_code": 255,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "failed to open perf-cli-self-02.data: No such file or directory\n"
+    },
+    {
+      "name": "annotate",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "annotate",
+        "--stdio",
+        "-s",
+        "measured_busy_work",
+        "-i",
+        "perf-cli-self-02.data"
+      ],
+      "exit_code": 255,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "failed to open perf-cli-self-02.data: No such file or directory\n"
+    },
+    {
+      "name": "script",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "script",
+        "--show-switch-events",
+        "-i",
+        "perf-cli-self-02.data"
+      ],
+      "exit_code": 255,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "failed to open perf-cli-self-02.data: No such file or directory\n"
+    }
+  ]
+}

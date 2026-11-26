@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-26T16:23:15.724137+00:00",
+  "scope": "self-thread capability probe only",
+  "environment": {
+    "LD_LIBRARY_PATH": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "commands": [
+    {
+      "name": "record",
+      "argv": [
+        "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/toolchain/perf/usr/bin/perf",
+        "record",
+        "-e",
+        "cpu-clock:u",
+        "-F",
+        "199",
+        "--call-graph",
+        "dwarf",
+        "--switch-events",
+        "--clockid",
+        "monotonic_raw",
+        "-o",
+        "perf-cli-self-03.data",
+        "--",
+        "./self_probe_sched"
+      ],
+      "exit_code": 234,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "Error:\nkernel does not support recording context switch events\n\n Usage: perf record [<options>] [<command>]\n    or: perf record [<options>] -- <command> [<options>]\n\n        --switch-events   Record context switch events\n"
+    }
+  ]
+}

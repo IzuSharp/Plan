@@ -1,3 +1,9 @@
+# Current continuation — DB-Exec-Parity-01
+
+The [current measurement-first checkpoint](DB-Exec-Parity-01/README.md) owns the new task. Resume from its current status and receipts. Earlier execution-path gates and results below remain historical.
+
+## Historical execution-path record
+
 # DB-Exec-11 delivery — current observation
 
 Four frozen, serial 1,800-second local cells are complete and accepted for their
