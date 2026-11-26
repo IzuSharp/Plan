@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "provider": "postgresql",
+  "lane": "go-final",
+  "scope": "Only Go receives new timed workload; prior Korda/Dapper cells are not rerun",
+  "longRunAcceptance": false,
+  "inputs": {
+    "referencePlan": {
+      "path": "/workspace/scratch/fd78534029f7/measurements/plans/postgresql-final-01.json",
+      "sha256": "c5568d3fb78b7c11c888dcf0d458ec2559d23862d764fe27aa14e43dba780bc2"
+    },
+    "runner": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+      "sha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86"
+    },
+    "manifest": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2"
+    },
+    "consumer": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+      "sha256": "a75f351d2e01c530442a93fc1d7d129bd2b38911b269a95f30ce677dcaec2eaa"
+    },
+    "fixture": {
+      "path": "/workspace/scratch/fd78534029f7/builds/candidate-postgresql-02/consumer-workload/out/DbPerf.Korda",
+      "sha256": "3e22e2ce1e9912f190b643b172360539d25d1b0558de3a253a3c19a67726c0b8"
+    },
+    "generator": {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/make_plan.py",
+      "sha256": "2c64682c7057fa228bd26e1fb4f46b0d7658ac79b6cd170a69d6b86bd0610adf"
+    },
+    "postgresTools": {
+      "postgres": {
+        "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/postgres",
+        "sha256": "69284e8fffe7241b1d3cab6a3c58b118976823a3be3b22d729ecc9ab57462c13"
+      },
+      "initdb": {
+        "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/initdb",
+        "sha256": "9add7cdb31e50ca61ba47bb2cb7ae95508390a58b40b293c5894403c2121f9e3"
+      },
+      "pg_isready": {
+        "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/pg_isready",
+        "sha256": "bf3a4582fc098ea79eb2d1ab2b8f435d72a4c5dff86b8c574cd504b217b1dfe8"
+      },
+      "psql": {
+        "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/psql",
+        "sha256": "fd530740559fc18dffdc6b8f3b8083831ce5a45979ab7ed68c17cae5d9794049"
+      }
+    }
+  },
+  "manifestCaseNames": [
+    "numeric",
+    "text",
+    "money",
+    "json",
+    "wide",
+    "optional-filter",
+    "range",
+    "left-join",
+    "inner-join",
+    "null-notes",
+    "literal-note",
+    "customer-totals",
+    "product-totals",
+    "empty-sum",
+    "cursor",
+    "offset",
+    "exists",
+    "in-subquery",
+    "cte",
+    "window",
+    "union-all",
+    "union",
+    "intersect",
+    "except",
+    "running-total",
+    "three-join",
+    "anti-association",
+    "nullable-order",
+    "raw-sql",
+    "related",
+    "tx-commit",
+    "tx-rollback",
+    "partial-update",
+    "stale-conflict",
+    "early-stop"
+  ],
+  "mixedDataset": {
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "requestedRows": 32,
+    "batchRows": 32
+  },
+  "affinity": {
+    "client": "0-3",
+    "postgres": "4-7",
+    "observer": "8"
+  },
+  "commands": [
+    {
+      "name": "fixture-mixed",
+      "cohort": "fixture-only",
+      "phase": "fixture",
+      "timingRequested": false,
+      "longRunAcceptance": false,
+      "comparisonRole": "setup-only-no-Korda-timing-credit",
+      "argv": [
+        "/workspace/scratch/fd78534029f7/builds/candidate-postgresql-02/consumer-workload/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--cases",
+        "numeric,text,money,json,wide,optional-filter,range,left-join,inner-join,null-notes,literal-note,customer-totals,product-totals,empty-sum,cursor,offset,exists,in-subquery,cte,window,union-all,union,intersect,except,running-total,three-join,anti-association,nullable-order,raw-sql,related,tx-commit,tx-rollback,partial-update,stale-conflict,early-stop",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "1",
+        "--rows",
+        "32",
+        "--batch-rows",
+        "32",
+        "--tenants",
+        "8",
+        "--orders-per-tenant",
+        "1024",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--initialize",
+        "--operations",
+        "0"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 600
+    },
+    {
+      "name": "go-c8",
+      "cohort": "go",
+      "phase": "final",
+      "timingRequested": true,
+      "longRunAcceptance": false,
+      "argv": [
+        "env",
+        "GOGC=100",
+        "GOMEMLIMIT=off",
+        "GODEBUG=",
+        "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+        "--provider",
+        "postgresql",
+        "--connection",
+        "{connection}",
+        "--manifest",
+        "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+        "--concurrency",
+        "8",
+        "--gomaxprocs",
+        "4",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--seconds",
+        "1800",
+        "--rate",
+        "3600",
+        "--idle-seconds",
+        "15",
+        "--output",
+        "{output}/go-c8.json"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 2115
+    }
+  ],
+  "runnerCommand": [
+    "taskset",
+    "-c",
+    "8",
+    "python3",
+    "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/plans/postgresql-final-01.json",
+    "--output",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01"
+  ],
+  "runtimePolicy": {
+    "GOMAXPROCS": 4,
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": "",
+    "prepared": "SQLite retained read statements; pgx exec mode, no retained PG statements"
+  },
+  "postgres": {
+    "bin": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin",
+    "data": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/postgres-data",
+    "cpus": "4-7",
+    "maxConnections": 64,
+    "maxClientConcurrency": 8
+  }
+}
