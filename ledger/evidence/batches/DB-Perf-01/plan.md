@@ -1,3 +1,35 @@
+# Current candidate and local campaign — DB-Exec-10
+
+The integrated product is public
+[`17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa`](https://github.com/IzuSharp/Korda/commit/17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa),
+tree `bc9087d843d8d741d83d44f53d0b2c5af26dcffc`. Its existing
+[CI45772470391](https://github.com/IzuSharp/Korda/actions/runs/45772470391) passed.
+Both independent provider worktrees completed native correctness, packaging,
+actual public-package Native AOT consumption and ordinary phase/workload AOT
+consumer builds; see the [exact source and package review](execution-refactor/continuation-7/current-ci-review.md).
+The `cb233a7` missing Find export inventory failures remain separate evidence.
+
+Find source, key snapshots, mapper identity, cache budgets and exact public
+error behavior passed the [finite validation](execution-refactor/continuation-7/find-validation/README.md).
+Current ordinary phases, single-case pairs, FFI diagnostics, allocation scopes
+and 18 mixed closed-loop calibration observations have completed. The
+[allocation audit](execution-refactor/continuation-7/current-measurements/allocation/README.md)
+keeps framework-only bytes null; it does not subtract scopes or claim zero.
+The final isolated already-released close candidate was
+[rejected by its prospective paired rule](execution-refactor/continuation-7/close-quiet-experiment.md),
+so no current package or result is relabelled to that experiment.
+
+Follow the [fixed campaign selection](execution-refactor/continuation-7/local-load-tools/current-campaign-selection.md):
+validate offered load, complete the 120-second same-condition before/current
+supplement, freeze all final source/package/native/ELF/generated SQL inputs,
+then run exactly four serial 1800-second candidate/Dapper cells with idle RSS.
+At this checkpoint the offered validation is running and final long credit is
+**0/4**. No build, profiler or second load overlaps timing. Normal reviewed
+merges and verification of existing rule-selected publication remain authorized
+and pending after evidence/review closure.
+
+## Recovery checkpoint retained
+
 # Active continuation — DB-Exec-10, 2026-11-26 Asia/Shanghai
 
 Continue from [continuation 7](execution-refactor/continuation-7/plan.md). The recovered

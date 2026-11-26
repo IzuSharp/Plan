@@ -2,6 +2,8 @@
 
 审查对象是公开提交 [17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa](https://github.com/IzuSharp/Korda/commit/17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa)，不是先前失败的 `cb233a7a`。本记录由 evidence_ci 独立只读核对；没有启动构建、数据库、消费者或性能负载。
 
+**最终 CI 更新：17da 的现有 CI 45772470391 已 completed/success，CI 门通过。** 下文保留初次进行中快照和失败候选记录；07:22:44 UTC 的独立远端复核见末节。当前产品候选仍为 17da，四段最终 30 分钟测量及其证据门仍是合并前独立要求。
+
 ## 源码身份与打包修正
 
 GitHub Git commit API、PR #37 head 和本地对象一致指向 tree `bc9087d843d8d741d83d44f53d0b2c5af26dcffc`。根工作树 HEAD 是 `040911c5abdee740c0cd9fbf8295bf511c9cc69d`，tree 与公开提交完全相同，工作树干净；提交身份不同，不能把两者写成同一 SHA。基线 `origin/main` 与公开 PR base 都是 `e063f2eb6e2e857e3f19f96bf263cae372651a27`。API 快照保存在 [current-ci-review-evidence](current-ci-review-evidence/)。
@@ -37,7 +39,7 @@ PR 相对 main 已有的 CI 改动属于此前历史：build.yml 多保留 provi
 
 PR 事件没有发布资格。既有 publish 门仍要求 main push、Verify success、非空 releases 及 `NUGET_PUBLISH_ENABLED=true`；合并后的实际 fingerprint/版本与发布运行需要另外核对，不能从此 PR 计划推断已发布。
 
-## GitHub 当前运行
+## GitHub 初次运行快照
 
 - [17da CI 45772470391](https://github.com/IzuSharp/Korda/actions/runs/45772470391)，run 270，`pull_request`，创建于 2026-11-26 07:03:11 UTC；最新本次读取状态为 `in_progress`、conclusion=null（run updated 07:09:58 UTC）。plan、Secret scan、Dependency review 已 success；四个预期 build scope 与两种 CodeQL 在进行中；modules skipped。当前没有 CI 成功或合并资格结论。
 - [旧 cb233 CI 45772036144](https://github.com/IzuSharp/Korda/actions/runs/45772036144) 已在 07:09:38 UTC completed/failure。interop、linux、plan 和安全检查 success；两个 provider 在既有 `public.pack` 阶段都报 `NWPKG005`，Verify failure，publish skipped。两份远端 job 完整日志保留在证据目录，不能用旧候选其余绿色 job 抵消失败。
@@ -78,3 +80,19 @@ PR 事件没有发布资格。既有 publish 门仍要求 main push、Verify suc
 | PostgreSQL | `46d5757c6dc48c721167476e2975f025b6884dc0c54b6956b9677a8eb4b29dec` | `3e22e2ce1e9912f190b643b172360539d25d1b0558de3a253a3c19a67726c0b8` | `618175683cf5b68c0e53b9423957c6c3c60de1d9067a74f59e0b89a01a1324fc` |
 
 只复制 [completed-17da-02](current-ci-review-evidence/completed-17da-02/) 内 28 个小回执、manifest、计划和阶段日志，共 522996 B，复制后按字节比较；没有压缩完整消费者或复制大产物。核验完成后立即通知主线程可继续 PostgreSQL phases。没有运行产品、构建或负载，也没有性能信用；最终 load plan 的冻结及运行后 gate 仍另外执行。本次远端复读 CI 45772470391 仍为 in_progress/conclusion=null。
+
+## 最终 CI 回执：17da 通过既有门
+
+2026-11-26 07:22:44.158 UTC 独立读取 GitHub run 与 jobs API，确认 [Korda CI 45772470391](https://github.com/IzuSharp/Korda/actions/runs/45772470391) 的 head SHA 准确为 `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa`，status=completed、conclusion=success，run 最后更新于 07:19:06 UTC。保留 [最终 run](current-ci-review-evidence/ci-run-45772470391-final.json)、[最终 jobs](current-ci-review-evidence/ci-run-45772470391-jobs-final.json) 与 [结构化结论](current-ci-review-evidence/ci-success-17da-summary.json)。
+
+10 个所需 job 全部 success：plan；interop、linux、PostgreSQL、SQLite 四个既有 build scope；Secret scan、Dependency review、Python CodeQL、C# CodeQL；最终 Verify。没有失败或进行中的 job。modules 和 publish 均按当前 PR 计划 skipped；因此这是既有正确性与独立公开包验收门通过，不表示已经发布。
+
+同时读取的关联快照：
+
+| 仓库 / 固定 head | 运行 | 截至本次读取的状态 |
+| --- | --- | --- |
+| Korda-Design `da8c314dfd64503669ba232440c92e7d322da519` | [45773161826 / current database API design](https://github.com/IzuSharp/Korda-Design/actions/runs/45773161826) | completed/success，07:09:08 UTC 更新 |
+| Korda-Design 同一 head | [45773161794 / historical English and contract acceptance](https://github.com/IzuSharp/Korda-Design/actions/runs/45773161794) | completed/success，07:09:15 UTC 更新 |
+| Plan `4ac240f784e94ac8e43734a362183cfb89ddb9ff` | [45774451873 / Design-owned native research assets](https://github.com/IzuSharp/Plan/actions/runs/45774451873) | in_progress、conclusion=null，07:19:32 UTC 更新；没有记为成功 |
+
+本次只做远端 GET 与小型 JSON/Markdown 写入，没有下载构建产物、全量哈希、压缩、构建或启动负载。产品源码仍冻结在 17da；最终四段串行 1800 秒测量、同条件基线补测及运行后分析/身份/所有权门仍需完成。本 CI 成功不增加任何性能信用，也未触发合并或发布。

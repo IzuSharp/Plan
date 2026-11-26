@@ -7,6 +7,22 @@ database refactor, preserving Korda #37, Korda-Design #20 and Plan #34. Work use
 package consumers, original failures and raw measurements. No prior outcome is
 relabelled as a new execution.
 
+## Current execution checkpoint
+
+The formal candidate is now public `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa`
+with successful existing CI and independently consumed provider packages.
+[Current CI/package review](current-ci-review.md),
+[Find validation](find-validation/README.md),
+[current allocation audit](current-measurements/allocation/README.md) and
+[rejected final-close experiment](close-quiet-experiment.md) bind their own
+exact sources. The original recovered-state section below is historical.
+
+[Campaign selection](local-load-tools/current-campaign-selection.md) now owns
+the remaining offered validation, matched 120-second before supplement and
+four serial final cells. Source 17da remains unchanged; final credit is still
+0/4 at this pre-campaign checkpoint. Preserve all short observations, rejected
+experiments and failures before the final archive and normal reviewed merges.
+
 ## Recovered state
 
 - Product public HEAD `47fe650dfed5d7bba1c4d74c4a127c5d08b66082` is tree-identical
