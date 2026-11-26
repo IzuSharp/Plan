@@ -1,0 +1,160 @@
+{
+  "name": "go-c8",
+  "phase": "final",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-3",
+    "env",
+    "GOGC=100",
+    "GOMEMLIMIT=off",
+    "GODEBUG=",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+    "--provider",
+    "postgresql",
+    "--connection",
+    "postgresql://korda@127.0.0.1:39701/db_perf_01",
+    "--manifest",
+    "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+    "--concurrency",
+    "8",
+    "--gomaxprocs",
+    "4",
+    "--warmup",
+    "64",
+    "--queue-capacity",
+    "64",
+    "--seconds",
+    "1800",
+    "--rate",
+    "3600",
+    "--idle-seconds",
+    "15",
+    "--output",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.json"
+  ],
+  "startedUtc": "2026-11-26T13:39:48.915827+00:00",
+  "startedMonotonicNs": 48171086421520,
+  "timeoutSeconds": 2115,
+  "resourceSamples": "go-c8.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 91,
+    "startTicks": 4817108,
+    "state": "R",
+    "parentPid": 37,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 8192,
+      "Pss": 8192,
+      "Private_Clean": 0,
+      "Private_Dirty": 8192
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-26T14:10:04.315711+00:00",
+    "monotonicNs": 49986484927713,
+    "acquiredThroughMonotonicNs": 49986486298664,
+    "client": [
+      {
+        "pid": 91,
+        "startTicks": 4817108,
+        "state": "Z",
+        "parentPid": 37,
+        "userTicks": 218524,
+        "systemTicks": 33031,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [
+      {
+        "pid": 51,
+        "startTicks": 4817006,
+        "state": "S",
+        "parentPid": 37,
+        "userTicks": 0,
+        "systemTicks": 11,
+        "reapedChildUserTicks": 186548,
+        "reapedChildSystemTicks": 41344,
+        "threads": 1,
+        "memoryBytes": {
+          "Rss": 16625664,
+          "Pss": 7259136,
+          "Private_Clean": 2228224,
+          "Private_Dirty": 1400832
+        },
+        "memoryErrors": []
+      }
+    ],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 218524,
+      "ownAndReapedSystemTicks": 33031,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 186548,
+      "ownAndReapedSystemTicks": 41355,
+      "sampledRssBytes": 16625664,
+      "sampledPssBytes": 7259136,
+      "rssComplete": true,
+      "pssComplete": true,
+      "memoryAvailableProcessCount": 1,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 3531215,
+      "nice": 0,
+      "system": 592934,
+      "idle": 40228293,
+      "iowait": 106788,
+      "irq": 0,
+      "softirq": 215872,
+      "steal": 220219,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 2185.241067,
+  "processLifetimeSystemCpuSeconds": 330.312238,
+  "processLifetimeMaxRssBytes": 22585344,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-26T14:10:04.316583+00:00",
+  "finishedMonotonicNs": 49986487183490,
+  "files": {
+    "go-c8.stdout.log": "d49b653f836ba04844a377c135a1d329102504326ae861546e4dc5d5e37fa789",
+    "go-c8.resources.jsonl": "e92dbe2c87456debe81db85d86477cce52c93d82bcd34e955549f940862c7d96"
+  },
+  "success": true
+}

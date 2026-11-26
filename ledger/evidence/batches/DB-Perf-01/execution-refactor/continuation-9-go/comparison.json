@@ -1,0 +1,1199 @@
+{
+  "schemaVersion": 1,
+  "generatedUtc": "2026-11-26T14:19:40.956568+00:00",
+  "status": "completed-two-go-cells-reviewed-record-only-no-merge",
+  "scope": {
+    "new_measurements": "Only Go SQLite and Go PostgreSQL, 1800 offered seconds each, serial",
+    "historical_measurements": "Four previously completed Korda/Dapper cells reused verbatim; none rerun",
+    "go_implementation": "database/sql with manually written typed DTO mapping; no Go ORM",
+    "runtime_allocation_warning": "Go TotalAlloc and CLR managed allocation are separately labelled observations, both include business/harness/driver allocations and omit native allocation attribution",
+    "gc_warning": "Go NumGC is non-generational and must not be added to or ranked against CLR Gen0/1/2 counts",
+    "rate_warning": "Fixed arrival rates; achieved completions are not maximum sustainable capacity",
+    "cpu_warning": "Client-process CPU is not client-plus-server CPU; owned PostgreSQL server lifetime includes fixture/setup and is not a steady-operation denominator",
+    "pr_policy": "Korda #39 and Plan #35 remain open drafts as records; do not merge or enable auto-merge"
+  },
+  "history_source": {
+    "commit": "03efe57ffbe3046bd89919ddb2c16c90a377954d",
+    "url": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+    "path": "/workspace/scratch/fd78534029f7/worktrees/DB-Exec-10-plan/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+    "sha256": "543075b2d39d12ebe48cd01cd2fc9badd98f8f2c225487bb22d9f426a6c86aac",
+    "bytes": 38359,
+    "local_file_matches_published_commit_blob": true
+  },
+  "current_inputs": {
+    "sqlite": {
+      "raw": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.json",
+        "sha256": "4ec5042c042e13f4d84452606baa083fbefbbfbe336ec0cf46e4fcdab22a5bde",
+        "bytes": 296794
+      },
+      "command": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.command.json",
+        "sha256": "904d42024bba29afc5dba559249af2c3956323817c14c26fa8a28bf202e0e0f7",
+        "bytes": 3831
+      },
+      "analysis": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/sqlite-final-01.json",
+        "sha256": "d75af48196ca99dd6f81d2a516a96c70c480e9a2ca2fcd56531ae62121fbb471",
+        "bytes": 83942
+      },
+      "analysis_check_count": 453,
+      "analysis_accepted": true,
+      "final_thirty_minute_accepted": true
+    },
+    "postgresql": {
+      "raw": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.json",
+        "sha256": "38d07a15d43828c930b8604a7bf14e62fb17fa5c9567d3c0623836efa98ce80e",
+        "bytes": 294267
+      },
+      "command": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.command.json",
+        "sha256": "dc9650364b2025573717b4317ecb56a2bdea7931ed8349f39c10bcf0da8250dd",
+        "bytes": 4178
+      },
+      "analysis": {
+        "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/postgresql-final-01.json",
+        "sha256": "af2c88a990bf980511fa2342e185c455ef192ed774fb7853091cd7e591dfdc48",
+        "bytes": 87350
+      },
+      "analysis_check_count": 463,
+      "analysis_accepted": true,
+      "final_thirty_minute_accepted": true
+    }
+  },
+  "freeze": {
+    "path": "/workspace/scratch/166b48a091b9/go-comparison-01/freeze.json",
+    "sha256": "fc08a113b690b55a38aee9c1f295c65475058c81ed8ee4be0e1ec19d16a63fe8",
+    "bytes": 10003
+  },
+  "campaign_state": {
+    "identity": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/campaign-state.json",
+      "sha256": "acf9b8dc74fd31b772234abd154b0866e2368d03f8b31ab66bb9be2e3d6d64f6",
+      "bytes": 156
+    },
+    "content": {
+      "utc": "2026-11-26T14:10:04.739801+00:00",
+      "monotonicNs": 49986910409717,
+      "kind": "campaign-finished",
+      "exitCode": 0,
+      "inputsUnchanged": true
+    }
+  },
+  "host": {
+    "observedUtc": "2026-11-26T13:06:01.974506+00:00",
+    "hostname": "89394ab90f06",
+    "uname": [
+      "Linux",
+      "89394ab90f06",
+      "6.18.57",
+      "#1 SMP Tue Oct 20 21:56:04 UTC 2026",
+      "x86_64"
+    ],
+    "bootId": "3c3f3b1f-818d-4772-85df-bafb4e207403",
+    "availableCpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "workspaceFreeBytes": 2129301504,
+    "activeDatabaseBuildOrBenchmarkProcesses": [],
+    "meminfo": "MemTotal:       10206472 kB\nMemFree:         6486772 kB\nMemAvailable:    7841928 kB\nBuffers:           46424 kB\nCached:          2603800 kB\nSwapCached:            0 kB\nActive:          1794000 kB\nInactive:         900732 kB\nActive(anon):    1491992 kB\nInactive(anon):    80372 kB\nActive(file):     302008 kB\nInactive(file):   820360 kB\nUnevictable:       29944 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nDirty:               424 kB\nWriteback:             0 kB\nAnonPages:         74740 kB\nMapped:            69428 kB\nShmem:           1497908 kB\nKReclaimable:     575160 kB\nSlab:             697232 kB\nSReclaimable:     575160 kB\nSUnreclaim:       122072 kB\nKernelStack:        3808 kB\nPageTables:         4928 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5103236 kB\nCommitted_AS:    2058208 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:        5048 kB\nVmallocChunk:          0 kB\nPercpu:             4608 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:     81920 kB\nFilePmdMapped:         0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      339968 kB\nDirectMap2M:    10049536 kB\nDirectMap1G:    16777216 kB\n",
+    "loadavg": "0.05 0.09 0.15 1/246 5\n",
+    "cgroup": "0::/\n",
+    "cgroupMountVisible": false,
+    "scope": "same visible local Linux host; no claim of exclusive physical tenancy or invisible cgroup quota"
+  },
+  "workload": {
+    "secondsEach": 1800,
+    "idleSecondsEach": 15,
+    "warmupEachWorker": 64,
+    "queueCapacity": 64,
+    "cases": 35,
+    "sqliteWorkers": 4,
+    "sqliteRate": 3000,
+    "postgresqlWorkers": 8,
+    "postgresqlRate": 3600,
+    "clientCpus": "0-3",
+    "postgresCpus": "4-7",
+    "observerCpus": "8",
+    "GOMAXPROCS": 4,
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "rerunPreviousMeasuredCohorts": false
+  },
+  "source": {
+    "publishedCommit": "d5f4f9d6616bad54a08aebb7d1aca7937b18eb93",
+    "publishedTree": "f8744d7735e47552c657d3b18ad5cd9e39946db9",
+    "runtimeBuildCommit": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db",
+    "localFinalCommit": "da76bad28df60dbd3ce9023522bfecaa5371cf87",
+    "localFinalTree": "f8744d7735e47552c657d3b18ad5cd9e39946db9",
+    "explanation": "Published full tree equals local final tree. Measured binary runtime Go blobs are unchanged from runtimeBuildCommit; later additions are independent verification and unit tests. Exact local commit objects are preserved in source-history.bundle."
+  },
+  "runs": [
+    {
+      "id": "sqlite-final-01/candidate-c4",
+      "provider": "sqlite",
+      "implementation": "Korda",
+      "provenance": "historical_reused_not_rerun",
+      "runtime": "Release .NET Native AOT",
+      "source": {
+        "metricsDocument": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+        "observationPointer": "/observations/0",
+        "rawIdentity": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/candidate-c4.json",
+          "storedSha256": "77bb05387cfa0f286b50a0e64c2e3fd537e698e13a17b01a5b6912fa36ffa40d",
+          "contentSha256": "77bb05387cfa0f286b50a0e64c2e3fd537e698e13a17b01a5b6912fa36ffa40d",
+          "bytes": 430481
+        }
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.027754542,
+        "started_utc": "2026-11-26T08:38:20.4594249+00:00",
+        "finished_utc": "2026-11-26T09:08:20.4855602+00:00",
+        "successful_progress_seconds": 1800
+      },
+      "offered_rate": 3000,
+      "concurrency": 4,
+      "counts": {
+        "planned": 5400000,
+        "attempted": 5400000,
+        "sent": 4872560,
+        "started": 4872560,
+        "completed": 4872560,
+        "succeeded": 4872560,
+        "failed": 0,
+        "rejected": 527440,
+        "retries": 0,
+        "rows": 119018074,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 2706.9360390166744,
+      "rejection_fraction": 0.09767407407407408,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 20185.088,
+          "p95": 33423.36,
+          "p99": 49545.216
+        },
+        "service": {
+          "p50": 544.768,
+          "p95": 4882.432,
+          "p99": 12976.128
+        },
+        "start_delay": {
+          "p50": 19136.512,
+          "p95": 30801.92,
+          "p99": 43778.048
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 4066.199259,
+        "system_seconds": 793.154379,
+        "total_seconds": 4859.353638,
+        "microseconds_per_success": 997.2896460997914,
+        "average_core_equivalents": 2.6995992843657106,
+        "percent_of_four_cpu_budget": 67.48998210914277,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 45772800,
+        "endpoint_peak_rss_bytes": 45772800,
+        "idle_rss_bytes": 38989824,
+        "idle_pss_bytes": 38102016,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 15.000038471
+      },
+      "allocation": {
+        "kind": "dotnet_process_managed_total",
+        "total_bytes": 120791212824,
+        "bytes_per_success": 24790.09244093454,
+        "bytes_per_row": 1014.8980634991623,
+        "cumulative_before": 15570568,
+        "cumulative_after": 120806783392,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "dotnet_generational",
+        "steady_gen0_gen1_gen2_delta": [
+          42245,
+          12822,
+          20
+        ],
+        "absolute_at_offered_end": [
+          42248,
+          12823,
+          20
+        ],
+        "go_num_gc_delta": null,
+        "pause_ns": null
+      },
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 4066.434307,
+        "processLifetimeSystemCpuSeconds": 793.284735,
+        "processLifetimeMaxRssBytes": 45772800
+      },
+      "native_counters": {
+        "Before": {
+          "Sources": 1,
+          "Sessions": 4,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 126,
+          "SqlExecutions": 618,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "After": {
+          "Sources": 1,
+          "Sessions": 4,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 126,
+          "SqlExecutions": 8381258,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "Drained": {
+          "Sources": 0,
+          "Sessions": 0,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 0,
+          "SqlExecutions": 8381258,
+          "ProtocolSubmissions": 0,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        }
+      },
+      "cgo_calls": null,
+      "protocol_reply_count": null
+    },
+    {
+      "id": "sqlite-final-01/dapper-c4",
+      "provider": "sqlite",
+      "implementation": "Dapper.AOT",
+      "provenance": "historical_reused_not_rerun",
+      "runtime": "Release .NET Native AOT",
+      "source": {
+        "metricsDocument": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+        "observationPointer": "/observations/1",
+        "rawIdentity": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/sqlite-final-01/dapper-c4.json",
+          "storedSha256": "0ca96974cd1aeb7357cfcf62b3354356fa455f1f260b749f19571c4a0b931c31",
+          "contentSha256": "0ca96974cd1aeb7357cfcf62b3354356fa455f1f260b749f19571c4a0b931c31",
+          "bytes": 450314
+        }
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.002836842,
+        "started_utc": "2026-11-26T09:08:35.9167316+00:00",
+        "finished_utc": "2026-11-26T09:38:35.9186596+00:00",
+        "successful_progress_seconds": 1800
+      },
+      "offered_rate": 3000,
+      "concurrency": 4,
+      "counts": {
+        "planned": 5400000,
+        "attempted": 5400000,
+        "sent": 5389886,
+        "started": 5389886,
+        "completed": 5389886,
+        "succeeded": 5389886,
+        "failed": 0,
+        "rejected": 10114,
+        "retries": 0,
+        "rows": 131513488,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 2994.3763919040484,
+      "rejection_fraction": 0.001872962962962963,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 207.872,
+          "p95": 3031.04,
+          "p99": 8585.216
+        },
+        "service": {
+          "p50": 110.592,
+          "p95": 1597.44,
+          "p99": 4325.376
+        },
+        "start_delay": {
+          "p50": 34.816,
+          "p95": 942.08,
+          "p99": 4784.128
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 3069.977985,
+        "system_seconds": 72.269564,
+        "total_seconds": 3142.247549,
+        "microseconds_per_success": 582.9896122107222,
+        "average_core_equivalents": 1.7456903315290826,
+        "percent_of_four_cpu_budget": 43.64225828822706,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 35479552,
+        "endpoint_peak_rss_bytes": 33923072,
+        "idle_rss_bytes": 31293440,
+        "idle_pss_bytes": 30395392,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 15.002442593
+      },
+      "allocation": {
+        "kind": "dotnet_process_managed_total",
+        "total_bytes": 40056374688,
+        "bytes_per_success": 7431.766588013179,
+        "bytes_per_row": 304.5799734853052,
+        "cumulative_before": 6807496,
+        "cumulative_after": 40063182184,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "dotnet_generational",
+        "steady_gen0_gen1_gen2_delta": [
+          19390,
+          180,
+          18
+        ],
+        "absolute_at_offered_end": [
+          19391,
+          180,
+          18
+        ],
+        "go_num_gc_delta": null,
+        "pause_ns": null
+      },
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 3070.06082,
+        "processLifetimeSystemCpuSeconds": 72.342731,
+        "processLifetimeMaxRssBytes": 35479552
+      },
+      "native_counters": {
+        "Before": {
+          "ApplicationConnections": 4,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "After": {
+          "ApplicationConnections": 4,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "Drained": {
+          "ApplicationConnections": 0,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        }
+      },
+      "cgo_calls": null,
+      "protocol_reply_count": null
+    },
+    {
+      "id": "sqlite-final-01/go-c4",
+      "provider": "sqlite",
+      "implementation": "Go database/sql",
+      "provenance": "new_1800_second_run",
+      "runtime": "go1.27.4",
+      "source": {
+        "raw": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.json",
+          "sha256": "4ec5042c042e13f4d84452606baa083fbefbbfbe336ec0cf46e4fcdab22a5bde",
+          "bytes": 296794
+        },
+        "command": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.command.json",
+          "sha256": "904d42024bba29afc5dba559249af2c3956323817c14c26fa8a28bf202e0e0f7",
+          "bytes": 3831
+        },
+        "analysis": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/sqlite-final-01.json",
+          "sha256": "d75af48196ca99dd6f81d2a516a96c70c480e9a2ca2fcd56531ae62121fbb471",
+          "bytes": 83942
+        },
+        "analysis_check_count": 453,
+        "analysis_accepted": true,
+        "final_thirty_minute_accepted": true
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.000112125,
+        "started_utc": "2026-11-26T13:09:31.17815649Z",
+        "finished_utc": "2026-11-26T13:39:31.178607379Z",
+        "successful_progress_seconds": 1800,
+        "post_offered_drain_seconds": 0.000110349
+      },
+      "offered_rate": 3000,
+      "concurrency": 4,
+      "counts": {
+        "planned": 5400000,
+        "attempted": 5400000,
+        "sent": 5386460,
+        "started": 5386460,
+        "completed": 5386460,
+        "succeeded": 5386460,
+        "failed": 0,
+        "rejected": 13540,
+        "retries": 0,
+        "rows": 131430355,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 2992.477591371361,
+      "rejection_fraction": 0.0025074074074074074,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 252.928,
+          "p95": 2146.304,
+          "p99": 6586.368
+        },
+        "service": {
+          "p50": 104.448,
+          "p95": 1425.408,
+          "p99": 3440.64
+        },
+        "start_delay": {
+          "p50": 99.84,
+          "p95": 720.896,
+          "p99": 4915.2
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 2869.534236,
+        "system_seconds": 129.220946,
+        "total_seconds": 2998.755182,
+        "microseconds_per_success": 556.7209599625728,
+        "average_core_equivalents": 1.6659749973347517,
+        "percent_of_four_cpu_budget": 41.64937493336879,
+        "scope": "whole client process steady start through admitted-work drain; includes producer, all Go threads, cgo and GC; excludes PostgreSQL server"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 24883200,
+        "endpoint_peak_rss_bytes": 24883200,
+        "idle_rss_bytes": 22675456,
+        "idle_pss_bytes": 21919744,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 15.000357361,
+        "idle_go_heap_bytes": 2686560,
+        "idle_client_cpu_seconds": 0.0011070000001609515
+      },
+      "allocation": {
+        "kind": "go_process_heap_TotalAlloc",
+        "total_bytes": 16912450224,
+        "bytes_per_success": 3139.8080045150245,
+        "bytes_per_row": 128.67994021624608,
+        "cumulative_before": 3424040,
+        "cumulative_after": 16915874264,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "go_non_generational",
+        "go_num_gc_before": 1,
+        "go_num_gc_after": 9187,
+        "go_num_gc_delta": 9186,
+        "forced_gc_delta": 0,
+        "pause_ns": 2844410420,
+        "pause_milliseconds": 2844.41042,
+        "steady_gen0_gen1_gen2_delta": null
+      },
+      "business_sql_control_calls_successful_operations": 8771576,
+      "sql_count_scope": "business SQL/control calls in successful operations only; failed-operation partial calls, driver-internal messages and network round trips are not counted",
+      "cgo_calls": {
+        "After": 222234887,
+        "Before": 16421,
+        "Delta": 222218466,
+        "Scope": "runtime.NumCgoCall process-wide Go-to-C calls during steady operations; not a cross-runtime equivalent of Korda command FFI or libpq protocol submissions"
+      },
+      "protocol_reply_count": null,
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 2869.630903,
+        "processLifetimeSystemCpuSeconds": 129.25478,
+        "processLifetimeMaxRssBytes": 24883200
+      },
+      "wait4_command_wall_seconds": 1815.173425257,
+      "database_identity": {
+        "BusyTimeoutMilliseconds": 5000,
+        "CompileOptions": [
+          "ATOMIC_INTRINSICS=1",
+          "COMPILER=clang-23.1.5",
+          "DEFAULT_AUTOVACUUM",
+          "DEFAULT_CACHE_SIZE=-2000",
+          "DEFAULT_FILE_FORMAT=4",
+          "DEFAULT_FOREIGN_KEYS",
+          "DEFAULT_JOURNAL_SIZE_LIMIT=-1",
+          "DEFAULT_MMAP_SIZE=0",
+          "DEFAULT_PAGE_SIZE=4096",
+          "DEFAULT_PCACHE_INITSZ=20",
+          "DEFAULT_RECURSIVE_TRIGGERS",
+          "DEFAULT_SECTOR_SIZE=4096",
+          "DEFAULT_SYNCHRONOUS=2",
+          "DEFAULT_WAL_AUTOCHECKPOINT=1000",
+          "DEFAULT_WAL_SYNCHRONOUS=2",
+          "DEFAULT_WORKER_THREADS=0",
+          "DIRECT_OVERFLOW_READ",
+          "ENABLE_API_ARMOR",
+          "ENABLE_COLUMN_METADATA",
+          "ENABLE_DBSTAT_VTAB",
+          "ENABLE_FTS3",
+          "ENABLE_FTS3_PARENTHESIS",
+          "ENABLE_FTS5",
+          "ENABLE_LOAD_EXTENSION",
+          "ENABLE_MEMORY_MANAGEMENT",
+          "ENABLE_RTREE",
+          "ENABLE_STAT4",
+          "ENABLE_UNLOCK_NOTIFY",
+          "HAVE_ISNAN",
+          "MALLOC_SOFT_LIMIT=1024",
+          "MAX_ATTACHED=10",
+          "MAX_COLUMN=2000",
+          "MAX_COMPOUND_SELECT=500",
+          "MAX_DEFAULT_PAGE_SIZE=8192",
+          "MAX_EXPR_DEPTH=1000",
+          "MAX_FUNCTION_ARG=1000",
+          "MAX_LENGTH=1000000000",
+          "MAX_LIKE_PATTERN_LENGTH=50000",
+          "MAX_MMAP_SIZE=0x7fff0000",
+          "MAX_PAGE_COUNT=0xfffffffe",
+          "MAX_PAGE_SIZE=65536",
+          "MAX_SQL_LENGTH=1000000000",
+          "MAX_TRIGGER_DEPTH=1000",
+          "MAX_VARIABLE_NUMBER=32766",
+          "MAX_VDBE_OP=250000000",
+          "MAX_WORKER_THREADS=8",
+          "MUTEX_PTHREADS",
+          "SOUNDEX",
+          "SYSTEM_MALLOC",
+          "TEMP_STORE=1",
+          "THREADSAFE=1",
+          "USE_URI"
+        ],
+        "DatabaseVersion": "3.51.3",
+        "ForeignKeys": 1,
+        "JournalMode": "wal",
+        "OrdersPerTenant": 1024,
+        "PersistentConnectionsPerWorker": 1,
+        "PreparedPolicy": "constant SQL and parameter shape reuse; SQLite cached public statements; PostgreSQL unnamed QueryExecModeExec, no server statement or description cache",
+        "Provider": "sqlite",
+        "Synchronous": 2,
+        "Tenants": 8,
+        "TransactionPolicy": "Serializable; driver BEGIN IMMEDIATE; WAL; synchronous FULL; foreign_keys ON; busy_timeout=5000ms"
+      },
+      "loaded_sqlite": {
+        "Path": "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+        "Sha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282"
+      },
+      "executable_sha256": "11d6ffcfcc93a1d4459d6da2f92c6e7b7d48ce788ff26ac4ca331cca02defd2a",
+      "compiled_provider": "sqlite",
+      "build_dependencies": [
+        {
+          "Path": "github.com/mattn/go-sqlite3",
+          "Version": "v1.14.53",
+          "Sum": "h1:mnTM0owzUMrKuLo+0w51NUiB0ir2Fo7kFXlPt/l3BGs="
+        }
+      ],
+      "build_settings": {
+        "-buildmode": "exe",
+        "-compiler": "gc",
+        "-tags": "sqlite,libsqlite3",
+        "-trimpath": "true",
+        "CGO_ENABLED": "1",
+        "GOARCH": "amd64",
+        "GOOS": "linux",
+        "GOAMD64": "v1",
+        "vcs": "git",
+        "vcs.revision": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db",
+        "vcs.time": "2026-11-26T12:56:41Z",
+        "vcs.modified": "false"
+      },
+      "application_connections_after_close": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cleanup_errors": null,
+      "postgres_server_lifetime_only": null,
+      "postgres_server_scope": null
+    },
+    {
+      "id": "postgresql-final-01/candidate-c8",
+      "provider": "postgresql",
+      "implementation": "Korda",
+      "provenance": "historical_reused_not_rerun",
+      "runtime": "Release .NET Native AOT",
+      "source": {
+        "metricsDocument": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+        "observationPointer": "/observations/2",
+        "rawIdentity": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/candidate-c8.json",
+          "storedSha256": "e2e46a43807d6a332465d2b16b20d213bc2d9254abb03c249ab339ed7653af9a",
+          "contentSha256": "e2e46a43807d6a332465d2b16b20d213bc2d9254abb03c249ab339ed7653af9a",
+          "bytes": 430964
+        }
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.014960741,
+        "started_utc": "2026-11-26T09:38:53.5554591+00:00",
+        "finished_utc": "2026-11-26T10:08:53.5694611+00:00",
+        "successful_progress_seconds": 1800
+      },
+      "offered_rate": 3600,
+      "concurrency": 8,
+      "counts": {
+        "planned": 6480000,
+        "attempted": 6480000,
+        "sent": 6120073,
+        "started": 6120073,
+        "completed": 6120073,
+        "succeeded": 6120073,
+        "failed": 0,
+        "rejected": 359927,
+        "retries": 0,
+        "rows": 149540544,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 3400.01229627591,
+      "rejection_fraction": 0.05554429012345679,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 14876.672,
+          "p95": 27131.904,
+          "p99": 38273.024
+        },
+        "service": {
+          "p50": 888.832,
+          "p95": 10551.296,
+          "p99": 16580.608
+        },
+        "start_delay": {
+          "p50": 12976.128,
+          "p95": 22282.24,
+          "p99": 32243.712
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 3898.183729,
+        "system_seconds": 1243.042446,
+        "total_seconds": 5141.226175,
+        "microseconds_per_success": 840.059616118958,
+        "average_core_equivalents": 2.856213024409278,
+        "percent_of_four_cpu_budget": 71.40532561023196,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 52674560,
+        "endpoint_peak_rss_bytes": 52674560,
+        "idle_rss_bytes": 43261952,
+        "idle_pss_bytes": 41290752,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 15.00385223
+      },
+      "allocation": {
+        "kind": "dotnet_process_managed_total",
+        "total_bytes": 156000937184,
+        "bytes_per_success": 25490.04516514754,
+        "bytes_per_row": 1043.201616171732,
+        "cumulative_before": 29806336,
+        "cumulative_after": 156030743520,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "dotnet_generational",
+        "steady_gen0_gen1_gen2_delta": [
+          51230,
+          17717,
+          19
+        ],
+        "absolute_at_offered_end": [
+          51235,
+          17717,
+          19
+        ],
+        "go_num_gc_delta": null,
+        "pause_ns": null
+      },
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 3898.600712,
+        "processLifetimeSystemCpuSeconds": 1243.3128,
+        "processLifetimeMaxRssBytes": 52674560
+      },
+      "native_counters": {
+        "Before": {
+          "Sources": 1,
+          "Sessions": 8,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 246,
+          "SqlExecutions": 1180,
+          "ProtocolSubmissions": 4979,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "After": {
+          "Sources": 1,
+          "Sessions": 8,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 246,
+          "SqlExecutions": 9905170,
+          "ProtocolSubmissions": 42370987,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        },
+        "Drained": {
+          "Sources": 0,
+          "Sessions": 0,
+          "Operations": 0,
+          "Cursors": 0,
+          "Buffers": 0,
+          "Owners": 0,
+          "SqlExecutions": 9905170,
+          "ProtocolSubmissions": 42371003,
+          "PullChannels": 0,
+          "CommandCompletions": 0
+        }
+      },
+      "cgo_calls": null,
+      "protocol_reply_count": null
+    },
+    {
+      "id": "postgresql-final-01/dapper-c8",
+      "provider": "postgresql",
+      "implementation": "Dapper.AOT",
+      "provenance": "historical_reused_not_rerun",
+      "runtime": "Release .NET Native AOT",
+      "source": {
+        "metricsDocument": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json",
+        "observationPointer": "/observations/3",
+        "rawIdentity": {
+          "path": "/workspace/scratch/fd78534029f7/measurements/postgresql-final-01/dapper-c8.json",
+          "storedSha256": "89bf8e963dec4b9f1d414cdfdab465a9451a89adc9aefc5a31107a62acef7d19",
+          "contentSha256": "89bf8e963dec4b9f1d414cdfdab465a9451a89adc9aefc5a31107a62acef7d19",
+          "bytes": 446959
+        }
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.008237597,
+        "started_utc": "2026-11-26T10:09:09.0117447+00:00",
+        "finished_utc": "2026-11-26T10:39:09.0177989+00:00",
+        "successful_progress_seconds": 1800
+      },
+      "offered_rate": 3600,
+      "concurrency": 8,
+      "counts": {
+        "planned": 6480000,
+        "attempted": 6480000,
+        "sent": 6465624,
+        "started": 6465624,
+        "completed": 6465624,
+        "succeeded": 6465624,
+        "failed": 0,
+        "rejected": 14376,
+        "retries": 0,
+        "rows": 157761545,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 3591.9968947650864,
+      "rejection_fraction": 0.0022185185185185185,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 370.688,
+          "p95": 3325.952,
+          "p99": 8519.68
+        },
+        "service": {
+          "p50": 342.016,
+          "p95": 2752.512,
+          "p99": 4587.52
+        },
+        "start_delay": {
+          "p50": 15.04,
+          "p95": 391.168,
+          "p99": 5799.936
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 2597.09115,
+        "system_seconds": 398.233756,
+        "total_seconds": 2995.3249060000003,
+        "microseconds_per_success": 463.26926929249214,
+        "average_core_equivalents": 1.6640617767387225,
+        "percent_of_four_cpu_budget": 41.60154441846806,
+        "scope": "actual application cumulative CPU endpoints bracketing steady operations through drain"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 43024384,
+        "endpoint_peak_rss_bytes": 43024384,
+        "idle_rss_bytes": 34226176,
+        "idle_pss_bytes": 33245184,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 14.999423321
+      },
+      "allocation": {
+        "kind": "dotnet_process_managed_total",
+        "total_bytes": 47305307512,
+        "bytes_per_success": 7316.433419574043,
+        "bytes_per_row": 299.85322159465414,
+        "cumulative_before": 14281072,
+        "cumulative_after": 47319588584,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "dotnet_generational",
+        "steady_gen0_gen1_gen2_delta": [
+          10949,
+          6996,
+          122
+        ],
+        "absolute_at_offered_end": [
+          10951,
+          6997,
+          122
+        ],
+        "go_num_gc_delta": null,
+        "pause_ns": null
+      },
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 2597.265699,
+        "processLifetimeSystemCpuSeconds": 398.368511,
+        "processLifetimeMaxRssBytes": 43024384
+      },
+      "native_counters": {
+        "Before": {
+          "ApplicationConnections": 8,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "After": {
+          "ApplicationConnections": 8,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        },
+        "Drained": {
+          "ApplicationConnections": 0,
+          "Scope": "Application-owned logical connections only; internal provider commands/readers/native owners not instrumented"
+        }
+      },
+      "cgo_calls": null,
+      "protocol_reply_count": null
+    },
+    {
+      "id": "postgresql-final-01/go-c8",
+      "provider": "postgresql",
+      "implementation": "Go database/sql",
+      "provenance": "new_1800_second_run",
+      "runtime": "go1.27.4",
+      "source": {
+        "raw": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.json",
+          "sha256": "38d07a15d43828c930b8604a7bf14e62fb17fa5c9567d3c0623836efa98ce80e",
+          "bytes": 294267
+        },
+        "command": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.command.json",
+          "sha256": "dc9650364b2025573717b4317ecb56a2bdea7931ed8349f39c10bcf0da8250dd",
+          "bytes": 4178
+        },
+        "analysis": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/postgresql-final-01.json",
+          "sha256": "af2c88a990bf980511fa2342e185c455ef192ed774fb7853091cd7e591dfdc48",
+          "bytes": 87350
+        },
+        "analysis_check_count": 463,
+        "analysis_accepted": true,
+        "final_thirty_minute_accepted": true
+      },
+      "interval": {
+        "offered_seconds": 1800,
+        "through_drain_seconds": 1800.001636491,
+        "started_utc": "2026-11-26T13:39:49.077827636Z",
+        "finished_utc": "2026-11-26T14:09:49.079686602Z",
+        "successful_progress_seconds": 1800,
+        "post_offered_drain_seconds": 0.00163608
+      },
+      "offered_rate": 3600,
+      "concurrency": 8,
+      "counts": {
+        "planned": 6480000,
+        "attempted": 6480000,
+        "sent": 6468551,
+        "started": 6468551,
+        "completed": 6468551,
+        "succeeded": 6468551,
+        "failed": 0,
+        "rejected": 11449,
+        "retries": 0,
+        "rows": 157833343,
+        "oracle_failures": 0
+      },
+      "successful_operations_per_second": 3593.6361772481882,
+      "rejection_fraction": 0.001766820987654321,
+      "latency_us_upper": {
+        "scheduled": {
+          "p50": 407.552,
+          "p95": 2867.2,
+          "p99": 5898.24
+        },
+        "service": {
+          "p50": 305.152,
+          "p95": 2457.6,
+          "p99": 4063.232
+        },
+        "start_delay": {
+          "p50": 86.528,
+          "p95": 196.608,
+          "p99": 3211.264
+        }
+      },
+      "client_cpu": {
+        "user_seconds": 2185.175371,
+        "system_seconds": 330.228119,
+        "total_seconds": 2515.4034899999997,
+        "microseconds_per_success": 388.8666086114185,
+        "average_core_equivalents": 1.3974451128298053,
+        "percent_of_four_cpu_budget": 34.936127820745135,
+        "scope": "whole client process steady start through admitted-work drain; includes producer, all Go threads, cgo and GC; excludes PostgreSQL server"
+      },
+      "memory": {
+        "whole_command_wait4_peak_rss_bytes": 22585344,
+        "endpoint_peak_rss_bytes": 22585344,
+        "idle_rss_bytes": 16240640,
+        "idle_pss_bytes": 15639552,
+        "idle_requested_seconds": 15,
+        "idle_observed_seconds": 15.014834403,
+        "idle_go_heap_bytes": 5339000,
+        "idle_client_cpu_seconds": 0.003359000000045853
+      },
+      "allocation": {
+        "kind": "go_process_heap_TotalAlloc",
+        "total_bytes": 26729703808,
+        "bytes_per_success": 4132.255246654158,
+        "bytes_per_row": 169.35397362773975,
+        "cumulative_before": 6568168,
+        "cumulative_after": 26736271976,
+        "business_only_bytes": null,
+        "framework_only_bytes": null,
+        "native_allocation_bytes": null
+      },
+      "gc": {
+        "runtime_kind": "go_non_generational",
+        "go_num_gc_before": 2,
+        "go_num_gc_after": 10114,
+        "go_num_gc_delta": 10112,
+        "forced_gc_delta": 0,
+        "pause_ns": 3169734494,
+        "pause_milliseconds": 3169.734494,
+        "steady_gen0_gen1_gen2_delta": null
+      },
+      "business_sql_control_calls_successful_operations": 10533858,
+      "sql_count_scope": "business SQL/control calls in successful operations only; failed-operation partial calls, driver-internal messages and network round trips are not counted",
+      "cgo_calls": {
+        "After": 1,
+        "Before": 1,
+        "Delta": 0,
+        "Scope": "runtime.NumCgoCall process-wide Go-to-C calls during steady operations; not a cross-runtime equivalent of Korda command FFI or libpq protocol submissions"
+      },
+      "protocol_reply_count": null,
+      "wait4_lifetime": {
+        "processLifetimeUserCpuSeconds": 2185.241067,
+        "processLifetimeSystemCpuSeconds": 330.312238,
+        "processLifetimeMaxRssBytes": 22585344
+      },
+      "wait4_command_wall_seconds": 1815.40076197,
+      "database_identity": {
+        "DatabaseVersion": "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by clang version 23.1.5 (https://github.com/llvm/llvm-project 392dfff97d29b59d77e5cac6d4b6ef2585fe7117), 64-bit",
+        "DefaultIsolation": "read committed",
+        "DefaultReadOnly": "off",
+        "DescriptionCacheCapacity": 0,
+        "NamedPreparedStatementsOnVerificationConnection": 0,
+        "OrdersPerTenant": 1024,
+        "PersistentConnectionsPerWorker": 1,
+        "PreparedPolicy": "constant SQL and parameter shape reuse; SQLite cached public statements; PostgreSQL unnamed QueryExecModeExec, no server statement or description cache",
+        "Provider": "postgresql",
+        "QueryExecMode": "exec",
+        "StatementCacheCapacity": 0,
+        "Tenants": 8,
+        "TransactionPolicy": "READ COMMITTED, read-write; ordinary database/sql transaction APIs; commit/rollback awaited before persisted-state read"
+      },
+      "loaded_sqlite": null,
+      "executable_sha256": "a75f351d2e01c530442a93fc1d7d129bd2b38911b269a95f30ce677dcaec2eaa",
+      "compiled_provider": "postgresql",
+      "build_dependencies": [
+        {
+          "Path": "github.com/jackc/pgpassfile",
+          "Version": "v1.0.0",
+          "Sum": "h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM="
+        },
+        {
+          "Path": "github.com/jackc/pgservicefile",
+          "Version": "v0.0.0-20240606120523-5a60cdf6a761",
+          "Sum": "h1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo="
+        },
+        {
+          "Path": "github.com/jackc/pgx/v5",
+          "Version": "v5.11.0",
+          "Sum": "h1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg="
+        },
+        {
+          "Path": "github.com/jackc/puddle/v2",
+          "Version": "v2.2.2",
+          "Sum": "h1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo="
+        },
+        {
+          "Path": "golang.org/x/sync",
+          "Version": "v0.17.0",
+          "Sum": "h1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug="
+        },
+        {
+          "Path": "golang.org/x/text",
+          "Version": "v0.29.0",
+          "Sum": "h1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk="
+        }
+      ],
+      "build_settings": {
+        "-buildmode": "exe",
+        "-compiler": "gc",
+        "-tags": "postgresql",
+        "-trimpath": "true",
+        "CGO_ENABLED": "1",
+        "GOARCH": "amd64",
+        "GOOS": "linux",
+        "GOAMD64": "v1",
+        "vcs": "git",
+        "vcs.revision": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db",
+        "vcs.time": "2026-11-26T12:56:41Z",
+        "vcs.modified": "false"
+      },
+      "application_connections_after_close": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cleanup_errors": null,
+      "postgres_server_lifetime_only": {
+        "processLifetimeUserCpuSeconds": 1865.853662,
+        "processLifetimeSystemCpuSeconds": 414.109486,
+        "processLifetimeMaxRssBytes": 35155968
+      },
+      "postgres_server_scope": "Owned server lifetime includes fixture and Go command; not a steady-operation server CPU denominator."
+    }
+  ],
+  "go_vs_historical_comparisons": [
+    {
+      "provider": "sqlite",
+      "go_id": "sqlite-final-01/go-c4",
+      "historical_baseline_id": "sqlite-final-01/candidate-c4",
+      "historical_baseline_implementation": "Korda",
+      "formula": "(Go / historical comparator - 1) * 100; descriptive observed difference, not a repeated-run significance estimate",
+      "percent_change": {
+        "successful_operations_per_second": 10.548514934930386,
+        "scheduled_p50_us_upper": -98.74695616883116,
+        "scheduled_p95_us_upper": -93.57843137254902,
+        "scheduled_p99_us_upper": -86.70634920634922,
+        "service_p99_us_upper": -73.48484848484848,
+        "client_cpu_us_per_success": -44.17660284153138,
+        "reported_runtime_heap_bytes_per_success": -87.33442397604605,
+        "wait4_peak_rss_bytes": -45.63758389261745,
+        "idle_rss_bytes": -41.84263052841685
+      },
+      "succeeded_difference": 513900,
+      "rejected_difference": -513900
+    },
+    {
+      "provider": "sqlite",
+      "go_id": "sqlite-final-01/go-c4",
+      "historical_baseline_id": "sqlite-final-01/dapper-c4",
+      "historical_baseline_implementation": "Dapper.AOT",
+      "formula": "(Go / historical comparator - 1) * 100; descriptive observed difference, not a repeated-run significance estimate",
+      "percent_change": {
+        "successful_operations_per_second": -0.06341221958005017,
+        "scheduled_p50_us_upper": 21.674876847290637,
+        "scheduled_p95_us_upper": -29.18918918918919,
+        "scheduled_p99_us_upper": -23.282442748091604,
+        "service_p99_us_upper": -20.45454545454546,
+        "client_cpu_us_per_success": -4.505852539728361,
+        "reported_runtime_heap_bytes_per_success": -57.75152559851282,
+        "wait4_peak_rss_bytes": -29.86608173631956,
+        "idle_rss_bytes": -27.539267015706802
+      },
+      "succeeded_difference": -3426,
+      "rejected_difference": 3426
+    },
+    {
+      "provider": "postgresql",
+      "go_id": "postgresql-final-01/go-c8",
+      "historical_baseline_id": "postgresql-final-01/candidate-c8",
+      "historical_baseline_implementation": "Korda",
+      "formula": "(Go / historical comparator - 1) * 100; descriptive observed difference, not a repeated-run significance estimate",
+      "percent_change": {
+        "successful_operations_per_second": 5.694799433059616,
+        "scheduled_p50_us_upper": -97.26046255506607,
+        "scheduled_p95_us_upper": -89.43236714975845,
+        "scheduled_p99_us_upper": -84.58904109589041,
+        "service_p99_us_upper": -75.49407114624506,
+        "client_cpu_us_per_success": -53.70964141712147,
+        "reported_runtime_heap_bytes_per_success": -83.78874882377933,
+        "wait4_peak_rss_bytes": -57.122861586314144,
+        "idle_rss_bytes": -62.459761408824086
+      },
+      "succeeded_difference": 348478,
+      "rejected_difference": -348478
+    },
+    {
+      "provider": "postgresql",
+      "go_id": "postgresql-final-01/go-c8",
+      "historical_baseline_id": "postgresql-final-01/dapper-c8",
+      "historical_baseline_implementation": "Dapper.AOT",
+      "formula": "(Go / historical comparator - 1) * 100; descriptive observed difference, not a repeated-run significance estimate",
+      "percent_change": {
+        "successful_operations_per_second": 0.04563707962808028,
+        "scheduled_p50_us_upper": 9.94475138121549,
+        "scheduled_p95_us_upper": -13.793103448275879,
+        "scheduled_p99_us_upper": -30.76923076923077,
+        "service_p99_us_upper": -11.428571428571432,
+        "client_cpu_us_per_success": -16.06034883226809,
+        "reported_runtime_heap_bytes_per_success": -43.52090684514511,
+        "wait4_peak_rss_bytes": -47.5057121096725,
+        "idle_rss_bytes": -52.54906653901388
+      },
+      "succeeded_difference": 2927,
+      "rejected_difference": -2927
+    }
+  ],
+  "known_memory_correction": {
+    "cell": "sqlite-final-01/dapper-c4",
+    "whole_command_wait4_peak_rss_bytes": 35479552,
+    "endpoint_peak_rss_bytes": 33923072,
+    "reason": "Use final wait4 high-water for every row of the peak RSS comparison; do not substitute an earlier consumer endpoint."
+  },
+  "finalIndependentReview": "final-independent-review.json"
+}

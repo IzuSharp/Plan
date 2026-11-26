@@ -1,0 +1,143 @@
+{
+  "name": "go-c4",
+  "phase": "final",
+  "argv": [
+    "taskset",
+    "-c",
+    "0-3",
+    "env",
+    "GOGC=100",
+    "GOMEMLIMIT=off",
+    "GODEBUG=",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+    "--provider",
+    "sqlite",
+    "--connection",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/fixture.sqlite",
+    "--manifest",
+    "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+    "--concurrency",
+    "4",
+    "--gomaxprocs",
+    "4",
+    "--warmup",
+    "64",
+    "--queue-capacity",
+    "64",
+    "--seconds",
+    "1800",
+    "--rate",
+    "3000",
+    "--idle-seconds",
+    "15",
+    "--output",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.json",
+    "--native-library",
+    "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so"
+  ],
+  "startedUtc": "2026-11-26T13:09:31.065164+00:00",
+  "startedMonotonicNs": 46353235759970,
+  "timeoutSeconds": 2115,
+  "resourceSamples": "go-c4.resources.jsonl",
+  "measurementScope": "wait4 CPU/maxRSS are process-lifetime totals; steady measurements use consumer monotonic boundaries",
+  "longRunAcceptance": false,
+  "timedOut": false,
+  "observerErrors": [],
+  "clientIdentity": {
+    "pid": 25,
+    "startTicks": 4635323,
+    "state": "R",
+    "parentPid": 5,
+    "userTicks": 0,
+    "systemTicks": 0,
+    "reapedChildUserTicks": 0,
+    "reapedChildSystemTicks": 0,
+    "threads": 1,
+    "memoryBytes": {
+      "Rss": 8192,
+      "Pss": 8192,
+      "Private_Clean": 0,
+      "Private_Dirty": 8192
+    },
+    "memoryErrors": []
+  },
+  "lastSample": {
+    "utc": "2026-11-26T13:39:46.238408+00:00",
+    "monotonicNs": 48168408405198,
+    "acquiredThroughMonotonicNs": 48168408994511,
+    "client": [
+      {
+        "pid": 25,
+        "startTicks": 4635323,
+        "state": "Z",
+        "parentPid": 5,
+        "userTicks": 286963,
+        "systemTicks": 12925,
+        "reapedChildUserTicks": 0,
+        "reapedChildSystemTicks": 0,
+        "threads": 1,
+        "memoryBytes": {},
+        "memoryErrors": [
+          {
+            "source": "smaps_rollup",
+            "errno": 3
+          }
+        ]
+      }
+    ],
+    "server": [],
+    "clientTotals": {
+      "ownAndReapedUserTicks": 286963,
+      "ownAndReapedSystemTicks": 12925,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 1,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverTotals": {
+      "ownAndReapedUserTicks": 0,
+      "ownAndReapedSystemTicks": 0,
+      "sampledRssBytes": 0,
+      "sampledPssBytes": 0,
+      "rssComplete": false,
+      "pssComplete": false,
+      "memoryAvailableProcessCount": 0,
+      "processCount": 0,
+      "treeSnapshotNonAtomic": true
+    },
+    "serverCpuGroup": null,
+    "hostCpuTicks": {
+      "user": 3149526,
+      "nice": 0,
+      "system": 547356,
+      "idle": 39099412,
+      "iowait": 95716,
+      "irq": 0,
+      "softirq": 178270,
+      "steal": 195444,
+      "guest": 0,
+      "guestNice": 0
+    },
+    "guestQuota": {
+      "schemaVersion": 2,
+      "membershipSource": "0::/",
+      "available": false,
+      "ancestors": [],
+      "reason": "The current cgroup-v2 mount is unavailable"
+    }
+  },
+  "processLifetimeUserCpuSeconds": 2869.630903,
+  "processLifetimeSystemCpuSeconds": 129.25478,
+  "processLifetimeMaxRssBytes": 24883200,
+  "exitCode": 0,
+  "finishedUtc": "2026-11-26T13:39:46.238592+00:00",
+  "finishedMonotonicNs": 48168409185227,
+  "files": {
+    "go-c4.stdout.log": "d9e3e5d28b419cc1320d3139b272bd7e8ddbd9b9a06f020360f04fcf8f21b96e",
+    "go-c4.resources.jsonl": "5d8ccd833319beca1745de1bba6889b18cad37ec3be09b84c24f1d70b8655a01"
+  },
+  "success": true
+}

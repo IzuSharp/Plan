@@ -29,11 +29,24 @@ local task worktrees, builds, databases and caches. Preserve unrelated tools,
 shared runtime files and credentials. Record the concrete cleanup inventory
 and outcome; no previous unpublished unique work may be silently discarded.
 
-Status: source and final inputs frozen; neither Go 1,800-second cell has run yet. Current authority
+Status: both Go 1,800-second cells completed and independently accepted (2/2). Current authority
 adds this comparison and final local cleanup; it does not reopen product
 optimization, previous measurements or package releases.
 
-## Frozen checkpoint
+## Completed result and record-only disposition
+
+The latest owner instruction is explicit: **keep Korda #39 and Plan #35 as open drafts; do not merge or enable auto-merge**. This comparison is a record, with no further product optimization or release.
+
+- [Final measurement report](final-report.md) and [full precision comparison](comparison.json).
+- [Independent 248-check audit](final-independent-review.md); the frozen verifier separately passed 453 SQLite and 463 PostgreSQL checks.
+- [Go evidence archive](archive/go/evidence.tar.gz), [member manifest](archive/go/manifest.json) and [local archive readback](archive/go/receipt.json): 186 retained original files / 31,309,236 bytes; compressed SHA-256 `eac700a195dce834006a56a50df1f2934a095e15f6a2b1f66fc21a0931d9ce3d`.
+- [Legacy text supplement](archive/legacy/evidence.tar.gz), [manifest](archive/legacy/manifest.json) and [receipt](archive/legacy/receipt.json): 1,538 unique text objects / 9,643 original path mappings; compressed SHA-256 `51b6fa864fc108c71365d5e356a0672453d1cf0df4def65df209ff362da15787`. These include previous logs and rejected attempts, without giving them new measurement credit.
+- [Exact local source commit bundle](source-history.bundle) preserves build VCS identities; public source is in Korda #39.
+- [Cleanup inventory](cleanup/cleanup-inventory.json) and [post-run addendum](cleanup/cleanup-inventory-addendum-01.md) cover 62 registered worktrees, three exact task roots, 32 temporary paths and task-created Go telemetry. Local files are removed only after fixed-commit remote archive readback. The actual cleanup receipt is added after removal.
+
+The archives deliberately omit database files, compiler/module caches and executable binaries; original identity/disposition records are retained. Local deletion will remove those omitted bytes, so this is not a binary recovery archive. All benchmark and pressure work was local; existing CI routing is unchanged.
+
+## Historical frozen checkpoint
 
 Implementation PR: [Korda #39](https://github.com/IzuSharp/Korda/pull/39),
 source commit `d5f4f9d6616bad54a08aebb7d1aca7937b18eb93`, tree

@@ -1,0 +1,2388 @@
+{
+  "schemaVersion": 1,
+  "reviewedUtc": "2026-11-26T14:17:48.094615+00:00",
+  "independentOfVerifier": true,
+  "method": "Separate Python calculation; never imports/runs verify_result.py or trusts accepted/status flags. Raw files, integer weighted oracles, cumulative histogram binary-search quantiles, per-second sums, monotonic/UTC boundaries, frozen SHA-256 bytes and git build-commit blobs were read independently.",
+  "actualFinalCells": 2,
+  "requiredFinalCells": 2,
+  "allTwoFinalCellsAccepted": true,
+  "delivery": "record-only/open; Korda#39 and Plan#35 remain draft; no merge, deployment, further benchmark or optimization is authorized by this review.",
+  "source": {
+    "publishedCommit": "d5f4f9d6616bad54a08aebb7d1aca7937b18eb93",
+    "publishedTree": "f8744d7735e47552c657d3b18ad5cd9e39946db9",
+    "runtimeBuildCommit": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db",
+    "localFinalCommit": "da76bad28df60dbd3ce9023522bfecaa5371cf87",
+    "localFinalTree": "f8744d7735e47552c657d3b18ad5cd9e39946db9",
+    "explanation": "Published full tree equals local final tree. Measured binary runtime Go blobs are unchanged from runtimeBuildCommit; later additions are independent verification and unit tests. Exact local commit objects are preserved in source-history.bundle."
+  },
+  "inputs": {
+    "freeze": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/freeze.json",
+      "bytes": 10003,
+      "sha256": "fc08a113b690b55a38aee9c1f295c65475058c81ed8ee4be0e1ec19d16a63fe8"
+    },
+    "campaignEvents": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/campaign-events.jsonl",
+      "bytes": 22395,
+      "sha256": "0e5eb15ca56ef74aaf7c32f12b5d4103afc8ea08e0f1894cd61546be2b9ab728"
+    },
+    "hostBefore": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/host-before-final.json",
+      "bytes": 2153,
+      "sha256": "d7238220265d3e9568a06eca115cd9410801a6cd9519524f234144729fbbc60c"
+    },
+    "independentCalculator": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/independent_final_calculation.py",
+      "bytes": 30362,
+      "sha256": "3595572f94307a36c529ce3d55e50c15452970bc0335c974346adda83f9cfb2f"
+    },
+    "historicalFreeze": {
+      "path": "/workspace/scratch/fd78534029f7/measurements/final-freeze-01.json",
+      "bytes": 307516,
+      "sha256": "fc1dae9be0a76b0de38c4f94c3836e47b398e10b5ff23f3c8f82313a3cb4bc1a"
+    },
+    "manifest": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "bytes": 335201,
+      "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2"
+    },
+    "sqlite:result": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.json",
+      "bytes": 296794,
+      "sha256": "4ec5042c042e13f4d84452606baa083fbefbbfbe336ec0cf46e4fcdab22a5bde"
+    },
+    "sqlite:command": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.command.json",
+      "bytes": 3831,
+      "sha256": "904d42024bba29afc5dba559249af2c3956323817c14c26fa8a28bf202e0e0f7"
+    },
+    "sqlite:plan": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/plan.json",
+      "bytes": 5388,
+      "sha256": "d1990eec577108f2127b8e710a0239ba5b256235ccb0436e114ee41a033907d2"
+    },
+    "sqlite:runner": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/runner.json",
+      "bytes": 519,
+      "sha256": "d8c993eb33b9133c5d45f5a8d7c36439ab336123a1810ca9db8dbd9e933227e5"
+    },
+    "sqlite:go-c4.stdout.log": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.stdout.log",
+      "bytes": 221,
+      "sha256": "d9e3e5d28b419cc1320d3139b272bd7e8ddbd9b9a06f020360f04fcf8f21b96e"
+    },
+    "sqlite:go-c4.resources.jsonl": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/go-c4.resources.jsonl",
+      "bytes": 8720790,
+      "sha256": "5d8ccd833319beca1745de1bba6889b18cad37ec3be09b84c24f1d70b8655a01"
+    },
+    "postgresql:result": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.json",
+      "bytes": 294267,
+      "sha256": "38d07a15d43828c930b8604a7bf14e62fb17fa5c9567d3c0623836efa98ce80e"
+    },
+    "postgresql:command": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.command.json",
+      "bytes": 4178,
+      "sha256": "dc9650364b2025573717b4317ecb56a2bdea7931ed8349f39c10bcf0da8250dd"
+    },
+    "postgresql:plan": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/plan.json",
+      "bytes": 6108,
+      "sha256": "d2c1125aa4f9fa546d7892e879431bb1266a53d63b04360a44158f6ee7cfabc6"
+    },
+    "postgresql:runner": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/runner.json",
+      "bytes": 519,
+      "sha256": "c2c237f0e9e939097e173fbdd3e7d54c03a158de011205e7b4b9bec38de14977"
+    },
+    "postgresOwner": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/postgres-owner.json",
+      "bytes": 3176,
+      "sha256": "c6ee2e79a7bafed6a16a99bc1c2dbb22ad1dd57c1d3368e9a93af693d6fee4f3"
+    },
+    "postgresSettings": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/postgres-settings.txt",
+      "bytes": 219,
+      "sha256": "6fd89978e0317e76f589dfd5829b43d36b7c99b4de8e59f6bf6814df2b44ce73"
+    },
+    "postgresql:go-c8.stdout.log": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.stdout.log",
+      "bytes": 225,
+      "sha256": "d49b653f836ba04844a377c135a1d329102504326ae861546e4dc5d5e37fa789"
+    },
+    "postgresql:go-c8.resources.jsonl": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/postgresql-final-01/go-c8.resources.jsonl",
+      "bytes": 10721934,
+      "sha256": "e92dbe2c87456debe81db85d86477cce52c93d82bcd34e955549f940862c7d96"
+    }
+  },
+  "freezeFilesReadBack": 38,
+  "frozenFiles": [
+    {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+      "bytes": 38227,
+      "sha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86",
+      "expectedSha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86",
+      "expectedBytes": 38227,
+      "matched": true
+    },
+    {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "bytes": 335201,
+      "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "expectedSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "expectedBytes": 335201,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/postgresql-preflight-02.json",
+      "bytes": 84651,
+      "sha256": "c5dab280148586c858cab2b42f2b4710dd1f6f7d99be54bcacf90585119f1481",
+      "expectedSha256": "c5dab280148586c858cab2b42f2b4710dd1f6f7d99be54bcacf90585119f1481",
+      "expectedBytes": 84651,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/analysis/sqlite-preflight-02.json",
+      "bytes": 81205,
+      "sha256": "3cf40b46c06c09bda3b79e60bc92ab35c74f473df88e1f7bfd70b2b39f75cc89",
+      "expectedSha256": "3cf40b46c06c09bda3b79e60bc92ab35c74f473df88e1f7bfd70b2b39f75cc89",
+      "expectedBytes": 81205,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+      "bytes": 15057999,
+      "sha256": "a75f351d2e01c530442a93fc1d7d129bd2b38911b269a95f30ce677dcaec2eaa",
+      "expectedSha256": "a75f351d2e01c530442a93fc1d7d129bd2b38911b269a95f30ce677dcaec2eaa",
+      "expectedBytes": 15057999,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+      "bytes": 5540272,
+      "sha256": "11d6ffcfcc93a1d4459d6da2f92c6e7b7d48ce788ff26ac4ca331cca02defd2a",
+      "expectedSha256": "11d6ffcfcc93a1d4459d6da2f92c6e7b7d48ce788ff26ac4ca331cca02defd2a",
+      "expectedBytes": 5540272,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/source-history.bundle",
+      "bytes": 42161,
+      "sha256": "b4ffafaf04b3af66d212d1f51c8c9642d4fee562b21595a9f6b19907372c5f1c",
+      "expectedSha256": "b4ffafaf04b3af66d212d1f51c8c9642d4fee562b21595a9f6b19907372c5f1c",
+      "expectedBytes": 42161,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/plans/postgresql-final-01.json",
+      "bytes": 6108,
+      "sha256": "d2c1125aa4f9fa546d7892e879431bb1266a53d63b04360a44158f6ee7cfabc6",
+      "expectedSha256": "d2c1125aa4f9fa546d7892e879431bb1266a53d63b04360a44158f6ee7cfabc6",
+      "expectedBytes": 6108,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/plans/sqlite-final-01.json",
+      "bytes": 5388,
+      "sha256": "d1990eec577108f2127b8e710a0239ba5b256235ccb0436e114ee41a033907d2",
+      "expectedSha256": "d1990eec577108f2127b8e710a0239ba5b256235ccb0436e114ee41a033907d2",
+      "expectedBytes": 5388,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/run_serial.py",
+      "bytes": 3751,
+      "sha256": "1d4d1c8ed5da939546d8f36adebff0146470622ca3e630c824651bf80c04ab11",
+      "expectedSha256": "1d4d1c8ed5da939546d8f36adebff0146470622ca3e630c824651bf80c04ab11",
+      "expectedBytes": 3751,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/toolchain/download-receipt.json",
+      "bytes": 820,
+      "sha256": "c4f40b512a8e3ede5b38365d5862cb4fa2c3a926353292c6c4c976502c35b4f8",
+      "expectedSha256": "c4f40b512a8e3ede5b38365d5862cb4fa2c3a926353292c6c4c976502c35b4f8",
+      "expectedBytes": 820,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/toolchain/source-pins.json",
+      "bytes": 3524,
+      "sha256": "ac70d251597615941e7bd8097ddb1fcd15d32ddb28c73baa8866dc4b0015c2fd",
+      "expectedSha256": "ac70d251597615941e7bd8097ddb1fcd15d32ddb28c73baa8866dc4b0015c2fd",
+      "expectedBytes": 3524,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/toolchain/task-go-env.sh",
+      "bytes": 1158,
+      "sha256": "74c794d02596d87da1ca7c367fd200da5a93ded20405808c44baf1e7e5c87814",
+      "expectedSha256": "74c794d02596d87da1ca7c367fd200da5a93ded20405808c44baf1e7e5c87814",
+      "expectedBytes": 1158,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/README.md",
+      "bytes": 5764,
+      "sha256": "38f15088988f01da6e591c684592dffacdf99e8cb5826a25f1de86a0c72611e5",
+      "expectedSha256": "38f15088988f01da6e591c684592dffacdf99e8cb5826a25f1de86a0c72611e5",
+      "expectedBytes": 5764,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/digest.go",
+      "bytes": 6630,
+      "sha256": "0b2c99cf43810f02f5c1f543aa2738280744e4d1c6196f3694f41ca5383d4b2c",
+      "expectedSha256": "0b2c99cf43810f02f5c1f543aa2738280744e4d1c6196f3694f41ca5383d4b2c",
+      "expectedBytes": 6630,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/digest_test.go",
+      "bytes": 3482,
+      "sha256": "a15998b0c6883e88d04f96a806f924a2088125efe651330bedf9b5780ff8aa03",
+      "expectedSha256": "a15998b0c6883e88d04f96a806f924a2088125efe651330bedf9b5780ff8aa03",
+      "expectedBytes": 3482,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/driver_postgresql.go",
+      "bytes": 118,
+      "sha256": "7fae0d185824760fa11302d425b2af4fdee4a2bed76ccade2ec93554bfdfbc8f",
+      "expectedSha256": "7fae0d185824760fa11302d425b2af4fdee4a2bed76ccade2ec93554bfdfbc8f",
+      "expectedBytes": 118,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/driver_sqlite.go",
+      "bytes": 107,
+      "sha256": "d0174839f568b004c8c06951ef1b4fccef07a53479e9ab962049b76d2a663547",
+      "expectedSha256": "d0174839f568b004c8c06951ef1b4fccef07a53479e9ab962049b76d2a663547",
+      "expectedBytes": 107,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/go.mod",
+      "bytes": 390,
+      "sha256": "c0bd2bbc2189e1e2165d2f9ac6197285506fddc382b351bf483f13df0ff0e645",
+      "expectedSha256": "c0bd2bbc2189e1e2165d2f9ac6197285506fddc382b351bf483f13df0ff0e645",
+      "expectedBytes": 390,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/go.sum",
+      "bytes": 2478,
+      "sha256": "f24a24d77e60e062cadcdc94ff08bc7406693bc10ac7ee77af86a9ff0b8cd92e",
+      "expectedSha256": "f24a24d77e60e062cadcdc94ff08bc7406693bc10ac7ee77af86a9ff0b8cd92e",
+      "expectedBytes": 2478,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/main.go",
+      "bytes": 12942,
+      "sha256": "a3798d353f0ecbde3bd34d4f9f2417a432da5f1cb341f89338ca7804aed6b2fa",
+      "expectedSha256": "a3798d353f0ecbde3bd34d4f9f2417a432da5f1cb341f89338ca7804aed6b2fa",
+      "expectedBytes": 12942,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/make_plan.py",
+      "bytes": 5766,
+      "sha256": "2c64682c7057fa228bd26e1fb4f46b0d7658ac79b6cd170a69d6b86bd0610adf",
+      "expectedSha256": "2c64682c7057fa228bd26e1fb4f46b0d7658ac79b6cd170a69d6b86bd0610adf",
+      "expectedBytes": 5766,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/manifest.go",
+      "bytes": 5569,
+      "sha256": "b87d9223086c27c0cfc7dd784ab244762ba98582121199581d8c0f73bb7c02f0",
+      "expectedSha256": "b87d9223086c27c0cfc7dd784ab244762ba98582121199581d8c0f73bb7c02f0",
+      "expectedBytes": 5569,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/metrics_linux.go",
+      "bytes": 1920,
+      "sha256": "ab0e08dc81d883daefc3f217a96fcf0b62e45f0560dfef7f77eb8fb5e8400246",
+      "expectedSha256": "ab0e08dc81d883daefc3f217a96fcf0b62e45f0560dfef7f77eb8fb5e8400246",
+      "expectedBytes": 1920,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/runner.go",
+      "bytes": 9590,
+      "sha256": "9d0b0627eea5005ce98f99e302e02f8ad583dbf9c59a1b20cd5074e92a786c96",
+      "expectedSha256": "9d0b0627eea5005ce98f99e302e02f8ad583dbf9c59a1b20cd5074e92a786c96",
+      "expectedBytes": 9590,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/runner_test.go",
+      "bytes": 5484,
+      "sha256": "ba876e8e61e915d065c21c110feb3c67503150b43d0aa59cbd86d229c2cbc0ac",
+      "expectedSha256": "ba876e8e61e915d065c21c110feb3c67503150b43d0aa59cbd86d229c2cbc0ac",
+      "expectedBytes": 5484,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/spin_amd64.s",
+      "bytes": 105,
+      "sha256": "b27ebf8aa16d494ca58ccaca002578373817d4980d36658e7d42fea981772f7e",
+      "expectedSha256": "b27ebf8aa16d494ca58ccaca002578373817d4980d36658e7d42fea981772f7e",
+      "expectedBytes": 105,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/verify_result.py",
+      "bytes": 38494,
+      "sha256": "1371703ad90a307e48936d8fbf51977940be9b563b917ef0f1d5419beaac00dd",
+      "expectedSha256": "1371703ad90a307e48936d8fbf51977940be9b563b917ef0f1d5419beaac00dd",
+      "expectedBytes": 38494,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/worker.go",
+      "bytes": 19140,
+      "sha256": "f088a8684693e0b2afad5d6ec218e832751566de816c62b26718fff739ab211a",
+      "expectedSha256": "f088a8684693e0b2afad5d6ec218e832751566de816c62b26718fff739ab211a",
+      "expectedBytes": 19140,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+      "bytes": 1917264,
+      "sha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "expectedSha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282",
+      "expectedBytes": 1917264,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/initdb",
+      "bytes": 205936,
+      "sha256": "9add7cdb31e50ca61ba47bb2cb7ae95508390a58b40b293c5894403c2121f9e3",
+      "expectedSha256": "9add7cdb31e50ca61ba47bb2cb7ae95508390a58b40b293c5894403c2121f9e3",
+      "expectedBytes": 205936,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/pg_isready",
+      "bytes": 109880,
+      "sha256": "bf3a4582fc098ea79eb2d1ab2b8f435d72a4c5dff86b8c574cd504b217b1dfe8",
+      "expectedSha256": "bf3a4582fc098ea79eb2d1ab2b8f435d72a4c5dff86b8c574cd504b217b1dfe8",
+      "expectedBytes": 109880,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/postgres",
+      "bytes": 10537248,
+      "sha256": "69284e8fffe7241b1d3cab6a3c58b118976823a3be3b22d729ecc9ab57462c13",
+      "expectedSha256": "69284e8fffe7241b1d3cab6a3c58b118976823a3be3b22d729ecc9ab57462c13",
+      "expectedBytes": 10537248,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/psql",
+      "bytes": 619288,
+      "sha256": "fd530740559fc18dffdc6b8f3b8083831ce5a45979ab7ed68c17cae5d9794049",
+      "expectedSha256": "fd530740559fc18dffdc6b8f3b8083831ce5a45979ab7ed68c17cae5d9794049",
+      "expectedBytes": 619288,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/fd78534029f7/builds/candidate-postgresql-02/consumer-workload/out/DbPerf.Korda",
+      "bytes": 6565616,
+      "sha256": "3e22e2ce1e9912f190b643b172360539d25d1b0558de3a253a3c19a67726c0b8",
+      "expectedSha256": "3e22e2ce1e9912f190b643b172360539d25d1b0558de3a253a3c19a67726c0b8",
+      "expectedBytes": 6565616,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+      "bytes": 6565616,
+      "sha256": "1ce8d74112e6dff217bb69d39c1f939474d04617b4f7961fb4e9b7edc5bf8953",
+      "expectedSha256": "1ce8d74112e6dff217bb69d39c1f939474d04617b4f7961fb4e9b7edc5bf8953",
+      "expectedBytes": 6565616,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/fd78534029f7/measurements/plans/postgresql-final-01.json",
+      "bytes": 9641,
+      "sha256": "c5568d3fb78b7c11c888dcf0d458ec2559d23862d764fe27aa14e43dba780bc2",
+      "expectedSha256": "c5568d3fb78b7c11c888dcf0d458ec2559d23862d764fe27aa14e43dba780bc2",
+      "expectedBytes": 9641,
+      "matched": true
+    },
+    {
+      "path": "/workspace/scratch/fd78534029f7/measurements/plans/sqlite-final-01.json",
+      "bytes": 8897,
+      "sha256": "2cc385eebeb2d02b23dee2dd29559a667ea2723051967928ac8bd24a45684718",
+      "expectedSha256": "2cc385eebeb2d02b23dee2dd29559a667ea2723051967928ac8bd24a45684718",
+      "expectedBytes": 8897,
+      "matched": true
+    }
+  ],
+  "runtimeSourceBlobs": [
+    {
+      "path": "benchmarks/db-perf/go/digest.go",
+      "buildCommitSha256": "0b2c99cf43810f02f5c1f543aa2738280744e4d1c6196f3694f41ca5383d4b2c",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/driver_postgresql.go",
+      "buildCommitSha256": "7fae0d185824760fa11302d425b2af4fdee4a2bed76ccade2ec93554bfdfbc8f",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/driver_sqlite.go",
+      "buildCommitSha256": "d0174839f568b004c8c06951ef1b4fccef07a53479e9ab962049b76d2a663547",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/go.mod",
+      "buildCommitSha256": "c0bd2bbc2189e1e2165d2f9ac6197285506fddc382b351bf483f13df0ff0e645",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/go.sum",
+      "buildCommitSha256": "f24a24d77e60e062cadcdc94ff08bc7406693bc10ac7ee77af86a9ff0b8cd92e",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/main.go",
+      "buildCommitSha256": "a3798d353f0ecbde3bd34d4f9f2417a432da5f1cb341f89338ca7804aed6b2fa",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/manifest.go",
+      "buildCommitSha256": "b87d9223086c27c0cfc7dd784ab244762ba98582121199581d8c0f73bb7c02f0",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/metrics_linux.go",
+      "buildCommitSha256": "ab0e08dc81d883daefc3f217a96fcf0b62e45f0560dfef7f77eb8fb5e8400246",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/runner.go",
+      "buildCommitSha256": "9d0b0627eea5005ce98f99e302e02f8ad583dbf9c59a1b20cd5074e92a786c96",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/spin_amd64.s",
+      "buildCommitSha256": "b27ebf8aa16d494ca58ccaca002578373817d4980d36658e7d42fea981772f7e",
+      "matchesFrozen": true
+    },
+    {
+      "path": "benchmarks/db-perf/go/worker.go",
+      "buildCommitSha256": "f088a8684693e0b2afad5d6ec218e832751566de816c62b26718fff739ab211a",
+      "matchesFrozen": true
+    }
+  ],
+  "cells": [
+    {
+      "provider": "sqlite",
+      "passed": true,
+      "checks": 89,
+      "cases": [
+        {
+          "name": "numeric",
+          "succeeded": 153877,
+          "rows": 4924064,
+          "expectedRows": 4924064,
+          "sql": 153877,
+          "expectedSQL": 153877,
+          "verified": true
+        },
+        {
+          "name": "text",
+          "succeeded": 153879,
+          "rows": 4924128,
+          "expectedRows": 4924128,
+          "sql": 153879,
+          "expectedSQL": 153879,
+          "verified": true
+        },
+        {
+          "name": "money",
+          "succeeded": 153890,
+          "rows": 4924480,
+          "expectedRows": 4924480,
+          "sql": 153890,
+          "expectedSQL": 153890,
+          "verified": true
+        },
+        {
+          "name": "json",
+          "succeeded": 153891,
+          "rows": 4924512,
+          "expectedRows": 4924512,
+          "sql": 153891,
+          "expectedSQL": 153891,
+          "verified": true
+        },
+        {
+          "name": "wide",
+          "succeeded": 153892,
+          "rows": 4924544,
+          "expectedRows": 4924544,
+          "sql": 153892,
+          "expectedSQL": 153892,
+          "verified": true
+        },
+        {
+          "name": "optional-filter",
+          "succeeded": 153896,
+          "rows": 4924672,
+          "expectedRows": 4924672,
+          "sql": 153896,
+          "expectedSQL": 153896,
+          "verified": true
+        },
+        {
+          "name": "range",
+          "succeeded": 153894,
+          "rows": 4924608,
+          "expectedRows": 4924608,
+          "sql": 153894,
+          "expectedSQL": 153894,
+          "verified": true
+        },
+        {
+          "name": "left-join",
+          "succeeded": 153895,
+          "rows": 4924640,
+          "expectedRows": 4924640,
+          "sql": 153895,
+          "expectedSQL": 153895,
+          "verified": true
+        },
+        {
+          "name": "inner-join",
+          "succeeded": 153894,
+          "rows": 4924608,
+          "expectedRows": 4924608,
+          "sql": 153894,
+          "expectedSQL": 153894,
+          "verified": true
+        },
+        {
+          "name": "null-notes",
+          "succeeded": 153888,
+          "rows": 4924416,
+          "expectedRows": 4924416,
+          "sql": 153888,
+          "expectedSQL": 153888,
+          "verified": true
+        },
+        {
+          "name": "literal-note",
+          "succeeded": 153890,
+          "rows": 4924480,
+          "expectedRows": 4924480,
+          "sql": 153890,
+          "expectedSQL": 153890,
+          "verified": true
+        },
+        {
+          "name": "customer-totals",
+          "succeeded": 153892,
+          "rows": 1385028,
+          "expectedRows": 1385028,
+          "sql": 153892,
+          "expectedSQL": 153892,
+          "verified": true
+        },
+        {
+          "name": "product-totals",
+          "succeeded": 153900,
+          "rows": 4924800,
+          "expectedRows": 4924800,
+          "sql": 153900,
+          "expectedSQL": 153900,
+          "verified": true
+        },
+        {
+          "name": "empty-sum",
+          "succeeded": 153908,
+          "rows": 153908,
+          "expectedRows": 153908,
+          "sql": 153908,
+          "expectedSQL": 153908,
+          "verified": true
+        },
+        {
+          "name": "cursor",
+          "succeeded": 153906,
+          "rows": 4924992,
+          "expectedRows": 4924992,
+          "sql": 153906,
+          "expectedSQL": 153906,
+          "verified": true
+        },
+        {
+          "name": "offset",
+          "succeeded": 153905,
+          "rows": 4924960,
+          "expectedRows": 4924960,
+          "sql": 153905,
+          "expectedSQL": 153905,
+          "verified": true
+        },
+        {
+          "name": "exists",
+          "succeeded": 153911,
+          "rows": 153911,
+          "expectedRows": 153911,
+          "sql": 153911,
+          "expectedSQL": 153911,
+          "verified": true
+        },
+        {
+          "name": "in-subquery",
+          "succeeded": 153916,
+          "rows": 4925312,
+          "expectedRows": 4925312,
+          "sql": 153916,
+          "expectedSQL": 153916,
+          "verified": true
+        },
+        {
+          "name": "cte",
+          "succeeded": 153916,
+          "rows": 4925312,
+          "expectedRows": 4925312,
+          "sql": 153916,
+          "expectedSQL": 153916,
+          "verified": true
+        },
+        {
+          "name": "window",
+          "succeeded": 153928,
+          "rows": 4925696,
+          "expectedRows": 4925696,
+          "sql": 153928,
+          "expectedSQL": 153928,
+          "verified": true
+        },
+        {
+          "name": "union-all",
+          "succeeded": 153937,
+          "rows": 4925984,
+          "expectedRows": 4925984,
+          "sql": 153937,
+          "expectedSQL": 153937,
+          "verified": true
+        },
+        {
+          "name": "union",
+          "succeeded": 153936,
+          "rows": 3694464,
+          "expectedRows": 3694464,
+          "sql": 153936,
+          "expectedSQL": 153936,
+          "verified": true
+        },
+        {
+          "name": "intersect",
+          "succeeded": 153933,
+          "rows": 1231464,
+          "expectedRows": 1231464,
+          "sql": 153933,
+          "expectedSQL": 153933,
+          "verified": true
+        },
+        {
+          "name": "except",
+          "succeeded": 153936,
+          "rows": 1231488,
+          "expectedRows": 1231488,
+          "sql": 153936,
+          "expectedSQL": 153936,
+          "verified": true
+        },
+        {
+          "name": "running-total",
+          "succeeded": 153937,
+          "rows": 4925984,
+          "expectedRows": 4925984,
+          "sql": 153937,
+          "expectedSQL": 153937,
+          "verified": true
+        },
+        {
+          "name": "three-join",
+          "succeeded": 153932,
+          "rows": 4925824,
+          "expectedRows": 4925824,
+          "sql": 153932,
+          "expectedSQL": 153932,
+          "verified": true
+        },
+        {
+          "name": "anti-association",
+          "succeeded": 153923,
+          "rows": 4925536,
+          "expectedRows": 4925536,
+          "sql": 153923,
+          "expectedSQL": 153923,
+          "verified": true
+        },
+        {
+          "name": "nullable-order",
+          "succeeded": 153895,
+          "rows": 4924640,
+          "expectedRows": 4924640,
+          "sql": 153895,
+          "expectedSQL": 153895,
+          "verified": true
+        },
+        {
+          "name": "raw-sql",
+          "succeeded": 153853,
+          "rows": 4923296,
+          "expectedRows": 4923296,
+          "sql": 153853,
+          "expectedSQL": 153853,
+          "verified": true
+        },
+        {
+          "name": "related",
+          "succeeded": 153857,
+          "rows": 8154421,
+          "expectedRows": 8154421,
+          "sql": 153857,
+          "expectedSQL": 153857,
+          "verified": true
+        },
+        {
+          "name": "tx-commit",
+          "succeeded": 153859,
+          "rows": 461577,
+          "expectedRows": 461577,
+          "sql": 1077013,
+          "expectedSQL": 1077013,
+          "verified": true
+        },
+        {
+          "name": "tx-rollback",
+          "succeeded": 153870,
+          "rows": 461610,
+          "expectedRows": 461610,
+          "sql": 923220,
+          "expectedSQL": 923220,
+          "verified": true
+        },
+        {
+          "name": "partial-update",
+          "succeeded": 153872,
+          "rows": 461616,
+          "expectedRows": 461616,
+          "sql": 1077104,
+          "expectedSQL": 1077104,
+          "verified": true
+        },
+        {
+          "name": "stale-conflict",
+          "succeeded": 153876,
+          "rows": 307752,
+          "expectedRows": 307752,
+          "sql": 923256,
+          "expectedSQL": 923256,
+          "verified": true
+        },
+        {
+          "name": "early-stop",
+          "succeeded": 153876,
+          "rows": 461628,
+          "expectedRows": 461628,
+          "sql": 153876,
+          "expectedSQL": 153876,
+          "verified": true
+        }
+      ],
+      "counts": {
+        "Planned": 5400000,
+        "Attempted": 5400000,
+        "Sent": 5386460,
+        "Started": 5386460,
+        "Completed": 5386460,
+        "Succeeded": 5386460,
+        "Failed": 0,
+        "Rejected": 13540,
+        "Retries": 0,
+        "Rows": 131430355,
+        "SQLExecutions": 8771576,
+        "OracleFailures": 0
+      },
+      "expectedWeightedRows": 131430355,
+      "expectedWeightedSQL": 8771576,
+      "expectedXorDigest": "755849b7578d6975",
+      "independentlyDerived": {
+        "throughDrainSeconds": 1800.000112125,
+        "actualOfferedSeconds": 1800.000001776,
+        "postOfferedDrainSeconds": 0.00011034899989681435,
+        "successfulOperationsPerSecond": 2992.477591371361,
+        "rejectionPercent": 0.25074074074074076,
+        "histograms": {
+          "SuccessServiceHistogram": {
+            "observations": 5386460,
+            "microsecondsUpper": {
+              "p50": 104.448,
+              "p95": 1425.408,
+              "p99": 3440.64
+            }
+          },
+          "SuccessScheduledHistogram": {
+            "observations": 5386460,
+            "microsecondsUpper": {
+              "p50": 252.928,
+              "p95": 2146.304,
+              "p99": 6586.368
+            }
+          },
+          "AllCompletedScheduledHistogram": {
+            "observations": 5386460,
+            "microsecondsUpper": {
+              "p50": 252.928,
+              "p95": 2146.304,
+              "p99": 6586.368
+            }
+          },
+          "StartDelayHistogram": {
+            "observations": 5386460,
+            "microsecondsUpper": {
+              "p50": 99.84,
+              "p95": 720.896,
+              "p99": 4915.2
+            }
+          }
+        },
+        "CPUSeconds": 2998.755182,
+        "CPUUserSeconds": 2869.534236,
+        "CPUSystemSeconds": 129.220946,
+        "CPUMicrosecondsPerSuccess": 556.7209599625728,
+        "goHeapAllocatedBytes": 16912450224,
+        "goHeapBytesPerSuccess": 3139.8080045150245,
+        "goGCCount": 9186,
+        "goGCPauseNs": 2844410420,
+        "wait4PeakRSSBytes": 24883200,
+        "idleRSSBytes": 22675456,
+        "idlePSSBytes": 21919744,
+        "actualIdleSeconds": 15.000357361,
+        "zeroApplicationConnections": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "successfulProgressSeconds": 1800
+      },
+      "interval": {
+        "startedUtc": "2026-11-26T13:09:31.17815649Z",
+        "finishedUtc": "2026-11-26T13:39:31.178607379Z",
+        "idleFinishedUtc": "2026-11-26T13:39:46.183873758Z",
+        "steadyStartNs": 46353348770939,
+        "steadyEndNs": 48153348883064,
+        "commandStartNs": 46353235759970,
+        "commandEndNs": 48168409185227
+      },
+      "resources": {
+        "samples": 7204,
+        "samplesFullyInsideOperations": 7143,
+        "firstSampleNs": 46353236286526,
+        "lastAcquiredNs": 48168408994511,
+        "maximumGapSeconds": 0.274952301,
+        "maximumCompleteSampleClientRSSBytes": 24846336,
+        "memoryIncompleteSamples": 1,
+        "anyVisibleQuota": false,
+        "scope": "Raw non-atomic sampled process trees retained; sampled RSS is not substituted for wait4 peak, and server CPU is not inferred from PID snapshots."
+      },
+      "driver": {
+        "module": "github.com/mattn/go-sqlite3",
+        "version": "v1.14.53",
+        "compiledProvider": "sqlite",
+        "executable": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+          "bytes": 5540272,
+          "sha256": "11d6ffcfcc93a1d4459d6da2f92c6e7b7d48ce788ff26ac4ca331cca02defd2a"
+        },
+        "buildCommit": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db"
+      }
+    },
+    {
+      "provider": "postgresql",
+      "passed": true,
+      "checks": 91,
+      "cases": [
+        {
+          "name": "numeric",
+          "succeeded": 184791,
+          "rows": 5913312,
+          "expectedRows": 5913312,
+          "sql": 184791,
+          "expectedSQL": 184791,
+          "verified": true
+        },
+        {
+          "name": "text",
+          "succeeded": 184790,
+          "rows": 5913280,
+          "expectedRows": 5913280,
+          "sql": 184790,
+          "expectedSQL": 184790,
+          "verified": true
+        },
+        {
+          "name": "money",
+          "succeeded": 184794,
+          "rows": 5913408,
+          "expectedRows": 5913408,
+          "sql": 184794,
+          "expectedSQL": 184794,
+          "verified": true
+        },
+        {
+          "name": "json",
+          "succeeded": 184796,
+          "rows": 5913472,
+          "expectedRows": 5913472,
+          "sql": 184796,
+          "expectedSQL": 184796,
+          "verified": true
+        },
+        {
+          "name": "wide",
+          "succeeded": 184805,
+          "rows": 5913760,
+          "expectedRows": 5913760,
+          "sql": 184805,
+          "expectedSQL": 184805,
+          "verified": true
+        },
+        {
+          "name": "optional-filter",
+          "succeeded": 184805,
+          "rows": 5913760,
+          "expectedRows": 5913760,
+          "sql": 184805,
+          "expectedSQL": 184805,
+          "verified": true
+        },
+        {
+          "name": "range",
+          "succeeded": 184811,
+          "rows": 5913952,
+          "expectedRows": 5913952,
+          "sql": 184811,
+          "expectedSQL": 184811,
+          "verified": true
+        },
+        {
+          "name": "left-join",
+          "succeeded": 184809,
+          "rows": 5913888,
+          "expectedRows": 5913888,
+          "sql": 184809,
+          "expectedSQL": 184809,
+          "verified": true
+        },
+        {
+          "name": "inner-join",
+          "succeeded": 184813,
+          "rows": 5914016,
+          "expectedRows": 5914016,
+          "sql": 184813,
+          "expectedSQL": 184813,
+          "verified": true
+        },
+        {
+          "name": "null-notes",
+          "succeeded": 184817,
+          "rows": 5914144,
+          "expectedRows": 5914144,
+          "sql": 184817,
+          "expectedSQL": 184817,
+          "verified": true
+        },
+        {
+          "name": "literal-note",
+          "succeeded": 184817,
+          "rows": 5914144,
+          "expectedRows": 5914144,
+          "sql": 184817,
+          "expectedSQL": 184817,
+          "verified": true
+        },
+        {
+          "name": "customer-totals",
+          "succeeded": 184831,
+          "rows": 1663479,
+          "expectedRows": 1663479,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "product-totals",
+          "succeeded": 184831,
+          "rows": 5914592,
+          "expectedRows": 5914592,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "empty-sum",
+          "succeeded": 184831,
+          "rows": 184831,
+          "expectedRows": 184831,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "cursor",
+          "succeeded": 184835,
+          "rows": 5914720,
+          "expectedRows": 5914720,
+          "sql": 184835,
+          "expectedSQL": 184835,
+          "verified": true
+        },
+        {
+          "name": "offset",
+          "succeeded": 184831,
+          "rows": 5914592,
+          "expectedRows": 5914592,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "exists",
+          "succeeded": 184831,
+          "rows": 184831,
+          "expectedRows": 184831,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "in-subquery",
+          "succeeded": 184835,
+          "rows": 5914720,
+          "expectedRows": 5914720,
+          "sql": 184835,
+          "expectedSQL": 184835,
+          "verified": true
+        },
+        {
+          "name": "cte",
+          "succeeded": 184831,
+          "rows": 5914592,
+          "expectedRows": 5914592,
+          "sql": 184831,
+          "expectedSQL": 184831,
+          "verified": true
+        },
+        {
+          "name": "window",
+          "succeeded": 184836,
+          "rows": 5914752,
+          "expectedRows": 5914752,
+          "sql": 184836,
+          "expectedSQL": 184836,
+          "verified": true
+        },
+        {
+          "name": "union-all",
+          "succeeded": 184838,
+          "rows": 5914816,
+          "expectedRows": 5914816,
+          "sql": 184838,
+          "expectedSQL": 184838,
+          "verified": true
+        },
+        {
+          "name": "union",
+          "succeeded": 184846,
+          "rows": 4436304,
+          "expectedRows": 4436304,
+          "sql": 184846,
+          "expectedSQL": 184846,
+          "verified": true
+        },
+        {
+          "name": "intersect",
+          "succeeded": 184841,
+          "rows": 1478728,
+          "expectedRows": 1478728,
+          "sql": 184841,
+          "expectedSQL": 184841,
+          "verified": true
+        },
+        {
+          "name": "except",
+          "succeeded": 184843,
+          "rows": 1478744,
+          "expectedRows": 1478744,
+          "sql": 184843,
+          "expectedSQL": 184843,
+          "verified": true
+        },
+        {
+          "name": "running-total",
+          "succeeded": 184847,
+          "rows": 5915104,
+          "expectedRows": 5915104,
+          "sql": 184847,
+          "expectedSQL": 184847,
+          "verified": true
+        },
+        {
+          "name": "three-join",
+          "succeeded": 184839,
+          "rows": 5914848,
+          "expectedRows": 5914848,
+          "sql": 184839,
+          "expectedSQL": 184839,
+          "verified": true
+        },
+        {
+          "name": "anti-association",
+          "succeeded": 184830,
+          "rows": 5914560,
+          "expectedRows": 5914560,
+          "sql": 184830,
+          "expectedSQL": 184830,
+          "verified": true
+        },
+        {
+          "name": "nullable-order",
+          "succeeded": 184816,
+          "rows": 5914112,
+          "expectedRows": 5914112,
+          "sql": 184816,
+          "expectedSQL": 184816,
+          "verified": true
+        },
+        {
+          "name": "raw-sql",
+          "succeeded": 184791,
+          "rows": 5913312,
+          "expectedRows": 5913312,
+          "sql": 184791,
+          "expectedSQL": 184791,
+          "verified": true
+        },
+        {
+          "name": "related",
+          "succeeded": 184784,
+          "rows": 9793552,
+          "expectedRows": 9793552,
+          "sql": 184784,
+          "expectedSQL": 184784,
+          "verified": true
+        },
+        {
+          "name": "tx-commit",
+          "succeeded": 184788,
+          "rows": 554364,
+          "expectedRows": 554364,
+          "sql": 1293516,
+          "expectedSQL": 1293516,
+          "verified": true
+        },
+        {
+          "name": "tx-rollback",
+          "succeeded": 184785,
+          "rows": 554355,
+          "expectedRows": 554355,
+          "sql": 1108710,
+          "expectedSQL": 1108710,
+          "verified": true
+        },
+        {
+          "name": "partial-update",
+          "succeeded": 184784,
+          "rows": 554352,
+          "expectedRows": 554352,
+          "sql": 1293488,
+          "expectedSQL": 1293488,
+          "verified": true
+        },
+        {
+          "name": "stale-conflict",
+          "succeeded": 184790,
+          "rows": 369580,
+          "expectedRows": 369580,
+          "sql": 1108740,
+          "expectedSQL": 1108740,
+          "verified": true
+        },
+        {
+          "name": "early-stop",
+          "succeeded": 184789,
+          "rows": 554367,
+          "expectedRows": 554367,
+          "sql": 184789,
+          "expectedSQL": 184789,
+          "verified": true
+        }
+      ],
+      "counts": {
+        "Planned": 6480000,
+        "Attempted": 6480000,
+        "Sent": 6468551,
+        "Started": 6468551,
+        "Completed": 6468551,
+        "Succeeded": 6468551,
+        "Failed": 0,
+        "Rejected": 11449,
+        "Retries": 0,
+        "Rows": 157833343,
+        "SQLExecutions": 10533858,
+        "OracleFailures": 0
+      },
+      "expectedWeightedRows": 157833343,
+      "expectedWeightedSQL": 10533858,
+      "expectedXorDigest": "9bb99dba0f17ed2a",
+      "independentlyDerived": {
+        "throughDrainSeconds": 1800.001636491,
+        "actualOfferedSeconds": 1800.000000411,
+        "postOfferedDrainSeconds": 0.0016360800000256859,
+        "successfulOperationsPerSecond": 3593.6361772481882,
+        "rejectionPercent": 0.1766820987654321,
+        "histograms": {
+          "SuccessServiceHistogram": {
+            "observations": 6468551,
+            "microsecondsUpper": {
+              "p50": 305.152,
+              "p95": 2457.6,
+              "p99": 4063.232
+            }
+          },
+          "SuccessScheduledHistogram": {
+            "observations": 6468551,
+            "microsecondsUpper": {
+              "p50": 407.552,
+              "p95": 2867.2,
+              "p99": 5898.24
+            }
+          },
+          "AllCompletedScheduledHistogram": {
+            "observations": 6468551,
+            "microsecondsUpper": {
+              "p50": 407.552,
+              "p95": 2867.2,
+              "p99": 5898.24
+            }
+          },
+          "StartDelayHistogram": {
+            "observations": 6468551,
+            "microsecondsUpper": {
+              "p50": 86.528,
+              "p95": 196.608,
+              "p99": 3211.264
+            }
+          }
+        },
+        "CPUSeconds": 2515.4034899999997,
+        "CPUUserSeconds": 2185.175371,
+        "CPUSystemSeconds": 330.228119,
+        "CPUMicrosecondsPerSuccess": 388.8666086114185,
+        "goHeapAllocatedBytes": 26729703808,
+        "goHeapBytesPerSuccess": 4132.255246654158,
+        "goGCCount": 10112,
+        "goGCPauseNs": 3169734494,
+        "wait4PeakRSSBytes": 22585344,
+        "idleRSSBytes": 16240640,
+        "idlePSSBytes": 15639552,
+        "actualIdleSeconds": 15.014834403,
+        "zeroApplicationConnections": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "successfulProgressSeconds": 1800
+      },
+      "interval": {
+        "startedUtc": "2026-11-26T13:39:49.077827636Z",
+        "finishedUtc": "2026-11-26T14:09:49.079686602Z",
+        "idleFinishedUtc": "2026-11-26T14:10:04.099168358Z",
+        "steadyStartNs": 48171248512368,
+        "steadyEndNs": 49971250148859,
+        "commandStartNs": 48171086421520,
+        "commandEndNs": 49986487183490
+      },
+      "resources": {
+        "samples": 7196,
+        "samplesFullyInsideOperations": 7134,
+        "firstSampleNs": 48171086876615,
+        "lastAcquiredNs": 49986486298664,
+        "maximumGapSeconds": 0.295722299,
+        "maximumCompleteSampleClientRSSBytes": 22327296,
+        "memoryIncompleteSamples": 1,
+        "anyVisibleQuota": false,
+        "scope": "Raw non-atomic sampled process trees retained; sampled RSS is not substituted for wait4 peak, and server CPU is not inferred from PID snapshots."
+      },
+      "driver": {
+        "module": "github.com/jackc/pgx/v5",
+        "version": "v5.11.0",
+        "compiledProvider": "postgresql",
+        "executable": {
+          "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+          "bytes": 15057999,
+          "sha256": "a75f351d2e01c530442a93fc1d7d129bd2b38911b269a95f30ce677dcaec2eaa"
+        },
+        "buildCommit": "94eb3a7675a44e30c6f9ed6c7a7edda987fe36db"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "exactly38 frozen files",
+      "passed": true
+    },
+    {
+      "name": "frozen paths unique",
+      "passed": true
+    },
+    {
+      "name": "frozen input /tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+      "passed": true
+    },
+    {
+      "name": "frozen input /tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/analysis/postgresql-preflight-02.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/analysis/sqlite-preflight-02.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-postgresql",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/build/source-history.bundle",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/plans/postgresql-final-01.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/plans/sqlite-final-01.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/run_serial.py",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/toolchain/download-receipt.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/toolchain/source-pins.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/go-comparison-01/toolchain/task-go-env.sh",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/README.md",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/digest.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/digest_test.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/driver_postgresql.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/driver_sqlite.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/go.mod",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/go.sum",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/main.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/make_plan.py",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/manifest.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/metrics_linux.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/runner.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/runner_test.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/spin_amd64.s",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/verify_result.py",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/worker.go",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/initdb",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/pg_isready",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/postgres",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/4a65d70f0fe1/tools/postgres/install/bin/psql",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/fd78534029f7/builds/candidate-postgresql-02/consumer-workload/out/DbPerf.Korda",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/fd78534029f7/measurements/plans/postgresql-final-01.json",
+      "passed": true
+    },
+    {
+      "name": "frozen input /workspace/scratch/fd78534029f7/measurements/plans/sqlite-final-01.json",
+      "passed": true
+    },
+    {
+      "name": "historical freeze unchanged",
+      "passed": true
+    },
+    {
+      "name": "campaign event monotonic order",
+      "passed": true
+    },
+    {
+      "name": "campaign freeze hash bound before execution",
+      "passed": true
+    },
+    {
+      "name": "supervisor actual affinity8",
+      "passed": true
+    },
+    {
+      "name": "exactly two provider starts and completions",
+      "passed": true
+    },
+    {
+      "name": "supervisor provider intervals serial",
+      "passed": true
+    },
+    {
+      "name": "two actual child exits0",
+      "passed": true
+    },
+    {
+      "name": "campaign terminal exit0",
+      "passed": true
+    },
+    {
+      "name": "host identity matches reused historical machine/boot",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/digest.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/driver_postgresql.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/driver_sqlite.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/go.mod",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/go.sum",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/main.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/manifest.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/metrics_linux.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/runner.go",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/spin_amd64.s",
+      "passed": true
+    },
+    {
+      "name": "compiled-commit source blob benchmarks/db-perf/go/worker.go",
+      "passed": true
+    },
+    {
+      "name": "runtime source closure checked",
+      "passed": true,
+      "detail": 11
+    },
+    {
+      "name": "local final tree equals recorded published tree",
+      "passed": true
+    },
+    {
+      "name": "manifest cryptographic binding",
+      "passed": true
+    },
+    {
+      "name": "35 unique frozen queries",
+      "passed": true
+    },
+    {
+      "name": "full-cycle known row/SQL oracle",
+      "passed": true
+    },
+    {
+      "name": "sqlite recorded plan is frozen",
+      "passed": true
+    },
+    {
+      "name": "sqlite observer identities",
+      "passed": true
+    },
+    {
+      "name": "sqlite fixture and only Go timed",
+      "passed": true
+    },
+    {
+      "name": "sqlite initializer operations0",
+      "passed": true
+    },
+    {
+      "name": "sqlite external success evidence",
+      "passed": true
+    },
+    {
+      "name": "sqlite actual affinity/runtime env",
+      "passed": true
+    },
+    {
+      "name": "sqlite exact actual command flags",
+      "passed": true
+    },
+    {
+      "name": "sqlite command path binding",
+      "passed": true
+    },
+    {
+      "name": "sqlite executable independent hash",
+      "passed": true
+    },
+    {
+      "name": "sqlite core frozen runtime fields",
+      "passed": true
+    },
+    {
+      "name": "sqlite full ordered manifest coverage",
+      "passed": true
+    },
+    {
+      "name": "sqlite fixed dataset/result dimensions",
+      "passed": true
+    },
+    {
+      "name": "sqlite build revision identity",
+      "passed": true
+    },
+    {
+      "name": "sqlite Linux amd64 native build",
+      "passed": true
+    },
+    {
+      "name": "sqlite one driver only",
+      "passed": true
+    },
+    {
+      "name": "sqlite pinned driver version",
+      "passed": true
+    },
+    {
+      "name": "sqlite exclusive provider build tags",
+      "passed": true
+    },
+    {
+      "name": "SQLite exact mapped native image",
+      "passed": true
+    },
+    {
+      "name": "SQLite exact version/pragmas",
+      "passed": true
+    },
+    {
+      "name": "sqlite nonnegative integral raw counts",
+      "passed": true
+    },
+    {
+      "name": "sqlite fixed planned/attempted population",
+      "passed": true
+    },
+    {
+      "name": "sqlite admission/drain identities",
+      "passed": true
+    },
+    {
+      "name": "sqlite no business/oracle/retry/cleanup failures",
+      "passed": true
+    },
+    {
+      "name": "sqlite real observed application connections zero",
+      "passed": true
+    },
+    {
+      "name": "sqlite top-level totals agree",
+      "passed": true
+    },
+    {
+      "name": "sqlite no duplicate nested case population",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case numeric",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case text",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case money",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case json",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case wide",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case optional-filter",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case range",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case left-join",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case inner-join",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case null-notes",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case literal-note",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case customer-totals",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case product-totals",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case empty-sum",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case cursor",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case offset",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case exists",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case in-subquery",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case cte",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case window",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case union-all",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case union",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case intersect",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case except",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case running-total",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case three-join",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case anti-association",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case nullable-order",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case raw-sql",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case related",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case tx-commit",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case tx-rollback",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case partial-update",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case stale-conflict",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent case early-stop",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent weighted rows/SQL",
+      "passed": true,
+      "detail": {
+        "rows": 131430355,
+        "sql": 8771576
+      }
+    },
+    {
+      "name": "sqlite sum of case populations",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent global successful digest XOR",
+      "passed": true,
+      "detail": "755849b7578d6975"
+    },
+    {
+      "name": "sqlite four histogram populations",
+      "passed": true
+    },
+    {
+      "name": "sqlite successful/all-terminal populations identical",
+      "passed": true
+    },
+    {
+      "name": "sqlite independently selected SuccessServiceHistogram quantiles",
+      "passed": true
+    },
+    {
+      "name": "sqlite independently selected SuccessScheduledHistogram quantiles",
+      "passed": true
+    },
+    {
+      "name": "sqlite contiguous full second indices",
+      "passed": true
+    },
+    {
+      "name": "sqlite all1800 offered seconds scheduled and progressing",
+      "passed": true
+    },
+    {
+      "name": "sqlite no offered work fabricated after deadline",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent per-second totals",
+      "passed": true,
+      "detail": {
+        "Planned": 5400000,
+        "Sent": 5386460,
+        "Started": 5386460,
+        "Succeeded": 5386460,
+        "Failed": 0,
+        "Rejected": 13540,
+        "Rows": 131430355
+      }
+    },
+    {
+      "name": "sqlite per-second counts nonnegative integers",
+      "passed": true
+    },
+    {
+      "name": "sqlite continuous1800s clock then complete drain",
+      "passed": true
+    },
+    {
+      "name": "sqlite raw monotonic boundary consistency",
+      "passed": true
+    },
+    {
+      "name": "sqlite external command encloses actual operations",
+      "passed": true
+    },
+    {
+      "name": "sqlite command finite timeout not reached",
+      "passed": true
+    },
+    {
+      "name": "sqlite independently computed allocation delta",
+      "passed": true
+    },
+    {
+      "name": "sqlite independently computed process GC delta",
+      "passed": true
+    },
+    {
+      "name": "sqlite offered-end memory within operation boundary",
+      "passed": true
+    },
+    {
+      "name": "sqlite independent CPU deltas",
+      "passed": true
+    },
+    {
+      "name": "sqlite throughput/CPU/alloc successful denominators",
+      "passed": true
+    },
+    {
+      "name": "sqlite actual post-disposal idle interval",
+      "passed": true
+    },
+    {
+      "name": "sqlite idle without forced collection",
+      "passed": true
+    },
+    {
+      "name": "sqlite RSS and wait4 resource endpoints available",
+      "passed": true
+    },
+    {
+      "name": "sqlite wait4 CPU covers measured process CPU",
+      "passed": true
+    },
+    {
+      "name": "sqlite external retained file go-c4.stdout.log",
+      "passed": true
+    },
+    {
+      "name": "sqlite external retained file go-c4.resources.jsonl",
+      "passed": true
+    },
+    {
+      "name": "sqlite sampled resource interval encloses steady window",
+      "passed": true
+    },
+    {
+      "name": "postgresql recorded plan is frozen",
+      "passed": true
+    },
+    {
+      "name": "postgresql observer identities",
+      "passed": true
+    },
+    {
+      "name": "postgresql fixture and only Go timed",
+      "passed": true
+    },
+    {
+      "name": "postgresql initializer operations0",
+      "passed": true
+    },
+    {
+      "name": "postgresql external success evidence",
+      "passed": true
+    },
+    {
+      "name": "postgresql actual affinity/runtime env",
+      "passed": true
+    },
+    {
+      "name": "postgresql exact actual command flags",
+      "passed": true
+    },
+    {
+      "name": "postgresql command path binding",
+      "passed": true
+    },
+    {
+      "name": "postgresql executable independent hash",
+      "passed": true
+    },
+    {
+      "name": "postgresql core frozen runtime fields",
+      "passed": true
+    },
+    {
+      "name": "postgresql full ordered manifest coverage",
+      "passed": true
+    },
+    {
+      "name": "postgresql fixed dataset/result dimensions",
+      "passed": true
+    },
+    {
+      "name": "postgresql build revision identity",
+      "passed": true
+    },
+    {
+      "name": "postgresql Linux amd64 native build",
+      "passed": true
+    },
+    {
+      "name": "postgresql one driver only",
+      "passed": true
+    },
+    {
+      "name": "postgresql pinned driver version",
+      "passed": true
+    },
+    {
+      "name": "postgresql exclusive provider build tags",
+      "passed": true
+    },
+    {
+      "name": "PostgreSQL version/isolation/exec-cache policy",
+      "passed": true
+    },
+    {
+      "name": "PostgreSQL real owner lifetime and successful shutdown",
+      "passed": true
+    },
+    {
+      "name": "PostgreSQL server affinity",
+      "passed": true
+    },
+    {
+      "name": "PostgreSQL frozen durability/locale",
+      "passed": true
+    },
+    {
+      "name": "postgresql nonnegative integral raw counts",
+      "passed": true
+    },
+    {
+      "name": "postgresql fixed planned/attempted population",
+      "passed": true
+    },
+    {
+      "name": "postgresql admission/drain identities",
+      "passed": true
+    },
+    {
+      "name": "postgresql no business/oracle/retry/cleanup failures",
+      "passed": true
+    },
+    {
+      "name": "postgresql real observed application connections zero",
+      "passed": true
+    },
+    {
+      "name": "postgresql top-level totals agree",
+      "passed": true
+    },
+    {
+      "name": "postgresql no duplicate nested case population",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case numeric",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case text",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case money",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case json",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case wide",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case optional-filter",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case range",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case left-join",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case inner-join",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case null-notes",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case literal-note",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case customer-totals",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case product-totals",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case empty-sum",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case cursor",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case offset",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case exists",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case in-subquery",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case cte",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case window",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case union-all",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case union",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case intersect",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case except",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case running-total",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case three-join",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case anti-association",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case nullable-order",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case raw-sql",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case related",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case tx-commit",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case tx-rollback",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case partial-update",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case stale-conflict",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent case early-stop",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent weighted rows/SQL",
+      "passed": true,
+      "detail": {
+        "rows": 157833343,
+        "sql": 10533858
+      }
+    },
+    {
+      "name": "postgresql sum of case populations",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent global successful digest XOR",
+      "passed": true,
+      "detail": "9bb99dba0f17ed2a"
+    },
+    {
+      "name": "postgresql four histogram populations",
+      "passed": true
+    },
+    {
+      "name": "postgresql successful/all-terminal populations identical",
+      "passed": true
+    },
+    {
+      "name": "postgresql independently selected SuccessServiceHistogram quantiles",
+      "passed": true
+    },
+    {
+      "name": "postgresql independently selected SuccessScheduledHistogram quantiles",
+      "passed": true
+    },
+    {
+      "name": "postgresql contiguous full second indices",
+      "passed": true
+    },
+    {
+      "name": "postgresql all1800 offered seconds scheduled and progressing",
+      "passed": true
+    },
+    {
+      "name": "postgresql no offered work fabricated after deadline",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent per-second totals",
+      "passed": true,
+      "detail": {
+        "Planned": 6480000,
+        "Sent": 6468551,
+        "Started": 6468551,
+        "Succeeded": 6468551,
+        "Failed": 0,
+        "Rejected": 11449,
+        "Rows": 157833343
+      }
+    },
+    {
+      "name": "postgresql per-second counts nonnegative integers",
+      "passed": true
+    },
+    {
+      "name": "postgresql continuous1800s clock then complete drain",
+      "passed": true
+    },
+    {
+      "name": "postgresql raw monotonic boundary consistency",
+      "passed": true
+    },
+    {
+      "name": "postgresql external command encloses actual operations",
+      "passed": true
+    },
+    {
+      "name": "postgresql command finite timeout not reached",
+      "passed": true
+    },
+    {
+      "name": "postgresql independently computed allocation delta",
+      "passed": true
+    },
+    {
+      "name": "postgresql independently computed process GC delta",
+      "passed": true
+    },
+    {
+      "name": "postgresql offered-end memory within operation boundary",
+      "passed": true
+    },
+    {
+      "name": "postgresql independent CPU deltas",
+      "passed": true
+    },
+    {
+      "name": "postgresql throughput/CPU/alloc successful denominators",
+      "passed": true
+    },
+    {
+      "name": "postgresql actual post-disposal idle interval",
+      "passed": true
+    },
+    {
+      "name": "postgresql idle without forced collection",
+      "passed": true
+    },
+    {
+      "name": "postgresql RSS and wait4 resource endpoints available",
+      "passed": true
+    },
+    {
+      "name": "postgresql wait4 CPU covers measured process CPU",
+      "passed": true
+    },
+    {
+      "name": "postgresql external retained file go-c8.stdout.log",
+      "passed": true
+    },
+    {
+      "name": "postgresql external retained file go-c8.resources.jsonl",
+      "passed": true
+    },
+    {
+      "name": "postgresql sampled resource interval encloses steady window",
+      "passed": true
+    },
+    {
+      "name": "actual Go operation intervals nonoverlapping",
+      "passed": true
+    },
+    {
+      "name": "actual Go whole command intervals nonoverlapping",
+      "passed": true
+    },
+    {
+      "name": "actual post-disposal idle finishes before next Go operation",
+      "passed": true
+    }
+  ],
+  "failedChecks": [],
+  "serial": {
+    "wholeCommandGapSeconds": 2.677236293,
+    "idleToNextOperationGapSeconds": 2.893954,
+    "campaignStartedUtc": "2026-11-26T13:09:30.746217+00:00",
+    "campaignFinishedUtc": "2026-11-26T14:10:04.739801+00:00"
+  },
+  "limitations": [
+    "Same visible hostname/boot and frozen workload are verified; exclusive physical tenancy and inaccessible cgroup quotas are not established.",
+    "SQL count is successful business SQL/control API calls, not provider-internal dispatches, wire replies or physical RTT.",
+    "Go TotalAlloc/NumGC are runtime-specific heap/cycle observations; no .NET generation equivalence or framework-only allocation claim.",
+    "Peak RSS is whole-command wait4; idle is actual post-close observation without forced GC; CPU is client operations through admitted-work drain.",
+    "Per-operation raw DTO values are not persisted; fixed executable/source and per-operation validation code support the aggregate result/oracle evidence."
+  ],
+  "historicalComparisonSource": "https://github.com/IzuSharp/Plan/blob/03efe57ffbe3046bd89919ddb2c16c90a377954d/ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-metrics-01.json"
+}

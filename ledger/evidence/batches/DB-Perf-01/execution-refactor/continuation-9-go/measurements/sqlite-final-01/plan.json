@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "provider": "sqlite",
+  "lane": "go-final",
+  "scope": "Only Go receives new timed workload; prior Korda/Dapper cells are not rerun",
+  "longRunAcceptance": false,
+  "inputs": {
+    "referencePlan": {
+      "path": "/workspace/scratch/fd78534029f7/measurements/plans/sqlite-final-01.json",
+      "sha256": "2cc385eebeb2d02b23dee2dd29559a667ea2723051967928ac8bd24a45684718"
+    },
+    "runner": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+      "sha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86"
+    },
+    "manifest": {
+      "path": "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+      "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2"
+    },
+    "consumer": {
+      "path": "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+      "sha256": "11d6ffcfcc93a1d4459d6da2f92c6e7b7d48ce788ff26ac4ca331cca02defd2a"
+    },
+    "fixture": {
+      "path": "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+      "sha256": "1ce8d74112e6dff217bb69d39c1f939474d04617b4f7961fb4e9b7edc5bf8953"
+    },
+    "generator": {
+      "path": "/workspace/scratch/166b48a091b9/worktrees/DB-Go-01-korda/benchmarks/db-perf/go/make_plan.py",
+      "sha256": "2c64682c7057fa228bd26e1fb4f46b0d7658ac79b6cd170a69d6b86bd0610adf"
+    },
+    "sqliteLibrary": {
+      "path": "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so",
+      "sha256": "2f693e43707c8174c862283185610abca5c671bbf17b6b1af7866bfbcd290282"
+    }
+  },
+  "manifestCaseNames": [
+    "numeric",
+    "text",
+    "money",
+    "json",
+    "wide",
+    "optional-filter",
+    "range",
+    "left-join",
+    "inner-join",
+    "null-notes",
+    "literal-note",
+    "customer-totals",
+    "product-totals",
+    "empty-sum",
+    "cursor",
+    "offset",
+    "exists",
+    "in-subquery",
+    "cte",
+    "window",
+    "union-all",
+    "union",
+    "intersect",
+    "except",
+    "running-total",
+    "three-join",
+    "anti-association",
+    "nullable-order",
+    "raw-sql",
+    "related",
+    "tx-commit",
+    "tx-rollback",
+    "partial-update",
+    "stale-conflict",
+    "early-stop"
+  ],
+  "mixedDataset": {
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "requestedRows": 32,
+    "batchRows": 32
+  },
+  "affinity": {
+    "client": "0-3",
+    "postgres": "4-7",
+    "observer": "8"
+  },
+  "commands": [
+    {
+      "name": "fixture-mixed",
+      "cohort": "fixture-only",
+      "phase": "fixture",
+      "timingRequested": false,
+      "longRunAcceptance": false,
+      "comparisonRole": "setup-only-no-Korda-timing-credit",
+      "argv": [
+        "/workspace/scratch/fd78534029f7/builds/candidate-sqlite-02/consumer-workload/out/DbPerf.Korda",
+        "--connection",
+        "{connection}",
+        "--case",
+        "mixed",
+        "--cases",
+        "numeric,text,money,json,wide,optional-filter,range,left-join,inner-join,null-notes,literal-note,customer-totals,product-totals,empty-sum,cursor,offset,exists,in-subquery,cte,window,union-all,union,intersect,except,running-total,three-join,anti-association,nullable-order,raw-sql,related,tx-commit,tx-rollback,partial-update,stale-conflict,early-stop",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "1",
+        "--rows",
+        "32",
+        "--batch-rows",
+        "32",
+        "--tenants",
+        "8",
+        "--orders-per-tenant",
+        "1024",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--initialize",
+        "--operations",
+        "0"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 600
+    },
+    {
+      "name": "go-c4",
+      "cohort": "go",
+      "phase": "final",
+      "timingRequested": true,
+      "longRunAcceptance": false,
+      "argv": [
+        "env",
+        "GOGC=100",
+        "GOMEMLIMIT=off",
+        "GODEBUG=",
+        "/workspace/scratch/166b48a091b9/go-comparison-01/build/db-perf-go-sqlite",
+        "--provider",
+        "sqlite",
+        "--connection",
+        "{connection}",
+        "--manifest",
+        "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/workload/queries-v3.json",
+        "--concurrency",
+        "4",
+        "--gomaxprocs",
+        "4",
+        "--warmup",
+        "64",
+        "--queue-capacity",
+        "64",
+        "--seconds",
+        "1800",
+        "--rate",
+        "3000",
+        "--idle-seconds",
+        "15",
+        "--output",
+        "{output}/go-c4.json",
+        "--native-library",
+        "/workspace/scratch/4a65d70f0fe1/consumers/direct-native/libsqlite3.so"
+      ],
+      "cpus": "0-3",
+      "timeoutSeconds": 2115
+    }
+  ],
+  "runnerCommand": [
+    "taskset",
+    "-c",
+    "8",
+    "python3",
+    "/tmp/DB-Exec-10-pack-sqlite-02/benchmarks/db-perf/run.py",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/plans/sqlite-final-01.json",
+    "--output",
+    "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01"
+  ],
+  "runtimePolicy": {
+    "GOMAXPROCS": 4,
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": "",
+    "prepared": "SQLite retained read statements; pgx exec mode, no retained PG statements"
+  },
+  "connection": "/workspace/scratch/166b48a091b9/go-comparison-01/measurements/sqlite-final-01/fixture.sqlite"
+}
