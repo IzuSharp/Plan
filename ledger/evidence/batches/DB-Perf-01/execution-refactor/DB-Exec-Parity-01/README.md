@@ -15,7 +15,7 @@ The original [observation checkpoint](initial-observation-checkpoint.md) is pres
 - Repeated interleaved runtime spin sensitivity; it is a causal diagnostic only, never a shipped setting or final acceptance configuration.
 - PostgreSQL message order/bytes from proxy, actual poll/stage timing separately from direct connection; proxy-induced extra polls explicitly excluded.
 
-Full raw archives and actual binary archives are currently retained at the task workspace and being persisted to this branch in bounded Git archive parts. Their manifests distinguish local retention from remote publication; this documentation checkpoint must not be mistaken for completed artifact upload. No completed work should be restarted merely because its raw bundle upload is pending.
+The five byte-verified raw/source/actual-binary archives are represented by91 ordered parts under `raw-archives`, with exact expanded-file manifests and `restore_evidence.py`. The containing commit and upload receipt establish remote persistence; local preparation alone does not. Newer PG analysis03 is authoritative over earlier request-scope versions retained in the initial raw snapshot. The original source and actual artifacts keep their original hashes.
 
 ## Continue from here
 
@@ -24,3 +24,7 @@ Implement the measured common completion boundary first, with independent provid
 The remaining acceptance is explicit: adequate same-condition mixed before evidence, zero-refusal cost, pressure ramp and historical rate comparison, frozen selected candidate, four serial1800-second ordinary Release Native AOT mixed35 cells (warmup extra), independent review, normal task PR merges, unchanged existing CI/release selection and real public NuGet AOT consumption. Current long-campaign credit is **0/4**.
 
 All profiling, calibration, benchmarks and pressure runs stay local Linux x64. No workflow or indirect CI performance invocation is added. Before product push inspect the committed diff with `python3 eng/ci/impact.py origin/main --output artifacts/plan.json` and explain independent top-level package selections.
+
+## First causal screen
+
+The first two interleaved ordinary phase rounds are complete for the isolated common completion, SQLite flags and PostgreSQL hook candidates. See phase-2/causal-a-phase-ab-02.json and full phase-ab-receipts.tar.gz with byte-verified manifest. No thousand-row CPU/latency improvement is stable across both rounds for the common/PG candidates; adoption is pending, not implied by passing correctness. SQLite has a repeatable lookaside/allocation mechanism result but no stable thousand-row endpoint gain yet. Mechanism timelines and process allocator confirmation come next. The failed first attempt requested unsupported32 from the unchanged phase consumer; it is preserved explicitly, with no candidate or full-A/B credit.
