@@ -1,0 +1,25 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "createdUtc": "2026-11-26T19:24:52.947237+00:00",
+  "kind": "Independent source-only review of ready-row context regression suite",
+  "reviewedHead": "498fb329c897dac8d58479d218969eff99eeb8e5",
+  "productCandidate": "bd9c307434d1d901752fd4353758041e38510ef1",
+  "sourceHashes": {
+    "tests/Data.Streaming/ReadyRowContextChecks.cs": "e7957efd163d1ce7d3d3e910cf5e148858710ea21bca70b2b16d842f3f49504a",
+    "tests/Data.Streaming/Program.cs": "4f9bc024544711a52ca36c57b5c10ce704e8a8ff98d6592559689fe3400f871f",
+    "src/Data.Streaming/TypedStream.cs": "2fd0027f62b11d61589082f3d4c034705aecaa30d23c38118363fbe926fea783"
+  },
+  "result": "No source-level blocker found; actual original-product overlay and candidate AOT runs remain required",
+  "observations": [
+    "The second row of a three-row single batch reaches the ready branch, after initial MoveAsync populated _transport and _batch.",
+    "SynchronousContext is a synchronous test helper and checks caller context immediately after MoveNextAsync, before consuming the ValueTask; an outer async builder cannot mask leakage.",
+    "NegativeControls proves ordinary synchronous mapping leaks AsyncLocal/SynchronizationContext and ValueTask.FromException(OperationCanceledException) is faulted rather than canceled.",
+    "Both flow suppression states and plain exception/OCE with and without token are covered; failure object identity and cleanup entry mapper context are observed.",
+    "DelayedCleanup covers mapper error/cancellation with successful/failed native retirement, move and Dispose completion fences, public synchronous admission error priority, original error annotation and shared cleanup failure.",
+    "DisposeDuringReadyMapping holds the admitted second mapper on a worker while Dispose waits, verifying the native batch stays active and the admitted owned result remains available.",
+    "The 32-row case uses [32,0] batches and the 33-row case [32,1], covering full-batch EOF and next-batch materialization; quota checks verify no second mapper executes before buffered admission."
+  ],
+  "executionCredit": false,
+  "performanceCredit": false,
+  "noBuildOrMeasurementRunByReviewer": true
+}

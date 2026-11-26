@@ -1,6 +1,6 @@
 # DB-Exec-Parity-01 — measured execution-path reconstruction
 
-Status: **the dual-provider measured Stage 1 gate is complete; ranked causal experiments may begin.** Product source is still unchanged at this checkpoint. No final performance or parity acceptance is claimed.
+Status: **Stage 1 is complete and repeated causal experiments are under way.** Read [the current continuation](phase-2/continuation-20261126.md) and [live recovery](live-recovery.md). The main product integration, final campaign and release acceptance remain pending; no parity claim is made.
 
 Read the [combined measured stage table](phase-1/phase-1-measured-gate.md) first. It binds the ordinary four-route phase costs, actual engine/protocol/copy counts, per-thread timeline, sampling and allocation scopes to correctness contracts and the next candidate. The [independent common-candidate review](phase-1/common-candidate-review-01.md) preserves the rejected inline-completion counterexample and specifies the safe publication boundary required for the new experiment.
 
@@ -19,7 +19,7 @@ The five byte-verified raw/source/actual-binary archives are represented by91 or
 
 ## Continue from here
 
-Implement the measured common completion boundary first, with independent provider-specific native allocation experiments isolated by source/ELF identity. One hypothesis at a time: verify the intended counts/CPU/bytes, then ordinary same-host interleaved endpoint A/B and relevant correctness/AOT package gates. Record adopted/rejected strategies in Design and preserve every failed attempt.
+The common completion, SQLite flags, PG hooks, read-lease and decimal-codec experiments now have distinct outcomes in the current continuation. Continue the ready-row and concentrated relation-allocation investigations without rerunning completed gates. One hypothesis at a time: verify the intended counts/CPU/bytes, then ordinary same-host interleaved endpoint A/B and relevant correctness/AOT package gates. Record adopted/rejected strategies in Design and preserve every failed attempt.
 
 The remaining acceptance is explicit: adequate same-condition mixed before evidence, zero-refusal cost, pressure ramp and historical rate comparison, frozen selected candidate, four serial1800-second ordinary Release Native AOT mixed35 cells (warmup extra), independent review, normal task PR merges, unchanged existing CI/release selection and real public NuGet AOT consumption. Current long-campaign credit is **0/4**.
 

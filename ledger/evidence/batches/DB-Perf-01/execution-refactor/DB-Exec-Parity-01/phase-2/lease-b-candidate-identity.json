@@ -1,0 +1,21 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "candidate": "lease-b",
+  "sourceCommit": "06ca0cbd6226f978b0c2080981b4dbc2019e22e0",
+  "sourceTree": "c9e98b8456a1dd0a351467d3481fd36a14aee3f8",
+  "sourceStatus": "",
+  "patch": "diff --git a/src/Data.Streaming/StreamTransport.cs b/src/Data.Streaming/StreamTransport.cs\nindex 9092758..8410338 100644\n--- a/src/Data.Streaming/StreamTransport.cs\n+++ b/src/Data.Streaming/StreamTransport.cs\n@@ -81,7 +81,9 @@ internal void EndRead(long generation)\n             _readers--;\n             release = _readers == 0 && !_active ? Detach() : 0;\n         }\n-        Release(release);\n+        // Active storage or another admitted reader still owns retirement.\n+        // Close/Dispose or the final inactive reader performs physical release.\n+        if (release != 0) Release(release);\n     }\n     private void Release(nint owner)\n     {\n",
+  "files": {
+    "analysis/lease-b-plan.md": "a67e4fffca148183e12ac8ac55493586f50d5a5086c4f16f6f0d7c5a9f105e34",
+    "analysis/lease-b-count-gate.json": "45c6c06c51aaeaaa1d61e00d335b09fde1ee1a6d6cfff1bad4bbf53290d1aa93",
+    "analysis/lease-b-machine-01/identity.json": "0c633c67af79256b3da4438b66ed4d48e5725b559e53207bafe44f04768c92d0",
+    "builds/lease-b-streaming-correctness-02/receipt.json": "f36b609b6f2b1bf23ed8c8dbd9824b6901fca1d7d05e29d1bf2c09f600ce2cf0",
+    "builds/lease-b-streaming-correctness/receipt.json": "1c46b5768cdee24df9521a53254103d725f5224875e6b197a397792e95576e62",
+    "builds/lease-b-sqlite/build-receipt.json": "8235f4f01ed0dd714a5c7315786e05de52c07183202f3b22227cc7548f2fd0c6",
+    "builds/lease-b-diagnostic-sqlite/build-receipt.json": "6942596ede48d449ac326682c40c8c8355090c68159d7853a120443e43837740",
+    "builds/lease-b-postgresql/build-receipt.json": "c3bd7b770785fc0445455dfa219c12b52f048169b588ae150070657a2c706944",
+    "builds/lease-b-diagnostic-postgresql/build-receipt.json": "ce2ed5ef4d6b7141dedbac923248985f9d771fa052b5df657f70229bfef1a08a"
+  },
+  "publication": false,
+  "performanceAccepted": false
+}

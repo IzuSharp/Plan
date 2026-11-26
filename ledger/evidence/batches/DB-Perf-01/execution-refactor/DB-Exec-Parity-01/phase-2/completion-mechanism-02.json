@@ -1,0 +1,943 @@
+{
+  "scope": "Independent diagnostic original-delegate completion mechanism. No ordinary CPU, latency or allocation credit.",
+  "clock": "Consumer Stopwatch frequency 1GHz and marker CLOCK_MONOTONIC define warm window membership; raw clock defines within-generation ordering.",
+  "limitations": [
+    "GetResult brackets prove consumption occurred inside the setter when contained on the same TID; they do not measure the entire continuation.",
+    "Different TID is a handoff witness, not a kernel wakeup-cause attribution.",
+    "Observed native-ready/managed thread separation is checked for each generation; global runqueue remains unknown.",
+    "Instrumentation adds clocks, P/Invoke and counters; only the separate ordinary A/B determines adoption."
+  ],
+  "records": [
+    {
+      "provider": "sqlite",
+      "variant": "baseline",
+      "resultSha256": "af3655e6774b9466ac9156b30b18f1c1e98ab538b5ea3e7a306eb0d24d82e1d2",
+      "executableSha256": "53cffdb7fc16e73e6c8c08eb735fcac75ab5f919654bd063410663697206dadb",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "manifestSha256": "b79bbbf75de8ec80102139324e4c7381956bfb7c7090f64d45ad34804583fccb",
+      "marksSha256": "6ac7f4dace3731cced3d669e76814c71f1f41a179d34dbbbd3786560c81fa854",
+      "markerRecords": 125770,
+      "reportedPerfLoss": {
+        "kernel_lost_records": 0,
+        "kernel_lost_samples": 0,
+        "ring_overruns": 0,
+        "output_dropped_records": 0,
+        "perf_read_lost_samples": 0,
+        "malformed_records": 0
+      },
+      "counts": {
+        "pullGenerations": 6144,
+        "registeredBeforeSetter": 5993,
+        "sameThreadOutsideSetter": 4655,
+        "differentSetterAndConsumerThread": 1489,
+        "synchronousAlreadyComplete": 131,
+        "registeredAfterSetter": 9,
+        "registrationRace": 11
+      },
+      "windows": [
+        {
+          "route": "fluent",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1009,
+            "sameThreadOutsideSetter": 718,
+            "differentSetterAndConsumerThread": 306,
+            "synchronousAlreadyComplete": 10,
+            "registeredAfterSetter": 2,
+            "registrationRace": 3
+          },
+          "threads": {
+            "setter": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "getResult": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1011,
+            "sameThreadOutsideSetter": 750,
+            "differentSetterAndConsumerThread": 274,
+            "synchronousAlreadyComplete": 11,
+            "registeredAfterSetter": 2
+          },
+          "threads": {
+            "setter": [
+              17,
+              19,
+              22,
+              23
+            ],
+            "getResult": [
+              17,
+              19,
+              22,
+              23
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 994,
+            "sameThreadOutsideSetter": 814,
+            "differentSetterAndConsumerThread": 210,
+            "synchronousAlreadyComplete": 26,
+            "registrationRace": 4
+          },
+          "threads": {
+            "setter": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "getResult": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 996,
+            "sameThreadOutsideSetter": 765,
+            "differentSetterAndConsumerThread": 259,
+            "registrationRace": 3,
+            "synchronousAlreadyComplete": 25
+          },
+          "threads": {
+            "setter": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "getResult": [
+              16,
+              17,
+              19,
+              22,
+              23
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1019,
+            "sameThreadOutsideSetter": 867,
+            "differentSetterAndConsumerThread": 157,
+            "registeredAfterSetter": 1,
+            "synchronousAlreadyComplete": 4
+          },
+          "threads": {
+            "setter": [
+              16,
+              17,
+              19,
+              22
+            ],
+            "getResult": [
+              16,
+              17,
+              19,
+              22
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        },
+        {
+          "route": "fluent",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 964,
+            "sameThreadOutsideSetter": 741,
+            "differentSetterAndConsumerThread": 283,
+            "registeredAfterSetter": 4,
+            "synchronousAlreadyComplete": 55,
+            "registrationRace": 1
+          },
+          "threads": {
+            "setter": [
+              16,
+              17,
+              19,
+              22
+            ],
+            "getResult": [
+              16,
+              17,
+              19,
+              22
+            ],
+            "nativeReady": [
+              9,
+              10,
+              11
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "variant": "candidate",
+      "resultSha256": "1444568710dbfc3fc8c7ea9080f6f5b963ed7913c248afefac038c50695d3e86",
+      "executableSha256": "a53095e5bbfc35b98493ef837add992f00141b2fa78b4c5bd5698e1fdcfc3d5a",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "manifestSha256": "8875785105424ea958a76b4c509e27874166bd9e47710c79db254d8a5e57daa2",
+      "marksSha256": "ca3820549d4828274b2938ccd973a6579f6b3badb942c5f433fb02bb32776117",
+      "markerRecords": 126336,
+      "reportedPerfLoss": {
+        "kernel_lost_records": 0,
+        "kernel_lost_samples": 0,
+        "ring_overruns": 0,
+        "output_dropped_records": 0,
+        "perf_read_lost_samples": 0,
+        "malformed_records": 0
+      },
+      "counts": {
+        "pullGenerations": 6144,
+        "registeredBeforeSetter": 5667,
+        "getResultInsideSetter": 5670,
+        "registeredBeforeSetterInsideSetter": 5667,
+        "synchronousAlreadyComplete": 444,
+        "differentSetterAndConsumerThread": 449,
+        "registeredAfterSetter": 12,
+        "sameThreadOutsideSetter": 25,
+        "registrationRace": 21,
+        "registrationRaceInsideSetter": 3
+      },
+      "windows": [
+        {
+          "route": "fluent",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 975,
+            "getResultInsideSetter": 975,
+            "registeredBeforeSetterInsideSetter": 975,
+            "synchronousAlreadyComplete": 44,
+            "differentSetterAndConsumerThread": 47,
+            "registeredAfterSetter": 3,
+            "sameThreadOutsideSetter": 2,
+            "registrationRace": 2
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 985,
+            "getResultInsideSetter": 986,
+            "registeredBeforeSetterInsideSetter": 985,
+            "synchronousAlreadyComplete": 33,
+            "differentSetterAndConsumerThread": 34,
+            "registeredAfterSetter": 1,
+            "sameThreadOutsideSetter": 4,
+            "registrationRace": 5,
+            "registrationRaceInsideSetter": 1
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 847,
+            "getResultInsideSetter": 848,
+            "registeredBeforeSetterInsideSetter": 847,
+            "synchronousAlreadyComplete": 175,
+            "differentSetterAndConsumerThread": 176,
+            "registeredAfterSetter": 1,
+            "registrationRace": 1,
+            "registrationRaceInsideSetter": 1
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "synchronousAlreadyComplete": 97,
+            "differentSetterAndConsumerThread": 97,
+            "registeredBeforeSetter": 924,
+            "getResultInsideSetter": 924,
+            "registeredBeforeSetterInsideSetter": 924,
+            "registeredAfterSetter": 2,
+            "sameThreadOutsideSetter": 3,
+            "registrationRace": 1
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 951,
+            "getResultInsideSetter": 952,
+            "registeredBeforeSetterInsideSetter": 951,
+            "synchronousAlreadyComplete": 59,
+            "differentSetterAndConsumerThread": 59,
+            "registeredAfterSetter": 4,
+            "sameThreadOutsideSetter": 13,
+            "registrationRace": 10,
+            "registrationRaceInsideSetter": 1
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        },
+        {
+          "route": "fluent",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 985,
+            "getResultInsideSetter": 985,
+            "registeredBeforeSetterInsideSetter": 985,
+            "synchronousAlreadyComplete": 36,
+            "differentSetterAndConsumerThread": 36,
+            "registeredAfterSetter": 1,
+            "sameThreadOutsideSetter": 3,
+            "registrationRace": 2
+          },
+          "threads": {
+            "setter": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "getResult": [
+              36,
+              37,
+              39,
+              40
+            ],
+            "nativeReady": [
+              29,
+              30,
+              31
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "variant": "baseline",
+      "resultSha256": "18f1477556d5b2126e29495a00229fd06c80d909d3970b9d701957a37a3f039f",
+      "executableSha256": "ad842346414a7ff80a7d71c24a443693b1e4c7bee0317166edb4ac2993ed9fa1",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "manifestSha256": "8e5bcf168e21714cea903298e673cbf948664a1b6ae3824e3852fe72a036236f",
+      "marksSha256": "4800a2c6d0534216c5e0cd232d2d9ee2217624037b85cf0ec6bee368bf921470",
+      "markerRecords": 126306,
+      "reportedPerfLoss": {
+        "kernel_lost_records": 0,
+        "kernel_lost_samples": 0,
+        "ring_overruns": 0,
+        "output_dropped_records": 0,
+        "perf_read_lost_samples": 0,
+        "malformed_records": 0
+      },
+      "counts": {
+        "pullGenerations": 6144,
+        "registeredBeforeSetter": 5889,
+        "sameThreadOutsideSetter": 4556,
+        "differentSetterAndConsumerThread": 1588,
+        "synchronousAlreadyComplete": 235,
+        "registrationRace": 12,
+        "registeredAfterSetter": 8
+      },
+      "windows": [
+        {
+          "route": "fluent",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1003,
+            "sameThreadOutsideSetter": 731,
+            "differentSetterAndConsumerThread": 293,
+            "synchronousAlreadyComplete": 18,
+            "registrationRace": 2,
+            "registeredAfterSetter": 1
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 972,
+            "differentSetterAndConsumerThread": 237,
+            "sameThreadOutsideSetter": 787,
+            "synchronousAlreadyComplete": 50,
+            "registrationRace": 2
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 932,
+            "differentSetterAndConsumerThread": 347,
+            "sameThreadOutsideSetter": 677,
+            "registeredAfterSetter": 5,
+            "synchronousAlreadyComplete": 86,
+            "registrationRace": 1
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 987,
+            "differentSetterAndConsumerThread": 254,
+            "sameThreadOutsideSetter": 770,
+            "synchronousAlreadyComplete": 31,
+            "registeredAfterSetter": 2,
+            "registrationRace": 4
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 994,
+            "sameThreadOutsideSetter": 787,
+            "differentSetterAndConsumerThread": 237,
+            "registrationRace": 3,
+            "synchronousAlreadyComplete": 27
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        },
+        {
+          "route": "fluent",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1001,
+            "differentSetterAndConsumerThread": 220,
+            "sameThreadOutsideSetter": 804,
+            "synchronousAlreadyComplete": 23
+          },
+          "threads": {
+            "setter": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "getResult": [
+              48,
+              49,
+              52,
+              55
+            ],
+            "nativeReady": [
+              41,
+              42,
+              43
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "variant": "candidate",
+      "resultSha256": "adabcfd0ce653fb406f8b55867bb249417f5f60bcb98a09377619d4495240e77",
+      "executableSha256": "27ebeef044b9ca086e6f9ac9a064fd0145fd30dbcfdecc7fd693f040dd90735c",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "manifestSha256": "643840e66b4545537cf6136e0eb06d26e0410edacbab20fefc7bd6ae991b049b",
+      "marksSha256": "bb2190995fc8332f757cbc3d63db8672b9e03feb9f6f6f393f1df55962d95c11",
+      "markerRecords": 126162,
+      "reportedPerfLoss": {
+        "kernel_lost_records": 0,
+        "kernel_lost_samples": 0,
+        "ring_overruns": 0,
+        "output_dropped_records": 0,
+        "perf_read_lost_samples": 0,
+        "malformed_records": 0
+      },
+      "counts": {
+        "pullGenerations": 6144,
+        "registeredBeforeSetter": 5627,
+        "getResultInsideSetter": 5630,
+        "registeredBeforeSetterInsideSetter": 5627,
+        "synchronousAlreadyComplete": 490,
+        "differentSetterAndConsumerThread": 492,
+        "registeredAfterSetter": 16,
+        "sameThreadOutsideSetter": 22,
+        "registrationRace": 11,
+        "registrationRaceInsideSetter": 3
+      },
+      "windows": [
+        {
+          "route": "fluent",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1024,
+            "getResultInsideSetter": 1024,
+            "registeredBeforeSetterInsideSetter": 1024
+          },
+          "threads": {
+            "setter": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 1012,
+            "getResultInsideSetter": 1012,
+            "registeredBeforeSetterInsideSetter": 1012,
+            "synchronousAlreadyComplete": 11,
+            "differentSetterAndConsumerThread": 11,
+            "registeredAfterSetter": 1,
+            "sameThreadOutsideSetter": 1
+          },
+          "threads": {
+            "setter": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 0,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 841,
+            "getResultInsideSetter": 843,
+            "registeredBeforeSetterInsideSetter": 841,
+            "synchronousAlreadyComplete": 170,
+            "differentSetterAndConsumerThread": 170,
+            "registeredAfterSetter": 5,
+            "sameThreadOutsideSetter": 11,
+            "registrationRace": 8,
+            "registrationRaceInsideSetter": 2
+          },
+          "threads": {
+            "setter": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        },
+        {
+          "route": "prepared",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 987,
+            "getResultInsideSetter": 988,
+            "registeredBeforeSetterInsideSetter": 987,
+            "synchronousAlreadyComplete": 35,
+            "differentSetterAndConsumerThread": 35,
+            "registeredAfterSetter": 1,
+            "sameThreadOutsideSetter": 1,
+            "registrationRace": 1,
+            "registrationRaceInsideSetter": 1
+          },
+          "threads": {
+            "setter": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        },
+        {
+          "route": "host-sql",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 882,
+            "getResultInsideSetter": 882,
+            "registeredBeforeSetterInsideSetter": 882,
+            "synchronousAlreadyComplete": 134,
+            "differentSetterAndConsumerThread": 135,
+            "registrationRace": 2,
+            "sameThreadOutsideSetter": 7,
+            "registeredAfterSetter": 6
+          },
+          "threads": {
+            "setter": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              70,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        },
+        {
+          "route": "fluent",
+          "index": 1,
+          "operations": 32,
+          "counts": {
+            "pullGenerations": 1024,
+            "registeredBeforeSetter": 881,
+            "getResultInsideSetter": 881,
+            "registeredBeforeSetterInsideSetter": 881,
+            "synchronousAlreadyComplete": 140,
+            "differentSetterAndConsumerThread": 141,
+            "registeredAfterSetter": 3,
+            "sameThreadOutsideSetter": 2
+          },
+          "threads": {
+            "setter": [
+              68,
+              72,
+              73
+            ],
+            "getResult": [
+              68,
+              72,
+              73
+            ],
+            "nativeReady": [
+              61,
+              62,
+              63
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

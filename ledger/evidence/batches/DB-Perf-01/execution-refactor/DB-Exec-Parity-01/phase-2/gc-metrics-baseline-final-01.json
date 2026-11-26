@@ -1,0 +1,425 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Exec-Parity-01",
+  "createdUtc": "2026-11-26T19:24:26.474606+00:00",
+  "kind": "Frozen ordinary baseline workload consumer build identities with process GC pause endpoints",
+  "measurementScope": {
+    "api": "GC.GetTotalPauseDuration().Ticks",
+    "property": "ProcessReading.TotalGcPauseTicks",
+    "unit": "100 ns TimeSpan ticks",
+    "scope": "Cumulative process total at existing process-reading boundaries; process scope only, no per-business, framework or DTO attribution",
+    "forcedGcInOrdinaryConsumers": false,
+    "perRowOrBatchHooksAdded": false,
+    "ordinaryTimingCreditFromBuild": false
+  },
+  "transformation": {
+    "changedFile": "Measurement.cs",
+    "change": "One public init-only long property and initializer calling the API in existing ProcessReading.Read",
+    "allOtherCsFilesUnchanged": true,
+    "sqlAndArrivalAndWarmupUnchanged": true,
+    "originalArtifactsPreserved": true,
+    "helper": "diagnostics/gc-metrics/prepare.py",
+    "driverSha256": "6084ed79071877b76f29a0e251e59cb8aec7a8b49244f0bd7dfcc4acf284717b"
+  },
+  "apiProbe": {
+    "receipt": "builds/gc-metrics-api-probe-01/receipt.json",
+    "receiptSha256": "a669ca7f45dba6cf7c358b0b513df10c7933b9dc1536bc02cb0fb73fabd358d7",
+    "artifacts": {
+      "out/Probe": "8ba99362a08e3898756a7a8938f96c94a53b220aa3dc707b925f6dcdccab94cc",
+      "out/Probe.dbg": "a68b75a048e204c40bba302a85574dd7de5697df2471985fda94ce2350af4a21"
+    },
+    "positive": {
+      "negativeStuckZero": false,
+      "passed": true,
+      "noGcControlPassed": true,
+      "idleBeforeTicks": 1440,
+      "idleAfterTicks": 1440,
+      "actualBeforeTicks": 1440,
+      "actualAfterTicks": 2290,
+      "observedBeforeTicks": 1440,
+      "observedAfterTicks": 2290,
+      "fullCollections": 4,
+      "timeSpanTicksPerSecond": 10000000
+    },
+    "negative": {
+      "negativeStuckZero": true,
+      "passed": false,
+      "noGcControlPassed": true,
+      "idleBeforeTicks": 1600,
+      "idleAfterTicks": 1600,
+      "actualBeforeTicks": 1600,
+      "actualAfterTicks": 2600,
+      "observedBeforeTicks": 0,
+      "observedAfterTicks": 0,
+      "fullCollections": 4,
+      "timeSpanTicksPerSecond": 10000000
+    },
+    "negativeExpectedExitCode": 23,
+    "timingCredit": false
+  },
+  "preservedPreparationFailure": {
+    "path": "consumers/baseline-final-sqlite/korda-workload-attempt-01",
+    "cause": "Initial helper wrongly equated NuGet resolved contentHash with raw archive SHA512 for three SDK packages. Stopped before restore/publish. Corrected helper validates and records both identities separately; original source/cache untouched."
+  },
+  "consumers": [
+    {
+      "provider": "sqlite",
+      "route": "korda",
+      "consumer": "consumers/baseline-final-sqlite/korda-workload",
+      "buildReceipt": "consumers/baseline-final-sqlite/korda-workload/build-receipt.json",
+      "buildReceiptSha256": "515f79539ffd33207ae1c28504695c3b4640c3166d11617224e6dd0cd90c3f59",
+      "sourceConsumer": "consumers/baseline-sqlite/korda-workload",
+      "sourceBuildReceiptSha256": "f8376195f4f778275ce62cc3b8ca0dd967c306b6a3075e33701bd2ec21d4cc23",
+      "driverSha256": "6084ed79071877b76f29a0e251e59cb8aec7a8b49244f0bd7dfcc4acf284717b",
+      "sources": {
+        "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+        "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+        "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+        "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+        "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+        "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+        "Measurement.cs": "4fb70b117c35edf93b00f9e9feeda249904e9d824e56adcb4faa7e23b9c0165c",
+        "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+        "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+        "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+        "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+        "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+        "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+        "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+        "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+      },
+      "originalMeasurementSha256": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+      "unchangedSourceFileCount": 14,
+      "sourcePatchSha256": "25af35e3ec033438500b23b9de61532b56823def2c26b30e4e82b6cd8cdc5bba",
+      "projectSha256": "7e25c6492169eb87e1c62af7fb42ad08cb3e6f6b7c79d4ebd1f1e12fc499ff8b",
+      "workloadManifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "configSha256": {
+        "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "NuGet.Config": "c61d9de6903d4ab826ce0a52c2cd8584796b9fe1a820001e7874383159d440fb"
+      },
+      "artifacts": {
+        "out/DbPerf.Korda": "ad8f483d2b6c75e758b685f099552e127c564a441068c554cdf4cfb858363cea",
+        "out/DbPerf.Korda.dbg": "85e38ff080b1700a4415cbefa380f47611642fecd6d6a62736df9ae1e5c010d2",
+        "out/Korda.database.sqlite.assets.json": "98f186415b9d17900f9b41ec98a7d8a91334110044a70f7d1b43c49133528226",
+        "out/libnw_database_sqlite.so": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53"
+      },
+      "resolvedGraph": {
+        "Korda.Database.Sqlite/0.1.0-ci.1": {
+          "type": "package",
+          "sha512": "gqV2FVRE5ZKZxzRsHeZgnd6jt/bluosSsk+w0SAk0MQJd53wq8nuDsrbE908Rfg14IPxmNtCbzTO+aNuSopOQQ=="
+        },
+        "Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "lw6gUL92db6XPwYsQwaGwrJxgRM0X0qQKl0QkwuZIACMtgH0eFu6jmq6W+/L8qTxQZwggfV/dGjICyMqVHdehg=="
+        },
+        "Microsoft.NET.ILLink.Tasks/11.0.0": {
+          "type": "package",
+          "sha512": "gK2aq4XvChj5kvozpPHrkfKkr7zc5Z4xoTrJb4GPZzDEPMlCk0TX632bwY3LsWcX2UVcVRQBBGzsBGC2lq6YhA=="
+        },
+        "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "HMCCGxJ1Q41NF31M+yWB7h0OAWr0XpiS8ZYMOi/V5IU/864Yi00rLq3M1K3AhE2+q86YJA4V9KZ28NXE+Q/uxA=="
+        }
+      },
+      "rawArchiveComparison": {
+        "matchesOriginalBuildReceipt": true,
+        "packageCount": 1,
+        "packages": {
+          "Korda.Database.Sqlite/0.1.0-ci.1": "403ee3d5af604836199d267d428236d3b0f74c3a5e6759ddba5c4a4dfd8dd998"
+        }
+      },
+      "generatedSourceCount": 65,
+      "generatedProcessReading": {
+        "path": "generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/PerfJson.ProcessReading.g.cs",
+        "sha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d",
+        "serializesTotalGcPauseTicks": true
+      },
+      "packageLockSha256": "6c0b3022d63234211a0e97ed13354e7a98356c86cd695e183d17dcb686513640",
+      "nativeImageComparison": {
+        "unchanged": true,
+        "images": {
+          "libnw_database_sqlite.so": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53"
+        }
+      },
+      "restoredAndPublished": true,
+      "databaseExecutionByThisAgent": false,
+      "timingCredit": false
+    },
+    {
+      "provider": "sqlite",
+      "route": "dapper",
+      "consumer": "consumers/baseline-final-sqlite/dapper-workload",
+      "buildReceipt": "consumers/baseline-final-sqlite/dapper-workload/build-receipt.json",
+      "buildReceiptSha256": "6f2a2104a025d86b72079f2f10dfdecffd1aaeda75faf45a8de191eceae81e82",
+      "sourceConsumer": "consumers/baseline-sqlite/dapper-workload",
+      "sourceBuildReceiptSha256": "a9f36d6a261bfb97d5c043b0dfa62bb12e9e8a6818ce56766b768e68e8aa90f6",
+      "driverSha256": "6084ed79071877b76f29a0e251e59cb8aec7a8b49244f0bd7dfcc4acf284717b",
+      "sources": {
+        "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+        "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+        "Dataset.cs": "afdc154e7531110f51e239b52438ed08ffad2120b244ff8b992be3924acef077",
+        "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+        "Driver.cs": "ff0b6e070c67348e840f6cf1af9c05a156d053a4e8c7e227f8325806292a2227",
+        "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+        "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+        "Measurement.cs": "5df83efdba470829b84057f19d15810b389ce81bfc97434f458d1e773441e6cb",
+        "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+        "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+        "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+        "Options.cs": "d447900271b6528b4ef258bdeafff1772ea830291ff0da026662c80f7e69e73c",
+        "Oracles.cs": "b75223c36c96093491cd5f6bed40a6dacb0ebdd213533187af55a8bef7e97b05",
+        "Program.cs": "a4ca241571058b7d73907a1e75255f96a119799baadd6a64495155a2614b68b6",
+        "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+        "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+        "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+      },
+      "originalMeasurementSha256": "fdf8f6354f3eb33bb9a77030ee050cb846d1d3eca6bcc08512df8b0d6b837952",
+      "unchangedSourceFileCount": 16,
+      "sourcePatchSha256": "1963ae2fd64a73980ebf260f57145fc13d8f75c978e7612d250a82611baf4dc2",
+      "projectSha256": "594e439d768abb36d9439eeafee86d510b199356670e38c59b90a24ccc05bc43",
+      "workloadManifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "configSha256": {
+        "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "NuGet.Config": "adcfbb328ea83d4be70323fef860b6dca198af1feff8ab165db9d08dd245add7"
+      },
+      "artifacts": {
+        "out/DbPerf.Dapper": "bbb1cb529e7e2b61446eb1f41328b28e6f5d9b652e4f75d5af5f28eb55f235d5",
+        "out/DbPerf.Dapper.dbg": "f0a689a376d7801976b26246c3a201af83c9e3ee5f2c89c194625dfb9e99a4d8"
+      },
+      "resolvedGraph": {
+        "Dapper/2.1.100": {
+          "type": "package",
+          "sha512": "zKwgGfxkDIVLGU2WIsl57DwTgj17+fa5v0u2eiVMxU92GXN2fRIn2M8QMGtyGFrPSbVOYKgGFxAxEFL6CB9tTw=="
+        },
+        "Dapper.AOT/1.1.0": {
+          "type": "package",
+          "sha512": "xcvzWs28jBBmQk4VB9fmTbIN3AztSb3KwuUXoWZJfcl5YtKnrN3N+GvXOOLkzZbNKGIcq0tQLch7pWPKUsjSyQ=="
+        },
+        "Microsoft.Data.Sqlite.Core/11.0.0": {
+          "type": "package",
+          "sha512": "aWaF2LDjuFZwE9UsAGRYGNyS48xqaXoKPAjwpJI85fsaM/43s5NTRnl4xtqbTGKq8of2M/W8mo7DJk7v4zzHGQ=="
+        },
+        "Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "lw6gUL92db6XPwYsQwaGwrJxgRM0X0qQKl0QkwuZIACMtgH0eFu6jmq6W+/L8qTxQZwggfV/dGjICyMqVHdehg=="
+        },
+        "Microsoft.NET.ILLink.Tasks/11.0.0": {
+          "type": "package",
+          "sha512": "gK2aq4XvChj5kvozpPHrkfKkr7zc5Z4xoTrJb4GPZzDEPMlCk0TX632bwY3LsWcX2UVcVRQBBGzsBGC2lq6YhA=="
+        },
+        "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "HMCCGxJ1Q41NF31M+yWB7h0OAWr0XpiS8ZYMOi/V5IU/864Yi00rLq3M1K3AhE2+q86YJA4V9KZ28NXE+Q/uxA=="
+        },
+        "SQLitePCLRaw.core/3.0.5": {
+          "type": "package",
+          "sha512": "k81AYXXRCw3Zj8rOhyBoCsx/U97KYDFI2CSKr/ijl5BwpsW/hX/4kBiDmerFaoust8nxBwa0IHQFw8MmSHRtnQ=="
+        },
+        "SQLitePCLRaw.provider.sqlite3/3.0.5": {
+          "type": "package",
+          "sha512": "4g9cyaTdNeeOSKyBtF/jQ5677TVN4S353G8LxITQGzayAjtBc/p6/KbgrJOw8JoQFEBU4uH+x7ZLQpQlU3YCow=="
+        }
+      },
+      "rawArchiveComparison": {
+        "matchesOriginalBuildReceipt": true,
+        "packageCount": 8,
+        "packages": {
+          "Dapper/2.1.100": "62232347d2e19a60162c7231ba2888cce594b8574b6cfb5121336e1a38f432d3",
+          "Dapper.AOT/1.1.0": "7a7d25554f517f928d67bfdc76b08388c65171a06762186dfd527448d2dc2819",
+          "Microsoft.Data.Sqlite.Core/11.0.0": "4ce7240fcbb5dbeac2c2784aa39bf1dee334f89d684ec5d37de7aef3544b3dbe",
+          "Microsoft.DotNet.ILCompiler/11.0.0": "0df6f4c0f2d38cc206a0646110bfd8aaa748c71af4ca4fe67d41d88caa71ba1a",
+          "Microsoft.NET.ILLink.Tasks/11.0.0": "5222303e533aa1e27baf757e65e8af3a67463b85bf8aef69c70d9af75e41422f",
+          "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": "77d250cce60e92c8bebfa78d341e435e136c825fb0c16efa67ceeaafb5ef7d6f",
+          "SQLitePCLRaw.core/3.0.5": "7476b4b8e067d88c4cb598a31893b511037b88e05c28d524f4b4433fe9f69048",
+          "SQLitePCLRaw.provider.sqlite3/3.0.5": "e2d33ffef6f53f8b3b85c4a23ddb6695743b9aef976040d81748dc795916c5c5"
+        }
+      },
+      "generatedSourceCount": 52,
+      "generatedProcessReading": {
+        "path": "generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/PerfJson.ProcessReading.g.cs",
+        "sha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d",
+        "serializesTotalGcPauseTicks": true
+      },
+      "packageLockSha256": "13e0a82fc232a47ce0df8ae9df2b725777ee8b5df2daca67a813cf41fd791455",
+      "nativeImageComparison": null,
+      "restoredAndPublished": true,
+      "databaseExecutionByThisAgent": false,
+      "timingCredit": false
+    },
+    {
+      "provider": "postgresql",
+      "route": "korda",
+      "consumer": "consumers/baseline-final-postgresql/korda-workload",
+      "buildReceipt": "consumers/baseline-final-postgresql/korda-workload/build-receipt.json",
+      "buildReceiptSha256": "108d3951cbaca7fd19f97ae709a68c24e7d409f0fd8f943cbbcbaf957425d8ac",
+      "sourceConsumer": "consumers/baseline-postgresql/korda-workload",
+      "sourceBuildReceiptSha256": "3bbeecbd346529a3e963515a0c691de84584085e1dc9e836524ac86e01f8eb94",
+      "driverSha256": "6084ed79071877b76f29a0e251e59cb8aec7a8b49244f0bd7dfcc4acf284717b",
+      "sources": {
+        "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+        "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+        "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+        "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+        "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+        "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+        "Measurement.cs": "4fb70b117c35edf93b00f9e9feeda249904e9d824e56adcb4faa7e23b9c0165c",
+        "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+        "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+        "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+        "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+        "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+        "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+        "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+        "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+      },
+      "originalMeasurementSha256": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+      "unchangedSourceFileCount": 14,
+      "sourcePatchSha256": "25af35e3ec033438500b23b9de61532b56823def2c26b30e4e82b6cd8cdc5bba",
+      "projectSha256": "7e25c6492169eb87e1c62af7fb42ad08cb3e6f6b7c79d4ebd1f1e12fc499ff8b",
+      "workloadManifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "configSha256": {
+        "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "NuGet.Config": "92fe277e4e88f6e2567fdc8ccd921073073fca0102ce22ed8de46128397a44d6"
+      },
+      "artifacts": {
+        "out/DbPerf.Korda": "03aa9416583feaacb4c269e2119dfa72355d2f376714051dc1e2f96e6f43247d",
+        "out/DbPerf.Korda.dbg": "4b911d07beaf347800d861f463bd57847bfccc52137cfa54b73243c2df043381",
+        "out/Korda.database.postgresql.assets.json": "e2319c15dde2b1813d3ea454a9799a931d0673210a4661e6d87363c4fb7458f9",
+        "out/libnw_database_postgresql.so": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed"
+      },
+      "resolvedGraph": {
+        "Korda.Database.PostgreSql/0.1.0-ci.1": {
+          "type": "package",
+          "sha512": "M0gzCZALrU187xauAfwQjmyxJ5dbKdAJ28z/VNFqhl87+Eg0l7sc5SwMjnvAWwiS2zqjuISVG7GcqCjelVxzcQ=="
+        },
+        "Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "lw6gUL92db6XPwYsQwaGwrJxgRM0X0qQKl0QkwuZIACMtgH0eFu6jmq6W+/L8qTxQZwggfV/dGjICyMqVHdehg=="
+        },
+        "Microsoft.NET.ILLink.Tasks/11.0.0": {
+          "type": "package",
+          "sha512": "gK2aq4XvChj5kvozpPHrkfKkr7zc5Z4xoTrJb4GPZzDEPMlCk0TX632bwY3LsWcX2UVcVRQBBGzsBGC2lq6YhA=="
+        },
+        "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "HMCCGxJ1Q41NF31M+yWB7h0OAWr0XpiS8ZYMOi/V5IU/864Yi00rLq3M1K3AhE2+q86YJA4V9KZ28NXE+Q/uxA=="
+        }
+      },
+      "rawArchiveComparison": {
+        "matchesOriginalBuildReceipt": true,
+        "packageCount": 1,
+        "packages": {
+          "Korda.Database.PostgreSql/0.1.0-ci.1": "199a094ef40ff605736db49bcd7dd4e889d5ffcb2264744ad2a094abf1581347"
+        }
+      },
+      "generatedSourceCount": 65,
+      "generatedProcessReading": {
+        "path": "generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/PerfJson.ProcessReading.g.cs",
+        "sha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d",
+        "serializesTotalGcPauseTicks": true
+      },
+      "packageLockSha256": "6c48c7aae1777ff8a3d6a074dc4bfc8f221cc0e0c91466e9f9c5bd980a49fa7d",
+      "nativeImageComparison": {
+        "unchanged": true,
+        "images": {
+          "libnw_database_postgresql.so": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed"
+        }
+      },
+      "restoredAndPublished": true,
+      "databaseExecutionByThisAgent": false,
+      "timingCredit": false
+    },
+    {
+      "provider": "postgresql",
+      "route": "dapper",
+      "consumer": "consumers/baseline-final-postgresql/dapper-workload",
+      "buildReceipt": "consumers/baseline-final-postgresql/dapper-workload/build-receipt.json",
+      "buildReceiptSha256": "873264d64c9137bd5e15edd61baf79076724afe079016ad296be30d632fb1fd3",
+      "sourceConsumer": "consumers/baseline-postgresql/dapper-workload",
+      "sourceBuildReceiptSha256": "a4024029878cf770cd0303eb2115bc3a30d0bd73a825ed75bf00cc81bfd0dcac",
+      "driverSha256": "6084ed79071877b76f29a0e251e59cb8aec7a8b49244f0bd7dfcc4acf284717b",
+      "sources": {
+        "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+        "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+        "Dataset.cs": "afdc154e7531110f51e239b52438ed08ffad2120b244ff8b992be3924acef077",
+        "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+        "Driver.cs": "ff0b6e070c67348e840f6cf1af9c05a156d053a4e8c7e227f8325806292a2227",
+        "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+        "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+        "Measurement.cs": "5df83efdba470829b84057f19d15810b389ce81bfc97434f458d1e773441e6cb",
+        "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+        "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+        "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+        "Options.cs": "d447900271b6528b4ef258bdeafff1772ea830291ff0da026662c80f7e69e73c",
+        "Oracles.cs": "b75223c36c96093491cd5f6bed40a6dacb0ebdd213533187af55a8bef7e97b05",
+        "Program.cs": "a4ca241571058b7d73907a1e75255f96a119799baadd6a64495155a2614b68b6",
+        "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+        "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+        "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+      },
+      "originalMeasurementSha256": "fdf8f6354f3eb33bb9a77030ee050cb846d1d3eca6bcc08512df8b0d6b837952",
+      "unchangedSourceFileCount": 16,
+      "sourcePatchSha256": "1963ae2fd64a73980ebf260f57145fc13d8f75c978e7612d250a82611baf4dc2",
+      "projectSha256": "594e439d768abb36d9439eeafee86d510b199356670e38c59b90a24ccc05bc43",
+      "workloadManifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+      "configSha256": {
+        "global.json": "c2959c5ec1a0098bc9dd86d272371acec0b10cde1a4d6cc1f9c59993795290f9",
+        "NuGet.Config": "adcfbb328ea83d4be70323fef860b6dca198af1feff8ab165db9d08dd245add7"
+      },
+      "artifacts": {
+        "out/DbPerf.Dapper": "2e8f5e320ebd140b51415d597c3532d0627755dff84db32aa893977fbf15a22a",
+        "out/DbPerf.Dapper.dbg": "098b375caf80eabad4a33fd7341a72ccc93c30641425b629efb89fe0dc56745a"
+      },
+      "resolvedGraph": {
+        "Dapper/2.1.100": {
+          "type": "package",
+          "sha512": "zKwgGfxkDIVLGU2WIsl57DwTgj17+fa5v0u2eiVMxU92GXN2fRIn2M8QMGtyGFrPSbVOYKgGFxAxEFL6CB9tTw=="
+        },
+        "Dapper.AOT/1.1.0": {
+          "type": "package",
+          "sha512": "xcvzWs28jBBmQk4VB9fmTbIN3AztSb3KwuUXoWZJfcl5YtKnrN3N+GvXOOLkzZbNKGIcq0tQLch7pWPKUsjSyQ=="
+        },
+        "Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "lw6gUL92db6XPwYsQwaGwrJxgRM0X0qQKl0QkwuZIACMtgH0eFu6jmq6W+/L8qTxQZwggfV/dGjICyMqVHdehg=="
+        },
+        "Microsoft.NET.ILLink.Tasks/11.0.0": {
+          "type": "package",
+          "sha512": "gK2aq4XvChj5kvozpPHrkfKkr7zc5Z4xoTrJb4GPZzDEPMlCk0TX632bwY3LsWcX2UVcVRQBBGzsBGC2lq6YhA=="
+        },
+        "Npgsql/11.0.0": {
+          "type": "package",
+          "sha512": "ozQ8GJcEAiW6XSKz2RUpdJDvM4l380BdHx/MRB7QJHL2cTH/0js7f/cisCaYMrZvVUj4/HIW80UjXxI+ikQQzQ=="
+        },
+        "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": {
+          "type": "package",
+          "sha512": "HMCCGxJ1Q41NF31M+yWB7h0OAWr0XpiS8ZYMOi/V5IU/864Yi00rLq3M1K3AhE2+q86YJA4V9KZ28NXE+Q/uxA=="
+        }
+      },
+      "rawArchiveComparison": {
+        "matchesOriginalBuildReceipt": true,
+        "packageCount": 6,
+        "packages": {
+          "Dapper/2.1.100": "62232347d2e19a60162c7231ba2888cce594b8574b6cfb5121336e1a38f432d3",
+          "Dapper.AOT/1.1.0": "7a7d25554f517f928d67bfdc76b08388c65171a06762186dfd527448d2dc2819",
+          "Microsoft.DotNet.ILCompiler/11.0.0": "0df6f4c0f2d38cc206a0646110bfd8aaa748c71af4ca4fe67d41d88caa71ba1a",
+          "Microsoft.NET.ILLink.Tasks/11.0.0": "5222303e533aa1e27baf757e65e8af3a67463b85bf8aef69c70d9af75e41422f",
+          "Npgsql/11.0.0": "0ecfa25a72605168fcf46731888da64af776a4c9259abdb6b4cf34cee5fc4f34",
+          "runtime.linux-x64.Microsoft.DotNet.ILCompiler/11.0.0": "77d250cce60e92c8bebfa78d341e435e136c825fb0c16efa67ceeaafb5ef7d6f"
+        }
+      },
+      "generatedSourceCount": 52,
+      "generatedProcessReading": {
+        "path": "generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/PerfJson.ProcessReading.g.cs",
+        "sha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d",
+        "serializesTotalGcPauseTicks": true
+      },
+      "packageLockSha256": "2022fac29ae6505cf341ba7686b6560efb834e0a4783cc4494c435871844346b",
+      "nativeImageComparison": null,
+      "restoredAndPublished": true,
+      "databaseExecutionByThisAgent": false,
+      "timingCredit": false
+    }
+  ],
+  "executionHandoff": "Root owns serial database preflight and timing; builds are not benchmark or correctness execution credit. Select reference-family baseline-final as well as Korda family baseline-final."
+}

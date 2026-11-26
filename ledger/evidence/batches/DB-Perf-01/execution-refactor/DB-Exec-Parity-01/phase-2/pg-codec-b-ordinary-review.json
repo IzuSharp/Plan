@@ -1,0 +1,1743 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "reviewer": "pg_numeric_audit",
+  "source": "analysis/codec-b-ordinary-02.json",
+  "passed": true,
+  "caseProcesses": 48,
+  "matchedGroups": 16,
+  "sqlComparison": "Actual reported selected-case SQL and positional parameter order match after normalizing Dapper @pN, Korda PG $N and Korda SQLite anonymous ?. This is a command/source comparison, not a new wire capture.",
+  "normalizerCorrection": "The first offline assertion normalized only @pN to $N and correctly did not match SQLite anonymous ?. Provider placeholder forms are now explicitly normalized with ordered ordinals; no result changed.",
+  "validation": "All counts, no errors/retries/sticky oracle failures, expected rows+digest, histogram totals, monotonic duration, CPU/allocation accounting, ordinary AOT mode, workload options and within-Korda SQL/protocol totals verified. Dapper ownership observation only covers application logical connections.",
+  "rows": [
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-baseline-korda-r0.json",
+      "rawSha256": "d8c1a9db6a5cf7cd6d0cad011950907f8240c97f4a2e1630a0ea16d30083e841",
+      "cpuUs": 405.20703125000006,
+      "p50Us": 356.352,
+      "p95Us": 675.84,
+      "p99Us": 1810.432,
+      "managedBytes": 2776.3125,
+      "seconds": 0.104668749,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-pg-codec-b-korda-r0.json",
+      "rawSha256": "13d902b0d7860562e15db33c068375240e4d1d081860e603e6506f1db057ef57",
+      "cpuUs": 271.63671874999994,
+      "p50Us": 303.104,
+      "p95Us": 540.672,
+      "p99Us": 798.72,
+      "managedBytes": 2761.28125,
+      "seconds": 0.085090647,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-baseline-dapper-r0.json",
+      "rawSha256": "050ec02a90aab2f2153ffe735e90e1acf6066d76d71d28d6a2502696cce44807",
+      "cpuUs": 127.65234375000003,
+      "p50Us": 155.648,
+      "p95Us": 201.728,
+      "p99Us": 229.376,
+      "managedBytes": 2336.25,
+      "seconds": 0.041649778,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-baseline-korda-r0.json",
+      "rawSha256": "085fc5e0508a4ce974a72400cc0e1a2a13aaf50a259a3595f918ddc3030ccba3",
+      "cpuUs": 600.61328125,
+      "p50Us": 585.728,
+      "p95Us": 970.752,
+      "p99Us": 1761.28,
+      "managedBytes": 4060.09375,
+      "seconds": 0.161188674,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "0299d825c55f9859557ecccf8692a4d4c70803697d717fa729e5322a1a350e89",
+      "cpuUs": 481.45703125,
+      "p50Us": 460.8,
+      "p95Us": 765.952,
+      "p99Us": 1572.864,
+      "managedBytes": 4114.15625,
+      "seconds": 0.13045181,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-baseline-dapper-r0.json",
+      "rawSha256": "60cd2140a12c215381d5c28c0ad6a8192e400734e8b416f83428f34fef9f4751",
+      "cpuUs": 126.84374999999997,
+      "p50Us": 139.264,
+      "p95Us": 188.416,
+      "p99Us": 337.92,
+      "managedBytes": 3591.25,
+      "seconds": 0.039606466,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-baseline-korda-r0.json",
+      "rawSha256": "85975273e1a64a4fc5e9abdbec918cac9102281761864a2aca01c281baf3b545",
+      "cpuUs": 7875.382812499998,
+      "p50Us": 6553.6,
+      "p95Us": 7897.088,
+      "p99Us": 9895.936,
+      "managedBytes": 42873.09375,
+      "seconds": 1.696964645,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-pg-codec-b-korda-r0.json",
+      "rawSha256": "071d21c65bef35b380d21bd3a7b3e0df856dfecb9b35c3117ef136c7f4eb9d51",
+      "cpuUs": 5347.796875000001,
+      "p50Us": 3604.48,
+      "p95Us": 4980.736,
+      "p99Us": 7503.872,
+      "managedBytes": 42941.25,
+      "seconds": 0.971186807,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-baseline-dapper-r0.json",
+      "rawSha256": "00f3ce127ac1ef9ad0504396b3dfd8ad1266442249cf0d96ea8eb70fffa939ac",
+      "cpuUs": 628.46484375,
+      "p50Us": 700.416,
+      "p95Us": 966.656,
+      "p99Us": 2408.448,
+      "managedBytes": 42349.3125,
+      "seconds": 0.18847362,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-baseline-korda-r0.json",
+      "rawSha256": "ea7beddf4bb89a66c8ab9b134a810a23d46c243f85d9a1c9c5705b98bb3be3f6",
+      "cpuUs": 877.10546875,
+      "p50Us": 761.856,
+      "p95Us": 1523.712,
+      "p99Us": 8224.768,
+      "managedBytes": 18572.84375,
+      "seconds": 0.257682078,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "c624f625dabd51e4db0e800ac240b3db44d3d3d8ef0adfb18f893124af697fa2",
+      "cpuUs": 637.66015625,
+      "p50Us": 638.976,
+      "p95Us": 1105.92,
+      "p99Us": 1630.208,
+      "managedBytes": 18571.28125,
+      "seconds": 0.179601033,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-baseline-dapper-r0.json",
+      "rawSha256": "4312fc06d9210f13bc6ae5fcfedc02023828fc029d2baacd68edcd9c21790c51",
+      "cpuUs": 186.83984375,
+      "p50Us": 227.328,
+      "p95Us": 339.968,
+      "p99Us": 473.088,
+      "managedBytes": 21910.15625,
+      "seconds": 0.061630276,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-baseline-korda-r0.json",
+      "rawSha256": "e0245825dd3747557bd477efb4bf2849eef47eed019ac19782557a406e5db9dd",
+      "cpuUs": 389.4101562499999,
+      "p50Us": 692.224,
+      "p95Us": 872.448,
+      "p99Us": 1036.288,
+      "managedBytes": 3149.78125,
+      "seconds": 0.184975156,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > $2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "9d4063548c7492125d3c0d05384b59d4ba2e74814eafadc545144dd205f315d0",
+      "cpuUs": 385.7031250000001,
+      "p50Us": 688.128,
+      "p95Us": 905.216,
+      "p99Us": 1105.92,
+      "managedBytes": 3135.28125,
+      "seconds": 0.181046504,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > $2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-baseline-dapper-r0.json",
+      "rawSha256": "bd5ee380536880574a5a61ad53882b525927bda0c0e03de17d654ac76629039e",
+      "cpuUs": 157.24999999999997,
+      "p50Us": 468.992,
+      "p95Us": 630.784,
+      "p99Us": 757.76,
+      "managedBytes": 3143.1875,
+      "seconds": 0.124862946,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > @p2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": null,
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-baseline-korda-r0.json",
+      "rawSha256": "163f64d6f542282795e2aab1ea97a2ca58e8f0653ad3dfbf5fc595a974716e19",
+      "cpuUs": 444.63671874999994,
+      "p50Us": 389.12,
+      "p95Us": 606.208,
+      "p99Us": 712.704,
+      "managedBytes": 2812.71875,
+      "seconds": 0.105239737,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "59cbc9b991e37255f8f2883f3057bb171f3f6a457c9f36ec1d9654e81147d376",
+      "cpuUs": 444.86328124999994,
+      "p50Us": 419.84,
+      "p95Us": 626.688,
+      "p99Us": 868.352,
+      "managedBytes": 2796.8125,
+      "seconds": 0.111864459,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-baseline-dapper-r0.json",
+      "rawSha256": "a7f56d0ebaa5020f566c5b0d60fca39a4eb5ecb1d77d3dd637f629e68522c6bf",
+      "cpuUs": 110.6015625,
+      "p50Us": 107.52,
+      "p95Us": 246.784,
+      "p99Us": 407.552,
+      "managedBytes": 2184.25,
+      "seconds": 0.03403407,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-baseline-dapper-r1.json",
+      "rawSha256": "9c0c795d05d684aa049a791b15e12b3a72d74cf19c7705a205e8e6ad48904962",
+      "cpuUs": 129.21875,
+      "p50Us": 152.576,
+      "p95Us": 189.44,
+      "p99Us": 211.968,
+      "managedBytes": 2336.25,
+      "seconds": 0.040930236,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-pg-codec-b-korda-r1.json",
+      "rawSha256": "001443dd935e41ef9a0e1ac89b38a1eec00bfaffd2039a1de033854a927bc2d8",
+      "cpuUs": 356.45703125000006,
+      "p50Us": 333.824,
+      "p95Us": 598.016,
+      "p99Us": 958.464,
+      "managedBytes": 2776.09375,
+      "seconds": 0.090860872,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1-baseline-korda-r1.json",
+      "rawSha256": "87153bc4edbd7fd5f96a5ac3231ea188abb28d9feec470480258b19dd6d00a0e",
+      "cpuUs": 355.98046874999994,
+      "p50Us": 348.16,
+      "p95Us": 536.576,
+      "p99Us": 757.76,
+      "managedBytes": 2757.625,
+      "seconds": 0.093576685,
+      "expected": {
+        "Rows": 1,
+        "Digest": 5997968038676161290,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-baseline-dapper-r1.json",
+      "rawSha256": "6cfd8456cd094aa1e55c7342ea0382c21d7cbc7937e6b24ceb77ac3ad000c196",
+      "cpuUs": 138.78125,
+      "p50Us": 172.032,
+      "p95Us": 228.352,
+      "p99Us": 342.016,
+      "managedBytes": 3591.375,
+      "seconds": 0.046425739,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "a649c9e44ab664e8230e0f228ea990bdd7985ca7cd093573dcd3151da9f38ef3",
+      "cpuUs": 499.7500000000001,
+      "p50Us": 446.464,
+      "p95Us": 720.896,
+      "p99Us": 954.368,
+      "managedBytes": 4121.90625,
+      "seconds": 0.121807239,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-32-baseline-korda-r1.json",
+      "rawSha256": "ce5830972bccd1d9f0dfb61b2cfb6870ed4bf466fc1cf6a3eabde732579eeddd",
+      "cpuUs": 585.9609375000001,
+      "p50Us": 552.96,
+      "p95Us": 770.048,
+      "p99Us": 1384.448,
+      "managedBytes": 4117.03125,
+      "seconds": 0.148979214,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-baseline-dapper-r1.json",
+      "rawSha256": "1e228f0694e8eb791fb41960c28b9e1bd4db6723643e6148ed24f475f88cea7e",
+      "cpuUs": 601.02734375,
+      "p50Us": 659.456,
+      "p95Us": 765.952,
+      "p99Us": 1253.376,
+      "managedBytes": 42323.34375,
+      "seconds": 0.168966615,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-pg-codec-b-korda-r1.json",
+      "rawSha256": "c5597ce2458c754c966d757cc68dc075425378ead60cf82ca5d6ba541d794458",
+      "cpuUs": 5097.6484375,
+      "p50Us": 3571.712,
+      "p95Us": 4521.984,
+      "p99Us": 9961.472,
+      "managedBytes": 42902.375,
+      "seconds": 0.96574531,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "requestedRows": 1000,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/money-1000-baseline-korda-r1.json",
+      "rawSha256": "ee38fc8e24b317d9ce8b8b6cac7ce38efb126a95665e1561fe1478f2842d84a2",
+      "cpuUs": 7888.621093749999,
+      "p50Us": 6553.6,
+      "p95Us": 8060.928,
+      "p99Us": 12451.84,
+      "managedBytes": 42863.65625,
+      "seconds": 1.700761776,
+      "expected": {
+        "Rows": 1000,
+        "Digest": 13379462616325525912,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-baseline-dapper-r1.json",
+      "rawSha256": "af60bc6db955551b6f1a174d005831ae259dc86389376d52297355b52583969a",
+      "cpuUs": 238.078125,
+      "p50Us": 331.776,
+      "p95Us": 399.36,
+      "p99Us": 544.768,
+      "managedBytes": 21897.8125,
+      "seconds": 0.085625206,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "75fb67750739b0689d1eabc172db30ede841a4cae3bfaa2123dfa23e9267ed3e",
+      "cpuUs": 592.4140625000001,
+      "p50Us": 630.784,
+      "p95Us": 872.448,
+      "p99Us": 999.424,
+      "managedBytes": 18536.1875,
+      "seconds": 0.165793758,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/wide-32-baseline-korda-r1.json",
+      "rawSha256": "b4cbd0c861d143c37154afd59d115298b5116e36f2426a7dc62932a7b4bb432f",
+      "cpuUs": 680.234375,
+      "p50Us": 675.84,
+      "p95Us": 901.12,
+      "p99Us": 1187.84,
+      "managedBytes": 18618.46875,
+      "seconds": 0.179011197,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-baseline-dapper-r1.json",
+      "rawSha256": "625e7a327cf52583b8e052c5339d13fe84e2bcd7d5963bc6e0a94fa9b9999abe",
+      "cpuUs": 158.73046875000003,
+      "p50Us": 444.416,
+      "p95Us": 659.456,
+      "p99Us": 753.664,
+      "managedBytes": 3136.5625,
+      "seconds": 0.120881824,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > @p2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": null,
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "37dddb9fbf58a84392b4a137d2c8b5230c4dc7364bdbf1ec134b87d1152a4e1a",
+      "cpuUs": 489.29687500000006,
+      "p50Us": 749.568,
+      "p95Us": 2293.76,
+      "p99Us": 4947.968,
+      "managedBytes": 3143.65625,
+      "seconds": 0.24868807,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > $2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/customer-totals-32-baseline-korda-r1.json",
+      "rawSha256": "ecc8a60d57756876921bc434ae13f95dd73e079a9ded85be6d29a2e68176b99e",
+      "cpuUs": 424.67187499999994,
+      "p50Us": 733.184,
+      "p95Us": 987.136,
+      "p99Us": 1130.496,
+      "managedBytes": 3155.34375,
+      "seconds": 0.194209865,
+      "expected": {
+        "Rows": 9,
+        "Digest": 3670275977771356250,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"CustomerId\" AS \"CustomerId\", COUNT(*) AS \"Count\", SUM(\"orders\".\"Total\") AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 GROUP BY \"orders\".\"CustomerId\" HAVING COUNT(*) > $2 ORDER BY \"orders\".\"CustomerId\" ASC NULLS LAST",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-baseline-dapper-r1.json",
+      "rawSha256": "f6df4deb20c8db47c9f1a3f12e67c24ba4e59e820118bb3b6dec54b51266833c",
+      "cpuUs": 110.25000000000001,
+      "p50Us": 119.296,
+      "p95Us": 220.16,
+      "p99Us": 339.968,
+      "managedBytes": 2190.875,
+      "seconds": 0.034634503,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": null,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "17acb98bd177ff39059332ab56b4989e27473f6b829abcfb7c23d41ae73a89e2",
+      "cpuUs": 466.14062500000006,
+      "p50Us": 419.84,
+      "p95Us": 638.976,
+      "p99Us": 811.008,
+      "managedBytes": 2800.875,
+      "seconds": 0.113079872,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "37fbd74a7638da19b2b41d42c74b9bd2a5a2a74dba827ae9555968ab65f10f6e",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/postgresql-cases/numeric-32-baseline-korda-r1.json",
+      "rawSha256": "c193d20c6be93ba9b37a45a80237a8fc4ff96cb33f095075711bad5c2527c03a",
+      "cpuUs": 463.44921875,
+      "p50Us": 401.408,
+      "p95Us": 630.784,
+      "p99Us": 1196.032,
+      "managedBytes": 2799.65625,
+      "seconds": 0.111917524,
+      "expected": {
+        "Rows": 32,
+        "Digest": 7556371084242497349,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"value\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT $2",
+      "nativeSha256": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-baseline-korda-r0.json",
+      "rawSha256": "372f237655d7bd8535e51a5c5e5f9e66101477acf4f0d5b874678a8348172818",
+      "cpuUs": 509.48437500000006,
+      "p50Us": 274.432,
+      "p95Us": 466.944,
+      "p99Us": 892.928,
+      "managedBytes": 4081.34375,
+      "seconds": 0.0788162,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "7d229055204f330e011ca5863bae248e42049d96184dd57b64f73736283c34f3",
+      "cpuUs": 411.73828125,
+      "p50Us": 246.784,
+      "p95Us": 350.208,
+      "p99Us": 411.648,
+      "managedBytes": 4060.84375,
+      "seconds": 0.065573008,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "779742cfb5d97f89b384a1c8f84b8fff8de204dc7ae4b866393f011051917f16",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-baseline-dapper-r0.json",
+      "rawSha256": "5ca7c1b0fbaf82c7452a320904e860819b952b9d7e11f132c01eb715e8734687",
+      "cpuUs": 33.68749999999999,
+      "p50Us": 24.064,
+      "p95Us": 61.44,
+      "p99Us": 103.936,
+      "managedBytes": 3270.71875,
+      "seconds": 0.007879546,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": "e222b5a74561cbdbd528ac169cb5017ba3759a885078d0fdbc0bb367ffbf991c",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-baseline-korda-r0.json",
+      "rawSha256": "3a3d16beaa931a9ad711238ebb104b0c29a24322df07b678572df106314af1be",
+      "cpuUs": 618.66796875,
+      "p50Us": 417.792,
+      "p95Us": 532.48,
+      "p99Us": 761.856,
+      "managedBytes": 18643.25,
+      "seconds": 0.108752256,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-pg-codec-b-korda-r0.json",
+      "rawSha256": "89eba7644c76a9a53a65efa90bea59327324ed671c91926defe1a4f23a98ae9c",
+      "cpuUs": 638.8046875,
+      "p50Us": 434.176,
+      "p95Us": 589.824,
+      "p99Us": 708.608,
+      "managedBytes": 18628.4375,
+      "seconds": 0.11370007,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "779742cfb5d97f89b384a1c8f84b8fff8de204dc7ae4b866393f011051917f16",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 0,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-baseline-dapper-r0.json",
+      "rawSha256": "ba31e9613c7fafc0b9d44c47914dca6c7170e4051e6aceb208a2862020a1feb7",
+      "cpuUs": 114.26953125,
+      "p50Us": 96.256,
+      "p95Us": 161.792,
+      "p99Us": 232.448,
+      "managedBytes": 21328.3125,
+      "seconds": 0.027970706,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": "e222b5a74561cbdbd528ac169cb5017ba3759a885078d0fdbc0bb367ffbf991c",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-baseline-dapper-r1.json",
+      "rawSha256": "89851c05fad383ab485736a829f61ed5b7e3690b3de6a8e179cdfafe57f99a01",
+      "cpuUs": 31.300781249999996,
+      "p50Us": 22.784,
+      "p95Us": 45.312,
+      "p99Us": 98.816,
+      "managedBytes": 3270.71875,
+      "seconds": 0.007122174,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": "e222b5a74561cbdbd528ac169cb5017ba3759a885078d0fdbc0bb367ffbf991c",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "5afaae50a771b3173d336a006433f10fe63e789086dd0193c0fd8ee2ff3c95ce",
+      "cpuUs": 471.6835937500001,
+      "p50Us": 272.384,
+      "p95Us": 397.312,
+      "p99Us": 561.152,
+      "managedBytes": 4114.40625,
+      "seconds": 0.07277077,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "779742cfb5d97f89b384a1c8f84b8fff8de204dc7ae4b866393f011051917f16",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/money-32-baseline-korda-r1.json",
+      "rawSha256": "5991f4d74af4bd987f62643acb71feb6b11a37b1ad1f5d05e9c3d16c46068873",
+      "cpuUs": 459.640625,
+      "p50Us": 259.072,
+      "p95Us": 362.496,
+      "p99Us": 548.864,
+      "managedBytes": 4099.03125,
+      "seconds": 0.070701982,
+      "expected": {
+        "Rows": 32,
+        "Digest": 652630223626968177,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"Id\" AS \"Id\", \"orders\".\"Total\" AS \"Total\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "dapper",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-baseline-dapper-r1.json",
+      "rawSha256": "05af23c43a266ca8dba2150abb80cd5ea8131814665a158330adaf7c011ea1c8",
+      "cpuUs": 115.72656249999999,
+      "p50Us": 94.72,
+      "p95Us": 176.128,
+      "p99Us": 214.016,
+      "managedBytes": 21328.3125,
+      "seconds": 0.028674613,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @p1 ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT @p2",
+      "nativeSha256": "e222b5a74561cbdbd528ac169cb5017ba3759a885078d0fdbc0bb367ffbf991c",
+      "gc": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "pg-codec-b",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-pg-codec-b-korda-r1.json",
+      "rawSha256": "53a890cabb9f590a0e02c3ffc67418bc7bc03e1d26d55f0c77e50502e1cfaa12",
+      "cpuUs": 589.48046875,
+      "p50Us": 438.272,
+      "p95Us": 598.016,
+      "p99Us": 815.104,
+      "managedBytes": 18537.5,
+      "seconds": 0.114895753,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "779742cfb5d97f89b384a1c8f84b8fff8de204dc7ae4b866393f011051917f16",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "requestedRows": 32,
+      "family": "baseline",
+      "route": "korda",
+      "round": 1,
+      "result": "/workspace/scratch/34ddfdb91b5c/DB-Exec-Parity-01/measurements/codec-b-ordinary-02/sqlite-cases/wide-32-baseline-korda-r1.json",
+      "rawSha256": "1755d17a3dd1fb71dfc3b400ef54ed92b531728d36d6e67237058f72712c912b",
+      "cpuUs": 617.4374999999999,
+      "p50Us": 413.696,
+      "p95Us": 518.144,
+      "p99Us": 651.264,
+      "managedBytes": 18633.9375,
+      "seconds": 0.107584283,
+      "expected": {
+        "Rows": 32,
+        "Digest": 13935510392633324490,
+        "Suspensions": 0
+      },
+      "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? ORDER BY \"orders\".\"Id\" ASC NULLS LAST LIMIT ?",
+      "nativeSha256": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53",
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 1,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        405.20703125000006,
+        271.63671874999994,
+        127.65234375000003
+      ],
+      "cpuReductionPercent": 32.96347353301267,
+      "candidateDapperCpuRatio": 2.1279414914777064,
+      "p50UsBeforeAfterDapper": [
+        356.352,
+        303.104,
+        155.648
+      ],
+      "p50ReductionPercent": 14.942528735632177,
+      "candidateDapperP50Ratio": 1.9473684210526316,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        600.61328125,
+        481.45703125,
+        126.84374999999997
+      ],
+      "cpuReductionPercent": 19.839096756570427,
+      "candidateDapperCpuRatio": 3.795670115792068,
+      "p50UsBeforeAfterDapper": [
+        585.728,
+        460.8,
+        139.264
+      ],
+      "p50ReductionPercent": 21.328671328671323,
+      "candidateDapperP50Ratio": 3.3088235294117645,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 1000,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        7875.382812499998,
+        5347.796875000001,
+        628.46484375
+      ],
+      "cpuReductionPercent": 32.094769202687544,
+      "candidateDapperCpuRatio": 8.509301559479637,
+      "p50UsBeforeAfterDapper": [
+        6553.6,
+        3604.48,
+        700.416
+      ],
+      "p50ReductionPercent": 45.00000000000001,
+      "candidateDapperP50Ratio": 5.146198830409356,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        877.10546875,
+        637.66015625,
+        186.83984375
+      ],
+      "cpuReductionPercent": 27.29948917559979,
+      "candidateDapperCpuRatio": 3.4128703142313563,
+      "p50UsBeforeAfterDapper": [
+        761.856,
+        638.976,
+        227.328
+      ],
+      "p50ReductionPercent": 16.129032258064512,
+      "candidateDapperP50Ratio": 2.810810810810811,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        389.4101562499999,
+        385.7031250000001,
+        157.24999999999997
+      ],
+      "cpuReductionPercent": 0.9519605974580347,
+      "candidateDapperCpuRatio": 2.452802066772656,
+      "p50UsBeforeAfterDapper": [
+        692.224,
+        688.128,
+        468.992
+      ],
+      "p50ReductionPercent": 0.591715976331364,
+      "candidateDapperP50Ratio": 1.4672489082969433,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        444.63671874999994,
+        444.86328124999994,
+        110.6015625
+      ],
+      "cpuReductionPercent": -0.050954518699430906,
+      "candidateDapperCpuRatio": 4.022215158578795,
+      "p50UsBeforeAfterDapper": [
+        389.12,
+        419.84,
+        107.52
+      ],
+      "p50ReductionPercent": -7.8947368421052655,
+      "candidateDapperP50Ratio": 3.9047619047619047,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 1,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        355.98046874999994,
+        356.45703125000006,
+        129.21875
+      ],
+      "cpuReductionPercent": -0.1338732154810396,
+      "candidateDapperCpuRatio": 2.758555018137848,
+      "p50UsBeforeAfterDapper": [
+        348.16,
+        333.824,
+        152.576
+      ],
+      "p50ReductionPercent": 4.117647058823537,
+      "candidateDapperP50Ratio": 2.1879194630872485,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        585.9609375000001,
+        499.7500000000001,
+        138.78125
+      ],
+      "cpuReductionPercent": 14.71274482354039,
+      "candidateDapperCpuRatio": 3.6009907678450808,
+      "p50UsBeforeAfterDapper": [
+        552.96,
+        446.464,
+        172.032
+      ],
+      "p50ReductionPercent": 19.259259259259267,
+      "candidateDapperP50Ratio": 2.595238095238095,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "money",
+      "rows": 1000,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        7888.621093749999,
+        5097.6484375,
+        601.02734375
+      ],
+      "cpuReductionPercent": 35.379727623896564,
+      "candidateDapperCpuRatio": 8.481558269369504,
+      "p50UsBeforeAfterDapper": [
+        6553.6,
+        3571.712,
+        659.456
+      ],
+      "p50ReductionPercent": 45.50000000000001,
+      "candidateDapperP50Ratio": 5.416149068322981,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "wide",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        680.234375,
+        592.4140625000001,
+        238.078125
+      ],
+      "cpuReductionPercent": 12.910302055817146,
+      "candidateDapperCpuRatio": 2.488317910349807,
+      "p50UsBeforeAfterDapper": [
+        675.84,
+        630.784,
+        331.776
+      ],
+      "p50ReductionPercent": 6.666666666666677,
+      "candidateDapperP50Ratio": 1.9012345679012346,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "customer-totals",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        424.67187499999994,
+        489.29687500000006,
+        158.73046875000003
+      ],
+      "cpuReductionPercent": -15.217631259428256,
+      "candidateDapperCpuRatio": 3.082564291866617,
+      "p50UsBeforeAfterDapper": [
+        733.184,
+        749.568,
+        444.416
+      ],
+      "p50ReductionPercent": -2.2346368715083775,
+      "candidateDapperP50Ratio": 1.6866359447004609,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "postgresql",
+      "case": "numeric",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        463.44921875,
+        466.14062500000006,
+        110.25000000000001
+      ],
+      "cpuReductionPercent": -0.580733798032762,
+      "candidateDapperCpuRatio": 4.228032879818594,
+      "p50UsBeforeAfterDapper": [
+        401.408,
+        419.84,
+        119.296
+      ],
+      "p50ReductionPercent": -4.591836734693877,
+      "candidateDapperP50Ratio": 3.5193133047210297,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 1024
+      }
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        509.48437500000006,
+        411.73828125,
+        33.68749999999999
+      ],
+      "cpuReductionPercent": 19.18529763547705,
+      "candidateDapperCpuRatio": 12.222286641929502,
+      "p50UsBeforeAfterDapper": [
+        274.432,
+        246.784,
+        24.064
+      ],
+      "p50ReductionPercent": 10.074626865671654,
+      "candidateDapperP50Ratio": 10.25531914893617,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 0
+      }
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "rows": 32,
+      "round": 0,
+      "cpuUsBeforeAfterDapper": [
+        618.66796875,
+        638.8046875,
+        114.26953125
+      ],
+      "cpuReductionPercent": -3.2548507062173604,
+      "candidateDapperCpuRatio": 5.590332615458244,
+      "p50UsBeforeAfterDapper": [
+        417.792,
+        434.176,
+        96.256
+      ],
+      "p50ReductionPercent": -3.9215686274509887,
+      "candidateDapperP50Ratio": 4.51063829787234,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 0
+      }
+    },
+    {
+      "provider": "sqlite",
+      "case": "money",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        459.640625,
+        471.6835937500001,
+        31.300781249999996
+      ],
+      "cpuReductionPercent": -2.620083625114744,
+      "candidateDapperCpuRatio": 15.069387245725702,
+      "p50UsBeforeAfterDapper": [
+        259.072,
+        272.384,
+        22.784
+      ],
+      "p50ReductionPercent": -5.138339920948631,
+      "candidateDapperP50Ratio": 11.955056179775282,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 0
+      }
+    },
+    {
+      "provider": "sqlite",
+      "case": "wide",
+      "rows": 32,
+      "round": 1,
+      "cpuUsBeforeAfterDapper": [
+        617.4374999999999,
+        589.48046875,
+        115.72656249999999
+      ],
+      "cpuReductionPercent": 4.5279127442048654,
+      "candidateDapperCpuRatio": 5.09373523256599,
+      "p50UsBeforeAfterDapper": [
+        413.696,
+        438.272,
+        94.72
+      ],
+      "p50ReductionPercent": -5.940594059405924,
+      "candidateDapperP50Ratio": 4.627027027027027,
+      "matchingKordaCounters": {
+        "SqlExecutions": 256,
+        "ProtocolSubmissions": 0
+      }
+    }
+  ]
+}
