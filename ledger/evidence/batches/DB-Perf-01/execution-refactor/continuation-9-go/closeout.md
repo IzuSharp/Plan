@@ -122,10 +122,14 @@ workspace, user-home, temporary and available var/tmp locations, excluding the
 execution platform and persistent Library storage. An initial filesystem
 recovery-directory warning is preserved as a separate earlier observation.
 
-**Final closeout staging removal is pending receipt publication.** After these
-receipts are published and read back, the current temporary scripts, archive
-copies and control files are removed; a small final receipt records that last
-action. System software and platform/session metadata are retained.
+**Final closeout staging removal is complete.** After all 25 cleanup-record
+files at Plan `490436ad456581762ea204dddf820d1b155d0d71` passed
+[remote byte readback](cleanup/final-receipt-readback.json), all 46 task-created
+top-level staging entries were removed, including temporary scripts, archive
+copies and controls. The [last cleanup receipt](cleanup/final-workspace-cleanup-receipt.json)
+records the actual removal and a final exit-0 scan with no warnings: zero project
+source files, zero Git markers and zero known task caches remain. System software,
+platform/session metadata and persistent remote storage are retained.
 
 ## Checks and stopping point
 

@@ -11,8 +11,9 @@ Plan #35 must remain **open drafts, unmerged, with auto-merge disabled**.
 [The final report](final-report.md) contains the complete measured outcomes;
 [comparison.json](comparison.json) retains full-precision arithmetic. The [closeout record](closeout.md) documents completed project-source, worktree,
 build, database and cache removal, including the preserved original refusal and
-the successfully reviewed narrower continuation. Only the current temporary
-closeout workspace awaits its final removal after these receipts are durable.
+the successfully reviewed narrower continuation. The temporary closeout workspace has also been cleared after durable receipt
+readback. The [last cleanup receipt](cleanup/final-workspace-cleanup-receipt.json)
+records zero remaining project-source files, Git markers and known task caches.
 
 The owner requested only two new local Linux x64 cells on 2026-11-26:
 SQLite for 1,800 seconds, then PostgreSQL for 1,800 seconds. Reuse the frozen
@@ -69,7 +70,9 @@ The archives deliberately omit database files, compiler/module caches and execut
 The [actual closeout and cleanup receipts](closeout.md) record successful removal
 of 65 worktrees and all inventoried project content, while preserving platform
 control metadata. The initial permission refusal remains part of the record.
-The last temporary closeout workspace is removed after durable receipt readback.
+The last temporary closeout workspace was cleared after all 25 cleanup record
+files were remotely read back; [the final receipt](cleanup/final-workspace-cleanup-receipt.json)
+records the completed removal and final empty project-source scan.
 
 ## Historical frozen checkpoint
 
