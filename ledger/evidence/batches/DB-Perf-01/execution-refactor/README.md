@@ -1,3 +1,33 @@
+# DB-Exec-11 delivery — current observation
+
+Four frozen, serial 1,800-second local cells are complete and accepted for their
+recorded measurement scope. Read the [final report](continuation-8/final-report.md)
+and the [delivery record](continuation-8/delivery-01/README.md).
+The separate 120-second before/current comparison and the final long
+Korda/Dapper comparison retain their own sources and scopes. Framework-only
+0 B and exhaustion of every possible optimization are not established.
+
+Normal [product merge `7ff7b57`](https://github.com/IzuSharp/Korda/commit/7ff7b57b907b689defb880b8af62d83679608603) and
+[Design merge `ca9348ad`](https://github.com/IzuSharp/Korda-Design/commit/ca9348ad0b5cc93bc75c502460d8e1b75843d109) are observed.
+The merged product tree is the measured 17da tree
+`bc9087d843d8d741d83d44f53d0b2c5af26dcffc`; the merged Design tree is
+`ffe6f94306985bacde708e75d1e93a29e096c724`.
+[Product main CI](https://github.com/IzuSharp/Korda/actions/runs/45807237435)
+completed successfully, including each provider's signed official NuGet readback
+and actual public-package Native AOT consumption at `0.1.0-preview.4`. The
+delivery record preserves the initial PostgreSQL indexing timeout and its
+successful same-version retry. This evidence record's own Plan checks and merge
+are observed separately in [Plan #34](https://github.com/IzuSharp/Plan/pull/34).
+
+All performance execution remained local Linux work. Existing diff/module CI
+selection and independent provider publication rules are unchanged. Do not
+restart completed measurements from the historical checkpoints below.
+
+## Historical DB-Exec-10 checkpoint retained
+
+The implementation-pending and 0/4 statements below describe their original
+checkpoints; the current completed campaign is recorded above.
+
 # Active continuation — DB-Exec-10, 2026-11-26 Asia/Shanghai
 
 Continue from [continuation 7](continuation-7/plan.md). The recovered

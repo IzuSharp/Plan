@@ -18,12 +18,15 @@ The independent [result review](review-final-results-01.md),
 Short same-condition before/current and current FFI diagnostic evidence stay
 separate from final ordinary timing.
 
-The selected product remains public17da/treebc9087d. The two independent
-package/AOT gates and its existing PR CI passed. This checkpoint publishes
-final local evidence; normal merges, main CI and each provider's actual NuGet
-readback/public AOT result are still pending observation. Framework-only0 B and
-global exhaustion of all possible gains are not claimed; the remaining Dapper
-latency, CPU, refusal and allocation gaps are reported in full.
+The measured product remains public17da/treebc9087d. Its normal merge `7ff7b57`
+has that same tree; Design is normally merged at `ca9348ad`. Existing product main
+CI and both independent `0.1.0-preview.4` signed official NuGet readback/public
+AOT consumers passed. The [delivery record](delivery-01/README.md) preserves
+actual release-byte identities, the initial PostgreSQL indexing timeout and
+its same-version successful retry. The containing Plan record's own checks
+and merge are observed separately. Framework-only0 B and global exhaustion
+of all possible gains are not claimed; the remaining Dapper latency, CPU,
+refusal and allocation gaps are reported in full.
 
 ## Historical launch checkpoint retained
 

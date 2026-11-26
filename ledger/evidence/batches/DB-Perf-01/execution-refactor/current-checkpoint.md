@@ -10,9 +10,12 @@ and [current evidence/reviews](continuation-8/README.md).
 
 The same-condition120-second before/current data and all historical/rejected
 experiments remain separate. Framework-only0 B and global optimality are not
-established. The current authorized next step is final evidence publication,
-normal reviewed merges, then observation of existing main CI and each independent
-provider's actual NuGet/public-AOT result. Do not rerun completed long cells.
+established. Product and Design are normally merged; the actual product main
+CI and both independent `0.1.0-preview.4` signed NuGet/public-AOT results passed.
+The [delivery record](continuation-8/delivery-01/README.md) preserves exact merge trees,
+package identities, the initial PostgreSQL indexing timeout and the successful
+same-version retry. This containing Plan record's own checks and normal merge
+are observed separately in PR34. Do not rerun completed long cells.
 
 ## Previous checkpoint retained
 

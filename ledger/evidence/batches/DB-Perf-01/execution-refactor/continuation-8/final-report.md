@@ -21,9 +21,13 @@ connections to zero; their internal driver owners are not instrumented.
 This accepts the specified four-cell measurement evidence. It does not establish
 framework-only 0 B, Dapper parity, a maximum sustainable throughput, or exhaustion
 of every possible optimization. The selected execution-path implementation and
-its public package correctness are separately reviewed. Normal merge, existing
-main CI and each provider's registry readback/public AOT outcome are tracked in
-the later delivery receipt; they are not inferred from this local report.
+its public package correctness are separately reviewed. Product and Design
+are now normally merged, and existing product main CI plus both independent
+`0.1.0-preview.4` signed registry readback/public AOT consumers passed. The
+[delivery receipt](delivery-01/README.md) records those actual results, the
+retained PostgreSQL indexing timeout and its successful same-version retry.
+The final long timings remain bound to their frozen ci.1 packages; they are
+not reassigned to rebuilt or repository-signed preview bytes.
 
 Primary records: [arithmetic](final-analysis-01.json),
 [identity/owner audit](final-identity-audit-01.json),
@@ -213,7 +217,7 @@ in [preexisting-measurement-summary-01.md](preexisting-measurement-summary-01.md
 ## Implemented decisions from driver to Fluent
 
 The fixed-source Design record is
-[execution-path-17da.md](https://github.com/IzuSharp/Korda-Design/blob/ca1933e93678039b492f10a8b47045b11827f1a4/docs/database/execution-path-17da.md).
+[execution-path-17da.md](https://github.com/IzuSharp/Korda-Design/blob/ca9348ad0b5cc93bc75c502460d8e1b75843d109/docs/database/execution-path-17da.md).
 Its upstream sources, actual generated-consumer distinctions and contract/test
 map remain authoritative. This continuation changes evidence/status, not the
 frozen product path.
@@ -290,11 +294,16 @@ not impersonated GitHub approvals. Existing document/history gates retain their
 original scopes. The known old-current-tree Plan verifier failure and its correct
 fixed38f8ce8 historical replay remain preserved; no threshold or verifier is changed.
 
-Normal merges and observation of existing main publication are authorized.
-Each provider's selected version, source tree, registry readback and actual public
-Native AOT consumer must be observed separately. A future rebuilt preview package
-is not assigned the exact measured ci.1 binary hashes; tree/source equivalence
-and release-byte verification have distinct receipts.
+Normal product merge `7ff7b57` and Design merge `ca9348ad` are observed. Product
+[main CI 45807237435](https://github.com/IzuSharp/Korda/actions/runs/45807237435)
+completed successfully; both independently selected `0.1.0-preview.4` packages
+passed signed official registry readback and actual public Native AOT consumption.
+The [delivery record](delivery-01/README.md) preserves the first PostgreSQL
+indexing failure and the successful retry without rebuilding or re-uploading
+the candidate. Preview package/native bytes remain distinct from the measured
+ci.1 bytes; exact source-tree equality and release-byte verification have
+separate receipts. This containing Plan record's own later CI and normal merge
+are checked separately through PR34, without predicting their results here.
 
 ## Evidence retention
 
