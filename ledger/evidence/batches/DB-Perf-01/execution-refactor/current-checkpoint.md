@@ -1,13 +1,18 @@
-# Active recovery — DB-Exec-11, 2026-11-26 (Asia/Shanghai)
+# Current result — DB-Exec-11, 2026-11-26 (Asia/Shanghai)
 
-The original373-input freeze and public17da candidate were revalidated. Four
-serial1800-second local cells started at16:38:19 Asia/Shanghai; at this checkpoint
-the first SQLite Korda cell is running and final accepted credit remains **0/4**.
-Read the [exact recovery, invocation order and independent reviews](continuation-8/README.md).
-The120-second before/current supplement is complete and remains separate.
-Existing CI passed for Korda17da, Designca1933e and Plan9e4aad4; no source or
-measurement input changed. Finish actual long evidence, review, normal merges
-and the existing independently selected publication path.
+Four current frozen 1,800-second local cells completed from16:38:19 to18:39:24.
+All four pass the unchanged arithmetic and identity/owner checks:35 cases,
+every required second with successful work, zero business/oracle failures,
+recorded refusals, no interval overlap, and all373 original frozen inputs unchanged.
+The selected product remains17da/treebc9087d. Raw evidence has been archived,
+read back and compared with its originals. See the [final report](continuation-8/final-report.md)
+and [current evidence/reviews](continuation-8/README.md).
+
+The same-condition120-second before/current data and all historical/rejected
+experiments remain separate. Framework-only0 B and global optimality are not
+established. The current authorized next step is final evidence publication,
+normal reviewed merges, then observation of existing main CI and each independent
+provider's actual NuGet/public-AOT result. Do not rerun completed long cells.
 
 ## Previous checkpoint retained
 

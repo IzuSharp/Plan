@@ -1,3 +1,36 @@
+# DB-Exec-11 final local evidence — 2026-11-26
+
+**All four current frozen 1,800-second cells completed and passed the unchanged
+arithmetic and identity/owner checks.** The serial campaign ran from 16:38:19 to
+18:39:24 Asia/Shanghai, including fixtures and idle observations. Each cell has
+35/35 cases, successful progress in every required second, zero business and
+oracle failures, and preserved rejected arrivals. Original 373 frozen inputs
+are unchanged; the final audit covers 394 inputs. Both Korda cells drain all
+eight tracked owners to zero; Dapper proves its application connection scope.
+
+Read the [complete final report](final-report.md),
+[arithmetic](final-analysis-01.json), [identity audit](final-identity-audit-01.json),
+[metric extraction](final-metrics-01.json), and
+[retained and verified raw archive](final-evidence-01/README.md).
+The independent [result review](review-final-results-01.md),
+[implementation/scope review](review-final-implementation-01.md), and
+[stopping review](final-stopping-review-01.md) preserve the actual boundaries.
+Short same-condition before/current and current FFI diagnostic evidence stay
+separate from final ordinary timing.
+
+The selected product remains public17da/treebc9087d. The two independent
+package/AOT gates and its existing PR CI passed. This checkpoint publishes
+final local evidence; normal merges, main CI and each provider's actual NuGet
+readback/public AOT result are still pending observation. Framework-only0 B and
+global exhaustion of all possible gains are not claimed; the remaining Dapper
+latency, CPU, refusal and allocation gaps are reported in full.
+
+## Historical launch checkpoint retained
+
+The following record preserves the launch-time 0/4 state and recovery procedure.
+Its running/pending statements describe that earlier checkpoint, not the current
+completed campaign. Do not restart the final measurements from those paragraphs.
+
 # DB-Exec-11 continuation: execute the frozen final campaign
 
 ## Recovery identity and current status
