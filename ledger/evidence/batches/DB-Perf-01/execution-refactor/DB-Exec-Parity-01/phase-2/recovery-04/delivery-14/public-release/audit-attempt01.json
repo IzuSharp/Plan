@@ -1,0 +1,10 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "scope": "read-only receipt auditor, no product or CI execution",
+  "failure": "Initial auditor required public artifact plan.json to equal the verbose planner log including reasons.",
+  "observedDifference": "Only reasons is absent in the artifact plan; all other fields match.",
+  "sourceExplanation": "Exact reviewed eng/ci/plan_run.py explicitly strips reasons from workflow_plan before GITHUB_OUTPUT; release.yml writes this workflow plan to the public artifact.",
+  "correction": "Require equality with the exact documented workflow plan transformation (exclude reasons only), retaining verbose reasons in main-plan.json and the original plan job log.",
+  "productFailure": false,
+  "retestOrBuildTriggered": false
+}

@@ -1,5 +1,9 @@
 # Recovery 04 — resume from this checkpoint
 
+**Current delivery checkpoint:** [Continuation14](continuation-14.md) and [its receipts](delivery-14/README.md) supersede the active-work navigation below. Product/Design and both public preview.5 consumers are verified; Archive06 is published and byte-verified. Performance work is finished. Read Plan PR36's final normal-merge/main-CI receipt, then stop. No new performance run is selected.
+
+## Earlier checkpoint navigation retained
+
 **Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
 
 **Latest checkpoint:** [Continuation13](continuation-13.md) closes frame08: all twelve short processes passed business checks and repeated about60.8KB allocation saving, but the common candidate is rejected for the unresolved CPU/tail tradeoff and increased released-idle RSS. Retain05 plus the independent owner fix. No additional08 or long measurement is selected.

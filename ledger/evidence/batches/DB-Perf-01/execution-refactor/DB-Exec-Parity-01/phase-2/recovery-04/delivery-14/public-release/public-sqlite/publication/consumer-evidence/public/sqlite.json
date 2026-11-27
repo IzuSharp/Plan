@@ -1,0 +1,319 @@
+{
+  "task": "DB-API-01",
+  "result": "passed",
+  "package": "Korda.Database.Sqlite",
+  "version": "0.1.0-preview.5",
+  "commands": [
+    {
+      "revision": "scaffold",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=Sqlite",
+        "-p:KordaVersion=0.1.0-preview.5",
+        "-p:DtoEdit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=false",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-scaffold"
+      ],
+      "exit_code": 0,
+      "seconds": 12.828,
+      "log": "sqlite-scaffold-publish.log",
+      "sha256": "701e6f4c0145dee6d5140dfdc1ee88bd6c51de0c323910333eaaf1d07eefcf64"
+    },
+    {
+      "revision": "scaffold",
+      "stage": "execute",
+      "command": [
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-scaffold/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.065,
+      "log": "sqlite-scaffold-execute.log",
+      "sha256": "999139da9b4f08ad99c6cb005ae0fa1cea87b10a8a4951f99a9005bb43e28c58"
+    },
+    {
+      "revision": "original",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=Sqlite",
+        "-p:KordaVersion=0.1.0-preview.5",
+        "-p:DtoEdit=false",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-original"
+      ],
+      "exit_code": 0,
+      "seconds": 12.071,
+      "log": "sqlite-original-publish.log",
+      "sha256": "997c516135d3d47b66b0c0b25e9989453151093cfb99d6d56d9f978efcbbfbe8"
+    },
+    {
+      "revision": "original",
+      "stage": "execute",
+      "command": [
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-original/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.064,
+      "log": "sqlite-original-execute.log",
+      "sha256": "d22bb830374781d841aebe1accd8b30dd26dd04651d717b14df9b7d6aeca638f"
+    },
+    {
+      "revision": "edited",
+      "stage": "publish",
+      "command": [
+        "dotnet",
+        "publish",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/OrmExperience.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:Provider=Sqlite",
+        "-p:KordaVersion=0.1.0-preview.5",
+        "-p:DtoEdit=true",
+        "-p:UseSharedCompilation=false",
+        "-p:CompileScaffold=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-m:1",
+        "-nr:false",
+        "-o",
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-edited"
+      ],
+      "exit_code": 0,
+      "seconds": 12.021,
+      "log": "sqlite-edited-publish.log",
+      "sha256": "da951e38aa3a31645a5f62e21070d563c964592d809630e01b1857fdd803aab0"
+    },
+    {
+      "revision": "edited",
+      "stage": "execute",
+      "command": [
+        "/tmp/korda-public-3_og32lk/orders-sqlite/out-edited/OrmExperience"
+      ],
+      "exit_code": 0,
+      "seconds": 0.064,
+      "log": "sqlite-edited-execute.log",
+      "sha256": "0068ca3854c5d4cb54b2dca25ffb1e4608ce51300ed1ddc934110993396c5337"
+    }
+  ],
+  "rows": [
+    {
+      "Provider": "Sqlite",
+      "Aot": true,
+      "Dto": "original",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 0,
+      "NativeSha256": "5c3a7a94e254b510d6213d874ff211190a4948168f2ba6fdb3383a684de74de8",
+      "Phase": "scaffold",
+      "ExecutableSha256": "b1df8e775fd8d5bf5f5283c68ded1155076b1010c12d58643336ee409b26264d",
+      "ModelsSha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+        "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+      },
+      "TutorialSources": {},
+      "Sources": {
+        "Models.cs": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    },
+    {
+      "Provider": "Sqlite",
+      "Aot": true,
+      "Dto": "original",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written",
+        "scaffolded-entity-compiled-and-executed",
+        "scaffolded-composite-key-compiled-and-executed"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 0,
+      "NativeSha256": "5c3a7a94e254b510d6213d874ff211190a4948168f2ba6fdb3383a684de74de8",
+      "Phase": "original",
+      "ExecutableSha256": "f9a098edf691c0b2b30a7cfedcc28ab52058a6cbed16f21067e43671c734e29c",
+      "ModelsSha256": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+        "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+      },
+      "TutorialSources": {
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+      },
+      "Sources": {
+        "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+        "Models.cs": "7ea653e060146430109df342ddfeb60c5fc6b7dab09fe92949ec462d5eee39db",
+        "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    },
+    {
+      "Provider": "Sqlite",
+      "Aot": true,
+      "Dto": "edited",
+      "Checks": [
+        "model-generates-reviewable-create-sql",
+        "one-page-plus-one-detail-sql",
+        "page-results-and-empty-association",
+        "empty-batch-no-sql",
+        "composite-cursor-ties-and-no-overfetch",
+        "empty-final-page",
+        "optional-customer-filter",
+        "same-immutable-dto-for-fluent-and-parameterized-sql",
+        "typed-grouped-aggregate-dto",
+        "custom-id-decimal-json-and-nullable-mapping",
+        "omitted-fields-versus-written-null",
+        "stale-version-rejected",
+        "insert-returning-and-confirmed-callback",
+        "original-error-and-confirmed-rollback",
+        "rollback-business-result",
+        "precancel-does-not-invoke-callback",
+        "destructive-migration-needs-explicit-selection",
+        "explicit-destructive-script-is-reviewable",
+        "existing-table-scaffold-written",
+        "scaffolded-entity-compiled-and-executed",
+        "scaffolded-composite-key-compiled-and-executed"
+      ],
+      "SqlExecutions": 2,
+      "ProtocolSubmissions": 0,
+      "NativeSha256": "5c3a7a94e254b510d6213d874ff211190a4948168f2ba6fdb3383a684de74de8",
+      "Phase": "edited",
+      "ExecutableSha256": "5fd716eed60fba9f45882bb88cf8451c7bc5902104dac62036895443b4d7f770",
+      "ModelsSha256": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+      "ScaffoldSha256": {
+        "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+        "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26"
+      },
+      "TutorialSources": {
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+      },
+      "Sources": {
+        "CustomerCopy.cs": "83c96d04af43531e1af35de1c16d972c62647e9efe1c1259e98ac77eb390a723",
+        "Models.cs": "c8f56d96c87e7d3625d13d356d199196cda162502caafb286d5b73acf3296868",
+        "OrderCopy.cs": "4713d35800dc4a82b0deae8bb113d9ed17f4dba7c5843d9b235cf6c81cb17d26",
+        "Program.cs": "eb8d3a5b58c26e17f0e947f941d0198db124ad6934993bade83d1a25015793c9",
+        "Tutorial.GettingStarted.cs": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451",
+        "Tutorial.OrderQueries.cs": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+        "Tutorial.OrderRow.cs": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+        "Tutorial.PackageReadme.cs": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda",
+        "VerificationDatabase.cs": "d8c0295338933028f991659c417ff9915b12238dc591d7a9105ff22bec0a63a9"
+      },
+      "ProjectReferences": 0
+    }
+  ],
+  "tutorials": [
+    {
+      "source": "/tmp/korda-public-3_og32lk/cache/korda.database.sqlite/0.1.0-preview.5/korda.database.sqlite.0.1.0-preview.5.nupkg!/README.md",
+      "source_sha256": "911b1ca2341f5f19bb37282a1044d965bd1991e74d92ef58ebe132a4840adf9a",
+      "marker": "## Define a model and DTO",
+      "code_sha256": "0417575d1f69130e437e747513f61c66d485b2844b387835ca7f19efa7a6e235",
+      "compiled_file": "Tutorial.PackageReadme.cs",
+      "compiled_sha256": "023123239ba320f29eff70d5084b7632d9d1cdcdfdfc6e879f811e20e4790dda"
+    },
+    {
+      "source": "docs/getting-started.md",
+      "source_sha256": "153de61c7dea4406fa35e07e1672890c9ea855c87d63927fa6738a7549936927",
+      "marker": "## 1. Define ordinary C# models",
+      "code_sha256": "303999aeeaf7dc79396f57a9cdd4bf2481a3791d83f1486192b36f2c0f3b9035",
+      "compiled_file": "Tutorial.GettingStarted.cs",
+      "compiled_sha256": "ad87a4f77cc5529308bb27c06c9a4125de2e8a217d4a85e2fda33e6f43e84451"
+    },
+    {
+      "source": "docs/guides/query-generator.md",
+      "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+      "marker": "Add this DTO in `OrderRow.cs`",
+      "code_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc",
+      "compiled_file": "Tutorial.OrderRow.cs",
+      "compiled_sha256": "a3fccc9aa7422e81a9510aff15c6dd99d9e93c333fc4a632cc148db315374ecc"
+    },
+    {
+      "source": "docs/guides/query-generator.md",
+      "source_sha256": "8d55d4b1580df2444176a14ee41c01d6e1787d706c014bf25883afb8b8be21c8",
+      "marker": "Add the query method in a separate `OrderQueries.cs` file.",
+      "code_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01",
+      "compiled_file": "Tutorial.OrderQueries.cs",
+      "compiled_sha256": "c32a057f22b9b6eafb52b4d41506b403c1174c9e37c0b1fa40130e0df9ef5e01"
+    }
+  ],
+  "tutorial_package_sha256": "0b6980f9a53c94289d2005b7d2767c13777eb4cf3f79db2d147f5b3d7995f0b4",
+  "tutorials_compiled_against_candidate": true,
+  "same_native_after_dto_edit": true
+}

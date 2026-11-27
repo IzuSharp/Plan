@@ -1,0 +1,144 @@
+name: NuGet preview
+on:
+  workflow_call:
+    inputs:
+      module:
+        type: string
+        required: true
+      database:
+        type: boolean
+        required: true
+      version:
+        required: true
+        type: string
+      plan:
+        required: true
+        type: string
+jobs:
+  publish:
+    if: github.repository == 'IzuSharp/Korda' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    environment: nuget
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    services:
+      postgres:
+        image: ${{ inputs.database && inputs.module == 'postgresql' && 'postgres:18.0@sha256:41fc5342eefba6cc2ccda736aaf034bbbb7c3df0fdb81516eba1ba33f360162c' || '' }}
+        env:
+          POSTGRES_USER: korda
+          POSTGRES_DB: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - "127.0.0.1:5432:5432"
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      MODULE: ${{ inputs.module }}
+      CANDIDATE: artifacts/publication
+      NW_TEST_POSTGRES: postgresql://korda@127.0.0.1:5432/postgres
+      NUGET_SOURCE: https://api.nuget.org/v3/index.json
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          global-json-file: global.json
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: candidate-${{ inputs.module }}
+          path: artifacts/publication
+      - name: Verify the tested tree, package allowlist and bytes
+        env:
+          VERSION: ${{ inputs.version }}
+          PLAN: ${{ inputs.plan }}
+        run: |
+          echo "$PLAN" > artifacts/plan.json
+          python3 eng/ci/validate_public.py "$CANDIDATE" artifacts/plan.json "$VERSION" --module "$MODULE" > artifacts/packages.txt
+      - name: Check for superseding package changes
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          latest=$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)
+          if ! git cat-file -e "$latest^{tree}"; then
+            git fetch --no-tags origin "$latest"
+          fi
+          python3 eng/ci/registry.py --publish-current "$MODULE" "$latest" artifacts/plan.json
+      - id: login
+        if: steps.current.outputs.publish == 'true'
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Push verified preview to nuget.org
+        if: steps.current.outputs.publish == 'true'
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: |
+          while IFS= read -r package; do
+            dotnet nuget push "$package" --source "$NUGET_SOURCE" --api-key "$NUGET_API_KEY" --skip-duplicate
+          done < artifacts/packages.txt
+      - name: Wait for indexing and verify signed registry package
+        if: steps.current.outputs.verify == 'true'
+        run: |
+          PYTHONPATH=src/Packaging.Release python3 - <<'PY'
+          import json, os, time
+          from pathlib import Path
+          from urllib.error import HTTPError
+          from urllib.request import urlopen
+          from release import compat, verify_registry
+          candidate = Path(os.environ["CANDIDATE"])
+          work = candidate / "registry-readback"
+          work.mkdir()
+          policy = compat.read_json("tests/Verification.Compatibility/signature-policy.json")
+          pending = list(compat.read_json(candidate / "release.json")["packages"])
+          deadline = time.monotonic() + 30 * 60
+          while pending:
+              for item in pending.copy():
+                  name, version = item["id"], item["version"]
+                  filename = f"{name}.{version}.nupkg"
+                  url = f"https://api.nuget.org/v3-flatcontainer/{name.lower()}/{version}/{filename.lower()}"
+                  try:
+                      with urlopen(url, timeout=30) as response:
+                          (work / filename).write_bytes(response.read())
+                  except HTTPError as error:
+                      if error.code == 404:
+                          continue
+                      raise
+                  verification = verify_registry(candidate / "feed" / filename, work / filename, item, policy, work / name)
+                  (work / (name + ".verification.json")).write_text(json.dumps({
+                      "package": name, "version": version, "download_url": url,
+                      "source_commit": compat.read_json(candidate / "release.json")["source_commit"],
+                      **verification,
+                  }, indent=2) + "\n")
+                  print(f"Verified {name} {version}", flush=True)
+                  pending.remove(item)
+              if pending:
+                  if time.monotonic() + 120 > deadline:
+                      raise TimeoutError([item["id"] for item in pending])
+                  print("Waiting two minutes for NuGet indexing", flush=True)
+                  time.sleep(120)
+          PY
+      - name: Consume the public database packages in Native AOT
+        if: steps.current.outputs.verify == 'true' && inputs.database
+        run: python3 eng/ci/consume.py "$CANDIDATE/release.json" artifacts/plan.json --public
+      - name: Run the registered public package consumer
+        if: steps.current.outputs.verify == 'true' && !inputs.database
+        env:
+          VERSION: ${{ inputs.version }}
+        run: python3 eng/ci/module_job.py public "$MODULE" artifacts/plan.json "$VERSION"
+      - name: Preserve actual registry bytes and public consumption receipts
+        if: always() && steps.current.outputs.verify == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: public-consumption-${{ inputs.module }}-${{ inputs.version }}
+          path: |
+            artifacts/publication/release.json
+            artifacts/plan.json
+            artifacts/publication/registry-readback/**
+            artifacts/publication/consumer-evidence/public/**
+          retention-days: 30
+          if-no-files-found: error

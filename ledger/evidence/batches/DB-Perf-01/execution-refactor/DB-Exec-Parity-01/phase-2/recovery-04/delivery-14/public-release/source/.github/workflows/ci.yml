@@ -1,0 +1,109 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+    inputs:
+      verify_images:
+        description: "Include clean-image, runtime-transfer and minimum-CPU checks in a full run"
+        type: boolean
+        default: false
+      check_paths:
+        description: "Optional: replay test or documentation paths, one per line. Empty runs the full suite."
+        type: string
+        required: false
+  schedule:
+    - cron: "13 4 * * 1"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ci-${{ github.event_name }}-${{ github.ref }}
+  queue: max
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+    outputs:
+      plan: ${{ steps.plan.outputs.plan }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate tracked ownership and CI contracts
+        run: |
+          python3 eng/ci/worker.py check-index
+          python3 -m unittest discover -s tests/Tooling -v
+          git diff --check
+      - id: plan
+        run: python3 eng/ci/plan_run.py
+  build:
+    needs: plan
+    if: fromJSON(needs.plan.outputs.plan).build_scopes[0] != null
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: ${{ fromJSON(needs.plan.outputs.plan).build_scopes }}
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ fromJSON(needs.plan.outputs.plan).versions[matrix.scope] || '0.1.0-ci.1' }}
+      scope: ${{ matrix.scope }}
+      resources: ${{ toJSON(fromJSON(needs.plan.outputs.plan).resources[matrix.scope]) }}
+      plan: ${{ needs.plan.outputs.plan }}
+  modules:
+    needs: plan
+    if: fromJSON(needs.plan.outputs.plan).modules[0] != null || fromJSON(needs.plan.outputs.plan).module_packages[0] != null
+    uses: ./.github/workflows/modules.yml
+    with:
+      plan: ${{ needs.plan.outputs.plan }}
+  security:
+    needs: plan
+    uses: ./.github/workflows/security.yml
+    with:
+      languages: ${{ toJSON(fromJSON(needs.plan.outputs.plan).languages) }}
+    permissions:
+      contents: read
+      pull-requests: read
+      security-events: write
+  verify:
+    name: Verify
+    needs: [plan, build, modules, security]
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Require selected jobs and verified package artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTS: ${{ toJSON(needs) }}
+          PLAN: ${{ needs.plan.outputs.plan }}
+        run: python3 eng/ci/plan_run.py --verify
+  publish:
+    needs: [plan, verify]
+    if: >-
+      !cancelled() && needs.verify.result == 'success' && github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' && github.repository == 'IzuSharp/Korda' &&
+      fromJSON(needs.plan.outputs.plan).releases[0] != null && vars.NUGET_PUBLISH_ENABLED == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.plan).releases }}
+    uses: ./.github/workflows/release.yml
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    with:
+      module: ${{ matrix.module }}
+      database: ${{ matrix.database }}
+      version: ${{ fromJSON(needs.plan.outputs.plan).versions[matrix.module] }}
+      plan: ${{ needs.plan.outputs.plan }}

@@ -1,3 +1,7 @@
+# Current delivery continuation — DB-Exec-Parity-01
+
+The owner resumed the interrupted evidence and delivery closeout. Local performance work is finished for this round; no new measurement, profiling, calibration, pressure or long workload is selected. Read [Continuation14](ledger/evidence/batches/DB-Perf-01/execution-refactor/DB-Exec-Parity-01/phase-2/recovery-04/continuation-14.md), its delivery receipts and Plan PR36's final observed merge/main-CI receipt. The product and Design are merged, both public preview.5 standalone AOT consumers passed, and Archive06 actual bytes are verified. Finish only any genuinely remaining normal Plan review/merge/main check, then stop. Preserve the explicit remaining performance gaps and unchanged Go drafts. Earlier task instructions below retain their historical scope.
+
 # Current task — DB-Exec-Parity-01
 
 The owner authorizes a measurement-first Linux x64 Korda/Dapper.AOT execution-path parity task from the latest merged mains. Preserve C# Fluent, Native AOT, C++ libpq/sqlite3 and two independent provider packages. Use `task/DB-Exec-Parity-01-linux` and task-marked worktrees. Read the [current checkpoint](ledger/evidence/batches/DB-Perf-01/execution-refactor/DB-Exec-Parity-01/README.md) and its status/receipts before resuming.

@@ -1,3 +1,9 @@
+# Current recovery — Delivery14
+
+Local performance work is finished. Read [Continuation14](phase-2/recovery-04/continuation-14.md), [current status](status.json) and Plan PR36's final delivery receipt. Both public preview.5 packages have passed signature and standalone Native AOT consumption; Archive06 is published and actual-byte verified. Only this Plan record's own normal review/merge/main CI can remain pending. Once its exact outcomes are recorded, stop. No performance command is pending. Historical four-cell and 0/4 requirements below were cancelled by the owner and must not restart work.
+
+## Historical recovery snapshots — superseded
+
 ## Recovery 03 ordinary and risk screens complete
 
 Read [the current checkpoint](phase-2/recovery-03/ordinary-screen-03/README.md). Corrected full Worker-D AOT passed; six ordinary groups and four targeted risk groups completed. Separate current-ELF samples passed identity/loss/coverage checks. The main product branch is still unchanged; Worker-D causal markers and next relation allocation scopes are active. Final campaign remains 0/4. No performance CI is added.

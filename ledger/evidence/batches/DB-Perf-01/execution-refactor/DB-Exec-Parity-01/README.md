@@ -1,5 +1,9 @@
 # DB-Exec-Parity-01 — measured execution-path reconstruction
 
+**Current delivery status:** [Continuation14](phase-2/recovery-04/continuation-14.md) records successful product/Design merges, both public preview.5 standalone Native AOT consumers, and full Archive06 byte verification. Local performance work is finished. Read Plan PR36's final receipt for this record's own subsequent merge/main CI; once confirmed, stop. No new or long measurement is pending. Dapper parity remains unproved.
+
+## Previous measured checkpoint retained
+
 Status: **Stage1 is complete; short-test work still shows substantial remaining gaps. All long measurements are cancelled.** [Continuation13](phase-2/recovery-04/continuation-13.md) closes frame08: its repeated allocation saving did not establish an acceptable CPU/tail/memory tradeoff, so retain05 plus the independent owner cleanup. [Continuation12](phase-2/recovery-04/continuation-12.md) retains that fix and the common comparison baseline; [Continuation10](phase-2/recovery-04/continuation-10.md) closes pull-local07. Completed rejected candidates and long runs are not pending gates. Normal reviewed delivery and actual CI/release verification remain authorized; no parity claim is made.
 
 Read the [combined measured stage table](phase-1/phase-1-measured-gate.md) first. It binds the ordinary four-route phase costs, actual engine/protocol/copy counts, per-thread timeline, sampling and allocation scopes to correctness contracts and the next candidate. The [independent common-candidate review](phase-1/common-candidate-review-01.md) preserves the rejected inline-completion counterexample and specifies the safe publication boundary required for the new experiment.

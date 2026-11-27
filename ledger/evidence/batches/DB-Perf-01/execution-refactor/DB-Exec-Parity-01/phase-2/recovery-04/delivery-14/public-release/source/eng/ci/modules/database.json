@@ -1,0 +1,282 @@
+{
+  "native-runtime": {
+    "sources": ["native/interop/", "src/Korda.Core/"],
+    "checks": ["database.api", "database.regressions"],
+    "depends": ["interop-abi", "interop-async", "interop-callbacks", "interop-errors", "interop-execution", "interop-lifetime", "interop-memory", "interop-negotiation"]
+  },
+  "database-native": {
+    "targets": ["nw_database_common", "korda_database_host"],
+    "sources": ["native/cpp/include/", "native/cpp/src/", "native/cpp/licenses/", "native/cpp/exports.map", "native/cpp/patches/", "native/database/", "native/dependencies.lock.json", "CMakeLists.txt", "CMakePresets.json", "eng/cpp_toolchain.py", "eng/task07_native.py", "eng/postgres-tools.sh"],
+    "tests": ["eng/verify-cpp-*.sh"],
+    "checks": ["database.dependencies", "database.regressions"],
+    "depends": ["native-runtime"]
+  },
+  "database": {
+    "sources": ["src/Data.Abstractions/", "src/Data.Codecs/", "src/Data.Materialization/", "src/Data.Migrations/", "src/Data.NativeHost/", "src/Data.Streaming/", "src/Data.Transactions/", "src/Query.Binding/", "src/Query.Fluent/", "src/Query.Native/", "src/Orm.Relations/", "src/Packaging.Domain/", "src/Packaging.Linux/", "src/Packaging.Release/", "Directory.Build.props", "global.json", "NuGet.Config"],
+    "depends": ["database-native", "model-generation", "bundle-layout", "build-task", "bundle-composer"],
+    "checks": ["database.api", "database.regressions"],
+    "api_checks": ["database.api"]
+  },
+  "sqlite": {
+    "targets": ["nw_database_sqlite"],
+    "metadata": ["packaging/providers/sqlite.txt"],
+    "sources": ["src/Data.Sqlite/", "src/Data.NativeHost/Providers/Sqlite/"],
+    "tests": ["tests/Data.Sqlite/", "samples/api/data-sqlite/", "native/cpp/tests/sqlite_fixture_tests.cpp", "native/cpp/tests/fixtures/sqlite.cpp"],
+    "depends": ["database"],
+    "checks": ["sqlite.test", "sqlite.api"],
+    "package": "Korda.Database.Sqlite",
+    "api_checks": ["sqlite.api"]
+  },
+  "postgresql": {
+    "targets": ["nw_database_postgresql"],
+    "metadata": ["packaging/providers/postgresql.txt"],
+    "sources": ["src/Data.Postgres/", "src/Data.NativeHost/Providers/PostgreSql/", "native/cpp/patches/libpq-*"],
+    "tests": ["tests/Data.Postgres/", "samples/api/data-postgres/", "native/cpp/tests/postgres_fixture_tests.cpp", "native/cpp/tests/fixtures/postgres*"],
+    "depends": ["database"],
+    "checks": ["postgresql.test", "postgresql.api"],
+    "package": "Korda.Database.PostgreSql",
+    "api_checks": ["postgresql.api"]
+  },
+  "bundle-composer": {
+    "sources": ["eng/ci/bundles.py", "eng/ci/provider_metadata.py"],
+    "tests": ["eng/ci/packed_api.py"],
+    "checks": ["bundle.check"]
+  },
+  "bundle-layout": {
+    "metadata": ["packaging/providers/README.md"],
+    "sources": ["src/Packaging.Linux/packages.py", "src/Packaging.Release/buildTransitive/", "eng/ci/provider.targets", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+    "checks": ["bundle.check"]
+  },
+  "build-task": {
+    "sources": ["src/Packaging.Release/BuildTasks/"],
+    "checks": ["pack.api", "bundle.check"]
+  },
+  "generator-tests": {
+    "tests": ["tests/Query.Generator/"],
+    "checks": ["generator.test"]
+  },
+  "model-generation": {
+    "sources": ["src/Query.Generator/"],
+    "checks": ["generator.test"]
+  },
+  "additive-api-contract": {
+    "tests": ["eng/ci/api_contract.py"],
+    "checks": ["database.api"]
+  },
+  "generator-driver": {
+    "tests": ["tests/Query.Generator/verify.py"],
+    "checks": ["generator.test"]
+  },
+  "elf-profile": {
+    "tests": ["tests/Packaging.Linux/test_profile.py"],
+    "checks": ["elf.test"]
+  },
+  "pack-api": {
+    "tests": ["tests/Packaging.Release/ApiCheck/"],
+    "checks": ["pack.api"]
+  },
+  "public-consumers": {
+    "tests": ["eng/ci/consume.py", "eng/ci/orm_experience.py", "samples/api/orm-experience/", "eng/ci/registry.py", ".github/workflows/release.yml"],
+    "checks": ["consumer.check"]
+  },
+  "abstraction-tests": {
+    "tests": ["tests/Data.Abstractions/"],
+    "checks": ["abstraction.test"]
+  },
+  "codec-tests": {
+    "tests": ["tests/Data.Codecs/"],
+    "checks": ["codec.test"]
+  },
+  "transaction-tests": {
+    "tests": ["tests/Data.Transactions/"],
+    "checks": ["transaction.test"]
+  },
+  "streaming-tests": {
+    "tests": ["tests/Data.Streaming/"],
+    "checks": ["streaming.test"]
+  },
+  "binding-tests": {
+    "tests": ["tests/Query.Binding/"],
+    "checks": ["binding.test"]
+  },
+  "interop-abi-tests": {
+    "tests": ["tests/Interop.Abi/", "samples/api/interop-abi/"],
+    "checks": ["interop.abi"]
+  },
+  "interop-async-tests": {
+    "tests": ["tests/Interop.Async/", "samples/api/interop-async/", "native/cpp/tests/fixtures/async.cpp"],
+    "checks": ["interop.async"]
+  },
+  "interop-callbacks-tests": {
+    "tests": ["tests/Interop.Callbacks/", "samples/api/interop-callbacks/", "native/cpp/tests/fixtures/callbacks.cpp"],
+    "checks": ["interop.callbacks"]
+  },
+  "interop-errors-tests": {
+    "tests": ["tests/Interop.Errors/", "samples/api/interop-errors/", "native/cpp/tests/fixtures/errors.cpp"],
+    "checks": ["interop.errors"]
+  },
+  "interop-execution-tests": {
+    "tests": ["tests/Interop.Execution/", "samples/api/interop-execution/", "native/cpp/tests/fixtures/execution.cpp"],
+    "checks": ["interop.execution"]
+  },
+  "interop-lifetime-tests": {
+    "tests": ["tests/Interop.Lifetime/", "samples/api/interop-lifetime/", "native/cpp/tests/fixtures/lifetime.cpp"],
+    "checks": ["interop.lifetime"]
+  },
+  "interop-memory-tests": {
+    "tests": ["tests/Interop.Memory/", "samples/api/interop-memory/", "native/cpp/tests/fixtures/memory.cpp"],
+    "checks": ["interop.memory"]
+  },
+  "interop-negotiation-tests": {
+    "tests": ["tests/Interop.Negotiation/", "samples/api/interop-negotiation/"],
+    "checks": ["interop.negotiation"]
+  },
+  "database-tests": {
+    "tests": ["src/Build.Integration/", "src/Reference.TaskService/", "src/Verification.EndToEnd/", "src/Verification.Models/", "src/Packaging.Release/release.py", "tests/Query.Native/", "tests/Build.Integration/", "tests/Reference.TaskService/", "tests/Verification.EndToEnd/", "tests/Verification.Models/", "samples/api/data-abstractions/", "samples/api/data-codecs/", "samples/api/data-materialization/", "samples/api/data-migrations/", "samples/api/data-nativehost/", "samples/api/data-streaming/", "samples/api/data-transactions/", "samples/api/query-binding/", "samples/api/query-fluent/", "samples/api/query-generator/", "samples/api/query-native/", "samples/api/orm-relations/", "samples/api/packaging-domain/", "samples/api/packaging-linux/", "samples/api/reference-taskservice/", "samples/api/verification-compatibility/", "samples/api/verification-endtoend/", "samples/api/verification-interop/", "samples/api/verification-models/", "eng/consume-linux.sh", "eng/verify_db_scope.py", "eng/verify-task*-linux.sh"],
+    "checks": ["database.regressions"]
+  },
+  "regression-driver": {
+    "tests": ["tests/ProviderProfileChecks.cs", "eng/database_regressions.py"],
+    "checks": ["database.regressions"]
+  },
+  "compatibility-tests": {
+    "tests": ["tests/Verification.Compatibility/", "src/Verification.Compatibility/"],
+    "checks": ["database.compatibility"]
+  },
+  "interop-property-tests": {
+    "tests": ["tests/Verification.Interop/", "src/Verification.Interop/"],
+    "checks": ["database.interop-properties"]
+  },
+  "linux-package-tests": {
+    "tests": ["tests/Packaging.Linux/", "eng/verify-task04-linux.sh"],
+    "checks": ["elf.test", "image.runtime"]
+  },
+  "domain-package-tests": {
+    "tests": ["tests/Packaging.Domain/", "tests/Packaging.Release/", "eng/verify-task07-linux.sh"],
+    "checks": ["domain.consume-aot", "image.transfer"]
+  },
+  "native-acceptance-tests": {
+    "tests": ["tests/Migration.Cpp/"],
+    "checks": ["manual.migration"]
+  },
+  "abi-bootstrap-tests": {
+    "tests": ["tests/Interop.Abi/native/bootstrap.c"],
+    "checks": ["fixture.abi-bootstrap"]
+  },
+  "interop-corpus-tests": {
+    "tests": ["tests/Verification.Interop/fuzz/interop.c", "tests/Verification.Interop/corpus/"],
+    "checks": ["fixture.interop-corpus"]
+  },
+  "interop-test-build": {
+    "tests": ["tests/native_build.py"],
+    "checks": ["interop.abi", "interop.async", "interop.callbacks", "interop.errors", "interop.execution", "interop.lifetime", "interop.memory", "interop.negotiation"]
+  },
+  "interop-fixture-build": {
+    "tests": ["eng/ci/fixtures/"],
+    "checks": ["fixture.abi-bootstrap", "fixture.interop-corpus"]
+  },
+  "native-checks": {
+    "tests": ["native/cpp/tests/"],
+    "checks": ["database.native-tests"]
+  },
+  "interop-build": {
+    "tests": ["eng/ci/interop/", "native/cpp/tests/interop.cmake"],
+    "checks": ["interop.abi", "interop.async", "interop.callbacks", "interop.errors", "interop.execution", "interop.lifetime", "interop.memory", "interop.negotiation"]
+  },
+  "interop-native-tests": {
+    "tests": ["native/cpp/tests/interop_tests.cpp"],
+    "checks": ["interop.native"]
+  },
+  "native-sanitizer-check": {
+    "tests": ["eng/verify-cpp-sanitizers.sh"],
+    "checks": ["weekly.sanitizers"]
+  },
+  "native-clean-check": {
+    "tests": ["eng/verify-cpp-clean.sh"],
+    "checks": ["image.clean-build"]
+  },
+  "api-checks": {
+    "tests": ["public-api-standard.json"],
+    "checks": ["database.api"]
+  },
+  "migrations-api": {
+    "tests": ["tests/Data.Migrations/api.py", "src/Data.Migrations/reference/"],
+    "checks": ["migrations.api"]
+  },
+  "nativehost-api": {
+    "tests": ["tests/Data.NativeHost/api.py", "src/Data.NativeHost/reference/"],
+    "checks": ["database.api"]
+  },
+  "relations-api": {
+    "tests": ["tests/Orm.Relations/api.py", "src/Orm.Relations/reference/"],
+    "checks": ["relations.api"]
+  },
+  "fluent-api": {
+    "tests": ["tests/Query.Fluent/ApiCheck/", "src/Query.Fluent/public-api.expected.json", "src/Query.Fluent/api-reference.md"],
+    "checks": ["fluent.api"]
+  },
+  "interop-abi": {
+    "sources": ["src/Interop.Abi/"],
+    "checks": ["interop.abi"]
+  },
+  "interop-async": {
+    "sources": ["src/Interop.Async/"],
+    "checks": ["interop.async"]
+  },
+  "interop-callbacks": {
+    "sources": ["src/Interop.Callbacks/"],
+    "checks": ["interop.callbacks"]
+  },
+  "interop-errors": {
+    "sources": ["src/Interop.Errors/"],
+    "checks": ["interop.errors"]
+  },
+  "interop-execution": {
+    "sources": ["src/Interop.Execution/"],
+    "checks": ["interop.execution"]
+  },
+  "interop-lifetime": {
+    "sources": ["src/Interop.Lifetime/"],
+    "checks": ["interop.lifetime"]
+  },
+  "interop-memory": {
+    "sources": ["src/Interop.Memory/"],
+    "checks": ["interop.memory"]
+  },
+  "interop-negotiation": {
+    "sources": ["src/Interop.Negotiation/"],
+    "checks": ["interop.negotiation"]
+  },
+  "data-nativehost-tests": {
+    "tests": ["tests/Data.NativeHost/"],
+    "checks": ["data.nativehost.test"]
+  },
+  "data-migrations-tests": {
+    "tests": ["tests/Data.Migrations/"],
+    "checks": ["data.migrations.test"]
+  },
+  "data-materialization-tests": {
+    "tests": ["tests/Data.Materialization/"],
+    "checks": ["data.materialization.test"]
+  },
+  "query-fluent-tests": {
+    "tests": ["tests/Query.Fluent/"],
+    "checks": ["query.fluent.test"]
+  },
+  "orm-relations-tests": {
+    "tests": ["tests/Orm.Relations/"],
+    "checks": ["orm.relations.test"]
+  },
+  "public-validation-tests": {
+    "tests": ["eng/ci/validate_public.py"],
+    "checks": ["consumer.check"]
+  },
+  "database-lifecycle-probe": {
+    "tests": ["tests/Verification.EndToEnd/api_probe.py"],
+    "checks": ["database-lifecycle.aot"]
+  },
+  "database-business-probe": {
+    "tests": ["tests/Reference.TaskService/package_probe.py"],
+    "checks": ["database-business.aot"]
+  }
+}

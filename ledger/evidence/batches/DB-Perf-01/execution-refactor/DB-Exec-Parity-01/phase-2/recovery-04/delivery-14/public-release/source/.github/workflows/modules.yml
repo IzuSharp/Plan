@@ -1,0 +1,42 @@
+name: Registered module checks and packages
+on:
+  workflow_call:
+    inputs:
+      plan:
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  modules:
+    name: Module (${{ matrix.module }})
+    if: fromJSON(inputs.plan).modules[0] != null
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJSON(inputs.plan).modules }}
+    uses: ./.github/workflows/build.yml
+    with:
+      mode: module-check
+      scope: ${{ matrix.module }}
+      version: ${{ fromJSON(inputs.plan).versions[matrix.module] || '0.1.0-ci.1' }}
+      resources: ${{ toJSON(fromJSON(inputs.plan).module_resources[matrix.module]) }}
+      plan: ${{ inputs.plan }}
+  module-packages:
+    name: Package (${{ matrix.module }})
+    needs: modules
+    if: >-
+      !cancelled() && (needs.modules.result == 'success' || needs.modules.result == 'skipped') &&
+      fromJSON(inputs.plan).module_packages[0] != null
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJSON(inputs.plan).module_packages }}
+    uses: ./.github/workflows/build.yml
+    with:
+      mode: module-pack
+      scope: ${{ matrix.module }}
+      version: ${{ fromJSON(inputs.plan).versions[matrix.module] || '0.1.0-ci.1' }}
+      resources: ${{ toJSON(fromJSON(inputs.plan).module_resources[matrix.module]) }}
+      plan: ${{ inputs.plan }}

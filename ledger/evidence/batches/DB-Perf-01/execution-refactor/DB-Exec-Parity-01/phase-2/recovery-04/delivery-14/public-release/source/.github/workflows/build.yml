@@ -1,0 +1,173 @@
+name: Linux module checks
+on:
+  workflow_call:
+    inputs:
+      mode:
+        type: string
+        default: run
+      resources:
+        required: true
+        type: string
+      version:
+        type: string
+        default: 0.1.0-db-cpp.1
+      scope:
+        type: string
+        required: true
+      plan:
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  build:
+    name: Run ${{ inputs.scope }} actions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      CI: "true"
+      NUGET_PACKAGES: ${{ github.workspace }}/artifacts/nuget-packages
+      SCCACHE_IDLE_TIMEOUT: "0"
+      DOTNET_NOLOGO: "true"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      PACKAGE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Materialize the PR plan
+        env:
+          PLAN: ${{ inputs.plan }}
+        run: mkdir -p artifacts && echo "$PLAN" > artifacts/plan.json
+      - name: Read immutable historical database API signatures
+        if: contains(fromJSON(inputs.resources), 'design')
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: IzuSharp/Korda-Design
+          ref: c62cdb8aee833b6ab1a03e29a3f59f81a1b483f9
+          path: artifacts/frozen-design
+          persist-credentials: false
+      - name: Read immutable historical Core API acceptance inputs
+        if: contains(fromJSON(inputs.resources), 'plan')
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: IzuSharp/Plan
+          ref: 8afa0311f45ab8a8157fc45c51e95a0b17dd09f2
+          path: artifacts/frozen-plan
+          persist-credentials: false
+      - name: Read fixed database-scope compatibility inputs
+        if: contains(fromJSON(inputs.resources), 'scope-design')
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: IzuSharp/Korda-Design
+          ref: 8298dc4128b745cf1809bad0c3cf02c45eb7f522
+          fetch-depth: 0
+          path: artifacts/scope-design
+          persist-credentials: false
+      - if: contains(fromJSON(inputs.resources), 'dotnet')
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: |
+            global.json
+            **/packages*.lock.json
+      - name: Restore pinned tool downloads
+        if: contains(fromJSON(inputs.resources), 'native')
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          key: linux-x64-tools-${{ hashFiles('native/dependencies.lock.json','eng/ci/sccache.sh') }}
+          path: |
+            artifacts/toolchain/downloads
+            artifacts/toolchain/sccache/tool.tar.gz
+            artifacts/dependencies/downloads
+      - name: Install native build prerequisites and pinned Clang tools
+        if: contains(fromJSON(inputs.resources), 'native')
+        env:
+          NEED_PG: ${{ contains(fromJSON(inputs.resources), 'pg-tools') }}
+          NEED_QEMU: ${{ contains(fromJSON(inputs.resources), 'qemu') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends zstd libssl-dev
+          if [ "$NEED_PG" = true ]; then sudo apt-get install -y zlib1g-dev bison flex python3-cryptography; fi
+          if [ "$NEED_QEMU" = true ]; then sudo apt-get install -y qemu-user; fi
+          python3 eng/cpp_toolchain.py
+          bash eng/ci/sccache.sh install
+      - name: Restore compiler objects
+        if: contains(fromJSON(inputs.resources), 'native')
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          path: ~/.cache/sccache
+          key: sccache-linux-x64-v017-${{ hashFiles('native/dependencies.lock.json', 'CMakePresets.json') }}-${{ inputs.scope }}-${{ hashFiles('native/**', 'CMakeLists.txt', 'eng/task07_native.py') }}
+          restore-keys: |
+            sccache-linux-x64-v017-${{ hashFiles('native/dependencies.lock.json', 'CMakePresets.json') }}-${{ inputs.scope }}-
+            sccache-linux-x64-v017-${{ hashFiles('native/dependencies.lock.json', 'CMakePresets.json') }}-
+      - id: pg
+        if: contains(fromJSON(inputs.resources), 'pg-tools')
+        run: echo "key=$(python3 eng/postgres-cache-key.py full)" >> "$GITHUB_OUTPUT"
+      - name: Restore exact PostgreSQL installation
+        if: steps.pg.outputs.key
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          key: postgres-full-ubuntu24-x64-${{ steps.pg.outputs.key }}
+          path: artifacts/postgres-tools/install
+      - name: Prepare pinned PostgreSQL tools for real TLS and process fault oracles
+        if: steps.pg.outputs.key
+        run: bash eng/postgres-tools.sh
+      - name: Fetch internal outputs for the selected package
+        if: inputs.mode == 'module-pack'
+        env:
+          SCOPE: ${{ inputs.scope }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for module in $(jq -r --arg id "$SCOPE" '.compose_from[$id][]' artifacts/plan.json); do
+            gh run download "$GITHUB_RUN_ID" -n "module-$module-$GITHUB_RUN_ID" -D "artifacts/modules/$module"
+          done
+      - name: Execute the selected module actions
+        env:
+          SCOPE: ${{ inputs.scope }}
+          MODE: ${{ inputs.mode }}
+          TMPDIR: ${{ runner.temp }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 eng/ci/worker.py "$MODE" artifacts/plan.json "$SCOPE"
+          git diff --exit-code
+      - name: Retain action logs after a failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diagnostics-${{ inputs.scope }}-${{ github.run_id }}
+          path: |
+            artifacts/logs/
+            artifacts/provider-test/${{ inputs.scope }}/*.stdout.log
+            artifacts/provider-test/${{ inputs.scope }}/*.stderr.log
+            artifacts/provider-test/${{ inputs.scope }}/pg-*.log
+            artifacts/provider-test/${{ inputs.scope }}/result.json
+            artifacts/provider-test/${{ inputs.scope }}/commands.json
+            artifacts/provider-test/${{ inputs.scope }}/summary.json
+            artifacts/provider-test/${{ inputs.scope }}/failure.txt
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Compiler cache statistics
+        if: always() && contains(fromJSON(inputs.resources), 'native')
+        run: bash eng/ci/sccache.sh stats
+      - name: Pass internal build output to the package job
+        if: inputs.mode == 'module-check' && fromJSON(inputs.plan).artifacts[inputs.scope] != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: module-${{ inputs.scope }}-${{ github.run_id }}
+          path: ${{ fromJSON(inputs.plan).artifacts[inputs.scope] }}
+          if-no-files-found: error
+          overwrite: true
+      - name: Retain independently verified package
+        if: inputs.mode == 'module-pack' || (inputs.mode == 'run' && contains(fromJSON(inputs.plan).public_checks, inputs.scope))
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: candidate-${{ inputs.scope }}
+          overwrite: true
+          path: artifacts/public/
+          if-no-files-found: error
+          retention-days: 14
