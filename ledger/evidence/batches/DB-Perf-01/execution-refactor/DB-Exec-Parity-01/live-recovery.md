@@ -1,3 +1,9 @@
+# Current recovery continuation 02
+
+Read [recovery-continuation-02.md](phase-2/recovery-continuation-02.md) first. Its current root, verified artifact boundary and active work supersede the earlier live workspace pointers below. The earlier text is preserved as historical recovery evidence. Final acceptance remains0/4.
+
+---
+
 # DB-Exec-Parity-01 live recovery — active, not finished
 
 Updated UTC: 2026-11-26T19:53:06.245558+00:00
