@@ -2,7 +2,9 @@
 
 **Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
 
-**Latest authoritative continuation:** [Continuation10](continuation-10.md) closes pull-local07's actual correctness, ordinary ELF analysis and 12-process text1000 short comparison. Pull-local07 is rejected for lack of repeatable CPU benefit; integrated05 remains selected. No conditional mixed gate or extra round is pending. The next question is a read-only investigation of the already measured relation-buffer cost, not an adopted product strategy. Supplement04 has been published and byte-read back; the new full07 supplement remains pending. [Continuation09](continuation-09.md) retains the earlier closed tail06 decision, and the original [pull-local07 hypothesis](pull-local-07-hypothesis.md) retains its pre-implementation conditions.
+**Latest selected experiment:** [Continuation11](frame-pool-08-hypothesis.md) selects bounded Seal-only final-frame rental08 for isolated implementation and finite resource validation on integrated05; it is not yet adopted or measured. All long runs remain cancelled.
+
+**Latest closed execution evidence:** [Continuation10](continuation-10.md) closes pull-local07's actual correctness, ordinary ELF analysis and 12-process text1000 short comparison. Pull-local07 is rejected for lack of repeatable CPU benefit; integrated05 remains selected. No conditional mixed gate or extra round is pending. The subsequent ownership/runtime review now supports the isolated Continuation11 candidate; no new implementation or benefit is yet claimed. Supplement04 has been published and byte-read back; the new full07 supplement remains pending. [Continuation09](continuation-09.md) retains the earlier closed tail06 decision, and the original [pull-local07 hypothesis](pull-local-07-hypothesis.md) retains its pre-implementation conditions.
 
 ## Historical Recovery04 snapshot
 
