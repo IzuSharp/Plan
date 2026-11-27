@@ -1,0 +1,165 @@
+diff --git a/src/Query.Binding/QueryCommand.Submission.cs b/src/Query.Binding/QueryCommand.Submission.cs
+index 3419140..e2571e7 100644
+--- a/src/Query.Binding/QueryCommand.Submission.cs
++++ b/src/Query.Binding/QueryCommand.Submission.cs
+@@ -1,3 +1,4 @@
++using System.Buffers;
+ using Korda.Data;
+ using Korda.Interop.Abi;
+ 
+@@ -6,6 +7,17 @@ namespace Korda.Query.Internal;
+ internal sealed partial class QueryCommand
+ {
+     private const int SingleRootScratchBytes = 4096;
++    private const int MaximumRentedFrameBytes = 65536;
++
++    private static ArrayPool<byte> SealFrames => SealFrameCache.Pool;
++
++    private static class SealFrameCache
++    {
++        internal static readonly ArrayPool<byte> Pool = ArrayPool<byte>.Create(MaximumRentedFrameBytes, 4);
++        // An explicit type initializer keeps pool creation behind the first
++        // eligible Seal rental, including when only the stack path is used.
++        static SealFrameCache() { }
++    }
+ 
+     // QueryBinding holds exclusive admission throughout encoding and submission.
+     // A private root cannot gain another origin owner here. Shared snapshots and
+@@ -32,6 +44,12 @@ private bool TryEncodeSingleRoot(Span<byte> scratch, out int length)
+     }
+ 
+     private EncodedCommand Encode()
++    {
++        byte[]? unused = null;
++        return Encode(false, ref unused);
++    }
++
++    private EncodedCommand Encode(bool rentFrame, ref byte[]? rental)
+     {
+         var blocks = new List<QueryCommand>();
+         var indices = new Dictionary<QueryCommand, int>(ReferenceEqualityComparer.Instance);
+@@ -73,63 +91,82 @@ uint Owner(RetainedQueryOwner owner, uint kind)
+             }
+         size = checked(size + 12 * bindings.Count);
+         if (size > _environment.MaxEnvelopeBytes) Capacity();
+-        var bytes = new byte[size];
+-        DbWire.U32(bytes, 0, 0x4351574e); DbWire.U32(bytes, 4, 1); DbWire.U32(bytes, 8, (uint)bytes.Length);
+-        DbWire.U32(bytes, 12, (uint)blocks.Count); DbWire.U32(bytes, 16, (uint)indices[this]); DbWire.U32(bytes, 20, (uint)records);
+-        DbWire.U32(bytes, 24, (uint)bindings.Count);
++        byte[] bytes;
++        if (rentFrame && size > SingleRootScratchBytes && size <= MaximumRentedFrameBytes)
++        {
++            bytes = SealFrames.Rent(size);
++            // Seal's lexical finally is already active. Publish its ownership
++            // before encoding or sidecar construction can fail.
++            rental = bytes;
++        }
++        else bytes = new byte[size];
++        var frame = bytes.AsSpan(0, size);
++        DbWire.U32(frame, 0, 0x4351574e); DbWire.U32(frame, 4, 1); DbWire.U32(frame, 8, (uint)size);
++        DbWire.U32(frame, 12, (uint)blocks.Count); DbWire.U32(frame, 16, (uint)indices[this]); DbWire.U32(frame, 20, (uint)records);
++        DbWire.U32(frame, 24, (uint)bindings.Count); DbWire.U32(frame, 28, 0);
+         var position = 32;
+         foreach (var binding in bindings)
+         {
+-            DbWire.U32(bytes, position, binding.Origin); DbWire.U32(bytes, position + 4, binding.Owner);
+-            DbWire.U32(bytes, position + 8, binding.RetainedOrigin); position += 12;
++            DbWire.U32(frame, position, binding.Origin); DbWire.U32(frame, position + 4, binding.Owner);
++            DbWire.U32(frame, position + 8, binding.RetainedOrigin); position += 12;
+         }
+         foreach (var block in blocks)
+         {
+-            DbWire.U32(bytes, position, (uint)(24 + block._written)); DbWire.U32(bytes, position + 4, Owner(block._root, 1));
+-            DbWire.U32(bytes, position + 8, block._model.TableId); DbWire.U32(bytes, position + 12, (uint)block._recordCount);
+-            DbWire.U32(bytes, position + 16, (uint)block._slots.Count); position += 24;
+-            block._records.AsSpan(0, block._written).CopyTo(bytes.AsSpan(position));
++            DbWire.U32(frame, position, (uint)(24 + block._written)); DbWire.U32(frame, position + 4, Owner(block._root, 1));
++            DbWire.U32(frame, position + 8, block._model.TableId); DbWire.U32(frame, position + 12, (uint)block._recordCount);
++            DbWire.U32(frame, position + 16, (uint)block._slots.Count); DbWire.U32(frame, position + 20, 0); position += 24;
++            block._records.AsSpan(0, block._written).CopyTo(frame[position..]);
+             foreach (var fixup in block._fixups)
+             {
+                 var dependency = block._dependencies[fixup.Dependency];
+                 var index = dependency.Snapshot is { } snapshot ? checked((uint)indices[snapshot]) : Owner(dependency.Owner!, dependency.Kind);
+-                DbWire.U32(bytes, position + fixup.Offset, index);
++                DbWire.U32(frame, position + fixup.Offset, index);
+             }
+             foreach (var origin in block._origins)
+-                DbWire.U32(bytes, position + origin.Offset, origins[origin.Identity]);
++                DbWire.U32(frame, position + origin.Offset, origins[origin.Identity]);
+             position += block._written;
+         }
+-        return new(bytes, owners.ToArray(), origins);
++        return new(bytes, size, owners.ToArray(), origins);
+     }
+ 
+     internal unsafe DatabaseOwner Seal(uint terminal)
+     {
+-        ValidateSeal(terminal); using var gates = LockOrigins(false);
+-        Span<byte> scratch = stackalloc byte[SingleRootScratchBytes];
+-        Span<QueryCommandDependency> root = stackalloc QueryCommandDependency[1];
+-        scoped ReadOnlySpan<byte> command; scoped ReadOnlySpan<QueryCommandDependency> dependencies;
+-        EncodedCommand? encoded = null;
+-        if (gates.Origins.Length == 0 && TryEncodeSingleRoot(scratch, out var length))
++        ValidateSeal(terminal);
++        byte[]? rental = null;
++        try
+         {
+-            root[0] = new() { Owner = _root.Pointer, Kind = 1 };
+-            command = scratch[..length]; dependencies = root;
++            using var gates = LockOrigins(false);
++            Span<byte> scratch = stackalloc byte[SingleRootScratchBytes];
++            Span<QueryCommandDependency> root = stackalloc QueryCommandDependency[1];
++            scoped ReadOnlySpan<byte> command; scoped ReadOnlySpan<QueryCommandDependency> dependencies;
++            EncodedCommand? encoded = null;
++            if (gates.Origins.Length == 0 && TryEncodeSingleRoot(scratch, out var length))
++            {
++                root[0] = new() { Owner = _root.Pointer, Kind = 1 };
++                command = scratch[..length]; dependencies = root;
++            }
++            else
++            {
++                encoded = Encode(true, ref rental); command = encoded.Value.Bytes.AsSpan(0, encoded.Value.Length);
++                dependencies = encoded.Value.Dependencies;
++            }
++            using var session = _session.Borrow(DatabaseOwnerKind.Session); nint result = 0; var error = BindingChecks.Error();
++            fixed (byte* bytes = command)
++            fixed (QueryCommandDependency* owners = dependencies)
++                BindingChecks.Status(Calls.Compile(session.Pointer, BindingChecks.View(bytes, command.Length), owners,
++                    (uint)dependencies.Length, terminal, &result, &error), error);
++            if (result == 0) throw new BindingFailure(NativeStatus.ContractViolation, 0, 0, 0);
++            DatabaseOwner plan;
++            try { plan = new(Source, DatabaseOwnerKind.Plan, result) { QueryPlan = Metadata() }; }
++            catch { Source.Calls.nw_db_owner_release_v1(result); throw; }
++            try { if (encoded is { } complete) PublishOrigins(plan, complete, gates); }
++            catch { plan.Dispose(); throw; }
++            _sealed = true; return plan;
+         }
+-        else
++        finally
+         {
+-            encoded = Encode(); command = encoded.Value.Bytes; dependencies = encoded.Value.Dependencies;
++            if (rental is not null) SealFrames.Return(rental, clearArray: true);
+         }
+-        using var session = _session.Borrow(DatabaseOwnerKind.Session); nint result = 0; var error = BindingChecks.Error();
+-        fixed (byte* bytes = command)
+-        fixed (QueryCommandDependency* owners = dependencies)
+-            BindingChecks.Status(Calls.Compile(session.Pointer, BindingChecks.View(bytes, command.Length), owners,
+-                (uint)dependencies.Length, terminal, &result, &error), error);
+-        if (result == 0) throw new BindingFailure(NativeStatus.ContractViolation, 0, 0, 0);
+-        DatabaseOwner plan;
+-        try { plan = new(Source, DatabaseOwnerKind.Plan, result) { QueryPlan = Metadata() }; }
+-        catch { Source.Calls.nw_db_owner_release_v1(result); throw; }
+-        try { if (encoded is { } complete) PublishOrigins(plan, complete, gates); }
+-        catch { plan.Dispose(); throw; }
+-        _sealed = true; return plan;
+     }
+ 
+     internal unsafe nint Render()
+@@ -221,5 +258,5 @@ internal OriginGates(QueryOrigin[] origins)
+         public void Dispose() { while (_entered != 0) Monitor.Exit(_origins[--_entered].Gate); }
+     }
+ 
+-    private readonly record struct EncodedCommand(byte[] Bytes, QueryCommandDependency[] Dependencies, IReadOnlyDictionary<QueryOrigin, uint> Origins);
++    private readonly record struct EncodedCommand(byte[] Bytes, int Length, QueryCommandDependency[] Dependencies, IReadOnlyDictionary<QueryOrigin, uint> Origins);
+ }

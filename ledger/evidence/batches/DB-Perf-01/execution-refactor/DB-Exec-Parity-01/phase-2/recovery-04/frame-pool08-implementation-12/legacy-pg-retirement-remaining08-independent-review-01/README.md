@@ -1,0 +1,19 @@
+# Remaining08：十个旧 PostgreSQL 夹具的增量独立审查
+
+**新适配器及已准备的精确十目录清单未发现阻断，可由 root 按原授权执行所列命令。** 本审查没有执行适配器、删除目录、启动数据库、扫描物理数据树或重算983份原始文件内容。执行前的全量身份复核、配置保存和删除仍由已审脚本负责；这里不给提前完成信用。
+
+## 范围与来源
+
+retire_remaining.py 固定为9afe149faf79b130bfc5106c6f8a3659e61ce1cc85c27f6a42fc008189c3d900，manifest固定为7b8873a36f271f635c0ae6b055dbc3aeb255ba452c8f1875709e0220f2c4d5d0。实际清单为十个原已证退出的flat-layout目录，共653,553,664 allocated B、13,194 metadata项；228条绑定命令、983份外围raw（25,607,223 B）保留，60个配置文件在任何删除前复制并读回。已退的两簇、nested sampled-small03和四个pg_ctl-only排除项未加入。
+
+源的八个核心函数与已审subset07完全同字节，包括直接owner wait4验证、路径/文件身份、双inventory复核和descriptor-relative rmtree。完整diff及12项冻结文件身份已核。27项作者增量控制的原回执与源绑定正确，未重跑原物理删除控制。
+
+三条observer-adapter路径新增严格身份门禁：plan、runner、retirement内原run.py/历史adapter/method/未改仓库标记一致；retirement completed/sourceIdentitiesUnchanged/passed全真；server PID/startTicks和direct owner相同。第一条历史adapter为af306cb5，另外两条为d7db0a60，各绑定真正归档的源副本。runnerSha仍指原run.py 296e6b80，不能误指adapter。通过adapter门禁后，原owner exit0、无shutdownError、wait4字段、全部命令位于owner生命周期的检查仍必需。最后采样的client身份不被冒充所有命令；namespace中看不到PID不作为退出证据。
+
+五份小expanded manifest已独立按精确Git blob对已发布archives01/02/03的固定commit读取元数据并匹配，禁用了lazy fetch，没有下载payload。被复用名称的archive01旧回执由archive03的5,505字节原member恢复，原文件未覆盖；恢复回执的成员hash与小包验证保持独立身份。既有原始字节已由实际prepare比对发布成员，本审查复用该结果，不重复大I/O。
+
+## 删除边界
+
+执行使用既有协作锁及persistent blocker，明确manifest SHA，fresh actual目录。所有目标先复核；随后复制全部六配置并读回，写持久intent，再逐个复核并descriptor-safe删除唯一data目录。每个完成目录更新receipt，任何失败保留intent/failure并停止，不能盲目重试。
+
+这是十目录逐项操作，并非跨目录事务。部分rmtree失败可能已删除其中部分文件；协作锁不防无关进程的对抗性文件变更，atomic rename/readback也不等于完整断电持久性保证。该范围仅为已授权的08正确性/真实包消费及短测释放空间，没有恢复长测或扩大删除历史raw。
