@@ -1,5 +1,7 @@
 # Recovery 04 — resume from this checkpoint
 
+**Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
+
 **Latest authoritative continuation:** [Continuation07](continuation-07.md) records completed tail06 contract/negative-control checks and ordinary package consumers, the pending diagnostic mechanism/A/B, and the fully analyzed pressure05 evidence. [Continuation06](continuation-06.md) and the sections below preserve earlier snapshots. Final mixed35 campaign remains **0/4**.
 
 **Stage 1 is complete. Four measured candidates are integrated and their existing PR CI passed; combined performance acceptance is pending. Final mixed35 campaign: 0/4.** This checkpoint continues [the Recovery 03 ordinary screen](../recovery-03/ordinary-screen-03/README.md), without restarting completed measurements. It records the actual recovered state, including incomplete investigations and remote archive publication.

@@ -1,6 +1,6 @@
 # DB-Exec-Parity-01 — measured execution-path reconstruction
 
-Status: **Stage 1 is complete; the provisional four-candidate integration and its existing PR CI have passed. Combined performance acceptance is pending.** Resume from [Recovery 04](phase-2/recovery-04/README.md) and its machine-readable state. The final campaign remains 0/4 and release acceptance remains pending; no parity claim is made. Earlier continuation and live recovery records retain their historical identities.
+Status: **Stage1 is complete; measured short-test optimization continues. The owner has cancelled all long measurements in this round.** Read [Scope08](phase-2/recovery-04/short-only-scope-08.md) before resuming [Recovery04](phase-2/recovery-04/README.md). No long cell had started; the old0/4 is a cancelled plan, not a pending gate. Independent review, existing CI and authorized delivery verification remain in scope; no parity claim is made.
 
 Read the [combined measured stage table](phase-1/phase-1-measured-gate.md) first. It binds the ordinary four-route phase costs, actual engine/protocol/copy counts, per-thread timeline, sampling and allocation scopes to correctness contracts and the next candidate. The [independent common-candidate review](phase-1/common-candidate-review-01.md) preserves the rejected inline-completion counterexample and specifies the safe publication boundary required for the new experiment.
 
@@ -21,7 +21,7 @@ The five byte-verified raw/source/actual-binary archives are represented by91 or
 
 The common completion, SQLite flags, PG hooks, read-lease and decimal-codec experiments now have distinct outcomes. Follow [Recovery 04](phase-2/recovery-04/README.md) for the current integration, small-query caller analysis and bounded relation-capacity experiment; the rejected ready-row experiment is complete. Do not restart completed gates. One hypothesis at a time: verify the intended counts/CPU/bytes, then ordinary same-host interleaved endpoint A/B and relevant correctness/AOT package gates. Record adopted/rejected strategies in Design and preserve every failed attempt.
 
-The remaining acceptance is explicit: adequate same-condition mixed before evidence, zero-refusal cost, pressure ramp and historical rate comparison, frozen selected candidate, four serial1800-second ordinary Release Native AOT mixed35 cells (warmup extra), independent review, normal task PR merges, unchanged existing CI/release selection and real public NuGet AOT consumption. Current long-campaign credit is **0/4**.
+The active acceptance follows [Scope08](phase-2/recovery-04/short-only-scope-08.md): repeated ordinary short comparisons and resource/mechanism evidence for candidate selection, retained zero-refusal and short pressure results, explicit remaining gaps, independent review, normal task PR merges, unchanged existing CI/release selection and actual public NuGet AOT verification. Long measurements are cancelled for this round.
 
 All profiling, calibration, benchmarks and pressure runs stay local Linux x64. No workflow or indirect CI performance invocation is added. Before product push inspect the committed diff with `python3 eng/ci/impact.py origin/main --output artifacts/plan.json` and explain independent top-level package selections.
 
