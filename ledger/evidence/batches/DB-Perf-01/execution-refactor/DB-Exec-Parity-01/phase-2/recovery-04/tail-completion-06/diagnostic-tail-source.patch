@@ -1,0 +1,513 @@
+diff --git a/src/Data.NativeHost/HostPullController.cs b/src/Data.NativeHost/HostPullController.cs
+index 41210e9..271707a 100644
+--- a/src/Data.NativeHost/HostPullController.cs
++++ b/src/Data.NativeHost/HostPullController.cs
+@@ -74,6 +74,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+                 throw new DatabaseException("The preceding cursor pull has not been consumed and released.", DatabaseErrorKind.ConcurrentUse);
+             _generation = checked(_generation + 1);
+             _completion.Reset(); version = _completion.Version;
++            ResetDiagnosticRequest(_generation, version);
+             _active = true; _consumed = false;
+             _setupReturned = _accepted = _requestEntered = _requestReturned = _ready = false;
+             _hasRegistration = _registrationAttempted = _registrationReady = false;
+@@ -81,6 +82,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+             _executionClaimed = _executing = false;
+             _failure = null;
+         }
++        var diagnosticRequest = DiagnosticRequest;
+         bool control = false;
+         try
+         {
+@@ -125,8 +127,10 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+                 };
+                 var error = BindingChecks.Error();
+                 lock (_gate) _requestEntered = true;
++                CallbackDispatchDiagnostics.Record("prepare-enter", diagnosticRequest);
+                 var status = NativeHost.PullExecution(_source.Binding).Prepare(lease.Pointer, _generation,
+                     checked((uint)_rows), checked((ulong)_source.Limits.MaxBatchBytes), &callbacks, &error);
++                CallbackDispatchDiagnostics.Record("prepare-exit", diagnosticRequest, status);
+                 lock (_gate)
+                 {
+                     _requestReturned = true;
+@@ -267,6 +271,7 @@ private static void OnReady(nint context, ulong generation)
+ 
+     protected override void Process(ref CallbackPublication publication)
+     {
++        CallbackDiagnosticRequest? diagnosticPublicationRequest = null;
+         ExecutePrepared();
+         bool forceClose, waitReady, stop;
+         lock (_gate)
+@@ -313,12 +318,15 @@ protected override void Process(ref CallbackPublication publication)
+         }
+         if (take)
+         {
++            var diagnosticTakeRequest = DiagnosticRequest;
+             try
+             {
+                 using var lease = _channel.Borrow(DatabaseOwnerKind.Cursor);
+                 Boundary(HostPullBoundary.BeforeTake);
++                CallbackDispatchDiagnostics.Record("take-enter", diagnosticTakeRequest);
+                 NativeHost.TakePullBatch(_source.Binding, lease.Pointer, _generation, _batch,
+                     checked((int)_source.Limits.MaxBatchBytes), _token, _source.TestAfterErrorTake);
++                CallbackDispatchDiagnostics.Record("take-exit", diagnosticTakeRequest);
+                 lock (_gate) _resultTaken = true;
+                 Boundary(HostPullBoundary.ResultTaken);
+             }
+@@ -341,6 +349,11 @@ protected override void Process(ref CallbackPublication publication)
+             if (_rooted) { _root.Free(); _rooted = false; }
+             if (_slot >= 0) { _source.CallbackCoordinator.Release(_slot, this); _slot = -1; }
+             _published = true;
++            diagnosticPublicationRequest = DiagnosticRequest;
++            int diagnosticObligations = (_rooted ? 1 : 0) | (_slot >= 0 ? 2 : 0)
++                | (_controls != 0 ? 4 : 0) | (_callbackEntries != 0 ? 8 : 0)
++                | (!_registrationDrained ? 16 : 0) | (_executing ? 32 : 0);
++            CallbackDispatchDiagnostics.Record("retired", diagnosticPublicationRequest, diagnosticObligations);
+             generation = _generation; version = _completion.Version;
+         }
+         if (failure is not null) _batch.Dispose();
+@@ -370,12 +383,25 @@ void ICallbackPublisher.Publish(ulong generation, short version, object? result,
+         // The execution lease, callback, cancellation registration, owners and
+         // coordinator bookkeeping are already retired. A continuation may now
+         // consume/reset the source; no controller state is accessed afterwards.
+-        if (failure is null) _completion.SetResult((ScopedStreamBatch)result!);
+-        else _completion.SetException(failure);
++        var diagnosticPublicationRequest = DiagnosticRequest;
++        var diagnosticSetter = CallbackDispatchDiagnostics.EnterSetter(diagnosticPublicationRequest);
++        bool diagnosticSetterReturned = false;
++        try
++        {
++            if (failure is null) _completion.SetResult((ScopedStreamBatch)result!);
++            else _completion.SetException(failure);
++            diagnosticSetterReturned = true;
++        }
++        finally
++        {
++            // Never read controller/generation fields after the actual setter.
++            CallbackDispatchDiagnostics.ExitSetter(diagnosticSetter, !diagnosticSetterReturned);
++        }
+     }
+ 
+     private unsafe void ExecutePrepared()
+     {
++        CallbackDiagnosticRequest? diagnosticRequest;
+         bool abandon;
+         ulong generation;
+         lock (_gate)
+@@ -389,6 +415,7 @@ private unsafe void ExecutePrepared()
+             _executionClaimed = _executing = true;
+             _controls++;
+             generation = _generation;
++            diagnosticRequest = DiagnosticRequest;
+             abandon = _failure is not null || _stopping;
+         }
+         try
+@@ -397,8 +424,10 @@ private unsafe void ExecutePrepared()
+             var calls = NativeHost.PullExecution(_source.Binding);
+             var error = BindingChecks.Error();
+             Boundary(abandon ? HostPullBoundary.BeforeAbandon : HostPullBoundary.BeforeRun);
++            CallbackDispatchDiagnostics.Record("native-run-enter", diagnosticRequest, abandon ? 1 : 0);
+             var status = abandon ? calls.Abandon(lease.Pointer, generation, &error)
+                 : calls.Run(lease.Pointer, generation, &error);
++            CallbackDispatchDiagnostics.Record("native-run-return", diagnosticRequest, status, abandon ? 1 : 0);
+             if (status != NativeStatus.Ok)
+                 throw HostFailure.Create(_source.Binding, status, error, token: _token);
+             Boundary(abandon ? HostPullBoundary.AbandonReturned : HostPullBoundary.RunReturned);
+@@ -413,6 +442,7 @@ private unsafe void ExecutePrepared()
+         {
+             lock (_gate) { _executing = false; _controls--; }
+         }
++        CallbackDispatchDiagnostics.Record("native-frame-exit", diagnosticRequest);
+     }
+ 
+     private async Task DrainRegistrationAsync(ValueTask pending)
+@@ -477,19 +507,45 @@ protected override void SchedulingFault(Exception error)
+ 
+     ScopedStreamBatch IValueTaskSource<ScopedStreamBatch>.GetResult(short token)
+     {
+-        lock (_gate)
++        var diagnosticRequest = DiagnosticRequest;
++        CallbackDispatchDiagnostics.Activity("getresult", diagnosticRequest, true, token);
++        try
++        {
++            lock (_gate)
++            {
++                if (token != _completion.Version || !_published || _consumed)
++                    throw new InvalidOperationException("A cursor pull result is consumed once after completion.");
++                _consumed = true;
++            }
++            try { return _completion.GetResult(token); }
++            finally
++            {
++                lock (_gate) _active = false;
++            }
++        }
++        finally { CallbackDispatchDiagnostics.Activity("getresult", diagnosticRequest, false, token); }
++    }
++    ValueTaskSourceStatus IValueTaskSource<ScopedStreamBatch>.GetStatus(short token) => _completion.GetStatus(token);
++    void IValueTaskSource<ScopedStreamBatch>.OnCompleted(Action<object?> continuation, object? state, short token,
++        ValueTaskSourceOnCompletedFlags flags)
++    {
++        var diagnosticRequest = DiagnosticRequest;
++        if (diagnosticRequest is null) { _completion.OnCompleted(continuation, state, token, flags); return; }
++        ArgumentNullException.ThrowIfNull(continuation);
++        long diagnosticRegistration = CallbackDispatchDiagnostics.NewRegistration();
++        int diagnosticScheduler = CallbackDispatchDiagnostics.SchedulerKind(flags);
++        var diagnosticContinuation = new CallbackDiagnosticContinuation(diagnosticRequest, diagnosticRegistration, continuation, state);
++        CallbackDispatchDiagnostics.Activity("oncompleted", diagnosticRequest, true, diagnosticRegistration, (long)flags, diagnosticScheduler);
++        bool diagnosticReturned = false;
++        try
+         {
+-            if (token != _completion.Version || !_published || _consumed)
+-                throw new InvalidOperationException("A cursor pull result is consumed once after completion.");
+-            _consumed = true;
++            _completion.OnCompleted(static item => ((CallbackDiagnosticContinuation)item!).Invoke(), diagnosticContinuation, token, flags);
++            diagnosticReturned = true;
+         }
+-        try { return _completion.GetResult(token); }
+         finally
+         {
+-            lock (_gate) _active = false;
++            CallbackDispatchDiagnostics.Activity("oncompleted", diagnosticRequest, false, diagnosticRegistration,
++                diagnosticReturned ? 0 : 1, diagnosticScheduler);
+         }
+     }
+-    ValueTaskSourceStatus IValueTaskSource<ScopedStreamBatch>.GetStatus(short token) => _completion.GetStatus(token);
+-    void IValueTaskSource<ScopedStreamBatch>.OnCompleted(Action<object?> continuation, object? state, short token,
+-        ValueTaskSourceOnCompletedFlags flags) => _completion.OnCompleted(continuation, state, token, flags);
+ }
+diff --git a/src/Interop.Callbacks/CallbackCoordinator.cs b/src/Interop.Callbacks/CallbackCoordinator.cs
+index 58345b4..c9b0610 100644
+--- a/src/Interop.Callbacks/CallbackCoordinator.cs
++++ b/src/Interop.Callbacks/CallbackCoordinator.cs
+@@ -131,6 +131,18 @@ internal abstract class CoordinatedCallback : IThreadPoolWorkItem
+     private bool _completed;
+     private bool _retry;
+     private long _rejections;
++    // LOCAL DIAGNOSTIC: identity is a coherent immutable reference, not two
++    // separately observed mutable generation/version fields.
++    private readonly long _diagnosticController = CallbackDispatchDiagnostics.NewController();
++    private CallbackDiagnosticRequest? _diagnosticRequest, _diagnosticQueuedRequest;
++    private long _diagnosticOffer;
++    protected CallbackDiagnosticRequest? DiagnosticRequest => Volatile.Read(ref _diagnosticRequest);
++    protected void ResetDiagnosticRequest(ulong generation, short version)
++    {
++        var request = CallbackDispatchDiagnostics.NewRequest(_diagnosticController, generation, version);
++        Volatile.Write(ref _diagnosticRequest, request);
++        CallbackDispatchDiagnostics.Record("request", request);
++    }
+ 
+     protected CoordinatedCallback(ICallbackScheduler? scheduler) =>
+         _scheduler = scheduler ?? ThreadPoolCallbackScheduler.Instance;
+@@ -153,48 +165,86 @@ protected void RequestRetry()
+ 
+     internal void Signal()
+     {
++        var diagnosticRequest = DiagnosticRequest;
++        long diagnosticOffer = 0;
+         lock (_scheduleGate)
+         {
+             if (_completed) return;
+             _dirty = true;
+             if (_scheduled) return;
+             _scheduled = true;
++            if (diagnosticRequest is not null)
++            {
++                _diagnosticOffer = diagnosticOffer = CallbackDispatchDiagnostics.NewOffer();
++                _diagnosticQueuedRequest = diagnosticRequest;
++            }
+         }
+-        bool accepted;
++        CallbackDispatchDiagnostics.BeginOffer(diagnosticRequest, diagnosticOffer);
++        bool accepted, diagnosticThrew = false;
+         try { accepted = _scheduler.TryQueue(this); }
+-        catch (Exception) { accepted = false; }
++        catch (Exception) { accepted = false; diagnosticThrew = true; }
++        CallbackDispatchDiagnostics.EndOffer(diagnosticRequest, diagnosticOffer, accepted, diagnosticThrew);
+         if (!accepted)
+         {
+             Interlocked.Increment(ref _rejections);
+-            lock (_scheduleGate) _scheduled = false;
++            lock (_scheduleGate)
++            {
++                _scheduled = false;
++                _diagnosticOffer = 0; _diagnosticQueuedRequest = null;
++            }
+         }
+     }
+ 
+     void IThreadPoolWorkItem.Execute()
+     {
++        CallbackDiagnosticRequest? diagnosticRequest, diagnosticQueuedRequest;
++        long diagnosticOffer;
++        bool diagnosticSkipped;
+         lock (_scheduleGate)
+         {
+-            if (_completed) { _scheduled = false; return; }
+-            _dirty = false;
+-            _retry = false;
++            diagnosticRequest = DiagnosticRequest;
++            diagnosticQueuedRequest = _diagnosticQueuedRequest;
++            diagnosticOffer = _diagnosticOffer;
++            _diagnosticOffer = 0; _diagnosticQueuedRequest = null;
++            diagnosticSkipped = _completed;
++            if (_completed) _scheduled = false;
++            else { _dirty = false; _retry = false; }
+         }
+-        CallbackPublication publication = default;
+-        try { Process(ref publication); }
+-        catch (Exception error) { SchedulingFault(error); }
+-        bool again;
+-        lock (_scheduleGate)
++        diagnosticRequest ??= diagnosticQueuedRequest;
++        CallbackDispatchDiagnostics.ClaimOffer(diagnosticOffer);
++        long queuedGeneration = diagnosticQueuedRequest is null ? 0 : unchecked((long)diagnosticQueuedRequest.Generation);
++        long queuedVersion = diagnosticQueuedRequest?.Version ?? 0;
++        CallbackDispatchDiagnostics.Activity("execute", diagnosticRequest, true, diagnosticOffer, queuedGeneration, queuedVersion);
++        try
++        {
++            if (diagnosticSkipped)
++            {
++                CallbackDispatchDiagnostics.Record("execute-skipped", diagnosticRequest, diagnosticOffer);
++                return;
++            }
++            CallbackPublication publication = default;
++            try { Process(ref publication); }
++            catch (Exception error) { SchedulingFault(error); }
++            bool again;
++            lock (_scheduleGate)
++            {
++                // Dirty and scheduled change under the same gate. A notification
++                // between Process and this point cannot be overwritten by a stale read.
++                _scheduled = false;
++                again = _dirty && !_completed;
++            }
++            if (again) Signal();
++            // A continuation may consume this generation and start another one, or
++            // its captured scheduler may throw after doing so. Nothing below this
++            // call may access shared state or translate that exception into an old
++            // processing failure.
++            publication.Publish();
++        }
++        finally
+         {
+-            // Dirty and scheduled change under the same gate. A notification
+-            // between Process and this point cannot be overwritten by a stale read.
+-            _scheduled = false;
+-            again = _dirty && !_completed;
++            // Only captured diagnostic locals are used after tail publication.
++            CallbackDispatchDiagnostics.Activity("execute", diagnosticRequest, false, diagnosticOffer, queuedGeneration, queuedVersion);
+         }
+-        if (again) Signal();
+-        // A continuation may consume this generation and start another one, or
+-        // its captured scheduler may throw after doing so. Nothing below this
+-        // call may access shared state or translate that exception into an old
+-        // processing failure.
+-        publication.Publish();
+     }
+ 
+     protected void CompleteScheduling()
+diff --git a/src/Interop.Callbacks/CallbackDispatchDiagnostics.cs b/src/Interop.Callbacks/CallbackDispatchDiagnostics.cs
+new file mode 100644
+index 0000000..2c82fe4
+--- /dev/null
++++ b/src/Interop.Callbacks/CallbackDispatchDiagnostics.cs
+@@ -0,0 +1,199 @@
++// LOCAL DIAGNOSTIC OVERLAY ONLY. Never merge or treat this image as ordinary timing.
++using System.Diagnostics;
++using System.Runtime.InteropServices;
++using System.Text;
++using System.Threading.Tasks.Sources;
++
++namespace Korda.Interop.Callbacks;
++
++internal sealed record CallbackDiagnosticRequest(long Controller, ulong Generation, short Version);
++
++internal sealed class CallbackDiagnosticContinuation(CallbackDiagnosticRequest request, long registration,
++    Action<object?> continuation, object? state)
++{
++    internal void Invoke()
++    {
++        CallbackDispatchDiagnostics.Activity("continuation", request, enter: true, registration);
++        try { continuation(state); }
++        finally { CallbackDispatchDiagnostics.Activity("continuation", request, enter: false, registration); }
++    }
++}
++
++internal sealed class CallbackDiagnosticSetter(long id, CallbackDiagnosticRequest request, CallbackDiagnosticSetter? previous)
++{
++    internal readonly long Id = id;
++    internal readonly CallbackDiagnosticRequest Request = request;
++    internal readonly CallbackDiagnosticSetter? Previous = previous;
++}
++
++internal static partial class CallbackDispatchDiagnostics
++{
++    private const long MaximumRecords = 1_000_000;
++    private static readonly object Gate = new();
++    private static readonly string? Path = Environment.GetEnvironmentVariable("KORDA_TAIL_DIAGNOSTIC_PATH");
++    private static long _controllers, _offers, _registrations, _setters, _records, _dropped, _clockErrors;
++    private static long _clockCalls, _tidCalls;
++    private static int _activeSetters, _activeContinuations, _activeRegistrations, _activeResults;
++    private static int _activeExecutions, _activeOffers, _pendingOffers, _recorders;
++    private static bool _closed;
++    [ThreadStatic] private static int _nativeTid;
++    [ThreadStatic] private static CallbackDiagnosticSetter? _setter;
++    private static readonly StreamWriter? Writer = Open();
++
++    [StructLayout(LayoutKind.Sequential)]
++    private struct Timespec { internal long Seconds; internal long Nanoseconds; }
++
++    [LibraryImport("libc", EntryPoint = "clock_gettime", SetLastError = true)]
++    private static partial int ClockGetTime(int clock, out Timespec value);
++
++    [LibraryImport("libc", EntryPoint = "gettid")]
++    private static partial int GetTid();
++
++    internal static bool Enabled => Writer is not null;
++    internal static long NewController() => Interlocked.Increment(ref _controllers);
++    internal static long NewOffer() => Interlocked.Increment(ref _offers);
++    internal static long NewRegistration() => Interlocked.Increment(ref _registrations);
++    internal static CallbackDiagnosticRequest? NewRequest(long controller, ulong generation, short version) =>
++        Enabled ? new(controller, generation, version) : null;
++
++    private static StreamWriter? Open()
++    {
++        if (string.IsNullOrEmpty(Path)) return null;
++        var writer = new StreamWriter(new FileStream(Path, FileMode.CreateNew, FileAccess.Write, FileShare.Read),
++            new UTF8Encoding(false), 65536);
++        writer.WriteLine(FormattableString.Invariant($"#header\t1\t{Environment.ProcessId}\t{Stopwatch.Frequency}\t{MaximumRecords}"));
++        writer.WriteLine("#columns\tseq\tkind\tcontroller\tgeneration\tversion\tmanaged_tid\tnative_tid\tmono_ticks\tthread_cpu_ns\tsetter\tsetter_controller\tsetter_generation\tsetter_version\targ0\targ1\targ2");
++        writer.Flush();
++        AppDomain.CurrentDomain.ProcessExit += static (_, _) => Close();
++        return writer;
++    }
++
++    internal static int SchedulerKind(ValueTaskSourceOnCompletedFlags flags)
++    {
++        if ((flags & ValueTaskSourceOnCompletedFlags.UseSchedulingContext) == 0) return 0;
++        if (SynchronizationContext.Current is { } context && context.GetType() != typeof(SynchronizationContext)) return 1;
++        return TaskScheduler.Current != TaskScheduler.Default ? 2 : 0;
++    }
++
++    internal static void Record(string kind, CallbackDiagnosticRequest? request, long arg0 = 0, long arg1 = 0, long arg2 = 0)
++    {
++        if (request is null || Writer is null) return;
++        Interlocked.Increment(ref _recorders);
++        try
++        {
++            long timestamp = Stopwatch.GetTimestamp();
++            Interlocked.Increment(ref _clockCalls);
++            long cpu = ClockGetTime(3, out var clock) == 0 ? checked(clock.Seconds * 1_000_000_000L + clock.Nanoseconds) : -1;
++            if (cpu < 0) Interlocked.Increment(ref _clockErrors);
++            if (_nativeTid == 0)
++            {
++                Interlocked.Increment(ref _tidCalls);
++                _nativeTid = GetTid();
++                if (_nativeTid <= 0) Interlocked.Increment(ref _clockErrors);
++            }
++            var setter = _setter;
++            lock (Gate)
++            {
++                if (_closed)
++                {
++                    Interlocked.Increment(ref _dropped);
++                    // A footer cannot silently claim that a later event did not
++                    // occur. The external validator rejects this sidecar.
++                    File.AppendAllText(Path + ".late", kind + "\n");
++                    return;
++                }
++                if (_records >= MaximumRecords) { Interlocked.Increment(ref _dropped); return; }
++                Writer.WriteLine(FormattableString.Invariant($"{++_records}\t{kind}\t{request.Controller}\t{request.Generation}\t{request.Version}\t{Environment.CurrentManagedThreadId}\t{_nativeTid}\t{timestamp}\t{cpu}\t{setter?.Id ?? 0}\t{setter?.Request.Controller ?? 0}\t{setter?.Request.Generation ?? 0}\t{setter?.Request.Version ?? 0}\t{arg0}\t{arg1}\t{arg2}"));
++            }
++        }
++        catch
++        {
++            // Diagnostic failures invalidate the raw ledger; they must not be
++            // substituted for the business operation's first exception.
++            Interlocked.Increment(ref _dropped);
++        }
++        finally { Interlocked.Decrement(ref _recorders); }
++    }
++
++    internal static CallbackDiagnosticSetter? EnterSetter(CallbackDiagnosticRequest? request)
++    {
++        if (request is null) return null;
++        Interlocked.Increment(ref _activeSetters);
++        var setter = new CallbackDiagnosticSetter(Interlocked.Increment(ref _setters), request, _setter);
++        _setter = setter;
++        Record("setter-enter", request);
++        return setter;
++    }
++
++    internal static void ExitSetter(CallbackDiagnosticSetter? setter, bool failed)
++    {
++        if (setter is null) return;
++        if (!ReferenceEquals(_setter, setter)) Interlocked.Increment(ref _dropped);
++        Record("setter-exit", setter.Request, failed ? 1 : 0);
++        _setter = setter.Previous;
++        Interlocked.Decrement(ref _activeSetters);
++    }
++
++    internal static void Activity(string kind, CallbackDiagnosticRequest? request, bool enter,
++        long arg0 = 0, long arg1 = 0, long arg2 = 0)
++    {
++        if (request is null) return;
++        if (enter) AdjustActivity(kind, 1);
++        Record(kind + (enter ? "-enter" : "-exit"), request, arg0, arg1, arg2);
++        if (!enter) AdjustActivity(kind, -1);
++    }
++
++    private static void AdjustActivity(string kind, int delta)
++    {
++        switch (kind)
++        {
++            case "oncompleted": Interlocked.Add(ref _activeRegistrations, delta); break;
++            case "continuation": Interlocked.Add(ref _activeContinuations, delta); break;
++            case "getresult": Interlocked.Add(ref _activeResults, delta); break;
++            case "execute": Interlocked.Add(ref _activeExecutions, delta); break;
++            default: Interlocked.Increment(ref _dropped); break;
++        }
++    }
++
++    internal static void BeginOffer(CallbackDiagnosticRequest? request, long offer)
++    {
++        if (request is null) return;
++        Interlocked.Increment(ref _activeOffers);
++        Interlocked.Increment(ref _pendingOffers);
++        Record("offer-enter", request, offer);
++    }
++
++    internal static void EndOffer(CallbackDiagnosticRequest? request, long offer, bool accepted, bool threw)
++    {
++        if (request is null) return;
++        Record("offer-exit", request, offer, accepted ? 1 : 0, threw ? 1 : 0);
++        if (!accepted) Interlocked.Decrement(ref _pendingOffers);
++        Interlocked.Decrement(ref _activeOffers);
++    }
++
++    internal static void ClaimOffer(long offer)
++    {
++        if (offer != 0 && Interlocked.Decrement(ref _pendingOffers) < 0) Interlocked.Increment(ref _dropped);
++    }
++
++    private static bool Idle() => Volatile.Read(ref _activeSetters) == 0
++        && Volatile.Read(ref _activeContinuations) == 0 && Volatile.Read(ref _activeRegistrations) == 0
++        && Volatile.Read(ref _activeResults) == 0 && Volatile.Read(ref _activeExecutions) == 0
++        && Volatile.Read(ref _activeOffers) == 0 && Volatile.Read(ref _pendingOffers) == 0
++        && Volatile.Read(ref _recorders) == 0;
++
++    private static void Close()
++    {
++        // Measurement has already ended. Give retired diagnostic frames a
++        // bounded chance to append their exits before writing the final ledger.
++        var started = Stopwatch.GetTimestamp();
++        while (!Idle() && Stopwatch.GetElapsedTime(started) < TimeSpan.FromSeconds(5)) Thread.Sleep(1);
++        lock (Gate)
++        {
++            if (_closed || Writer is null) return;
++            _closed = true;
++            Writer.WriteLine(FormattableString.Invariant($"#footer\t{_records}\t{_dropped}\t{_clockErrors}\t{_activeSetters}\t{_activeContinuations}\t{_activeRegistrations}\t{_activeResults}\t{_activeExecutions}\t{_activeOffers}\t{_pendingOffers}\t{_recorders}\t{_clockCalls}\t{_tidCalls}"));
++            Writer.Flush(); Writer.Dispose();
++        }
++    }
++}

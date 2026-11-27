@@ -1,0 +1,736 @@
+diff --git a/src/Data.NativeHost/HostCommandController.cs b/src/Data.NativeHost/HostCommandController.cs
+index e56c1ee..35438f2 100644
+--- a/src/Data.NativeHost/HostCommandController.cs
++++ b/src/Data.NativeHost/HostCommandController.cs
+@@ -241,11 +241,13 @@ private void Resume()
+         bool unreserved;
+         lock (_gate) unreserved = _slot < 0 && _setupReturned && !_published;
+         if (!unreserved) { Signal(); return; }
+-        try { Process(); }
++        CallbackPublication publication = default;
++        try { Process(ref publication); }
+         catch (Exception error) { SchedulingFault(error); }
++        publication.Publish();
+     }
+ 
+-    protected override void Process()
++    protected override void Process(ref CallbackPublication publication)
+     {
+         lock (_gate)
+         {
+diff --git a/src/Data.NativeHost/HostCursorCloseController.cs b/src/Data.NativeHost/HostCursorCloseController.cs
+index d827657..ce0e7e0 100644
+--- a/src/Data.NativeHost/HostCursorCloseController.cs
++++ b/src/Data.NativeHost/HostCursorCloseController.cs
+@@ -145,8 +145,10 @@ private void Resume()
+         if (!unreserved) { Signal(); return; }
+         // A rejected reservation has no retry slot. Its setup and fallback
+         // return paths must drain without depending on scheduler acceptance.
+-        try { Process(); }
++        CallbackPublication publication = default;
++        try { Process(ref publication); }
+         catch (Exception error) { SchedulingFault(error); }
++        publication.Publish();
+     }
+ 
+     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+@@ -185,7 +187,7 @@ private static void OnReady(nint context, ulong generation)
+         }
+     }
+ 
+-    protected override void Process()
++    protected override void Process(ref CallbackPublication publication)
+     {
+         lock (_gate)
+         {
+diff --git a/src/Data.NativeHost/HostPullController.cs b/src/Data.NativeHost/HostPullController.cs
+index 6fc7cf9..41210e9 100644
+--- a/src/Data.NativeHost/HostPullController.cs
++++ b/src/Data.NativeHost/HostPullController.cs
+@@ -23,7 +23,7 @@ internal readonly record struct HostPullSnapshot(ulong Generation, bool Active,
+ 
+ // One work item and one ValueTask source per channel. Only an active request
+ // owns a callback root/reservation; an idle, abandoned stream is not self-rooted.
+-internal sealed class HostPullController : CoordinatedCallback, IValueTaskSource<ScopedStreamBatch>
++internal sealed class HostPullController : CoordinatedCallback, IValueTaskSource<ScopedStreamBatch>, ICallbackPublisher
+ {
+     private readonly object _gate = new();
+     private readonly DataSource _source;
+@@ -32,7 +32,7 @@ internal sealed class HostPullController : CoordinatedCallback, IValueTaskSource
+     private readonly HostCursorCloseController _close;
+     private readonly CancellationToken _token;
+     private readonly int _rows;
+-    private ManualResetValueTaskSourceCore<ScopedStreamBatch> _completion = new() { RunContinuationsAsynchronously = true };
++    private ManualResetValueTaskSourceCore<ScopedStreamBatch> _completion;
+     private GCHandle _root;
+     private CancellationTokenRegistration _registration;
+     private int _slot = -1, _controls, _callbackEntries;
+@@ -212,8 +212,12 @@ private void Resume()
+         // Setup can fail before it owns a coordinator retry slot. If a stop
+         // was still active then, its last control (or the final close proof)
+         // must finish that local drain without relying on queue acceptance.
+-        try { Process(); }
++        CallbackPublication publication = default;
++        try { Process(ref publication); }
+         catch (Exception error) { SchedulingFault(error); }
++        // An unreserved setup failure has the same final publication boundary
++        // as an admitted coordinator turn. No failure handling follows it.
++        publication.Publish();
+     }
+ 
+     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+@@ -261,7 +265,7 @@ private static void OnReady(nint context, ulong generation)
+         }
+     }
+ 
+-    protected override void Process()
++    protected override void Process(ref CallbackPublication publication)
+     {
+         ExecutePrepared();
+         bool forceClose, waitReady, stop;
+@@ -322,6 +326,8 @@ protected override void Process()
+             finally { lock (_gate) { _controls--; _takeSettled = true; } }
+         }
+         Exception? failure;
++        ulong generation;
++        short version;
+         lock (_gate)
+         {
+             // A pre-reservation setup failure can drain synchronously while a
+@@ -335,6 +341,7 @@ protected override void Process()
+             if (_rooted) { _root.Free(); _rooted = false; }
+             if (_slot >= 0) { _source.CallbackCoordinator.Release(_slot, this); _slot = -1; }
+             _published = true;
++            generation = _generation; version = _completion.Version;
+         }
+         if (failure is not null) _batch.Dispose();
+         try
+@@ -348,9 +355,22 @@ protected override void Process()
+             lock (_gate) { _failure ??= error; _stopping = true; }
+             _batch.Dispose();
+         }
+-        // No native owner, callback cookie, registration or request control is
+-        // touched after publication. A continuation may consume and reset now.
+-        if (failure is null) _completion.SetResult(_batch);
++        // This local value survives even if a later generation starts while
++        // its publisher is held inside user continuation/scheduler code.
++        publication = new(this, generation, version, _batch, failure);
++    }
++
++    void ICallbackPublisher.Publish(ulong generation, short version, object? result, Exception? failure)
++    {
++        lock (_gate)
++        {
++            if (_generation != generation || _completion.Version != version || !_published)
++                throw new InvalidOperationException("A cursor pull publication belongs to its completed generation.");
++        }
++        // The execution lease, callback, cancellation registration, owners and
++        // coordinator bookkeeping are already retired. A continuation may now
++        // consume/reset the source; no controller state is accessed afterwards.
++        if (failure is null) _completion.SetResult((ScopedStreamBatch)result!);
+         else _completion.SetException(failure);
+     }
+ 
+diff --git a/src/Interop.Async/AsyncOperation.cs b/src/Interop.Async/AsyncOperation.cs
+index e30f889..327554b 100644
+--- a/src/Interop.Async/AsyncOperation.cs
++++ b/src/Interop.Async/AsyncOperation.cs
+@@ -406,7 +406,7 @@ protected override void SchedulingFault(Exception error)
+         PublishFailure(error);
+     }
+ 
+-    protected override void Process()
++    protected override void Process(ref CallbackPublication publication)
+     {
+         bool poison;
+         bool quarantine;
+diff --git a/src/Interop.Callbacks/CallbackCoordinator.cs b/src/Interop.Callbacks/CallbackCoordinator.cs
+index b19070f..58345b4 100644
+--- a/src/Interop.Callbacks/CallbackCoordinator.cs
++++ b/src/Interop.Callbacks/CallbackCoordinator.cs
+@@ -94,7 +94,34 @@ internal sealed class ThreadPoolCallbackScheduler : ICallbackScheduler
+     public bool TryQueue(IThreadPoolWorkItem item) => ThreadPool.UnsafeQueueUserWorkItem(item, preferLocal: false);
+ }
+ 
++/// <summary>A completed processing turn may publish only after all engine bookkeeping ends.</summary>
++internal interface ICallbackPublisher
++{
++    void Publish(ulong generation, short version, object? result, Exception? failure);
++}
++
++/// <summary>Immutable, stack-local publication; a later generation cannot replace its payload.</summary>
++internal readonly struct CallbackPublication
++{
++    private readonly ICallbackPublisher? _publisher;
++    private readonly ulong _generation;
++    private readonly short _version;
++    private readonly object? _result;
++    private readonly Exception? _failure;
++
++    internal CallbackPublication(ICallbackPublisher publisher, ulong generation, short version,
++        object? result, Exception? failure)
++    {
++        _publisher = publisher; _generation = generation; _version = version;
++        _result = result; _failure = failure;
++    }
++
++    internal void Publish() => _publisher?.Publish(_generation, _version, _result, _failure);
++}
++
+ /// <summary>A preallocated, coalescing scheduling slot shared by callbacks and task retirement.</summary>
++/// <remarks>Processing ownership ends before final publication. Arbitrary user continuation
++/// or scheduler code can retain a retired publisher stack; those stacks are not bounded here.</remarks>
+ internal abstract class CoordinatedCallback : IThreadPoolWorkItem
+ {
+     private readonly object _scheduleGate = new();
+@@ -151,7 +178,8 @@ void IThreadPoolWorkItem.Execute()
+             _dirty = false;
+             _retry = false;
+         }
+-        try { Process(); }
++        CallbackPublication publication = default;
++        try { Process(ref publication); }
+         catch (Exception error) { SchedulingFault(error); }
+         bool again;
+         lock (_scheduleGate)
+@@ -162,6 +190,11 @@ void IThreadPoolWorkItem.Execute()
+             again = _dirty && !_completed;
+         }
+         if (again) Signal();
++        // A continuation may consume this generation and start another one, or
++        // its captured scheduler may throw after doing so. Nothing below this
++        // call may access shared state or translate that exception into an old
++        // processing failure.
++        publication.Publish();
+     }
+ 
+     protected void CompleteScheduling()
+@@ -169,6 +202,6 @@ protected void CompleteScheduling()
+         lock (_scheduleGate) { _completed = true; _dirty = false; _retry = false; }
+     }
+ 
+-    protected abstract void Process();
++    protected abstract void Process(ref CallbackPublication publication);
+     protected abstract void SchedulingFault(Exception error);
+ }
+diff --git a/src/Interop.Callbacks/CallbackRegistration.cs b/src/Interop.Callbacks/CallbackRegistration.cs
+index ec91834..aa5a91d 100644
+--- a/src/Interop.Callbacks/CallbackRegistration.cs
++++ b/src/Interop.Callbacks/CallbackRegistration.cs
+@@ -316,7 +316,7 @@ protected override void SchedulingFault(Exception error)
+         lock (_gate) { RecordFailureLocked(error, NativeStatus.ContractViolation); _quarantined = true; }
+     }
+ 
+-    protected override void Process()
++    protected override void Process(ref CallbackPublication publication)
+     {
+         Notification notification = default;
+         bool dispatch = false;
+diff --git a/src/Verification.Interop/RaceSuite.cs b/src/Verification.Interop/RaceSuite.cs
+index 052dc80..ef42d31 100644
+--- a/src/Verification.Interop/RaceSuite.cs
++++ b/src/Verification.Interop/RaceSuite.cs
+@@ -294,6 +294,6 @@ internal void Run()
+ internal sealed class MailboxProbe(ManualScheduler scheduler, Action barrier) : CoordinatedCallback(scheduler)
+ {
+     internal int Processed;
+-    protected override void Process() { if (++Processed == 1) barrier(); }
++    protected override void Process(ref CallbackPublication publication) { if (++Processed == 1) barrier(); }
+     protected override void SchedulingFault(Exception error) => throw new InvalidOperationException("Mailbox probe failed.", error);
+ }
+diff --git a/tests/Data.NativeHost/Program.cs b/tests/Data.NativeHost/Program.cs
+index 096f481..88901a5 100644
+--- a/tests/Data.NativeHost/Program.cs
++++ b/tests/Data.NativeHost/Program.cs
+@@ -22,6 +22,7 @@
+ if (args.Contains("--cursor-close-only", StringComparer.Ordinal)) { await CursorCloseTests.RunIfRequested(args); return; }
+ if (args.Contains("--pull-worker-execution-only", StringComparer.Ordinal)) { await WorkerExecutionTests.RunIfRequested(); return; }
+ if (args.Contains("--pull-ready-scheduling-only", StringComparer.Ordinal)) { await ReadySchedulingTests.RunIfRequested(); return; }
++if (args.Contains("--pull-publication-failure-only", StringComparer.Ordinal)) { await ReadySchedulingTests.RunPublicationFailureIfRequested(); return; }
+ if (args.Contains("--command-completion-only", StringComparer.Ordinal)) { await CommandCompletionTests.RunIfRequested(); return; }
+ Console.WriteLine("snapshot parser oracle inputs=" + SnapshotProbe.Verify());
+ BatchResultTests.VerifyRecord();
+diff --git a/tests/Data.NativeHost/ReadySchedulingTests.cs b/tests/Data.NativeHost/ReadySchedulingTests.cs
+index 5c7ad2d..8020c50 100644
+--- a/tests/Data.NativeHost/ReadySchedulingTests.cs
++++ b/tests/Data.NativeHost/ReadySchedulingTests.cs
+@@ -44,7 +44,34 @@ internal static async Task Run(DatabaseProvider provider, string connection)
+         await WorkerWaitsForNativeCallbackTail(provider, connection);
+         await RejectedWorkerScheduling(provider, connection);
+         await HeldCompletionPostPreservesNextWorker(provider, connection);
+-        Console.WriteLine($"READY_SCHEDULING_PASS provider={provider} scenarios=4 assertions={_checks - before}; admitted worker scheduling, real readiness, rejected offers and native/coordinator tails");
++        await InlineContinuationReleasesProcessing(provider, connection);
++        await ExecutionContextIsRestored(provider, connection, throwAfterConsumption: false);
++        await ExecutionContextIsRestored(provider, connection, throwAfterConsumption: true);
++        await LateRegistrationRemainsQueued(provider, connection);
++        await PublicationFailure(provider, connection, consumeThenRequest: false);
++        await PublicationFailure(provider, connection, consumeThenRequest: true);
++        await ContinuationFailurePreservesNextGeneration(provider, connection);
++        await RepeatedHeldPublishers(provider, connection);
++        Console.WriteLine($"READY_SCHEDULING_PASS provider={provider} scenarios=12 assertions={_checks - before}; admitted execution, native retirement, tail publication, captured context, late registration and independent generations");
++    }
++
++    // Also built against unchanged baseline product bytes as a deliberate
++    // negative control. It asserts the post-sentinel exception boundary only,
++    // never that the baseline has the candidate's optional inline policy.
++    internal static async Task RunPublicationFailureIfRequested()
++    {
++        if (RuntimeFeature.IsDynamicCodeSupported) throw new InvalidOperationException("A real Native AOT executable is required.");
++        var postgres = Environment.GetEnvironmentVariable("NW_TEST_POSTGRES")
++            ?? throw new InvalidOperationException("Set NW_TEST_POSTGRES to an isolated real PostgreSQL cluster.");
++        var directory = Path.Combine(Path.GetTempPath(), "korda-publication-failure-" + Guid.NewGuid().ToString("N"));
++        Directory.CreateDirectory(directory);
++        try
++        {
++            await PublicationFailure(DatabaseProvider.Sqlite, Path.Combine(directory, "publication.db"), consumeThenRequest: true);
++            await PublicationFailure(DatabaseProvider.PostgreSql, postgres, consumeThenRequest: true);
++            Console.WriteLine($"PULL_PUBLICATION_FAILURE_PASS providers=2 assertions={_checks}; exact Post exception and independent next generation");
++        }
++        finally { Directory.Delete(directory, true); }
+     }
+ 
+     private static DataSource Create(DatabaseProvider provider, string connection)
+@@ -335,19 +362,22 @@ private static async Task HeldCompletionPostPreservesNextWorker(DatabaseProvider
+                 "The first generation is consumed while its completion scheduler still holds the original Execute stack.");
+             Drained(transport.PullSnapshot, 1);
+             var next = transport.FetchAsync();
+-            var held = transport.PullSnapshot;
+-            Check(held.Generation == 2 && held.SetupReturned && held.Accepted && !held.Ready
+-                && held.Rooted && held.SlotReserved && !held.Published && !held.ResultTaken && !next.IsCompleted
+-                && held.Controls == 0 && held.CallbackEntries == 0 && scheduler.Offers == 1 && scheduler.Executions == 1
+-                && runs == 1 && runReturns == 1 && proxy.Prepares == 2 && !secondReady.Task.IsCompleted,
+-                "The next admitted generation remains dirty but unrun and not ready while the preceding Execute is held in completion Post.");
+-            context.Release.Set();
++            // Tail publication deliberately changes the old policy here: the
++            // old Post no longer owns scheduled/dirty processing state. Keep
++            // its real barrier held while the next generation fully executes.
+             var second = await next.AsTask().WaitAsync(Bound);
+             await secondReady.Task.WaitAsync(Bound);
+             Check(Read(source, second, projectionId).Id == 2 && scheduler.Offers == 2 && scheduler.Executions == 2
+-                && runs == 2 && runReturns == 2 && proxy.HasReturned(2),
+-                "The old Execute tail preserves the next admission and schedules its worker once, without losing the new dirty state.");
+-            Drained(transport.PullSnapshot, 2); context.ThrowIfFailed(); proxy.ThrowIfFailed();
++                && runs == 2 && runReturns == 2 && proxy.HasReturned(2) && !context.Release.IsSet
++                && !context.Exited.Task.IsCompleted,
++                "The next admitted generation runs and transfers its own result while the old retired publisher is still inside Post.");
++            Drained(transport.PullSnapshot, 2);
++            context.Release.Set();
++            await Until(() => scheduler.CompletedExecutions == 2, "The retired publisher did not return after releasing its Post.");
++            Drained(transport.PullSnapshot, 2);
++            Check(scheduler.Offers == 2 && scheduler.Executions == 2 && scheduler.Queued == 0,
++                "Returning the old publisher neither touches the next generation nor offers an obsolete drain.");
++            context.ThrowIfFailed(); proxy.ThrowIfFailed();
+         }
+         finally
+         {
+@@ -358,6 +388,338 @@ private static async Task HeldCompletionPostPreservesNextWorker(DatabaseProvider
+         }
+     }
+ 
++    private static async Task InlineContinuationReleasesProcessing(DatabaseProvider provider, string connection)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        using var release = new ManualResetEventSlim();
++        var nextCreated = new TaskCompletionSource<ValueTask<ScopedStreamBatch>>(TaskCreationOptions.RunContinuationsAsynchronously);
++        var runReturns = 0;
++        source.TestPullBoundary = boundary => { if (boundary == HostPullBoundary.RunReturned) Interlocked.Increment(ref runReturns); };
++        Task? worker = null;
++        try
++        {
++            var pending = transport.FetchAsync();
++            var awaiter = pending.ConfigureAwait(false).GetAwaiter();
++            awaiter.UnsafeOnCompleted(() =>
++            {
++                try
++                {
++                    Check(scheduler.IsExecuting && !ReadyProxy.InManagedReady && Volatile.Read(ref runReturns) == 1,
++                        "An eligible continuation executes inside its managed executor after the complete native Run has returned.");
++                    Check(Read(source, awaiter.GetResult(), projectionId).Id == 1, "The inline continuation consumes its original batch.");
++                    Drained(transport.PullSnapshot, 1);
++                    nextCreated.TrySetResult(transport.FetchAsync());
++                    Hold(release, "retired inline continuation");
++                }
++                catch (Exception error) { nextCreated.TrySetException(error); throw; }
++            });
++            worker = Task.Run(scheduler.ExecuteOne);
++            var next = await nextCreated.Task.WaitAsync(Bound);
++            Check(!worker.IsCompleted && scheduler.Queued == 1 && scheduler.Offers == 2 && scheduler.Executions == 1,
++                "A held inline continuation has released processing ownership so the next generation has its own worker offer.");
++            await Task.Run(scheduler.ExecuteOne).WaitAsync(Bound);
++            Check(Read(source, await next.AsTask().WaitAsync(Bound), projectionId).Id == 2,
++                "A second execution completes while the first inline continuation remains held.");
++            Drained(transport.PullSnapshot, 2);
++            Check(!worker.IsCompleted && scheduler.Executions == 2 && runReturns == 2,
++                "The previous publisher stack remains live without owning the next generation's execution frame.");
++            release.Set();
++            await worker.WaitAsync(Bound);
++            Drained(transport.PullSnapshot, 2);
++            Check(scheduler.Offers == 2 && scheduler.Queued == 0, "Returning the retired inline continuation does not reschedule old work.");
++        }
++        finally
++        {
++            release.Set(); source.TestPullBoundary = null; scheduler.ReleaseAll();
++            if (worker is not null) await worker.WaitAsync(Bound);
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            CheckZero(provider);
++        }
++    }
++
++    private static async Task ExecutionContextIsRestored(DatabaseProvider provider, string connection, bool throwAfterConsumption)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        var logical = new AsyncLocal<string?>();
++        var consumed = NewSignal();
++        var expected = new ApplicationException("ExecutionContext continuation failed after consumption");
++        try
++        {
++            var pending = transport.FetchAsync();
++            var awaiter = pending.GetAwaiter();
++            var previousContext = SynchronizationContext.Current;
++            SynchronizationContext.SetSynchronizationContext(null);
++            logical.Value = "registration";
++            try
++            {
++                awaiter.OnCompleted(() =>
++                {
++                    try
++                    {
++                        Check(scheduler.IsExecuting && logical.Value == "registration",
++                            "An ExecutionContext-only continuation runs inline with its registration context restored.");
++                        Check(Read(source, awaiter.GetResult(), projectionId).Id == 1, "The context-restored continuation owns its original result.");
++                        logical.Value = "continuation mutation";
++                        SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
++                        consumed.TrySetResult();
++                    }
++                    catch (Exception error) { consumed.TrySetException(error); return; }
++                    if (throwAfterConsumption) throw expected;
++                });
++            }
++            finally { logical.Value = "caller"; SynchronizationContext.SetSynchronizationContext(previousContext); }
++            await Task.Run(() =>
++            {
++                var prior = SynchronizationContext.Current;
++                var publisherContext = new SynchronizationContext();
++                SynchronizationContext.SetSynchronizationContext(publisherContext);
++                logical.Value = "publisher";
++                try
++                {
++                    Exception? observed = null;
++                    try { scheduler.ExecuteOne(); }
++                    catch (Exception error) { observed = error; }
++                    Check(throwAfterConsumption ? ReferenceEquals(observed, expected) : observed is null,
++                        "Context-restored delivery preserves its exact success or user exception at the managed executor boundary.");
++                    Check(logical.Value == "publisher" && ReferenceEquals(SynchronizationContext.Current, publisherContext),
++                        "The runtime restores the publisher's ExecutionContext and SynchronizationContext after inline delivery or failure.");
++                }
++                finally { SynchronizationContext.SetSynchronizationContext(prior); }
++            }).WaitAsync(Bound);
++            await consumed.Task.WaitAsync(Bound);
++            Check(logical.Value == "caller", "Inline continuation mutations do not leak into the awaiting test caller.");
++            Drained(transport.PullSnapshot, 1);
++        }
++        finally
++        {
++            scheduler.ReleaseAll();
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            CheckZero(provider);
++        }
++    }
++
++    [ThreadStatic] private static bool _registeringAfterCompletion;
++
++    private static async Task LateRegistrationRemainsQueued(DatabaseProvider provider, string connection)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        var consumed = NewSignal();
++        try
++        {
++            var pending = transport.FetchAsync();
++            scheduler.ExecuteOne();
++            Check(pending.IsCompletedSuccessfully, "The native result completed before this deliberately late registration.");
++            var awaiter = pending.ConfigureAwait(false).GetAwaiter();
++            _registeringAfterCompletion = true;
++            try
++            {
++                awaiter.UnsafeOnCompleted(() =>
++                {
++                    try
++                    {
++                        Check(!_registeringAfterCompletion && !scheduler.IsExecuting,
++                            "Registration after completion queues delivery instead of invoking the continuation inside OnCompleted.");
++                        Check(Read(source, awaiter.GetResult(), projectionId).Id == 1, "Late registration still transfers its one original result.");
++                        consumed.TrySetResult();
++                    }
++                    catch (Exception error) { consumed.TrySetException(error); }
++                });
++            }
++            finally { _registeringAfterCompletion = false; }
++            await consumed.Task.WaitAsync(Bound);
++            Drained(transport.PullSnapshot, 1);
++        }
++        finally
++        {
++            scheduler.ReleaseAll();
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            CheckZero(provider);
++        }
++    }
++
++    private static async Task PublicationFailure(DatabaseProvider provider, string connection, bool consumeThenRequest)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        var expected = new ApplicationException("captured Post failed after the completion sentinel");
++        var context = new ThrowingContext(expected, consumeThenRequest);
++        var callbackCalls = 0;
++        ValueTask<ScopedStreamBatch> next = default;
++        try
++        {
++            var pending = transport.FetchAsync();
++            var awaiter = pending.GetAwaiter();
++            var priorContext = SynchronizationContext.Current;
++            SynchronizationContext.SetSynchronizationContext(context);
++            try
++            {
++                awaiter.UnsafeOnCompleted(() =>
++                {
++                    callbackCalls++;
++                    Check(Read(source, awaiter.GetResult(), projectionId).Id == 1,
++                        "A captured Post may synchronously deliver and consume the first result before it throws.");
++                    Drained(transport.PullSnapshot, 1);
++                    next = transport.FetchAsync();
++                });
++            }
++            finally { SynchronizationContext.SetSynchronizationContext(priorContext); }
++            Exception? observed = null;
++            try { scheduler.ExecuteOne(); }
++            catch (Exception error) { observed = error; }
++            Check(ReferenceEquals(observed, expected),
++                "Post's exact failure escapes the managed executor once; it is not translated into SchedulingFault.");
++            Check(context.Calls == 1 && callbackCalls == (consumeThenRequest ? 1 : 0),
++                "A throwing captured Post is neither retried nor replaced with a second result publication.");
++            if (!consumeThenRequest)
++            {
++                Check(Read(source, awaiter.GetResult(), projectionId).Id == 1,
++                    "When Post throws before dispatch, the already-completed original result remains consumable once.");
++                Drained(transport.PullSnapshot, 1);
++                next = transport.FetchAsync();
++            }
++            Check(transport.PullSnapshot.Generation == 2 && !next.IsCompleted && scheduler.Queued == 1 && scheduler.Offers == 2,
++                "The new generation retains its independent admission after the preceding publication throws.");
++            scheduler.ExecuteOne();
++            Check(Read(source, await next.AsTask().WaitAsync(Bound), projectionId).Id == 2,
++                "The next provider execution succeeds without inheriting an old Post failure or a poisoned source.");
++            Drained(transport.PullSnapshot, 2);
++            Check(scheduler.Offers == 2 && scheduler.Executions == 2 && scheduler.Queued == 0,
++                "Publication failure introduces no obsolete drain, retry or second setter.");
++        }
++        finally
++        {
++            scheduler.ReleaseAll();
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            CheckZero(provider);
++        }
++    }
++
++    private static async Task ContinuationFailurePreservesNextGeneration(DatabaseProvider provider, string connection)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        var expected = new ApplicationException("inline continuation failed after consuming its result");
++        ValueTask<ScopedStreamBatch> next = default;
++        try
++        {
++            var pending = transport.FetchAsync();
++            var awaiter = pending.ConfigureAwait(false).GetAwaiter();
++            awaiter.UnsafeOnCompleted(() =>
++            {
++                Check(scheduler.IsExecuting, "This controlled failure is thrown by an actual inline continuation.");
++                Check(Read(source, awaiter.GetResult(), projectionId).Id == 1, "The failing continuation first consumes its original result.");
++                Drained(transport.PullSnapshot, 1);
++                next = transport.FetchAsync();
++                throw expected;
++            });
++            Exception? observed = null;
++            try { scheduler.ExecuteOne(); }
++            catch (Exception error) { observed = error; }
++            Check(ReferenceEquals(observed, expected) && transport.PullSnapshot.Generation == 2
++                && scheduler.Queued == 1 && scheduler.Offers == 2,
++                "The exact user continuation failure leaves the new generation's admission intact outside SchedulingFault.");
++            scheduler.ExecuteOne();
++            Check(Read(source, await next.AsTask().WaitAsync(Bound), projectionId).Id == 2,
++                "The generation started before a user exception still returns its own valid result.");
++            Drained(transport.PullSnapshot, 2);
++        }
++        finally
++        {
++            scheduler.ReleaseAll();
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            CheckZero(provider);
++        }
++    }
++
++    private static async Task RepeatedHeldPublishers(DatabaseProvider provider, string connection)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RecordingScheduler();
++        source.TestPullScheduler = scheduler;
++        var transport = Transport(source, session, out var projectionId);
++        var contexts = Enumerable.Range(0, 4).Select(_ => new HoldingContext()).ToArray();
++        var workers = new List<Task>();
++        try
++        {
++            for (var index = 0; index < contexts.Length; index++)
++            {
++                var generation = (ulong)index + 1;
++                var consumed = NewSignal();
++                var pending = transport.FetchAsync();
++                var awaiter = pending.GetAwaiter();
++                var priorContext = SynchronizationContext.Current;
++                SynchronizationContext.SetSynchronizationContext(contexts[index]);
++                try
++                {
++                    awaiter.UnsafeOnCompleted(() =>
++                    {
++                        try
++                        {
++                            Check(Read(source, awaiter.GetResult(), projectionId).Id == (long)generation,
++                                "Each held publisher delivers only its captured generation's ordered result.");
++                            consumed.TrySetResult();
++                        }
++                        catch (Exception error) { consumed.TrySetException(error); }
++                    });
++                }
++                finally { SynchronizationContext.SetSynchronizationContext(priorContext); }
++                workers.Add(Task.Run(scheduler.ExecuteOne));
++                await contexts[index].Entered.Task.WaitAsync(Bound);
++                await consumed.Task.WaitAsync(Bound);
++                Drained(transport.PullSnapshot, generation);
++                Check(workers.All(task => !task.IsCompleted) && contexts.Take(index + 1).All(context => !context.Exited.Task.IsCompleted)
++                    && source.CallbackCoordinator.Count == 0 && scheduler.Queued == 0
++                    && scheduler.Offers == index + 1 && scheduler.Executions == index + 1,
++                    "Already-consumed publisher frames may remain held without retaining callback slots or preventing later admitted generations.");
++            }
++            foreach (var context in contexts) context.Release.Set();
++            await Task.WhenAll(workers).WaitAsync(Bound);
++            Drained(transport.PullSnapshot, 4);
++            var next = transport.FetchAsync();
++            scheduler.ExecuteOne();
++            Check(Read(source, await next.AsTask().WaitAsync(Bound), projectionId).Id == 5,
++                "After every retired publisher returns, the fifth generation still executes and materializes normally.");
++            Drained(transport.PullSnapshot, 5);
++            Check(scheduler.Offers == 5 && scheduler.Executions == 5 && scheduler.Queued == 0,
++                "Returning four independent old publisher frames does not inject stale work or consume the fifth result.");
++            foreach (var context in contexts) context.ThrowIfFailed();
++        }
++        finally
++        {
++            foreach (var context in contexts) context.Release.Set();
++            scheduler.ReleaseAll();
++            await Task.WhenAll(workers).WaitAsync(Bound);
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            foreach (var context in contexts) { context.ThrowIfFailed(); context.Dispose(); }
++            CheckZero(provider);
++        }
++    }
++
+     private static void RejectConcurrent(HostStreamTransport transport, ulong generation)
+     {
+         try { _ = transport.FetchAsync(); }
+@@ -394,12 +756,15 @@ private static unsafe void CheckZero(DatabaseProvider provider)
+ 
+     private sealed class RecordingScheduler : ICallbackScheduler
+     {
++        [ThreadStatic] private static RecordingScheduler? _executing;
+         private readonly object _gate = new();
+         private readonly Queue<IThreadPoolWorkItem> _items = new();
+         private bool _released, _reject;
+-        private int _offers, _executions;
++        private int _offers, _executions, _completedExecutions;
+         internal int Offers => Volatile.Read(ref _offers);
+         internal int Executions => Volatile.Read(ref _executions);
++        internal int CompletedExecutions => Volatile.Read(ref _completedExecutions);
++        internal bool IsExecuting => ReferenceEquals(_executing, this);
+         internal int Queued { get { lock (_gate) return _items.Count; } }
+         internal bool Reject { get { lock (_gate) return _reject; } set { lock (_gate) _reject = value; } }
+         public bool TryQueue(IThreadPoolWorkItem item)
+@@ -430,7 +795,24 @@ internal void ReleaseAll()
+         }
+         private sealed class RecordedWork(RecordingScheduler owner, IThreadPoolWorkItem item) : IThreadPoolWorkItem
+         {
+-            public void Execute() { Interlocked.Increment(ref owner._executions); item.Execute(); }
++            public void Execute()
++            {
++                Interlocked.Increment(ref owner._executions);
++                var previous = _executing; _executing = owner;
++                try { item.Execute(); }
++                finally { _executing = previous; Interlocked.Increment(ref owner._completedExecutions); }
++            }
++        }
++    }
++
++    private sealed class ThrowingContext(Exception failure, bool dispatch) : SynchronizationContext
++    {
++        internal int Calls;
++        public override void Post(SendOrPostCallback callback, object? state)
++        {
++            Calls++;
++            if (dispatch) callback(state);
++            throw failure;
+         }
+     }
+ 
+@@ -441,6 +823,7 @@ private sealed class RecordedWork(RecordingScheduler owner, IThreadPoolWorkItem
+     private sealed class HoldingContext : SynchronizationContext, IDisposable
+     {
+         internal TaskCompletionSource Entered { get; } = NewSignal();
++        internal TaskCompletionSource Exited { get; } = NewSignal();
+         internal ManualResetEventSlim Release { get; } = new();
+         private Exception? _failure;
+         public override void Post(SendOrPostCallback callback, object? state)
+@@ -450,6 +833,7 @@ public override void Post(SendOrPostCallback callback, object? state)
+             Entered.TrySetResult();
+             try { Hold(Release, "old completion scheduler return"); }
+             catch (Exception failure) { Interlocked.CompareExchange(ref _failure, failure, null); }
++            finally { Exited.TrySetResult(); }
+         }
+         internal void ThrowIfFailed() { if (Volatile.Read(ref _failure) is { } failure) throw failure; }
+         public void Dispose() { Release.Set(); Release.Dispose(); }
+diff --git a/tests/Interop.Async/Program.cs b/tests/Interop.Async/Program.cs
+index 1018c20..64ecc3f 100644
+--- a/tests/Interop.Async/Program.cs
++++ b/tests/Interop.Async/Program.cs
+@@ -525,7 +525,7 @@ internal void Run()
+     private sealed class WakeProbe(ManualScheduler scheduler) : CoordinatedCallback(scheduler)
+     {
+         internal int Passes;
+-        protected override void Process()
++        protected override void Process(ref CallbackPublication publication)
+         {
+             Passes++;
+             if (Passes == 1) Task.Run(Signal).GetAwaiter().GetResult();

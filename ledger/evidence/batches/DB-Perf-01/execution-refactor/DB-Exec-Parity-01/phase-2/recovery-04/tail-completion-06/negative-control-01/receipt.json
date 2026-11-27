@@ -1,0 +1,116 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "candidate": "tail-completion06",
+  "mode": "publication-negative",
+  "startedUtc": "2026-11-27T09:10:31.844265+00:00",
+  "stage": "completed",
+  "worktree": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-tail06-negative",
+  "managedCommit": "4efce12ff6c1ece1f059e5b209e4e6a02a38acce",
+  "managedTree": "be90772a53d239261ae2c1ab43281760cac843e9",
+  "driverSha256": "a4828be0768bdb4d37d9751e2c7881533224ad802ea7108db6c413a1697ade22",
+  "toolchainEnvironmentSha256": "7b1bf32a51a1caef902d839ad36e48d1749a3897f769e849aef891f15fbbec16",
+  "driverAffinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "buildDotnetProcessorCount": 1,
+  "commands": [
+    {
+      "name": "publish",
+      "argv": [
+        "dotnet",
+        "publish",
+        "tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:RestoreLockedMode=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-p:UseSharedCompilation=false",
+        "-p:EmitCompilerGeneratedFiles=true",
+        "-m:1",
+        "-nr:false",
+        "-p:KordaSqliteAssetPath=/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-sqlite/native/libnw_database_sqlite.so",
+        "-p:KordaPostgresAssetPath=/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-postgresql/native/libnw_database_postgresql.so",
+        "-o",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-tail06-negative",
+      "startedUtc": "2026-11-27T09:10:32.039943+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish.log",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-27T09:11:41.603114+00:00",
+      "logSha256": "7bcc9d23eb2722360b12d45e8c59e06f272f5f68537cfd26d257cfffcd73e874"
+    },
+    {
+      "name": "nativehost-publication-negative",
+      "argv": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/toolchain/postgres-18.0/install/bin",
+        "--output",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/runtime",
+        "--",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish/Korda.Data.NativeHost.Tests",
+        "--pull-publication-failure-only"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-tail06-negative",
+      "startedUtc": "2026-11-27T09:11:41.778841+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/nativehost-publication-negative.log",
+      "exitCode": 250,
+      "finishedUtc": "2026-11-27T09:11:42.652555+00:00",
+      "logSha256": "f2408447e9d8c1250b275aa2a589b55d541d4ee4a4c53deca0d3902f9a078165"
+    }
+  ],
+  "nativeAssets": {
+    "sqlite": {
+      "manifest": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-sqlite/native/manifest.json",
+      "manifestSha256": "1403881388ab165d88d98d8ff0fa46b562434cc2fe2e72c61160dee9fce98662",
+      "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-sqlite/native/libnw_database_sqlite.so",
+      "sha256": "9389960168420aac399f2f08c7ebd88f2b2478faf491d3a6feb8db347cfc245c",
+      "sourceCommit": "485477cef973555bed0807a3a0b0dc5503f83243",
+      "nativeSourceUnchanged": true,
+      "publishedPath": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish/runtimes/linux-x64/native/libnw_database_sqlite.so"
+    },
+    "postgresql": {
+      "manifest": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-postgresql/native/manifest.json",
+      "manifestSha256": "2f6940688d66923dc8349914c159adc4282c50fb26da128e52c218ee545961f5",
+      "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/integrated04-postgresql/native/libnw_database_postgresql.so",
+      "sha256": "edbab539bcae6424ff693cbb8fa8c69d5bb2aa16e20ea8aa84f6d93505190ccf",
+      "sourceCommit": "485477cef973555bed0807a3a0b0dc5503f83243",
+      "nativeSourceUnchanged": true,
+      "publishedPath": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish/runtimes/linux-x64/native/libnw_database_postgresql.so"
+    }
+  },
+  "runtimeCorrectnessPassed": false,
+  "ordinaryTimingCredit": false,
+  "performanceMeasurementExecuted": false,
+  "finalCredit": false,
+  "trackedInputsBeforeSha256": "e34b0bc0f93da7b4c22b0d904aa2036f77a5d1a81cbac1161f2718d4f176ba2b",
+  "impactPlanSha256": "b5c92816e038c2cf5cc3eb5d630e9e54bf725c205fa3afa6230ef2c7d1079284",
+  "sdkVersion": "11.0.100",
+  "executable": {
+    "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish/Korda.Data.NativeHost.Tests",
+    "sha256": "d1ccd7d774c2278aa792a0ed3888390665ebdfde573eddffde7acfef6df5d62c",
+    "buildId": "7088879956a2da08cad3a792d73dfdd8c5f9c003"
+  },
+  "symbols": {
+    "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/tail-completion-06/negative-control-01/publish/Korda.Data.NativeHost.Tests.dbg",
+    "sha256": "ab05dee76159b97e0d13aa05c709ebefb0fb28a1755e0c60849460ef00c03b83",
+    "buildId": "7088879956a2da08cad3a792d73dfdd8c5f9c003"
+  },
+  "generatedSourcesManifestSha256": "15a1f19b7bb19d7bf118b94b4aa76456cb23c3e041334dd8e1954dead86bf6b9",
+  "sourceInputsUnchangedThroughBuild": true,
+  "runtimeLogSha256": "2540b06a1a0a72d78c7576b54fe2a58121ba4a9330c6a3a08d85c8617dd72f08",
+  "negativeControlMatched": true,
+  "negativeFailureMessage": "Post's exact failure escapes the managed executor once; it is not translated into SchedulingFault.",
+  "baselineCorrectnessRunPassed": false,
+  "completed": true,
+  "finishedUtc": "2026-11-27T09:11:42.725089+00:00",
+  "sourceInputsUnchangedThroughRun": true
+}
