@@ -2,7 +2,7 @@
 
 **Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
 
-**Latest authoritative continuation:** [Continuation09](continuation-09.md) closes tail06's mechanism, 114-process ordinary screen and final 12-cell short mixed gate. Tail06 is rejected for dual-provider integration; integrated05 remains the product baseline. [Pull-local07](pull-local-07-hypothesis.md) records the next single-variable short experiment before Design/product changes. Complete selected closed metrics are in `tail06-closed-09`; supplement04 publication remains separately tracked.
+**Latest authoritative continuation:** [Continuation10](continuation-10.md) closes pull-local07's actual correctness, ordinary ELF analysis and 12-process text1000 short comparison. Pull-local07 is rejected for lack of repeatable CPU benefit; integrated05 remains selected. No conditional mixed gate or extra round is pending. The next question is a read-only investigation of the already measured relation-buffer cost, not an adopted product strategy. Supplement04 has been published and byte-read back; the new full07 supplement remains pending. [Continuation09](continuation-09.md) retains the earlier closed tail06 decision, and the original [pull-local07 hypothesis](pull-local-07-hypothesis.md) retains its pre-implementation conditions.
 
 ## Historical Recovery04 snapshot
 

@@ -1,0 +1,98 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "createdUtc": "2026-11-27T11:20:41.740083+00:00",
+  "assessment": "Supported transport-only change; actual speedup and complete post-change CI still unmeasured",
+  "proposedOnlyChange": "Add filter: blob:none to all seven pinned checkout with blocks",
+  "checkoutCount": 7,
+  "fullHistoryInputCount": 7,
+  "existingFilterInputCount": 0,
+  "checkoutSteps": [
+    {
+      "step": 2,
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "seconds": 294.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 3,
+      "name": "Check out the immutable DB-Perf-01 record",
+      "seconds": 246.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 5,
+      "name": "Check out the immutable DB-Rename-01 input",
+      "seconds": 232.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 7,
+      "name": "Check out the immutable completed DB-CPP-01 input",
+      "seconds": 238.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 9,
+      "name": "Check out the immutable completed DB-Scope-01 input",
+      "seconds": 293.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 11,
+      "name": "Check out the immutable historical Plan acceptance input",
+      "seconds": 237.0,
+      "conclusion": "success"
+    },
+    {
+      "step": 12,
+      "name": "Check out its immutable Design input",
+      "seconds": 1.0,
+      "conclusion": "success"
+    }
+  ],
+  "planCheckoutSeconds": 1540.0,
+  "frozenDesignCheckoutSeconds": 1.0,
+  "cancellationInference": "Job starts 10:41:57 UTC and cancellation is logged at 11:11:57 UTC, matching the existing 30-minute timeout. No annotation endpoint was available through GitHub Fetch; timeout attribution is an inference from the exact time and unchanged workflow.",
+  "retainedSettings": [
+    "pinned actions SHA",
+    "all refs",
+    "fetch-depth: 0",
+    "all paths",
+    "persist-credentials: false",
+    "contents: read",
+    "timeout-minutes: 30",
+    "all gate commands",
+    "all verifier bytes",
+    "artifact upload paths"
+  ],
+  "observedRun": 45984275158,
+  "observedJob": 140455763686,
+  "workflowSha256": "c8d26cdcf2528e59cb69da18c44d27ea3f221ce373ced3c6b9517154916613a0",
+  "localLogSha256": "afb30abcdcf6f69e4a672563c2f947f4defbc712e400d98ff8bc3363b35576ce",
+  "jobReceiptSha256": "3165c84d606b47c5a4ca92dd6f3e6fdf8fec64897e3f6fa9a2981574e28909d5",
+  "officialSources": [
+    "https://github.com/actions/checkout/blob/11d5960a326750d5838078e36cf38b85af677262/action.yml",
+    "https://github.com/actions/checkout/blob/11d5960a326750d5838078e36cf38b85af677262/src/input-helper.ts",
+    "https://github.com/actions/checkout/blob/11d5960a326750d5838078e36cf38b85af677262/src/git-source-provider.ts",
+    "https://github.com/actions/checkout/blob/11d5960a326750d5838078e36cf38b85af677262/src/git-command-manager.ts",
+    "https://git-scm.com/docs/git-clone",
+    "https://git-scm.com/docs/partial-clone"
+  ],
+  "upstreamSourceNote": "Pinned official source fetched read-only via GitHub connector; retained text normalized to LF, not claimed as original Git blob hash",
+  "upstreamRetainedSha256": {
+    "git-source-provider.ts": "b9b4bc58c429c5cad8ee775037f7440c19581d3ba23b92972680c957941977de",
+    "git-command-manager.ts": "e8901d6057c1e3b8de447f7de87d70e510d01fb0ad396e2e1c241245f047c0b8",
+    "action.yml": "1c296ddc089ede15992ea746e169f41b9329115e9598f5e4a7ef5f38d4e6ee8a",
+    "input-helper.ts": "10339fcef9561f42a23f5b38cb7169800c1ee59f22450ed4befc99f3a4a863ce"
+  },
+  "ciTriggered": false,
+  "workflowEdited": false,
+  "performanceExecuted": false,
+  "limitations": [
+    "Current-HEAD checkout still materializes all its archive blobs",
+    "A historical verifier asking for omitted blobs causes lazy fetch; it is not promised offline",
+    "Plan and Design observed public; preserve persist-credentials:false and fail closed on retrieval errors",
+    "Do not claim the exact timeout cause has a GitHub annotation; timing-match inference only",
+    "No post-change elapsed-time/transfer-volume observation yet"
+  ]
+}
