@@ -1,0 +1,17 @@
+# Archive04 aliases：最终冻结版本独立审查
+
+**结论：当前10项冻结版本未见恢复流程阻断。** 审查只读小源码、控制回执及已封metadata，没有执行恢复器、fake控制、真实alias写入、大归档解压或payload重新散列。验证通过36项元数据/身份检查；作者既有25项copy控制和11项binding控制全部通过且与冻结源相符。
+
+当前scope是6项本次tail06普通/诊断feed包，加4项之前已发布baseline03/integrated05包。后4项不复制旧payload，要求先恢复archives01/02；两份完整expanded manifest由dependency index明确固定SHA和发布路径/commit。独立读取这10项源，全部按当前选中member或固定prior member核对SHA/尺寸，并与对应真实消费者build-receipt核对。当前审查未再次远端fetch；本地Plan原副本是否存在及是否同SHA保存在validation。未把metadata核验当真实payload还原。
+
+首次准备报告时manifest从6项变10项，旧的六consumer查找在新baseline映射处停止；attempt-01.json保留此未封存尝试，没有生成成功结论，也没有实际恢复动作。随后作者以restore-final-freeze.json封闭源和10项依赖，此报告仅针对该最终身份。
+
+源码确认：全部alias在创建任何目标前先检查源/既存目的；绝对路径、..、内部/外部symlink、非regular文件和不同SHA/尺寸均拒绝。check_file使用O_NOFOLLOW与前后fstat。创建时写独立临时inode、完整校验，再no-clobber安装；不会把feed inode直接硬链接到cache，也不覆盖既存不同字节。
+
+独立初审发现旧版existing-identical分支没有拒绝源与目的同inode，作者已作最小修正：preflight、existing、并发既存和最终新建结果都检查(dev,ino)独立，source==destination也因此拒绝。25项回执中新增5项同路径/硬链接控制且保留源；旧20项及v1源继续保留。
+
+restore_archive04先核不变的streaming引擎b24e6dce…40cf273c，检测跨包重复成员，bind_alias_sources严格区分current与prior来源；prior manifest必须通过固定SHA、无重复member且路径无绝对/..。所有alias按相应member尺寸/SHA绑定后，再逐归档verify/restore。仅当前payload恢复步骤全部成功后才补alias；源若缺失（如未先恢复prior依赖）会在alias全量preflight拒绝，不会先写部分alias。
+
+边界保持：核心引擎是逐member恢复，非wholearchive事务；较晚失败时较早member可能已恢复。目录检查假设无并发恶意destination-tree替换，不伪称内核原子快照。新alias与指定feed inode独立，不证明它与外部任意未声明文件的关系，也没有wholearchive崩溃持久化原子性主张。原source/index/manifest身份必须作为整份恢复metadata一起留存。
+
+本次审查无需追加泛化测试；真实归档上传、流验证与恢复入口的完整可用性由archive04封存回执继续证明。当前报告只授予所限定代码与metadata映射的独立审查信用。
