@@ -1,0 +1,121 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "scope": "Correctness only; no benchmark or timing credit",
+  "startedUtc": "2026-11-27T04:53:36.509287+00:00",
+  "commands": [
+    {
+      "name": "publish",
+      "argv": [
+        "dotnet",
+        "publish",
+        "tests/Data.NativeHost/Korda.Data.NativeHost.Tests.csproj",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "-p:PublishAot=true",
+        "-p:RestoreLockedMode=true",
+        "-p:IlcTreatWarningsAsErrors=true",
+        "-p:UseSharedCompilation=false",
+        "-m:1",
+        "-nr:false",
+        "-p:KordaSqliteAssetPath=/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/worker-d-ready-scheduling-correctness-inputs-mask-fixed/libnw_database_sqlite.so",
+        "-p:KordaPostgresAssetPath=/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/worker-d-ready-scheduling-correctness-inputs-mask-fixed/libnw_database_postgresql.so",
+        "-o",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/publish"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-worker-d-scheduling-tests",
+      "startedUtc": "2026-11-27T04:53:36.593284+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/publish.log",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-27T04:54:22.627864+00:00",
+      "logSha256": "16067154d82e6d93a29854fd4e6c5e80319a39861c670c1c0adae5084a6d60fc"
+    },
+    {
+      "name": "scheduling",
+      "argv": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/toolchain/postgres-18.0/install/bin",
+        "--output",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/runtime-scheduling",
+        "--",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/publish/Korda.Data.NativeHost.Tests",
+        "--pull-ready-scheduling-only"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-worker-d-scheduling-tests",
+      "startedUtc": "2026-11-27T04:54:22.722051+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/scheduling.log",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-27T04:54:23.694208+00:00",
+      "logSha256": "8b9c7af010d218a151604f7622da77d18a346222c468d3f13f6dd63f3ba5e39a"
+    },
+    {
+      "name": "execution",
+      "argv": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/toolchain/postgres-18.0/install/bin",
+        "--output",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/runtime-execution",
+        "--",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/publish/Korda.Data.NativeHost.Tests",
+        "--pull-worker-execution-only"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-worker-d-scheduling-tests",
+      "startedUtc": "2026-11-27T04:54:23.695506+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/execution.log",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-27T04:54:24.768709+00:00",
+      "logSha256": "209fc097da1b6632066d2d219fe3e53159541e341797630451b4502c80d30d7d"
+    },
+    {
+      "name": "nativehost-full",
+      "argv": [
+        "python3",
+        "tests/Data.NativeHost/run.py",
+        "--postgres-bin",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/toolchain/postgres-18.0/install/bin",
+        "--output",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/runtime-nativehost-full",
+        "--",
+        "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/publish/Korda.Data.NativeHost.Tests"
+      ],
+      "cwd": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-worker-d-scheduling-tests",
+      "startedUtc": "2026-11-27T04:54:24.769778+00:00",
+      "log": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/observations/worker-d-ready-scheduling-aot-mask-fixed/nativehost-full.log",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-27T04:54:27.716504+00:00",
+      "logSha256": "454f5eabef1ebd6e4bab7d39d004784ba3963e38f9fcd68c74e096c4cde48646"
+    }
+  ],
+  "managedCommit": "a58544aff5bc55d9f5ac1f13cd80f590451a1312",
+  "managedDirty": false,
+  "testSourcesSha256": {
+    "ReadySchedulingTests.cs": "aebf22429c035d921cc1a0313f67f8373ecac0f48c0f4bc9c6a0f57f4616fe17",
+    "WorkerExecutionTests.cs": "56a9d764ed292ad9d00cf637008c3eb96c25e21e2e37dad14839040e9bce028d",
+    "Program.cs": "fb5e8504b01ec4ba4afac11999de83635f13bf91e2ec72d49d80051580c2153d"
+  },
+  "nativeAssets": {
+    "sqlite": {
+      "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/worker-d-ready-scheduling-correctness-inputs-mask-fixed/libnw_database_sqlite.so",
+      "sha256": "424a69ff65142dac6b2bfe328c98a2a4193107cc2400137853fd5cd1a4738e5a"
+    },
+    "postgresql": {
+      "path": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/builds/worker-d-ready-scheduling-correctness-inputs-mask-fixed/libnw_database_postgresql.so",
+      "sha256": "a5e311cb88b74c45dc5adbf6eb82c7a8f9838b3ce3325f87dd3b93c77bc26961"
+    }
+  },
+  "runtimeCorrectnessPassed": true,
+  "performanceMeasurementExecuted": false,
+  "executableSha256": "5ff3d28c61803696fd5d566f12727b6ededb38228e00d1eb13714edf70a61650",
+  "debugSha256": "31789b1004a1924ac91b199d500439c3b7e91a4ba3e739e736609e01970c6e1d",
+  "runtimeLogSha256": {
+    "scheduling": "1bdc79fc3694d9e2d5fbda7dec825fbb21b2e337fe5e65efb469466969b1c8d9",
+    "execution": "b1203d52d5dde7f8113d2dd81787f525ac70de07c1a9546c89f3f7623534cfd9",
+    "nativehost-full": "fb361102a4480237c798d950852b500bb7a85e480b4d4f0ec82d321741cb9e5a"
+  },
+  "finishedUtc": "2026-11-27T04:54:27.717649+00:00"
+}

@@ -1,5 +1,10 @@
 # Recovery 03 current evidence — before ordinary candidate acceptance
 
+**Superseded status:** [ordinary-screen-03](../ordinary-screen-03/README.md) now
+records the corrected full Worker-D AOT pass, dual-provider relation mechanism,
+six completed ordinary groups, four targeted risk follow-ups and current-ELF CPU
+samples. The record below is preserved as the earlier checkpoint.
+
 These are newly reconstructed candidates with actual source patches. Earlier missing continuation results are not claimed. Main product integration remains unchanged.
 
 - Decimal: the same new 463-configuration/147-rejection test passes against both matched baseline and candidate actual native objects. API-level invalid configuration is NW_INVALID_ARGUMENT/0; provider scalar conversion remains DOMAIN/3. Two mistaken earlier test attempts are retained in scratch evidence and will be archived.

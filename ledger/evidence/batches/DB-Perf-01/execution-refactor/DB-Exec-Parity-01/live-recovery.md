@@ -1,3 +1,9 @@
+## Recovery 03 ordinary and risk screens complete
+
+Read [the current checkpoint](phase-2/recovery-03/ordinary-screen-03/README.md). Corrected full Worker-D AOT passed; six ordinary groups and four targeted risk groups completed. Separate current-ELF samples passed identity/loss/coverage checks. The main product branch is still unchanged; Worker-D causal markers and next relation allocation scopes are active. Final campaign remains 0/4. No performance CI is added.
+
+---
+
 ## Recovery 03 resource/correctness checkpoint
 
 Read [current evidence](phase-2/recovery-03/current-evidence/README.md) and its exact source patches before continuing. All accepted performance claims and final gates remain pending.

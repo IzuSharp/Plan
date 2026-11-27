@@ -1,0 +1,1887 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "reviewedUtc": "2026-11-27T05:24:43.767507+00:00",
+  "scope": "Small-summary arithmetic and build-receipt identity crosscheck only, during measurement quiet window. No resampling, build, SQL, artifact compression or executable hashing.",
+  "groups": [
+    {
+      "group": "workerd-postgresql",
+      "summarySha256": "5b1e4d5aa140ca9cf52ad6ec94b1956ee07dfffbad113f085ff24f8db2cdcf69",
+      "planSha256": "3a369a9c60389940da71af7bb41736b5efc58231b9b21a05f592a0f8236ef9f7",
+      "planHashValid": true,
+      "reportedPassed": true,
+      "records": 48,
+      "allCompleted2048": true,
+      "identitiesFromReceipts": {
+        "baseline": {
+          "app": "consumers/baseline-final-postgresql/korda-workload",
+          "executableSha256": "7b0697c3537bb77110496e014fb36fa589657789c9bc6112da52ba97724873b0",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "cd8adfa47d516b42a771d97fad0240e5fb013abf8bfc6eb2b508c3ef7456f80c"
+          },
+          "packageSha256": "5c65c0853d2d1371caabe4fd5f56a406eb5c58ac74a80964f386fd7e1504d109",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "candidate": {
+          "app": "consumers/workerd03-postgresql/korda-workload",
+          "executableSha256": "fdb776ccd01411b9017ea4a579e95e62b32d641c6e38c5d36428024df201bd4f",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "fe4c33420e87abeab71275278f1c0ffb2e08307225e82b35424c843aa94db8fb"
+          },
+          "packageSha256": "e34ccf016f6b17bc8b0bb2bf63407a50f77e03115b705f8a5055911ba743f3cd",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "dapper": {
+          "app": "consumers/baseline-final-postgresql/dapper-workload",
+          "executableSha256": "54411e94610900438f67a3c7a9b27f8d7af2572a6ec8d2cff5c6ee429fdf279c",
+          "nativeImages": {},
+          "packageSha256": null,
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "afdc154e7531110f51e239b52438ed08ffad2120b244ff8b992be3924acef077",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "Driver.cs": "ff0b6e070c67348e840f6cf1af9c05a156d053a4e8c7e227f8325806292a2227",
+            "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+            "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+            "Measurement.cs": "10328bdadfbe213b0ef2266db389c82d4c71ebc9dfa752d2b34d22341b8d3cc0",
+            "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "d447900271b6528b4ef258bdeafff1772ea830291ff0da026662c80f7e69e73c",
+            "Oracles.cs": "b75223c36c96093491cd5f6bed40a6dacb0ebdd213533187af55a8bef7e97b05",
+            "Program.cs": "a4ca241571058b7d73907a1e75255f96a119799baadd6a64495155a2614b68b6",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        }
+      },
+      "baselineCandidateBusinessSourcesEqual": true,
+      "scenarios": [
+        {
+          "case": "numeric",
+          "rows": 1,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 317.3671875,
+              "candidateCpuUs": 309.283203125,
+              "dapperCpuUs": 101.6181640625,
+              "cpuChangePercent": -2.5472023238067076,
+              "candidateDapperCpuRatio": 3.043581883006429,
+              "managedAllocationChangeBytesPerSuccess": -6.15234375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 258.048,
+                  "candidateUs": 233.472,
+                  "dapperUs": 83.456,
+                  "changePercent": -9.523809523809524
+                },
+                "p95": {
+                  "baselineUs": 473.088,
+                  "candidateUs": 454.656,
+                  "dapperUs": 180.224,
+                  "changePercent": -3.8961038961038974
+                },
+                "p99": {
+                  "baselineUs": 1368.064,
+                  "candidateUs": 946.176,
+                  "dapperUs": 417.792,
+                  "changePercent": -30.83832335329342
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 400.75927734375,
+              "candidateCpuUs": 318.70703125000006,
+              "dapperCpuUs": 108.736328125,
+              "cpuChangePercent": -20.47419753763302,
+              "candidateDapperCpuRatio": 2.9310078494063556,
+              "managedAllocationChangeBytesPerSuccess": -10.453125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 284.672,
+                  "candidateUs": 228.352,
+                  "dapperUs": 86.528,
+                  "changePercent": -19.784172661870514
+                },
+                "p95": {
+                  "baselineUs": 688.128,
+                  "candidateUs": 425.984,
+                  "dapperUs": 166.912,
+                  "changePercent": -38.0952380952381
+                },
+                "p99": {
+                  "baselineUs": 2072.576,
+                  "candidateUs": 802.816,
+                  "dapperUs": 337.92,
+                  "changePercent": -61.26482213438735
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "text",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 587.66162109375,
+              "candidateCpuUs": 479.017578125,
+              "dapperCpuUs": 177.58544921875003,
+              "cpuChangePercent": -18.487517147460263,
+              "candidateDapperCpuRatio": 2.6973920455326574,
+              "managedAllocationChangeBytesPerSuccess": -31.22265625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 434.176,
+                  "candidateUs": 327.68,
+                  "dapperUs": 118.784,
+                  "changePercent": -24.52830188679245
+                },
+                "p95": {
+                  "baselineUs": 774.144,
+                  "candidateUs": 540.672,
+                  "dapperUs": 241.664,
+                  "changePercent": -30.15873015873015
+                },
+                "p99": {
+                  "baselineUs": 2039.808,
+                  "candidateUs": 1146.88,
+                  "dapperUs": 483.328,
+                  "changePercent": -43.775100401606416
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 613.34521484375,
+              "candidateCpuUs": 489.99658203125006,
+              "dapperCpuUs": 123.939453125,
+              "cpuChangePercent": -20.110800545484498,
+              "candidateDapperCpuRatio": 3.9535157665820955,
+              "managedAllocationChangeBytesPerSuccess": -17.51171875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 499.712,
+                  "candidateUs": 358.4,
+                  "dapperUs": 106.496,
+                  "changePercent": -28.278688524590166
+                },
+                "p95": {
+                  "baselineUs": 1728.512,
+                  "candidateUs": 655.36,
+                  "dapperUs": 280.576,
+                  "changePercent": -62.08530805687204
+                },
+                "p99": {
+                  "baselineUs": 3260.416,
+                  "candidateUs": 1253.376,
+                  "dapperUs": 868.352,
+                  "changePercent": -61.55778894472361
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "text",
+          "rows": 100,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 993.8945312500001,
+              "candidateCpuUs": 837.4814453125,
+              "dapperCpuUs": 160.75634765625003,
+              "cpuChangePercent": -15.737392753412449,
+              "candidateDapperCpuRatio": 5.209632201294538,
+              "managedAllocationChangeBytesPerSuccess": -55.77734375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 643.072,
+                  "candidateUs": 520.192,
+                  "dapperUs": 157.696,
+                  "changePercent": -19.108280254777064
+                },
+                "p95": {
+                  "baselineUs": 950.272,
+                  "candidateUs": 741.376,
+                  "dapperUs": 352.256,
+                  "changePercent": -21.98275862068966
+                },
+                "p99": {
+                  "baselineUs": 1695.744,
+                  "candidateUs": 1179.648,
+                  "dapperUs": 786.432,
+                  "changePercent": -30.434782608695656
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 845.2685546875001,
+              "candidateCpuUs": 831.1767578124999,
+              "dapperCpuUs": 218.85644531250003,
+              "cpuChangePercent": -1.6671384256344512,
+              "candidateDapperCpuRatio": 3.7978171336269395,
+              "managedAllocationChangeBytesPerSuccess": -44.56640625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 663.552,
+                  "candidateUs": 509.952,
+                  "dapperUs": 168.96,
+                  "changePercent": -23.148148148148152
+                },
+                "p95": {
+                  "baselineUs": 983.04,
+                  "candidateUs": 782.336,
+                  "dapperUs": 565.248,
+                  "changePercent": -20.41666666666666
+                },
+                "p99": {
+                  "baselineUs": 1417.216,
+                  "candidateUs": 1515.52,
+                  "dapperUs": 2244.608,
+                  "changePercent": 6.936416184971095
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "text",
+          "rows": 1000,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 6273.9501953125,
+              "candidateCpuUs": 4624.2861328125,
+              "dapperCpuUs": 581.2919921874999,
+              "cpuChangePercent": -26.293866083484772,
+              "candidateDapperCpuRatio": 7.955186369264319,
+              "managedAllocationChangeBytesPerSuccess": -140.59765625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 3702.784,
+                  "candidateUs": 2703.36,
+                  "dapperUs": 643.072,
+                  "changePercent": -26.991150442477874
+                },
+                "p95": {
+                  "baselineUs": 5046.272,
+                  "candidateUs": 3522.56,
+                  "dapperUs": 991.232,
+                  "changePercent": -30.1948051948052
+                },
+                "p99": {
+                  "baselineUs": 7405.568,
+                  "candidateUs": 5144.576,
+                  "dapperUs": 1343.488,
+                  "changePercent": -30.530973451327437
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 6818.3818359375,
+              "candidateCpuUs": 4962.390624999999,
+              "dapperCpuUs": 594.5644531250001,
+              "cpuChangePercent": -27.2204058909574,
+              "candidateDapperCpuRatio": 8.346261871051876,
+              "managedAllocationChangeBytesPerSuccess": -144.30078125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 3899.392,
+                  "candidateUs": 2703.36,
+                  "dapperUs": 651.264,
+                  "changePercent": -30.672268907563016
+                },
+                "p95": {
+                  "baselineUs": 8323.072,
+                  "candidateUs": 3407.872,
+                  "dapperUs": 999.424,
+                  "changePercent": -59.05511811023623
+                },
+                "p99": {
+                  "baselineUs": 14614.528,
+                  "candidateUs": 4882.432,
+                  "dapperUs": 1327.104,
+                  "changePercent": -66.59192825112108
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "early-stop",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 4400.552734374999,
+              "candidateCpuUs": 4373.224609375,
+              "dapperCpuUs": 1899.74072265625,
+              "cpuChangePercent": -0.6210157371033143,
+              "candidateDapperCpuRatio": 2.3020112993420927,
+              "managedAllocationChangeBytesPerSuccess": 46.68359375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 4489.216,
+                  "candidateUs": 4489.216,
+                  "dapperUs": 1310.72,
+                  "changePercent": 0.0
+                },
+                "p95": {
+                  "baselineUs": 5603.328,
+                  "candidateUs": 5373.952,
+                  "dapperUs": 1736.704,
+                  "changePercent": -4.093567251461994
+                },
+                "p99": {
+                  "baselineUs": 8093.696,
+                  "candidateUs": 8028.16,
+                  "dapperUs": 2506.752,
+                  "changePercent": -0.8097165991902799
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 4697.6904296875,
+              "candidateCpuUs": 4604.285644531249,
+              "dapperCpuUs": 1430.7099609375,
+              "cpuChangePercent": -1.9883129072526873,
+              "candidateDapperCpuRatio": 3.218182420086181,
+              "managedAllocationChangeBytesPerSuccess": 41.8359375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 4718.592,
+                  "candidateUs": 4587.52,
+                  "dapperUs": 1335.296,
+                  "changePercent": -2.777777777777757
+                },
+                "p95": {
+                  "baselineUs": 5931.008,
+                  "candidateUs": 6062.08,
+                  "dapperUs": 2015.232,
+                  "changePercent": 2.20994475138121
+                },
+                "p99": {
+                  "baselineUs": 8519.68,
+                  "candidateUs": 8912.896,
+                  "dapperUs": 3981.312,
+                  "changePercent": 4.615384615384621
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "wide",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 738.6928710937501,
+              "candidateCpuUs": 680.142578125,
+              "dapperCpuUs": 233.9228515625,
+              "cpuChangePercent": -7.926202520684578,
+              "candidateDapperCpuRatio": 2.907550816784046,
+              "managedAllocationChangeBytesPerSuccess": -24.9453125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 708.608,
+                  "candidateUs": 618.496,
+                  "dapperUs": 233.472,
+                  "changePercent": -12.71676300578034
+                },
+                "p95": {
+                  "baselineUs": 1105.92,
+                  "candidateUs": 962.56,
+                  "dapperUs": 442.368,
+                  "changePercent": -12.962962962962976
+                },
+                "p99": {
+                  "baselineUs": 2359.296,
+                  "candidateUs": 1646.592,
+                  "dapperUs": 712.704,
+                  "changePercent": -30.208333333333325
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 786.83837890625,
+              "candidateCpuUs": 724.9731445312501,
+              "dapperCpuUs": 251.48779296874997,
+              "cpuChangePercent": -7.862508493929344,
+              "candidateDapperCpuRatio": 2.8827369152718108,
+              "managedAllocationChangeBytesPerSuccess": -40.50390625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 708.608,
+                  "candidateUs": 638.976,
+                  "dapperUs": 247.808,
+                  "changePercent": -9.826589595375712
+                },
+                "p95": {
+                  "baselineUs": 1114.112,
+                  "candidateUs": 946.176,
+                  "dapperUs": 442.368,
+                  "changePercent": -15.073529411764708
+                },
+                "p99": {
+                  "baselineUs": 2277.376,
+                  "candidateUs": 1556.48,
+                  "dapperUs": 655.36,
+                  "changePercent": -31.654676258992808
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "optional-filter",
+          "rows": 32,
+          "mode": "dynamic",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 623.8896484375001,
+              "candidateCpuUs": 500.39208984375006,
+              "dapperCpuUs": 166.6953125,
+              "cpuChangePercent": -19.794776031793994,
+              "candidateDapperCpuRatio": 3.001836598397151,
+              "managedAllocationChangeBytesPerSuccess": -11.08203125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 499.712,
+                  "candidateUs": 430.08,
+                  "dapperUs": 113.152,
+                  "changePercent": -13.934426229508201
+                },
+                "p95": {
+                  "baselineUs": 778.24,
+                  "candidateUs": 778.24,
+                  "dapperUs": 233.472,
+                  "changePercent": 0.0
+                },
+                "p99": {
+                  "baselineUs": 1171.456,
+                  "candidateUs": 1318.912,
+                  "dapperUs": 411.648,
+                  "changePercent": 12.587412587412604
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 677.97216796875,
+              "candidateCpuUs": 644.81298828125,
+              "dapperCpuUs": 133.91748046875003,
+              "cpuChangePercent": -4.890935241021344,
+              "candidateDapperCpuRatio": 4.815002388218606,
+              "managedAllocationChangeBytesPerSuccess": -14.44140625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 518.144,
+                  "candidateUs": 448.512,
+                  "dapperUs": 115.2,
+                  "changePercent": -13.438735177865613
+                },
+                "p95": {
+                  "baselineUs": 811.008,
+                  "candidateUs": 745.472,
+                  "dapperUs": 259.072,
+                  "changePercent": -8.080808080808088
+                },
+                "p99": {
+                  "baselineUs": 1163.264,
+                  "candidateUs": 1572.864,
+                  "dapperUs": 487.424,
+                  "changePercent": 35.21126760563382
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "related",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 3060.30029296875,
+              "candidateCpuUs": 2850.2412109375,
+              "dapperCpuUs": 306.98193359375,
+              "cpuChangePercent": -6.864002284804371,
+              "candidateDapperCpuRatio": 9.284719714839692,
+              "managedAllocationChangeBytesPerSuccess": 19.8046875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 4063.232,
+                  "candidateUs": 3915.776,
+                  "dapperUs": 1261.568,
+                  "changePercent": -3.629032258064524
+                },
+                "p95": {
+                  "baselineUs": 6422.528,
+                  "candidateUs": 5865.472,
+                  "dapperUs": 1794.048,
+                  "changePercent": -8.673469387755105
+                },
+                "p99": {
+                  "baselineUs": 9699.328,
+                  "candidateUs": 8781.824,
+                  "dapperUs": 2654.208,
+                  "changePercent": -9.459459459459453
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 2841.6455078125,
+              "candidateCpuUs": 2812.75390625,
+              "dapperCpuUs": 251.0400390625,
+              "cpuChangePercent": -1.0167208218994528,
+              "candidateDapperCpuRatio": 11.204403555520978,
+              "managedAllocationChangeBytesPerSuccess": -19.6328125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 3915.776,
+                  "candidateUs": 3833.856,
+                  "dapperUs": 1253.376,
+                  "changePercent": -2.0920502092050097
+                },
+                "p95": {
+                  "baselineUs": 5177.344,
+                  "candidateUs": 5210.112,
+                  "dapperUs": 1712.128,
+                  "changePercent": 0.6329113924050667
+                },
+                "p99": {
+                  "baselineUs": 7569.408,
+                  "candidateUs": 7733.248,
+                  "dapperUs": 2719.744,
+                  "changePercent": 2.1645021645021467
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "codec-postgresql",
+      "summarySha256": "1494c9a030d9d04da646829b5ed052d67c07db7a20763d594900ba4a58d8e814",
+      "planSha256": "10c2d9a1635d198a9d84db548b2e3dbc6ee125d89b2ea6c3138cc70fbed01d28",
+      "planHashValid": true,
+      "reportedPassed": true,
+      "records": 36,
+      "allCompleted2048": true,
+      "identitiesFromReceipts": {
+        "baseline": {
+          "app": "consumers/baseline-final-postgresql/korda-workload",
+          "executableSha256": "7b0697c3537bb77110496e014fb36fa589657789c9bc6112da52ba97724873b0",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "cd8adfa47d516b42a771d97fad0240e5fb013abf8bfc6eb2b508c3ef7456f80c"
+          },
+          "packageSha256": "5c65c0853d2d1371caabe4fd5f56a406eb5c58ac74a80964f386fd7e1504d109",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "candidate": {
+          "app": "consumers/codec03-postgresql/korda-workload",
+          "executableSha256": "d7b28e489bb56e42f36bb891188f5bb88e444911d5a7e5dfe995ea77df72b779",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "5000f11f60cfb0ace1a4824dff5c88a025c254a4df730095ff46b0cb00f96756"
+          },
+          "packageSha256": "e3012569b8258b4b97365eb8ae19589bd640cad06046993eec9bfbb4f7f129e4",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "dapper": {
+          "app": "consumers/baseline-final-postgresql/dapper-workload",
+          "executableSha256": "54411e94610900438f67a3c7a9b27f8d7af2572a6ec8d2cff5c6ee429fdf279c",
+          "nativeImages": {},
+          "packageSha256": null,
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "afdc154e7531110f51e239b52438ed08ffad2120b244ff8b992be3924acef077",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "Driver.cs": "ff0b6e070c67348e840f6cf1af9c05a156d053a4e8c7e227f8325806292a2227",
+            "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+            "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+            "Measurement.cs": "10328bdadfbe213b0ef2266db389c82d4c71ebc9dfa752d2b34d22341b8d3cc0",
+            "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "d447900271b6528b4ef258bdeafff1772ea830291ff0da026662c80f7e69e73c",
+            "Oracles.cs": "b75223c36c96093491cd5f6bed40a6dacb0ebdd213533187af55a8bef7e97b05",
+            "Program.cs": "a4ca241571058b7d73907a1e75255f96a119799baadd6a64495155a2614b68b6",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        }
+      },
+      "baselineCandidateBusinessSourcesEqual": true,
+      "scenarios": [
+        {
+          "case": "numeric",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 480.95654296875,
+              "candidateCpuUs": 619.7114257812501,
+              "dapperCpuUs": 138.53466796875,
+              "cpuChangePercent": 28.84977548200558,
+              "candidateDapperCpuRatio": 4.4733310070879995,
+              "managedAllocationChangeBytesPerSuccess": 38.83984375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 356.352,
+                  "candidateUs": 409.6,
+                  "dapperUs": 93.184,
+                  "changePercent": 14.942528735632198
+                },
+                "p95": {
+                  "baselineUs": 614.4,
+                  "candidateUs": 659.456,
+                  "dapperUs": 199.68,
+                  "changePercent": 7.333333333333347
+                },
+                "p99": {
+                  "baselineUs": 946.176,
+                  "candidateUs": 1073.152,
+                  "dapperUs": 339.968,
+                  "changePercent": 13.41991341991342
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 438.17480468749994,
+              "candidateCpuUs": 392.88916015624994,
+              "dapperCpuUs": 155.578125,
+              "cpuChangePercent": -10.33506355153101,
+              "candidateDapperCpuRatio": 2.525349628402129,
+              "managedAllocationChangeBytesPerSuccess": -32.80078125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 360.448,
+                  "candidateUs": 362.496,
+                  "dapperUs": 104.448,
+                  "changePercent": 0.5681818181818121
+                },
+                "p95": {
+                  "baselineUs": 565.248,
+                  "candidateUs": 606.208,
+                  "dapperUs": 239.616,
+                  "changePercent": 7.246376811594191
+                },
+                "p99": {
+                  "baselineUs": 786.432,
+                  "candidateUs": 880.64,
+                  "dapperUs": 452.608,
+                  "changePercent": 11.979166666666652
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "money",
+          "rows": 1,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 367.02832031250006,
+              "candidateCpuUs": 432.83251953124994,
+              "dapperCpuUs": 121.76611328124999,
+              "cpuChangePercent": 17.92891599283728,
+              "candidateDapperCpuRatio": 3.5546221183188504,
+              "managedAllocationChangeBytesPerSuccess": -4.9140625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 296.96,
+                  "candidateUs": 294.912,
+                  "dapperUs": 95.232,
+                  "changePercent": -0.6896551724137945
+                },
+                "p95": {
+                  "baselineUs": 581.632,
+                  "candidateUs": 528.384,
+                  "dapperUs": 200.704,
+                  "changePercent": -9.154929577464777
+                },
+                "p99": {
+                  "baselineUs": 1458.176,
+                  "candidateUs": 868.352,
+                  "dapperUs": 362.496,
+                  "changePercent": -40.44943820224719
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 360.14697265624994,
+              "candidateCpuUs": 415.78271484375,
+              "dapperCpuUs": 137.07617187500003,
+              "cpuChangePercent": 15.448066042915976,
+              "candidateDapperCpuRatio": 3.03322385762934,
+              "managedAllocationChangeBytesPerSuccess": 9.37890625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 276.48,
+                  "candidateUs": 292.864,
+                  "dapperUs": 88.576,
+                  "changePercent": 5.925925925925912
+                },
+                "p95": {
+                  "baselineUs": 464.896,
+                  "candidateUs": 473.088,
+                  "dapperUs": 198.656,
+                  "changePercent": 1.7621145374449254
+                },
+                "p99": {
+                  "baselineUs": 724.992,
+                  "candidateUs": 745.472,
+                  "dapperUs": 399.36,
+                  "changePercent": 2.824858757062154
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "money",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 641.7626953125,
+              "candidateCpuUs": 510.6147460937501,
+              "dapperCpuUs": 133.39062500000003,
+              "cpuChangePercent": -20.435583148828663,
+              "candidateDapperCpuRatio": 3.827965766662762,
+              "managedAllocationChangeBytesPerSuccess": 30.54296875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 536.576,
+                  "candidateUs": 393.216,
+                  "dapperUs": 110.08,
+                  "changePercent": -26.717557251908396
+                },
+                "p95": {
+                  "baselineUs": 802.816,
+                  "candidateUs": 679.936,
+                  "dapperUs": 236.544,
+                  "changePercent": -15.306122448979586
+                },
+                "p99": {
+                  "baselineUs": 1097.728,
+                  "candidateUs": 1572.864,
+                  "dapperUs": 378.88,
+                  "changePercent": 43.28358208955223
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 631.7978515625001,
+              "candidateCpuUs": 610.6743164062499,
+              "dapperCpuUs": 142.98486328125,
+              "cpuChangePercent": -3.343400915974881,
+              "candidateDapperCpuRatio": 4.270901845078935,
+              "managedAllocationChangeBytesPerSuccess": 30.34765625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 536.576,
+                  "candidateUs": 419.84,
+                  "dapperUs": 115.712,
+                  "changePercent": -21.755725190839705
+                },
+                "p95": {
+                  "baselineUs": 819.2,
+                  "candidateUs": 659.456,
+                  "dapperUs": 253.952,
+                  "changePercent": -19.500000000000007
+                },
+                "p99": {
+                  "baselineUs": 1277.952,
+                  "candidateUs": 1003.52,
+                  "dapperUs": 479.232,
+                  "changePercent": -21.474358974358974
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "money",
+          "rows": 1000,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 10057.10498046875,
+              "candidateCpuUs": 6475.82568359375,
+              "dapperCpuUs": 520.51708984375,
+              "cpuChangePercent": -35.60944530090886,
+              "candidateDapperCpuRatio": 12.441139416839663,
+              "managedAllocationChangeBytesPerSuccess": 79.10546875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 7602.176,
+                  "candidateUs": 3899.392,
+                  "dapperUs": 610.304,
+                  "changePercent": -48.70689655172414
+                },
+                "p95": {
+                  "baselineUs": 9764.864,
+                  "candidateUs": 5046.272,
+                  "dapperUs": 995.328,
+                  "changePercent": -48.32214765100671
+                },
+                "p99": {
+                  "baselineUs": 14352.384,
+                  "candidateUs": 6651.904,
+                  "dapperUs": 1523.712,
+                  "changePercent": -53.65296803652968
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 9831.1142578125,
+              "candidateCpuUs": 5995.48828125,
+              "dapperCpuUs": 547.7929687500001,
+              "cpuChangePercent": -39.01517036600851,
+              "candidateDapperCpuRatio": 10.944806931222589,
+              "managedAllocationChangeBytesPerSuccess": 59.02734375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 7503.872,
+                  "candidateUs": 4128.768,
+                  "dapperUs": 626.688,
+                  "changePercent": -44.978165938864635
+                },
+                "p95": {
+                  "baselineUs": 10158.08,
+                  "candidateUs": 5996.544,
+                  "dapperUs": 1036.288,
+                  "changePercent": -40.96774193548387
+                },
+                "p99": {
+                  "baselineUs": 15269.888,
+                  "candidateUs": 10944.512,
+                  "dapperUs": 2113.536,
+                  "changePercent": -28.326180257510725
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "wide",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 773.53955078125,
+              "candidateCpuUs": 708.4707031250001,
+              "dapperCpuUs": 278.08886718749994,
+              "cpuChangePercent": -8.411832024688648,
+              "candidateDapperCpuRatio": 2.5476413719479014,
+              "managedAllocationChangeBytesPerSuccess": -1.14453125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 643.072,
+                  "candidateUs": 569.344,
+                  "dapperUs": 234.496,
+                  "changePercent": -11.46496815286624
+                },
+                "p95": {
+                  "baselineUs": 946.176,
+                  "candidateUs": 925.696,
+                  "dapperUs": 409.6,
+                  "changePercent": -2.164502164502169
+                },
+                "p99": {
+                  "baselineUs": 1392.64,
+                  "candidateUs": 1343.488,
+                  "dapperUs": 651.264,
+                  "changePercent": -3.529411764705881
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 893.3046875,
+              "candidateCpuUs": 734.5043945312501,
+              "dapperCpuUs": 233.18798828125,
+              "cpuChangePercent": -17.776722230481955,
+              "candidateDapperCpuRatio": 3.1498380338757337,
+              "managedAllocationChangeBytesPerSuccess": 0.70703125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 745.472,
+                  "candidateUs": 606.208,
+                  "dapperUs": 202.752,
+                  "changePercent": -18.681318681318682
+                },
+                "p95": {
+                  "baselineUs": 1581.056,
+                  "candidateUs": 1036.288,
+                  "dapperUs": 421.888,
+                  "changePercent": -34.4559585492228
+                },
+                "p99": {
+                  "baselineUs": 3178.496,
+                  "candidateUs": 2703.36,
+                  "dapperUs": 724.992,
+                  "changePercent": -14.948453608247425
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "customer-totals",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 403.17041015625,
+              "candidateCpuUs": 424.11865234375,
+              "dapperCpuUs": 171.82617187500003,
+              "cpuChangePercent": 5.1958778868175015,
+              "candidateDapperCpuRatio": 2.468300653594771,
+              "managedAllocationChangeBytesPerSuccess": -25.72265625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 688.128,
+                  "candidateUs": 688.128,
+                  "dapperUs": 430.08,
+                  "changePercent": 0.0
+                },
+                "p95": {
+                  "baselineUs": 1081.344,
+                  "candidateUs": 1089.536,
+                  "dapperUs": 679.936,
+                  "changePercent": 0.7575757575757569
+                },
+                "p99": {
+                  "baselineUs": 2211.84,
+                  "candidateUs": 2572.288,
+                  "dapperUs": 921.6,
+                  "changePercent": 16.296296296296298
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 419.98583984375006,
+              "candidateCpuUs": 415.55419921875,
+              "dapperCpuUs": 198.7275390625,
+              "cpuChangePercent": -1.055188105067728,
+              "candidateDapperCpuRatio": 2.09107505270348,
+              "managedAllocationChangeBytesPerSuccess": 3.41796875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 696.32,
+                  "candidateUs": 622.592,
+                  "dapperUs": 432.128,
+                  "changePercent": -10.588235294117654
+                },
+                "p95": {
+                  "baselineUs": 1163.264,
+                  "candidateUs": 966.656,
+                  "dapperUs": 802.816,
+                  "changePercent": -16.901408450704224
+                },
+                "p99": {
+                  "baselineUs": 2293.76,
+                  "candidateUs": 1327.104,
+                  "dapperUs": 1490.944,
+                  "changePercent": -42.142857142857146
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "sqliteprepare-sqlite",
+      "summarySha256": "c5b3cc703aafe4c54bb35fbe87b31872c69e5199d526510b117825a2b17d47a7",
+      "planSha256": "b6f9ffac729796c33e576520404bf397e313f043a98248a0609dd6e3fb2a01ba",
+      "planHashValid": true,
+      "reportedPassed": true,
+      "records": 24,
+      "allCompleted2048": true,
+      "identitiesFromReceipts": {
+        "baseline": {
+          "app": "consumers/baseline-final-sqlite/korda-workload",
+          "executableSha256": "94a59f5c2b251b898fbab0053ed8bb9807d182864a534fed91c0e8a495c36449",
+          "nativeImages": {
+            "libnw_database_sqlite.so": "fce755f90f8fa4df576b61951141843ac45e73760be2d222d74ff72ab3b54b5a"
+          },
+          "packageSha256": "5556d907111b619b93f4a56c4ce5ceba6f6adfd1ad44bf9341d831139b17e6e8",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "candidate": {
+          "app": "consumers/sqliteprepare03-sqlite/korda-workload",
+          "executableSha256": "c00de2a6554c8cffb5f28ad3594e119a720c14aa4ed55cede59bb733cc8dd1bf",
+          "nativeImages": {
+            "libnw_database_sqlite.so": "c56aa23afb4c5f53bb6881967575860f662a3673e26911693f90a1a0ecb62be3"
+          },
+          "packageSha256": "86586ce8c13c6db2c2398f2cb4df52231ba9450800563a0e19df086f59466a6e",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "643d0bf69bded738d75fb5da1ea0d4bc766426289f697f391236ae4bc79e6445",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        },
+        "dapper": {
+          "app": "consumers/baseline-final-sqlite/dapper-workload",
+          "executableSha256": "052c6f7d8b0013dfb6bf64f6fe3c4d1fd491434b07df560a27b745743fc74971",
+          "nativeImages": {},
+          "packageSha256": null,
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "afdc154e7531110f51e239b52438ed08ffad2120b244ff8b992be3924acef077",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "Driver.cs": "ff0b6e070c67348e840f6cf1af9c05a156d053a4e8c7e227f8325806292a2227",
+            "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+            "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+            "Measurement.cs": "10328bdadfbe213b0ef2266db389c82d4c71ebc9dfa752d2b34d22341b8d3cc0",
+            "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "d447900271b6528b4ef258bdeafff1772ea830291ff0da026662c80f7e69e73c",
+            "Oracles.cs": "b75223c36c96093491cd5f6bed40a6dacb0ebdd213533187af55a8bef7e97b05",
+            "Program.cs": "a4ca241571058b7d73907a1e75255f96a119799baadd6a64495155a2614b68b6",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+          },
+          "generatedProcessReadingSha256": "bd52d1f69553d6222e7d0b43a0b0aab4491eb94623690b78837f20d72e2fac8d"
+        }
+      },
+      "baselineCandidateBusinessSourcesEqual": true,
+      "scenarios": [
+        {
+          "case": "numeric",
+          "rows": 1,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 350.45703125,
+              "candidateCpuUs": 331.51708984375006,
+              "dapperCpuUs": 15.649902343750002,
+              "cpuChangePercent": -5.404354804552081,
+              "candidateDapperCpuRatio": 21.183332813328757,
+              "managedAllocationChangeBytesPerSuccess": 38.8203125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 161.792,
+                  "candidateUs": 149.504,
+                  "dapperUs": 11.968,
+                  "changePercent": -7.594936708860766
+                },
+                "p95": {
+                  "baselineUs": 335.872,
+                  "candidateUs": 284.672,
+                  "dapperUs": 18.304,
+                  "changePercent": -15.243902439024382
+                },
+                "p99": {
+                  "baselineUs": 589.824,
+                  "candidateUs": 466.944,
+                  "dapperUs": 68.096,
+                  "changePercent": -20.833333333333325
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 400.26464843750006,
+              "candidateCpuUs": 312.85742187500006,
+              "dapperCpuUs": 15.724121093750005,
+              "cpuChangePercent": -21.837358583554334,
+              "candidateDapperCpuRatio": 19.896655591093996,
+              "managedAllocationChangeBytesPerSuccess": 21.38671875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 166.912,
+                  "candidateUs": 152.576,
+                  "dapperUs": 11.776,
+                  "changePercent": -8.58895705521473
+                },
+                "p95": {
+                  "baselineUs": 342.016,
+                  "candidateUs": 301.056,
+                  "dapperUs": 18.816,
+                  "changePercent": -11.976047904191622
+                },
+                "p99": {
+                  "baselineUs": 749.568,
+                  "candidateUs": 532.48,
+                  "dapperUs": 74.752,
+                  "changePercent": -28.96174863387978
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "text",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 404.96826171875,
+              "candidateCpuUs": 564.1547851562499,
+              "dapperCpuUs": 38.9921875,
+              "cpuChangePercent": 39.30839487565936,
+              "candidateDapperCpuRatio": 14.468405630134239,
+              "managedAllocationChangeBytesPerSuccess": 3.12109375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 219.136,
+                  "candidateUs": 257.024,
+                  "dapperUs": 32.128,
+                  "changePercent": 17.28971962616823
+                },
+                "p95": {
+                  "baselineUs": 409.6,
+                  "candidateUs": 456.704,
+                  "dapperUs": 58.368,
+                  "changePercent": 11.5
+                },
+                "p99": {
+                  "baselineUs": 618.496,
+                  "candidateUs": 684.032,
+                  "dapperUs": 125.44,
+                  "changePercent": 10.596026490066235
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 524.7314453125,
+              "candidateCpuUs": 511.31347656249994,
+              "dapperCpuUs": 65.82373046874999,
+              "cpuChangePercent": -2.5571116177360187,
+              "candidateDapperCpuRatio": 7.767920063498187,
+              "managedAllocationChangeBytesPerSuccess": -5.98828125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 246.784,
+                  "candidateUs": 246.784,
+                  "dapperUs": 33.28,
+                  "changePercent": 0.0
+                },
+                "p95": {
+                  "baselineUs": 450.56,
+                  "candidateUs": 458.752,
+                  "dapperUs": 103.936,
+                  "changePercent": 1.81818181818183
+                },
+                "p99": {
+                  "baselineUs": 831.488,
+                  "candidateUs": 720.896,
+                  "dapperUs": 229.376,
+                  "changePercent": -13.300492610837445
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "text",
+          "rows": 1000,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 4952.334960937501,
+              "candidateCpuUs": 5944.312499999999,
+              "dapperCpuUs": 678.1372070312501,
+              "cpuChangePercent": 20.03050171054488,
+              "candidateDapperCpuRatio": 8.76564865983835,
+              "managedAllocationChangeBytesPerSuccess": -14.765625,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 2572.288,
+                  "candidateUs": 2981.888,
+                  "dapperUs": 626.688,
+                  "changePercent": 15.923566878980889
+                },
+                "p95": {
+                  "baselineUs": 3817.472,
+                  "candidateUs": 6225.92,
+                  "dapperUs": 942.08,
+                  "changePercent": 63.090128755364795
+                },
+                "p99": {
+                  "baselineUs": 5996.544,
+                  "candidateUs": 10551.296,
+                  "dapperUs": 1327.104,
+                  "changePercent": 75.95628415300548
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 4885.850585937501,
+              "candidateCpuUs": 5015.724609375001,
+              "dapperCpuUs": 675.93603515625,
+              "cpuChangePercent": 2.6581660890593772,
+              "candidateDapperCpuRatio": 7.4204130990228405,
+              "managedAllocationChangeBytesPerSuccess": -22.01171875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 2654.208,
+                  "candidateUs": 2981.888,
+                  "dapperUs": 622.592,
+                  "changePercent": 12.345679012345666
+                },
+                "p95": {
+                  "baselineUs": 3702.784,
+                  "candidateUs": 4292.608,
+                  "dapperUs": 917.504,
+                  "changePercent": 15.92920353982301
+                },
+                "p99": {
+                  "baselineUs": 6455.296,
+                  "candidateUs": 7012.352,
+                  "dapperUs": 1310.72,
+                  "changePercent": 8.629441624365475
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "wide",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 761.4311523437499,
+              "candidateCpuUs": 759.00634765625,
+              "dapperCpuUs": 151.072265625,
+              "cpuChangePercent": -0.3184535699696678,
+              "candidateDapperCpuRatio": 5.024127655173306,
+              "managedAllocationChangeBytesPerSuccess": -0.18359375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 479.232,
+                  "candidateUs": 466.944,
+                  "dapperUs": 112.64,
+                  "changePercent": -2.564102564102566
+                },
+                "p95": {
+                  "baselineUs": 847.872,
+                  "candidateUs": 987.136,
+                  "dapperUs": 229.376,
+                  "changePercent": 16.425120772946865
+                },
+                "p99": {
+                  "baselineUs": 1875.968,
+                  "candidateUs": 2588.672,
+                  "dapperUs": 913.408,
+                  "changePercent": 37.99126637554584
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 821.5849609374999,
+              "candidateCpuUs": 806.8510742187501,
+              "dapperCpuUs": 157.42822265625,
+              "cpuChangePercent": -1.793349126295729,
+              "candidateDapperCpuRatio": 5.1251996662665595,
+              "managedAllocationChangeBytesPerSuccess": 4.18359375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 499.712,
+                  "candidateUs": 495.616,
+                  "dapperUs": 113.664,
+                  "changePercent": -0.8196721311475419
+                },
+                "p95": {
+                  "baselineUs": 1261.568,
+                  "candidateUs": 1155.072,
+                  "dapperUs": 294.912,
+                  "changePercent": -8.441558441558449
+                },
+                "p99": {
+                  "baselineUs": 2883.584,
+                  "candidateUs": 2080.768,
+                  "dapperUs": 569.344,
+                  "changePercent": -27.840909090909083
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "relations-sqlite",
+      "summarySha256": "ad717053663fee1eac7f56e2ff1dcf3da58f943629b91741e002446365aa564c",
+      "planSha256": "66bb98fa284ab74aa8987e95a9a2c61a7b4b64b7ec44e12539ce82eb096a2181",
+      "planHashValid": true,
+      "reportedPassed": true,
+      "records": 8,
+      "allCompleted2048": true,
+      "identitiesFromReceipts": {
+        "baseline": {
+          "app": "experiments/relations-recovery-03/ordinary/baseline/sqlite/consumer",
+          "executableSha256": "3aa7a9046f46b0975d3894f068cacb8cfc8d564daee063f2b033957f116d41d2",
+          "nativeImages": {
+            "libnw_database_sqlite.so": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53"
+          },
+          "packageSha256": "598e454e1981995092a2b5d3e3596e974cc08031223ea56e0ea8fd7c83352ed4",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": null
+        },
+        "candidate": {
+          "app": "experiments/relations-recovery-03/ordinary/candidate/sqlite/consumer",
+          "executableSha256": "fdfb5ce8380b99bdd3730391320dc8a5f7223b3e5af8e97b8715a4ede05f2581",
+          "nativeImages": {
+            "libnw_database_sqlite.so": "7b5291667a731d2b48647079ced0588003ba3d6c0f9edfb2648e3e581c2f0c53"
+          },
+          "packageSha256": "441d0489142cd545fe550943c6c8639d51aa6329ad747d9edb4a0f9066eabbb5",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": null
+        }
+      },
+      "baselineCandidateBusinessSourcesEqual": true,
+      "scenarios": [
+        {
+          "case": "related",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 3371.47265625,
+              "candidateCpuUs": 3259.10400390625,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -3.3329249203739586,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": -121323.3125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 2916.352,
+                  "candidateUs": 2801.664,
+                  "dapperUs": null,
+                  "changePercent": -3.9325842696629087
+                },
+                "p95": {
+                  "baselineUs": 4390.912,
+                  "candidateUs": 4227.072,
+                  "dapperUs": null,
+                  "changePercent": -3.731343283582089
+                },
+                "p99": {
+                  "baselineUs": 7274.496,
+                  "candidateUs": 6258.688,
+                  "dapperUs": null,
+                  "changePercent": -13.963963963963966
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 3383.5122070312495,
+              "candidateCpuUs": 3293.333984375,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -2.665225278893657,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": -121343.6953125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 2883.584,
+                  "candidateUs": 2785.28,
+                  "dapperUs": null,
+                  "changePercent": -3.409090909090895
+                },
+                "p95": {
+                  "baselineUs": 4014.08,
+                  "candidateUs": 3932.16,
+                  "dapperUs": null,
+                  "changePercent": -2.0408163265306145
+                },
+                "p99": {
+                  "baselineUs": 5505.024,
+                  "candidateUs": 5537.792,
+                  "dapperUs": null,
+                  "changePercent": 0.5952380952380931
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "union-all",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 553.1987304687499,
+              "candidateCpuUs": 625.2763671874999,
+              "dapperCpuUs": null,
+              "cpuChangePercent": 13.029248396444327,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": -33.5234375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 325.632,
+                  "candidateUs": 339.968,
+                  "dapperUs": null,
+                  "changePercent": 4.402515723270439
+                },
+                "p95": {
+                  "baselineUs": 589.824,
+                  "candidateUs": 540.672,
+                  "dapperUs": null,
+                  "changePercent": -8.333333333333325
+                },
+                "p99": {
+                  "baselineUs": 905.216,
+                  "candidateUs": 745.472,
+                  "dapperUs": null,
+                  "changePercent": -17.647058823529417
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 637.9902343749999,
+              "candidateCpuUs": 591.70703125,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -7.254531594882597,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": 2.2421875,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 350.208,
+                  "candidateUs": 325.632,
+                  "dapperUs": null,
+                  "changePercent": -7.017543859649134
+                },
+                "p95": {
+                  "baselineUs": 581.632,
+                  "candidateUs": 569.344,
+                  "dapperUs": null,
+                  "changePercent": -2.1126760563380143
+                },
+                "p99": {
+                  "baselineUs": 888.832,
+                  "candidateUs": 1056.768,
+                  "dapperUs": null,
+                  "changePercent": 18.894009216589858
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "relations-postgresql",
+      "summarySha256": "13d86c0ae2d98f17d30b2b4c2f68cf05fafcbf1e34cd5b7f799655b34048dafe",
+      "planSha256": "fa69e9272909860c89ba8190a1828e06314ff96f7b8a8510280fb7c5642de43b",
+      "planHashValid": true,
+      "reportedPassed": true,
+      "records": 8,
+      "allCompleted2048": true,
+      "identitiesFromReceipts": {
+        "baseline": {
+          "app": "experiments/relations-recovery-03/ordinary/baseline/postgresql/consumer",
+          "executableSha256": "f9d25cce767d422643d7204802a299a665fd36ffd7bacae8cdbc648489da5925",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed"
+          },
+          "packageSha256": "30901d57a1ff3fa818717f39e46a05c2c061bf1bb697bfec42eea3bf4659439b",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": null
+        },
+        "candidate": {
+          "app": "experiments/relations-recovery-03/ordinary/candidate/postgresql/consumer",
+          "executableSha256": "4806bbe7e68242bade63df28fc47a4ca45a71edd1fc28b7c797d494437f1215e",
+          "nativeImages": {
+            "libnw_database_postgresql.so": "1909e79db9265f9da2d2b22073090e03c06989fcd4af06ba656a493bce047fed"
+          },
+          "packageSha256": "3010d693f8a700dc53269b152ecff5c17b5109cf7ecfe45f45919f22de4d7dd4",
+          "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+          "businessSources": {
+            "AdvancedCases.cs": "f3fce12d1ee9be60efcb9a5e9645d08fe833e373dd43dd14c592e7ab07cb7811",
+            "CorrectnessOracle.cs": "83517c530c57646f82364b1cafb543b1880e87dc3722c83ff198a521ac863505",
+            "Dataset.cs": "4d7d5145fa33ae44e8445309a5b6aea5f99e10724c0c5210ee8896b1a6aa212c",
+            "Digest.cs": "fe47ba23ed9f7c7cbcbdd2f202793625d1cc528db7e835c6a06c093bd8c8ae00",
+            "LifecycleCases.cs": "a14578a995ed224f9375589ce751d323ba20682f7eed86c4bd7a4fb1e305f55b",
+            "LifecycleVerification.cs": "ffbc981c083ab8fd77aacee4d2a6a891ce10153c28de0ef6183ba7ed604417d4",
+            "Measurement.cs": "7112c58bfef1dc09c0c2ad1fa7511650232a9cdfc922946c2b420d5378ef6ac2",
+            "Models.cs": "b99cc1ca1bb34d10b2c02ea7fa8900a4016e44ad1e59f22b1923806329b70e94",
+            "NativeAllocationProfile.cs": "56bfc0f62cbeef6209303c86d58982dbf2e4c0df27437a3456725cf18c6fa21c",
+            "OfferedLoad.cs": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+            "Options.cs": "c3e82e1ab6c59011a0732652268a2b3a34b818ea815af0b60a52611074a9f0e4",
+            "Program.cs": "4ae336f4ecbf865e7094402203a545f00493a8185db927655fa08fbbb45d27ab",
+            "ReadStream.cs": "3153e3dc7a2937ebb7dedfced22d5f7b33621d3e54c30dd7906280a99b6cd6c5",
+            "RecoveryMeasurement.cs": "46deb92b0a40b87ff9ec297afefe2d5b6cf354a7762766c36787634fb66b3b2e",
+            "Workload.cs": "da2f1aa65d5338249ee7e8a839f374b805c34fe3802659aa0912b77ecdfa55cb"
+          },
+          "generatedProcessReadingSha256": null
+        }
+      },
+      "baselineCandidateBusinessSourcesEqual": true,
+      "scenarios": [
+        {
+          "case": "related",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 2717.166015625,
+              "candidateCpuUs": 2707.8872070312495,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -0.3414884677782948,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": -121340.90234375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 3964.928,
+                  "candidateUs": 3850.24,
+                  "dapperUs": null,
+                  "changePercent": -2.892561983471076
+                },
+                "p95": {
+                  "baselineUs": 5505.024,
+                  "candidateUs": 5308.416,
+                  "dapperUs": null,
+                  "changePercent": -3.57142857142857
+                },
+                "p99": {
+                  "baselineUs": 7667.712,
+                  "candidateUs": 7700.48,
+                  "dapperUs": null,
+                  "changePercent": 0.42735042735042583
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 2918.0498046875,
+              "candidateCpuUs": 2769.2373046875,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -5.099724472178313,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": -121353.51953125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 4030.464,
+                  "candidateUs": 3883.008,
+                  "dapperUs": null,
+                  "changePercent": -3.658536585365857
+                },
+                "p95": {
+                  "baselineUs": 6619.136,
+                  "candidateUs": 5898.24,
+                  "dapperUs": null,
+                  "changePercent": -10.8910891089109
+                },
+                "p99": {
+                  "baselineUs": 9764.864,
+                  "candidateUs": 9240.576,
+                  "dapperUs": null,
+                  "changePercent": -5.369127516778526
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "union-all",
+          "rows": 32,
+          "mode": "prepared",
+          "oraclesEqual": true,
+          "pairs": [
+            {
+              "round": 1,
+              "baselineCpuUs": 509.36376953125,
+              "candidateCpuUs": 537.9394531250001,
+              "dapperCpuUs": null,
+              "cpuChangePercent": 5.610073841735419,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": 25.59375,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 503.808,
+                  "candidateUs": 501.76,
+                  "dapperUs": null,
+                  "changePercent": -0.40650406504064707
+                },
+                "p95": {
+                  "baselineUs": 831.488,
+                  "candidateUs": 827.392,
+                  "dapperUs": null,
+                  "changePercent": -0.49261083743842304
+                },
+                "p99": {
+                  "baselineUs": 1425.408,
+                  "candidateUs": 1531.904,
+                  "dapperUs": null,
+                  "changePercent": 7.471264367816088
+                }
+              }
+            },
+            {
+              "round": 2,
+              "baselineCpuUs": 554.7421875,
+              "candidateCpuUs": 554.0053710937499,
+              "dapperCpuUs": null,
+              "cpuChangePercent": -0.13282141197348274,
+              "candidateDapperCpuRatio": null,
+              "managedAllocationChangeBytesPerSuccess": 2.14453125,
+              "latencies": {
+                "p50": {
+                  "baselineUs": 489.472,
+                  "candidateUs": 497.664,
+                  "dapperUs": null,
+                  "changePercent": 1.673640167364021
+                },
+                "p95": {
+                  "baselineUs": 794.624,
+                  "candidateUs": 839.68,
+                  "dapperUs": null,
+                  "changePercent": 5.670103092783485
+                },
+                "p99": {
+                  "baselineUs": 1236.992,
+                  "candidateUs": 1785.856,
+                  "dapperUs": null,
+                  "changePercent": 44.37086092715232
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Two initial rounds only; focused additional rounds remain under root control.",
+    "CPU/latency results are isolated query screens, not the final sustained mixed35 campaign.",
+    "Latency percentiles are histogram upper bounds; native allocation is not observed by these runs.",
+    "Relation screens have their own consumer/native reference family; do not overlay their absolute values with other candidate groups without checking those identities."
+  ],
+  "followup": "After quiet, complete independent package/native/source binding verifier for candidate consumers."
+}
