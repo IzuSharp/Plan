@@ -1,0 +1,17 @@
+diff --git a/native/cpp/src/provider.cpp b/native/cpp/src/provider.cpp
+index 7ce0b63..4bde232 100644
+--- a/native/cpp/src/provider.cpp
++++ b/native/cpp/src/provider.cpp
+@@ -722,8 +722,10 @@ std::unique_ptr<ProviderStatement> ProviderConnection::prepare(std::string_view
+     if (impl_->sqlite)
+     {
+         const char* tail = nullptr;
+-        int status = sqlite3_prepare_v3(impl_->sqlite, sql.data(), static_cast<int>(sql.size()),
+-                                        SQLITE_PREPARE_PERSISTENT, &result->impl_->sqlite, &tail);
++        // Physical statements are finalized with this command. Leaving the
++        // persistent hint unset lets SQLite use its connection lookaside pool.
++        int status = sqlite3_prepare_v3(impl_->sqlite, sql.data(), static_cast<int>(sql.size()), 0,
++                                        &result->impl_->sqlite, &tail);
+         if (status != SQLITE_OK)
+             throw sqlite_error(impl_->sqlite, status);
+         if (!result->impl_->sqlite)

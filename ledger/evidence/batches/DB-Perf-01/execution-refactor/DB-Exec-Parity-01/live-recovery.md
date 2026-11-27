@@ -1,3 +1,7 @@
+## Recovery 03 resource/correctness checkpoint
+
+Read [current evidence](phase-2/recovery-03/current-evidence/README.md) and its exact source patches before continuing. All accepted performance claims and final gates remain pending.
+
 # Current recovery continuation 03
 
 Read [recovery-03/README.md](phase-2/recovery-03/README.md) first. The previous

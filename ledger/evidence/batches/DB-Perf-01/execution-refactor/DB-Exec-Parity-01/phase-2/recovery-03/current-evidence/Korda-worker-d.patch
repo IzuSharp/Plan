@@ -1,0 +1,1864 @@
+diff --git a/native/cpp/include/nw/host.hpp b/native/cpp/include/nw/host.hpp
+index 5a67e5d..d26a856 100644
+--- a/native/cpp/include/nw/host.hpp
++++ b/native/cpp/include/nw/host.hpp
+@@ -2,6 +2,7 @@
+ #pragma once
+ 
+ #include "../../../database/binding/korda_command_completion_v1.h"
++#include "../../../database/binding/korda_cursor_pull_execution_v1.h"
+ #include "nw/administration.hpp"
+ #include "nw/interop.hpp"
+ #include "nw/mutations.hpp"
+@@ -386,6 +387,9 @@ struct CursorPull : std::enable_shared_from_this<CursorPull>
+                                               std::optional<Clock::time_point> admitted = {});
+     ~CursorPull();
+     void request(std::uint64_t generation, std::size_t rows, std::size_t bytes, nw_db_cursor_callbacks_v1 callbacks);
++    void prepare(std::uint64_t generation, std::size_t rows, std::size_t bytes, nw_db_cursor_callbacks_v1 callbacks);
++    static void run_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation);
++    static void abandon_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation);
+     std::shared_ptr<Buffer> take(std::uint64_t generation);
+     Error take_error(std::uint64_t generation);
+     void close_request(nw_db_cursor_callbacks_v1 callbacks);
+@@ -411,6 +415,9 @@ struct CursorPull : std::enable_shared_from_this<CursorPull>
+     struct CloseWorker;
+     CursorPull(std::shared_ptr<Session> session, std::shared_ptr<SqlPlan> plan, std::shared_ptr<CommandGate> gate,
+                std::optional<Clock::time_point> admitted);
++    void start_request(std::uint64_t generation, std::size_t rows, std::size_t bytes,
++                       nw_db_cursor_callbacks_v1 callbacks, bool external);
++    static void execute_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation, bool abandon);
+     void run(std::uint64_t generation, std::size_t rows, std::size_t bytes, std::shared_ptr<Cancel> cancel);
+     void complete(std::uint64_t generation, std::shared_ptr<Buffer> buffer, std::optional<Error> error);
+     void join_resources();
+@@ -426,6 +433,13 @@ struct CursorPull : std::enable_shared_from_this<CursorPull>
+     std::shared_ptr<RetirementFence> completion_ = std::make_shared<RetirementFence>();
+     std::shared_ptr<RetirementFence> close_completion_ = std::make_shared<RetirementFence>();
+     std::shared_ptr<CloseState> close_;
++    // An accepted external scheduling obligation owns its original Worker.
++    // Source/Session/owner close actively extracts and settles it, so losing
++    // the managed queue cannot leave this temporary self-reference stranded.
++    std::shared_ptr<Worker> pending_external_;
++    std::size_t external_rows_ = 0, external_bytes_ = 0;
++    std::uint64_t external_generation_ = 0;
++    bool external_claimed_ = false;
+     std::uint64_t generation_ = 0;
+     bool outstanding_ = false, ready_ = false, running_ = false, closing_ = false;
+     nw_db_cursor_callbacks_v1 callbacks_{};
+diff --git a/native/cpp/src/host.cpp b/native/cpp/src/host.cpp
+index 176cb27..8dfa263 100644
+--- a/native/cpp/src/host.cpp
++++ b/native/cpp/src/host.cpp
+@@ -143,7 +143,7 @@ Bytes snapshot_record(std::uint32_t state, std::uint32_t outcome, bool attempted
+ }
+ std::uint64_t capability_mask()
+ {
+-    std::uint64_t result = (1ULL << 30) - 1;
++    std::uint64_t result = ((1ULL << 30) - 1) | NW_DB_CURSOR_PULL_EXECUTION_CAPABILITY_V1;
+ #if !NW_ENABLE_POSTGRES
+     result &= ~((1ULL << 11) | (1ULL << 14));
+ #endif
+@@ -2601,6 +2601,14 @@ struct CursorPull::Worker
+             after_ready();
+ #endif
+     }
++    void abandon(std::uint64_t generation, std::size_t rows, std::size_t bytes, std::shared_ptr<Cancel> cancel)
++    {
++        // This token was marked while the channel state lock was held and no
++        // executor has claimed it. Reuse the exact admission/error order and
++        // complete/detach path, which must reject before any provider I/O.
++        // In particular, do not enter a held test_before_work dispatch seam.
++        pull->run(generation, rows, bytes, std::move(cancel));
++    }
+ };
+ 
+ struct CursorPull::CloseState
+@@ -2800,6 +2808,16 @@ CursorPull::~CursorPull()
+ }
+ void CursorPull::request(std::uint64_t generation, std::size_t rows, std::size_t bytes,
+                          nw_db_cursor_callbacks_v1 callbacks)
++{
++    start_request(generation, rows, bytes, callbacks, false);
++}
++void CursorPull::prepare(std::uint64_t generation, std::size_t rows, std::size_t bytes,
++                         nw_db_cursor_callbacks_v1 callbacks)
++{
++    start_request(generation, rows, bytes, callbacks, true);
++}
++void CursorPull::start_request(std::uint64_t generation, std::size_t rows, std::size_t bytes,
++                               nw_db_cursor_callbacks_v1 callbacks, bool external)
+ {
+     if (callbacks.struct_size != sizeof(callbacks) || callbacks.reserved || !callbacks.ready)
+         throw Error::invalid("cursor ready callback record");
+@@ -2822,7 +2840,16 @@ void CursorPull::request(std::uint64_t generation, std::size_t rows, std::size_t
+             cursor_->check_read_admission();
+         cancel = std::make_shared<Cancel>();
+         worker = std::make_shared<Worker>(shared_from_this());
+-        action = [worker, generation, rows, bytes, cancel] { worker->run(generation, rows, bytes, cancel); };
++        if (!external)
++            action = [worker, generation, rows, bytes, cancel] { worker->run(generation, rows, bytes, cancel); };
++        else
++        {
++            pending_external_ = worker;
++            external_rows_ = rows;
++            external_bytes_ = bytes;
++        }
++        external_generation_ = external ? generation : 0;
++        external_claimed_ = false;
+         generation_ = generation;
+         outstanding_ = running_ = true;
+         ready_ = false;
+@@ -2831,6 +2858,8 @@ void CursorPull::request(std::uint64_t generation, std::size_t rows, std::size_t
+         callbacks_ = callbacks;
+         cancel_ = cancel;
+     }
++    if (external)
++        return;
+     // Everything after this point belongs to the accepted generation. A
+     // queue failure therefore delivers one error notification and returns OK.
+     try
+@@ -2851,6 +2880,47 @@ void CursorPull::request(std::uint64_t generation, std::size_t rows, std::size_t
+         complete(generation, {}, Error(NW_NATIVE_PANIC, 8, "queue failed"));
+     }
+ }
++void CursorPull::run_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation)
++{
++    execute_prepared(std::move(self), generation, false);
++}
++void CursorPull::abandon_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation)
++{
++    execute_prepared(std::move(self), generation, true);
++}
++void CursorPull::execute_prepared(std::shared_ptr<CursorPull> self, std::uint64_t generation, bool abandon)
++{
++    // Worker is the last live owner-bearing local. Its independent tickets
++    // cover the last native accessor in this entire exported execution frame.
++    std::shared_ptr<Worker> worker;
++    std::shared_ptr<Cancel> cancel;
++    std::size_t rows = 0, bytes = 0;
++    {
++        std::lock_guard lock(self->mutex_);
++        if (!generation || generation != self->generation_ || generation != self->external_generation_ ||
++            self->external_claimed_)
++            throw Error::state("cursor prepared generation differs or was claimed");
++        self->external_claimed_ = true;
++        worker = std::move(self->pending_external_);
++        if (worker)
++        {
++            cancel = self->cancel_;
++            rows = self->external_rows_;
++            bytes = self->external_bytes_;
++            if (abandon)
++                cancel->mark_requested();
++        }
++    }
++    // The ABI passes typed(...) directly by value, so no outer local retains
++    // channel/Session/Source after the Worker's retirement fence completes.
++    self.reset();
++    if (!worker)
++        return; // Close already claimed settlement; this is its one late claim.
++    if (abandon)
++        worker->abandon(generation, rows, bytes, std::move(cancel));
++    else
++        worker->run(generation, rows, bytes, std::move(cancel));
++}
+ void CursorPull::run(std::uint64_t generation, std::size_t rows, std::size_t bytes, std::shared_ptr<Cancel> cancel)
+ {
+     std::shared_ptr<Buffer> result;
+@@ -3123,9 +3193,13 @@ void CursorPull::check_read_admission()
+ }
+ void CursorPull::request_close()
+ {
++    // Keep the admitted ticket until every local accessor below has left.
++    std::shared_ptr<Worker> prepared;
+     std::shared_ptr<Cancel> cancel;
+     std::shared_ptr<Cursor> cursor;
+     std::shared_ptr<CommandGate> gate;
++    std::uint64_t generation = 0;
++    std::size_t rows = 0, bytes = 0;
+     {
+         std::lock_guard lock(mutex_);
+         cancel = cancel_;
+@@ -3134,6 +3208,13 @@ void CursorPull::request_close()
+         if (cancel)
+             cancel->mark_requested();
+         closing_ = true;
++        prepared = std::move(pending_external_);
++        if (prepared)
++        {
++            generation = generation_;
++            rows = external_rows_;
++            bytes = external_bytes_;
++        }
+         cursor = cursor_;
+         if (!running_ && !cursor)
+         {
+@@ -3141,6 +3222,16 @@ void CursorPull::request_close()
+             plan_.reset();
+         }
+     }
++    if (prepared)
++    {
++        // A prepared token has installed no provider hook. The original run
++        // must reject its marked token at admission; complete performs all
++        // fallible cursor/gate cleanup before its one detached notification.
++        cursor.reset();
++        gate.reset();
++        prepared->abandon(generation, rows, bytes, std::move(cancel));
++        return;
++    }
+     if (cancel)
+     {
+ #ifdef NW_HOST_TEST_HOOKS
+diff --git a/native/cpp/src/host_abi.cpp b/native/cpp/src/host_abi.cpp
+index 39cab85..ef87501 100644
+--- a/native/cpp/src/host_abi.cpp
++++ b/native/cpp/src/host_abi.cpp
+@@ -5,6 +5,7 @@
+ // only its `template` parameter name. Every definition is type-checked against
+ // the normative declarations; applications still consume the original C ABI.
+ #include "../../database/binding/korda_command_completion_v1.h"
++#include "../../database/binding/korda_cursor_pull_execution_v1.h"
+ #include "../../database/binding/korda_cursor_pull_v1.h"
+ #include "../../database/binding/korda_find_shape_v1.h"
+ #include "../../database/binding/korda_query_command_v1.h"
+@@ -1328,6 +1329,35 @@ NW_DATABASE_API nw_status NW_CDECL nw_db_cursor_pull_request_v1(nw_db_ref raw, s
+                         pull->request(generation, rows, static_cast<std::size_t>(bytes), *callbacks);
+                     });
+ }
++NW_DATABASE_API nw_status NW_CDECL nw_db_cursor_pull_prepare_v1(nw_db_ref raw, std::uint64_t generation,
++                                                                std::uint32_t rows, std::uint64_t bytes,
++                                                                const nw_db_cursor_callbacks_v1* callbacks,
++                                                                nw_error_info_v1* error)
++{
++    return boundary(error,
++                    [&]
++                    {
++                        auto pull = typed<std::shared_ptr<CursorPull>>(raw);
++                        if (!callbacks ||
++                            reinterpret_cast<std::uintptr_t>(callbacks) % alignof(nw_db_cursor_callbacks_v1))
++                            throw Error::invalid("cursor callback record address");
++                        if (bytes > MAX_BYTES)
++                            throw Error::invalid("fetch capacity");
++                        pull->prepare(generation, rows, static_cast<std::size_t>(bytes), *callbacks);
++                    });
++}
++NW_DATABASE_API nw_status NW_CDECL nw_db_cursor_pull_run_v1(nw_db_ref raw, std::uint64_t generation,
++                                                            nw_error_info_v1* error)
++{
++    // Pass the temporary owner directly. The consumed Worker's tickets cover
++    // the static execution helper after it releases this channel accessor.
++    return boundary(error, [&] { CursorPull::run_prepared(typed<std::shared_ptr<CursorPull>>(raw), generation); });
++}
++NW_DATABASE_API nw_status NW_CDECL nw_db_cursor_pull_abandon_v1(nw_db_ref raw, std::uint64_t generation,
++                                                                nw_error_info_v1* error)
++{
++    return boundary(error, [&] { CursorPull::abandon_prepared(typed<std::shared_ptr<CursorPull>>(raw), generation); });
++}
+ NW_DATABASE_API nw_status NW_CDECL nw_db_cursor_pull_take_v1(nw_db_ref raw, std::uint64_t generation,
+                                                              nw_db_batch_result_v1* output, nw_error_info_v1* error)
+ {
+diff --git a/native/cpp/src/query.cpp b/native/cpp/src/query.cpp
+index 0cd663b..30fed7e 100644
+--- a/native/cpp/src/query.cpp
++++ b/native/cpp/src/query.cpp
+@@ -251,7 +251,7 @@ void QueryLimits::validate() const
+ }
+ Capabilities Capabilities::from_mask(std::uint64_t mask, Profile profile)
+ {
+-    if ((mask >> 30) != 0)
++    if ((mask >> 31) != 0)
+         invalid("reserved database capability bits");
+     auto has = [mask](unsigned bit) { return (mask & (std::uint64_t{1} << bit)) != 0; };
+     return {has(0),  has(23), has(17), has(21), has(22),
+diff --git a/native/cpp/tests/command_completion_tests.cpp b/native/cpp/tests/command_completion_tests.cpp
+index 1cf74dd..006ae26 100644
+--- a/native/cpp/tests/command_completion_tests.cpp
++++ b/native/cpp/tests/command_completion_tests.cpp
+@@ -955,7 +955,9 @@ int main(int argc, char** argv)
+         check(actual.query && actual.command, "the actual provider capability closure permits Fluent submission");
+         check(!Capabilities::from_mask(1ULL << 28, Profile::Sqlite).query,
+               "command completion alone must not authorize query composition");
+-        check(reject([] { (void)Capabilities::from_mask(1ULL << 30, Profile::Sqlite); }).status == NW_INVALID_ARGUMENT,
++        check(!Capabilities::from_mask(1ULL << 30, Profile::Sqlite).query,
++              "cursor pull execution alone must not authorize query composition");
++        check(reject([] { (void)Capabilities::from_mask(1ULL << 31, Profile::Sqlite); }).status == NW_INVALID_ARGUMENT,
+               "the next reserved database capability must still be rejected");
+         early_ready_and_tail();
+         zero();
+diff --git a/native/cpp/tests/database_abi.c b/native/cpp/tests/database_abi.c
+index d365df9..1bd95f6 100644
+--- a/native/cpp/tests/database_abi.c
++++ b/native/cpp/tests/database_abi.c
+@@ -2,6 +2,7 @@
+  * Compile the unmodified normative database header as C17 and call the real
+  * C++ module. C++ definitions also compile against its private declaration view.
+  */
++#include "../../database/binding/korda_cursor_pull_execution_v1.h"
+ #include "../../database/binding/korda_cursor_pull_v1.h"
+ #include "../../database/binding/korda_database_binding_v1.h"
+ #include "../../database/binding/korda_find_shape_v1.h"
+@@ -22,6 +23,8 @@ _Static_assert(offsetof(nw_db_batch_result_v1, owner) == 0, "owned batch owner o
+ _Static_assert(offsetof(nw_db_batch_result_v1, bytes) == 8, "owned batch byte view offset");
+ _Static_assert(offsetof(nw_db_batch_result_v1, known_end) == 24, "owned batch EOF offset");
+ _Static_assert(offsetof(nw_db_batch_result_v1, reserved) == 28, "owned batch reserved offset");
++_Static_assert(NW_DB_CURSOR_PULL_EXECUTION_CAPABILITY_V1 == (UINT64_C(1) << 30),
++               "admitted cursor execution capability is independent of frozen pull ABI");
+ 
+ int main(void)
+ {
+@@ -54,6 +57,9 @@ int main(void)
+            batch.reserved == 0);
+     assert(nw_db_cursor_pull_check_read_v1(NULL, &error) == NW_INVALID_STATE);
+     assert(nw_db_cursor_pull_stop_v1(NULL) == NW_INVALID_STATE);
++    assert(nw_db_cursor_pull_prepare_v1(NULL, 1, 1, 256, NULL, &error) == NW_INVALID_STATE);
++    assert(nw_db_cursor_pull_run_v1(NULL, 1, &error) == NW_INVALID_STATE);
++    assert(nw_db_cursor_pull_abandon_v1(NULL, 1, &error) == NW_INVALID_STATE);
+     assert(nw_db_cursor_pull_close_request_v1(NULL, NULL, &error) == NW_INVALID_STATE);
+     nw_db_buffer* closed = (nw_db_buffer*)(uintptr_t)1;
+     assert(nw_db_cursor_pull_close_take_v1(NULL, &closed, &error) == NW_INVALID_STATE && closed == NULL);
+diff --git a/native/cpp/tests/query_tests.cpp b/native/cpp/tests/query_tests.cpp
+index 90c5cd1..7f828b3 100644
+--- a/native/cpp/tests/query_tests.cpp
++++ b/native/cpp/tests/query_tests.cpp
+@@ -87,7 +87,7 @@ Codec scalar(std::uint32_t id, bool nullable = false)
+ }
+ Capabilities all_caps(Profile profile)
+ {
+-    return Capabilities::from_mask((1ULL << 30) - 1, profile);
++    return Capabilities::from_mask((1ULL << 31) - 1, profile);
+ }
+ Bytes cells(Profile profile, Codec codec, const std::vector<std::optional<Bytes>>& values)
+ {
+@@ -1073,7 +1073,9 @@ void binding_and_safety()
+           "cursor pull capability does not authorize query composition");
+     check(!Capabilities::from_mask(1ULL << 28, Profile::Sqlite).query,
+           "one-shot command completion does not authorize query composition");
+-    rejects(NW_INVALID_ARGUMENT, [] { (void)Capabilities::from_mask(1ULL << 30, Profile::Sqlite); });
++    check(!Capabilities::from_mask(1ULL << 30, Profile::Sqlite).query,
++          "cursor pull execution capability does not authorize query composition");
++    rejects(NW_INVALID_ARGUMENT, [] { (void)Capabilities::from_mask(1ULL << 31, Profile::Sqlite); });
+     rejects(NW_INVALID_ARGUMENT, [] { (void)Capabilities::from_mask(1ULL << 63, Profile::PostgreSql); });
+     Context c(Profile::Sqlite);
+     auto q = c.query();
+diff --git a/native/cpp/tests/relations_abi_tests.cpp b/native/cpp/tests/relations_abi_tests.cpp
+index a5ad3ce..46ffe2b 100644
+--- a/native/cpp/tests/relations_abi_tests.cpp
++++ b/native/cpp/tests/relations_abi_tests.cpp
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: MIT
+ // B14 Host adapter regressions use the real product C ABI, not Host test hooks.
+ // Fixed Rust reference: native/database/relations/host.rs at 465cd0f.
++#include "../../database/binding/korda_cursor_pull_execution_v1.h"
+ #include "../../database/binding/korda_cursor_pull_v1.h"
+ #include "nw/contracts.hpp"
+ #include "nw_database_declarations.hpp"
+@@ -499,12 +500,25 @@ struct PullNotice
+         ++notice.calls;
+         notice.generation.store(generation);
+     }
+-    void request(nw_db_ref channel, std::uint64_t next = 1)
++    void request(nw_db_ref channel, std::uint64_t next = 1, bool external = false)
+     {
+         const nw_db_cursor_callbacks_v1 callbacks{sizeof(callbacks), 0, this, ready};
+         auto error = error_slot();
+-        ok(nw_db_cursor_pull_request_v1(channel, next, 64, 8192, &callbacks, &error), error,
+-           "actual pull request accepted");
++        if (external)
++        {
++            const auto executions = nw_db_diagnostic_count_v1(6);
++            ok(nw_db_cursor_pull_prepare_v1(channel, next, 64, 8192, &callbacks, &error), error,
++               "actual prepared pull accepted");
++            check(nw_db_diagnostic_count_v1(6) == executions && calls == 0,
++                  "actual prepare performs no SQL and emits no premature readiness");
++            ok(nw_db_cursor_pull_run_v1(channel, next, &error), error, "actual prepared pull run");
++            check(nw_db_cursor_pull_run_v1(channel, next, &error) == NW_INVALID_STATE &&
++                      nw_db_cursor_pull_abandon_v1(channel, next, &error) == NW_INVALID_STATE,
++                  "actual execution ABI rejects duplicate run and abandon");
++        }
++        else
++            ok(nw_db_cursor_pull_request_v1(channel, next, 64, 8192, &callbacks, &error), error,
++               "actual pull request accepted");
+         eventually([&] { return generation.load() == next; }, "actual detached ready callback");
+     }
+ };
+@@ -579,7 +593,7 @@ Bytes child_input(const Fixture& fixture, std::uint64_t id)
+     const auto row = Batch::encode(expected, 1, {u64_bytes(id), bytes("t"), bytes("p")});
+     return encode_control(4, {u32(1, fixture.child->table_id()), {2, 5, row}, u32(7, fixture.projection_id)});
+ }
+-void lazy_pull_abi()
++void lazy_pull_abi(bool external = false)
+ {
+     Fixture fixture;
+     auto error = error_slot();
+@@ -600,7 +614,7 @@ void lazy_pull_abi()
+                   nw_db_diagnostic_count_v1(6) == sql && nw_db_diagnostic_count_v1(8) == 1,
+               "relation channel captures without generic open operation or provider dispatch");
+         PullNotice notice;
+-        notice.request(channel.value);
++        notice.request(channel.value, 1, external);
+         const auto payload = take_pull(channel.value);
+         const auto batch = Batch::parse(payload, expected);
+         check(batch.rows() == 1 && read_u64(*batch.cell(0, 0), 0) == 1 && notice.calls == 1,
+@@ -626,7 +640,7 @@ void lazy_pull_abi()
+         check(nw_db_diagnostic_count_v1(6) == sql && nw_db_diagnostic_count_v1(2) == 0,
+               "returning mutation creation has no database effect or generic open operation");
+         PullNotice notice;
+-        notice.request(channel.value);
++        notice.request(channel.value, 1, external);
+         const auto output = take_pull(channel.value);
+         const auto batch = Batch::parse(output, expected);
+         check(batch.rows() == 1 && read_u64(*batch.cell(0, 0), 0) == 2,
+@@ -652,7 +666,7 @@ void lazy_pull_abi()
+            "actual ordinary lazy pull create");
+         plan.release();
+         PullNotice notice;
+-        notice.request(channel.value);
++        notice.request(channel.value, 1, external);
+         const auto output = take_pull(channel.value);
+         const auto batch = Batch::parse(output, expected);
+         check(batch.rows() == 2 && read_u64(*batch.cell(1, 0), 0) == 2,
+@@ -758,6 +772,7 @@ int main(int argc, char** argv)
+             raw_sql_keeps_start_deadline();
+         if (mode == "all")
+             lazy_pull_abi();
++        lazy_pull_abi(true);
+         std::cout << "PASS B14 actual C ABI adapters: " << assertions << " checks; six owner counters zero\n";
+         return 0;
+     }
+diff --git a/native/cpp/tests/streaming_tests.cpp b/native/cpp/tests/streaming_tests.cpp
+index 7ef38d0..9db7a6d 100644
+--- a/native/cpp/tests/streaming_tests.cpp
++++ b/native/cpp/tests/streaming_tests.cpp
+@@ -29,7 +29,8 @@ void check(bool value, const char* message)
+     if (!value)
+         throw std::runtime_error(message);
+ }
+-template <typename Action> Error reject(Action action)
++template <typename Action>
++Error reject(Action action, const std::source_location location = std::source_location::current())
+ {
+     try
+     {
+@@ -40,7 +41,7 @@ template <typename Action> Error reject(Action action)
+         ++checks;
+         return error;
+     }
+-    throw std::runtime_error("expected streaming rejection");
++    throw std::runtime_error("expected streaming rejection at line " + std::to_string(location.line()));
+ }
+ template <typename Condition>
+ void await(Condition condition, const std::source_location location = std::source_location::current())
+@@ -494,11 +495,14 @@ struct PullReady
+ {
+     std::atomic<std::uint64_t> generation{0};
+     std::atomic<unsigned> calls{0};
++    std::function<void()> before_return;
+     static void NW_CDECL notify(void* context, std::uint64_t value)
+     {
+         auto& state = *static_cast<PullReady*>(context);
+         ++state.calls;
+         state.generation.store(value);
++        if (state.before_return)
++            state.before_return();
+     }
+     nw_db_cursor_callbacks_v1 callbacks()
+     {
+@@ -834,6 +838,289 @@ void pull_generations_and_tail()
+     check(pull_count == 0 && cursor_count == 0 && scope.budget()[0] == 0,
+           "joined pull drops its native owner and stream reservation immediately");
+ }
++void prepared_pull_generations()
++{
++    Scope scope;
++    auto pull = scope.pull(3);
++    PullReady ready;
++    auto posts = std::make_shared<std::atomic<unsigned>>(0);
++    scope.source->workers.test_before_post = [posts] { ++*posts; };
++    check(reject([&] { pull->prepare(0, 1, 256, ready.callbacks()); }).status == NW_INVALID_STATE,
++          "prepared zero generation preserves admission");
++    check(reject([&] { pull->prepare(1, 0, 256, ready.callbacks()); }).status == NW_INVALID_ARGUMENT,
++          "prepared invalid capacity has no accepted scheduling obligation");
++    pull->prepare(1, 1, 256, ready.callbacks());
++    check(scope.probe->reads == 0 && cursor_count == 0 && ready.calls == 0 && *posts == 0 &&
++              scope.source->pending == 1 && !scope.source->pull_workers->done(),
++          "prepare owns bounded native retirement before scheduling without queueing or provider I/O");
++    check(reject([&] { pull->prepare(2, 1, 256, ready.callbacks()); }).code == 7 &&
++              reject([&] { CursorPull::run_prepared(pull, 2); }).status == NW_INVALID_STATE,
++          "an unclaimed generation cannot be replaced or run under another identity");
++    CursorPull::run_prepared(pull, 1);
++    ready.wait(1);
++    check(*posts == 0 && scope.probe->reads == 1 && scope.source->pending == 0 && scope.source->pull_workers->done(),
++          "synchronous prepared run retires its native accessors without posting a provider job");
++    check(reject([&] { CursorPull::run_prepared(pull, 1); }).status == NW_INVALID_STATE &&
++              reject([&] { CursorPull::abandon_prepared(pull, 1); }).status == NW_INVALID_STATE,
++          "run and abandon share a single consumed claim");
++    auto first = pull->take(1);
++    check(Batch::parse(first->bytes, first->cursor->expectation).rows() == 1 &&
++              reject([&] { pull->prepare(2, 1, 256, ready.callbacks()); }).status == NW_INVALID_STATE,
++          "prepared execution retains the original live-batch read admission");
++    first.reset();
++    pull->prepare(2, 1, 256, ready.callbacks());
++    check(reject([&] { CursorPull::run_prepared(pull, 1); }).status == NW_INVALID_STATE,
++          "late old-generation work cannot steal the next prepared request");
++    CursorPull::run_prepared(pull, 2);
++    auto second = pull->take(2);
++    check(Batch::parse(second->bytes, second->cursor->expectation).rows() == 1 && ready.calls == 2 &&
++              scope.probe->reads == 2 && *posts == 0,
++          "prepared generations preserve exact rows, callbacks and one-time take");
++    second.reset();
++    scope.source->workers.test_before_post = {};
++    pull->join();
++    pull.reset();
++    check(pull_count == 0 && cursor_count == 0 && buffer_count == 0, "prepared successful pulls return every owner");
++}
++
++void prepared_pull_never_run()
++{
++    // Explicit queue abandonment, pull stop, Session stop, Source stop and
++    // final native owner release all have to settle an accepted never-run job.
++    for (const int mode : {0, 1, 2, 3, 4})
++    {
++        Scope scope;
++        auto pull = scope.pull(3);
++        auto dispatches = std::make_shared<std::atomic<unsigned>>(0);
++        pull->test_before_work = [dispatches] { ++*dispatches; };
++        PullReady ready;
++        pull->prepare(1, 1, 256, ready.callbacks());
++        check(scope.source->pending == 1, "never-run work has an admitted pending reservation");
++        if (mode == 0)
++            CursorPull::abandon_prepared(pull, 1);
++        else if (mode == 1)
++            pull->request_close();
++        else if (mode == 2)
++            scope.session->request_close();
++        else if (mode == 3)
++            scope.source->request_close();
++        else
++        {
++            auto owner = std::make_shared<Owner>(scope.source, pull);
++            owner.reset();
++        }
++        ready.wait(1);
++        const auto failure = reject([&] { (void)pull->take(1); });
++        const auto rich = pull->take_error(1);
++        check(failure.status == (mode == 2 || mode == 3 ? NW_INVALID_STATE : NW_CANCELED) &&
++                  rich.status == failure.status && rich.correlation == failure.correlation,
++              "never-run settlement preserves parent/cancel error ordering and rich identity");
++        check(scope.probe->reads == 0 && *dispatches == 0 && ready.calls == 1 && scope.source->pending == 0 &&
++                  scope.source->pull_workers->done() && !scope.session->active.load(),
++              "never-run settlement executes no provider dispatch and releases both retirement tickets");
++        if (mode != 0)
++            CursorPull::run_prepared(pull, 1);
++        check(reject([&] { CursorPull::abandon_prepared(pull, 1); }).status == NW_INVALID_STATE && ready.calls == 1 &&
++                  scope.probe->reads == 0,
++              "automatic close leaves exactly one harmless late queue claim");
++        pull->join();
++        pull.reset();
++        check(pull_count == 0 && cursor_count == 0 && buffer_count == 0,
++              "abandoned prepared self-ownership is actively broken");
++    }
++}
++
++void prepared_pull_running_retirement()
++{
++    Scope scope;
++    auto pull = scope.pull(1);
++    auto entered = std::make_shared<std::atomic<bool>>(false);
++    auto proceed = std::make_shared<std::binary_semaphore>(0);
++    pull->test_after_ready = [entered, proceed]
++    {
++        entered->store(true);
++        proceed->acquire();
++    };
++    PullReady ready;
++    pull->prepare(1, 1, 256, ready.callbacks());
++    std::future<void> executing, joined;
++    bool pending = false;
++    {
++        struct Release
++        {
++            std::shared_ptr<std::binary_semaphore> proceed;
++            ~Release()
++            {
++                proceed->release();
++            }
++        } release{proceed};
++        // Transfer the execution caller's only extra channel reference into the
++        // static entry exactly as the ABI does. The retained owner stays here.
++        executing = std::async(std::launch::async,
++                               [current = pull]() mutable { CursorPull::run_prepared(std::move(current), 1); });
++        ready.wait(1);
++        await([&] { return entered->load(); });
++        auto batch = pull->take(1);
++        batch.reset();
++        joined = std::async(std::launch::async, [source = scope.source] { source->join(); });
++        await([&] { return scope.source->closing.load(); });
++        pending = joined.wait_for(std::chrono::milliseconds(20)) != std::future_status::ready &&
++                  !scope.source->retired.load() && scope.source->pending == 1 && !scope.source->pull_workers->done();
++    }
++    executing.get();
++    joined.get();
++    check(pending && scope.source->retired.load() && scope.source->pending == 0 && scope.source->pull_workers->done(),
++          "Source join waits for the prepared execution frame's last native accessor, not only readiness");
++    pull.reset();
++    check(pull_count == 0 && cursor_count == 0 && buffer_count == 0,
++          "prepared exported execution leaves no accessor after joined retirement");
++}
++
++void prepared_pull_concurrent_claim()
++{
++    for (const bool abandon : {false, true})
++    {
++        Scope scope;
++        auto pull = scope.pull(1);
++        PullReady ready;
++        pull->prepare(1, 1, 256, ready.callbacks());
++        std::counting_semaphore<2> start{0};
++        std::array<nw_status, 2> status{};
++        auto claimant = [&](std::size_t index)
++        {
++            start.acquire();
++            try
++            {
++                if (abandon && index == 1)
++                    CursorPull::abandon_prepared(pull, 1);
++                else
++                    CursorPull::run_prepared(pull, 1);
++                status[index] = NW_OK;
++            }
++            catch (const Error& error)
++            {
++                status[index] = error.status;
++            }
++        };
++        std::thread first(claimant, 0), second(claimant, 1);
++        start.release(2);
++        first.join();
++        second.join();
++        ready.wait(1);
++        check((status[0] == NW_OK && status[1] == NW_INVALID_STATE) ||
++                  (status[1] == NW_OK && status[0] == NW_INVALID_STATE),
++              "racing run/run and run/abandon each consume exactly one prepared claim");
++        if (abandon && status[1] == NW_OK)
++        {
++            check(reject([&] { (void)pull->take(1); }).status == NW_CANCELED &&
++                      pull->take_error(1).status == NW_CANCELED && scope.probe->reads == 0,
++                  "winning abandonment has no provider effect");
++        }
++        else
++        {
++            auto batch = pull->take(1);
++            check(scope.probe->reads == 1, "winning execution reads once despite duplicate callers");
++        }
++        check(ready.calls == 1 && scope.source->pending == 0 && scope.source->pull_workers->done(),
++              "racing prepared claim publishes one terminal and retires once");
++        pull->join();
++        pull.reset();
++    }
++}
++
++void prepared_pull_inflight_stop()
++{
++    for (const bool external : {false, true})
++    {
++        Scope scope;
++        scope.probe->stop_at = 1;
++        auto pull = scope.pull(3);
++        PullReady ready;
++        std::future<void> executing;
++        bool held = false;
++        {
++            struct Release
++            {
++                std::shared_ptr<Probe> probe;
++                ~Release()
++                {
++                    probe->proceed.release();
++                }
++            } release{scope.probe};
++            // Require another row after the held provider call. Cancellation
++            // racing the last successful row may preserve that finished batch;
++            // this gate observes cancellation before unfinished work instead.
++            if (external)
++            {
++                pull->prepare(1, 2, 256, ready.callbacks());
++                executing = std::async(std::launch::async,
++                                       [current = pull]() mutable { CursorPull::run_prepared(std::move(current), 1); });
++            }
++            else
++                pull->request(1, 2, 256, ready.callbacks());
++            await([&] { return scope.probe->reads == 1; });
++            pull->request_close();
++            held = ready.calls == 0 && scope.source->pending == 1 && !scope.source->pull_workers->done();
++        }
++        if (external)
++            executing.get();
++        ready.wait(1);
++        const auto failure = reject([&] { (void)pull->take(1); });
++        const auto rich = pull->take_error(1);
++        check(held && failure.status == NW_CANCELED && rich.status == NW_CANCELED && ready.calls == 1,
++              "legacy and prepared cancellation retain the active provider until unfinished native work exits");
++        pull->join();
++        pull.reset();
++        check(scope.source->pending == 0 && scope.source->pull_workers->done() && pull_count == 0 && cursor_count == 0,
++              "in-flight prepared cancellation retires the original provider/read admission");
++    }
++}
++
++void prepared_pull_late_claim_during_close_callback()
++{
++    Scope scope;
++    auto pull = scope.pull(3);
++    auto entered = std::make_shared<std::atomic<bool>>(false);
++    auto proceed = std::make_shared<std::binary_semaphore>(0);
++    PullReady ready;
++    ready.before_return = [entered, proceed]
++    {
++        entered->store(true);
++        proceed->acquire();
++    };
++    pull->prepare(1, 1, 256, ready.callbacks());
++    std::future<void> stopped, joined;
++    bool held = false;
++    {
++        struct Release
++        {
++            std::shared_ptr<std::binary_semaphore> proceed;
++            ~Release()
++            {
++                proceed->release();
++            }
++        } release{proceed};
++        stopped = std::async(std::launch::async, [pull] { pull->request_close(); });
++        await([&] { return entered->load(); });
++        CursorPull::run_prepared(pull, 1);
++        check(reject([&] { CursorPull::abandon_prepared(pull, 1); }).status == NW_INVALID_STATE,
++              "the one late no-op claim is consumed even while auto-close's callback is returning");
++        joined = std::async(std::launch::async, [source = scope.source] { source->join(); });
++        await([&] { return scope.source->closing.load(); });
++        held = joined.wait_for(std::chrono::milliseconds(20)) != std::future_status::ready &&
++               stopped.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready &&
++               scope.source->pending == 1 && !scope.source->pull_workers->done() && scope.probe->reads == 0;
++    }
++    stopped.get();
++    joined.get();
++    check(held && ready.calls == 1 && scope.source->retired.load() && scope.source->pending == 0 &&
++              scope.source->pull_workers->done(),
++          "late no-op claim cannot retire an independent automatic close callback frame");
++    check(reject([&] { (void)pull->take(1); }).status == NW_CANCELED && pull->take_error(1).status == NW_CANCELED,
++          "later Source close leaves automatic cancellation's already-frozen error unchanged");
++    pull.reset();
++}
++
+ void pull_first_fetch_admission()
+ {
+     for (const auto mode : {0, 1, 2})
+@@ -1351,6 +1638,12 @@ int main()
+         retirement_worker_owner_barrier();
+         retirement_notification_barrier();
+         pull_generations_and_tail();
++        prepared_pull_generations();
++        prepared_pull_never_run();
++        prepared_pull_running_retirement();
++        prepared_pull_concurrent_claim();
++        prepared_pull_inflight_stop();
++        prepared_pull_late_claim_during_close_callback();
+         pull_stop_before_worker();
+         pull_stop_before_wake();
+         pull_queued_parent_priority();
+diff --git a/native/database/binding/cursor-pull-execution-v1.json b/native/database/binding/cursor-pull-execution-v1.json
+new file mode 100644
+index 0000000..cd8a66f
+--- /dev/null
++++ b/native/database/binding/cursor-pull-execution-v1.json
+@@ -0,0 +1,12 @@
++{
++  "version": 1,
++  "capability": "db.cursor.pull.execution.v1",
++  "capability_bit": 30,
++  "header": "native/database/binding/korda_cursor_pull_execution_v1.h",
++  "callback_record": "nw_db_cursor_callbacks_v1",
++  "signatures": [
++    "nw_status NW_CDECL nw_db_cursor_pull_prepare_v1(nw_db_ref channel, uint64_t generation, uint32_t rows, uint64_t bytes, const nw_db_cursor_callbacks_v1* callbacks, nw_error_info_v1* error);",
++    "nw_status NW_CDECL nw_db_cursor_pull_run_v1(nw_db_ref channel, uint64_t generation, nw_error_info_v1* error);",
++    "nw_status NW_CDECL nw_db_cursor_pull_abandon_v1(nw_db_ref channel, uint64_t generation, nw_error_info_v1* error);"
++  ]
++}
+diff --git a/native/database/binding/cursor-pull-execution-v1.md b/native/database/binding/cursor-pull-execution-v1.md
+new file mode 100644
+index 0000000..a43e40d
+--- /dev/null
++++ b/native/database/binding/cursor-pull-execution-v1.md
+@@ -0,0 +1,68 @@
++# Admitted cursor pull execution extension v1
++
++`cursor-pull-execution-v1.json` defines capability bit 30
++(`db.cursor.pull.execution.v1`). Consumers resolve all three exports and the
++existing cursor pull extension before selecting this private path. The frozen
++database v1 declarations, records and fingerprint, existing cursor pull request
++semantics and public query contracts remain unchanged.
++
++## Admission and execution
++
++Prepare accepts the same callback record, generation and batch limits as cursor
++pull request. It performs the original validation and captures the existing
++Cancel, Source pending reservation and independent channel/Source retirement
++tickets before acceptance. It performs no provider I/O and posts no native
++worker. `NW_OK` means one accepted generation and exactly one owed ready
++notification. A rejected prepare owes no notification. Concurrent close can
++settle accepted work and invoke its callback before prepare returns, so callers
++retain their callback root through that setup overlap.
++
++The accepted scheduling obligation retains the original native Worker. The
++caller retains its channel owner while scheduling and either runs or abandons
++that generation. A temporary managed queue refusal may retry scheduling under
++the existing bounded coordinator contract. Source, Session and owner close can
++independently settle work that never reaches a managed executor; they do not
++depend on eventual queue acceptance to release its reservation and tickets.
++
++Run and abandon require the exact prepared generation. Under the channel lock,
++exactly one of these entries claims the scheduling obligation. Duplicate claims,
++old generations and generations admitted with the existing request entry are
++rejected. Run executes the original CursorPull algorithm synchronously on the
++calling worker: admission and metadata checks, provider creation and fetch,
++cancellation detach, error enrichment and completion have one implementation.
++The original request entry continues to dispatch that algorithm through its
++native queue.
++
++Abandon marks the admitted cancellation token under the same lock and enters the
++original admission/completion path. It performs no new provider execution.
++Existing cursor or gate cleanup still follows the original ownership and error
++rules. Source/Session/owner close performs this same settlement when it extracts
++unclaimed work. Cancellation does not overwrite an already frozen error.
++
++## Ready, result and retirement
++
++`NW_OK` from run or abandon describes successful execution of the control entry;
++it does not mean the query succeeded. The existing ready notification and
++one-time take/take-error entries deliver the batch or original failure.
++
++After close automatically extracts unclaimed work, the first late run or abandon
++for that exact generation returns `NW_OK` without repeating execution or
++notification. A second claim is rejected. The close thread may still be
++publishing the original callback when that late no-op returns. Consumers must
++observe readiness and callback drain before taking or publishing the result;
++the return of a late claim alone proves neither readiness nor retirement.
++
++The exported execution entries move their temporary channel accessor into the
++execution helper and release it before running the Worker. The Worker is the
++last owner-bearing local. Its independent retirement tickets cover all native
++execution accessors, callback execution and their release, including the Source
++reservation. Source join cannot pass those tickets while the synchronous
++execution or automatic settlement tail still holds its accessors. A ready batch
++may be available earlier; final close still requires the original retirement
++proof. Automatic settlement invokes no join on its own ticket.
++
++Managed business continuations remain asynchronous. The managed executor may
++take a ready result on the same work item only after synchronous native run has
++returned and the original setup, controls, cancellation and callback drain
++conditions hold. No borrowed OwnerLease or native pointer crosses that
++synchronous execution scope.
+diff --git a/native/database/binding/korda_cursor_pull_execution_v1.h b/native/database/binding/korda_cursor_pull_execution_v1.h
+new file mode 100644
+index 0000000..d741536
+--- /dev/null
++++ b/native/database/binding/korda_cursor_pull_execution_v1.h
+@@ -0,0 +1,42 @@
++/* SPDX-License-Identifier: MIT
++ * Private admitted cursor execution extension. The frozen database v1 ABI and
++ * cursor pull request semantics are unchanged. Require capability bit 30
++ * (db.cursor.pull.execution.v1), in addition to db.cursor.pull.v1.
++ */
++#ifndef KORDA_CURSOR_PULL_EXECUTION_V1_H
++#define KORDA_CURSOR_PULL_EXECUTION_V1_H
++#include "korda_cursor_pull_v1.h"
++
++#define NW_DB_CURSOR_PULL_EXECUTION_CAPABILITY_V1 (UINT64_C(1) << 30)
++
++#ifdef __cplusplus
++extern "C"
++{
++#endif
++    /* Prepare validates and reserves one generation without provider I/O or
++     * native queue submission. Its callback may be delivered by concurrent
++     * close before prepare returns. The caller must retain its channel owner
++     * until the accepted managed scheduling obligation is run or abandoned.
++     */
++    nw_status NW_CDECL nw_db_cursor_pull_prepare_v1(nw_db_ref channel, uint64_t generation, uint32_t rows,
++                                                    uint64_t bytes, const nw_db_cursor_callbacks_v1* callbacks,
++                                                    nw_error_info_v1* error);
++    /* Exactly one run or abandon claims an admitted generation. Run blocks the
++     * calling worker in the existing provider algorithm. Abandon performs no
++     * new provider execution; existing cursor cleanup retains its contract.
++     * Query failures remain available through the existing take
++     * and take_error entries; NW_OK describes successful execution of this
++     * control entry, not query success.
++     *
++     * Close settles unclaimed work itself. The first later run/abandon for that
++     * exact generation succeeds without repeating work; another claim or an
++     * old generation is rejected. Concurrent close settlement may still be
++     * publishing readiness when this no-op claim returns: callers must observe
++     * the original ready callback before taking the result.
++     */
++    nw_status NW_CDECL nw_db_cursor_pull_run_v1(nw_db_ref channel, uint64_t generation, nw_error_info_v1* error);
++    nw_status NW_CDECL nw_db_cursor_pull_abandon_v1(nw_db_ref channel, uint64_t generation, nw_error_info_v1* error);
++#ifdef __cplusplus
++}
++#endif
++#endif
+diff --git a/src/Data.NativeHost/DataSource.cs b/src/Data.NativeHost/DataSource.cs
+index 746d3ce..6098591 100644
+--- a/src/Data.NativeHost/DataSource.cs
++++ b/src/Data.NativeHost/DataSource.cs
+@@ -51,6 +51,10 @@ internal static unsafe DataSource Create(EngineDescriptor descriptor, DatabasePr
+             throw new DatabaseCapabilityException(CursorPullCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
+         binding.Pulls = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
+         binding.Pulls.Require();
++        if (!info.Capabilities.Any(capability => capability.Name == CursorPullExecutionCalls.Capability))
++            throw new DatabaseCapabilityException(CursorPullExecutionCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
++        binding.PullExecution = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
++        binding.PullExecution.Require();
+         if (!info.Capabilities.Any(capability => capability.Name == CommandCompletionCalls.Capability))
+             throw new DatabaseCapabilityException(CommandCompletionCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
+         binding.Completions = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
+diff --git a/src/Data.NativeHost/DatabaseOptions.cs b/src/Data.NativeHost/DatabaseOptions.cs
+index 8dd8f37..bca0029 100644
+--- a/src/Data.NativeHost/DatabaseOptions.cs
++++ b/src/Data.NativeHost/DatabaseOptions.cs
+@@ -99,7 +99,7 @@ internal void Require(string capability)
+ 
+ internal static class DatabaseEngineProfile
+ {
+-    private static readonly string[] Names = ["db.metadata.v1", "db.query.v1", "db.transactions.v1", "db.savepoints.v1", "db.streaming.v1", "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1", "db.window.v1", "db.row-lock.v1", "db.null-safe-equality.v1", "db.json.v1", "db.decimal.numeric.v1", "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1"];
++    private static readonly string[] Names = ["db.metadata.v1", "db.query.v1", "db.transactions.v1", "db.savepoints.v1", "db.streaming.v1", "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1", "db.window.v1", "db.row-lock.v1", "db.null-safe-equality.v1", "db.json.v1", "db.decimal.numeric.v1", "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1"];
+     internal static EngineDescriptor Create(string engine, string package, string rid, string path, string hash, Assembly assembly) =>
+         EnginePackage.CreateDescriptor(new EnginePackageManifest(engine, package, PackageVersion(assembly), new AbiVersion(1, 0), engine switch { "database.sqlite" => "nw_database_sqlite_get_abi_v1", "database.postgresql" => "nw_database_postgresql_get_abi_v1", _ => throw new ArgumentException("Unknown database provider engine.", nameof(engine)) }, EngineThreadingModel.EngineLocalAsync,
+             [new NativeAssetDescriptor(rid, path, hash.ToLowerInvariant(), "x86-64")], Names.Select((name, bit) => new EngineCapabilityDefinition(new(name), bit)).ToArray()), assembly);
+diff --git a/src/Data.NativeHost/HostPullController.cs b/src/Data.NativeHost/HostPullController.cs
+index ae5cc37..6fc7cf9 100644
+--- a/src/Data.NativeHost/HostPullController.cs
++++ b/src/Data.NativeHost/HostPullController.cs
+@@ -13,7 +13,8 @@ namespace Korda.Database;
+ internal enum HostPullBoundary
+ {
+     BeforeRoot, RootAllocated, BeforeRegister, Registered, BeforeRequest,
+-    RequestReturned, Ready, BeforeTake, ResultTaken, StopEntered, StopReturned, Published
++    RequestReturned, Ready, BeforeTake, ResultTaken, StopEntered, StopReturned, Published,
++    BeforeRun, RunReturned, BeforeAbandon, AbandonReturned
+ }
+ 
+ internal readonly record struct HostPullSnapshot(ulong Generation, bool Active, bool SetupReturned,
+@@ -40,6 +41,7 @@ internal sealed class HostPullController : CoordinatedCallback, IValueTaskSource
+     private bool _ready, _rooted, _hasRegistration, _registrationAttempted, _registrationReady;
+     private bool _drainStarted, _registrationDrained, _takeSettled, _resultTaken, _published, _consumed = true;
+     private bool _stopping, _stopObserved, _closed, _forcedCloseStarted, _indeterminate;
++    private bool _executionClaimed, _executing;
+     private Exception? _failure, _stopFailure;
+ 
+     internal HostPullController(DataSource source, DatabaseOwner channel, ScopedStreamBatch batch,
+@@ -76,6 +78,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+             _setupReturned = _accepted = _requestEntered = _requestReturned = _ready = false;
+             _hasRegistration = _registrationAttempted = _registrationReady = false;
+             _drainStarted = _registrationDrained = _takeSettled = _resultTaken = _published = _indeterminate = false;
++            _executionClaimed = _executing = false;
+             _failure = null;
+         }
+         bool control = false;
+@@ -122,7 +125,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+                 };
+                 var error = BindingChecks.Error();
+                 lock (_gate) _requestEntered = true;
+-                var status = NativeHost.Pulls(_source.Binding).Request(lease.Pointer, _generation,
++                var status = NativeHost.PullExecution(_source.Binding).Prepare(lease.Pointer, _generation,
+                     checked((uint)_rows), checked((ulong)_source.Limits.MaxBatchBytes), &callbacks, &error);
+                 lock (_gate)
+                 {
+@@ -151,23 +154,20 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+         }
+         finally
+         {
+-            bool deferToReady;
+             lock (_gate)
+             {
+                 if (control) _controls--;
+                 if (!_registrationAttempted && !_registrationReady)
+                 { _registrationReady = true; _registrationDrained = true; }
+                 _setupReturned = true;
+-                deferToReady = _accepted && !_ready && _failure is null
+-                    && !_stopping && !_closed && !_indeterminate;
+             }
+-            // A normal accepted request cannot drain before ready. The callback and
+-            // this decision use the same gate: early readiness is resumed here,
+-            // and later readiness signals its own work item. Fault/stop paths
+-            // retain their existing independent progress notifications.
++            // Native prepare only admits work. The bounded, never-inline
++            // coordinator executes that obligation after setup has returned.
++            // A transient rejected queue offer retains its retry reservation;
++            // native cancellation/close can independently settle unrun work.
+             // A pre-reservation failure has no native/cancellation obligation
+             // and needs no scheduler capacity in order to release its root.
+-            if (!deferToReady) Resume();
++            Resume();
+         }
+         return new(this, version);
+     }
+@@ -248,13 +248,22 @@ private static void OnReady(nint context, ulong generation)
+             {
+                 // The drain cannot observe zero accesses until this callback
+                 // has made its last state access under the same gate.
+-                lock (controller._gate) { controller._callbackEntries--; controller.Signal(); }
++                lock (controller._gate)
++                {
++                    controller._callbackEntries--;
++                    // The executing coordinator will drain this notification
++                    // after the complete native call returns. An independent
++                    // close/stop notification still schedules when no run is on
++                    // that worker stack. Do not queue a redundant ready drain.
++                    if (!controller._executing) controller.Signal();
++                }
+             }
+         }
+     }
+ 
+     protected override void Process()
+     {
++        ExecutePrepared();
+         bool forceClose, waitReady, stop;
+         lock (_gate)
+         {
+@@ -345,6 +354,47 @@ protected override void Process()
+         else _completion.SetException(failure);
+     }
+ 
++    private unsafe void ExecutePrepared()
++    {
++        bool abandon;
++        ulong generation;
++        lock (_gate)
++        {
++            if (!_active || _published || !_setupReturned || !_accepted || _executionClaimed
++                || _closed || _indeterminate) return;
++            // Accepted prepare always follows reservation. Thus this method
++            // cannot execute provider work through Resume's unreserved inline
++            // setup-failure path.
++            if (_slot < 0) throw new InvalidOperationException("An admitted cursor pull requires its scheduling reservation.");
++            _executionClaimed = _executing = true;
++            _controls++;
++            generation = _generation;
++            abandon = _failure is not null || _stopping;
++        }
++        try
++        {
++            using var lease = _channel.Borrow(DatabaseOwnerKind.Cursor);
++            var calls = NativeHost.PullExecution(_source.Binding);
++            var error = BindingChecks.Error();
++            Boundary(abandon ? HostPullBoundary.BeforeAbandon : HostPullBoundary.BeforeRun);
++            var status = abandon ? calls.Abandon(lease.Pointer, generation, &error)
++                : calls.Run(lease.Pointer, generation, &error);
++            if (status != NativeStatus.Ok)
++                throw HostFailure.Create(_source.Binding, status, error, token: _token);
++            Boundary(abandon ? HostPullBoundary.AbandonReturned : HostPullBoundary.RunReturned);
++        }
++        catch (Exception error)
++        {
++            // A missing acceptance/retirement receipt retains the root and
++            // reservation until the existing cold close proves safety.
++            lock (_gate) { _failure ??= error; _indeterminate = true; }
++        }
++        finally
++        {
++            lock (_gate) { _executing = false; _controls--; }
++        }
++    }
++
+     private async Task DrainRegistrationAsync(ValueTask pending)
+     {
+         try
+diff --git a/src/Data.NativeHost/NativeHost.cs b/src/Data.NativeHost/NativeHost.cs
+index 187b3d4..798c294 100644
+--- a/src/Data.NativeHost/NativeHost.cs
++++ b/src/Data.NativeHost/NativeHost.cs
+@@ -212,6 +212,8 @@ private static unsafe Exception PullFailure(SourceBinding binding, nint channel,
+     }
+     internal static CursorPullCalls Pulls(SourceBinding binding) => binding.Pulls
+         ?? throw new NotSupportedException("The native cursor pull extension is unavailable.");
++    internal static CursorPullExecutionCalls PullExecution(SourceBinding binding) => binding.PullExecution
++        ?? throw new NotSupportedException("The native admitted cursor execution extension is unavailable.");
+     internal static unsafe void CheckPullRead(DatabaseOwner channel)
+     {
+         using var lease = channel.Borrow(DatabaseOwnerKind.Cursor); var error = BindingChecks.Error();
+diff --git a/src/Packaging.Domain/inventory.py b/src/Packaging.Domain/inventory.py
+index 018b3b7..6c2e28c 100644
+--- a/src/Packaging.Domain/inventory.py
++++ b/src/Packaging.Domain/inventory.py
+@@ -73,7 +73,8 @@ def collect(build_manifest_path, provider=None):
+                 raise ValueError('Dependency source changed after compilation')
+     signatures = json.loads((ROOT / 'native/database/binding/signatures-v1.json').read_text())['signatures']
+     for name, bit in (('query-command-v1.json', 26), ('cursor-pull-v1.json', 27),
+-                      ('command-completion-v1.json', 28), ('find-shape-v1.json', 29)):
++                      ('command-completion-v1.json', 28), ('find-shape-v1.json', 29),
++                      ('cursor-pull-execution-v1.json', 30)):
+         extension = json.loads((ROOT / 'native/database/binding' / name).read_text())
+         if (extension['version'] != 1 or extension['capability_bit'] != bit or
+                 DATABASE_CAPABILITIES[bit] != extension['capability']):
+diff --git a/src/Packaging.Domain/model.py b/src/Packaging.Domain/model.py
+index b2f1254..0a7bd74 100644
+--- a/src/Packaging.Domain/model.py
++++ b/src/Packaging.Domain/model.py
+@@ -41,7 +41,7 @@ DATABASE_CAPABILITIES = [
+     "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1",
+     "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1",
+     "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1",
+-    "db.command.completion.v1", "db.find.shape.v1",
++    "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1",
+ ]
+ ENGINES = {
+     "database.sqlite": ("Korda.Database.Sqlite", "libnw_database_sqlite.so", "nw_database_sqlite", DATABASE_CAPABILITIES),
+diff --git a/src/Query.Binding/CursorPullExecutionCalls.cs b/src/Query.Binding/CursorPullExecutionCalls.cs
+new file mode 100644
+index 0000000..873129d
+--- /dev/null
++++ b/src/Query.Binding/CursorPullExecutionCalls.cs
+@@ -0,0 +1,27 @@
++using Korda.Interop.Abi;
++
++namespace Korda.Query.Internal;
++
++// An admitted generation is executed or abandoned once. No borrowed pointer
++// survives prepare; the native admission owns its independent retirement tickets.
++internal sealed unsafe class CursorPullExecutionCalls
++{
++    internal const string Capability = "db.cursor.pull.execution.v1";
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint> Prepare;
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint> Run;
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint> Abandon;
++
++    internal CursorPullExecutionCalls(Func<string, nint> resolve)
++    {
++        Prepare = (delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_prepare_v1");
++        Run = (delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_run_v1");
++        Abandon = (delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_abandon_v1");
++    }
++
++    internal void Require()
++    {
++        BindingChecks.Require((nint)Prepare, "nw_db_cursor_pull_prepare_v1");
++        BindingChecks.Require((nint)Run, "nw_db_cursor_pull_run_v1");
++        BindingChecks.Require((nint)Abandon, "nw_db_cursor_pull_abandon_v1");
++    }
++}
+diff --git a/src/Query.Binding/Owners.cs b/src/Query.Binding/Owners.cs
+index 5472cd4..d0c49e5 100644
+--- a/src/Query.Binding/Owners.cs
++++ b/src/Query.Binding/Owners.cs
+@@ -14,6 +14,7 @@ internal sealed class SourceBinding(NativeCalls calls, uint semanticProfile)
+     internal uint SemanticProfile { get; } = semanticProfile is 1 or 2 ? semanticProfile : throw new ArgumentOutOfRangeException(nameof(semanticProfile));
+     internal QueryCommandEnvironment? Commands { get; set; }
+     internal CursorPullCalls? Pulls { get; set; }
++    internal CursorPullExecutionCalls? PullExecution { get; set; }
+     internal CommandCompletionCalls? Completions { get; set; }
+     internal FindShapeCalls? Finds { get; set; }
+ }
+diff --git a/tests/Data.Materialization/package_feed.py b/tests/Data.Materialization/package_feed.py
+index cde572a..024f5b8 100644
+--- a/tests/Data.Materialization/package_feed.py
++++ b/tests/Data.Materialization/package_feed.py
+@@ -20,7 +20,7 @@ REGISTRY = {
+     'Korda.Database.Sqlite': ('src/Data.Sqlite', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+     'Korda.Database.PostgreSql': ('src/Data.Postgres', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+ }
+-CAPABILITIES = ['db.metadata.v1', 'db.query.v1', 'db.transactions.v1', 'db.savepoints.v1', 'db.streaming.v1', 'db.migrations.v1', 'db.schema.read.v1', 'db.returning.v1', 'db.upsert.v1', 'db.cte.v1', 'db.window.v1', 'db.row-lock.v1', 'db.null-safe-equality.v1', 'db.json.v1', 'db.decimal.numeric.v1', 'db.decimal.text.v1', 'db.fixed-money.v1', 'db.relationships.explicit.v1', 'db.prepared-shape.v1', 'db.bulk-batches.v1', 'db.dynamic-fields.v1', 'db.recursive-cte.v1', 'db.set-operations.v1', 'db.scalar-codecs.v1', 'db.sql.expert.v1', 'db.schema.draft.v1', 'db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1']
++CAPABILITIES = ['db.metadata.v1', 'db.query.v1', 'db.transactions.v1', 'db.savepoints.v1', 'db.streaming.v1', 'db.migrations.v1', 'db.schema.read.v1', 'db.returning.v1', 'db.upsert.v1', 'db.cte.v1', 'db.window.v1', 'db.row-lock.v1', 'db.null-safe-equality.v1', 'db.json.v1', 'db.decimal.numeric.v1', 'db.decimal.text.v1', 'db.fixed-money.v1', 'db.relationships.explicit.v1', 'db.prepared-shape.v1', 'db.bulk-batches.v1', 'db.dynamic-fields.v1', 'db.recursive-cte.v1', 'db.set-operations.v1', 'db.scalar-codecs.v1', 'db.sql.expert.v1', 'db.schema.draft.v1', 'db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1', 'db.cursor.pull.execution.v1']
+ 
+ def sha(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+diff --git a/tests/Data.NativeHost/Program.cs b/tests/Data.NativeHost/Program.cs
+index d4ff521..096f481 100644
+--- a/tests/Data.NativeHost/Program.cs
++++ b/tests/Data.NativeHost/Program.cs
+@@ -20,6 +20,7 @@
+ if (await TransactionDefaultProbe.RunIfRequested(args)) return;
+ if (args.Contains("--pull-scheduler-races-only", StringComparer.Ordinal)) { await Suite.RejectedPullSchedulerOnly(); return; }
+ if (args.Contains("--cursor-close-only", StringComparer.Ordinal)) { await CursorCloseTests.RunIfRequested(args); return; }
++if (args.Contains("--pull-worker-execution-only", StringComparer.Ordinal)) { await WorkerExecutionTests.RunIfRequested(); return; }
+ if (args.Contains("--pull-ready-scheduling-only", StringComparer.Ordinal)) { await ReadySchedulingTests.RunIfRequested(); return; }
+ if (args.Contains("--command-completion-only", StringComparer.Ordinal)) { await CommandCompletionTests.RunIfRequested(); return; }
+ Console.WriteLine("snapshot parser oracle inputs=" + SnapshotProbe.Verify());
+@@ -152,6 +153,8 @@ internal static async Task Run()
+         await BatchResultTests.VerifyParentTransactions(DatabaseProvider.PostgreSql, pg);
+         await CursorCloseTests.Run(DatabaseProvider.Sqlite, Path.Combine(directory, "cursor-close.db"));
+         await CursorCloseTests.Run(DatabaseProvider.PostgreSql, pg);
++        await WorkerExecutionTests.Run(DatabaseProvider.Sqlite, Path.Combine(directory, "worker-execution.db"));
++        await WorkerExecutionTests.Run(DatabaseProvider.PostgreSql, pg);
+         await ReadySchedulingTests.Run(DatabaseProvider.Sqlite, Path.Combine(directory, "ready-scheduling.db"));
+         await ReadySchedulingTests.Run(DatabaseProvider.PostgreSql, pg);
+         await CommandCompletionTests.Run(DatabaseProvider.Sqlite, Path.Combine(directory, "command-completion.db"));
+diff --git a/tests/Data.NativeHost/ReadySchedulingTests.cs b/tests/Data.NativeHost/ReadySchedulingTests.cs
+index 04fd908..5c7ad2d 100644
+--- a/tests/Data.NativeHost/ReadySchedulingTests.cs
++++ b/tests/Data.NativeHost/ReadySchedulingTests.cs
+@@ -10,7 +10,7 @@
+ using Korda.Interop.Callbacks;
+ using Korda.Query.Internal;
+ 
+-// Real provider/callback integration. The proxy forwards the actual request and
++// Real provider/callback integration. The proxy forwards the actual prepare and
+ // ready notification, changing only when a test barrier lets that callback run
+ // or return. It neither supplies result bytes nor selects a different drain path.
+ internal static class ReadySchedulingTests
+@@ -40,11 +40,11 @@ internal static async Task RunIfRequested()
+     internal static async Task Run(DatabaseProvider provider, string connection)
+     {
+         var before = _checks;
+-        await SetupAndReadyOverlap(provider, connection);
+-        await LateReadyAndNativeTail(provider, connection);
+-        await RejectedReadyScheduling(provider, connection);
+-        await CoordinatorTailAndNextGeneration(provider, connection);
+-        Console.WriteLine($"READY_SCHEDULING_PASS provider={provider} scenarios=4 assertions={_checks - before}; real readiness, deferred scheduling, rejected offers and native/coordinator tails");
++        await SetupPrecedesWorkerAndReady(provider, connection);
++        await WorkerWaitsForNativeCallbackTail(provider, connection);
++        await RejectedWorkerScheduling(provider, connection);
++        await HeldCompletionPostPreservesNextWorker(provider, connection);
++        Console.WriteLine($"READY_SCHEDULING_PASS provider={provider} scenarios=4 assertions={_checks - before}; admitted worker scheduling, real readiness, rejected offers and native/coordinator tails");
+     }
+ 
+     private static DataSource Create(DatabaseProvider provider, string connection)
+@@ -81,7 +81,7 @@ private static void Drained(HostPullSnapshot state, ulong generation)
+             "A consumed generation leaves no callback, registration, root, slot or request obligation.");
+     }
+ 
+-    private static async Task SetupAndReadyOverlap(DatabaseProvider provider, string connection)
++    private static async Task SetupPrecedesWorkerAndReady(DatabaseProvider provider, string connection)
+     {
+         var source = Create(provider, connection);
+         var session = await source.OpenSessionAsync();
+@@ -91,54 +91,68 @@ private static async Task SetupAndReadyOverlap(DatabaseProvider provider, string
+         using var releaseSetup = new ManualResetEventSlim();
+         using var releaseReady = new ManualResetEventSlim();
+         var setupEntered = NewSignal(); var readyEntered = NewSignal();
+-        var takes = 0; var publications = 0;
++        var runs = 0; var runReturns = 0; var takes = 0; var publications = 0;
+         source.TestPullBoundary = boundary =>
+         {
+             if (boundary == HostPullBoundary.RequestReturned)
+-            { setupEntered.TrySetResult(); Hold(releaseSetup, "request setup"); }
++            { setupEntered.TrySetResult(); Hold(releaseSetup, "admitted prepare setup"); }
++            if (boundary == HostPullBoundary.BeforeRun) Interlocked.Increment(ref runs);
++            if (boundary == HostPullBoundary.RunReturned) Interlocked.Increment(ref runReturns);
+             if (boundary == HostPullBoundary.Ready)
+             { readyEntered.TrySetResult(); Hold(releaseReady, "managed ready entry"); }
+             if (boundary == HostPullBoundary.ResultTaken) Interlocked.Increment(ref takes);
+             if (boundary == HostPullBoundary.Published) Interlocked.Increment(ref publications);
+         };
+         Task<ValueTask<ScopedStreamBatch>>? request = null;
++        Task? worker = null;
+         try
+         {
+             request = Task.Run(() => transport.FetchAsync());
+-            await setupEntered.Task.WaitAsync(Bound); await readyEntered.Task.WaitAsync(Bound);
++            await setupEntered.Task.WaitAsync(Bound);
+             var held = transport.PullSnapshot;
+-            Check(held.Generation == 1 && held.Active && held.Accepted && held.Ready && !held.SetupReturned
+-                && held.Controls == 1 && held.CallbackEntries == 1 && held.Rooted && held.SlotReserved
++            Check(held.Generation == 1 && held.Active && held.Accepted && !held.Ready && !held.SetupReturned
++                && held.Controls == 1 && held.CallbackEntries == 0 && held.Rooted && held.SlotReserved
+                 && !held.ResultTaken && !held.Published && !request.IsCompleted,
+-                "Actual readiness cannot publish while request setup and its callback entry are both held.");
+-            releaseReady.Set();
+-            await Until(() => transport.PullSnapshot.CallbackEntries == 0, "The ready callback did not drain its last entry.");
+-            await Until(() => scheduler.Queued == 1, "Early ready did not offer its work item.");
+-            await Task.Run(scheduler.ExecuteOne).WaitAsync(Bound);
+-            held = transport.PullSnapshot;
+-            Check(scheduler.Offers == 1 && scheduler.Executions == 1 && !held.SetupReturned && held.Controls == 1 && held.Rooted && held.SlotReserved
+-                && !held.ResultTaken && !held.Published && Volatile.Read(ref takes) == 0,
+-                "Callback exit alone cannot bypass the remaining setup control.");
++                "A held prepare return owns its admission but has not executed provider work or produced readiness.");
++            Check(scheduler.Offers == 0 && scheduler.Executions == 0 && scheduler.Queued == 0
++                && runs == 0 && runReturns == 0 && takes == 0 && publications == 0 && !readyEntered.Task.IsCompleted,
++                "The coordinator cannot execute the admitted pull before request setup has returned.");
+             releaseSetup.Set();
+             var pending = await request.WaitAsync(Bound);
+-            await Until(() => scheduler.Queued == 1, "Returning setup lost the earlier ready notification.");
+-            await Task.Run(scheduler.ExecuteOne).WaitAsync(Bound);
++            await Until(() => scheduler.Queued == 1, "Returning prepare setup did not schedule its admitted worker.");
++            held = transport.PullSnapshot;
++            Check(held.SetupReturned && held.Accepted && !held.Ready && held.Controls == 0
++                && !pending.IsCompleted && scheduler.Offers == 1 && scheduler.Executions == 0 && runs == 0,
++                "An accepted queue offer retains a pending generation until its worker actually executes.");
++            worker = Task.Run(scheduler.ExecuteOne);
++            await readyEntered.Task.WaitAsync(Bound);
++            held = transport.PullSnapshot;
++            Check(held.SetupReturned && held.Ready && held.Controls == 1 && held.CallbackEntries == 1
++                && held.Rooted && held.SlotReserved && !held.ResultTaken && !held.Published
++                && !pending.IsCompleted && !worker.IsCompleted && runs == 1 && runReturns == 0
++                && takes == 0 && publications == 0 && scheduler.Offers == 1 && scheduler.Executions == 1,
++                "Managed readiness remains inside the native run control and cannot take or publish while its entry is held.");
++            RejectConcurrent(transport, 1);
++            releaseReady.Set();
++            await worker.WaitAsync(Bound);
+             var batch = await pending.AsTask().WaitAsync(Bound);
+-            Check(Read(source, batch, projectionId).Id == 1, "The first overlapping request materializes its original business row.");
++            Check(Read(source, batch, projectionId).Id == 1, "The first admitted worker materializes its original business row.");
+             Drained(transport.PullSnapshot, 1);
+-            Check(scheduler.Offers == 2 && scheduler.Executions == 2 && takes == 1 && publications == 1, "Overlapping setup/ready notifications take and publish only once.");
++            Check(scheduler.Offers == 1 && scheduler.Executions == 1 && runs == 1 && runReturns == 1
++                && takes == 1 && publications == 1, "One scheduled worker runs, takes and publishes once after the complete native run returns.");
+         }
+         finally
+         {
+             releaseReady.Set(); releaseSetup.Set();
+             source.TestPullBoundary = null; scheduler.ReleaseAll();
++            if (worker is not null) await worker.WaitAsync(Bound);
+             await transport.JoinAsync().WaitAsync(Bound);
+             await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
+             CheckZero(provider);
+         }
+     }
+ 
+-    private static async Task LateReadyAndNativeTail(DatabaseProvider provider, string connection)
++    private static async Task WorkerWaitsForNativeCallbackTail(DatabaseProvider provider, string connection)
+     {
+         var source = Create(provider, connection);
+         var session = await source.OpenSessionAsync();
+@@ -147,63 +161,78 @@ private static async Task LateReadyAndNativeTail(DatabaseProvider provider, stri
+         var transport = Transport(source, session, out var projectionId);
+         var arrived = Enumerable.Range(0, 3).Select(_ => NewSignal()).ToArray();
+         var release = Enumerable.Range(0, 3).Select(_ => new ManualResetEventSlim()).ToArray();
+-        using var releaseOldTail = new ManualResetEventSlim();
+-        var oldTail = NewSignal();
++        using var releaseNativeTail = new ManualResetEventSlim();
++        var nativeTail = NewSignal();
+         using var proxy = new ReadyProxy(source, provider);
+         proxy.BeforeManaged = generation =>
+         {
+             var index = checked((int)generation - 1);
+-            arrived[index].TrySetResult(); Hold(release[index], "late ready forwarding");
++            arrived[index].TrySetResult(); Hold(release[index], "worker ready forwarding");
+         };
+         proxy.AfterManaged = generation =>
+-        { if (generation == 1) { oldTail.TrySetResult(); Hold(releaseOldTail, "old native callback tail"); } };
+-        var takes = 0; var publications = 0;
++        { if (generation == 1) { nativeTail.TrySetResult(); Hold(releaseNativeTail, "native run callback tail"); } };
++        var runs = 0; var runReturns = 0; var takes = 0; var publications = 0;
+         source.TestPullBoundary = boundary =>
+         {
++            if (boundary == HostPullBoundary.BeforeRun) Interlocked.Increment(ref runs);
++            if (boundary == HostPullBoundary.RunReturned) Interlocked.Increment(ref runReturns);
+             if (boundary == HostPullBoundary.ResultTaken) Interlocked.Increment(ref takes);
+             if (boundary == HostPullBoundary.Published) Interlocked.Increment(ref publications);
+         };
+         ScopedStreamBatch? previous = null;
++        Task? worker = null;
+         try
+         {
+             for (var index = 0; index < 3; index++)
+             {
+                 var pending = transport.FetchAsync();
++                Check(scheduler.Offers == index + 1 && scheduler.Executions == index && scheduler.Queued == 1
++                    && !pending.IsCompleted && runs == index && runReturns == index,
++                    "Prepare schedules one worker before the provider can produce readiness.");
++                worker = Task.Run(scheduler.ExecuteOne);
+                 await arrived[index].Task.WaitAsync(Bound);
+                 var held = transport.PullSnapshot;
+                 Check(held.Generation == (ulong)index + 1 && held.SetupReturned && held.Accepted && !held.Ready
+-                    && held.Rooted && held.SlotReserved && !held.Published && !pending.IsCompleted,
+-                    "An accepted request retains its obligations while the real ready notification is held.");
+-                Check(scheduler.Offers == index && scheduler.Executions == index && scheduler.Queued == 0,
+-                    "A request awaiting native readiness does not prequeue an otherwise idle work item.");
++                    && held.Rooted && held.SlotReserved && held.Controls == 1 && held.CallbackEntries == 0
++                    && !held.ResultTaken && !held.Published && !pending.IsCompleted && !worker.IsCompleted,
++                    "The executing worker retains its control and ownership while the real native ready callback is held before forwarding.");
++                Check(scheduler.Offers == index + 1 && scheduler.Executions == index + 1 && scheduler.Queued == 0
++                    && runs == index + 1 && runReturns == index && takes == index && publications == index,
++                    "Provider execution and readiness remain in the one scheduled worker without a second drain offer.");
+                 release[index].Set();
+-                await Until(() => scheduler.Queued == 1, "Actual readiness did not schedule its retained request.");
+-                Check(scheduler.Offers == index + 1 && takes == index && publications == index,
+-                    "One actual ready notification offers exactly one asynchronous drain.");
+-                await Task.Run(scheduler.ExecuteOne).WaitAsync(Bound);
++                if (index == 0)
++                {
++                    await nativeTail.Task.WaitAsync(Bound);
++                    held = transport.PullSnapshot;
++                    Check(held.Ready && held.CallbackEntries == 0 && held.Controls == 1
++                        && held.Rooted && held.SlotReserved && !held.ResultTaken && !held.Published
++                        && !pending.IsCompleted && !worker.IsCompleted && !proxy.HasReturned(1)
++                        && runReturns == 0 && takes == 0 && publications == 0 && scheduler.Queued == 0,
++                        "Returning the managed ready entry cannot release the outer native run frame or expose its result while the callback tail is held.");
++                    RejectConcurrent(transport, 1);
++                    releaseNativeTail.Set();
++                }
++                await worker.WaitAsync(Bound);
+                 var batch = await pending.AsTask().WaitAsync(Bound);
+                 Check(Read(source, batch, projectionId).Id == index + 1
+                     && (previous is null || ReferenceEquals(batch, previous)),
+                     "Immediate generation reuse preserves business order and its stable batch owner.");
+                 previous = batch;
+                 Drained(transport.PullSnapshot, (ulong)index + 1);
+-                if (index == 0) await oldTail.Task.WaitAsync(Bound);
+-                if (index == 1)
+-                {
+-                    Check(!proxy.HasReturned(1), "The next generation finishes before the detached older native notification tail returns.");
+-                    releaseOldTail.Set();
+-                    await Until(() => proxy.HasReturned(1), "The old native notification tail did not return.");
+-                }
++                Check(proxy.HasReturned((ulong)index + 1) && runReturns == index + 1,
++                    "Each consumed generation proves its complete native run and forwarded callback have returned before reuse.");
+             }
+-            Check(scheduler.Offers == 3 && scheduler.Executions == 3 && takes == 3 && publications == 3 && proxy.Requests == 3,
+-                "Three deliberately late notifications perform three scheduled drains and three distinct result transfers.");
++            Check(scheduler.Offers == 3 && scheduler.Executions == 3 && runs == 3 && runReturns == 3
++                && takes == 3 && publications == 3 && proxy.Prepares == 3,
++                "Three admitted generations perform three scheduled runs and distinct result transfers after their native tails return.");
+             Console.WriteLine($"READY_SCHEDULING_COUNT provider={provider} generations=3 offers={scheduler.Offers} executions={scheduler.Executions} takes={takes} publications={publications}");
+             proxy.ThrowIfFailed();
+         }
+         finally
+         {
+             foreach (var gate in release) gate.Set();
+-            releaseOldTail.Set(); source.TestPullBoundary = null; scheduler.ReleaseAll();
++            releaseNativeTail.Set(); source.TestPullBoundary = null; scheduler.ReleaseAll();
++            if (worker is not null) await worker.WaitAsync(Bound);
+             await transport.JoinAsync().WaitAsync(Bound);
+             await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
+             foreach (var gate in release) gate.Dispose();
+@@ -211,7 +240,7 @@ private static async Task LateReadyAndNativeTail(DatabaseProvider provider, stri
+         }
+     }
+ 
+-    private static async Task RejectedReadyScheduling(DatabaseProvider provider, string connection)
++    private static async Task RejectedWorkerScheduling(DatabaseProvider provider, string connection)
+     {
+         var source = Create(provider, connection);
+         var session = await source.OpenSessionAsync();
+@@ -219,40 +248,43 @@ private static async Task RejectedReadyScheduling(DatabaseProvider provider, str
+         source.TestPullScheduler = scheduler;
+         using var cancellation = new CancellationTokenSource();
+         var transport = Transport(source, session, out var projectionId, cancellation.Token);
+-        using var releaseReady = new ManualResetEventSlim();
+-        var arrived = NewSignal();
+         using var proxy = new ReadyProxy(source, provider);
+-        proxy.BeforeManaged = _ => { arrived.TrySetResult(); Hold(releaseReady, "rejected scheduler readiness"); };
++        var runs = 0; var ready = 0;
++        source.TestPullBoundary = boundary =>
++        {
++            if (boundary == HostPullBoundary.BeforeRun) Interlocked.Increment(ref runs);
++            if (boundary == HostPullBoundary.Ready) Interlocked.Increment(ref ready);
++        };
+         try
+         {
+             var pending = transport.FetchAsync();
+-            await arrived.Task.WaitAsync(Bound);
+-            Check(scheduler.Offers == 0 && !pending.IsCompleted,
+-                "A cancelable accepted request also waits for readiness without draining its live registration early.");
+-            releaseReady.Set();
+-            await Until(() => scheduler.Offers >= 2, "The reserved coordinator slot did not retry a rejected ready offer.");
++            await Until(() => scheduler.Offers >= 2, "The reserved coordinator slot did not retry a rejected worker offer.");
+             var held = transport.PullSnapshot;
+-            Check(held.Ready && held.Accepted && held.Rooted && held.SlotReserved && !held.Published
+-                && !held.RegistrationDrained && scheduler.Executions == 0 && !pending.IsCompleted,
+-                "Rejected ready scheduling preserves the root, retry slot, registration and unconsumed native result.");
++            Check(held.SetupReturned && !held.Ready && held.Accepted && held.Rooted && held.SlotReserved
++                && !held.Published && !held.ResultTaken && held.Controls == 0 && held.CallbackEntries == 0
++                && !held.RegistrationDrained && scheduler.Executions == 0 && scheduler.Queued == 0
++                && !pending.IsCompleted && runs == 0 && ready == 0 && proxy.Prepares == 1,
++                "Rejected worker scheduling preserves the admitted unrun generation, root, retry slot and live cancellation registration.");
++            RejectConcurrent(transport, 1);
+             scheduler.Reject = false;
+-            await Until(() => scheduler.Queued == 1, "Allowing the scheduler did not make the retained ready notification runnable.");
++            await Until(() => scheduler.Queued == 1, "Allowing the scheduler did not make the retained admission runnable.");
+             await Task.Run(scheduler.ExecuteOne).WaitAsync(Bound);
+             var batch = await pending.AsTask().WaitAsync(Bound);
+-            Check(Read(source, batch, projectionId).Id == 1 && scheduler.Executions == 1,
+-                "The accepted retry drains its registration and materializes the real result exactly once.");
++            Check(Read(source, batch, projectionId).Id == 1 && scheduler.Executions == 1
++                && runs == 1 && ready == 1 && proxy.Prepares == 1 && proxy.HasReturned(1),
++                "The accepted retry executes its original admission, drains its registration and materializes the real result exactly once.");
+             Drained(transport.PullSnapshot, 1); proxy.ThrowIfFailed();
+         }
+         finally
+         {
+-            releaseReady.Set(); scheduler.Reject = false; scheduler.ReleaseAll();
++            source.TestPullBoundary = null; scheduler.Reject = false; scheduler.ReleaseAll();
+             await transport.JoinAsync().WaitAsync(Bound);
+             await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
+             CheckZero(provider); proxy.ThrowIfFailed();
+         }
+     }
+ 
+-    private static async Task CoordinatorTailAndNextGeneration(DatabaseProvider provider, string connection)
++    private static async Task HeldCompletionPostPreservesNextWorker(DatabaseProvider provider, string connection)
+     {
+         var source = Create(provider, connection);
+         var session = await source.OpenSessionAsync();
+@@ -266,12 +298,19 @@ private static async Task CoordinatorTailAndNextGeneration(DatabaseProvider prov
+         proxy.BeforeManaged = generation =>
+         { if (generation == 1) { firstReady.TrySetResult(); Hold(releaseReady, "first ready registration"); } };
+         proxy.AfterManaged = generation => { if (generation == 2) secondReady.TrySetResult(); };
++        var runs = 0; var runReturns = 0;
++        source.TestPullBoundary = boundary =>
++        {
++            if (boundary == HostPullBoundary.BeforeRun) Interlocked.Increment(ref runs);
++            if (boundary == HostPullBoundary.RunReturned) Interlocked.Increment(ref runReturns);
++        };
+         var firstConsumed = new TaskCompletionSource<ScopedStreamBatch>(TaskCreationOptions.RunContinuationsAsynchronously);
+         try
+         {
+             var pending = transport.FetchAsync();
+             await firstReady.Task.WaitAsync(Bound);
+-            Check(scheduler.Offers == 0, "The first request has no coordinator work before actual readiness.");
++            Check(scheduler.Offers == 1 && scheduler.Executions == 1 && runs == 1 && runReturns == 0,
++                "The first admitted worker is executing while its real ready notification is held.");
+             var awaiter = pending.GetAwaiter();
+             var priorContext = SynchronizationContext.Current;
+             SynchronizationContext.SetSynchronizationContext(context);
+@@ -281,7 +320,8 @@ private static async Task CoordinatorTailAndNextGeneration(DatabaseProvider prov
+                 {
+                     try
+                     {
+-                        Check(!ReadyProxy.InManagedReady, "A user continuation remains off the unmanaged ready callback stack.");
++                        Check(!ReadyProxy.InManagedReady && Volatile.Read(ref runReturns) == 1,
++                            "A user continuation remains off the unmanaged ready callback stack and follows the native run return.");
+                         firstConsumed.TrySetResult(awaiter.GetResult());
+                     }
+                     catch (Exception error) { firstConsumed.TrySetException(error); }
+@@ -295,27 +335,41 @@ private static async Task CoordinatorTailAndNextGeneration(DatabaseProvider prov
+                 "The first generation is consumed while its completion scheduler still holds the original Execute stack.");
+             Drained(transport.PullSnapshot, 1);
+             var next = transport.FetchAsync();
+-            await secondReady.Task.WaitAsync(Bound);
+             var held = transport.PullSnapshot;
+-            Check(held.Generation == 2 && held.SetupReturned && held.Accepted && held.Ready
++            Check(held.Generation == 2 && held.SetupReturned && held.Accepted && !held.Ready
+                 && held.Rooted && held.SlotReserved && !held.Published && !held.ResultTaken && !next.IsCompleted
+-                && scheduler.Offers == 1 && scheduler.Executions == 1,
+-                "New readiness remains dirty while the old Execute is held after the preceding result was published.");
++                && held.Controls == 0 && held.CallbackEntries == 0 && scheduler.Offers == 1 && scheduler.Executions == 1
++                && runs == 1 && runReturns == 1 && proxy.Prepares == 2 && !secondReady.Task.IsCompleted,
++                "The next admitted generation remains dirty but unrun and not ready while the preceding Execute is held in completion Post.");
+             context.Release.Set();
+             var second = await next.AsTask().WaitAsync(Bound);
+-            Check(Read(source, second, projectionId).Id == 2 && scheduler.Offers == 2 && scheduler.Executions == 2,
+-                "The old Execute tail preserves and reschedules the next generation's ready notification once.");
++            await secondReady.Task.WaitAsync(Bound);
++            Check(Read(source, second, projectionId).Id == 2 && scheduler.Offers == 2 && scheduler.Executions == 2
++                && runs == 2 && runReturns == 2 && proxy.HasReturned(2),
++                "The old Execute tail preserves the next admission and schedules its worker once, without losing the new dirty state.");
+             Drained(transport.PullSnapshot, 2); context.ThrowIfFailed(); proxy.ThrowIfFailed();
+         }
+         finally
+         {
+-            releaseReady.Set(); context.Release.Set();
++            releaseReady.Set(); context.Release.Set(); source.TestPullBoundary = null;
+             await transport.JoinAsync().WaitAsync(Bound);
+             await session.DisposeAsync().AsTask().WaitAsync(Bound); await source.DisposeAsync().AsTask().WaitAsync(Bound);
+             CheckZero(provider); context.ThrowIfFailed(); proxy.ThrowIfFailed();
+         }
+     }
+ 
++    private static void RejectConcurrent(HostStreamTransport transport, ulong generation)
++    {
++        try { _ = transport.FetchAsync(); }
++        catch (DatabaseException error) when (error.Kind == DatabaseErrorKind.ConcurrentUse)
++        {
++            Check(transport.PullSnapshot.Generation == generation,
++                "An outstanding worker generation rejects reentry without replacing its callback ownership or generation.");
++            return;
++        }
++        throw new InvalidOperationException("An outstanding worker generation accepted a concurrent pull.");
++    }
++
+     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
+     private static void Hold(ManualResetEventSlim release, string name)
+     { if (!release.Wait(Bound)) throw new TimeoutException("Did not release " + name); }
+@@ -409,23 +463,23 @@ private sealed unsafe class ReadyProxy : IDisposable
+         private readonly Dictionary<ulong, NativePullCallbacks> _callbacks = new();
+         private readonly HashSet<ulong> _returned = new();
+         private readonly DataSource _source;
+-        private readonly CursorPullCalls _original;
++        private readonly CursorPullExecutionCalls _original;
+         private readonly GCHandle _root;
+         private Exception? _failure;
+-        private int _requests;
++        private int _prepares;
+         internal Action<ulong>? BeforeManaged, AfterManaged;
+-        internal int Requests => Volatile.Read(ref _requests);
++        internal int Prepares => Volatile.Read(ref _prepares);
+         internal static bool InManagedReady => _inManagedReady;
+ 
+         internal ReadyProxy(DataSource source, DatabaseProvider provider)
+         {
+-            _source = source; _original = source.Binding.Pulls ?? throw new InvalidOperationException("No pull exports.");
++            _source = source; _original = source.Binding.PullExecution ?? throw new InvalidOperationException("No pull execution exports.");
+             if (Interlocked.CompareExchange(ref _active, this, null) is not null)
+                 throw new InvalidOperationException("Only one callback-forwarding fixture may run at once.");
+             _root = GCHandle.Alloc(this);
+             var engine = provider == DatabaseProvider.Sqlite ? SqliteDataSource.Engine : PostgreSqlDataSource.Engine;
+-            source.Binding.Pulls = new(symbol => symbol == "nw_db_cursor_pull_request_v1"
+-                ? (nint)(delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint>)&Request
++            source.Binding.PullExecution = new(symbol => symbol == "nw_db_cursor_pull_prepare_v1"
++                ? (nint)(delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint>)&Prepare
+                 : EngineModuleLoader.ResolveExport(engine, symbol));
+         }
+         internal bool HasReturned(ulong generation) { lock (_gate) return _returned.Contains(generation); }
+@@ -433,17 +487,17 @@ internal ReadyProxy(DataSource source, DatabaseProvider provider)
+         private void Record(Exception error) { lock (_gate) _failure ??= error; }
+ 
+         [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+-        private static uint Request(nint channel, ulong generation, uint rows, ulong bytes, NativePullCallbacks* callbacks, NwErrorInfoV1* error)
++        private static uint Prepare(nint channel, ulong generation, uint rows, ulong bytes, NativePullCallbacks* callbacks, NwErrorInfoV1* error)
+         {
+             var proxy = Volatile.Read(ref _active);
+             if (proxy is null) return NativeStatus.ContractViolation;
+             try
+             {
+                 lock (proxy._gate) proxy._callbacks.Add(generation, *callbacks);
+-                Interlocked.Increment(ref proxy._requests);
++                Interlocked.Increment(ref proxy._prepares);
+                 var forwarding = *callbacks;
+                 forwarding.Context = GCHandle.ToIntPtr(proxy._root); forwarding.Ready = &Ready;
+-                return proxy._original.Request(channel, generation, rows, bytes, &forwarding, error);
++                return proxy._original.Prepare(channel, generation, rows, bytes, &forwarding, error);
+             }
+             catch (Exception failure) { proxy.Record(failure); return NativeStatus.ContractViolation; }
+         }
+@@ -465,7 +519,7 @@ private static void Ready(nint context, ulong generation)
+ 
+         public void Dispose()
+         {
+-            _source.Binding.Pulls = _original;
++            _source.Binding.PullExecution = _original;
+             lock (_gate) Check(_callbacks.Count == 0, "The forwarding fixture is released only after every real native callback returns.");
+             _root.Free();
+             Interlocked.CompareExchange(ref _active, null, this);
+diff --git a/tests/Data.NativeHost/WorkerExecutionTests.cs b/tests/Data.NativeHost/WorkerExecutionTests.cs
+new file mode 100644
+index 0000000..0df7659
+--- /dev/null
++++ b/tests/Data.NativeHost/WorkerExecutionTests.cs
+@@ -0,0 +1,183 @@
++using System.Runtime.CompilerServices;
++using Korda.Data;
++using Korda.Database;
++using Korda.Database.Internal;
++using Korda.Database.PostgreSql;
++using Korda.Database.Sqlite;
++using Korda.Interop;
++using Korda.Interop.Callbacks;
++
++// Real provider tests for an accepted prepare whose executor has not run yet.
++// Rejection is the existing coordinator's retry condition, not query failure.
++internal static class WorkerExecutionTests
++{
++    private static readonly TimeSpan Bound = TimeSpan.FromSeconds(10);
++    private static readonly Projection<Item> Projection = Projection<Item>.Create(
++        [ResultField.Create("id", Codecs.Int64)], row => new(row.Read(0, Codecs.Int64)));
++    private static int _checks;
++
++    internal static async Task RunIfRequested()
++    {
++        if (RuntimeFeature.IsDynamicCodeSupported) throw new InvalidOperationException("A real Native AOT executable is required.");
++        var postgres = Environment.GetEnvironmentVariable("NW_TEST_POSTGRES")
++            ?? throw new InvalidOperationException("Set NW_TEST_POSTGRES to an isolated real PostgreSQL cluster.");
++        var directory = Path.Combine(Path.GetTempPath(), "korda-worker-execution-" + Guid.NewGuid().ToString("N"));
++        Directory.CreateDirectory(directory);
++        try
++        {
++            await Run(DatabaseProvider.Sqlite, Path.Combine(directory, "worker.db"));
++            await Run(DatabaseProvider.PostgreSql, postgres);
++        }
++        finally { Directory.Delete(directory, true); }
++    }
++
++    internal static async Task Run(DatabaseProvider provider, string connection)
++    {
++        var before = _checks;
++        await UnrunSettlement(provider, connection, closeSource: false);
++        await UnrunSettlement(provider, connection, closeSource: true);
++        await ExecutionFailure(provider, connection, HostPullBoundary.BeforeRun);
++        await ExecutionFailure(provider, connection, HostPullBoundary.RunReturned);
++        Console.WriteLine($"WORKER_EXECUTION_PASS provider={provider} scenarios=4 assertions={_checks - before}; accepted unrun cancellation/close and execution-frame failures");
++    }
++
++    private static DataSource Create(DatabaseProvider provider, string connection)
++    {
++        var builder = new DataSourceBuilder().ConfigureLimits(new DatabaseLimits { MaxConnections = 1, MaxBatchRows = 1 });
++        if (provider == DatabaseProvider.Sqlite) builder.UseSqlite(connection);
++        else builder.UsePostgreSql(connection, options => options.TlsMode = PostgreSqlTlsMode.DisableForLocalDevelopment);
++        return builder.Build();
++    }
++
++    private static HostStreamTransport Transport(DataSource source, DataSession session, CancellationToken token)
++    {
++        using var plan = SqlSubmission.Create(session, SqlCommand.Create("SELECT CAST(7 AS BIGINT) AS id"),
++            1, source.RegisterProjection(Projection));
++        return new(source, NativeHost.CreatePull(session, plan, ReadOnlyMemory<byte>.Empty), 1, token);
++    }
++
++    private static async Task UnrunSettlement(DatabaseProvider provider, string connection, bool closeSource)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var scheduler = new RejectingScheduler();
++        source.TestPullScheduler = scheduler;
++        using var cancellation = new CancellationTokenSource();
++        var transport = Transport(source, session, cancellation.Token);
++        var sqlBefore = Diagnostic(provider, 6);
++        try
++        {
++            var pending = transport.FetchAsync();
++            await Until(() => scheduler.Offers >= 2, "The admitted request did not retain its rejected scheduling offer.");
++            var state = transport.PullSnapshot;
++            Check(state.Accepted && state.SetupReturned && !state.Ready && state.Rooted && state.SlotReserved
++                && !pending.IsCompleted && Diagnostic(provider, 6) == sqlBefore,
++                "Prepare returns an accepted asynchronous obligation without executing SQL on the initiating thread.");
++
++            if (closeSource)
++            {
++                await source.DisposeAsync().AsTask().WaitAsync(Bound);
++                Check(source.Cleanup.LocalResourcesReleased,
++                    "Source join settles never-run native work even while its managed scheduler rejects every offer.");
++            }
++            else await cancellation.CancelAsync().WaitAsync(Bound);
++
++            await Until(() => transport.PullSnapshot.Ready, "Close/cancel did not independently settle the native prepared generation.");
++            state = transport.PullSnapshot;
++            Check(!pending.IsCompleted && state.Accepted && state.Ready && state.Rooted && state.SlotReserved
++                && !state.Published && Diagnostic(provider, 6) == sqlBefore,
++                "Native settlement retains the managed callback root and retry reservation until its scheduled drain.");
++            scheduler.Reject = false;
++            Exception? observed = null;
++            try { using var unexpected = await pending.AsTask().WaitAsync(Bound); }
++            catch (Exception error) when (error is not TimeoutException) { observed = error; }
++            Check(observed is not null, "A never-run canceled/closed generation cannot publish a business result.");
++            if (!closeSource) Check(observed is OperationCanceledException,
++                "Pre-run cancellation retains the original cancellation outcome.");
++            Drained(transport.PullSnapshot);
++            Check(Diagnostic(provider, 6) == sqlBefore, "A late one-time execution claim after settlement performs no SQL.");
++            await transport.JoinAsync().WaitAsync(Bound);
++            if (!closeSource)
++            {
++                source.TestPullScheduler = null;
++                Check(await session.ScalarAsync(SqlCommand.Create("SELECT CAST(9 AS BIGINT)"), Codecs.Int64) == 9,
++                    "The same real session remains usable after pre-run cancellation.");
++            }
++        }
++        finally
++        {
++            scheduler.Reject = false; source.TestPullScheduler = null;
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound);
++            await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            await Until(() => Zero(provider), "Unrun settlement leaked a native owner.");
++        }
++    }
++
++    private static async Task ExecutionFailure(DatabaseProvider provider, string connection, HostPullBoundary boundary)
++    {
++        var source = Create(provider, connection);
++        var session = await source.OpenSessionAsync();
++        var transport = Transport(source, session, default);
++        var original = new ExecutionObserverFailure();
++        var sqlBefore = Diagnostic(provider, 6);
++        source.TestPullBoundary = value => { if (value == boundary) throw original; };
++        try
++        {
++            Exception? observed = null;
++            try { using var unexpected = await transport.FetchAsync().AsTask().WaitAsync(Bound); }
++            catch (Exception error) when (error is not TimeoutException) { observed = error; }
++            Check(ReferenceEquals(original, observed), "Execution-frame compensation preserves the original managed failure identity.");
++            Drained(transport.PullSnapshot);
++            Check(Diagnostic(provider, 6) == sqlBefore + (boundary == HostPullBoundary.BeforeRun ? 0UL : 1UL),
++                "A failed execution observer neither loses admitted work nor repeats SQL.");
++            var retirement = await transport.JoinAsync().WaitAsync(Bound);
++            Check(retirement.NativeRetired, "A failed execution frame completes cold retirement before releasing owners.");
++        }
++        finally
++        {
++            source.TestPullBoundary = null;
++            await transport.JoinAsync().WaitAsync(Bound);
++            await session.DisposeAsync().AsTask().WaitAsync(Bound);
++            await source.DisposeAsync().AsTask().WaitAsync(Bound);
++            await Until(() => Zero(provider), "Execution-frame compensation leaked a native owner.");
++        }
++    }
++
++    private static void Drained(HostPullSnapshot state) => Check(state.SetupReturned && state.Published && state.Consumed
++        && !state.Active && !state.Rooted && !state.SlotReserved && state.RegistrationDrained
++        && state.Controls == 0 && state.CallbackEntries == 0,
++        "Completion drains registration, native controls, callback entries, root and coordinator reservation exactly once.");
++
++    private static unsafe ulong Diagnostic(DatabaseProvider provider, uint index)
++    {
++        var engine = provider == DatabaseProvider.Sqlite ? SqliteDataSource.Engine : PostgreSqlDataSource.Engine;
++        var count = (delegate* unmanaged[Cdecl]<uint, ulong>)EngineModuleLoader.ResolveExport(engine, "nw_db_diagnostic_count_v1");
++        return count(index);
++    }
++    private static bool Zero(DatabaseProvider provider) => new uint[] { 0, 1, 2, 3, 4, 5, 8, 9 }.All(index => Diagnostic(provider, index) == 0);
++    private static async Task Until(Func<bool> condition, string failure)
++    {
++        var until = DateTime.UtcNow + Bound;
++        while (!condition())
++        {
++            if (DateTime.UtcNow >= until) throw new TimeoutException(failure);
++            await Task.Delay(10);
++        }
++    }
++    private static void Check(bool condition, string message)
++    { _checks++; if (!condition) throw new InvalidOperationException(message); }
++    private sealed record Item(long Id);
++    private sealed class ExecutionObserverFailure : Exception;
++    private sealed class RejectingScheduler : ICallbackScheduler
++    {
++        private int _offers;
++        internal int Offers => Volatile.Read(ref _offers);
++        internal volatile bool Reject = true;
++        public bool TryQueue(IThreadPoolWorkItem item)
++        {
++            Interlocked.Increment(ref _offers);
++            return !Reject && ThreadPool.UnsafeQueueUserWorkItem(item, preferLocal: false);
++        }
++    }
++}
+diff --git a/tests/Data.NativeHost/package_probe.py b/tests/Data.NativeHost/package_probe.py
+index 1dc4a5f..6c3f022 100644
+--- a/tests/Data.NativeHost/package_probe.py
++++ b/tests/Data.NativeHost/package_probe.py
+@@ -65,7 +65,7 @@ registry = {
+     'Korda.Database.PostgreSql': ('src/Data.Postgres', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+     'Korda.Database.DependencyInjection': ('src/Data.NativeHost/DependencyInjection', ['Korda.Database']),
+ }
+-capabilities = ['db.metadata.v1','db.query.v1','db.transactions.v1','db.savepoints.v1','db.streaming.v1','db.migrations.v1','db.schema.read.v1','db.returning.v1','db.upsert.v1','db.cte.v1','db.window.v1','db.row-lock.v1','db.null-safe-equality.v1','db.json.v1','db.decimal.numeric.v1','db.decimal.text.v1','db.fixed-money.v1','db.relationships.explicit.v1','db.prepared-shape.v1','db.bulk-batches.v1','db.dynamic-fields.v1','db.recursive-cte.v1','db.set-operations.v1','db.scalar-codecs.v1','db.sql.expert.v1','db.schema.draft.v1','db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1']
++capabilities = ['db.metadata.v1','db.query.v1','db.transactions.v1','db.savepoints.v1','db.streaming.v1','db.migrations.v1','db.schema.read.v1','db.returning.v1','db.upsert.v1','db.cte.v1','db.window.v1','db.row-lock.v1','db.null-safe-equality.v1','db.json.v1','db.decimal.numeric.v1','db.decimal.text.v1','db.fixed-money.v1','db.relationships.explicit.v1','db.prepared-shape.v1','db.bulk-batches.v1','db.dynamic-fields.v1','db.recursive-cte.v1','db.set-operations.v1','db.scalar-codecs.v1','db.sql.expert.v1','db.schema.draft.v1','db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1', 'db.cursor.pull.execution.v1']
+ provider = {
+     'Korda.Database.Sqlite': ('database.sqlite', args.sqlite.resolve(), 'libnw_database_sqlite.so'),
+     'Korda.Database.PostgreSql': ('database.postgresql', args.postgresql.resolve(), 'libnw_database_postgresql.so'),
+diff --git a/tests/ProviderProfileChecks.cs b/tests/ProviderProfileChecks.cs
+index 9cd22a9..efd3614 100644
+--- a/tests/ProviderProfileChecks.cs
++++ b/tests/ProviderProfileChecks.cs
+@@ -14,7 +14,7 @@ internal static class ProviderProfileChecks
+         "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1",
+         "db.window.v1", "db.null-safe-equality.v1", "db.json.v1", "db.fixed-money.v1",
+         "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1",
+-        "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1"
++        "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1"
+     ];
+ 
+     internal static int Component(string provider, string? asset)
+diff --git a/tests/Query.Binding/generate.py b/tests/Query.Binding/generate.py
+index 454681a..14cea9a 100644
+--- a/tests/Query.Binding/generate.py
++++ b/tests/Query.Binding/generate.py
+@@ -60,4 +60,10 @@ find_declarations=re.findall(r'\bnw_status\s+NW_CDECL\s+nw_db_find_\w+_v1\([^;]+
+ find_declarations=[re.sub(r'\s+', ' ', value) for value in find_declarations]
+ assert find_declarations==find_shape['signatures'],'Additive Find shape signatures differ from the reviewed extension'
+ assert len(find_declarations)==1 and not set(find_declarations).intersection(data['signatures'])
+-print(f'PASS exact frozen signatures={len(data["signatures"])}; outputs={len(outputs)}; additive query command signatures={len(declarations)}; additive batch signatures={len(batch_declarations)}; additive completion signatures={len(completion_declarations)}; additive Find shape signatures={len(find_declarations)}')
++execution=json.loads((ROOT/'native/database/binding/cursor-pull-execution-v1.json').read_text())
++assert execution['version']==1 and execution['capability']=='db.cursor.pull.execution.v1' and execution['capability_bit']==30
++execution_declarations=re.findall(r'\bnw_status\s+NW_CDECL\s+nw_db_cursor_pull_(?:prepare|run|abandon)_v1\([^;]+;', (ROOT/execution['header']).read_text())
++execution_declarations=[re.sub(r'\s+', ' ', value) for value in execution_declarations]
++assert execution_declarations==execution['signatures'],'Additive cursor execution signatures differ from the reviewed extension'
++assert len(execution_declarations)==3 and not set(execution_declarations).intersection(data['signatures'])
++print(f'PASS exact frozen signatures={len(data["signatures"])}; outputs={len(outputs)}; additive query command signatures={len(declarations)}; additive batch signatures={len(batch_declarations)}; additive completion signatures={len(completion_declarations)}; additive Find shape signatures={len(find_declarations)}; additive cursor execution signatures={len(execution_declarations)}')
