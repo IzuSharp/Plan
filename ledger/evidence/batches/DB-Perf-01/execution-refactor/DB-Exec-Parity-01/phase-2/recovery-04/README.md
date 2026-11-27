@@ -2,9 +2,11 @@
 
 **Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
 
-**Latest authoritative continuation:** [Continuation07](continuation-07.md) records completed tail06 contract/negative-control checks and ordinary package consumers, the pending diagnostic mechanism/A/B, and the fully analyzed pressure05 evidence. [Continuation06](continuation-06.md) and the sections below preserve earlier snapshots. Final mixed35 campaign remains **0/4**.
+**Latest authoritative continuation:** [Continuation09](continuation-09.md) closes tail06's mechanism, 114-process ordinary screen and final 12-cell short mixed gate. Tail06 is rejected for dual-provider integration; integrated05 remains the product baseline. [Pull-local07](pull-local-07-hypothesis.md) records the next single-variable short experiment before Design/product changes. Complete selected closed metrics are in `tail06-closed-09`; supplement04 publication remains separately tracked.
 
-**Stage 1 is complete. Four measured candidates are integrated and their existing PR CI passed; combined performance acceptance is pending. Final mixed35 campaign: 0/4.** This checkpoint continues [the Recovery 03 ordinary screen](../recovery-03/ordinary-screen-03/README.md), without restarting completed measurements. It records the actual recovered state, including incomplete investigations and remote archive publication.
+## Historical Recovery04 snapshot
+
+The earlier snapshot below remains evidence of that recovery point. Its four-candidate state, pending investigations, archive progress and 0/4 long obligations are superseded by Continuation09 and Scope08. Do not rerun completed work or start a long measurement from this text.
 
 ## Exact current identities
 

@@ -1,6 +1,6 @@
 # DB-Exec-Parity-01 — measured execution-path reconstruction
 
-Status: **Stage1 is complete; measured short-test optimization continues. The owner has cancelled all long measurements in this round.** Read [Scope08](phase-2/recovery-04/short-only-scope-08.md) before resuming [Recovery04](phase-2/recovery-04/README.md). No long cell had started; the old0/4 is a cancelled plan, not a pending gate. Independent review, existing CI and authorized delivery verification remain in scope; no parity claim is made.
+Status: **Stage1 is complete; measured short-test optimization continues. The owner has cancelled all long measurements in this round.** Read [Continuation09](phase-2/recovery-04/continuation-09.md) for the closed tail06 decision and next isolated short experiment; [Scope08](phase-2/recovery-04/short-only-scope-08.md) governs the cancelled long scope. No long cell had started; the old0/4 is a cancelled plan, not a pending gate. Independent review, existing CI and authorized delivery verification remain in scope; no parity claim is made.
 
 Read the [combined measured stage table](phase-1/phase-1-measured-gate.md) first. It binds the ordinary four-route phase costs, actual engine/protocol/copy counts, per-thread timeline, sampling and allocation scopes to correctness contracts and the next candidate. The [independent common-candidate review](phase-1/common-candidate-review-01.md) preserves the rejected inline-completion counterexample and specifies the safe publication boundary required for the new experiment.
 

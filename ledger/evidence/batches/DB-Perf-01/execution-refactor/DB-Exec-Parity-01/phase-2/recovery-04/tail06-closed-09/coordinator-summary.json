@@ -1,0 +1,4335 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "scope": "Read-only decomposition of four completed intrusive diagnostics",
+  "scriptSha256": "41f74b2ab3686c7489e1a5b30fe2655376138832402ec4377a239934c81c7a9d",
+  "frozenParserSha256": "444b28f9e984aee3dbd9a80076becf10856244827ffa59faec69a98b9fcc6057",
+  "ordinaryTimingCredit": false,
+  "workloadExecuted": false,
+  "newCandidateSelected": false,
+  "timingScope": "Intrusive event intervals include logging and scheduling. Entry/exit bracket scheduler API; actual enqueue time and exclusive queue/OS waits remain unknown.",
+  "threadScope": "Both managed/native TIDs must match for sameThread. Observed execute role is not a runtime TLS-local-queue field probe.",
+  "cells": {
+    "sqlite-before": {
+      "validationSha256": "33477c065a06cf19f8db1cd21e922b868fecf25a2efe80d48a6ab7a7d0bc5246",
+      "traceSha256": "f26d6b60f39b59f399482630cab5d85d0a5ce7aa3bb5899977a314bee4397422",
+      "requestsSha256": "0d88e1934588040e12e89dbc31ee89e6667994d3607e9ad3da44f860f1f5d4a2",
+      "offersFile": "sqlite-before.offers.json",
+      "offersSha256": "f4f90c2d37fe8236e233ddeaf864aea2d1dfc268054d1e1453fe438d69fd206b",
+      "total": {
+        "offers": 528,
+        "crossThread": 440,
+        "sameThread": 88,
+        "crossThreadFraction": 0.8333333333333334,
+        "sendersObservedExecutingInThisProcess": 528,
+        "sendersHadAlreadyExecuted": 528,
+        "executeEnteredBeforeOfferReturned": 283,
+        "offerEnterToExecuteEntryNs": {
+          "count": 528,
+          "min": 1452.0,
+          "p50NearestRank": 3629.0,
+          "p95NearestRank": 20812.0,
+          "p99NearestRank": 35903.0,
+          "max": 254640.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 528,
+          "min": -93188.0,
+          "p50NearestRank": -2809.0,
+          "p95NearestRank": 11300.0,
+          "p99NearestRank": 14850.0,
+          "max": 147476.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 528,
+          "min": 827.0,
+          "p50NearestRank": 7027.0,
+          "p95NearestRank": 13094.0,
+          "p99NearestRank": 60779.0,
+          "max": 246299.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 528,
+          "min": 834,
+          "p50NearestRank": 7097,
+          "p95NearestRank": 13063,
+          "p99NearestRank": 61022,
+          "max": 246801
+        },
+        "threadTransitions": {
+          "[7, 36] -> [5, 34]": 48,
+          "[5, 34] -> [3, 33]": 75,
+          "[3, 33] -> [5, 34]": 75,
+          "[7, 36] -> [7, 36]": 26,
+          "[7, 36] -> [3, 33]": 64,
+          "[3, 33] -> [7, 36]": 74,
+          "[5, 34] -> [7, 36]": 47,
+          "[3, 33] -> [3, 33]": 41,
+          "[5, 34] -> [5, 34]": 19,
+          "[3, 33] -> [11, 37]": 17,
+          "[11, 37] -> [3, 33]": 20,
+          "[11, 37] -> [11, 37]": 2,
+          "[11, 37] -> [7, 36]": 10,
+          "[7, 36] -> [11, 37]": 3,
+          "[11, 37] -> [5, 34]": 6,
+          "[5, 34] -> [11, 37]": 1
+        }
+      },
+      "nativeRunExecutions": {
+        "offers": 512,
+        "crossThread": 424,
+        "sameThread": 88,
+        "crossThreadFraction": 0.828125,
+        "sendersObservedExecutingInThisProcess": 512,
+        "sendersHadAlreadyExecuted": 512,
+        "executeEnteredBeforeOfferReturned": 275,
+        "offerEnterToExecuteEntryNs": {
+          "count": 512,
+          "min": 1452.0,
+          "p50NearestRank": 3582.0,
+          "p95NearestRank": 21416.0,
+          "p99NearestRank": 35903.0,
+          "max": 254640.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 512,
+          "min": -93188.0,
+          "p50NearestRank": -2809.0,
+          "p95NearestRank": 11316.0,
+          "p99NearestRank": 14850.0,
+          "max": 147476.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 512,
+          "min": 827.0,
+          "p50NearestRank": 7015.0,
+          "p95NearestRank": 12881.0,
+          "p99NearestRank": 60779.0,
+          "max": 246299.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 512,
+          "min": 834,
+          "p50NearestRank": 7094,
+          "p95NearestRank": 12971,
+          "p99NearestRank": 61022,
+          "max": 246801
+        },
+        "threadTransitions": {
+          "[7, 36] -> [5, 34]": 48,
+          "[5, 34] -> [3, 33]": 74,
+          "[3, 33] -> [5, 34]": 73,
+          "[7, 36] -> [7, 36]": 26,
+          "[7, 36] -> [3, 33]": 61,
+          "[3, 33] -> [7, 36]": 71,
+          "[5, 34] -> [7, 36]": 44,
+          "[3, 33] -> [3, 33]": 41,
+          "[5, 34] -> [5, 34]": 19,
+          "[3, 33] -> [11, 37]": 15,
+          "[11, 37] -> [3, 33]": 19,
+          "[11, 37] -> [11, 37]": 2,
+          "[11, 37] -> [7, 36]": 9,
+          "[7, 36] -> [11, 37]": 3,
+          "[11, 37] -> [5, 34]": 6,
+          "[5, 34] -> [11, 37]": 1
+        }
+      },
+      "noNativeRunExecutions": {
+        "offers": 16,
+        "crossThread": 16,
+        "sameThread": 0,
+        "crossThreadFraction": 1.0,
+        "sendersObservedExecutingInThisProcess": 16,
+        "sendersHadAlreadyExecuted": 16,
+        "executeEnteredBeforeOfferReturned": 8,
+        "offerEnterToExecuteEntryNs": {
+          "count": 16,
+          "min": 2202.0,
+          "p50NearestRank": 4679.0,
+          "p95NearestRank": 17478.0,
+          "p99NearestRank": 17478.0,
+          "max": 17478.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 16,
+          "min": -8950.0,
+          "p50NearestRank": -4118.0,
+          "p95NearestRank": 9347.0,
+          "p99NearestRank": 9347.0,
+          "max": 9347.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 16,
+          "min": 1547.0,
+          "p50NearestRank": 8453.0,
+          "p95NearestRank": 16765.0,
+          "p99NearestRank": 16765.0,
+          "max": 16765.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 16,
+          "min": 1442,
+          "p50NearestRank": 8401,
+          "p95NearestRank": 16828,
+          "p99NearestRank": 16828,
+          "max": 16828
+        },
+        "threadTransitions": {
+          "[3, 33] -> [7, 36]": 3,
+          "[7, 36] -> [3, 33]": 3,
+          "[5, 34] -> [7, 36]": 3,
+          "[5, 34] -> [3, 33]": 1,
+          "[3, 33] -> [5, 34]": 2,
+          "[3, 33] -> [11, 37]": 2,
+          "[11, 37] -> [7, 36]": 1,
+          "[11, 37] -> [3, 33]": 1
+        }
+      },
+      "sameThread": {
+        "offers": 88,
+        "crossThread": 0,
+        "sameThread": 88,
+        "crossThreadFraction": 0.0,
+        "sendersObservedExecutingInThisProcess": 88,
+        "sendersHadAlreadyExecuted": 88,
+        "executeEnteredBeforeOfferReturned": 0,
+        "offerEnterToExecuteEntryNs": {
+          "count": 88,
+          "min": 4406.0,
+          "p50NearestRank": 11503.0,
+          "p95NearestRank": 20146.0,
+          "p99NearestRank": 254640.0,
+          "max": 254640.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 88,
+          "min": 2487.0,
+          "p50NearestRank": 4885.0,
+          "p95NearestRank": 8327.0,
+          "p99NearestRank": 10661.0,
+          "max": 10661.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 88,
+          "min": 827.0,
+          "p50NearestRank": 7015.0,
+          "p95NearestRank": 13588.0,
+          "p99NearestRank": 246299.0,
+          "max": 246299.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 88,
+          "min": 834,
+          "p50NearestRank": 7090,
+          "p95NearestRank": 13683,
+          "p99NearestRank": 246801,
+          "max": 246801
+        },
+        "threadTransitions": {
+          "[7, 36] -> [7, 36]": 26,
+          "[3, 33] -> [3, 33]": 41,
+          "[5, 34] -> [5, 34]": 19,
+          "[11, 37] -> [11, 37]": 2
+        }
+      },
+      "crossThread": {
+        "offers": 440,
+        "crossThread": 440,
+        "sameThread": 0,
+        "crossThreadFraction": 1.0,
+        "sendersObservedExecutingInThisProcess": 440,
+        "sendersHadAlreadyExecuted": 440,
+        "executeEnteredBeforeOfferReturned": 283,
+        "offerEnterToExecuteEntryNs": {
+          "count": 440,
+          "min": 1452.0,
+          "p50NearestRank": 3214.0,
+          "p95NearestRank": 21612.0,
+          "p99NearestRank": 35903.0,
+          "max": 148645.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 440,
+          "min": -93188.0,
+          "p50NearestRank": -3564.0,
+          "p95NearestRank": 11739.0,
+          "p99NearestRank": 16906.0,
+          "max": 147476.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 440,
+          "min": 946.0,
+          "p50NearestRank": 7027.0,
+          "p95NearestRank": 12795.0,
+          "p99NearestRank": 60779.0,
+          "max": 128590.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 440,
+          "min": 943,
+          "p50NearestRank": 7097,
+          "p95NearestRank": 12886,
+          "p99NearestRank": 61022,
+          "max": 129612
+        },
+        "threadTransitions": {
+          "[7, 36] -> [5, 34]": 48,
+          "[5, 34] -> [3, 33]": 75,
+          "[3, 33] -> [5, 34]": 75,
+          "[7, 36] -> [3, 33]": 64,
+          "[3, 33] -> [7, 36]": 74,
+          "[5, 34] -> [7, 36]": 47,
+          "[3, 33] -> [11, 37]": 17,
+          "[11, 37] -> [3, 33]": 20,
+          "[11, 37] -> [7, 36]": 10,
+          "[7, 36] -> [11, 37]": 3,
+          "[11, 37] -> [5, 34]": 6,
+          "[5, 34] -> [11, 37]": 1
+        }
+      },
+      "businesses": {
+        "17": {
+          "offers": 33,
+          "crossThread": 32,
+          "sameThread": 1,
+          "crossThreadFraction": 0.9696969696969697,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 19,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1565.0,
+            "p50NearestRank": 2949.0,
+            "p95NearestRank": 18056.0,
+            "p99NearestRank": 24456.0,
+            "max": 24456.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -29724.0,
+            "p50NearestRank": -3713.0,
+            "p95NearestRank": 11106.0,
+            "p99NearestRank": 16906.0,
+            "max": 16906.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1035.0,
+            "p50NearestRank": 6864.0,
+            "p95NearestRank": 7742.0,
+            "p99NearestRank": 31335.0,
+            "max": 31335.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1045,
+            "p50NearestRank": 6913,
+            "p95NearestRank": 7872,
+            "p99NearestRank": 31426,
+            "max": 31426
+          },
+          "threadTransitions": {
+            "[7, 36] -> [5, 34]": 2,
+            "[5, 34] -> [3, 33]": 11,
+            "[3, 33] -> [5, 34]": 6,
+            "[7, 36] -> [7, 36]": 1,
+            "[7, 36] -> [3, 33]": 4,
+            "[3, 33] -> [7, 36]": 5,
+            "[5, 34] -> [7, 36]": 4
+          }
+        },
+        "19": {
+          "offers": 33,
+          "crossThread": 25,
+          "sameThread": 8,
+          "crossThreadFraction": 0.7575757575757576,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 15,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1850.0,
+            "p50NearestRank": 3205.0,
+            "p95NearestRank": 30903.0,
+            "p99NearestRank": 254640.0,
+            "max": 254640.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8422.0,
+            "p50NearestRank": 1295.0,
+            "p95NearestRank": 10947.0,
+            "p99NearestRank": 14592.0,
+            "max": 14592.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 948.0,
+            "p50NearestRank": 6950.0,
+            "p95NearestRank": 22070.0,
+            "p99NearestRank": 246299.0,
+            "max": 246299.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 945,
+            "p50NearestRank": 7027,
+            "p95NearestRank": 22167,
+            "p99NearestRank": 246801,
+            "max": 246801
+          },
+          "threadTransitions": {
+            "[7, 36] -> [3, 33]": 10,
+            "[3, 33] -> [3, 33]": 5,
+            "[7, 36] -> [7, 36]": 3,
+            "[3, 33] -> [7, 36]": 5,
+            "[7, 36] -> [5, 34]": 2,
+            "[5, 34] -> [3, 33]": 2,
+            "[3, 33] -> [5, 34]": 6
+          }
+        },
+        "21": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 18,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1613.0,
+            "p50NearestRank": 3565.0,
+            "p95NearestRank": 22044.0,
+            "p99NearestRank": 35402.0,
+            "max": 35402.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -93188.0,
+            "p50NearestRank": -3184.0,
+            "p95NearestRank": 12992.0,
+            "p99NearestRank": 14204.0,
+            "max": 14204.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 946.0,
+            "p50NearestRank": 6983.0,
+            "p95NearestRank": 12237.0,
+            "p99NearestRank": 128590.0,
+            "max": 128590.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 943,
+            "p50NearestRank": 7057,
+            "p95NearestRank": 12489,
+            "p99NearestRank": 129612,
+            "max": 129612
+          },
+          "threadTransitions": {
+            "[3, 33] -> [3, 33]": 2,
+            "[7, 36] -> [3, 33]": 6,
+            "[3, 33] -> [7, 36]": 9,
+            "[5, 34] -> [3, 33]": 1,
+            "[3, 33] -> [5, 34]": 1,
+            "[5, 34] -> [7, 36]": 5,
+            "[7, 36] -> [5, 34]": 7,
+            "[7, 36] -> [7, 36]": 1,
+            "[5, 34] -> [5, 34]": 1
+          }
+        },
+        "23": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 19,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1610.0,
+            "p50NearestRank": 3389.0,
+            "p95NearestRank": 19695.0,
+            "p99NearestRank": 24142.0,
+            "max": 24142.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8118.0,
+            "p50NearestRank": -3535.0,
+            "p95NearestRank": 11347.0,
+            "p99NearestRank": 12905.0,
+            "max": 12905.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1021.0,
+            "p50NearestRank": 6999.0,
+            "p95NearestRank": 13127.0,
+            "p99NearestRank": 17208.0,
+            "max": 17208.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1027,
+            "p50NearestRank": 7075,
+            "p95NearestRank": 13209,
+            "p99NearestRank": 17283,
+            "max": 17283
+          },
+          "threadTransitions": {
+            "[7, 36] -> [5, 34]": 5,
+            "[5, 34] -> [7, 36]": 1,
+            "[5, 34] -> [3, 33]": 18,
+            "[3, 33] -> [5, 34]": 3,
+            "[3, 33] -> [3, 33]": 3,
+            "[5, 34] -> [5, 34]": 2,
+            "[7, 36] -> [3, 33]": 1
+          }
+        },
+        "25": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 20,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1731.0,
+            "p50NearestRank": 3419.0,
+            "p95NearestRank": 19508.0,
+            "p99NearestRank": 36567.0,
+            "max": 36567.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8528.0,
+            "p50NearestRank": -2932.0,
+            "p95NearestRank": 11200.0,
+            "p99NearestRank": 25561.0,
+            "max": 25561.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1006.0,
+            "p50NearestRank": 6940.0,
+            "p95NearestRank": 12363.0,
+            "p99NearestRank": 15105.0,
+            "max": 15105.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1010,
+            "p50NearestRank": 7014,
+            "p95NearestRank": 12426,
+            "p99NearestRank": 15194,
+            "max": 15194
+          },
+          "threadTransitions": {
+            "[3, 33] -> [5, 34]": 3,
+            "[5, 34] -> [3, 33]": 4,
+            "[5, 34] -> [5, 34]": 2,
+            "[3, 33] -> [3, 33]": 2,
+            "[3, 33] -> [7, 36]": 7,
+            "[7, 36] -> [3, 33]": 8,
+            "[5, 34] -> [7, 36]": 6,
+            "[7, 36] -> [7, 36]": 1
+          }
+        },
+        "27": {
+          "offers": 33,
+          "crossThread": 27,
+          "sameThread": 6,
+          "crossThreadFraction": 0.8181818181818182,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 18,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1565.0,
+            "p50NearestRank": 3683.0,
+            "p95NearestRank": 12647.0,
+            "p99NearestRank": 26007.0,
+            "max": 26007.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -34350.0,
+            "p50NearestRank": -3183.0,
+            "p95NearestRank": 10061.0,
+            "p99NearestRank": 10465.0,
+            "max": 10465.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1024.0,
+            "p50NearestRank": 6952.0,
+            "p95NearestRank": 16765.0,
+            "p99NearestRank": 36927.0,
+            "max": 36927.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1025,
+            "p50NearestRank": 7035,
+            "p95NearestRank": 16828,
+            "p99NearestRank": 37028,
+            "max": 37028
+          },
+          "threadTransitions": {
+            "[5, 34] -> [7, 36]": 2,
+            "[7, 36] -> [5, 34]": 4,
+            "[3, 33] -> [5, 34]": 11,
+            "[5, 34] -> [3, 33]": 5,
+            "[3, 33] -> [3, 33]": 3,
+            "[7, 36] -> [7, 36]": 3,
+            "[3, 33] -> [7, 36]": 2,
+            "[7, 36] -> [3, 33]": 3
+          }
+        },
+        "29": {
+          "offers": 33,
+          "crossThread": 27,
+          "sameThread": 6,
+          "crossThreadFraction": 0.8181818181818182,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 13,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1496.0,
+            "p50NearestRank": 4229.0,
+            "p95NearestRank": 34577.0,
+            "p99NearestRank": 62639.0,
+            "max": 62639.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -42100.0,
+            "p50NearestRank": 1350.0,
+            "p95NearestRank": 13818.0,
+            "p99NearestRank": 18171.0,
+            "max": 18171.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1006.0,
+            "p50NearestRank": 7051.0,
+            "p95NearestRank": 23568.0,
+            "p99NearestRank": 104739.0,
+            "max": 104739.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1018,
+            "p50NearestRank": 7118,
+            "p95NearestRank": 23674,
+            "p99NearestRank": 105167,
+            "max": 105167
+          },
+          "threadTransitions": {
+            "[3, 33] -> [5, 34]": 5,
+            "[5, 34] -> [3, 33]": 8,
+            "[3, 33] -> [7, 36]": 6,
+            "[3, 33] -> [3, 33]": 6,
+            "[7, 36] -> [3, 33]": 3,
+            "[5, 34] -> [7, 36]": 4,
+            "[7, 36] -> [5, 34]": 1
+          }
+        },
+        "31": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 18,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1586.0,
+            "p50NearestRank": 3663.0,
+            "p95NearestRank": 13517.0,
+            "p99NearestRank": 16073.0,
+            "max": 16073.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -72164.0,
+            "p50NearestRank": -2654.0,
+            "p95NearestRank": 5559.0,
+            "p99NearestRank": 5859.0,
+            "max": 5859.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1031.0,
+            "p50NearestRank": 7051.0,
+            "p95NearestRank": 56756.0,
+            "p99NearestRank": 74467.0,
+            "max": 74467.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1028,
+            "p50NearestRank": 7129,
+            "p95NearestRank": 30727,
+            "p99NearestRank": 74930,
+            "max": 74930
+          },
+          "threadTransitions": {
+            "[5, 34] -> [7, 36]": 12,
+            "[7, 36] -> [3, 33]": 1,
+            "[5, 34] -> [3, 33]": 4,
+            "[3, 33] -> [3, 33]": 2,
+            "[3, 33] -> [7, 36]": 8,
+            "[5, 34] -> [5, 34]": 2,
+            "[7, 36] -> [5, 34]": 1,
+            "[3, 33] -> [5, 34]": 3
+          }
+        },
+        "33": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 18,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1619.0,
+            "p50NearestRank": 3169.0,
+            "p95NearestRank": 14484.0,
+            "p99NearestRank": 18808.0,
+            "max": 18808.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -4906.0,
+            "p50NearestRank": -2809.0,
+            "p95NearestRank": 4459.0,
+            "p99NearestRank": 11174.0,
+            "max": 11174.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 827.0,
+            "p50NearestRank": 6804.0,
+            "p95NearestRank": 7634.0,
+            "p99NearestRank": 10957.0,
+            "max": 10957.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 834,
+            "p50NearestRank": 6854,
+            "p95NearestRank": 7718,
+            "p99NearestRank": 10954,
+            "max": 10954
+          },
+          "threadTransitions": {
+            "[3, 33] -> [7, 36]": 4,
+            "[7, 36] -> [3, 33]": 6,
+            "[5, 34] -> [3, 33]": 6,
+            "[3, 33] -> [5, 34]": 5,
+            "[5, 34] -> [7, 36]": 4,
+            "[7, 36] -> [7, 36]": 2,
+            "[7, 36] -> [5, 34]": 3,
+            "[5, 34] -> [5, 34]": 3
+          }
+        },
+        "35": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 26,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1617.0,
+            "p50NearestRank": 2841.0,
+            "p95NearestRank": 12498.0,
+            "p99NearestRank": 16180.0,
+            "max": 16180.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8053.0,
+            "p50NearestRank": -3874.0,
+            "p95NearestRank": 5438.0,
+            "p99NearestRank": 14165.0,
+            "max": 14165.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 988.0,
+            "p50NearestRank": 6686.0,
+            "p95NearestRank": 10655.0,
+            "p99NearestRank": 11056.0,
+            "max": 11056.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 975,
+            "p50NearestRank": 6757,
+            "p95NearestRank": 10735,
+            "p99NearestRank": 11130,
+            "max": 11130
+          },
+          "threadTransitions": {
+            "[5, 34] -> [5, 34]": 1,
+            "[5, 34] -> [7, 36]": 3,
+            "[7, 36] -> [5, 34]": 12,
+            "[7, 36] -> [7, 36]": 1,
+            "[5, 34] -> [3, 33]": 2,
+            "[3, 33] -> [5, 34]": 6,
+            "[7, 36] -> [3, 33]": 4,
+            "[3, 33] -> [7, 36]": 4
+          }
+        },
+        "37": {
+          "offers": 33,
+          "crossThread": 19,
+          "sameThread": 14,
+          "crossThreadFraction": 0.5757575757575758,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 9,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2098.0,
+            "p50NearestRank": 5913.0,
+            "p95NearestRank": 23833.0,
+            "p99NearestRank": 24619.0,
+            "max": 24619.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -71798.0,
+            "p50NearestRank": 4001.0,
+            "p95NearestRank": 14639.0,
+            "p99NearestRank": 14850.0,
+            "max": 14850.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 843.0,
+            "p50NearestRank": 7310.0,
+            "p95NearestRank": 60779.0,
+            "p99NearestRank": 75557.0,
+            "max": 75557.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 839,
+            "p50NearestRank": 7385,
+            "p95NearestRank": 61022,
+            "p99NearestRank": 75878,
+            "max": 75878
+          },
+          "threadTransitions": {
+            "[7, 36] -> [3, 33]": 2,
+            "[3, 33] -> [7, 36]": 7,
+            "[7, 36] -> [5, 34]": 2,
+            "[5, 34] -> [3, 33]": 4,
+            "[5, 34] -> [5, 34]": 3,
+            "[3, 33] -> [3, 33]": 6,
+            "[3, 33] -> [5, 34]": 4,
+            "[7, 36] -> [7, 36]": 5
+          }
+        },
+        "39": {
+          "offers": 33,
+          "crossThread": 22,
+          "sameThread": 11,
+          "crossThreadFraction": 0.6666666666666666,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 11,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1883.0,
+            "p50NearestRank": 8058.0,
+            "p95NearestRank": 21793.0,
+            "p99NearestRank": 53948.0,
+            "max": 53948.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6727.0,
+            "p50NearestRank": 5177.0,
+            "p95NearestRank": 13367.0,
+            "p99NearestRank": 45241.0,
+            "max": 45241.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1063.0,
+            "p50NearestRank": 7445.0,
+            "p95NearestRank": 13076.0,
+            "p99NearestRank": 13286.0,
+            "max": 13286.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1080,
+            "p50NearestRank": 7538,
+            "p95NearestRank": 13063,
+            "p99NearestRank": 13336,
+            "max": 13336
+          },
+          "threadTransitions": {
+            "[5, 34] -> [5, 34]": 1,
+            "[3, 33] -> [5, 34]": 6,
+            "[5, 34] -> [3, 33]": 4,
+            "[7, 36] -> [7, 36]": 3,
+            "[3, 33] -> [7, 36]": 6,
+            "[7, 36] -> [3, 33]": 6,
+            "[3, 33] -> [3, 33]": 7
+          }
+        },
+        "41": {
+          "offers": 33,
+          "crossThread": 30,
+          "sameThread": 3,
+          "crossThreadFraction": 0.9090909090909091,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 15,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1699.0,
+            "p50NearestRank": 4058.0,
+            "p95NearestRank": 21993.0,
+            "p99NearestRank": 148645.0,
+            "max": 148645.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -20911.0,
+            "p50NearestRank": 1724.0,
+            "p95NearestRank": 13034.0,
+            "p99NearestRank": 147476.0,
+            "max": 147476.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 994.0,
+            "p50NearestRank": 8855.0,
+            "p95NearestRank": 14234.0,
+            "p99NearestRank": 24822.0,
+            "max": 24822.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 995,
+            "p50NearestRank": 8929,
+            "p95NearestRank": 14320,
+            "p99NearestRank": 24910,
+            "max": 24910
+          },
+          "threadTransitions": {
+            "[5, 34] -> [5, 34]": 2,
+            "[5, 34] -> [3, 33]": 5,
+            "[3, 33] -> [5, 34]": 7,
+            "[5, 34] -> [7, 36]": 1,
+            "[7, 36] -> [3, 33]": 4,
+            "[3, 33] -> [7, 36]": 4,
+            "[7, 36] -> [5, 34]": 3,
+            "[3, 33] -> [11, 37]": 5,
+            "[11, 37] -> [3, 33]": 1,
+            "[11, 37] -> [11, 37]": 1
+          }
+        },
+        "43": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 19,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2186.0,
+            "p50NearestRank": 4155.0,
+            "p95NearestRank": 20640.0,
+            "p99NearestRank": 29818.0,
+            "max": 29818.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10598.0,
+            "p50NearestRank": -2918.0,
+            "p95NearestRank": 10595.0,
+            "p99NearestRank": 10809.0,
+            "max": 10809.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 984.0,
+            "p50NearestRank": 7739.0,
+            "p95NearestRank": 10208.0,
+            "p99NearestRank": 40416.0,
+            "max": 40416.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 984,
+            "p50NearestRank": 7824,
+            "p95NearestRank": 10302,
+            "p99NearestRank": 40527,
+            "max": 40527
+          },
+          "threadTransitions": {
+            "[5, 34] -> [7, 36]": 5,
+            "[7, 36] -> [5, 34]": 6,
+            "[11, 37] -> [7, 36]": 9,
+            "[3, 33] -> [11, 37]": 3,
+            "[7, 36] -> [11, 37]": 3,
+            "[11, 37] -> [11, 37]": 1,
+            "[7, 36] -> [7, 36]": 1,
+            "[11, 37] -> [5, 34]": 4,
+            "[5, 34] -> [11, 37]": 1
+          }
+        },
+        "45": {
+          "offers": 33,
+          "crossThread": 30,
+          "sameThread": 3,
+          "crossThreadFraction": 0.9090909090909091,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 26,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1674.0,
+            "p50NearestRank": 3380.0,
+            "p95NearestRank": 19059.0,
+            "p99NearestRank": 19647.0,
+            "max": 19647.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9754.0,
+            "p50NearestRank": -5125.0,
+            "p95NearestRank": 10488.0,
+            "p99NearestRank": 10547.0,
+            "max": 10547.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 944.0,
+            "p50NearestRank": 8606.0,
+            "p95NearestRank": 11798.0,
+            "p99NearestRank": 12750.0,
+            "max": 12750.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 942,
+            "p50NearestRank": 8718,
+            "p95NearestRank": 12107,
+            "p99NearestRank": 12857,
+            "max": 12857
+          },
+          "threadTransitions": {
+            "[3, 33] -> [5, 34]": 9,
+            "[5, 34] -> [5, 34]": 2,
+            "[5, 34] -> [3, 33]": 1,
+            "[3, 33] -> [7, 36]": 2,
+            "[11, 37] -> [3, 33]": 10,
+            "[3, 33] -> [11, 37]": 5,
+            "[11, 37] -> [5, 34]": 2,
+            "[3, 33] -> [3, 33]": 1,
+            "[11, 37] -> [7, 36]": 1
+          }
+        },
+        "47": {
+          "offers": 33,
+          "crossThread": 24,
+          "sameThread": 9,
+          "crossThreadFraction": 0.7272727272727273,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 19,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1452.0,
+            "p50NearestRank": 3889.0,
+            "p95NearestRank": 22464.0,
+            "p99NearestRank": 35903.0,
+            "max": 35903.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10182.0,
+            "p50NearestRank": -2955.0,
+            "p95NearestRank": 13773.0,
+            "p99NearestRank": 13990.0,
+            "max": 13990.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 843.0,
+            "p50NearestRank": 7999.0,
+            "p95NearestRank": 13094.0,
+            "p99NearestRank": 42540.0,
+            "max": 42540.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 851,
+            "p50NearestRank": 8069,
+            "p95NearestRank": 13152,
+            "p99NearestRank": 42651,
+            "max": 42651
+          },
+          "threadTransitions": {
+            "[3, 33] -> [3, 33]": 4,
+            "[3, 33] -> [11, 37]": 4,
+            "[3, 33] -> [7, 36]": 5,
+            "[7, 36] -> [3, 33]": 6,
+            "[7, 36] -> [7, 36]": 5,
+            "[11, 37] -> [3, 33]": 9
+          }
+        }
+      }
+    },
+    "sqlite-tail": {
+      "validationSha256": "8209d820d6dd676b1b6c4e50df98b1234cf97377290ad43f40992895854071fe",
+      "traceSha256": "f13802f42b090b529774f3900deaf572a915368ba7616daaea47ed6a182e0932",
+      "requestsSha256": "0d892b0c1eeb1d5d5944bd0f05fee1b753af939b597d380e982a52ceb3a6f3ee",
+      "offersFile": "sqlite-tail.offers.json",
+      "offersSha256": "5ade6d1b6b64e37a63a9e940538720da6b1ee0732272c18999a392212f067fd4",
+      "total": {
+        "offers": 528,
+        "crossThread": 421,
+        "sameThread": 107,
+        "crossThreadFraction": 0.7973484848484849,
+        "sendersObservedExecutingInThisProcess": 528,
+        "sendersHadAlreadyExecuted": 528,
+        "executeEnteredBeforeOfferReturned": 81,
+        "offerEnterToExecuteEntryNs": {
+          "count": 528,
+          "min": 1721.0,
+          "p50NearestRank": 18123.0,
+          "p95NearestRank": 41351.0,
+          "p99NearestRank": 88644.0,
+          "max": 438292.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 528,
+          "min": -502805.0,
+          "p50NearestRank": 11059.0,
+          "p95NearestRank": 30816.0,
+          "p99NearestRank": 54631.0,
+          "max": 177101.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 528,
+          "min": 799.0,
+          "p50NearestRank": 7052.0,
+          "p95NearestRank": 87385.0,
+          "p99NearestRank": 141493.0,
+          "max": 511189.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 528,
+          "min": 795,
+          "p50NearestRank": 6985,
+          "p95NearestRank": 12304,
+          "p99NearestRank": 42919,
+          "max": 430607
+        },
+        "threadTransitions": {
+          "[7, 53] -> [3, 50]": 34,
+          "[3, 50] -> [3, 50]": 30,
+          "[3, 50] -> [5, 51]": 41,
+          "[5, 51] -> [3, 50]": 42,
+          "[5, 51] -> [5, 51]": 57,
+          "[5, 51] -> [7, 53]": 41,
+          "[7, 53] -> [5, 51]": 3,
+          "[3, 50] -> [7, 53]": 36,
+          "[7, 53] -> [7, 53]": 2,
+          "[7, 53] -> [10, 54]": 23,
+          "[10, 54] -> [7, 53]": 23,
+          "[10, 54] -> [10, 54]": 18,
+          "[10, 54] -> [3, 50]": 42,
+          "[3, 50] -> [10, 54]": 44,
+          "[10, 54] -> [5, 51]": 47,
+          "[5, 51] -> [10, 54]": 45
+        }
+      },
+      "nativeRunExecutions": {
+        "offers": 512,
+        "crossThread": 406,
+        "sameThread": 106,
+        "crossThreadFraction": 0.79296875,
+        "sendersObservedExecutingInThisProcess": 512,
+        "sendersHadAlreadyExecuted": 512,
+        "executeEnteredBeforeOfferReturned": 77,
+        "offerEnterToExecuteEntryNs": {
+          "count": 512,
+          "min": 1721.0,
+          "p50NearestRank": 18130.0,
+          "p95NearestRank": 40050.0,
+          "p99NearestRank": 88644.0,
+          "max": 438292.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 512,
+          "min": -502805.0,
+          "p50NearestRank": 11076.0,
+          "p95NearestRank": 30816.0,
+          "p99NearestRank": 50079.0,
+          "max": 177101.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 512,
+          "min": 799.0,
+          "p50NearestRank": 7052.0,
+          "p95NearestRank": 87385.0,
+          "p99NearestRank": 118482.0,
+          "max": 511189.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 512,
+          "min": 795,
+          "p50NearestRank": 6983,
+          "p95NearestRank": 12304,
+          "p99NearestRank": 42919,
+          "max": 430607
+        },
+        "threadTransitions": {
+          "[7, 53] -> [3, 50]": 33,
+          "[3, 50] -> [3, 50]": 30,
+          "[3, 50] -> [5, 51]": 40,
+          "[5, 51] -> [3, 50]": 42,
+          "[5, 51] -> [5, 51]": 56,
+          "[5, 51] -> [7, 53]": 39,
+          "[7, 53] -> [5, 51]": 3,
+          "[3, 50] -> [7, 53]": 33,
+          "[7, 53] -> [7, 53]": 2,
+          "[7, 53] -> [10, 54]": 23,
+          "[10, 54] -> [7, 53]": 21,
+          "[10, 54] -> [10, 54]": 18,
+          "[10, 54] -> [3, 50]": 42,
+          "[3, 50] -> [10, 54]": 42,
+          "[10, 54] -> [5, 51]": 44,
+          "[5, 51] -> [10, 54]": 44
+        }
+      },
+      "noNativeRunExecutions": {
+        "offers": 16,
+        "crossThread": 15,
+        "sameThread": 1,
+        "crossThreadFraction": 0.9375,
+        "sendersObservedExecutingInThisProcess": 16,
+        "sendersHadAlreadyExecuted": 16,
+        "executeEnteredBeforeOfferReturned": 4,
+        "offerEnterToExecuteEntryNs": {
+          "count": 16,
+          "min": 3061.0,
+          "p50NearestRank": 17800.0,
+          "p95NearestRank": 62705.0,
+          "p99NearestRank": 62705.0,
+          "max": 62705.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 16,
+          "min": -132999.0,
+          "p50NearestRank": 10729.0,
+          "p95NearestRank": 55843.0,
+          "p99NearestRank": 55843.0,
+          "max": 55843.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 16,
+          "min": 2363.0,
+          "p50NearestRank": 7054.0,
+          "p95NearestRank": 141493.0,
+          "p99NearestRank": 141493.0,
+          "max": 141493.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 16,
+          "min": 2275,
+          "p50NearestRank": 7008,
+          "p95NearestRank": 36816,
+          "p99NearestRank": 36816,
+          "max": 36816
+        },
+        "threadTransitions": {
+          "[5, 51] -> [7, 53]": 2,
+          "[7, 53] -> [3, 50]": 1,
+          "[3, 50] -> [7, 53]": 3,
+          "[10, 54] -> [7, 53]": 2,
+          "[10, 54] -> [5, 51]": 3,
+          "[3, 50] -> [10, 54]": 2,
+          "[5, 51] -> [5, 51]": 1,
+          "[5, 51] -> [10, 54]": 1,
+          "[3, 50] -> [5, 51]": 1
+        }
+      },
+      "sameThread": {
+        "offers": 107,
+        "crossThread": 0,
+        "sameThread": 107,
+        "crossThreadFraction": 0.0,
+        "sendersObservedExecutingInThisProcess": 107,
+        "sendersHadAlreadyExecuted": 107,
+        "executeEnteredBeforeOfferReturned": 0,
+        "offerEnterToExecuteEntryNs": {
+          "count": 107,
+          "min": 5962.0,
+          "p50NearestRank": 14015.0,
+          "p95NearestRank": 44525.0,
+          "p99NearestRank": 90848.0,
+          "max": 438292.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 107,
+          "min": 5060.0,
+          "p50NearestRank": 6670.0,
+          "p95NearestRank": 37719.0,
+          "p99NearestRank": 70313.0,
+          "max": 90013.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 107,
+          "min": 799.0,
+          "p50NearestRank": 6685.0,
+          "p95NearestRank": 14319.0,
+          "p99NearestRank": 30944.0,
+          "max": 430113.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 107,
+          "min": 795,
+          "p50NearestRank": 6763,
+          "p95NearestRank": 14253,
+          "p99NearestRank": 31082,
+          "max": 430607
+        },
+        "threadTransitions": {
+          "[3, 50] -> [3, 50]": 30,
+          "[5, 51] -> [5, 51]": 57,
+          "[7, 53] -> [7, 53]": 2,
+          "[10, 54] -> [10, 54]": 18
+        }
+      },
+      "crossThread": {
+        "offers": 421,
+        "crossThread": 421,
+        "sameThread": 0,
+        "crossThreadFraction": 1.0,
+        "sendersObservedExecutingInThisProcess": 421,
+        "sendersHadAlreadyExecuted": 421,
+        "executeEnteredBeforeOfferReturned": 81,
+        "offerEnterToExecuteEntryNs": {
+          "count": 421,
+          "min": 1721.0,
+          "p50NearestRank": 18338.0,
+          "p95NearestRank": 40050.0,
+          "p99NearestRank": 67184.0,
+          "max": 203191.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 421,
+          "min": -502805.0,
+          "p50NearestRank": 11312.0,
+          "p95NearestRank": 26317.0,
+          "p99NearestRank": 50079.0,
+          "max": 177101.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 421,
+          "min": 874.0,
+          "p50NearestRank": 7076.0,
+          "p95NearestRank": 88085.0,
+          "p99NearestRank": 141493.0,
+          "max": 511189.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 421,
+          "min": 877,
+          "p50NearestRank": 7008,
+          "p95NearestRank": 11220,
+          "p99NearestRank": 42919,
+          "max": 85210
+        },
+        "threadTransitions": {
+          "[7, 53] -> [3, 50]": 34,
+          "[3, 50] -> [5, 51]": 41,
+          "[5, 51] -> [3, 50]": 42,
+          "[5, 51] -> [7, 53]": 41,
+          "[7, 53] -> [5, 51]": 3,
+          "[3, 50] -> [7, 53]": 36,
+          "[7, 53] -> [10, 54]": 23,
+          "[10, 54] -> [7, 53]": 23,
+          "[10, 54] -> [3, 50]": 42,
+          "[3, 50] -> [10, 54]": 44,
+          "[10, 54] -> [5, 51]": 47,
+          "[5, 51] -> [10, 54]": 45
+        }
+      },
+      "businesses": {
+        "17": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 20,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1721.0,
+            "p50NearestRank": 8925.0,
+            "p95NearestRank": 56680.0,
+            "p99NearestRank": 57082.0,
+            "max": 57082.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -132999.0,
+            "p50NearestRank": -74022.0,
+            "p95NearestRank": 49741.0,
+            "p99NearestRank": 50079.0,
+            "max": 50079.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 827.0,
+            "p50NearestRank": 83077.0,
+            "p95NearestRank": 114341.0,
+            "p99NearestRank": 141493.0,
+            "max": 141493.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 823,
+            "p50NearestRank": 2653,
+            "p95NearestRank": 12052,
+            "p99NearestRank": 14253,
+            "max": 14253
+          },
+          "threadTransitions": {
+            "[7, 53] -> [3, 50]": 1,
+            "[3, 50] -> [3, 50]": 1,
+            "[3, 50] -> [5, 51]": 5,
+            "[5, 51] -> [3, 50]": 6,
+            "[5, 51] -> [5, 51]": 3,
+            "[5, 51] -> [7, 53]": 17
+          }
+        },
+        "19": {
+          "offers": 33,
+          "crossThread": 14,
+          "sameThread": 19,
+          "crossThreadFraction": 0.42424242424242425,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 14,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 6023.0,
+            "p50NearestRank": 9141.0,
+            "p95NearestRank": 31143.0,
+            "p99NearestRank": 71155.0,
+            "max": 71155.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -140877.0,
+            "p50NearestRank": 5484.0,
+            "p95NearestRank": 29091.0,
+            "p99NearestRank": 70313.0,
+            "max": 70313.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 799.0,
+            "p50NearestRank": 4989.0,
+            "p95NearestRank": 118482.0,
+            "p99NearestRank": 150737.0,
+            "max": 150737.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 795,
+            "p50NearestRank": 2226,
+            "p95NearestRank": 13050,
+            "p99NearestRank": 15423,
+            "max": 15423
+          },
+          "threadTransitions": {
+            "[5, 51] -> [7, 53]": 14,
+            "[5, 51] -> [5, 51]": 19
+          }
+        },
+        "21": {
+          "offers": 33,
+          "crossThread": 13,
+          "sameThread": 20,
+          "crossThreadFraction": 0.3939393939393939,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 6,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 5962.0,
+            "p50NearestRank": 18683.0,
+            "p95NearestRank": 147421.0,
+            "p99NearestRank": 203191.0,
+            "max": 203191.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -502805.0,
+            "p50NearestRank": 10767.0,
+            "p95NearestRank": 90013.0,
+            "p99NearestRank": 177101.0,
+            "max": 177101.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 825.0,
+            "p50NearestRank": 2092.0,
+            "p95NearestRank": 375929.0,
+            "p99NearestRank": 511189.0,
+            "max": 511189.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 825,
+            "p50NearestRank": 2096,
+            "p95NearestRank": 26189,
+            "p99NearestRank": 85210,
+            "max": 85210
+          },
+          "threadTransitions": {
+            "[5, 51] -> [7, 53]": 7,
+            "[5, 51] -> [5, 51]": 20,
+            "[7, 53] -> [5, 51]": 1,
+            "[5, 51] -> [3, 50]": 1,
+            "[3, 50] -> [7, 53]": 2,
+            "[7, 53] -> [3, 50]": 2
+          }
+        },
+        "23": {
+          "offers": 33,
+          "crossThread": 30,
+          "sameThread": 3,
+          "crossThreadFraction": 0.9090909090909091,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2540.0,
+            "p50NearestRank": 18652.0,
+            "p95NearestRank": 28484.0,
+            "p99NearestRank": 49654.0,
+            "max": 49654.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -13449.0,
+            "p50NearestRank": 11237.0,
+            "p95NearestRank": 15511.0,
+            "p99NearestRank": 19142.0,
+            "max": 19142.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 6523.0,
+            "p50NearestRank": 6934.0,
+            "p95NearestRank": 17112.0,
+            "p99NearestRank": 38578.0,
+            "max": 38578.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 6598,
+            "p50NearestRank": 7023,
+            "p95NearestRank": 17193,
+            "p99NearestRank": 38733,
+            "max": 38733
+          },
+          "threadTransitions": {
+            "[5, 51] -> [3, 50]": 1,
+            "[3, 50] -> [7, 53]": 15,
+            "[7, 53] -> [3, 50]": 14,
+            "[3, 50] -> [3, 50]": 3
+          }
+        },
+        "25": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 3502.0,
+            "p50NearestRank": 20846.0,
+            "p95NearestRank": 41351.0,
+            "p99NearestRank": 438292.0,
+            "max": 438292.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6032.0,
+            "p50NearestRank": 13373.0,
+            "p95NearestRank": 29892.0,
+            "p99NearestRank": 31275.0,
+            "max": 31275.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1131.0,
+            "p50NearestRank": 7472.0,
+            "p95NearestRank": 32447.0,
+            "p99NearestRank": 430113.0,
+            "max": 430113.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1130,
+            "p50NearestRank": 7482,
+            "p95NearestRank": 44990,
+            "p99NearestRank": 430607,
+            "max": 430607
+          },
+          "threadTransitions": {
+            "[3, 50] -> [7, 53]": 6,
+            "[7, 53] -> [3, 50]": 6,
+            "[7, 53] -> [7, 53]": 1,
+            "[3, 50] -> [5, 51]": 6,
+            "[5, 51] -> [3, 50]": 5,
+            "[3, 50] -> [3, 50]": 3,
+            "[5, 51] -> [5, 51]": 1,
+            "[5, 51] -> [7, 53]": 3,
+            "[7, 53] -> [5, 51]": 2
+          }
+        },
+        "27": {
+          "offers": 33,
+          "crossThread": 32,
+          "sameThread": 1,
+          "crossThreadFraction": 0.9696969696969697,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 0,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 15422.0,
+            "p50NearestRank": 18907.0,
+            "p95NearestRank": 53714.0,
+            "p99NearestRank": 67184.0,
+            "max": 67184.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": 5986.0,
+            "p50NearestRank": 11664.0,
+            "p95NearestRank": 46625.0,
+            "p99NearestRank": 59999.0,
+            "max": 59999.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1428.0,
+            "p50NearestRank": 7031.0,
+            "p95NearestRank": 36729.0,
+            "p99NearestRank": 37447.0,
+            "max": 37447.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1428,
+            "p50NearestRank": 7099,
+            "p95NearestRank": 36816,
+            "p99NearestRank": 37589,
+            "max": 37589
+          },
+          "threadTransitions": {
+            "[5, 51] -> [3, 50]": 11,
+            "[3, 50] -> [5, 51]": 10,
+            "[3, 50] -> [7, 53]": 6,
+            "[7, 53] -> [3, 50]": 5,
+            "[3, 50] -> [3, 50]": 1
+          }
+        },
+        "29": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 5216.0,
+            "p50NearestRank": 24016.0,
+            "p95NearestRank": 61211.0,
+            "p99NearestRank": 88644.0,
+            "max": 88644.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -3590.0,
+            "p50NearestRank": 15455.0,
+            "p95NearestRank": 45855.0,
+            "p99NearestRank": 54631.0,
+            "max": 54631.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1629.0,
+            "p50NearestRank": 8366.0,
+            "p95NearestRank": 12571.0,
+            "p99NearestRank": 42789.0,
+            "max": 42789.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1726,
+            "p50NearestRank": 8456,
+            "p95NearestRank": 12677,
+            "p99NearestRank": 42919,
+            "max": 42919
+          },
+          "threadTransitions": {
+            "[7, 53] -> [10, 54]": 7,
+            "[10, 54] -> [7, 53]": 6,
+            "[7, 53] -> [3, 50]": 6,
+            "[3, 50] -> [7, 53]": 7,
+            "[3, 50] -> [3, 50]": 2,
+            "[7, 53] -> [7, 53]": 1,
+            "[10, 54] -> [10, 54]": 1,
+            "[10, 54] -> [3, 50]": 2,
+            "[3, 50] -> [10, 54]": 1
+          }
+        },
+        "31": {
+          "offers": 33,
+          "crossThread": 33,
+          "sameThread": 0,
+          "crossThreadFraction": 1.0,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 5170.0,
+            "p50NearestRank": 21865.0,
+            "p95NearestRank": 27317.0,
+            "p99NearestRank": 41651.0,
+            "max": 41651.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -3142.0,
+            "p50NearestRank": 13914.0,
+            "p95NearestRank": 17840.0,
+            "p99NearestRank": 33687.0,
+            "max": 33687.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 7659.0,
+            "p50NearestRank": 8057.0,
+            "p95NearestRank": 8890.0,
+            "p99NearestRank": 9563.0,
+            "max": 9563.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 7743,
+            "p50NearestRank": 8128,
+            "p95NearestRank": 8886,
+            "p99NearestRank": 9660,
+            "max": 9660
+          },
+          "threadTransitions": {
+            "[10, 54] -> [7, 53]": 17,
+            "[7, 53] -> [10, 54]": 16
+          }
+        },
+        "33": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 4407.0,
+            "p50NearestRank": 17794.0,
+            "p95NearestRank": 22268.0,
+            "p99NearestRank": 38394.0,
+            "max": 38394.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8616.0,
+            "p50NearestRank": 10866.0,
+            "p95NearestRank": 14307.0,
+            "p99NearestRank": 15534.0,
+            "max": 15534.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 987.0,
+            "p50NearestRank": 6873.0,
+            "p95NearestRank": 13023.0,
+            "p99NearestRank": 30944.0,
+            "max": 30944.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 980,
+            "p50NearestRank": 6954,
+            "p95NearestRank": 13115,
+            "p99NearestRank": 31082,
+            "max": 31082
+          },
+          "threadTransitions": {
+            "[3, 50] -> [10, 54]": 1,
+            "[10, 54] -> [10, 54]": 5,
+            "[10, 54] -> [5, 51]": 14,
+            "[5, 51] -> [10, 54]": 13
+          }
+        },
+        "35": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 5,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2103.0,
+            "p50NearestRank": 17966.0,
+            "p95NearestRank": 33783.0,
+            "p99NearestRank": 35826.0,
+            "max": 35826.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -5950.0,
+            "p50NearestRank": 10702.0,
+            "p95NearestRank": 16990.0,
+            "p99NearestRank": 28898.0,
+            "max": 28898.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 818.0,
+            "p50NearestRank": 7060.0,
+            "p95NearestRank": 11981.0,
+            "p99NearestRank": 25799.0,
+            "max": 25799.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 817,
+            "p50NearestRank": 7148,
+            "p95NearestRank": 12065,
+            "p99NearestRank": 25870,
+            "max": 25870
+          },
+          "threadTransitions": {
+            "[10, 54] -> [5, 51]": 2,
+            "[5, 51] -> [3, 50]": 7,
+            "[3, 50] -> [5, 51]": 5,
+            "[3, 50] -> [10, 54]": 7,
+            "[10, 54] -> [10, 54]": 3,
+            "[3, 50] -> [3, 50]": 4,
+            "[10, 54] -> [3, 50]": 5
+          }
+        },
+        "37": {
+          "offers": 33,
+          "crossThread": 18,
+          "sameThread": 15,
+          "crossThreadFraction": 0.5454545454545454,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2507.0,
+            "p50NearestRank": 17699.0,
+            "p95NearestRank": 24649.0,
+            "p99NearestRank": 45248.0,
+            "max": 45248.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -4387.0,
+            "p50NearestRank": 8672.0,
+            "p95NearestRank": 16603.0,
+            "p99NearestRank": 38506.0,
+            "max": 38506.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 874.0,
+            "p50NearestRank": 6916.0,
+            "p95NearestRank": 14319.0,
+            "p99NearestRank": 15422.0,
+            "max": 15422.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 877,
+            "p50NearestRank": 6992,
+            "p95NearestRank": 13806,
+            "p99NearestRank": 15518,
+            "max": 15518
+          },
+          "threadTransitions": {
+            "[3, 50] -> [3, 50]": 4,
+            "[3, 50] -> [5, 51]": 3,
+            "[5, 51] -> [5, 51]": 10,
+            "[5, 51] -> [10, 54]": 6,
+            "[10, 54] -> [5, 51]": 5,
+            "[10, 54] -> [10, 54]": 1,
+            "[10, 54] -> [3, 50]": 2,
+            "[3, 50] -> [10, 54]": 1,
+            "[5, 51] -> [3, 50]": 1
+          }
+        },
+        "39": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 3290.0,
+            "p50NearestRank": 18046.0,
+            "p95NearestRank": 22574.0,
+            "p99NearestRank": 23181.0,
+            "max": 23181.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -3470.0,
+            "p50NearestRank": 11247.0,
+            "p95NearestRank": 15059.0,
+            "p99NearestRank": 15346.0,
+            "max": 15346.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 882.0,
+            "p50NearestRank": 6868.0,
+            "p95NearestRank": 8723.0,
+            "p99NearestRank": 9467.0,
+            "max": 9467.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 891,
+            "p50NearestRank": 6943,
+            "p95NearestRank": 8811,
+            "p99NearestRank": 9560,
+            "max": 9560
+          },
+          "threadTransitions": {
+            "[5, 51] -> [3, 50]": 8,
+            "[3, 50] -> [5, 51]": 9,
+            "[3, 50] -> [3, 50]": 3,
+            "[5, 51] -> [10, 54]": 4,
+            "[10, 54] -> [3, 50]": 3,
+            "[3, 50] -> [10, 54]": 2,
+            "[5, 51] -> [5, 51]": 1,
+            "[10, 54] -> [5, 51]": 3
+          }
+        },
+        "41": {
+          "offers": 33,
+          "crossThread": 27,
+          "sameThread": 6,
+          "crossThreadFraction": 0.8181818181818182,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1746.0,
+            "p50NearestRank": 17463.0,
+            "p95NearestRank": 19168.0,
+            "p99NearestRank": 22599.0,
+            "max": 22599.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6179.0,
+            "p50NearestRank": 10641.0,
+            "p95NearestRank": 12447.0,
+            "p99NearestRank": 14879.0,
+            "max": 14879.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 966.0,
+            "p50NearestRank": 6788.0,
+            "p95NearestRank": 8566.0,
+            "p99NearestRank": 9988.0,
+            "max": 9988.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 961,
+            "p50NearestRank": 6867,
+            "p95NearestRank": 8676,
+            "p99NearestRank": 10081,
+            "max": 10081
+          },
+          "threadTransitions": {
+            "[3, 50] -> [10, 54]": 14,
+            "[10, 54] -> [3, 50]": 13,
+            "[3, 50] -> [3, 50]": 3,
+            "[10, 54] -> [10, 54]": 3
+          }
+        },
+        "43": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 2,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1957.0,
+            "p50NearestRank": 17839.0,
+            "p95NearestRank": 27030.0,
+            "p99NearestRank": 44666.0,
+            "max": 44666.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -5406.0,
+            "p50NearestRank": 11075.0,
+            "p95NearestRank": 18220.0,
+            "p99NearestRank": 37226.0,
+            "max": 37226.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1009.0,
+            "p50NearestRank": 6797.0,
+            "p95NearestRank": 9759.0,
+            "p99NearestRank": 10254.0,
+            "max": 10254.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1015,
+            "p50NearestRank": 6878,
+            "p95NearestRank": 9841,
+            "p99NearestRank": 10344,
+            "max": 10344
+          },
+          "threadTransitions": {
+            "[3, 50] -> [3, 50]": 2,
+            "[3, 50] -> [10, 54]": 5,
+            "[10, 54] -> [10, 54]": 1,
+            "[10, 54] -> [3, 50]": 5,
+            "[3, 50] -> [5, 51]": 2,
+            "[5, 51] -> [3, 50]": 1,
+            "[5, 51] -> [10, 54]": 8,
+            "[10, 54] -> [5, 51]": 8,
+            "[5, 51] -> [5, 51]": 1
+          }
+        },
+        "45": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 2,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2932.0,
+            "p50NearestRank": 17728.0,
+            "p95NearestRank": 19533.0,
+            "p99NearestRank": 21128.0,
+            "max": 21128.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -45786.0,
+            "p50NearestRank": 10838.0,
+            "p95NearestRank": 11979.0,
+            "p99NearestRank": 14350.0,
+            "max": 14350.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 2393.0,
+            "p50NearestRank": 6846.0,
+            "p95NearestRank": 10090.0,
+            "p99NearestRank": 65319.0,
+            "max": 65319.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 2302,
+            "p50NearestRank": 6922,
+            "p95NearestRank": 10166,
+            "p99NearestRank": 65418,
+            "max": 65418
+          },
+          "threadTransitions": {
+            "[10, 54] -> [5, 51]": 14,
+            "[5, 51] -> [10, 54]": 14,
+            "[5, 51] -> [5, 51]": 2,
+            "[10, 54] -> [10, 54]": 3
+          }
+        },
+        "47": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 12,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1828.0,
+            "p50NearestRank": 14078.0,
+            "p95NearestRank": 36517.0,
+            "p99NearestRank": 37689.0,
+            "max": 37689.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -58443.0,
+            "p50NearestRank": 6579.0,
+            "p95NearestRank": 29173.0,
+            "p99NearestRank": 30816.0,
+            "max": 30816.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 961.0,
+            "p50NearestRank": 7090.0,
+            "p95NearestRank": 19992.0,
+            "p99NearestRank": 62561.0,
+            "max": 62561.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 954,
+            "p50NearestRank": 7159,
+            "p95NearestRank": 20096,
+            "p99NearestRank": 59316,
+            "max": 59316
+          },
+          "threadTransitions": {
+            "[10, 54] -> [5, 51]": 1,
+            "[5, 51] -> [3, 50]": 1,
+            "[3, 50] -> [3, 50]": 4,
+            "[3, 50] -> [10, 54]": 13,
+            "[10, 54] -> [3, 50]": 12,
+            "[10, 54] -> [10, 54]": 1,
+            "[3, 50] -> [5, 51]": 1
+          }
+        }
+      }
+    },
+    "postgresql-before": {
+      "validationSha256": "e7c46d51fa72e8123a19ffa0486b2a2c170dfaada4f1dc80f308c30d15d82c8d",
+      "traceSha256": "5efbcbad902c09d63e3cc4d5ae17a140ab49fc5aba8227725e974079f8459253",
+      "requestsSha256": "9cb13be0e04b57cca5f87cd910be3427e5dab39d3d2ca0443e8c061798efe42d",
+      "offersFile": "postgresql-before.offers.json",
+      "offersSha256": "eed6461e6d276413804684538f4c9c32e8f2bd0dc7afb2006aba6acdbde4b276",
+      "total": {
+        "offers": 528,
+        "crossThread": 456,
+        "sameThread": 72,
+        "crossThreadFraction": 0.8636363636363636,
+        "sendersObservedExecutingInThisProcess": 528,
+        "sendersHadAlreadyExecuted": 528,
+        "executeEnteredBeforeOfferReturned": 364,
+        "offerEnterToExecuteEntryNs": {
+          "count": 528,
+          "min": 1443.0,
+          "p50NearestRank": 3719.0,
+          "p95NearestRank": 24320.0,
+          "p99NearestRank": 46765.0,
+          "max": 484842.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 528,
+          "min": -81013.0,
+          "p50NearestRank": -4783.0,
+          "p95NearestRank": 14349.0,
+          "p99NearestRank": 19141.0,
+          "max": 51649.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 528,
+          "min": 857.0,
+          "p50NearestRank": 8712.0,
+          "p95NearestRank": 14545.0,
+          "p99NearestRank": 69349.0,
+          "max": 433193.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 528,
+          "min": 856,
+          "p50NearestRank": 8811,
+          "p95NearestRank": 13719,
+          "p99NearestRank": 53269,
+          "max": 433857
+        },
+        "threadTransitions": {
+          "[3, 112] -> [7, 116]": 45,
+          "[7, 116] -> [3, 112]": 25,
+          "[7, 116] -> [10, 117]": 9,
+          "[10, 117] -> [7, 116]": 18,
+          "[7, 116] -> [7, 116]": 31,
+          "[3, 112] -> [5, 114]": 96,
+          "[5, 114] -> [3, 112]": 105,
+          "[5, 114] -> [5, 114]": 20,
+          "[5, 114] -> [7, 116]": 46,
+          "[7, 116] -> [5, 114]": 26,
+          "[5, 114] -> [10, 117]": 32,
+          "[10, 117] -> [5, 114]": 28,
+          "[10, 117] -> [10, 117]": 11,
+          "[3, 112] -> [10, 117]": 15,
+          "[3, 112] -> [3, 112]": 10,
+          "[10, 117] -> [3, 112]": 11
+        }
+      },
+      "nativeRunExecutions": {
+        "offers": 512,
+        "crossThread": 444,
+        "sameThread": 68,
+        "crossThreadFraction": 0.8671875,
+        "sendersObservedExecutingInThisProcess": 512,
+        "sendersHadAlreadyExecuted": 512,
+        "executeEnteredBeforeOfferReturned": 359,
+        "offerEnterToExecuteEntryNs": {
+          "count": 512,
+          "min": 1443.0,
+          "p50NearestRank": 3717.0,
+          "p95NearestRank": 23313.0,
+          "p99NearestRank": 46765.0,
+          "max": 484842.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 512,
+          "min": -65253.0,
+          "p50NearestRank": -4811.0,
+          "p95NearestRank": 14071.0,
+          "p99NearestRank": 19141.0,
+          "max": 51649.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 512,
+          "min": 857.0,
+          "p50NearestRank": 8712.0,
+          "p95NearestRank": 14045.0,
+          "p99NearestRank": 53097.0,
+          "max": 433193.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 512,
+          "min": 856,
+          "p50NearestRank": 8813,
+          "p95NearestRank": 13703,
+          "p99NearestRank": 48277,
+          "max": 433857
+        },
+        "threadTransitions": {
+          "[3, 112] -> [7, 116]": 44,
+          "[7, 116] -> [3, 112]": 25,
+          "[7, 116] -> [10, 117]": 9,
+          "[10, 117] -> [7, 116]": 18,
+          "[7, 116] -> [7, 116]": 28,
+          "[3, 112] -> [5, 114]": 95,
+          "[5, 114] -> [3, 112]": 103,
+          "[5, 114] -> [5, 114]": 20,
+          "[5, 114] -> [7, 116]": 43,
+          "[7, 116] -> [5, 114]": 25,
+          "[5, 114] -> [10, 117]": 31,
+          "[10, 117] -> [5, 114]": 27,
+          "[10, 117] -> [10, 117]": 11,
+          "[3, 112] -> [10, 117]": 14,
+          "[3, 112] -> [3, 112]": 9,
+          "[10, 117] -> [3, 112]": 10
+        }
+      },
+      "noNativeRunExecutions": {
+        "offers": 16,
+        "crossThread": 12,
+        "sameThread": 4,
+        "crossThreadFraction": 0.75,
+        "sendersObservedExecutingInThisProcess": 16,
+        "sendersHadAlreadyExecuted": 16,
+        "executeEnteredBeforeOfferReturned": 5,
+        "offerEnterToExecuteEntryNs": {
+          "count": 16,
+          "min": 1891.0,
+          "p50NearestRank": 5374.0,
+          "p95NearestRank": 32704.0,
+          "p99NearestRank": 32704.0,
+          "max": 32704.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 16,
+          "min": -81013.0,
+          "p50NearestRank": 1350.0,
+          "p95NearestRank": 15684.0,
+          "p99NearestRank": 15684.0,
+          "max": 15684.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 16,
+          "min": 1326.0,
+          "p50NearestRank": 6943.0,
+          "p95NearestRank": 84089.0,
+          "p99NearestRank": 84089.0,
+          "max": 84089.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 16,
+          "min": 1334,
+          "p50NearestRank": 6923,
+          "p95NearestRank": 84469,
+          "p99NearestRank": 84469,
+          "max": 84469
+        },
+        "threadTransitions": {
+          "[5, 114] -> [7, 116]": 3,
+          "[5, 114] -> [3, 112]": 2,
+          "[10, 117] -> [3, 112]": 1,
+          "[3, 112] -> [7, 116]": 1,
+          "[7, 116] -> [7, 116]": 3,
+          "[3, 112] -> [10, 117]": 1,
+          "[3, 112] -> [3, 112]": 1,
+          "[7, 116] -> [5, 114]": 1,
+          "[3, 112] -> [5, 114]": 1,
+          "[10, 117] -> [5, 114]": 1,
+          "[5, 114] -> [10, 117]": 1
+        }
+      },
+      "sameThread": {
+        "offers": 72,
+        "crossThread": 0,
+        "sameThread": 72,
+        "crossThreadFraction": 0.0,
+        "sendersObservedExecutingInThisProcess": 72,
+        "sendersHadAlreadyExecuted": 72,
+        "executeEnteredBeforeOfferReturned": 0,
+        "offerEnterToExecuteEntryNs": {
+          "count": 72,
+          "min": 4545.0,
+          "p50NearestRank": 12183.0,
+          "p95NearestRank": 46765.0,
+          "p99NearestRank": 288202.0,
+          "max": 288202.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 72,
+          "min": 3688.0,
+          "p50NearestRank": 4849.0,
+          "p95NearestRank": 11163.0,
+          "p99NearestRank": 15259.0,
+          "max": 15259.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 72,
+          "min": 857.0,
+          "p50NearestRank": 7243.0,
+          "p95NearestRank": 42137.0,
+          "p99NearestRank": 282633.0,
+          "max": 282633.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 72,
+          "min": 856,
+          "p50NearestRank": 7306,
+          "p95NearestRank": 30622,
+          "p99NearestRank": 246071,
+          "max": 246071
+        },
+        "threadTransitions": {
+          "[7, 116] -> [7, 116]": 31,
+          "[5, 114] -> [5, 114]": 20,
+          "[10, 117] -> [10, 117]": 11,
+          "[3, 112] -> [3, 112]": 10
+        }
+      },
+      "crossThread": {
+        "offers": 456,
+        "crossThread": 456,
+        "sameThread": 0,
+        "crossThreadFraction": 1.0,
+        "sendersObservedExecutingInThisProcess": 456,
+        "sendersHadAlreadyExecuted": 456,
+        "executeEnteredBeforeOfferReturned": 364,
+        "offerEnterToExecuteEntryNs": {
+          "count": 456,
+          "min": 1443.0,
+          "p50NearestRank": 3452.0,
+          "p95NearestRank": 23224.0,
+          "p99NearestRank": 33214.0,
+          "max": 484842.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 456,
+          "min": -81013.0,
+          "p50NearestRank": -5224.0,
+          "p95NearestRank": 14471.0,
+          "p99NearestRank": 19919.0,
+          "max": 51649.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 456,
+          "min": 1083.0,
+          "p50NearestRank": 8770.0,
+          "p95NearestRank": 13583.0,
+          "p99NearestRank": 48093.0,
+          "max": 433193.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 456,
+          "min": 1083,
+          "p50NearestRank": 8878,
+          "p95NearestRank": 13703,
+          "p99NearestRank": 48277,
+          "max": 433857
+        },
+        "threadTransitions": {
+          "[3, 112] -> [7, 116]": 45,
+          "[7, 116] -> [3, 112]": 25,
+          "[7, 116] -> [10, 117]": 9,
+          "[10, 117] -> [7, 116]": 18,
+          "[3, 112] -> [5, 114]": 96,
+          "[5, 114] -> [3, 112]": 105,
+          "[5, 114] -> [7, 116]": 46,
+          "[7, 116] -> [5, 114]": 26,
+          "[5, 114] -> [10, 117]": 32,
+          "[10, 117] -> [5, 114]": 28,
+          "[3, 112] -> [10, 117]": 15,
+          "[10, 117] -> [3, 112]": 11
+        }
+      },
+      "businesses": {
+        "17": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 26,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2150.0,
+            "p50NearestRank": 3628.0,
+            "p95NearestRank": 21366.0,
+            "p99NearestRank": 22356.0,
+            "max": 22356.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9936.0,
+            "p50NearestRank": -4612.0,
+            "p95NearestRank": 11049.0,
+            "p99NearestRank": 14722.0,
+            "max": 14722.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1222.0,
+            "p50NearestRank": 8423.0,
+            "p95NearestRank": 12464.0,
+            "p99NearestRank": 12576.0,
+            "max": 12576.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1238,
+            "p50NearestRank": 8543,
+            "p95NearestRank": 12573,
+            "p99NearestRank": 12660,
+            "max": 12660
+          },
+          "threadTransitions": {
+            "[3, 112] -> [7, 116]": 7,
+            "[7, 116] -> [3, 112]": 4,
+            "[7, 116] -> [10, 117]": 1,
+            "[10, 117] -> [7, 116]": 3,
+            "[7, 116] -> [7, 116]": 1,
+            "[3, 112] -> [5, 114]": 6,
+            "[5, 114] -> [3, 112]": 4,
+            "[5, 114] -> [5, 114]": 1,
+            "[5, 114] -> [7, 116]": 5,
+            "[7, 116] -> [5, 114]": 1
+          }
+        },
+        "19": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 25,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2170.0,
+            "p50NearestRank": 3438.0,
+            "p95NearestRank": 27259.0,
+            "p99NearestRank": 33029.0,
+            "max": 33029.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -45709.0,
+            "p50NearestRank": -4474.0,
+            "p95NearestRank": 19141.0,
+            "p99NearestRank": 19919.0,
+            "max": 19919.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 6882.0,
+            "p50NearestRank": 8994.0,
+            "p95NearestRank": 33776.0,
+            "p99NearestRank": 48093.0,
+            "max": 48093.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 6940,
+            "p50NearestRank": 9017,
+            "p95NearestRank": 33904,
+            "p99NearestRank": 48277,
+            "max": 48277
+          },
+          "threadTransitions": {
+            "[5, 114] -> [10, 117]": 6,
+            "[10, 117] -> [5, 114]": 9,
+            "[5, 114] -> [3, 112]": 7,
+            "[3, 112] -> [5, 114]": 8,
+            "[10, 117] -> [10, 117]": 2,
+            "[3, 112] -> [10, 117]": 1
+          }
+        },
+        "21": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 22,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1869.0,
+            "p50NearestRank": 3712.0,
+            "p95NearestRank": 23206.0,
+            "p99NearestRank": 23490.0,
+            "max": 23490.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9824.0,
+            "p50NearestRank": -5854.0,
+            "p95NearestRank": 12488.0,
+            "p99NearestRank": 14289.0,
+            "max": 14289.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1034.0,
+            "p50NearestRank": 9224.0,
+            "p95NearestRank": 12551.0,
+            "p99NearestRank": 14045.0,
+            "max": 14045.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1035,
+            "p50NearestRank": 9328,
+            "p95NearestRank": 12623,
+            "p99NearestRank": 14109,
+            "max": 14109
+          },
+          "threadTransitions": {
+            "[10, 117] -> [10, 117]": 1,
+            "[10, 117] -> [5, 114]": 3,
+            "[5, 114] -> [5, 114]": 2,
+            "[5, 114] -> [10, 117]": 3,
+            "[5, 114] -> [3, 112]": 8,
+            "[3, 112] -> [5, 114]": 9,
+            "[3, 112] -> [3, 112]": 2,
+            "[3, 112] -> [10, 117]": 3,
+            "[10, 117] -> [3, 112]": 2
+          }
+        },
+        "23": {
+          "offers": 33,
+          "crossThread": 30,
+          "sameThread": 3,
+          "crossThreadFraction": 0.9090909090909091,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 24,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1886.0,
+            "p50NearestRank": 3719.0,
+            "p95NearestRank": 23313.0,
+            "p99NearestRank": 32704.0,
+            "max": 32704.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -11058.0,
+            "p50NearestRank": -5229.0,
+            "p95NearestRank": 13984.0,
+            "p99NearestRank": 14594.0,
+            "max": 14594.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1211.0,
+            "p50NearestRank": 8941.0,
+            "p95NearestRank": 14828.0,
+            "p99NearestRank": 37933.0,
+            "max": 37933.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1203,
+            "p50NearestRank": 9018,
+            "p95NearestRank": 14950,
+            "p99NearestRank": 19010,
+            "max": 19010
+          },
+          "threadTransitions": {
+            "[3, 112] -> [5, 114]": 9,
+            "[5, 114] -> [3, 112]": 13,
+            "[5, 114] -> [10, 117]": 2,
+            "[10, 117] -> [5, 114]": 2,
+            "[10, 117] -> [10, 117]": 1,
+            "[5, 114] -> [5, 114]": 2,
+            "[10, 117] -> [3, 112]": 1,
+            "[3, 112] -> [7, 116]": 3
+          }
+        },
+        "25": {
+          "offers": 33,
+          "crossThread": 21,
+          "sameThread": 12,
+          "crossThreadFraction": 0.6363636363636364,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 11,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1988.0,
+            "p50NearestRank": 11509.0,
+            "p95NearestRank": 35971.0,
+            "p99NearestRank": 484842.0,
+            "max": 484842.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8175.0,
+            "p50NearestRank": 4432.0,
+            "p95NearestRank": 24840.0,
+            "p99NearestRank": 51649.0,
+            "max": 51649.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 915.0,
+            "p50NearestRank": 7307.0,
+            "p95NearestRank": 30520.0,
+            "p99NearestRank": 433193.0,
+            "max": 433193.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 905,
+            "p50NearestRank": 7389,
+            "p95NearestRank": 30622,
+            "p99NearestRank": 433857,
+            "max": 433857
+          },
+          "threadTransitions": {
+            "[7, 116] -> [3, 112]": 6,
+            "[3, 112] -> [7, 116]": 5,
+            "[7, 116] -> [7, 116]": 11,
+            "[7, 116] -> [10, 117]": 3,
+            "[10, 117] -> [7, 116]": 5,
+            "[10, 117] -> [10, 117]": 1,
+            "[3, 112] -> [10, 117]": 2
+          }
+        },
+        "27": {
+          "offers": 33,
+          "crossThread": 27,
+          "sameThread": 6,
+          "crossThreadFraction": 0.8181818181818182,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 15,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2053.0,
+            "p50NearestRank": 5090.0,
+            "p95NearestRank": 29994.0,
+            "p99NearestRank": 33214.0,
+            "max": 33214.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10676.0,
+            "p50NearestRank": 3996.0,
+            "p95NearestRank": 19053.0,
+            "p99NearestRank": 23543.0,
+            "max": 23543.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 935.0,
+            "p50NearestRank": 7225.0,
+            "p95NearestRank": 11132.0,
+            "p99NearestRank": 12729.0,
+            "max": 12729.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 908,
+            "p50NearestRank": 7325,
+            "p95NearestRank": 11212,
+            "p99NearestRank": 12870,
+            "max": 12870
+          },
+          "threadTransitions": {
+            "[3, 112] -> [7, 116]": 10,
+            "[7, 116] -> [3, 112]": 5,
+            "[3, 112] -> [3, 112]": 4,
+            "[10, 117] -> [7, 116]": 5,
+            "[7, 116] -> [10, 117]": 1,
+            "[10, 117] -> [3, 112]": 1,
+            "[7, 116] -> [7, 116]": 1,
+            "[5, 114] -> [7, 116]": 2,
+            "[7, 116] -> [5, 114]": 1,
+            "[5, 114] -> [5, 114]": 1,
+            "[5, 114] -> [10, 117]": 1,
+            "[3, 112] -> [10, 117]": 1
+          }
+        },
+        "29": {
+          "offers": 33,
+          "crossThread": 24,
+          "sameThread": 9,
+          "crossThreadFraction": 0.7272727272727273,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 17,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2187.0,
+            "p50NearestRank": 5461.0,
+            "p95NearestRank": 46765.0,
+            "p99NearestRank": 49282.0,
+            "max": 49282.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -38757.0,
+            "p50NearestRank": -1850.0,
+            "p95NearestRank": 18066.0,
+            "p99NearestRank": 40912.0,
+            "max": 40912.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1192.0,
+            "p50NearestRank": 9579.0,
+            "p95NearestRank": 40944.0,
+            "p99NearestRank": 42137.0,
+            "max": 42137.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1202,
+            "p50NearestRank": 9699,
+            "p95NearestRank": 41075,
+            "p99NearestRank": 42208,
+            "max": 42208
+          },
+          "threadTransitions": {
+            "[10, 117] -> [3, 112]": 2,
+            "[3, 112] -> [10, 117]": 2,
+            "[10, 117] -> [10, 117]": 3,
+            "[10, 117] -> [7, 116]": 1,
+            "[7, 116] -> [10, 117]": 1,
+            "[7, 116] -> [7, 116]": 5,
+            "[7, 116] -> [3, 112]": 1,
+            "[3, 112] -> [7, 116]": 2,
+            "[3, 112] -> [3, 112]": 1,
+            "[3, 112] -> [5, 114]": 10,
+            "[5, 114] -> [3, 112]": 5
+          }
+        },
+        "31": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 24,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1564.0,
+            "p50NearestRank": 3717.0,
+            "p95NearestRank": 23224.0,
+            "p99NearestRank": 25148.0,
+            "max": 25148.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -29873.0,
+            "p50NearestRank": -4937.0,
+            "p95NearestRank": 9818.0,
+            "p99NearestRank": 16564.0,
+            "max": 16564.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1041.0,
+            "p50NearestRank": 8860.0,
+            "p95NearestRank": 13129.0,
+            "p99NearestRank": 53097.0,
+            "max": 53097.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1042,
+            "p50NearestRank": 8942,
+            "p95NearestRank": 13243,
+            "p99NearestRank": 53269,
+            "max": 53269
+          },
+          "threadTransitions": {
+            "[7, 116] -> [5, 114]": 3,
+            "[5, 114] -> [7, 116]": 5,
+            "[7, 116] -> [7, 116]": 5,
+            "[5, 114] -> [3, 112]": 9,
+            "[3, 112] -> [5, 114]": 7,
+            "[5, 114] -> [5, 114]": 2,
+            "[3, 112] -> [7, 116]": 1,
+            "[10, 117] -> [7, 116]": 1
+          }
+        },
+        "33": {
+          "offers": 33,
+          "crossThread": 25,
+          "sameThread": 8,
+          "crossThreadFraction": 0.7575757575757576,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 15,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1970.0,
+            "p50NearestRank": 5232.0,
+            "p95NearestRank": 24391.0,
+            "p99NearestRank": 288202.0,
+            "max": 288202.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -27267.0,
+            "p50NearestRank": 3933.0,
+            "p95NearestRank": 14475.0,
+            "p99NearestRank": 17128.0,
+            "max": 17128.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 857.0,
+            "p50NearestRank": 8967.0,
+            "p95NearestRank": 29841.0,
+            "p99NearestRank": 282633.0,
+            "max": 282633.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 856,
+            "p50NearestRank": 9046,
+            "p95NearestRank": 12260,
+            "p99NearestRank": 30066,
+            "max": 30066
+          },
+          "threadTransitions": {
+            "[7, 116] -> [3, 112]": 6,
+            "[3, 112] -> [7, 116]": 7,
+            "[7, 116] -> [5, 114]": 5,
+            "[5, 114] -> [7, 116]": 7,
+            "[7, 116] -> [7, 116]": 6,
+            "[5, 114] -> [5, 114]": 1,
+            "[3, 112] -> [3, 112]": 1
+          }
+        },
+        "35": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 23,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1471.0,
+            "p50NearestRank": 3329.0,
+            "p95NearestRank": 32744.0,
+            "p99NearestRank": 42049.0,
+            "max": 42049.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -81013.0,
+            "p50NearestRank": -5539.0,
+            "p95NearestRank": 12055.0,
+            "p99NearestRank": 17605.0,
+            "max": 17605.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1092.0,
+            "p50NearestRank": 9197.0,
+            "p95NearestRank": 69349.0,
+            "p99NearestRank": 84089.0,
+            "max": 84089.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1105,
+            "p50NearestRank": 9331,
+            "p95NearestRank": 69795,
+            "p99NearestRank": 84469,
+            "max": 84469
+          },
+          "threadTransitions": {
+            "[3, 112] -> [7, 116]": 3,
+            "[7, 116] -> [3, 112]": 2,
+            "[5, 114] -> [10, 117]": 5,
+            "[10, 117] -> [7, 116]": 2,
+            "[7, 116] -> [5, 114]": 1,
+            "[5, 114] -> [7, 116]": 4,
+            "[7, 116] -> [10, 117]": 1,
+            "[10, 117] -> [5, 114]": 1,
+            "[5, 114] -> [5, 114]": 2,
+            "[5, 114] -> [3, 112]": 7,
+            "[10, 117] -> [10, 117]": 2,
+            "[3, 112] -> [5, 114]": 3
+          }
+        },
+        "37": {
+          "offers": 33,
+          "crossThread": 32,
+          "sameThread": 1,
+          "crossThreadFraction": 0.9696969696969697,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 29,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1907.0,
+            "p50NearestRank": 3688.0,
+            "p95NearestRank": 26834.0,
+            "p99NearestRank": 245460.0,
+            "max": 245460.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -24799.0,
+            "p50NearestRank": -6073.0,
+            "p95NearestRank": 15872.0,
+            "p99NearestRank": 18641.0,
+            "max": 18641.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 8173.0,
+            "p50NearestRank": 8921.0,
+            "p95NearestRank": 32911.0,
+            "p99NearestRank": 237156.0,
+            "max": 237156.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 8263,
+            "p50NearestRank": 9023,
+            "p95NearestRank": 33059,
+            "p99NearestRank": 237464,
+            "max": 237464
+          },
+          "threadTransitions": {
+            "[3, 112] -> [5, 114]": 14,
+            "[5, 114] -> [3, 112]": 17,
+            "[5, 114] -> [5, 114]": 1,
+            "[7, 116] -> [5, 114]": 1
+          }
+        },
+        "39": {
+          "offers": 33,
+          "crossThread": 30,
+          "sameThread": 3,
+          "crossThreadFraction": 0.9090909090909091,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 26,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1891.0,
+            "p50NearestRank": 3336.0,
+            "p95NearestRank": 21818.0,
+            "p99NearestRank": 254539.0,
+            "max": 254539.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10326.0,
+            "p50NearestRank": -5231.0,
+            "p95NearestRank": 10887.0,
+            "p99NearestRank": 12791.0,
+            "max": 12791.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1109.0,
+            "p50NearestRank": 8525.0,
+            "p95NearestRank": 14545.0,
+            "p99NearestRank": 245790.0,
+            "max": 245790.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1104,
+            "p50NearestRank": 8620,
+            "p95NearestRank": 14716,
+            "p99NearestRank": 246071,
+            "max": 246071
+          },
+          "threadTransitions": {
+            "[5, 114] -> [7, 116]": 10,
+            "[7, 116] -> [5, 114]": 5,
+            "[5, 114] -> [5, 114]": 3,
+            "[5, 114] -> [3, 112]": 6,
+            "[3, 112] -> [5, 114]": 5,
+            "[3, 112] -> [7, 116]": 4
+          }
+        },
+        "41": {
+          "offers": 33,
+          "crossThread": 32,
+          "sameThread": 1,
+          "crossThreadFraction": 0.9696969696969697,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 28,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1723.0,
+            "p50NearestRank": 3742.0,
+            "p95NearestRank": 21512.0,
+            "p99NearestRank": 26692.0,
+            "max": 26692.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10762.0,
+            "p50NearestRank": -4859.0,
+            "p95NearestRank": 12242.0,
+            "p99NearestRank": 18830.0,
+            "max": 18830.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1663.0,
+            "p50NearestRank": 8617.0,
+            "p95NearestRank": 12207.0,
+            "p99NearestRank": 12851.0,
+            "max": 12851.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1582,
+            "p50NearestRank": 8741,
+            "p95NearestRank": 12349,
+            "p99NearestRank": 12940,
+            "max": 12940
+          },
+          "threadTransitions": {
+            "[10, 117] -> [3, 112]": 4,
+            "[3, 112] -> [5, 114]": 10,
+            "[5, 114] -> [3, 112]": 12,
+            "[10, 117] -> [10, 117]": 1,
+            "[3, 112] -> [10, 117]": 4,
+            "[5, 114] -> [10, 117]": 1,
+            "[10, 117] -> [5, 114]": 1
+          }
+        },
+        "43": {
+          "offers": 33,
+          "crossThread": 28,
+          "sameThread": 5,
+          "crossThreadFraction": 0.8484848484848485,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 23,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1474.0,
+            "p50NearestRank": 3303.0,
+            "p95NearestRank": 20213.0,
+            "p99NearestRank": 22661.0,
+            "max": 22661.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -13871.0,
+            "p50NearestRank": -4963.0,
+            "p95NearestRank": 10742.0,
+            "p99NearestRank": 14071.0,
+            "max": 14071.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1083.0,
+            "p50NearestRank": 8423.0,
+            "p95NearestRank": 13272.0,
+            "p99NearestRank": 15709.0,
+            "max": 15709.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1083,
+            "p50NearestRank": 8488,
+            "p95NearestRank": 13396,
+            "p99NearestRank": 15830,
+            "max": 15830
+          },
+          "threadTransitions": {
+            "[10, 117] -> [5, 114]": 2,
+            "[5, 114] -> [10, 117]": 3,
+            "[5, 114] -> [5, 114]": 2,
+            "[5, 114] -> [3, 112]": 4,
+            "[3, 112] -> [3, 112]": 1,
+            "[3, 112] -> [7, 116]": 3,
+            "[7, 116] -> [7, 116]": 2,
+            "[7, 116] -> [3, 112]": 1,
+            "[3, 112] -> [5, 114]": 3,
+            "[5, 114] -> [7, 116]": 8,
+            "[7, 116] -> [5, 114]": 4
+          }
+        },
+        "45": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 28,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1854.0,
+            "p50NearestRank": 3556.0,
+            "p95NearestRank": 16701.0,
+            "p99NearestRank": 26640.0,
+            "max": 26640.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -8559.0,
+            "p50NearestRank": -5224.0,
+            "p95NearestRank": 4849.0,
+            "p99NearestRank": 6784.0,
+            "max": 6784.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1085.0,
+            "p50NearestRank": 8780.0,
+            "p95NearestRank": 15215.0,
+            "p99NearestRank": 32769.0,
+            "max": 32769.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1092,
+            "p50NearestRank": 8895,
+            "p95NearestRank": 11662,
+            "p99NearestRank": 32869,
+            "max": 32869
+          },
+          "threadTransitions": {
+            "[7, 116] -> [5, 114]": 5,
+            "[5, 114] -> [7, 116]": 5,
+            "[5, 114] -> [5, 114]": 2,
+            "[10, 117] -> [5, 114]": 2,
+            "[5, 114] -> [3, 112]": 8,
+            "[3, 112] -> [5, 114]": 7,
+            "[5, 114] -> [10, 117]": 4
+          }
+        },
+        "47": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 28,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1443.0,
+            "p50NearestRank": 2884.0,
+            "p95NearestRank": 12183.0,
+            "p99NearestRank": 22251.0,
+            "max": 22251.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -10089.0,
+            "p50NearestRank": -4957.0,
+            "p95NearestRank": 4631.0,
+            "p99NearestRank": 7326.0,
+            "max": 7326.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1088.0,
+            "p50NearestRank": 7916.0,
+            "p95NearestRank": 11992.0,
+            "p99NearestRank": 14925.0,
+            "max": 14925.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1097,
+            "p50NearestRank": 8073,
+            "p95NearestRank": 12123,
+            "p99NearestRank": 15064,
+            "max": 15064
+          },
+          "threadTransitions": {
+            "[10, 117] -> [5, 114]": 8,
+            "[5, 114] -> [10, 117]": 7,
+            "[10, 117] -> [7, 116]": 1,
+            "[7, 116] -> [10, 117]": 2,
+            "[3, 112] -> [10, 117]": 2,
+            "[10, 117] -> [3, 112]": 1,
+            "[3, 112] -> [3, 112]": 1,
+            "[3, 112] -> [5, 114]": 5,
+            "[5, 114] -> [3, 112]": 5,
+            "[5, 114] -> [5, 114]": 1
+          }
+        }
+      }
+    },
+    "postgresql-tail": {
+      "validationSha256": "51e239ae6c86b58a9680ff32dac7df3077e28182d12306cb5bc9dd226000e812",
+      "traceSha256": "29c478c00c910ebff81a2c074d6a013222eb3add126ff5b7e1bff417db512145",
+      "requestsSha256": "dc264ac5c8480c67e2b4438fd60a1f07d8b7d6be31cecef05183845ee1220615",
+      "offersFile": "postgresql-tail.offers.json",
+      "offersSha256": "5c5ecb4df39e468683c70a3a7d9dc3a5e1ae8778035535b0d389a196d3f28d8a",
+      "total": {
+        "offers": 528,
+        "crossThread": 414,
+        "sameThread": 114,
+        "crossThreadFraction": 0.7840909090909091,
+        "sendersObservedExecutingInThisProcess": 528,
+        "sendersHadAlreadyExecuted": 528,
+        "executeEnteredBeforeOfferReturned": 42,
+        "offerEnterToExecuteEntryNs": {
+          "count": 528,
+          "min": 1927.0,
+          "p50NearestRank": 22516.0,
+          "p95NearestRank": 56424.0,
+          "p99NearestRank": 136247.0,
+          "max": 460168.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 528,
+          "min": -59697.0,
+          "p50NearestRank": 13909.0,
+          "p95NearestRank": 30138.0,
+          "p99NearestRank": 81907.0,
+          "max": 451000.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 528,
+          "min": 853.0,
+          "p50NearestRank": 8263.0,
+          "p95NearestRank": 17146.0,
+          "p99NearestRank": 98255.0,
+          "max": 442160.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 528,
+          "min": 854,
+          "p50NearestRank": 8344,
+          "p95NearestRank": 23541,
+          "p99NearestRank": 98631,
+          "max": 442562
+        },
+        "threadTransitions": {
+          "[10, 135] -> [5, 131]": 175,
+          "[5, 131] -> [10, 135]": 179,
+          "[10, 135] -> [10, 135]": 46,
+          "[5, 131] -> [5, 131]": 26,
+          "[5, 131] -> [7, 134]": 3,
+          "[7, 134] -> [5, 131]": 1,
+          "[7, 134] -> [7, 134]": 16,
+          "[10, 135] -> [7, 134]": 14,
+          "[7, 134] -> [10, 135]": 14,
+          "[10, 135] -> [3, 130]": 8,
+          "[3, 130] -> [3, 130]": 26,
+          "[3, 130] -> [10, 135]": 8,
+          "[5, 131] -> [3, 130]": 5,
+          "[3, 130] -> [5, 131]": 7
+        }
+      },
+      "nativeRunExecutions": {
+        "offers": 512,
+        "crossThread": 400,
+        "sameThread": 112,
+        "crossThreadFraction": 0.78125,
+        "sendersObservedExecutingInThisProcess": 512,
+        "sendersHadAlreadyExecuted": 512,
+        "executeEnteredBeforeOfferReturned": 37,
+        "offerEnterToExecuteEntryNs": {
+          "count": 512,
+          "min": 1927.0,
+          "p50NearestRank": 22527.0,
+          "p95NearestRank": 54469.0,
+          "p99NearestRank": 136247.0,
+          "max": 460168.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 512,
+          "min": -59697.0,
+          "p50NearestRank": 13933.0,
+          "p95NearestRank": 26403.0,
+          "p99NearestRank": 81907.0,
+          "max": 451000.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 512,
+          "min": 853.0,
+          "p50NearestRank": 8257.0,
+          "p95NearestRank": 23346.0,
+          "p99NearestRank": 98255.0,
+          "max": 442160.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 512,
+          "min": 854,
+          "p50NearestRank": 8337,
+          "p95NearestRank": 24316,
+          "p99NearestRank": 98631,
+          "max": 442562
+        },
+        "threadTransitions": {
+          "[10, 135] -> [5, 131]": 170,
+          "[5, 131] -> [10, 135]": 172,
+          "[10, 135] -> [10, 135]": 46,
+          "[5, 131] -> [5, 131]": 26,
+          "[5, 131] -> [7, 134]": 3,
+          "[7, 134] -> [5, 131]": 1,
+          "[7, 134] -> [7, 134]": 15,
+          "[10, 135] -> [7, 134]": 13,
+          "[7, 134] -> [10, 135]": 14,
+          "[10, 135] -> [3, 130]": 8,
+          "[3, 130] -> [3, 130]": 25,
+          "[3, 130] -> [10, 135]": 8,
+          "[5, 131] -> [3, 130]": 4,
+          "[3, 130] -> [5, 131]": 7
+        }
+      },
+      "noNativeRunExecutions": {
+        "offers": 16,
+        "crossThread": 14,
+        "sameThread": 2,
+        "crossThreadFraction": 0.875,
+        "sendersObservedExecutingInThisProcess": 16,
+        "sendersHadAlreadyExecuted": 16,
+        "executeEnteredBeforeOfferReturned": 5,
+        "offerEnterToExecuteEntryNs": {
+          "count": 16,
+          "min": 2335.0,
+          "p50NearestRank": 18652.0,
+          "p95NearestRank": 67950.0,
+          "p99NearestRank": 67950.0,
+          "max": 67950.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 16,
+          "min": -7577.0,
+          "p50NearestRank": 11081.0,
+          "p95NearestRank": 66924.0,
+          "p99NearestRank": 66924.0,
+          "max": 66924.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 16,
+          "min": 1026.0,
+          "p50NearestRank": 8962.0,
+          "p95NearestRank": 12010.0,
+          "p99NearestRank": 12010.0,
+          "max": 12010.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 16,
+          "min": 1025,
+          "p50NearestRank": 8914,
+          "p95NearestRank": 12090,
+          "p99NearestRank": 12090,
+          "max": 12090
+        },
+        "threadTransitions": {
+          "[7, 134] -> [7, 134]": 1,
+          "[10, 135] -> [7, 134]": 1,
+          "[10, 135] -> [5, 131]": 5,
+          "[3, 130] -> [3, 130]": 1,
+          "[5, 131] -> [10, 135]": 7,
+          "[5, 131] -> [3, 130]": 1
+        }
+      },
+      "sameThread": {
+        "offers": 114,
+        "crossThread": 0,
+        "sameThread": 114,
+        "crossThreadFraction": 0.0,
+        "sendersObservedExecutingInThisProcess": 114,
+        "sendersHadAlreadyExecuted": 114,
+        "executeEnteredBeforeOfferReturned": 0,
+        "offerEnterToExecuteEntryNs": {
+          "count": 114,
+          "min": 6265.0,
+          "p50NearestRank": 20252.0,
+          "p95NearestRank": 50575.0,
+          "p99NearestRank": 153990.0,
+          "max": 453896.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 114,
+          "min": 5327.0,
+          "p50NearestRank": 10096.0,
+          "p95NearestRank": 25550.0,
+          "p99NearestRank": 66924.0,
+          "max": 74777.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 114,
+          "min": 853.0,
+          "p50NearestRank": 9844.0,
+          "p95NearestRank": 26392.0,
+          "p99NearestRank": 141878.0,
+          "max": 442160.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 114,
+          "min": 854,
+          "p50NearestRank": 9965,
+          "p95NearestRank": 26520,
+          "p99NearestRank": 142328,
+          "max": 442562
+        },
+        "threadTransitions": {
+          "[10, 135] -> [10, 135]": 46,
+          "[5, 131] -> [5, 131]": 26,
+          "[7, 134] -> [7, 134]": 16,
+          "[3, 130] -> [3, 130]": 26
+        }
+      },
+      "crossThread": {
+        "offers": 414,
+        "crossThread": 414,
+        "sameThread": 0,
+        "crossThreadFraction": 1.0,
+        "sendersObservedExecutingInThisProcess": 414,
+        "sendersHadAlreadyExecuted": 414,
+        "executeEnteredBeforeOfferReturned": 42,
+        "offerEnterToExecuteEntryNs": {
+          "count": 414,
+          "min": 1927.0,
+          "p50NearestRank": 23315.0,
+          "p95NearestRank": 56724.0,
+          "p99NearestRank": 130425.0,
+          "max": 460168.0
+        },
+        "offerReturnToExecuteEntryNsSigned": {
+          "count": 414,
+          "min": -59697.0,
+          "p50NearestRank": 14577.0,
+          "p95NearestRank": 30771.0,
+          "p99NearestRank": 103598.0,
+          "max": 451000.0
+        },
+        "schedulerCallEnvelopeElapsedNs": {
+          "count": 414,
+          "min": 1237.0,
+          "p50NearestRank": 8237.0,
+          "p95NearestRank": 14667.0,
+          "p99NearestRank": 63029.0,
+          "max": 136476.0
+        },
+        "schedulerCallEnvelopeThreadCpuNs": {
+          "count": 414,
+          "min": 1228,
+          "p50NearestRank": 8318,
+          "p95NearestRank": 16942,
+          "p99NearestRank": 63203,
+          "max": 136809
+        },
+        "threadTransitions": {
+          "[10, 135] -> [5, 131]": 175,
+          "[5, 131] -> [10, 135]": 179,
+          "[5, 131] -> [7, 134]": 3,
+          "[7, 134] -> [5, 131]": 1,
+          "[10, 135] -> [7, 134]": 14,
+          "[7, 134] -> [10, 135]": 14,
+          "[10, 135] -> [3, 130]": 8,
+          "[3, 130] -> [10, 135]": 8,
+          "[5, 131] -> [3, 130]": 5,
+          "[3, 130] -> [5, 131]": 7
+        }
+      },
+      "businesses": {
+        "17": {
+          "offers": 33,
+          "crossThread": 18,
+          "sameThread": 15,
+          "crossThreadFraction": 0.5454545454545454,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 3523.0,
+            "p50NearestRank": 22589.0,
+            "p95NearestRank": 45321.0,
+            "p99NearestRank": 67950.0,
+            "max": 67950.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9552.0,
+            "p50NearestRank": 12086.0,
+            "p95NearestRank": 30045.0,
+            "p99NearestRank": 66924.0,
+            "max": 66924.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 938.0,
+            "p50NearestRank": 8414.0,
+            "p95NearestRank": 14667.0,
+            "p99NearestRank": 32892.0,
+            "max": 32892.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 917,
+            "p50NearestRank": 8405,
+            "p95NearestRank": 14774,
+            "p99NearestRank": 33012,
+            "max": 33012
+          },
+          "threadTransitions": {
+            "[10, 135] -> [5, 131]": 8,
+            "[5, 131] -> [10, 135]": 7,
+            "[10, 135] -> [10, 135]": 4,
+            "[5, 131] -> [5, 131]": 1,
+            "[5, 131] -> [7, 134]": 2,
+            "[7, 134] -> [5, 131]": 1,
+            "[7, 134] -> [7, 134]": 10
+          }
+        },
+        "19": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 2,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2111.0,
+            "p50NearestRank": 21768.0,
+            "p95NearestRank": 57833.0,
+            "p99NearestRank": 58970.0,
+            "max": 58970.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -7458.0,
+            "p50NearestRank": 13894.0,
+            "p95NearestRank": 49824.0,
+            "p99NearestRank": 50608.0,
+            "max": 50608.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 3688.0,
+            "p50NearestRank": 8174.0,
+            "p95NearestRank": 32154.0,
+            "p99NearestRank": 44805.0,
+            "max": 44805.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 3708,
+            "p50NearestRank": 8302,
+            "p95NearestRank": 32249,
+            "p99NearestRank": 44921,
+            "max": 44921
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 5,
+            "[10, 135] -> [10, 135]": 4,
+            "[10, 135] -> [5, 131]": 4,
+            "[10, 135] -> [7, 134]": 9,
+            "[7, 134] -> [7, 134]": 3,
+            "[7, 134] -> [10, 135]": 8
+          }
+        },
+        "21": {
+          "offers": 33,
+          "crossThread": 24,
+          "sameThread": 9,
+          "crossThreadFraction": 0.7272727272727273,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 0,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 3330.0,
+            "p50NearestRank": 26222.0,
+            "p95NearestRank": 50575.0,
+            "p99NearestRank": 118147.0,
+            "max": 118147.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": 2038.0,
+            "p50NearestRank": 17509.0,
+            "p95NearestRank": 29857.0,
+            "p99NearestRank": 39959.0,
+            "max": 39959.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1292.0,
+            "p50NearestRank": 8608.0,
+            "p95NearestRank": 39700.0,
+            "p99NearestRank": 106834.0,
+            "max": 106834.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1293,
+            "p50NearestRank": 8700,
+            "p95NearestRank": 39838,
+            "p99NearestRank": 107214,
+            "max": 107214
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 12,
+            "[10, 135] -> [10, 135]": 3,
+            "[10, 135] -> [5, 131]": 12,
+            "[5, 131] -> [5, 131]": 6
+          }
+        },
+        "23": {
+          "offers": 33,
+          "crossThread": 31,
+          "sameThread": 2,
+          "crossThreadFraction": 0.9393939393939394,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 5308.0,
+            "p50NearestRank": 24632.0,
+            "p95NearestRank": 60927.0,
+            "p99NearestRank": 130425.0,
+            "max": 130425.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -3739.0,
+            "p50NearestRank": 15632.0,
+            "p95NearestRank": 34028.0,
+            "p99NearestRank": 116410.0,
+            "max": 116410.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 7931.0,
+            "p50NearestRank": 8307.0,
+            "p95NearestRank": 23346.0,
+            "p99NearestRank": 60879.0,
+            "max": 60879.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 8009,
+            "p50NearestRank": 8362,
+            "p95NearestRank": 23541,
+            "p99NearestRank": 61012,
+            "max": 61012
+          },
+          "threadTransitions": {
+            "[10, 135] -> [5, 131]": 16,
+            "[5, 131] -> [10, 135]": 15,
+            "[10, 135] -> [10, 135]": 1,
+            "[5, 131] -> [5, 131]": 1
+          }
+        },
+        "25": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 5769.0,
+            "p50NearestRank": 23150.0,
+            "p95NearestRank": 36108.0,
+            "p99NearestRank": 37806.0,
+            "max": 37806.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -5745.0,
+            "p50NearestRank": 14174.0,
+            "p95NearestRank": 20402.0,
+            "p99NearestRank": 25726.0,
+            "max": 25726.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1506.0,
+            "p50NearestRank": 8246.0,
+            "p95NearestRank": 12591.0,
+            "p99NearestRank": 25700.0,
+            "max": 25700.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1528,
+            "p50NearestRank": 8320,
+            "p95NearestRank": 12663,
+            "p99NearestRank": 25863,
+            "max": 25863
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 13,
+            "[10, 135] -> [10, 135]": 4,
+            "[10, 135] -> [5, 131]": 12,
+            "[5, 131] -> [5, 131]": 2,
+            "[10, 135] -> [3, 130]": 1,
+            "[3, 130] -> [3, 130]": 1
+          }
+        },
+        "27": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 4152.0,
+            "p50NearestRank": 26218.0,
+            "p95NearestRank": 72218.0,
+            "p99NearestRank": 111849.0,
+            "max": 111849.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -2776.0,
+            "p50NearestRank": 17406.0,
+            "p95NearestRank": 61877.0,
+            "p99NearestRank": 103598.0,
+            "max": 103598.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 6928.0,
+            "p50NearestRank": 8364.0,
+            "p95NearestRank": 29519.0,
+            "p99NearestRank": 51475.0,
+            "max": 51475.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 7050,
+            "p50NearestRank": 8460,
+            "p95NearestRank": 29625,
+            "p99NearestRank": 51623,
+            "max": 51623
+          },
+          "threadTransitions": {
+            "[3, 130] -> [3, 130]": 1,
+            "[3, 130] -> [10, 135]": 2,
+            "[10, 135] -> [3, 130]": 1,
+            "[10, 135] -> [5, 131]": 13,
+            "[5, 131] -> [10, 135]": 13,
+            "[10, 135] -> [10, 135]": 2,
+            "[5, 131] -> [5, 131]": 1
+          }
+        },
+        "29": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2588.0,
+            "p50NearestRank": 25739.0,
+            "p95NearestRank": 56424.0,
+            "p99NearestRank": 85644.0,
+            "max": 85644.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6613.0,
+            "p50NearestRank": 14311.0,
+            "p95NearestRank": 30138.0,
+            "p99NearestRank": 43698.0,
+            "max": 43698.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 3643.0,
+            "p50NearestRank": 8522.0,
+            "p95NearestRank": 41946.0,
+            "p99NearestRank": 42312.0,
+            "max": 42312.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 3541,
+            "p50NearestRank": 8605,
+            "p95NearestRank": 42080,
+            "p99NearestRank": 42421,
+            "max": 42421
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 12,
+            "[10, 135] -> [5, 131]": 11,
+            "[5, 131] -> [5, 131]": 2,
+            "[10, 135] -> [3, 130]": 3,
+            "[3, 130] -> [10, 135]": 3,
+            "[10, 135] -> [10, 135]": 2
+          }
+        },
+        "31": {
+          "offers": 33,
+          "crossThread": 25,
+          "sameThread": 8,
+          "crossThreadFraction": 0.7575757575757576,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2167.0,
+            "p50NearestRank": 24772.0,
+            "p95NearestRank": 73407.0,
+            "p99NearestRank": 153990.0,
+            "max": 153990.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6471.0,
+            "p50NearestRank": 14225.0,
+            "p95NearestRank": 36527.0,
+            "p99NearestRank": 50999.0,
+            "max": 50999.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 6756.0,
+            "p50NearestRank": 8698.0,
+            "p95NearestRank": 57935.0,
+            "p99NearestRank": 141878.0,
+            "max": 141878.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 6889,
+            "p50NearestRank": 8761,
+            "p95NearestRank": 58161,
+            "p99NearestRank": 142328,
+            "max": 142328
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 11,
+            "[10, 135] -> [10, 135]": 6,
+            "[10, 135] -> [5, 131]": 10,
+            "[5, 131] -> [5, 131]": 2,
+            "[10, 135] -> [3, 130]": 2,
+            "[3, 130] -> [10, 135]": 2
+          }
+        },
+        "33": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2725.0,
+            "p50NearestRank": 22101.0,
+            "p95NearestRank": 136247.0,
+            "p99NearestRank": 453896.0,
+            "max": 453896.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6424.0,
+            "p50NearestRank": 13545.0,
+            "p95NearestRank": 81907.0,
+            "p99NearestRank": 127742.0,
+            "max": 127742.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 7754.0,
+            "p50NearestRank": 8309.0,
+            "p95NearestRank": 29507.0,
+            "p99NearestRank": 442160.0,
+            "max": 442160.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 7826,
+            "p50NearestRank": 8389,
+            "p95NearestRank": 29600,
+            "p99NearestRank": 442562,
+            "max": 442562
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 15,
+            "[10, 135] -> [10, 135]": 2,
+            "[10, 135] -> [5, 131]": 14,
+            "[5, 131] -> [5, 131]": 2
+          }
+        },
+        "35": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 6,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 1927.0,
+            "p50NearestRank": 21517.0,
+            "p95NearestRank": 39304.0,
+            "p99NearestRank": 47820.0,
+            "max": 47820.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -59697.0,
+            "p50NearestRank": 13907.0,
+            "p95NearestRank": 32377.0,
+            "p99NearestRank": 40021.0,
+            "max": 40021.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1248.0,
+            "p50NearestRank": 8034.0,
+            "p95NearestRank": 12395.0,
+            "p99NearestRank": 63029.0,
+            "max": 63029.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1231,
+            "p50NearestRank": 8174,
+            "p95NearestRank": 12522,
+            "p99NearestRank": 63203,
+            "max": 63203
+          },
+          "threadTransitions": {
+            "[10, 135] -> [7, 134]": 3,
+            "[7, 134] -> [7, 134]": 2,
+            "[7, 134] -> [10, 135]": 4,
+            "[10, 135] -> [10, 135]": 5,
+            "[10, 135] -> [5, 131]": 10,
+            "[5, 131] -> [10, 135]": 8,
+            "[5, 131] -> [7, 134]": 1
+          }
+        },
+        "37": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 1,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 4592.0,
+            "p50NearestRank": 22594.0,
+            "p95NearestRank": 83358.0,
+            "p99NearestRank": 379266.0,
+            "max": 379266.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -4717.0,
+            "p50NearestRank": 14131.0,
+            "p95NearestRank": 73009.0,
+            "p99NearestRank": 371246.0,
+            "max": 371246.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1237.0,
+            "p50NearestRank": 8226.0,
+            "p95NearestRank": 11941.0,
+            "p99NearestRank": 12651.0,
+            "max": 12651.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1228,
+            "p50NearestRank": 8324,
+            "p95NearestRank": 12038,
+            "p99NearestRank": 12743,
+            "max": 12743
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 13,
+            "[10, 135] -> [10, 135]": 2,
+            "[10, 135] -> [5, 131]": 12,
+            "[10, 135] -> [7, 134]": 2,
+            "[7, 134] -> [7, 134]": 1,
+            "[7, 134] -> [10, 135]": 2,
+            "[5, 131] -> [5, 131]": 1
+          }
+        },
+        "39": {
+          "offers": 33,
+          "crossThread": 25,
+          "sameThread": 8,
+          "crossThreadFraction": 0.7575757575757576,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 3273.0,
+            "p50NearestRank": 21515.0,
+            "p95NearestRank": 52020.0,
+            "p99NearestRank": 110711.0,
+            "max": 110711.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9428.0,
+            "p50NearestRank": 13352.0,
+            "p95NearestRank": 17317.0,
+            "p99NearestRank": 17841.0,
+            "max": 17841.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 2211.0,
+            "p50NearestRank": 8120.0,
+            "p95NearestRank": 38030.0,
+            "p99NearestRank": 98255.0,
+            "max": 98255.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 2211,
+            "p50NearestRank": 8234,
+            "p95NearestRank": 38074,
+            "p99NearestRank": 98631,
+            "max": 98631
+          },
+          "threadTransitions": {
+            "[5, 131] -> [3, 130]": 1,
+            "[3, 130] -> [3, 130]": 5,
+            "[3, 130] -> [5, 131]": 1,
+            "[5, 131] -> [10, 135]": 12,
+            "[10, 135] -> [5, 131]": 11,
+            "[10, 135] -> [10, 135]": 1,
+            "[5, 131] -> [5, 131]": 2
+          }
+        },
+        "41": {
+          "offers": 33,
+          "crossThread": 29,
+          "sameThread": 4,
+          "crossThreadFraction": 0.8787878787878788,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2787.0,
+            "p50NearestRank": 22039.0,
+            "p95NearestRank": 46177.0,
+            "p99NearestRank": 79989.0,
+            "max": 79989.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9380.0,
+            "p50NearestRank": 13715.0,
+            "p95NearestRank": 23014.0,
+            "p99NearestRank": 36254.0,
+            "max": 36254.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1305.0,
+            "p50NearestRank": 8078.0,
+            "p95NearestRank": 12167.0,
+            "p99NearestRank": 80458.0,
+            "max": 80458.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1323,
+            "p50NearestRank": 8166,
+            "p95NearestRank": 12337,
+            "p99NearestRank": 80880,
+            "max": 80880
+          },
+          "threadTransitions": {
+            "[5, 131] -> [10, 135]": 14,
+            "[10, 135] -> [10, 135]": 3,
+            "[10, 135] -> [5, 131]": 14,
+            "[5, 131] -> [5, 131]": 1,
+            "[5, 131] -> [3, 130]": 1
+          }
+        },
+        "43": {
+          "offers": 33,
+          "crossThread": 21,
+          "sameThread": 12,
+          "crossThreadFraction": 0.6363636363636364,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 4,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2728.0,
+            "p50NearestRank": 21461.0,
+            "p95NearestRank": 35709.0,
+            "p99NearestRank": 152203.0,
+            "max": 152203.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -9607.0,
+            "p50NearestRank": 10767.0,
+            "p95NearestRank": 21211.0,
+            "p99NearestRank": 25359.0,
+            "max": 25359.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 1269.0,
+            "p50NearestRank": 8452.0,
+            "p95NearestRank": 13305.0,
+            "p99NearestRank": 136476.0,
+            "max": 136476.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 1261,
+            "p50NearestRank": 8524,
+            "p95NearestRank": 13459,
+            "p99NearestRank": 136809,
+            "max": 136809
+          },
+          "threadTransitions": {
+            "[3, 130] -> [5, 131]": 3,
+            "[5, 131] -> [5, 131]": 4,
+            "[5, 131] -> [3, 130]": 2,
+            "[3, 130] -> [3, 130]": 6,
+            "[5, 131] -> [10, 135]": 8,
+            "[10, 135] -> [10, 135]": 2,
+            "[10, 135] -> [5, 131]": 8
+          }
+        },
+        "45": {
+          "offers": 33,
+          "crossThread": 21,
+          "sameThread": 12,
+          "crossThreadFraction": 0.6363636363636364,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2115.0,
+            "p50NearestRank": 21263.0,
+            "p95NearestRank": 83526.0,
+            "p99NearestRank": 460168.0,
+            "max": 460168.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -7794.0,
+            "p50NearestRank": 13362.0,
+            "p95NearestRank": 74777.0,
+            "p99NearestRank": 451000.0,
+            "max": 451000.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 6410.0,
+            "p50NearestRank": 7952.0,
+            "p95NearestRank": 10849.0,
+            "p99NearestRank": 12010.0,
+            "max": 12010.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 6474,
+            "p50NearestRank": 8037,
+            "p95NearestRank": 10945,
+            "p99NearestRank": 12090,
+            "max": 12090
+          },
+          "threadTransitions": {
+            "[3, 130] -> [5, 131]": 2,
+            "[5, 131] -> [5, 131]": 1,
+            "[5, 131] -> [3, 130]": 1,
+            "[3, 130] -> [3, 130]": 10,
+            "[5, 131] -> [10, 135]": 9,
+            "[10, 135] -> [5, 131]": 9,
+            "[10, 135] -> [10, 135]": 1
+          }
+        },
+        "47": {
+          "offers": 33,
+          "crossThread": 26,
+          "sameThread": 7,
+          "crossThreadFraction": 0.7878787878787878,
+          "sendersObservedExecutingInThisProcess": 33,
+          "sendersHadAlreadyExecuted": 33,
+          "executeEnteredBeforeOfferReturned": 3,
+          "offerEnterToExecuteEntryNs": {
+            "count": 33,
+            "min": 2613.0,
+            "p50NearestRank": 21783.0,
+            "p95NearestRank": 56062.0,
+            "p99NearestRank": 106642.0,
+            "max": 106642.0
+          },
+          "offerReturnToExecuteEntryNsSigned": {
+            "count": 33,
+            "min": -6249.0,
+            "p50NearestRank": 13730.0,
+            "p95NearestRank": 19969.0,
+            "p99NearestRank": 46847.0,
+            "max": 46847.0
+          },
+          "schedulerCallEnvelopeElapsedNs": {
+            "count": 33,
+            "min": 853.0,
+            "p50NearestRank": 8410.0,
+            "p95NearestRank": 11150.0,
+            "p99NearestRank": 109426.0,
+            "max": 109426.0
+          },
+          "schedulerCallEnvelopeThreadCpuNs": {
+            "count": 33,
+            "min": 854,
+            "p50NearestRank": 8495,
+            "p95NearestRank": 11227,
+            "p99NearestRank": 109900,
+            "max": 109900
+          },
+          "threadTransitions": {
+            "[3, 130] -> [10, 135]": 1,
+            "[10, 135] -> [10, 135]": 4,
+            "[10, 135] -> [3, 130]": 1,
+            "[3, 130] -> [3, 130]": 3,
+            "[3, 130] -> [5, 131]": 1,
+            "[5, 131] -> [10, 135]": 12,
+            "[10, 135] -> [5, 131]": 11
+          }
+        }
+      }
+    }
+  },
+  "passed": true
+}
