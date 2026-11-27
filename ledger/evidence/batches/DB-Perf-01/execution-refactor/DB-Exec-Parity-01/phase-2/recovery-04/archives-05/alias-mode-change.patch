@@ -1,0 +1,39 @@
+--- archives04/restore_package_aliases.py
++++ archives05/restore_artifact_aliases.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Restore exact raw-package path aliases after payload restore; never overwrite."""
++"""Restore exact native/package aliases with reviewed mode whitelist; never overwrite."""
+ import argparse
+ import hashlib
+ import json
+@@ -37,6 +37,9 @@
+         raise ValueError('Alias file changed while reading: '+str(path))
+     if digest!=expected['sha256']:
+         raise ValueError('Alias SHA256 differs: '+str(path))
++    mode=expected.get('mode')
++    if mode is not None and stat.S_IMODE(after.st_mode)!=mode:
++        raise ValueError('Alias permission mode differs: '+str(path))
+ 
+ 
+ def require_independent_inode(source, destination):
+@@ -53,6 +56,9 @@
+     planned=[];destinations=set()
+     # Complete preflight before creating any destination directory or file.
+     for entry in aliases:
++        mode=entry.get('mode',0o644)
++        if type(mode) is not int or mode not in (0o644,0o744):
++            raise ValueError('Alias mode must be exactly 0644 or 0744')
+         if entry['destination'] in destinations:
+             raise ValueError('Duplicate alias destination')
+         destinations.add(entry['destination'])
+@@ -86,8 +92,8 @@
+                 for chunk in iter(lambda:original.read(1024*1024),b''):
+                     target.write(chunk)
+                 target.flush();os.fsync(target.fileno())
++            os.chmod(temporary,entry.get('mode',0o644))
+             check_file(temporary,entry)
+-            os.chmod(temporary,0o644)
+             contained(root,entry['destination'])
+             # Atomic no-clobber installation of an independently byte-copied inode.
+             # The source/feed inode is never hardlinked to the mutable cache.
