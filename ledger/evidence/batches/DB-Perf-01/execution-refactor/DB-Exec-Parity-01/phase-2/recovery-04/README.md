@@ -1,6 +1,6 @@
 # Recovery 04 — resume from this checkpoint
 
-**Latest continuation:** [Continuation05](continuation-05.md) records the five-candidate consumer builds, completed caller attribution and next mixed-observer gate. The sections below preserve the first Recovery04 snapshot.
+**Latest continuation:** [Completed combined screen05](combined-screen-05.md) records122 successful processes, retained early-stop/tail risks and the validated local PG observer. [Continuation05](continuation-05.md) preserves the five-candidate build identities. The sections below preserve the first Recovery04 snapshot.
 
 **Stage 1 is complete. Four measured candidates are integrated and their existing PR CI passed; combined performance acceptance is pending. Final mixed35 campaign: 0/4.** This checkpoint continues [the Recovery 03 ordinary screen](../recovery-03/ordinary-screen-03/README.md), without restarting completed measurements. It records the actual recovered state, including incomplete investigations and remote archive publication.
 

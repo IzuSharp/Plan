@@ -1,0 +1,11 @@
+# Preserve existing Plan gates with sufficient checkout time
+
+Current product source `2ea67ce1902f330679c3ebff4d6d5733be20f69c` passed [Korda CI45955784723](https://github.com/IzuSharp/Korda/actions/runs/45955784723). Design source `9092013a549f5c1f2b9078a574797d364b259728` passed both existing design workflows. Plan's last runs are cancelled and must not be described as passed.
+
+The existing `paired-integrity` job in `.github/workflows/native-slices-final-check.yml` has a10-minute timeout. [Plan run45957568451](https://github.com/IzuSharp/Plan/actions/runs/45957568451) started its job at07:18:39 UTC and was cancelled at07:28:39 during another full-history checkout. Three preceding fetches each took approximately157–158 seconds, and the two historical gates already executed were successful. Six full Plan checkouts would require about16 minutes at that observed fetch rate, before all remaining gates run.
+
+[Run45951745316](https://github.com/IzuSharp/Plan/actions/runs/45951745316), for the earlier `9ee88a7` head, also cancelled after the10-minute budget while executing later historical provenance checks. All preceding completed steps succeeded. The workflow has no concurrency cancellation rule, and overlapping later runs did not immediately cancel the older runs. Configuration and two actual timelines therefore strongly support job timeout; cancellation actor/internal reason is not directly visible through the available API and is not asserted.
+
+The selected repair changes **only `timeout-minutes: 10` to `30`** for this existing documentation/history job. All checkout SHAs, full-history semantics, commands, immutable inputs, permissions, required gates and workflow triggers stay unchanged. No gate is removed, skipped, weakened or replaced. No benchmark, profiling, calibration, load test or indirect performance invocation is added. Do not rerun old heads merely to obtain a different label; the next normal task push checks the new current head.
+
+The actual observer report, two run/job/log snapshots, original workflow, recent-run summary and file manifest are preserved at `experiments/recovery/plan-ci-timeout-05`. [The copied timeline](ci-timeout-timeline-05.json) retains the original successful and skipped/cancelled steps. This CI repair accepts no database or performance result.
