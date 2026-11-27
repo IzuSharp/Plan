@@ -1,6 +1,6 @@
 # DB-Exec-Parity-01 — relation batch allocation investigation
 
-Status: source-only investigation and approved independent diagnostic plan. No product implementation or reusable-plan cache is selected. Root approved first-layer C# allocation scopes on real Release Native AOT related32, SQLite then PostgreSQL, with baseline native images reused; only counts/allocation attribution, no ordinary CPU or latency credit. This document will gain actual observations after that separate diagnostic executes.
+Status: measured diagnostics completed in recovery 03; a narrow private temporary-branch transfer experiment is now selected before product implementation. See [measured selection and ownership proof](recovery-03/relations-selection/selection.md). The earlier source-only plan below is retained as history. No reusable-plan cache is selected; no ordinary performance acceptance is claimed.
 
 ## Measured priority, not yet allocation-site proof
 
@@ -104,3 +104,12 @@ Root therefore prefers the measured narrow synchronous allocation site over imme
 ## Current limitations and next action
 
 The byte numbers are real process totals; the call counts and candidate allocation sites above are source-derived predictions. No per-site runtime allocation count, actual relation-hotspot machine-code mapping or new causal optimization result exists yet. Start the approved independent first-layer diagnostic. Commit the diagnostic source identity, preserve original product unchanged, and retain failed/rejected observations before deciding which synchronous function to change.
+
+
+## Recovery 03: measured selection before product implementation
+
+Both databases now have same-thread, zero-control-allocation Native AOT measurements for all first-layer phases. SQLite second-layer counts prove 31 branch clones allocate 120,776 B and copy 54,932 tape bytes per related32 business. This is 17.6% of the roughly 686 KB whole-process total; SelectParent remains a larger independent cost. Shared Combine allocation is exactly 181,760 B on both databases. SQL stays one statement, 53 rows and the original digest, with no errors and zero final owners. Concurrent builds are allowed for these allocation/count observations, so CPU and latency are ineligible.
+
+Select only an internal consuming import for the privately owned branch in RelationBatch. Public Combine still clones and keeps its mutable source usable. Consume the source only after the entire existing command SnapshotAndImport has succeeded, including appended tape and metadata updates; failed validation, finite budgets, wrong-source, unsupported mode and admission failure leave it usable. Retain the destination dependency before releasing the original source owner; no fallible work belongs between successful import and source invalidation. A later union failure is disposed by the private outer caller. Preserve every key snapshot, ordinal/duplicate group, native collation, SQL count, result budget and error ordering.
+
+The complete measured tables, source identities, evidence hashes, targeted regressions and A/B acceptance conditions are in the linked selection. New code may now be implemented in the isolated task worktree. It remains a candidate until mechanism counts, Query.Binding AOT, dual-provider Relations, and ordinary repeated A/B pass.

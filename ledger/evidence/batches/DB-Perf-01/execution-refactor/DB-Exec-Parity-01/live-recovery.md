@@ -1,3 +1,10 @@
+# Current recovery continuation 03
+
+Read [recovery-03/README.md](phase-2/recovery-03/README.md) first. The previous
+continuation is retained below as history. Current final campaign remains 0/4.
+
+---
+
 # Current recovery continuation 02
 
 Read [recovery-continuation-02.md](phase-2/recovery-continuation-02.md) first. Its current root, verified artifact boundary and active work supersede the earlier live workspace pointers below. The earlier text is preserved as historical recovery evidence. Final acceptance remains0/4.

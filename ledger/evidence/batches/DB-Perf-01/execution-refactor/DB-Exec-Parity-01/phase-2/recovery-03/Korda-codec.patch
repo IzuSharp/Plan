@@ -1,0 +1,163 @@
+diff --git a/native/cpp/src/contracts.cpp b/native/cpp/src/contracts.cpp
+index ffdf652..0feeba0 100644
+--- a/native/cpp/src/contracts.cpp
++++ b/native/cpp/src/contracts.cpp
+@@ -209,6 +209,50 @@ std::uint64_t number(const Json& value, std::string_view key)
+     return unsigned_number(*found);
+ }
+ 
++struct DecimalConfiguration
++{
++    std::uint32_t precision, scale;
++};
++
++// Recognize only the complete canonical success language. Every other byte
++// sequence still uses the original JSON validator and its error ordering.
++std::optional<DecimalConfiguration> canonical_decimal_configuration(std::string_view text) noexcept
++{
++    constexpr std::string_view prefix = "{\"precision\":";
++    constexpr std::string_view separator = ",\"scale\":";
++    if (!text.starts_with(prefix))
++        return {};
++    text.remove_prefix(prefix.size());
++    const auto read_number = [&text](std::uint32_t maximum) -> std::optional<std::uint32_t>
++    {
++        if (text.empty() || text.front() < '0' || text.front() > '9')
++            return {};
++        const bool leading_zero = text.front() == '0';
++        std::uint32_t value = 0;
++        std::size_t count = 0;
++        while (count < text.size() && text[count] >= '0' && text[count] <= '9')
++        {
++            const auto digit = static_cast<std::uint32_t>(text[count] - '0');
++            if ((leading_zero && count != 0) || value > (maximum - digit) / 10)
++                return {};
++            value = value * 10 + digit;
++            ++count;
++        }
++        if (value > maximum)
++            return {};
++        text.remove_prefix(count);
++        return value;
++    };
++    const auto precision = read_number(29);
++    if (!precision || *precision == 0 || !text.starts_with(separator))
++        return {};
++    text.remove_prefix(separator.size());
++    const auto scale = read_number(28);
++    if (!scale || *scale > *precision || text != "}")
++        return {};
++    return DecimalConfiguration{*precision, *scale};
++}
++
+ std::uint32_t u32_number(const Json& value, std::string_view key)
+ {
+     const auto result = number(value, key);
+@@ -564,6 +608,8 @@ void Codec::validate(Profile profile) const
+         {
+             invalid("missing decimal configuration");
+         }
++        if (canonical_decimal_configuration(*configuration))
++            return;
+         const auto value = parse_json(view(*configuration), "invalid decimal configuration");
+         require_keys(value, {"precision", "scale"});
+         const auto precision = number(value, "precision");
+@@ -1483,9 +1529,14 @@ void validate_scalar(const Codec& codec, ByteView bytes, Profile profile)
+             }
+             if (codec.id == 13)
+             {
+-                const auto config = parse_json(view(*codec.configuration), "decimal config");
+-                const auto target_scale = number(config, "scale");
+-                const auto precision = number(config, "precision");
++                const auto config = canonical_decimal_configuration(*codec.configuration);
++                // codec.validate has already checked this same immutable input.
++                // Keep a defensive failure rather than creating a second parser
++                // with a different acceptance or error contract.
++                if (!config)
++                    invalid("decimal config");
++                const auto target_scale = config->scale;
++                const auto precision = config->precision;
+                 std::uint64_t digits = 0;
+                 while (std::any_of(limbs.begin(), limbs.end(), [](auto value) { return value != 0; }))
+                 {
+diff --git a/native/cpp/tests/scalar_tests.cpp b/native/cpp/tests/scalar_tests.cpp
+index d30b4ba..420f744 100644
+--- a/native/cpp/tests/scalar_tests.cpp
++++ b/native/cpp/tests/scalar_tests.cpp
+@@ -230,8 +230,76 @@ int main()
+         rejects(3, [&] { (void)postgres_decode(scaled, 1700, numeric(0, 0, 0, {10000})); });
+         rejects(3, [&] { (void)postgres_decode(scaled, 1700, numeric(0, 0, 16384, {})); });
+         rejects(3, [&] { (void)postgres_decode(scaled, 1700, Bytes{0}); });
++
++        std::size_t decimal_configurations = 0;
++        for (std::uint32_t precision = 1; precision <= 29; ++precision)
++        {
++            for (std::uint32_t scale = 0; scale <= std::min(precision, 28U); ++scale)
++            {
++                Codec configured{
++                    13, "{\"precision\":" + std::to_string(precision) + ",\"scale\":" + std::to_string(scale) + '}',
++                    false};
++                configured.validate(Profile::PostgreSql);
++                validate_scalar(configured, decimal(0), Profile::PostgreSql);
++                require(postgres_decode(configured, 1700, numeric(0, 0, 0, {})) == decimal(0),
++                        "all canonical decimal configurations decode zero");
++                ++decimal_configurations;
++            }
++        }
++        require(decimal_configurations == 463, "complete legal precision and scale domain");
++        for (const std::string invalid_config :
++             {"",
++              "null",
++              "[]",
++              "{}",
++              "{\"precision\":29}",
++              "{\"scale\":0}",
++              "{\"precision\":0,\"scale\":0}",
++              "{\"precision\":30,\"scale\":0}",
++              "{\"precision\":29,\"scale\":29}",
++              "{\"precision\":1,\"scale\":2}",
++              "{\"precision\":01,\"scale\":0}",
++              "{\"precision\":29,\"scale\":00}",
++              "{\"precision\":+1,\"scale\":0}",
++              "{\"precision\":-1,\"scale\":0}",
++              "{\"precision\":29,\"scale\":-0}",
++              "{\"precision\":29.0,\"scale\":0}",
++              "{\"precision\":2.9e1,\"scale\":0}",
++              "{\"precision\":\"29\",\"scale\":0}",
++              "{\"precision\":true,\"scale\":0}",
++              "{\"precision\":null,\"scale\":0}",
++              "{\"precision\":29,\"scale\":false}",
++              "{\"precision\":29,\"scale\":0,\"x\":0}",
++              "{\"precision\":29,\"scale\":0,\"scale\":0}",
++              "{\"scale\":0,\"precision\":29}",
++              "{\"precision\":29, \"scale\":0}",
++              " {\"precision\":29,\"scale\":0}",
++              "{\"precision\":29,\"scale\":0} ",
++              "{\"precision\":29,\"scale\":0}x",
++              "{\"pre\\u0063ision\":29,\"scale\":0}",
++              "{\"precision\":18446744073709551616,\"scale\":0}",
++              "{\"precision\":29,\"scale\":429496729600000000000000000000000000000000}"})
++        {
++            Codec configured{13, invalid_config, false};
++            rejects(3, [&] { configured.validate(Profile::PostgreSql); });
++            rejects(3, [&] { validate_scalar(configured, decimal(0), Profile::PostgreSql); });
++            // Configuration error still precedes both OID and malformed value.
++            rejects(3, [&] { (void)postgres_decode(configured, 23, Bytes{0}); });
++        }
++        auto changed = codec(13);
++        changed.configuration->push_back('\0');
++        rejects(3, [&] { changed.validate(Profile::PostgreSql); });
++        changed.configuration = "{\"precision\":1,\"scale\":0}";
++        changed.validate(Profile::PostgreSql);
++        rejects(3, [&] { validate_scalar(changed, decimal(12), Profile::PostgreSql); });
++        changed.configuration = "{\"precision\":2,\"scale\":0}";
++        validate_scalar(changed, decimal(12), Profile::PostgreSql);
++        rejects(3, [&] { changed.validate(Profile::Sqlite); });
++        changed.configuration.reset();
++        rejects(3, [&] { changed.validate(Profile::PostgreSql); });
+         std::cout
+             << "{\"status\":\"passed\",\"scalar_kinds\":17,\"rejected_lossy_or_invalid_values\":" << rejected
++            << ",\"decimal_configurations\":" << decimal_configurations
+             << ",\"numeric_96bit_exact\":true,\"sqlite_canonical_storage\":true,\"postgres_binary_protocol\":true}\n";
+     }
+     catch (const std::exception& error)

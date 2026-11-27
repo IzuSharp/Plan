@@ -1,0 +1,278 @@
+diff --git a/src/Data.NativeHost/DataSource.cs b/src/Data.NativeHost/DataSource.cs
+index 746d3ce..6098591 100644
+--- a/src/Data.NativeHost/DataSource.cs
++++ b/src/Data.NativeHost/DataSource.cs
+@@ -51,6 +51,10 @@ internal static unsafe DataSource Create(EngineDescriptor descriptor, DatabasePr
+             throw new DatabaseCapabilityException(CursorPullCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
+         binding.Pulls = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
+         binding.Pulls.Require();
++        if (!info.Capabilities.Any(capability => capability.Name == CursorPullExecutionCalls.Capability))
++            throw new DatabaseCapabilityException(CursorPullExecutionCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
++        binding.PullExecution = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
++        binding.PullExecution.Require();
+         if (!info.Capabilities.Any(capability => capability.Name == CommandCompletionCalls.Capability))
+             throw new DatabaseCapabilityException(CommandCompletionCalls.Capability, provider == DatabaseProvider.Sqlite ? "sqlite.v1" : "postgresql.v1");
+         binding.Completions = new(symbol => EngineModuleLoader.ResolveExport(descriptor, symbol));
+diff --git a/src/Data.NativeHost/DatabaseOptions.cs b/src/Data.NativeHost/DatabaseOptions.cs
+index 8dd8f37..bca0029 100644
+--- a/src/Data.NativeHost/DatabaseOptions.cs
++++ b/src/Data.NativeHost/DatabaseOptions.cs
+@@ -99,7 +99,7 @@ internal void Require(string capability)
+ 
+ internal static class DatabaseEngineProfile
+ {
+-    private static readonly string[] Names = ["db.metadata.v1", "db.query.v1", "db.transactions.v1", "db.savepoints.v1", "db.streaming.v1", "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1", "db.window.v1", "db.row-lock.v1", "db.null-safe-equality.v1", "db.json.v1", "db.decimal.numeric.v1", "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1"];
++    private static readonly string[] Names = ["db.metadata.v1", "db.query.v1", "db.transactions.v1", "db.savepoints.v1", "db.streaming.v1", "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1", "db.window.v1", "db.row-lock.v1", "db.null-safe-equality.v1", "db.json.v1", "db.decimal.numeric.v1", "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1"];
+     internal static EngineDescriptor Create(string engine, string package, string rid, string path, string hash, Assembly assembly) =>
+         EnginePackage.CreateDescriptor(new EnginePackageManifest(engine, package, PackageVersion(assembly), new AbiVersion(1, 0), engine switch { "database.sqlite" => "nw_database_sqlite_get_abi_v1", "database.postgresql" => "nw_database_postgresql_get_abi_v1", _ => throw new ArgumentException("Unknown database provider engine.", nameof(engine)) }, EngineThreadingModel.EngineLocalAsync,
+             [new NativeAssetDescriptor(rid, path, hash.ToLowerInvariant(), "x86-64")], Names.Select((name, bit) => new EngineCapabilityDefinition(new(name), bit)).ToArray()), assembly);
+diff --git a/src/Data.NativeHost/HostPullController.cs b/src/Data.NativeHost/HostPullController.cs
+index ae5cc37..6fc7cf9 100644
+--- a/src/Data.NativeHost/HostPullController.cs
++++ b/src/Data.NativeHost/HostPullController.cs
+@@ -13,7 +13,8 @@ namespace Korda.Database;
+ internal enum HostPullBoundary
+ {
+     BeforeRoot, RootAllocated, BeforeRegister, Registered, BeforeRequest,
+-    RequestReturned, Ready, BeforeTake, ResultTaken, StopEntered, StopReturned, Published
++    RequestReturned, Ready, BeforeTake, ResultTaken, StopEntered, StopReturned, Published,
++    BeforeRun, RunReturned, BeforeAbandon, AbandonReturned
+ }
+ 
+ internal readonly record struct HostPullSnapshot(ulong Generation, bool Active, bool SetupReturned,
+@@ -40,6 +41,7 @@ internal sealed class HostPullController : CoordinatedCallback, IValueTaskSource
+     private bool _ready, _rooted, _hasRegistration, _registrationAttempted, _registrationReady;
+     private bool _drainStarted, _registrationDrained, _takeSettled, _resultTaken, _published, _consumed = true;
+     private bool _stopping, _stopObserved, _closed, _forcedCloseStarted, _indeterminate;
++    private bool _executionClaimed, _executing;
+     private Exception? _failure, _stopFailure;
+ 
+     internal HostPullController(DataSource source, DatabaseOwner channel, ScopedStreamBatch batch,
+@@ -76,6 +78,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+             _setupReturned = _accepted = _requestEntered = _requestReturned = _ready = false;
+             _hasRegistration = _registrationAttempted = _registrationReady = false;
+             _drainStarted = _registrationDrained = _takeSettled = _resultTaken = _published = _indeterminate = false;
++            _executionClaimed = _executing = false;
+             _failure = null;
+         }
+         bool control = false;
+@@ -122,7 +125,7 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+                 };
+                 var error = BindingChecks.Error();
+                 lock (_gate) _requestEntered = true;
+-                var status = NativeHost.Pulls(_source.Binding).Request(lease.Pointer, _generation,
++                var status = NativeHost.PullExecution(_source.Binding).Prepare(lease.Pointer, _generation,
+                     checked((uint)_rows), checked((ulong)_source.Limits.MaxBatchBytes), &callbacks, &error);
+                 lock (_gate)
+                 {
+@@ -151,23 +154,20 @@ internal unsafe ValueTask<ScopedStreamBatch> Request()
+         }
+         finally
+         {
+-            bool deferToReady;
+             lock (_gate)
+             {
+                 if (control) _controls--;
+                 if (!_registrationAttempted && !_registrationReady)
+                 { _registrationReady = true; _registrationDrained = true; }
+                 _setupReturned = true;
+-                deferToReady = _accepted && !_ready && _failure is null
+-                    && !_stopping && !_closed && !_indeterminate;
+             }
+-            // A normal accepted request cannot drain before ready. The callback and
+-            // this decision use the same gate: early readiness is resumed here,
+-            // and later readiness signals its own work item. Fault/stop paths
+-            // retain their existing independent progress notifications.
++            // Native prepare only admits work. The bounded, never-inline
++            // coordinator executes that obligation after setup has returned.
++            // A transient rejected queue offer retains its retry reservation;
++            // native cancellation/close can independently settle unrun work.
+             // A pre-reservation failure has no native/cancellation obligation
+             // and needs no scheduler capacity in order to release its root.
+-            if (!deferToReady) Resume();
++            Resume();
+         }
+         return new(this, version);
+     }
+@@ -248,13 +248,22 @@ private static void OnReady(nint context, ulong generation)
+             {
+                 // The drain cannot observe zero accesses until this callback
+                 // has made its last state access under the same gate.
+-                lock (controller._gate) { controller._callbackEntries--; controller.Signal(); }
++                lock (controller._gate)
++                {
++                    controller._callbackEntries--;
++                    // The executing coordinator will drain this notification
++                    // after the complete native call returns. An independent
++                    // close/stop notification still schedules when no run is on
++                    // that worker stack. Do not queue a redundant ready drain.
++                    if (!controller._executing) controller.Signal();
++                }
+             }
+         }
+     }
+ 
+     protected override void Process()
+     {
++        ExecutePrepared();
+         bool forceClose, waitReady, stop;
+         lock (_gate)
+         {
+@@ -345,6 +354,47 @@ protected override void Process()
+         else _completion.SetException(failure);
+     }
+ 
++    private unsafe void ExecutePrepared()
++    {
++        bool abandon;
++        ulong generation;
++        lock (_gate)
++        {
++            if (!_active || _published || !_setupReturned || !_accepted || _executionClaimed
++                || _closed || _indeterminate) return;
++            // Accepted prepare always follows reservation. Thus this method
++            // cannot execute provider work through Resume's unreserved inline
++            // setup-failure path.
++            if (_slot < 0) throw new InvalidOperationException("An admitted cursor pull requires its scheduling reservation.");
++            _executionClaimed = _executing = true;
++            _controls++;
++            generation = _generation;
++            abandon = _failure is not null || _stopping;
++        }
++        try
++        {
++            using var lease = _channel.Borrow(DatabaseOwnerKind.Cursor);
++            var calls = NativeHost.PullExecution(_source.Binding);
++            var error = BindingChecks.Error();
++            Boundary(abandon ? HostPullBoundary.BeforeAbandon : HostPullBoundary.BeforeRun);
++            var status = abandon ? calls.Abandon(lease.Pointer, generation, &error)
++                : calls.Run(lease.Pointer, generation, &error);
++            if (status != NativeStatus.Ok)
++                throw HostFailure.Create(_source.Binding, status, error, token: _token);
++            Boundary(abandon ? HostPullBoundary.AbandonReturned : HostPullBoundary.RunReturned);
++        }
++        catch (Exception error)
++        {
++            // A missing acceptance/retirement receipt retains the root and
++            // reservation until the existing cold close proves safety.
++            lock (_gate) { _failure ??= error; _indeterminate = true; }
++        }
++        finally
++        {
++            lock (_gate) { _executing = false; _controls--; }
++        }
++    }
++
+     private async Task DrainRegistrationAsync(ValueTask pending)
+     {
+         try
+diff --git a/src/Data.NativeHost/NativeHost.cs b/src/Data.NativeHost/NativeHost.cs
+index 187b3d4..798c294 100644
+--- a/src/Data.NativeHost/NativeHost.cs
++++ b/src/Data.NativeHost/NativeHost.cs
+@@ -212,6 +212,8 @@ private static unsafe Exception PullFailure(SourceBinding binding, nint channel,
+     }
+     internal static CursorPullCalls Pulls(SourceBinding binding) => binding.Pulls
+         ?? throw new NotSupportedException("The native cursor pull extension is unavailable.");
++    internal static CursorPullExecutionCalls PullExecution(SourceBinding binding) => binding.PullExecution
++        ?? throw new NotSupportedException("The native admitted cursor execution extension is unavailable.");
+     internal static unsafe void CheckPullRead(DatabaseOwner channel)
+     {
+         using var lease = channel.Borrow(DatabaseOwnerKind.Cursor); var error = BindingChecks.Error();
+diff --git a/src/Packaging.Domain/model.py b/src/Packaging.Domain/model.py
+index b2f1254..0a7bd74 100644
+--- a/src/Packaging.Domain/model.py
++++ b/src/Packaging.Domain/model.py
+@@ -41,7 +41,7 @@ DATABASE_CAPABILITIES = [
+     "db.decimal.text.v1", "db.fixed-money.v1", "db.relationships.explicit.v1", "db.prepared-shape.v1",
+     "db.bulk-batches.v1", "db.dynamic-fields.v1", "db.recursive-cte.v1", "db.set-operations.v1",
+     "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1",
+-    "db.command.completion.v1", "db.find.shape.v1",
++    "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1",
+ ]
+ ENGINES = {
+     "database.sqlite": ("Korda.Database.Sqlite", "libnw_database_sqlite.so", "nw_database_sqlite", DATABASE_CAPABILITIES),
+diff --git a/src/Query.Binding/CursorPullExecutionCalls.cs b/src/Query.Binding/CursorPullExecutionCalls.cs
+new file mode 100644
+index 0000000..873129d
+--- /dev/null
++++ b/src/Query.Binding/CursorPullExecutionCalls.cs
+@@ -0,0 +1,27 @@
++using Korda.Interop.Abi;
++
++namespace Korda.Query.Internal;
++
++// An admitted generation is executed or abandoned once. No borrowed pointer
++// survives prepare; the native admission owns its independent retirement tickets.
++internal sealed unsafe class CursorPullExecutionCalls
++{
++    internal const string Capability = "db.cursor.pull.execution.v1";
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint> Prepare;
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint> Run;
++    internal readonly delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint> Abandon;
++
++    internal CursorPullExecutionCalls(Func<string, nint> resolve)
++    {
++        Prepare = (delegate* unmanaged[Cdecl]<nint, ulong, uint, ulong, NativePullCallbacks*, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_prepare_v1");
++        Run = (delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_run_v1");
++        Abandon = (delegate* unmanaged[Cdecl]<nint, ulong, NwErrorInfoV1*, uint>)resolve("nw_db_cursor_pull_abandon_v1");
++    }
++
++    internal void Require()
++    {
++        BindingChecks.Require((nint)Prepare, "nw_db_cursor_pull_prepare_v1");
++        BindingChecks.Require((nint)Run, "nw_db_cursor_pull_run_v1");
++        BindingChecks.Require((nint)Abandon, "nw_db_cursor_pull_abandon_v1");
++    }
++}
+diff --git a/src/Query.Binding/Owners.cs b/src/Query.Binding/Owners.cs
+index 5472cd4..d0c49e5 100644
+--- a/src/Query.Binding/Owners.cs
++++ b/src/Query.Binding/Owners.cs
+@@ -14,6 +14,7 @@ internal sealed class SourceBinding(NativeCalls calls, uint semanticProfile)
+     internal uint SemanticProfile { get; } = semanticProfile is 1 or 2 ? semanticProfile : throw new ArgumentOutOfRangeException(nameof(semanticProfile));
+     internal QueryCommandEnvironment? Commands { get; set; }
+     internal CursorPullCalls? Pulls { get; set; }
++    internal CursorPullExecutionCalls? PullExecution { get; set; }
+     internal CommandCompletionCalls? Completions { get; set; }
+     internal FindShapeCalls? Finds { get; set; }
+ }
+diff --git a/tests/Data.Materialization/package_feed.py b/tests/Data.Materialization/package_feed.py
+index cde572a..024f5b8 100644
+--- a/tests/Data.Materialization/package_feed.py
++++ b/tests/Data.Materialization/package_feed.py
+@@ -20,7 +20,7 @@ REGISTRY = {
+     'Korda.Database.Sqlite': ('src/Data.Sqlite', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+     'Korda.Database.PostgreSql': ('src/Data.Postgres', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+ }
+-CAPABILITIES = ['db.metadata.v1', 'db.query.v1', 'db.transactions.v1', 'db.savepoints.v1', 'db.streaming.v1', 'db.migrations.v1', 'db.schema.read.v1', 'db.returning.v1', 'db.upsert.v1', 'db.cte.v1', 'db.window.v1', 'db.row-lock.v1', 'db.null-safe-equality.v1', 'db.json.v1', 'db.decimal.numeric.v1', 'db.decimal.text.v1', 'db.fixed-money.v1', 'db.relationships.explicit.v1', 'db.prepared-shape.v1', 'db.bulk-batches.v1', 'db.dynamic-fields.v1', 'db.recursive-cte.v1', 'db.set-operations.v1', 'db.scalar-codecs.v1', 'db.sql.expert.v1', 'db.schema.draft.v1', 'db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1']
++CAPABILITIES = ['db.metadata.v1', 'db.query.v1', 'db.transactions.v1', 'db.savepoints.v1', 'db.streaming.v1', 'db.migrations.v1', 'db.schema.read.v1', 'db.returning.v1', 'db.upsert.v1', 'db.cte.v1', 'db.window.v1', 'db.row-lock.v1', 'db.null-safe-equality.v1', 'db.json.v1', 'db.decimal.numeric.v1', 'db.decimal.text.v1', 'db.fixed-money.v1', 'db.relationships.explicit.v1', 'db.prepared-shape.v1', 'db.bulk-batches.v1', 'db.dynamic-fields.v1', 'db.recursive-cte.v1', 'db.set-operations.v1', 'db.scalar-codecs.v1', 'db.sql.expert.v1', 'db.schema.draft.v1', 'db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1', 'db.cursor.pull.execution.v1']
+ 
+ def sha(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+diff --git a/tests/Data.NativeHost/package_probe.py b/tests/Data.NativeHost/package_probe.py
+index 1dc4a5f..6c3f022 100644
+--- a/tests/Data.NativeHost/package_probe.py
++++ b/tests/Data.NativeHost/package_probe.py
+@@ -65,7 +65,7 @@ registry = {
+     'Korda.Database.PostgreSql': ('src/Data.Postgres', ['Korda.Core', 'Korda.Data', 'Korda.Database', 'Korda.Query.Generator']),
+     'Korda.Database.DependencyInjection': ('src/Data.NativeHost/DependencyInjection', ['Korda.Database']),
+ }
+-capabilities = ['db.metadata.v1','db.query.v1','db.transactions.v1','db.savepoints.v1','db.streaming.v1','db.migrations.v1','db.schema.read.v1','db.returning.v1','db.upsert.v1','db.cte.v1','db.window.v1','db.row-lock.v1','db.null-safe-equality.v1','db.json.v1','db.decimal.numeric.v1','db.decimal.text.v1','db.fixed-money.v1','db.relationships.explicit.v1','db.prepared-shape.v1','db.bulk-batches.v1','db.dynamic-fields.v1','db.recursive-cte.v1','db.set-operations.v1','db.scalar-codecs.v1','db.sql.expert.v1','db.schema.draft.v1','db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1']
++capabilities = ['db.metadata.v1','db.query.v1','db.transactions.v1','db.savepoints.v1','db.streaming.v1','db.migrations.v1','db.schema.read.v1','db.returning.v1','db.upsert.v1','db.cte.v1','db.window.v1','db.row-lock.v1','db.null-safe-equality.v1','db.json.v1','db.decimal.numeric.v1','db.decimal.text.v1','db.fixed-money.v1','db.relationships.explicit.v1','db.prepared-shape.v1','db.bulk-batches.v1','db.dynamic-fields.v1','db.recursive-cte.v1','db.set-operations.v1','db.scalar-codecs.v1','db.sql.expert.v1','db.schema.draft.v1','db.query.command.v1', 'db.cursor.pull.v1', 'db.command.completion.v1', 'db.find.shape.v1', 'db.cursor.pull.execution.v1']
+ provider = {
+     'Korda.Database.Sqlite': ('database.sqlite', args.sqlite.resolve(), 'libnw_database_sqlite.so'),
+     'Korda.Database.PostgreSql': ('database.postgresql', args.postgresql.resolve(), 'libnw_database_postgresql.so'),
+diff --git a/tests/ProviderProfileChecks.cs b/tests/ProviderProfileChecks.cs
+index 9cd22a9..efd3614 100644
+--- a/tests/ProviderProfileChecks.cs
++++ b/tests/ProviderProfileChecks.cs
+@@ -14,7 +14,7 @@ internal static class ProviderProfileChecks
+         "db.migrations.v1", "db.schema.read.v1", "db.returning.v1", "db.upsert.v1", "db.cte.v1",
+         "db.window.v1", "db.null-safe-equality.v1", "db.json.v1", "db.fixed-money.v1",
+         "db.relationships.explicit.v1", "db.prepared-shape.v1", "db.bulk-batches.v1", "db.dynamic-fields.v1",
+-        "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1"
++        "db.recursive-cte.v1", "db.set-operations.v1", "db.scalar-codecs.v1", "db.sql.expert.v1", "db.schema.draft.v1", "db.query.command.v1", "db.cursor.pull.v1", "db.command.completion.v1", "db.find.shape.v1", "db.cursor.pull.execution.v1"
+     ];
+ 
+     internal static int Component(string provider, string? asset)
