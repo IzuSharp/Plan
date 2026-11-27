@@ -1,5 +1,7 @@
 # Recovery 04 — resume from this checkpoint
 
+**Active scope:** The owner resumed all three remaining directions. Read [Continuation15](continuation-15.md); the delivery-only stop paragraph below is superseded. Finite local diagnostics and short A/B continue; long workloads and rejected concrete06/07/08 strategies remain closed.
+
 **Current delivery checkpoint:** [Continuation14](continuation-14.md) and [its receipts](delivery-14/README.md) supersede the active-work navigation below. Product/Design and both public preview.5 consumers are verified; Archive06 is published and byte-verified. Performance work is finished. Read Plan PR36's final normal-merge/main-CI receipt, then stop. No new performance run is selected.
 
 ## Earlier checkpoint navigation retained

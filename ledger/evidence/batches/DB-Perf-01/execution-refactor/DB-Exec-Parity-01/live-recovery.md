@@ -1,5 +1,7 @@
 # Current recovery — Delivery14
 
+**Active owner continuation:** “继续这三个” resumes the three remaining optimization directions. Read [Continuation15](phase-2/recovery-04/continuation-15.md). Delivery-only stop navigation below is superseded; long workloads remain cancelled and the concrete rejected06/07/08 experiments remain closed.
+
 Local performance work is finished. Read [Continuation14](phase-2/recovery-04/continuation-14.md), [current status](status.json) and Plan PR36's final delivery receipt. Both public preview.5 packages have passed signature and standalone Native AOT consumption; Archive06 is published and actual-byte verified. Only this Plan record's own normal review/merge/main CI can remain pending. Once its exact outcomes are recorded, stop. No performance command is pending. Historical four-cell and 0/4 requirements below were cancelled by the owner and must not restart work.
 
 ## Historical recovery snapshots — superseded

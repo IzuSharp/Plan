@@ -1,5 +1,7 @@
 # Current continuation — DB-Exec-Parity-01
 
+**Active owner continuation:** “继续这三个” resumes the three remaining optimization directions. Read [Continuation15](execution-refactor/DB-Exec-Parity-01/phase-2/recovery-04/continuation-15.md). Delivery-only stop navigation below is superseded; long workloads remain cancelled and the concrete rejected06/07/08 experiments remain closed.
+
 Local performance work and the measured short screens are complete. Continue only from [Delivery14](execution-refactor/DB-Exec-Parity-01/phase-2/recovery-04/continuation-14.md) and the [current status](execution-refactor/DB-Exec-Parity-01/status.json). The retained05 product plus the separate owner cleanup and Design strategy are merged; both public preview.5 packages passed signature and standalone Native AOT consumption. Archive06 is published and fully byte-verified. The final Plan PR36 receipt owns this record's subsequent merge/main-CI result. No new measurement or long cell is pending; parity remains unproved. All earlier checkpoints below retain their historical identities.
 
 ## Previous checkpoint retained

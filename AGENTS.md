@@ -1,3 +1,9 @@
+# Current continuation — DB-Exec-Parity-01 three remaining directions
+
+The owner explicitly instructed “继续这三个” after recovering the saved three-direction table. Continue finite local diagnostics and short interleaved A/B for relation construction/final graph, PG single-row and common per-row/per-column work, and request/batch scheduling plus safe retirement. [Continuation15](ledger/evidence/batches/DB-Perf-01/execution-refactor/DB-Exec-Parity-01/phase-2/recovery-04/continuation-15.md) supersedes the delivery-only stop instruction below. The prior delivery facts remain valid; its assertion that all local performance work was finished was an assistant scope error, not evidence that these directions were exhausted. Start with the current05 request-level scheduling attribution. No long workload is authorized; rejected concrete06/07/08 strategies remain closed. Product changes still require measured cause, correctness and ordinary A/B evidence. Existing CI remains compilation/correctness/security/independent package checks only.
+
+## Previous delivery-only navigation (superseded)
+
 # Current delivery continuation — DB-Exec-Parity-01
 
 The owner resumed the interrupted evidence and delivery closeout. Local performance work is finished for this round; no new measurement, profiling, calibration, pressure or long workload is selected. Read [Continuation14](ledger/evidence/batches/DB-Perf-01/execution-refactor/DB-Exec-Parity-01/phase-2/recovery-04/continuation-14.md), its delivery receipts and Plan PR36's final observed merge/main-CI receipt. The product and Design are merged, both public preview.5 standalone AOT consumers passed, and Archive06 actual bytes are verified. Finish only any genuinely remaining normal Plan review/merge/main check, then stop. Preserve the explicit remaining performance gaps and unchanged Go drafts. Earlier task instructions below retain their historical scope.

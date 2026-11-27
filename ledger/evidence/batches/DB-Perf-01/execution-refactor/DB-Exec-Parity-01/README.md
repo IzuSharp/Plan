@@ -1,5 +1,7 @@
 # DB-Exec-Parity-01 — measured execution-path reconstruction
 
+**Active scope:** The owner resumed all three remaining directions. Read [Continuation15](phase-2/recovery-04/continuation-15.md); the delivery-only stop paragraph below is superseded. Finite local diagnostics and short A/B continue; long workloads and rejected concrete06/07/08 strategies remain closed.
+
 **Current delivery status:** [Continuation14](phase-2/recovery-04/continuation-14.md) records successful product/Design merges, both public preview.5 standalone Native AOT consumers, and full Archive06 byte verification. Local performance work is finished. Read Plan PR36's final receipt for this record's own subsequent merge/main CI; once confirmed, stop. No new or long measurement is pending. Dapper parity remains unproved.
 
 ## Previous measured checkpoint retained
