@@ -1,0 +1,122 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "createdUtc": "2026-11-27T13:23:12.134754+00:00",
+  "stage": "small-source-bundle-created-and-verified",
+  "bundle": {
+    "path": "experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/Korda-ownership05-frame08-local03.bundle",
+    "bytes": 20528,
+    "sha256": "49287adb126697cd387b09b67e03b10e9352a1ee1c25adb0025309e073d1a1de"
+  },
+  "bundleCommand": [
+    "git",
+    "-C",
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/worktrees/Korda-frame-pool08",
+    "-c",
+    "pack.threads=1",
+    "bundle",
+    "create",
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/Korda-ownership05-frame08-local03.bundle",
+    "refs/heads/task/DB-Exec-Parity-01-owner-cleanup08",
+    "refs/heads/task/DB-Exec-Parity-01-linux",
+    "refs/heads/task/DB-Exec-Parity-01-frame-pool08",
+    "refs/heads/task/DB-Exec-Parity-01-frame-pool08-local03",
+    "^2ea67ce1902f330679c3ebff4d6d5733be20f69c"
+  ],
+  "bundleCreateStdout": "",
+  "bundleCreateStderr": "",
+  "bundleVerifyStdout": "The bundle contains these 4 refs:\n69b2383dadc280f1a81de592592a1442069eed0c refs/heads/task/DB-Exec-Parity-01-owner-cleanup08\n106fe68b6f6c2537f478daf65a71ab97cc4b15ff refs/heads/task/DB-Exec-Parity-01-linux\n13b25de2b67d858d8b6524f615e3a84b4c541817 refs/heads/task/DB-Exec-Parity-01-frame-pool08\nc429effc45c6fcd946c999553d0420b71369abfe refs/heads/task/DB-Exec-Parity-01-frame-pool08-local03\nThe bundle requires this ref:\n2ea67ce1902f330679c3ebff4d6d5733be20f69c \nThe bundle uses this hash algorithm: sha1\n",
+  "bundleVerifyStderr": "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/Korda-ownership05-frame08-local03.bundle is okay\n",
+  "snapshots": [
+    {
+      "identity": "ownership05-original",
+      "headCommit": "69b2383dadc280f1a81de592592a1442069eed0c",
+      "tree": "f7660759bba43ae83324620e2fb731efd479c3b5",
+      "originalRef": "refs/heads/task/DB-Exec-Parity-01-owner-cleanup08",
+      "prerequisiteCommit": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "includedCommits": [
+        "69b2383dadc280f1a81de592592a1442069eed0c"
+      ],
+      "patchBase": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "netPatch": {
+        "path": "experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/ownership05-original.patch",
+        "bytes": 1886,
+        "sha256": "8d8e098c88ec85ff2ef7d62e7f5734f230418584042397c96cfe7a605872edd7"
+      },
+      "restoreWorktrees": [
+        "Korda-owner-cleanup08",
+        "Korda-ownership05-sqlite",
+        "Korda-ownership05-postgresql"
+      ]
+    },
+    {
+      "identity": "selected-published-ownership05",
+      "headCommit": "106fe68b6f6c2537f478daf65a71ab97cc4b15ff",
+      "tree": "f7660759bba43ae83324620e2fb731efd479c3b5",
+      "originalRef": "refs/heads/task/DB-Exec-Parity-01-linux",
+      "prerequisiteCommit": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "includedCommits": [
+        "106fe68b6f6c2537f478daf65a71ab97cc4b15ff"
+      ],
+      "patchBase": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "netPatch": {
+        "path": "experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/selected-published-ownership05.patch",
+        "bytes": 1886,
+        "sha256": "8d8e098c88ec85ff2ef7d62e7f5734f230418584042397c96cfe7a605872edd7"
+      },
+      "restoreWorktrees": [
+        "Korda"
+      ]
+    },
+    {
+      "identity": "rejected-ordinary08",
+      "headCommit": "13b25de2b67d858d8b6524f615e3a84b4c541817",
+      "tree": "1547f40409892f8e4b89f4ddf99a637664991203",
+      "originalRef": "refs/heads/task/DB-Exec-Parity-01-frame-pool08",
+      "prerequisiteCommit": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "includedCommits": [
+        "74917fd4f5e483a8cceeeaa56d5b59026e6ba1d2",
+        "b0a6f2294512b354eb9ca203f9de2e5763c38a14",
+        "e1f18255e82c838d8423a83e93ff02aa3d9e87a6",
+        "13b25de2b67d858d8b6524f615e3a84b4c541817"
+      ],
+      "patchBase": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "netPatch": {
+        "path": "experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/rejected-ordinary08.patch",
+        "bytes": 37828,
+        "sha256": "6df12feb2eb613da255ef114c747835715cba9b09cf7b96ec0fb0c620e816f8c"
+      },
+      "restoreWorktrees": [
+        "Korda-frame-pool08",
+        "Korda-frame-pool08-sqlite",
+        "Korda-frame-pool08-postgresql"
+      ]
+    },
+    {
+      "identity": "local03-diagnostic",
+      "headCommit": "c429effc45c6fcd946c999553d0420b71369abfe",
+      "tree": "8255e3ba82eb9d63febcdd394fe506950fd92f35",
+      "originalRef": "refs/heads/task/DB-Exec-Parity-01-frame-pool08-local03",
+      "prerequisiteCommit": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+      "includedCommits": [
+        "74917fd4f5e483a8cceeeaa56d5b59026e6ba1d2",
+        "b0a6f2294512b354eb9ca203f9de2e5763c38a14",
+        "e1f18255e82c838d8423a83e93ff02aa3d9e87a6",
+        "13b25de2b67d858d8b6524f615e3a84b4c541817",
+        "c429effc45c6fcd946c999553d0420b71369abfe"
+      ],
+      "patchBase": "13b25de2b67d858d8b6524f615e3a84b4c541817",
+      "netPatch": {
+        "path": "experiments/recovery/archive-recovery-04/supplement-06/source-snapshots/local03-diagnostic.patch",
+        "bytes": 33529,
+        "sha256": "a01a32aa18617203e451b898820316e4998628dd104749e8c8ed706edd17c748"
+      },
+      "restoreWorktrees": [
+        "Korda-frame-pool08-local03"
+      ]
+    }
+  ],
+  "ownership05OriginalAndPublishedTreesIdentical": true,
+  "wholeRepositoryCopied": false,
+  "sourceRefModified": false,
+  "restore": "Restore archived Korda baseline2ea from archives02 first; verify this thin bundle in that repository and fetch the listed refs to new local refs, then add isolated worktrees at exact recorded commits. Diagnostic c429 is separate from ordinary13b; neither is selected for shipping. Original69b was compiled; published106 has the same source tree. Net patches are secondary review artifacts."
+}
