@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Exec-Parity-01",
+  "passed": true,
+  "kind": "zero-cost",
+  "conditions": {
+    "provider": "postgresql",
+    "seconds": 30,
+    "rate": 500.0,
+    "queue": 64,
+    "idle": 5,
+    "concurrency": 8,
+    "warmup": 64,
+    "rows": 32,
+    "batchRows": 32,
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "mode": "prepared",
+    "session": "persistent"
+  },
+  "inputIdentitySha256": "7de032be815d57df740f13b78151848f11832d81037a59484705ae09ff49e36d",
+  "freeze": null,
+  "ordinaryTiming": true,
+  "finalCredit": false,
+  "newFinalCellCredit": false,
+  "longEvidenceReadyForReview": false,
+  "normalized": {
+    "counts": {
+      "planned": 15000,
+      "attempted": 15000,
+      "sent": 15000,
+      "started": 15000,
+      "completed": 15000,
+      "succeeded": 15000,
+      "failed": 0,
+      "rejected": 0,
+      "retries": 0,
+      "rows": 366067
+    },
+    "correctnessPassed": true,
+    "oracleFailures": 0,
+    "elapsedThroughDrainSeconds": 30.001344816,
+    "offeredSeconds": 30,
+    "steadyStartMonotonicNs": 14971696693026,
+    "plannedOfferedEndMonotonicNs": 15001696693026,
+    "offeredEndMonotonicNs": 15001696693796,
+    "drainedMonotonicNs": 15001698037842,
+    "missingExecutedCaseIds": [],
+    "fullCaseCoverage": true,
+    "ownershipCheckScope": "application connections only; independent ORM internal owners are not asserted",
+    "successOpsPerSecond": 499.9775874046939,
+    "rowsPerSecond": 12201.686365898273,
+    "errorAndRejectionRate": 0.0,
+    "p50MicrosecondsUpper": 491.52,
+    "p95MicrosecondsUpper": 2129.92,
+    "p99MicrosecondsUpper": 5931.008,
+    "latencyBoundary": "scheduled-to-completion"
+  },
+  "quantiles": {
+    "service": {
+      "p50MicrosecondsUpper": 430.08,
+      "p95MicrosecondsUpper": 1982.464,
+      "p99MicrosecondsUpper": 4112.384
+    },
+    "scheduled": {
+      "p50MicrosecondsUpper": 491.52,
+      "p95MicrosecondsUpper": 2129.92,
+      "p99MicrosecondsUpper": 5931.008
+    },
+    "startDelay": {
+      "p50MicrosecondsUpper": 40.448,
+      "p95MicrosecondsUpper": 185.344,
+      "p99MicrosecondsUpper": 1515.52
+    }
+  },
+  "resources": {
+    "clientUserCpuSeconds": 34.546583999999996,
+    "clientSystemCpuSeconds": 0.74286,
+    "clientCpuSecondsPerSuccess": 0.0023526296,
+    "managedAllocatedBytes": 112127264,
+    "managedBytesPerSuccess": 7475.150933333333,
+    "gcCountsProcessScope": {
+      "Gen0": 35,
+      "Gen1": 4,
+      "Gen2": 2
+    },
+    "gcPauseSecondsProcessScope": 0.070077,
+    "peakRssThroughMeasurementBytes": 39378944,
+    "releasedIdleRssBytes": 39387136,
+    "releasedIdlePssBytes": 38432768,
+    "idleObservation": {
+      "StartedUtc": "2026-11-27T08:28:19.9374010+00:00",
+      "FinishedUtc": "2026-11-27T08:28:24.9379895+00:00",
+      "RequestedSeconds": 5,
+      "ObservedSeconds": 5.000578213,
+      "Before": {
+        "UserCpuSeconds": 34.713893,
+        "SystemCpuSeconds": 0.800738,
+        "RssBytes": 39383040,
+        "PeakRssBytes": 39383040,
+        "PssBytes": 38404096,
+        "TotalGcPauseTicks": 835340
+      },
+      "After": {
+        "UserCpuSeconds": 34.713919,
+        "SystemCpuSeconds": 0.802253,
+        "RssBytes": 39387136,
+        "PeakRssBytes": 39387136,
+        "PssBytes": 38432768,
+        "TotalGcPauseTicks": 835340
+      },
+      "UserCpuSeconds": 2.5999999998305157e-05,
+      "SystemCpuSeconds": 0.001515000000000044,
+      "ManagedBytesBefore": 8842080,
+      "ManagedBytesAfter": 8842080,
+      "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+    },
+    "clientWait4Lifetime": {
+      "processLifetimeUserCpuSeconds": 34.725543,
+      "processLifetimeSystemCpuSeconds": 0.841955,
+      "processLifetimeMaxRssBytes": 43421696
+    },
+    "postgres": {
+      "visibleSteadyIntervals": {
+        "method": "proc-stat-ppid-double-topology-v1",
+        "side": "server",
+        "rootPidStartTicks": [
+          10974,
+          1497046
+        ],
+        "requestedMonotonicInterval": [
+          14971696693026,
+          15001698037842
+        ],
+        "ticksPerSecond": 100,
+        "inner": {
+          "firstAcquisition": [
+            14971951626773,
+            14971957982440
+          ],
+          "lastAcquisition": [
+            15001673603007,
+            15001680613361
+          ],
+          "firstCounters": {
+            "ownAndReapedUserTicks": 56,
+            "ownAndReapedSystemTicks": 40
+          },
+          "lastCounters": {
+            "ownAndReapedUserTicks": 451,
+            "ownAndReapedSystemTicks": 261
+          },
+          "userCpuSecondsObserved": 3.95,
+          "systemCpuSecondsObserved": 2.21,
+          "eligibleSamples": 116,
+          "allObservedCountersMonotonic": true
+        },
+        "outer": {
+          "firstAcquisition": [
+            14971438261608,
+            14971441201137
+          ],
+          "lastAcquisition": [
+            15001930917681,
+            15001935211643
+          ],
+          "firstCounters": {
+            "ownAndReapedUserTicks": 27,
+            "ownAndReapedSystemTicks": 24
+          },
+          "lastCounters": {
+            "ownAndReapedUserTicks": 456,
+            "ownAndReapedSystemTicks": 266
+          },
+          "userCpuSecondsObserved": 4.29,
+          "systemCpuSecondsObserved": 2.42,
+          "eligibleSamples": 119,
+          "allObservedCountersMonotonic": true
+        },
+        "ineligibleSamplesInRequestedInterval": 0,
+        "exactSteadyCpuProven": false,
+        "cgroupAccounting": false,
+        "scope": "Visible live/reaped proc totals over recorded inner/outer acquisition endpoints. Unknown exited-process and topology acquisition gaps are retained; no per-PID maxima or edge extrapolation."
+      },
+      "observedInnerOuterAvailable": true,
+      "wait4Lifetime": {
+        "processLifetimeUserCpuSeconds": 4.607588,
+        "processLifetimeSystemCpuSeconds": 2.7322670000000002,
+        "processLifetimeMaxRssBytes": 35917824
+      },
+      "lifetimeScope": "Separate lifetime total includes server startup, fixture, warmup, idle and shutdown; never added to sampled interval CPU",
+      "exactSteadyCpuProven": false,
+      "unobservedExitedChildrenOrNonAtomicTransferLoss": "unknown"
+    },
+    "nativeAllocationProfile": null,
+    "allocationScope": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+    "frameworkOnlyManagedBytes": null,
+    "producerAndHarnessCpuAndAllocationsIncluded": true,
+    "scope": "Client process counters bracket the nominal offered interval and include boundary observation, scheduler/producer, driver, framework and DTO work. Peak RSS is lifetime-to-snapshot, idle RSS follows owner release without forced GC."
+  },
+  "oneClientPidStartTicks": [
+    11013,
+    1497143
+  ],
+  "warmupPerWorkerOutsideMeasuredInterval": 64,
+  "additionalVerificationCasesPerWorkerBeforeWarmup": 35,
+  "zeroRejections": true,
+  "rawFiles": {
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/result.json": {
+      "sha256": "5869c185ae0efbdce995e95c75a7c13f5e9a1bfdb660a7272197cb2c546d6a93",
+      "bytes": 134294
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/plan.json": {
+      "sha256": "29c504764baf4f0736e94b7479f8c089c8d17c0d285e6b1ac6a0f300e2fb8dc2",
+      "bytes": 2875
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/runner.json": {
+      "sha256": "bef3181c6762558fb97526088c9b4fc0642ebcd64d9a609f2e3162719d1d26a5",
+      "bytes": 1208
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/observer-adapter-retirement.json": {
+      "sha256": "e84f49c1d1072ababcfa122cc9393c4143904ba4d549b3e50ca5b2c6caa6db12",
+      "bytes": 1055
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/client.command.json": {
+      "sha256": "c4fa03aefd20e246be7ad9b8b4ab14de587a6332e0152055ae7bd91818b54aa6",
+      "bytes": 12481
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/client.resources.jsonl": {
+      "sha256": "1149db6013643ed7c5f1bff0e23776f9e2f9f3bdf7bdbbd5142f050964b19d70",
+      "bytes": 1157859
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/client.stdout.log": {
+      "sha256": "9179be1cd151bc231a566f616067f9f19d3b8ad5a9313db52b4c0883ac4ce83e",
+      "bytes": 134309
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/initialize.command.json": {
+      "sha256": "137a1373ca74db8e060cbb09ea1b35a92a743df00227a7867c44e20b863ddf29",
+      "bytes": 11629
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/initialize.resources.jsonl": {
+      "sha256": "ddc3393d4e45b69f7dad4bb8308ca8ca6c490838f634a9444ef08867d7af60b4",
+      "bytes": 24091
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/initialize.stdout.log": {
+      "sha256": "42b361769ce69957727f3a50a9c5df2c6936cd2154270cef5bf8e5adb5f68ceb",
+      "bytes": 113
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/postgres-owner.json": {
+      "sha256": "f8a1c6546f908546f323ce5fab75e3c78a614cb0f41ff9d2e93b116d51f740f5",
+      "bytes": 10078
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/postgres-settings.txt": {
+      "sha256": "920f8dc709326810ac51a282bfe4f0b73a469c6c307f9cc05fdedf8762c82dbf",
+      "bytes": 220
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/postgres.log": {
+      "sha256": "b075e9d7a6b84a1becf9b03b7349415d9cc2faeb9b4cde4b70169aeca695fac8",
+      "bytes": 1374
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/postgresql-dapper/measurement/postgres-init.log": {
+      "sha256": "d06e01d67998adb137780a2f4ee362f1b9f89c1aff04fb17c049a7463c4951f6",
+      "bytes": 1124
+    }
+  },
+  "limitations": [
+    "One cell is evidence for independent review, never automatic final acceptance.",
+    "Wrapper flock serializes cooperating wrappers; external quietness is a separately controlled campaign condition.",
+    "Native allocations require their own instrumented lane; process totals cannot establish framework-only 0 B.",
+    "PostgreSQL visible-proc intervals are non-atomic observations, not exact steady CPU bounds."
+  ],
+  "completedUtc": "2026-11-27T08:28:25.443526+00:00",
+  "prePostInputIdentitiesEqual": true,
+  "snapshotBeforeSha256": "3c78f2586db2a41a5876c4f67f7a6ec36d0de158e51f1d8d3cae91a29ad410fe",
+  "snapshotAfterSha256": "b0e655ed2f9ced7c5e46aa356871a6ccf69b0fe0dacf1299eff7b97c4a7fe3f6",
+  "retirementLeaseSha256": "0825ba2e10efd236b1c9752aa8b96bb98574422228939c2600e189cd3d633652"
+}

@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Exec-Parity-01",
+  "passed": true,
+  "kind": "zero-cost",
+  "conditions": {
+    "provider": "sqlite",
+    "seconds": 30,
+    "rate": 500.0,
+    "queue": 64,
+    "idle": 5,
+    "concurrency": 4,
+    "warmup": 64,
+    "rows": 32,
+    "batchRows": 32,
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "mode": "prepared",
+    "session": "persistent"
+  },
+  "inputIdentitySha256": "bedecdc5a1fe50e5db3bf1d98d901bb2e11a65bccc6345c066616241b043d755",
+  "freeze": null,
+  "ordinaryTiming": true,
+  "finalCredit": false,
+  "newFinalCellCredit": false,
+  "longEvidenceReadyForReview": false,
+  "normalized": {
+    "counts": {
+      "planned": 15000,
+      "attempted": 15000,
+      "sent": 15000,
+      "started": 15000,
+      "completed": 15000,
+      "succeeded": 15000,
+      "failed": 0,
+      "rejected": 0,
+      "retries": 0,
+      "rows": 366067
+    },
+    "correctnessPassed": true,
+    "oracleFailures": 0,
+    "elapsedThroughDrainSeconds": 30.001328547,
+    "offeredSeconds": 30,
+    "steadyStartMonotonicNs": 15084638929776,
+    "plannedOfferedEndMonotonicNs": 15114638929776,
+    "offeredEndMonotonicNs": 15114638929878,
+    "drainedMonotonicNs": 15114640258323,
+    "missingExecutedCaseIds": [],
+    "fullCaseCoverage": true,
+    "ownershipCheckScope": "application connections only; independent ORM internal owners are not asserted",
+    "successOpsPerSecond": 499.9778585305328,
+    "rowsPerSecond": 12201.692982579769,
+    "errorAndRejectionRate": 0.0,
+    "p50MicrosecondsUpper": 245.76,
+    "p95MicrosecondsUpper": 1589.248,
+    "p99MicrosecondsUpper": 4554.752,
+    "latencyBoundary": "scheduled-to-completion"
+  },
+  "quantiles": {
+    "service": {
+      "p50MicrosecondsUpper": 156.672,
+      "p95MicrosecondsUpper": 1327.104,
+      "p99MicrosecondsUpper": 2621.44
+    },
+    "scheduled": {
+      "p50MicrosecondsUpper": 245.76,
+      "p95MicrosecondsUpper": 1589.248,
+      "p99MicrosecondsUpper": 4554.752
+    },
+    "startDelay": {
+      "p50MicrosecondsUpper": 44.8,
+      "p95MicrosecondsUpper": 376.832,
+      "p99MicrosecondsUpper": 2359.296
+    }
+  },
+  "resources": {
+    "clientUserCpuSeconds": 35.466941,
+    "clientSystemCpuSeconds": 0.185142,
+    "clientCpuSecondsPerSuccess": 0.0023768055333333333,
+    "managedAllocatedBytes": 113497800,
+    "managedBytesPerSuccess": 7566.52,
+    "gcCountsProcessScope": {
+      "Gen0": 53,
+      "Gen1": 3,
+      "Gen2": 1
+    },
+    "gcPauseSecondsProcessScope": 0.062301,
+    "peakRssThroughMeasurementBytes": 30953472,
+    "releasedIdleRssBytes": 30777344,
+    "releasedIdlePssBytes": 29896704,
+    "idleObservation": {
+      "StartedUtc": "2026-11-27T08:30:12.8766972+00:00",
+      "FinishedUtc": "2026-11-27T08:30:17.8774337+00:00",
+      "RequestedSeconds": 5,
+      "ObservedSeconds": 5.000734928,
+      "Before": {
+        "UserCpuSeconds": 35.551819,
+        "SystemCpuSeconds": 0.218424,
+        "RssBytes": 30777344,
+        "PeakRssBytes": 30953472,
+        "PssBytes": 29896704,
+        "TotalGcPauseTicks": 643800
+      },
+      "After": {
+        "UserCpuSeconds": 35.551819,
+        "SystemCpuSeconds": 0.219882,
+        "RssBytes": 30777344,
+        "PeakRssBytes": 30953472,
+        "PssBytes": 29896704,
+        "TotalGcPauseTicks": 643800
+      },
+      "UserCpuSeconds": 0,
+      "SystemCpuSeconds": 0.001457999999999987,
+      "ManagedBytesBefore": 3262968,
+      "ManagedBytesAfter": 3262968,
+      "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+    },
+    "clientWait4Lifetime": {
+      "processLifetimeUserCpuSeconds": 35.564467,
+      "processLifetimeSystemCpuSeconds": 0.224603,
+      "processLifetimeMaxRssBytes": 32022528
+    },
+    "postgres": null,
+    "nativeAllocationProfile": null,
+    "allocationScope": "whole-process end-to-end total; business DTO/string/JSON and harness async state included; framework-only attribution unproven",
+    "frameworkOnlyManagedBytes": null,
+    "producerAndHarnessCpuAndAllocationsIncluded": true,
+    "scope": "Client process counters bracket the nominal offered interval and include boundary observation, scheduler/producer, driver, framework and DTO work. Peak RSS is lifetime-to-snapshot, idle RSS follows owner release without forced GC."
+  },
+  "oneClientPidStartTicks": [
+    18358,
+    1508451
+  ],
+  "warmupPerWorkerOutsideMeasuredInterval": 64,
+  "additionalVerificationCasesPerWorkerBeforeWarmup": 35,
+  "zeroRejections": true,
+  "rawFiles": {
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/result.json": {
+      "sha256": "a8b4da17ceaae596b2a272c7e42f8183d3bf2ad31d3de8858877ad4ed6fce48f",
+      "bytes": 135884
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/plan.json": {
+      "sha256": "5946a2d5f9ce46105064f63414edb7528597bad35b11415ed82df7380dfb2123",
+      "bytes": 2821
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/runner.json": {
+      "sha256": "9cc3ba72c84f4becd0f6223433d6e57931fbe282af3e08cdf5eceaf1d7777b02",
+      "bytes": 1208
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/observer-adapter-retirement.json": {
+      "sha256": "2cb3576bfbf42ef201fcf5987fba1283ad1ca32b6bec3c03c71f4049dc0d85eb",
+      "bytes": 1023
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/client.command.json": {
+      "sha256": "628fa500b87568d6a7430fd3bdad2b3d722fa9545d734ef9be76a1c62843b851",
+      "bytes": 5633
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/client.resources.jsonl": {
+      "sha256": "594047e13c14be9fd17b3817912adb68b74314c842bcd74114ba0f2b590b04f5",
+      "bytes": 284156
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/client.stdout.log": {
+      "sha256": "c7928c4332e8de627b33e00353263c8d98ad322df2d0277d5db52e716935581f",
+      "bytes": 135899
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/initialize.command.json": {
+      "sha256": "e0ccdef8728db727d1a28abeea4f970642b262646b0ff0d1fc0cf8f660be7548",
+      "bytes": 4649
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/initialize.resources.jsonl": {
+      "sha256": "44f43baa3c5e59aaa9ec96fe7e380252ee04677ea73f58ea025148b3e0a59857",
+      "bytes": 5946
+    },
+    "/workspace/scratch/0669b59f9cae/DB-Exec-Parity-01/experiments/recovery/zero-cost-05/round-02/sqlite-dapper/measurement/initialize.stdout.log": {
+      "sha256": "b8e9d9aaa8d862226da3ce02dfa1c745cabd45e6c5ea6ca6f9678a10b61692e3",
+      "bytes": 109
+    }
+  },
+  "limitations": [
+    "One cell is evidence for independent review, never automatic final acceptance.",
+    "Wrapper flock serializes cooperating wrappers; external quietness is a separately controlled campaign condition.",
+    "Native allocations require their own instrumented lane; process totals cannot establish framework-only 0 B.",
+    "PostgreSQL visible-proc intervals are non-atomic observations, not exact steady CPU bounds."
+  ],
+  "completedUtc": "2026-11-27T08:30:18.268752+00:00",
+  "prePostInputIdentitiesEqual": true,
+  "snapshotBeforeSha256": "8e491ca9d220359e191dc1f881886a027f4c9633f35d6b6338e4802d8d4fefac",
+  "snapshotAfterSha256": "cfcef41e0ee7bc7e265472dd6b8a190abd26a52bcf8e1129748bdf3f4666412d",
+  "retirementLeaseSha256": "12f9b6436407f783a29a646cfaa28650e853c9c492438639b190539eccbe0d38"
+}

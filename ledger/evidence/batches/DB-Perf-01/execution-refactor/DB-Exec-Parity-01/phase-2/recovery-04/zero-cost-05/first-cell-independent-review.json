@@ -1,0 +1,81 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "reviewedUtc": "2026-11-27T08:18:05.190777+00:00",
+  "reviewer": "recovery_audit",
+  "scope": "Read existing small raw JSON and validation, arithmetic/case-count reconciliation, and validator source; no rerun, profile, large hash or performance credit",
+  "inputs": [
+    {
+      "path": "experiments/recovery/zero-cost-05/round-01/sqlite-candidate/measurement/result.json",
+      "bytes": 115785,
+      "sha256": "948906dd5e87b9b134df17d935fc13b659f0286d37e519ee6c873aa15549ecfd"
+    },
+    {
+      "path": "experiments/recovery/zero-cost-05/round-01/sqlite-candidate/validation.json",
+      "bytes": 7724,
+      "sha256": "9cbc4576deeeaa60ff425cd44fa8e05781f124a782f350ce81830b5ea4222f48"
+    }
+  ],
+  "checks": {
+    "35UniqueActualCases": true,
+    "35CaseLedgersMatchActualSet": true,
+    "oraclesAndModeContractsCover35": true,
+    "everyCaseSucceeded": true,
+    "caseSuccessSum15000": true,
+    "caseRowsSumMatches": true,
+    "zeroFailureRejectionRetry": true,
+    "noOutstandingRequests": true,
+    "oracleFailuresZero": true,
+    "gcPauseDeltaMatches": true,
+    "trackedOwnersZero": true,
+    "nativeAllocationExplicitUnknown": true,
+    "frameworkManagedExplicitUnknown": true,
+    "ordinaryButNotFinal": true,
+    "sameInputIdentityBeforeAfter": true,
+    "timeSeriesNotTruncated": true
+  },
+  "passed": true,
+  "observation": {
+    "conditions": {
+      "provider": "sqlite",
+      "seconds": 30,
+      "rate": 500.0,
+      "queue": 64,
+      "idle": 5,
+      "concurrency": 4,
+      "warmup": 64,
+      "rows": 32,
+      "batchRows": 32,
+      "tenants": 8,
+      "ordersPerTenant": 1024,
+      "mode": "prepared",
+      "session": "persistent"
+    },
+    "succeeded": 15000,
+    "caseSuccessRange": [
+      428,
+      429
+    ],
+    "rows": 366067,
+    "cpuSecondsPerSuccess": 0.0029482345333333333,
+    "managedBytesPerSuccess": 20738.312533333334,
+    "gcCountsProcessScope": {
+      "Gen0": 98,
+      "Gen1": 16,
+      "Gen2": 2
+    },
+    "gcPauseSecondsProcessScope": 0.108343,
+    "peakRssLifetimeThroughSnapshotBytes": 44220416,
+    "releasedIdleRssBytes": 42295296,
+    "idleSecondsObserved": 4.999505189,
+    "frameworkOnlyManagedBytes": null,
+    "nativeAllocationProfile": null
+  },
+  "limitations": [
+    "This is a 30-second zero-refusal cost cell at 500 offered operations/s, not a capacity estimate, parity result or 30-minute acceptance cell.",
+    "Process CPU and allocated-byte totals include producer/harness, driver/framework, DTO/string/JSON; framework-only 0 B remains unproven.",
+    "GC counts and pause use process scope. Peak RSS is lifetime-to-snapshot; released RSS follows tracked-owner release and about 5 seconds idle without forced GC, not proof of all-native allocation release.",
+    "Latency values are histogram-bin upper bounds, with separate service, scheduled-to-completion and start-delay histograms.",
+    "PostgreSQL must report visible-proc inner/outer observation intervals separately from wait4 process-tree lifetime; no addition and no claim of exact steady bounds. Exited-unobserved children/non-atomic transfer loss remain unknown.",
+    "freeze is null for this screening lane; final long cells require their separately frozen conditions and validation."
+  ]
+}
