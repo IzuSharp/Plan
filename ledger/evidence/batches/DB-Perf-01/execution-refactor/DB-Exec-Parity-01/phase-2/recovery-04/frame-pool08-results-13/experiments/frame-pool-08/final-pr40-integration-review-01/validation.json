@@ -1,0 +1,237 @@
+{
+  "task": "DB-Exec-Parity-01",
+  "review": "finite current PR40 integration review",
+  "head": "106fe68b6f6c2537f478daf65a71ab97cc4b15ff",
+  "tree": "f7660759bba43ae83324620e2fb731efd479c3b5",
+  "base": "2ea67ce1902f330679c3ebff4d6d5733be20f69c",
+  "passed": true,
+  "checks": 12,
+  "results": [
+    {
+      "name": "remote/local owner fix same reviewed tree",
+      "passed": true,
+      "detail": {
+        "head": "106fe68b6f6c2537f478daf65a71ab97cc4b15ff",
+        "local": "69b2383dadc280f1a81de592592a1442069eed0c",
+        "tree": "f7660759bba43ae83324620e2fb731efd479c3b5",
+        "localTree": "f7660759bba43ae83324620e2fb731efd479c3b5"
+      }
+    },
+    {
+      "name": "owner fix descends directly from retained05",
+      "passed": true,
+      "detail": {
+        "parent": "2ea67ce1902f330679c3ebff4d6d5733be20f69c"
+      }
+    },
+    {
+      "name": "only reviewed Submission file differs from05",
+      "passed": true,
+      "detail": "src/Query.Binding/QueryCommand.Submission.cs"
+    },
+    {
+      "name": "exact diff size is11add2delete",
+      "passed": true,
+      "detail": "11\t2\tsrc/Query.Binding/QueryCommand.Submission.cs"
+    },
+    {
+      "name": "native source unchanged from05",
+      "passed": true,
+      "detail": "native subtree diff empty"
+    },
+    {
+      "name": "CI source unchanged from05",
+      "passed": true,
+      "detail": "no workflow/CI delta in owner fix"
+    },
+    {
+      "name": "CI receipt exacthead",
+      "passed": true,
+      "detail": {
+        "receiptSha256": "870aeecc0aae114871d1cd85cf3809bf5fb69b9b894cef2a6f701d4924423512",
+        "jobs": 11
+      }
+    },
+    {
+      "name": "CI successful jobs and expected skips",
+      "passed": true,
+      "detail": [
+        {
+          "name": "plan",
+          "conclusion": "success"
+        },
+        {
+          "name": "security / Secret scan",
+          "conclusion": "success"
+        },
+        {
+          "name": "security / Dependency review",
+          "conclusion": "success"
+        },
+        {
+          "name": "security / CodeQL (python)",
+          "conclusion": "success"
+        },
+        {
+          "name": "security / CodeQL (csharp)",
+          "conclusion": "success"
+        },
+        {
+          "name": "build (linux) / Run linux actions",
+          "conclusion": "success"
+        },
+        {
+          "name": "build (postgresql) / Run postgresql actions",
+          "conclusion": "success"
+        },
+        {
+          "name": "build (sqlite) / Run sqlite actions",
+          "conclusion": "success"
+        },
+        {
+          "name": "modules",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Verify",
+          "conclusion": "success"
+        },
+        {
+          "name": "publish",
+          "conclusion": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "independent provider CI groups",
+      "passed": true,
+      "detail": "linux/PG/SQLite/Verify success; jobs are PR-head evidence, not merged-main evidence"
+    },
+    {
+      "name": "recorded committed impact identity",
+      "passed": true,
+      "detail": "c7cc02e7bdca3b4a11a6e055feba54b044f9782ea746fe835868948bc9f8fc9d"
+    },
+    {
+      "name": "recorded independent impact selection",
+      "passed": true,
+      "detail": {
+        "packages": [
+          "postgresql",
+          "sqlite"
+        ],
+        "public_checks": [
+          "postgresql",
+          "sqlite"
+        ],
+        "scope": "linux",
+        "run_steps": {},
+        "releases": []
+      }
+    },
+    {
+      "name": "common cleanup blocks match diagnostic ordinary base",
+      "passed": true,
+      "detail": {
+        "106fe68b6f6c2537f478daf65a71ab97cc4b15ff": {
+          "plan": {
+            "normalizedFiveLineSha256": "a2301c017c5be2638efc42d1ddfb8b04e1c12a8da936fe19b57500eb6a2d3061",
+            "text": "var metadata = Metadata();\nplan = new(Source, DatabaseOwnerKind.Plan, result) { QueryPlan = metadata };\n}\ncatch { Source.Calls.nw_db_owner_release_v1(result); throw; }\ntry { if (encoded is { } complete) PublishOrigins(plan, complete, gates); }"
+          },
+          "cte": {
+            "normalizedFiveLineSha256": "3e0d4cd9fb74e2a4efc3c357362b00c121e5eb0b73d013e7ef59fdc98e208d67",
+            "text": "var metadata = new QueryCteMetadata(model.Table, Metadata());\ncte = new(Source, DatabaseOwnerKind.Cte, result) { QueryCte = metadata };\n}\ncatch { Source.Calls.nw_db_owner_release_v1(result); throw; }\ntry { PublishOrigins(cte, encoded, gates); return cte; }"
+          }
+        },
+        "13b25de2b67d858d8b6524f615e3a84b4c541817": {
+          "plan": {
+            "normalizedFiveLineSha256": "a2301c017c5be2638efc42d1ddfb8b04e1c12a8da936fe19b57500eb6a2d3061",
+            "text": "var metadata = Metadata();\nplan = new(Source, DatabaseOwnerKind.Plan, result) { QueryPlan = metadata };\n}\ncatch { Source.Calls.nw_db_owner_release_v1(result); throw; }\ntry { if (encoded is { } complete) PublishOrigins(plan, complete, gates); }"
+          },
+          "cte": {
+            "normalizedFiveLineSha256": "3e0d4cd9fb74e2a4efc3c357362b00c121e5eb0b73d013e7ef59fdc98e208d67",
+            "text": "var metadata = new QueryCteMetadata(model.Table, Metadata());\ncte = new(Source, DatabaseOwnerKind.Cte, result) { QueryCte = metadata };\n}\ncatch { Source.Calls.nw_db_owner_release_v1(result); throw; }\ntry { PublishOrigins(cte, encoded, gates); return cte; }"
+          }
+        }
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "experiments/worker-d-diagnostic/integrated-independent-review-04.md",
+      "sha256": "1ce6a41121e4d1352c21a2a958b4cbf4445ab1cede6aa098dc041ec704c688a1",
+      "bytes": 8478
+    },
+    {
+      "path": "experiments/relations-recovery-04/capacity-results.md",
+      "sha256": "e36034968daa2003940b6231862ddd958d2cd13603427fdd9e1f71df00160d2b",
+      "bytes": 15179
+    },
+    {
+      "path": "experiments/recovery/early-stop-risk-05/independent-review.md",
+      "sha256": "a6dc0e6be2d262084e6e13f46d886b757bd08dafa5fe147b24030c9887cc460f",
+      "bytes": 1874
+    },
+    {
+      "path": "experiments/recovery/zero-cost-05/zero-cost-independent-review.md",
+      "sha256": "d4053a1c7d4b4d8a4c02db1a6469e76eb4b08101c28c0e53390f5f6cf3f9bf12",
+      "bytes": 8116
+    },
+    {
+      "path": "experiments/frame-pool-08/independent-owner-cleanup-review-01/README.md",
+      "sha256": "4a78a9f0789c39621463d3692c8397d4fb7fdb19cdce9aab4a366c79ac9f1310",
+      "bytes": 2705
+    },
+    {
+      "path": "experiments/frame-pool-08/inherited-owner-failure-review-01/README.md",
+      "sha256": "ea491725901202784565f2801fdfcf2e171ccf4f537eaae5822d8526025db1e3",
+      "bytes": 4944
+    },
+    {
+      "path": "experiments/frame-pool-08/independent-local-diagnostics-result-review-01/receipt.json",
+      "sha256": "89d2886dbc949054bf9d5871c0b019a6f28bac4ad3d578333b2d3bd82818f444",
+      "bytes": 934
+    },
+    {
+      "path": "experiments/frame-pool-08/independent-local-diagnostics-result-review-01/README.md",
+      "sha256": "0b997792e3efc2ec7019dc127db01ab28557d9afd3761c339cac8b3dfe6e83be",
+      "bytes": 2620
+    },
+    {
+      "path": "experiments/frame-pool-08/independent-ordinary-results-review-01/review-receipt.json",
+      "sha256": "45c20a453040f6da08a28c4e4fc5550c0b18f542d56f10d2f89f096de4e2ac1a",
+      "bytes": 1958
+    },
+    {
+      "path": "experiments/frame-pool-08/independent-ordinary-results-review-01/decision.json",
+      "sha256": "1a6b8ab17e7d04c680217056b22b026a710d4d09e45e0f8e90a724c1e8bce51c",
+      "bytes": 20932
+    },
+    {
+      "path": "experiments/ownership05-consumers08/README.md",
+      "sha256": "d386dbf62dbe14e1a114098433d928f17b2c8c40a6a3e9441d943a41caf8fe86",
+      "bytes": 4828
+    },
+    {
+      "path": "observations/recovery/ci-verified-heads-05.json",
+      "sha256": "8ff0dd1c3446d2be1857f4361ad4e9e0fc8b906b64436e15e305cca5d9c042b8",
+      "bytes": 1691
+    },
+    {
+      "path": "observations/recovery/owner-cleanup-ci-jobs-success.json",
+      "sha256": "870aeecc0aae114871d1cd85cf3809bf5fb69b9b894cef2a6f701d4924423512",
+      "bytes": 46805
+    },
+    {
+      "path": "experiments/frame-pool-08/owner-cleanup-01/impact.json",
+      "sha256": "c7cc02e7bdca3b4a11a6e055feba54b044f9782ea746fe835868948bc9f8fc9d",
+      "bytes": 3978
+    }
+  ],
+  "newBuilds": 0,
+  "newWorkloads": 0,
+  "existingTestsRerun": false,
+  "performanceParityProven": false,
+  "mergedMainCiProven": false,
+  "releaseProven": false
+}

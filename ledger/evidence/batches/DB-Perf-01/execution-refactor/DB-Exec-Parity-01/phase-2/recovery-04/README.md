@@ -2,9 +2,9 @@
 
 **Current owner scope:** [Scope08](short-only-scope-08.md) cancels this round's long measurements and before-long supplements. Continue finite diagnostics and ordinary short A/B. Earlier0/4 and long-test obligations below remain historical and are superseded. No long cell has started.
 
-**Latest checkpoint:** [Continuation12](continuation-12.md) records the independent native-owner cleanup, its published product tree, isolated08 source reviews and the common corrected baseline for the finite comparison. Buffer rental08 is implemented on its experiment branch but has no measured benefit or adoption credit. Archive05 is published and all100 files byte-read back. No long run is selected.
+**Latest checkpoint:** [Continuation13](continuation-13.md) closes frame08: all twelve short processes passed business checks and repeated about60.8KB allocation saving, but the common candidate is rejected for the unresolved CPU/tail tradeoff and increased released-idle RSS. Retain05 plus the independent owner fix. No additional08 or long measurement is selected.
 
-**Latest closed execution evidence:** [Continuation10](continuation-10.md) closes pull-local07; no conditional mixed or extra round is pending. [Continuation11](frame-pool-08-hypothesis.md) retains the pre-implementation rental decision, supplemented by the separately reviewed cleanup in12. [Continuation09](continuation-09.md) retains the earlier closed tail06 decision. Skip all completed work on recovery.
+**Latest closed execution evidence:** [Continuation13](continuation-13.md) closes frame08; [Continuation10](continuation-10.md) closes pull-local07. No conditional mixed or extra round is pending for either. [Continuation11](frame-pool-08-hypothesis.md) retains the pre-implementation rental decision, supplemented by the separately reviewed cleanup in12. [Continuation09](continuation-09.md) retains the earlier closed tail06 decision. Skip all completed work on recovery.
 
 ## Historical Recovery04 snapshot
 
