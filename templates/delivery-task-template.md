@@ -1,29 +1,33 @@
-# New Delivery Task Template (Not an Accepted Artifact)
+# Task ID — title
 
-Template status: is_template=true. After copying this into an independent task, fill in specific content; keep planned_candidate when source/interface support is absent, and do not create empty tasks in bulk.
+## Objective and scope
 
-## Identity, Purpose, and Version
+State the intended result, owning module and current authorization boundary.
+Identify relevant design contracts and the precise source/revision context.
 
-Task ID, phase, title, revision, actual author/owner, user requirement ID, and design/research references. Explain the observable capability this work provides, why it is needed, and its explicit non-goals.
+## Dependencies and ownership
 
-## Contracts and Actual Dependencies
+List start and acceptance dependencies separately. Register the task in the
+appropriate graph, its packet path and any relevant fragment. Describe write
+scope and parallel integration ownership without a project-wide lock.
 
-List every contract's ID, exact version, and accepted requirement; list actual product dependency IDs and revisions; distinguish start and acceptance dependencies. Use conditional_dependencies for optional engines/protocols; unselected options must not block other tasks. Do not create a gate requiring all of phase B to wait for all of phase A.
+## Implementation and behavior
 
-## Implementation Boundaries and Interfaces
+Explain normal and failure behavior, interfaces, ownership/lifetimes, cancellation,
+threading, capability checks and resource bounds. Preserve ordinary C# consumer
+use and the selected native execution boundary. Keep public API documentation,
+examples and compatibility work with the implementing task.
 
-Exact write_scopes, outputs, and shared files that must not be modified; specific modules, types, functions/ABI layouts, threads/ownership, and state transitions. List tasks that may run in parallel and actual devices/ports/benchmark resources requiring local leases.
+## Acceptance
 
-## Normal, Failure, and Race Paths
+Define observable positive/negative cases, applicable platform/Native AOT checks,
+resource behavior and concrete comparison criteria. Product execution and
+performance claims need actual results for the tested source and conditions.
 
-List normal operations, allocators/releasers, and error/cancellation/shutdown/reentrancy paths. State testable invariants and linearization points for the mechanism; for databases, make commit unknown/rollback/pool states explicit; for queries, make NULL and dialects explicit; for streams, make backpressure/capacity explicit.
+## Result and review
 
-## Verification and Cost
-
-Specific unit/integration/property/fuzz/model/fault-injection requirements and why they apply. For each supported target, list OS/arch/RID, toolchain, Native AOT consumer commands, and failure criteria. Record FFI/copy/allocation/handle/thread/startup/RSS/tail-latency costs and benchmark evidence. Do not invent percentage targets without a baseline.
-
-## Delivery and Acceptance
-
-Source, tests, logs, lockfiles, artifact hashes, toolchain/platform, input seeds, replayable results, and evidence manifest. packet_sha256 binds the task body; independent review binds the current subject and evidence; retain blocked/partially_verified for unexecuted work. Identify the revalidation scope affected by upstream changes.
-
-Generate actual nodes, prompts, and independent PRs according to the specification; update the graph through the integrator's fragment without rewriting unrelated tasks. Substantive evidence is required before accepted status; the template does not participate in acceptance.
+Record progress, final conclusions, unresolved limitations, reasons for rejected
+alternatives and source/PR links. Keep temporary output, logs, samples, binaries,
+archives and recovery state on the execution machine. Submit documents through
+Git/PRs; no Actions artifact copy is needed. Confirm the document's type and
+path in [the registry](../eng/ci/registry.py).

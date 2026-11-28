@@ -1,10 +1,10 @@
 # Existing current-candidate FFI diagnostics — exact endpoint extraction
 
-Candidate: `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa`, tree `bc9087d843d8d741d83d44f53d0b2c5af26dcffc`. Read-only extraction date: 2026-11-26. No new measurement, build, test, profile or hash scan was performed. Recorded identity values below are copied from the existing receipts; this extraction does not freshly verify the artifact bytes.
+Candidate: `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa`, tree `bc9087d843d8d741d83d44f53d0b2c5af26dcffc`. Read-only extraction date: 2026-11-26. No new measurement, build, test, profile or hash scan was performed. This summary records earlier observations and does not freshly verify executable bytes.
 
 **These are six independent instrumented 15-second, C1, persistent-session observations. They carry no timing or allocation comparison credit.** Numeric is a 32-row query with a 32-row batch, not a single-row primary-key query. The transaction cases are whole business operations. They are neither the 1/100/1000-row phase suite nor the final 30-minute mixed runs.
 
-All counts below are integer `After - Before` deltas. Setup/warmup and later `Drained - After` cleanup are excluded. The JSON companion retains all 60 symbol names, exact before/after/delta Calls/Pending/OK values, original counter snapshots, actual durations, identities and poll counts.
+All counts below are integer `After - Before` deltas. Setup/warmup and later `Drained - After` cleanup are excluded. The final table retains only the useful aggregate outcomes.
 
 ## Actual counts
 
@@ -17,7 +17,7 @@ All counts below are integer `After - Before` deltas. Setup/warmup and later `Dr
 | postgresql | tx-rollback | 8,414 | 527,650 | 62.710958 | 50,484 | 227,178 |
 | postgresql | tx-commit | 6,067 | 390,541 | 64.371353 | 42,469 | 194,144 |
 
-The raw outcomes record zero Failed, zero OracleFailures and all eight Drained owner counters zero for every observation. Source/consumer identities and the original command outcome fields are retained in the companion; no ordinary timing metric is copied from these instrumented runs.
+The raw outcomes record zero Failed, zero OracleFailures and all eight Drained owner counters zero for every observation. No ordinary timing metric is copied from these instrumented runs.
 
 ## Selected path calls
 
@@ -38,21 +38,7 @@ Numeric records two pull request/take pairs per completed 32-row operation. This
 
 For transactions, the number of command request/take invocations is an aggregate. The difference from the known mandatory command flow can be attributed to conditional child close only as a flow-derived inference, not an observed per-command-kind trace. This extraction does not manufacture such a trace.
 
-## Identity and original paths
 
-| Provider | Raw directory | Diagnostic build receipt | ABI source commit |
-| --- | --- | --- | --- |
-| sqlite | `/workspace/scratch/fd78534029f7/measurements/sqlite-single-diagnostic-01` | `/tmp/DB-Exec-10-diag-sqlite-ffi-01/diagnostic-build.json` | `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa` |
-| postgresql | `/workspace/scratch/fd78534029f7/measurements/postgresql-single-diagnostic-01` | `/tmp/DB-Exec-10-diag-postgresql-ffi-01/diagnostic-build.json` | `17da07e391ba867bbf195baa2e9fdc0bdc0cc0aa` |
-
-Each raw directory contains `diagnostic-numeric.json`, `diagnostic-tx-rollback.json` and `diagnostic-tx-commit.json`, together with their `.command.json` records and frozen `plan.json`. Both diagnostic build receipts identify the corresponding `builds/candidate-{provider}-02/consumer-workload` source consumer and recorded package/native identities. Actual executed diagnostic ELFs differ from their ordinary source consumers and remain labelled instrumented.
-
-## Unavailable quantities and separate evidence
-
-Ordinary phase/mixed raw records contain `SqlExecutions` and `ProtocolSubmissions` endpoints, but no FFI arrays and no counts of required protocol replies. These separate single-case FFI measurements therefore fill a current-candidate diagnostic scope; they do not fill those missing metrics for the ordinary phase suite or long mixed workload. Dapper ordinary consumers do not expose corresponding internal FFI/SQL/reply counters.
-
-The real PostgreSQL proxy correctness tests have actual protocol-group and forwarded ReadyForQuery observations. They are separate narrow windows with their own source/receipt identities; the proxy does not count every ParseComplete, BindComplete, DataRow or CommandComplete. A source-derived call map or pull-count assertion is not a workload runtime trace. Successful libpq submissions, poll calls, Pending returns, readiness notifications, protocol replies and physical RTT are different quantities.
-
-Historical `ffi-single-command-{provider}-01` observations under `/workspace/scratch/4a65d70f0fe1/measurements` remain bound to `8789a45a52cc0cc0a0b62737542d9c120b753c9b`; they are not these six current-candidate records. Their counts need not be reused to describe 17da.
-
-Companion: `final-ffi-diagnostics-01.json`. Source semantics reference: `continuation-7/counter-semantics.md`. The final archive should retain this extraction beside the originals and source-bound evidence, without interpreting it as a new run.
+See [counter semantics](../continuation-7/counter-semantics.md). These measurements
+do not fill missing ordinary phase/long-run FFI or server-reply fields. Raw arrays,
+command receipts and execution-machine paths are omitted from this document.
