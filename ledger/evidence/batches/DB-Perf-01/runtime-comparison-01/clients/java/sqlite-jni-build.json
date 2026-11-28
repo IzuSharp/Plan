@@ -1,0 +1,37 @@
+{
+  "sourceCommit": "bf18ce13f938411a4cc1b417b1ce5fbb95c09db6",
+  "nativeDbC": "1a695760a4bdf8d1a9b50a899b0fad18a87168c1b24de2fb6404b680d44ce31f",
+  "javacCommand": [
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/graalvm-community-25.6.5.1+2.1/bin/javac",
+    "-cp",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/m2/org/xerial/sqlite-jdbc/3.51.3.0/sqlite-jdbc-3.51.3.0.jar:/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/m2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar",
+    "-d",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/sqlite-jni/header-classes",
+    "-h",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/sqlite-jni/headers",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/xerial-sqlite-3.51.3.0/src/main/java/org/sqlite/core/NativeDB.java"
+  ],
+  "ccCommand": [
+    "gcc",
+    "-shared",
+    "-fPIC",
+    "-Os",
+    "-fvisibility=hidden",
+    "-I/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/graalvm-community-25.6.5.1+2.1/include",
+    "-I/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/graalvm-community-25.6.5.1+2.1/include/linux",
+    "-I/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/sqlite-jni/headers",
+    "-I/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/sqlite/include",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/xerial-sqlite-3.51.3.0/src/main/java/org/sqlite/core/NativeDB.c",
+    "-L/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/sqlite/lib",
+    "-Wl,-rpath,/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/sqlite/lib",
+    "-Wl,--no-undefined",
+    "-lsqlite3",
+    "-pthread",
+    "-lm",
+    "-o",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/sqlite-jni/libsqlitejdbc.so"
+  ],
+  "jniSha256": "bb2fb1d06eb380a2bf1e695b8b870b14af208002fc5ef469db63a165402dddd8",
+  "sqliteSha256": "ad64754d771625bc16b482962d453341f95e4619c3c42e501c5c93b38318e738",
+  "scope": "Unmodified Xerial NativeDB.c thin JNI wrapper; dynamically links exact baseline SQLite library; does not compile or modify SQLite amalgamation/options"
+}

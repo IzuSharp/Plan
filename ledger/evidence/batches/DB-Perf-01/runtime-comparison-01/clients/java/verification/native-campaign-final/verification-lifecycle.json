@@ -1,0 +1,150 @@
+{
+  "isPressureTest": false,
+  "startedUtc": "2026-11-28T08:31:21.102974+00:00",
+  "status": "passed",
+  "nativeExecutableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+  "buildIdentitySha256": "ae0f2adc1808f7f047b3fc56e84738f69a177abe0da0288d23b3997022d0f5d9",
+  "commandScriptSha256": "e25772136007e073500abbaf5e1f4da79f34b357365c745d93b182156b82cb0c",
+  "commands": [
+    {
+      "label": "sqlite-native",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "--provider",
+        "sqlite",
+        "--connection",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/verification/native-campaign-final/sqlite-native.sqlite",
+        "--sqlite-jni-directory",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/java/sqlite-jni",
+        "--sqlite-native-library",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/sqlite/lib/libsqlite3.so",
+        "--case",
+        "mixed",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "1",
+        "--warmup",
+        "64",
+        "--verify-only",
+        "--idle-seconds",
+        "0",
+        "--output",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/verification/native-campaign-final/sqlite-native.json"
+      ],
+      "startedUtc": "2026-11-28T08:31:21.120012+00:00",
+      "finishedUtc": "2026-11-28T08:31:21.707245+00:00",
+      "exitCode": 0,
+      "outputSha256": "8897d42b547ade87ee8152385b08e1f09c6ff8955d20f0a23072058b3fadb03b"
+    },
+    {
+      "label": "postgres-start",
+      "command": [
+        "taskset",
+        "-c",
+        "4-7",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/pg_ctl",
+        "-D",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+        "-l",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgres.log",
+        "-o",
+        "-h 127.0.0.1 -p 48277 -c unix_socket_directories= -c max_connections=64 -c fsync=on -c synchronous_commit=on -c full_page_writes=on -c timezone=UTC -c shared_buffers=128MB -c default_transaction_isolation='read committed'",
+        "-w",
+        "-t",
+        "30",
+        "start"
+      ],
+      "startedUtc": "2026-11-28T08:31:21.707523+00:00",
+      "finishedUtc": "2026-11-28T08:31:21.818460+00:00",
+      "exitCode": 0,
+      "outputSha256": "66afd0411ccc09366e99fdd99b85f21899c8d2d064f5835126859618802153ad"
+    },
+    {
+      "label": "postgres-check-private-database",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/psql",
+        "--no-psqlrc",
+        "--set",
+        "ON_ERROR_STOP=1",
+        "--tuples-only",
+        "--no-align",
+        "--dbname",
+        "postgresql://korda@127.0.0.1:48277/postgres",
+        "--command",
+        "SELECT count(*) FROM pg_database WHERE datname='db_perf_java_preflight'"
+      ],
+      "startedUtc": "2026-11-28T08:31:21.818549+00:00",
+      "finishedUtc": "2026-11-28T08:31:21.838496+00:00",
+      "exitCode": 0,
+      "outputSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "label": "postgresql-native",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "--provider",
+        "postgresql",
+        "--connection",
+        "jdbc:postgresql://127.0.0.1:48277/db_perf_java_preflight?user=korda&sslmode=disable",
+        "--case",
+        "mixed",
+        "--mode",
+        "prepared",
+        "--session",
+        "persistent",
+        "--concurrency",
+        "1",
+        "--warmup",
+        "64",
+        "--verify-only",
+        "--idle-seconds",
+        "0",
+        "--output",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/verification/native-campaign-final/postgresql-native.json"
+      ],
+      "startedUtc": "2026-11-28T08:31:21.838850+00:00",
+      "finishedUtc": "2026-11-28T08:31:22.445927+00:00",
+      "exitCode": 0,
+      "outputSha256": "fb1b14ba3d2b346d23e35513d0ad17063c23869cec506b9e29781008404b2fdd"
+    },
+    {
+      "label": "postgres-stop",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/pg_ctl",
+        "-D",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+        "-m",
+        "fast",
+        "-w",
+        "-t",
+        "30",
+        "stop"
+      ],
+      "startedUtc": "2026-11-28T08:31:22.446187+00:00",
+      "finishedUtc": "2026-11-28T08:31:22.547800+00:00",
+      "exitCode": 0,
+      "outputSha256": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d"
+    }
+  ],
+  "timingComparisonEligible": false,
+  "postgresServerStopped": true,
+  "sqliteSeedCopySha256": "384c185015624e35579b95b49f03bd101af5d4936def6b611b0a588bd71da0bd",
+  "sqlite": {
+    "status": "passed",
+    "receiptSha256": "1b98b3b2706aec0c82130da585cf9396d1761d0a1bef94483831c2d734707867",
+    "verifiedCases": 35,
+    "warmupOperations": 64,
+    "oracleFailures": 0
+  },
+  "postgresql": {
+    "status": "passed",
+    "receiptSha256": "834f0829f5fb26f6b3822c21a79ae7c3dbf973842b6c468c9b26bcf8a0539c27",
+    "verifiedCases": 35,
+    "warmupOperations": 64,
+    "oracleFailures": 0
+  },
+  "finishedUtc": "2026-11-28T08:31:22.547853+00:00"
+}

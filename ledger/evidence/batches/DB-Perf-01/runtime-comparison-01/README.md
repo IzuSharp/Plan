@@ -2,17 +2,29 @@
 
 ## Current owner scope
 
+**Latest memory instruction:** the owner accepted 192 MiB and explicitly removed
+the cgroup requirement (`192 可以接受 就这样，也不用cgroup了`). The current
+[execution policy](campaign/memory-policy-192.json) requests a 201,326,592-byte GC
+heap setting for all C# lanes. It does not claim a total-process hard limit or
+proven Satori heap enforcement. Report actual RSS/heap peaks and any excess.
+Cgroup visibility is no longer a prerequisite for starting the requested runs.
+Earlier 128 MiB probes and cgroup research remain historical evidence with
+their original identities; do not relabel them as 192 MiB experiments.
+
 The owner stopped Korda optimization and requested a new comparison record on
 2026-11-27 (America/Los_Angeles). This task does not resume the three optimization
 directions from DB-Exec-Parity-01. The owner explicitly authorized closing all
 non-Dependabot open pull requests and creating one temporary recording PR.
 Keep this new PR as a draft record; no product merge or package release is selected.
 
-The owner clarified that the 128 MB budget belongs to the **C# client**, not the
-database. PostgreSQL is outside that client budget. Preserve the existing
-database configuration; do not describe its `shared_buffers` as a client limit.
+The owner clarified that the original 128 MB budget belonged to the **C# client**.
+PostgreSQL's external server is outside that client budget. SQLite's native
+memory is in the client process and therefore included in a process-group
+boundary. Preserve the existing database configuration; do not describe
+PostgreSQL's `shared_buffers` as a client limit.
 An actual enforced memory limit must be distinguished from GC heap configuration,
-sampled RSS and total process memory. Do not credit an unverified configuration.
+sampled RSS and total process memory. The latest owner instruction permits the
+configuration-only policy above; it does not turn configuration into enforcement.
 
 ## Repository checkpoint and completed PR cleanup
 
@@ -124,19 +136,47 @@ normalized order digests match. Dapper passed all 35 cases on each provider with
 zero business/oracle errors and zero remaining application connections. These
 were finite correctness checks, not 30-minute runs. The earlier SQLite attempt
 used an invalid warmup of zero and is preserved beside the corrected attempt.
-The new Fluent consumers and runtime-async build verification remain in progress.
+All four EF attempt03 builds (both providers, stock Workstation and Satori)
+passed the same 35 contracts under the accepted 192 MiB configuration policy.
+Their actual compiler arguments contain `runtime-async=on`, and each built
+assembly contains 19 methods marked with the runtime async implementation
+attribute. The source/DLL/PDB/runtime binding passed independent review. Earlier
+128 MiB attempt02 builds, source and results retain their original identities.
 
-The current Linux x64 execution environment exposes CPUs 0–8 but no cgroup mount
-or `memory.max`. [Actual bounded probes](memory-verification/README.md) establish
+Java's final Native Image also passed all 35 contracts plus 64 warmup operations
+on both providers. Its ELF SHA256 is
+`30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e`.
+The failed jOOQ array-metadata attempt, observed metadata fix, successful
+intermediate image and final executable-bound admission image are separately
+retained. The final source/JAR/ELF and double-provider receipts passed independent
+review; verification-only results remain explicitly ineligible as long results.
+
+The [eight-cell matrix](campaign/matrix-01.json) freezes the commands and actual
+source/runtime/native hashes. Its SHA256 is
+`450d0e8762db63dd5dada402c1c1b59797f3cb4207ef655375b6b63ba7e715ae`.
+The [runner](campaign/run_matrix.py) and [freezer](campaign/freeze_matrix.py) passed
+read-only review, and actual `--validate-only` verified all frozen inputs and
+command conditions before launch. They reuse the unchanged original local
+observer. Each cell gets a fresh database, before/after full stored-data checks,
+separate client/server observations and a preserved failure record.
+The current Linux x64 execution environment exposes CPUs 0–8 but no accessible
+cgroup mount or `memory.max`. This does not assert that an inaccessible host or
+ancestor has no limit. [Actual bounded probes](memory-verification/README.md) establish
 that stock Workstation enforces the 128 MiB GC heap setting, while the selected
 Satori runtime reports that setting but successfully retains 192 MiB of managed
 arrays. A common enforceable C# client memory budget has not been established.
 Stock GC heap enforcement also does not imply a 128 MiB total-process bound.
-Database memory is outside the owner-requested client restriction.
+The external PostgreSQL server is outside the owner-requested client restriction;
+SQLite's in-process allocations are included. The owner's earlier cgroup question
+is addressed by the [historical protocol](memory-verification/cgroup-execution-plan.md):
+`memory.max=134217728`, `memory.swap.max=0`, client entry before runtime startup,
+and independent OOM/counter observations. No such boundary has been applied here,
+and the owner's later instruction explicitly makes it unnecessary for this run.
 
 Before any long cell: finish all builds, verify the exact runtime/GC identities,
 execute all 35 correctness cases, bind source/dependency/generated/native hashes,
-prepare one common database fixture and check actual memory enforcement. Keep
+prepare one common database fixture and verify the accepted 192 MiB configuration
+identity while retaining the enforcement limitations. Keep
 all builds and diagnostics outside the timed intervals. Save partial failures;
 do not shorten a required interval or turn missing counters into zero.
 

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Runtime-Compare-01",
+  "policyId": "client192-no-cgroup",
+  "recordedUtc": "2026-11-28T08:22:06.541002+00:00",
+  "ownerInstruction": "192 可以接受 就这样，也不用cgroup了",
+  "formalLongRunsAuthorized": true,
+  "cgroupRequired": false,
+  "csharpRequestedGcHeapBytes": 201326592,
+  "csharpGcHeapEnvironment": "0xC000000",
+  "wholeClientMemoryCapClaimed": false,
+  "satoriGcHeapLimitEnforcementClaimed": false,
+  "reportActualMemoryIncludingExcess": true,
+  "postgresqlServerMemoryCapBytes": null,
+  "javaMemoryCapBytes": null,
+  "memoryScope": "Requested C# GC configuration only; actual GC availability, heap and process RSS are reported. SQLite is in the client process. PostgreSQL server is separate.",
+  "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+  "conditions": {
+    "secondsPerCell": 1800,
+    "queueCapacity": 64,
+    "requestedRows": 32,
+    "batchRows": 32,
+    "tenants": 8,
+    "ordersPerTenant": 1024,
+    "warmupPerWorker": 64,
+    "idleSeconds": 15,
+    "mode": "prepared",
+    "session": "persistent",
+    "clientCpus": "0-3",
+    "postgresqlCpus": "4-7",
+    "observerCpus": "8",
+    "sqlite": {
+      "concurrency": 4,
+      "requestsPerSecond": 3000
+    },
+    "postgresql": {
+      "concurrency": 8,
+      "requestsPerSecond": 3600
+    }
+  },
+  "executionOrder": [
+    "dapper-sqlite",
+    "dapper-postgresql",
+    "ef-workstation-sqlite",
+    "ef-workstation-postgresql",
+    "ef-satori-sqlite",
+    "ef-satori-postgresql",
+    "java-native-sqlite",
+    "java-native-postgresql"
+  ],
+  "formalResultsStillRequire": [
+    "Frozen source and executable identities",
+    "Actual Release runtime identity",
+    "All 35 correctness contracts",
+    "Uninterrupted 1800-second offered interval plus warmup/drain/15-second idle",
+    "Serial local execution",
+    "No concurrent compilation or diagnostic workload",
+    "Explicit failure and rejection accounting"
+  ]
+}

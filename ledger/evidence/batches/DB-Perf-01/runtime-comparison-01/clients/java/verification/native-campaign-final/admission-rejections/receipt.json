@@ -1,0 +1,91 @@
+{
+  "isPressureTest": false,
+  "databaseConnectionsOpened": false,
+  "reason": "All cases exited at their identified admission guard before Database.open; expected guard message required, not merely a nonzero exit",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "no-admission",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "--provider",
+        "postgresql",
+        "--connection",
+        "jdbc:postgresql://127.0.0.1:1/not-opened",
+        "--rate",
+        "3600",
+        "--concurrency",
+        "8",
+        "--seconds",
+        "1800",
+        "--warmup",
+        "64",
+        "--idle-seconds",
+        "15",
+        "--verify"
+      ],
+      "startedUtc": "2026-11-28T08:31:44.469822+00:00",
+      "finishedUtc": "2026-11-28T08:31:44.473669+00:00",
+      "exitCode": 2,
+      "guardMessageMatched": "Offered-load measurement requires --formal-admission",
+      "outputSha256": "49840052d57b23d822d1771a6f8f8d5efb6e7eb33b8092e75e2e3b051a9b8c10"
+    },
+    {
+      "name": "verification-with-admission",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "--provider",
+        "postgresql",
+        "--connection",
+        "jdbc:postgresql://127.0.0.1:1/not-opened",
+        "--rate",
+        "3600",
+        "--concurrency",
+        "8",
+        "--seconds",
+        "1800",
+        "--warmup",
+        "64",
+        "--idle-seconds",
+        "15",
+        "--verify-only",
+        "--formal-admission",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/verification/native-campaign-final/admission-rejections/unapproved-admission.json"
+      ],
+      "startedUtc": "2026-11-28T08:31:44.473722+00:00",
+      "finishedUtc": "2026-11-28T08:31:44.477637+00:00",
+      "exitCode": 2,
+      "guardMessageMatched": "Formal admission requires the real Native Image workload",
+      "outputSha256": "cfaeb40e849fab9fc2a5ad1a6cee6da54d170ec32d7abc5cc87d288b4fda3368"
+    },
+    {
+      "name": "unapproved-policy",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "--provider",
+        "postgresql",
+        "--connection",
+        "jdbc:postgresql://127.0.0.1:1/not-opened",
+        "--rate",
+        "3600",
+        "--concurrency",
+        "8",
+        "--seconds",
+        "1800",
+        "--warmup",
+        "64",
+        "--idle-seconds",
+        "15",
+        "--verify",
+        "--formal-admission",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/verification/native-campaign-final/admission-rejections/unapproved-admission.json"
+      ],
+      "startedUtc": "2026-11-28T08:31:44.477660+00:00",
+      "finishedUtc": "2026-11-28T08:31:44.482923+00:00",
+      "exitCode": 2,
+      "guardMessageMatched": "Admission does not match the frozen campaign: ApprovedForFormalMeasurement",
+      "outputSha256": "9e91523e4ed6b36196d9a2b7a4e14973a61d798264443bf4c5812a754b4a231f"
+    }
+  ],
+  "executableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e"
+}

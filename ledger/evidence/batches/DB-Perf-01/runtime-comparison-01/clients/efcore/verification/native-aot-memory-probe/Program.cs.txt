@@ -1,0 +1,70 @@
+using System.Diagnostics;
+using System.Globalization;
+using System.Runtime;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text.Json;
+
+// A single bounded runtime configuration check, never a database load test.
+// Explicit JSON writing avoids reflection-dependent serialization in Native AOT.
+const int MiB = 1024 * 1024;
+var config = GC.GetConfigurationVariables();
+var blocks = new List<byte[]>(24);
+var process = Process.GetCurrentProcess();
+using var json = new Utf8JsonWriter(Console.OpenStandardOutput(), new JsonWriterOptions { Indented = true });
+long retained = 0;
+bool oom = false;
+long availableBefore = GC.GetGCMemoryInfo().TotalAvailableMemoryBytes;
+try
+{
+    for (var i = 0; i < 24; i++)
+    {
+        var block = new byte[8 * MiB];
+        for (var page = 0; page < block.Length; page += 4096) block[page] = 1;
+        blocks.Add(block);
+        retained += block.Length;
+    }
+}
+catch (OutOfMemoryException) { oom = true; }
+
+json.WriteStartObject();
+json.WriteString("scope", "bounded Native AOT GC heap-limit configuration verification; no performance credit; no client process-memory-limit claim");
+json.WriteBoolean("formalBenchmark", false);
+json.WriteNumber("requestedHeapBytes", 128L * MiB);
+json.WriteString("requestedHeapEnvironment", Environment.GetEnvironmentVariable("DOTNET_GCHeapHardLimit"));
+json.WriteNumber("maximumRetainedArrayBytes", 192L * MiB);
+json.WriteNumber("blockBytes", 8L * MiB);
+json.WriteNumber("touchedPageStrideBytes", 4096);
+json.WriteString("runtime", RuntimeInformation.FrameworkDescription);
+json.WriteBoolean("dynamicCodeSupported", RuntimeFeature.IsDynamicCodeSupported);
+json.WriteBoolean("dynamicCodeCompiled", RuntimeFeature.IsDynamicCodeCompiled);
+json.WriteBoolean("serverGc", GCSettings.IsServerGC);
+json.WriteStartObject("configuration");
+foreach (var pair in config.OrderBy(pair => pair.Key, StringComparer.Ordinal))
+{
+    switch (pair.Value)
+    {
+        case bool value: json.WriteBoolean(pair.Key, value); break;
+        case int value: json.WriteNumber(pair.Key, value); break;
+        case uint value: json.WriteNumber(pair.Key, value); break;
+        case long value: json.WriteNumber(pair.Key, value); break;
+        case ulong value: json.WriteNumber(pair.Key, value); break;
+        case string value: json.WriteString(pair.Key, value); break;
+        case null: json.WriteNull(pair.Key); break;
+        default: json.WriteString(pair.Key, Convert.ToString(pair.Value, CultureInfo.InvariantCulture)); break;
+    }
+}
+json.WriteEndObject();
+json.WriteNumber("availableMemoryBefore", availableBefore);
+json.WriteNumber("availableMemoryAfter", GC.GetGCMemoryInfo().TotalAvailableMemoryBytes);
+json.WriteNumber("retainedArrayBytes", retained);
+json.WriteBoolean("outOfMemoryObserved", oom);
+json.WriteBoolean("retainedArraysExceededRequestedHeap", retained > 128L * MiB);
+json.WriteNumber("currentRssBytes", process.WorkingSet64);
+json.WriteNumber("processPeakRssBytes", process.PeakWorkingSet64);
+json.WriteNumber("gcCommittedBytes", GC.GetGCMemoryInfo().TotalCommittedBytes);
+json.WriteBoolean("cgroupMemoryLimitPresent", File.Exists("/sys/fs/cgroup/memory.max"));
+json.WriteEndObject();
+json.Flush();
+GC.KeepAlive(blocks);
+return RuntimeFeature.IsDynamicCodeSupported || RuntimeFeature.IsDynamicCodeCompiled ? 1 : 0;

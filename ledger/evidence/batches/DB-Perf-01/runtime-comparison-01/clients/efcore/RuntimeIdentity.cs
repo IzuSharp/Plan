@@ -12,6 +12,9 @@ internal sealed record RuntimeIdentity(
     string ManagedAssemblySha256, string? CgroupMembership,
     string ClientMemoryBudgetStatus, long RequestedClientBudgetBytes,
     bool ClientMemoryBudgetEnforced, bool TimingComparisonEligible, string[] AdmissionFailureReasons,
+    long RequestedGcHeapBudgetBytes, ulong ObservedConfiguredGcHeapHardLimitBytes,
+    long GcTotalAvailableMemoryBytesAtStartup, bool GcHeapBudgetEnforcementProven,
+    bool OwnerAcceptedUnenforcedMemoryPolicy, string MemoryPolicy,
     string EvaluatedCompilerFeatures, bool RuntimeAsyncMetadataPresent,
     int RuntimeAsyncMethodCount, string[] RuntimeAsyncMethodExamples)
 {
@@ -51,6 +54,11 @@ internal sealed record RuntimeIdentity(
         if (!compilerFeatures.Split(';').Contains("runtime-async=on", StringComparer.Ordinal)
             || asyncMethods.Length == 0)
             throw new InvalidOperationException("The application does not contain the requested runtime-async compiler feature and Async method metadata.");
+        const long requestedGcHeapBudgetBytes = 201_326_592;
+        if (!values.TryGetValue("GCHeapHardLimit", out var heapLimitValue)
+            || Convert.ToUInt64(heapLimitValue, System.Globalization.CultureInfo.InvariantCulture) != requestedGcHeapBudgetBytes)
+            throw new InvalidOperationException("The accepted comparison policy requires an observed 192 MiB GCHeapHardLimit configuration value.");
+        var configuredHeapLimit = Convert.ToUInt64(heapLimitValue, System.Globalization.CultureInfo.InvariantCulture);
         return new(
             RuntimeInformation.FrameworkDescription, Environment.Version.ToString(),
             RuntimeFeature.IsDynamicCodeSupported, RuntimeFeature.IsDynamicCodeCompiled,
@@ -59,10 +67,10 @@ internal sealed record RuntimeIdentity(
                 System.Globalization.CultureInfo.InvariantCulture) ?? "null", StringComparer.Ordinal),
             images, HashFile(typeof(RuntimeIdentity).Assembly.Location),
             File.Exists("/proc/self/cgroup") ? File.ReadAllText("/proc/self/cgroup") : null,
-            "Not enforced or attested by this executable. External admission must prove a 128 MiB client-only limit; GCHeapHardLimit is not a process/RSS limit and is not proven effective for Satori.",
-            134_217_728, false, false,
-            ["No independently verified 128 MiB client-only process memory limit is available in this environment.",
-             "GCHeapHardLimit limits the stock GC heap rather than all client memory and is not enforced by the tested Satori build."],
+            "Owner explicitly accepts a 192 MiB GC configuration without cgroup enforcement. Report actual GC availability/RSS and any excess; no total client-memory cap or Satori heap-limit enforcement is claimed.",
+            requestedGcHeapBudgetBytes, false, true, [],
+            requestedGcHeapBudgetBytes, configuredHeapLimit, GC.GetGCMemoryInfo().TotalAvailableMemoryBytes,
+            false, true, "owner-accepted-192MiB-GC-configuration-without-cgroup; external runner checks business correctness and duration",
             compilerFeatures, true, asyncMethods.Length, asyncMethods.Take(16).ToArray());
     }
 

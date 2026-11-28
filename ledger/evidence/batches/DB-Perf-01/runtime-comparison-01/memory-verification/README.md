@@ -1,5 +1,10 @@
 # Observed C# memory configuration behavior
 
+These original **128 MiB** probes predate the owner's later acceptance of a
+192 MiB requested configuration without cgroup. They remain unchanged evidence.
+The [current policy](../campaign/memory-policy-192.json) removes cgroup enforcement
+as a prerequisite while requiring actual memory and any excess to be reported.
+
 These are bounded configuration probes, not database pressure tests. Both builds
 used the same source in `../clients/memory-probe`, requested
 `System.GC.HeapHardLimit=134217728`, and retained at most 24 arrays of 8 MiB. Every
@@ -35,11 +40,23 @@ and logs are in this directory. The probe is bounded at 192 MiB of retained
 arrays and does not infer an unmeasured maximum for Satori. It does not establish
 the memory behavior of a full EF workload.
 
-The current execution environment has no mounted cgroup interface or accessible
-`memory.max`. No client process hard memory boundary has been established. A
-different enforcement mechanism must be verified before a Satori result may be
-described as a 128 MB constrained comparison. Database memory is outside this
-client requirement. No system security or parent resource settings were changed.
+The current execution namespace has no mounted cgroup interface or accessible
+`memory.max`, as recorded in [cgroup-environment.json](cgroup-environment.json).
+This is an access/visibility observation, not proof that the host or an unseen
+ancestor has no limit. No task-specific client process hard memory boundary has
+been established. The [cgroup execution protocol](cgroup-execution-plan.md)
+specifies the intended kernel boundary on a host with a delegated controller.
+It would have to be verified before a Satori result could be described as a
+128 MB constrained comparison; the current campaign makes no such claim.
+PostgreSQL's external server is excluded; SQLite's
+in-process native allocations are included in the client boundary. No system
+security or parent resource settings were changed.
+
+A separate [.NET 11 Native AOT probe](../clients/efcore/verification/native-aot-memory-probe/README.md)
+also observed enforcement of the stock GC's 128 MiB heap setting: 120 MiB of
+touched arrays were retained before a caught OutOfMemoryException. Its own
+source, ELF and run identities are retained. It is a heap-configuration check,
+not proof of a cgroup or total-client memory cap.
 
 The owner subsequently requested `runtime-async=on` for the JIT database
 consumers. This probe contains no async methods and does not use that compiler

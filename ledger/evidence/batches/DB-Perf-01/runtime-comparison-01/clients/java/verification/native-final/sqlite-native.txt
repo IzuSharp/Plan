@@ -1,0 +1,35 @@
+
+STDERR
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.sqlite.SQLiteJDBCLoader in an unnamed module (file:/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+java.lang.ExceptionInInitializerError
+	at org.jooq.impl.MetaDataFieldProvider.init(MetaDataFieldProvider.java:130)
+	at org.jooq.impl.MetaDataFieldProvider.<init>(MetaDataFieldProvider.java:78)
+	at org.jooq.impl.SQLResultQuery.getFields(SQLResultQuery.java:119)
+	at org.jooq.impl.AbstractResultQuery.execute(AbstractResultQuery.java:256)
+	at org.jooq.impl.AbstractQuery.execute(AbstractQuery.java:357)
+	at org.jooq.impl.AbstractQuery.execute(AbstractQuery.java:268)
+	at org.jooq.impl.AbstractResultQuery.fetch(AbstractResultQuery.java:285)
+	at org.jooq.impl.DefaultDSLContext.fetch(DefaultDSLContext.java:940)
+	at org.korda.compare.Database.open(Database.java:46)
+	at org.korda.compare.Main.run(Main.java:39)
+	at org.korda.compare.Main.main(Main.java:19)
+Caused by: java.lang.NullPointerException
+	at java.base@25.0.5.1/java.util.concurrent.ConcurrentHashMap.putVal(ConcurrentHashMap.java:1023)
+	at java.base@25.0.5.1/java.util.concurrent.ConcurrentHashMap.putIfAbsent(ConcurrentHashMap.java:1555)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:474)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:418)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:394)
+	at org.jooq.impl.ArrayDataType.<init>(ArrayDataType.java:70)
+	at org.jooq.impl.AbstractDataType.getArrayDataType(AbstractDataType.java:873)
+	at org.jooq.impl.DefaultDataType.getArrayDataType(DefaultDataType.java:154)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:487)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:418)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:414)
+	at org.jooq.impl.DefaultDataType.<init>(DefaultDataType.java:382)
+	at org.jooq.impl.BuiltInDataType.<init>(BuiltInDataType.java:71)
+	at org.jooq.impl.SQLDataType.<clinit>(SQLDataType.java:326)
+	... 11 more

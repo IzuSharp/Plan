@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "task": "DB-Runtime-Compare-01",
+  "reviewedAtUtc": "2026-11-28T08:15:01.173535+00:00",
+  "reviewType": "pinned-source static review only",
+  "runtimePackage": "PublishWithSatoriGC 11.0.2-satori.45942668844.1",
+  "releaseTag": "20261127.1-net11.0",
+  "sourceCommit": "bd2e3f834043b4bb68d5ef2255029dae36ab5e0e",
+  "formalBenchmark": false,
+  "newRuntimeExperimentPerformed": false,
+  "cgroup128MiBWorkloadSuccessVerified": false,
+  "sources": [
+    {
+      "sourcePath": "src/coreclr/gc/satori/SatoriRecycler.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/hez2010/Satori/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriRecycler.cpp",
+      "sha256": "02656a41c9ba27caa26126ae46696bfdb4ee39e46d0a9cf118899d70de20949c",
+      "bytes": 231473
+    },
+    {
+      "sourcePath": "src/coreclr/gc/satori/SatoriGC.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/hez2010/Satori/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriGC.cpp",
+      "sha256": "f4b659626beaa8c88678bd2ab02deb0af5c49cf1b7995cbd87f9a6c1590c1a16",
+      "bytes": 27185
+    },
+    {
+      "sourcePath": "src/coreclr/gc/unix/gcenv.unix.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/hez2010/Satori/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/gcenv.unix.cpp",
+      "sha256": "ce89fa9078fa711ab35964ca2bfd5fe28a4864e945c1e8156e6057ec4c2f35ea",
+      "bytes": 46539
+    },
+    {
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "sourceUrl": "https://raw.githubusercontent.com/hez2010/Satori/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp",
+      "sha256": "2856a6b7b1ab633618a35b03353440ba82cb1d26ad7da55c1a9d588cf8ebc1bc",
+      "bytes": 21810
+    }
+  ],
+  "evidence": [
+    {
+      "id": "os-initialization",
+      "sourcePath": "src/coreclr/gc/unix/gcenv.unix.cpp",
+      "firstLine": 184,
+      "lastLine": 226,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/gcenv.unix.cpp#L184-L226",
+      "finding": "GC OS initialization calls InitializeCGroup."
+    },
+    {
+      "id": "cached-cgroup-location",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 54,
+      "lastLine": 84,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L54-L84",
+      "finding": "Initialization discovers and stores cgroup version, process group path, and visible hierarchy mount. GetPhysicalMemoryLimit dispatches using these stored values."
+    },
+    {
+      "id": "mount-required",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 108,
+      "lastLine": 126,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L108-L126",
+      "finding": "FindCGroupVersion calls statfs(/sys/fs/cgroup); failure returns version 0. A /proc/self/cgroup entry alone does not establish discoverability."
+    },
+    {
+      "id": "resolve-process-path",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 141,
+      "lastLine": 195,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L141-L195",
+      "finding": "Resolves process group path with hierarchy mount/root and caches the resulting filesystem path."
+    },
+    {
+      "id": "read-process-membership",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 291,
+      "lastLine": 356,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L291-L356",
+      "finding": "Reads /proc/self/cgroup; v2 parses the 0:: path."
+    },
+    {
+      "id": "v2-limit-filename",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 37,
+      "lastLine": 48,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L37-L48",
+      "finding": "v2 limit is memory.max; usage is memory.current and inactive_file from memory.stat."
+    },
+    {
+      "id": "v2-visible-ancestor-limits",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 448,
+      "lastLine": 503,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L448-L503",
+      "finding": "Reads each finite numeric memory.max from the cached process group through the visible hierarchy mount, inclusive, and chooses the minimum. Does not walk above that mount."
+    },
+    {
+      "id": "numeric-max-parser",
+      "sourcePath": "src/coreclr/gc/unix/gcenv.unix.cpp",
+      "firstLine": 722,
+      "lastLine": 767,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/gcenv.unix.cpp#L722-L767",
+      "finding": "Numeric file parser rejects values with no numeric prefix, including max; unlimited entries do not replace a finite ancestor limit."
+    },
+    {
+      "id": "restriction-normalization",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 566,
+      "lastLine": 611,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L566-L611",
+      "finding": "If a cgroup limit is discovered, normalizes it and bounds it by RLIMIT_AS and physical memory. This is not an instruction to substitute RLIMIT_AS for a process memory controller."
+    },
+    {
+      "id": "os-limit-interface",
+      "sourcePath": "src/coreclr/gc/unix/gcenv.unix.cpp",
+      "firstLine": 1196,
+      "lastLine": 1219,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/gcenv.unix.cpp#L1196-L1219",
+      "finding": "Returns the discovered restricted limit and marks is_restricted; falls back to host physical memory when no usable limit is found."
+    },
+    {
+      "id": "satori-startup-limit",
+      "sourcePath": "src/coreclr/gc/satori/SatoriGC.cpp",
+      "firstLine": 334,
+      "lastLine": 360,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriGC.cpp#L334-L360",
+      "finding": "Satori initialization stores g_totalPhysicalMem and g_isRestrictedPhysicalMem from the OS interface."
+    },
+    {
+      "id": "satori-public-memory-info",
+      "sourcePath": "src/coreclr/gc/satori/SatoriGC.cpp",
+      "firstLine": 786,
+      "lastLine": 801,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriGC.cpp#L786-L801",
+      "finding": "Public totalAvailableMemoryBytes uses the stored g_totalPhysicalMem."
+    },
+    {
+      "id": "satori-memory-load",
+      "sourcePath": "src/coreclr/gc/satori/SatoriGC.cpp",
+      "firstLine": 821,
+      "lastLine": 833,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriGC.cpp#L821-L833",
+      "finding": "Memory load queries use the stored startup restricted flag/limit."
+    },
+    {
+      "id": "group-usage",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 506,
+      "lastLine": 547,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L506-L547",
+      "finding": "cgroup v2 GC usage calculation is memory.current minus memory.stat inactive_file for the cached group; this is not raw process RSS or complete shared-ancestor free headroom."
+    },
+    {
+      "id": "used-memory-fallback",
+      "sourcePath": "src/coreclr/gc/unix/cgroup.cpp",
+      "firstLine": 615,
+      "lastLine": 645,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/cgroup.cpp#L615-L645",
+      "finding": "Uses cgroup usage when available; otherwise falls back to process resident pages from /proc/self/statm."
+    },
+    {
+      "id": "restricted-headroom",
+      "sourcePath": "src/coreclr/gc/unix/gcenv.unix.cpp",
+      "firstLine": 1346,
+      "lastLine": 1368,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/unix/gcenv.unix.cpp#L1346-L1368",
+      "finding": "With a restricted limit, available memory is max(limit-used,0)."
+    },
+    {
+      "id": "satori-available-memory",
+      "sourcePath": "src/coreclr/gc/satori/SatoriRecycler.cpp",
+      "firstLine": 1454,
+      "lastLine": 1482,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriRecycler.cpp#L1454-L1482",
+      "finding": "Re-reads the OS limit, combines host and restricted available memory using min, and subtracts a reserve of at least 5 percent of total."
+    },
+    {
+      "id": "satori-gen1-budget",
+      "sourcePath": "src/coreclr/gc/satori/SatoriRecycler.cpp",
+      "firstLine": 1555,
+      "lastLine": 1561,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriRecycler.cpp#L1555-L1561",
+      "finding": "AdjustHeuristics stores available memory and caps m_gen1Budget to it. This is budget adaptation, not proof of workload success under a 128 MiB cgroup."
+    },
+    {
+      "id": "satori-refresh-noop",
+      "sourcePath": "src/coreclr/gc/satori/SatoriGC.cpp",
+      "firstLine": 942,
+      "lastLine": 945,
+      "sourceUrl": "https://github.com/hez2010/Satori/blob/bd2e3f834043b4bb68d5ef2255029dae36ab5e0e/src/coreclr/gc/satori/SatoriGC.cpp#L942-L945",
+      "finding": "RefreshMemoryLimit currently returns 0 without updating cached paths or startup physical-limit fields."
+    }
+  ],
+  "inferences": [
+    {
+      "claim": "Place the launcher in the configured target cgroup before exec so CoreCLR/Satori initialization discovers the intended group.",
+      "basis": [
+        "cached-cgroup-location",
+        "read-process-membership",
+        "satori-startup-limit"
+      ]
+    },
+    {
+      "claim": "Moving an already initialized process into a different cgroup is not equivalent: the inspected code retains its initial group path and startup total, and the explicit refresh hook does not repair them.",
+      "basis": [
+        "cached-cgroup-location",
+        "v2-visible-ancestor-limits",
+        "satori-public-memory-info",
+        "satori-refresh-noop"
+      ]
+    },
+    {
+      "claim": "Changing a memory.max file in the already cached path/hierarchy can affect future Recycler headroom reads, while the public totalAvailableMemoryBytes field may still reflect startup. This does not establish supported live migration or reliable dynamic-budget behavior.",
+      "basis": [
+        "v2-visible-ancestor-limits",
+        "satori-available-memory",
+        "satori-public-memory-info",
+        "satori-refresh-noop"
+      ]
+    }
+  ],
+  "limits": [
+    "The source proves cgroup discovery and GC-budget input paths, not successful EF operation or safe collector behavior within 128 MiB.",
+    "Ancestor traversal stops at the visible cgroup mount; inaccessible ancestors and shared sibling usage are not fully characterized by this source path.",
+    "Kernel cgroup enforcement, memory charging and process migration semantics are documented separately in cgroup-execution-plan.md; this file does not claim memory.max equals exact RSS.",
+    "Current environment has no visible cgroup mount or /sys/fs/cgroup directory; see cgroup-environment.json. No cgroup or 128 MiB load run was attempted here."
+  ]
+}

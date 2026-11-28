@@ -13,29 +13,39 @@ for the Microsoft Workstation runtime or `UseSatoriGC=true` for the pinned Sator
 runtime. The database provider is selected with `Provider=Sqlite` or
 `Provider=PostgreSql`. No Dapper dependency or Dapper execution remains.
 
-The requested **128 MiB limit applies only to the C# client**, not to PostgreSQL.
-This executable records the requested budget but does not attest its enforcement.
-`DOTNET_GCHeapHardLimit=0x8000000` is only a GC heap setting. It does not limit
-total client memory and the independently tested Satori build does not enforce
-it as a heap limit either. See the batch's `memory-verification` receipts.
-Consequently this version writes `TimingComparisonEligible=false`; its bounded
-correctness receipts are not 30-minute performance acceptance. A successful
-preflight is not permission to silently remove the requested memory condition.
-Startup also records `ClientMemoryBudgetEnforced=false` and structured
-`AdmissionFailureReasons`. With the current admission state, `--seconds 1800`
-or longer exits with code 2 before opening a database connection, regardless of
-`--verify`. No switch in this client marks the unverified limit as enforced.
+The owner's latest instruction accepts a **192 MiB GC configuration budget for
+C# clients without cgroup enforcement**. This replaces the earlier 128 MiB
+admission policy; it does not turn the setting into an enforced process-memory
+cap. The project records `System.GC.HeapHardLimit=201326592` in runtimeconfig,
+and the finite runs additionally used `DOTNET_GCHeapHardLimit=0xC000000`.
+Startup requires the actual GC configuration to report that value.
+
+The executable keeps `ClientMemoryBudgetEnforced=false` and
+`GcHeapBudgetEnforcementProven=false`, and records
+`OwnerAcceptedUnenforcedMemoryPolicy=true`. Requested/configured GC budget,
+`GcTotalAvailableMemoryBytesAtStartup`, and process RSS/peak RSS are separate
+fields. Satori's available-memory value remains the host amount in the observed
+attempt03 run even though its configuration reports 192 MiB. Actual excess
+memory must be reported, not rejected or hidden as though a hard cap existed.
+
+The previous rejection of 1,800-second runs solely for lacking a cgroup has
+been removed under this explicit owner authorization. `TimingComparisonEligible`
+now means the runtime/configuration identity matches the accepted policy, the
+business/oracle checks have no failures, connections were returned, and the run
+is neither allocation-instrumented nor an empty-driver diagnostic. It does not
+certify a completed 30-minute duration. The external formal runner must check
+the duration, frozen identities, database conditions and complete outcomes.
 
 ## Current bounded validation result
 
 All four provider/runtime combinations were republished with the requested
 `<Features>$(Features);runtime-async=on</Features>` and passed the limited
-`attempt02` correctness run. Each run verified every business case, executed
+`attempt03` correctness run under the accepted 192 MiB configuration policy. Each run verified every business case, executed
 64 warmup operations, then completed one operation for each of the 35 cases,
 with zero failed operations, zero oracle failures, four successful independent
 connection checks for the write cases, and zero remaining application-owned
 connections. SQLite was 3.51.3; PostgreSQL was 18.0. PostgreSQL used a separate
-`db_perf_efcore_preflight` database cloned from the canonical seed; the server
+`db_perf_efcore_preflight03` database cloned from the canonical seed; the server
 was stopped successfully after the two sequential checks.
 
 | Provider | Actual runtime | GC identity | Runtime Async methods in application | Finite 35-case check |
@@ -45,7 +55,7 @@ was stopped successfully after the two sequential checks.
 | PostgreSQL | .NET 11.0.0 | Workstation; `IsServerGC=false`, no Satori marker | 19 | Passed |
 | PostgreSQL | .NET 11.0.2-ci | `SatoriGC=true`; actual `IsServerGC=true` | 19 | Passed |
 
-`verification/attempt02-summary.json` links the complete receipts by SHA-256 and
+`verification/attempt03-summary.json` links the complete receipts by SHA-256 and
 records source, lock-file, apphost, DLL, PDB, runtimeconfig, dependency-manifest,
 loaded CoreCLR/JIT and native SQLite identities. Each compiler argument receipt
 contains the actual `/features:runtime-async=on` option. Startup reads the
@@ -55,12 +65,18 @@ more than the presence of XML text: the feature was emitted and those binaries
 executed the 35 business cases on both runtime builds. The check does not claim
 that prebuilt EF/driver dependencies were recompiled with this feature.
 
-`verification/admission-attempt02.json` records four quick negative admission
-checks: all rejected a 1,800-second request with exit code 2 before database
-access, emitted no performance result and did not create the proposed SQLite
-files. No 30-minute test was run. The earlier SQLite `attempt01` receipts and
-`verification/pre-runtime-async-source.zip` remain distinct historical evidence;
-they have not been relabeled as runtime-async runs.
+These are bounded correctness results, not 30-minute performance acceptance.
+In attempt03, both stock runs report GC total available memory of 201,326,592 B;
+both Satori runs report 10,451,427,328 B. All four report a configured GC heap
+limit of 201,326,592 B. This difference is preserved in each runtime identity.
+
+Historical evidence is immutable: `verification/admission-attempt02.json` still
+records the earlier 128 MiB policy's rejection checks; that policy is superseded
+for new runs. `verification/attempt02-source.zip`, its four published binaries,
+and its original receipts remain separate from attempt03. The earlier SQLite
+`attempt01` receipts, `verification/pre-runtime-async-source.zip`, and all 128 MiB
+memory probes also retain their original identities. No old receipt has been
+relabeled as a 192 MiB run.
 
 ## Fixed dependencies
 
@@ -93,12 +109,12 @@ this directory:
 dotnet publish DbPerf.EfCore.csproj -c Release -r linux-x64 \
   --self-contained true --disable-build-servers -m:1 \
   -p:Provider=Sqlite -p:UseSatoriGC=false \
-  -o bin/publish/sqlite-workstation
+  -o bin/publish/sqlite-workstation-attempt03
 
 dotnet publish DbPerf.EfCore.csproj -c Release -r linux-x64 \
   --self-contained true --disable-build-servers -m:1 \
   -p:Provider=Sqlite -p:UseSatoriGC=true \
-  -o bin/publish/sqlite-satori
+  -o bin/publish/sqlite-satori-attempt03
 ```
 
 Use `Provider=PostgreSql` and distinct output directories for PostgreSQL. Publish
@@ -192,7 +208,7 @@ are checked. PostgreSQL uses a dedicated preflight database on the prepared
 server; no server memory setting is changed.
 
 ```sh
-DOTNET_GCHeapHardLimit=0x8000000 bin/publish/sqlite-workstation/DbPerf.EfCore \
+DOTNET_GCHeapHardLimit=0xC000000 bin/publish/sqlite-workstation-attempt03/DbPerf.EfCore \
   --connection /absolute/path/to/preflight-copy.sqlite \
   --native-library /absolute/path/to/matching/libsqlite3.so \
   --case mixed --mode prepared --session persistent \
@@ -204,4 +220,4 @@ This performs the 35-case verification sweep, 64 warmup operations and 35
 bounded measured operations. Those short timing fields are diagnostic bookkeeping
 only. Keep all failed attempts, build logs and observed receipts; do not relabel
 them as 30-minute runs. The stdout startup record explicitly exposes the runtime
-and unproven client memory admission status.
+and owner-accepted configuration-only memory policy, including the absence of an enforced client memory cap.

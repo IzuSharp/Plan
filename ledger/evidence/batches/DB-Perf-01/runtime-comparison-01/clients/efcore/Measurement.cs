@@ -293,6 +293,12 @@ internal static class Measurement
             string executableHash;
             using (var file = File.OpenRead(path)) executableHash = Convert.ToHexStringLower(SHA256.HashData(file));
             var version = "EntityFrameworkCore/11.0.0;"+source.Provider+"/11.0.0";
+            var admissionFailureReasons = new List<string>(source.RuntimeIdentity.AdmissionFailureReasons);
+            if (failed != 0) admissionFailureReasons.Add("One or more business operations failed.");
+            if (CorrectnessOracle.Failures != 0) admissionFailureReasons.Add("The correctness oracle recorded a failure.");
+            if (!ownersZero) admissionFailureReasons.Add("Application-owned database connections were not fully returned.");
+            if (options.AllocationProfile) admissionFailureReasons.Add("Native allocation instrumentation excludes timing comparison.");
+            if (options.EmptyDriver) admissionFailureReasons.Add("An empty-driver diagnostic is not a database timing comparison.");
             return new(1, "independent-csharp-efcore-jit", source.Provider, false, version, source.DatabaseVersion, source.CompileOptions,
                 executableHash, source.NativePath, source.NativeHash,
                 options.Mode=="prepared"?"Reuse IQueryable expression graphs per worker; EF Core query cache and no-tracking DTO materializer; no explicit EF.CompileQuery or server prepare":"Rebuild equivalent IQueryable graphs per operation; normal EF Core query cache still applies",
@@ -316,16 +322,16 @@ internal static class Measurement
                 new(Quantile(histogram, success, .50), Quantile(histogram, success, .95), Quantile(histogram, success, .99),
                     "base-2 histogram with 128 subdivisions per exponent; reported upper bounds (<0.782% relative bin width)", histogram),
                 seconds.ToArray(), schedule?.TimeSeriesTruncated ?? state.Truncated != 0, sql, expectations, errors, schedule, caseCounts, idle,
-                // The requested client memory budget has not been independently
-                // enforced/attested in this environment. These are preflight
-                // receipts even when allocation instrumentation is disabled.
-                false, allocationProfile?.CreateReceipt())
+                // The owner accepted a configuration budget without cgroup enforcement.
+                // Eligibility does not attest a memory cap or a completed formal duration.
+                source.RuntimeIdentity.TimingComparisonEligible && admissionFailureReasons.Count == 0,
+                allocationProfile?.CreateReceipt())
             {
                 OracleFailuresBefore = beforeOracle, OracleFailuresAfter = afterOracle,
                 OracleFailures = CorrectnessOracle.Failures, FirstOracleFailure = CorrectnessOracle.FirstFailure,
                 RuntimeIdentity = source.RuntimeIdentity,
                 IndependentPersistedStateChecksBeforeTiming = source.IndependentStateChecks,
-                AdmissionFailureReasons = source.RuntimeIdentity.AdmissionFailureReasons,
+                AdmissionFailureReasons = admissionFailureReasons.ToArray(),
                 GcPauseTicksBefore = pauseBefore, GcPauseTicksAfter = pauseAfter, GcPauseTicks = pauseAfter - pauseBefore
             };
         }

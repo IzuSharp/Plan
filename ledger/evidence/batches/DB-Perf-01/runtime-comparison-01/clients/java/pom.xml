@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.korda.compare</groupId><artifactId>runtime-comparison-java</artifactId><version>1.0.0</version>
+  <properties><maven.compiler.release>25</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></properties>
+  <dependencies>
+    <dependency><groupId>org.jooq</groupId><artifactId>jooq</artifactId><version>3.21.10</version></dependency>
+    <dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId><version>42.7.15</version></dependency>
+    <dependency><groupId>org.xerial</groupId><artifactId>sqlite-jdbc</artifactId><version>3.51.3.0</version></dependency>
+    <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.23.0</version></dependency>
+    <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-nop</artifactId><version>2.0.17</version></dependency>
+  </dependencies>
+  <build><plugins>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.14.1</version></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version><configuration><archive><manifest><mainClass>org.korda.compare.Main</mainClass></manifest></archive></configuration></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId><version>3.8.1</version></plugin>
+  </plugins></build>
+  <profiles><profile><id>native</id><build><plugins>
+    <plugin>
+      <groupId>org.graalvm.buildtools</groupId><artifactId>native-maven-plugin</artifactId><version>1.1.19</version>
+      <extensions>true</extensions>
+      <executions><execution><id>native</id><phase>package</phase><goals><goal>compile-no-fork</goal></goals></execution></executions>
+      <configuration>
+        <mainClass>org.korda.compare.Main</mainClass><imageName>runtime-comparison-java</imageName>
+        <metadataRepository><enabled>true</enabled></metadataRepository>
+        <buildArgs>
+          <buildArg>--no-fallback</buildArg><buildArg>--gc=serial</buildArg>
+          <buildArg>-O3</buildArg><buildArg>-march=x86-64</buildArg>
+          <buildArg>-J-Xmx3g</buildArg><buildArg>--parallelism=2</buildArg>
+          <buildArg>--enable-monitoring=jfr</buildArg>
+          <buildArg>-Dorg.sqlite.lib.exportPath=${project.build.directory}</buildArg>
+        </buildArgs>
+      </configuration>
+    </plugin>
+  </plugins></build></profile></profiles>
+</project>

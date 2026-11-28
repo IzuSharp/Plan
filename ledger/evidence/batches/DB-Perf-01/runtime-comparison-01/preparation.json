@@ -1,6 +1,6 @@
 {
   "task": "DB-Runtime-Compare-01",
-  "observedUtc": "2026-11-28T07:46:54.818479+00:00",
+  "observedUtc": "2026-11-28T08:33:32.221868+00:00",
   "repositories": {
     "Korda": {
       "sha": "36bd5ba169b628ba4d61dd9fe260eaef5ff15599",
@@ -36,23 +36,58 @@
   "requestedLongCells": 8,
   "workloadSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
   "runtimeAsyncRequestedForBothEfJitVariants": true,
-  "status": "preparation_complete_for_dapper_and_ef_java_native_validation_pending",
+  "status": "ready_for_serial_formal_campaign",
   "clientMemoryBudget": {
-    "requestedBytes": 134217728,
-    "databaseIncluded": false,
+    "requestedBytes": 201326592,
     "stockGcHeapLimitObserved": true,
     "satoriGcHeapLimitObserved": false,
     "clientProcessLimitAvailable": false,
-    "formalCampaignAdmitted": false
+    "formalCampaignAdmitted": true,
+    "externalPostgreSqlServerIncluded": false,
+    "inProcessSqliteMemoryIncluded": true,
+    "stockNativeAotGcHeapLimitObserved": true,
+    "clientCgroupLimitApplied": false,
+    "cgroupSwapMaxPlannedBytes": 0,
+    "cgroupOomGroupPlanned": 1,
+    "environmentEvidence": "memory-verification/cgroup-environment.json",
+    "executionProtocol": "memory-verification/cgroup-execution-plan.md",
+    "previousRequestedBytes": 134217728,
+    "cgroupRequired": false,
+    "ownerAcceptedUnenforcedMemoryPolicy": true,
+    "wholeProcessMemoryCapClaimed": false,
+    "policy": "campaign/memory-policy-192.json"
   },
   "finiteCorrectness": {
     "dapperSqlite": "passed_35_cases",
     "dapperPostgreSql": "passed_35_cases",
-    "efWorkstationSqliteRuntimeAsync": "passed_35_cases",
-    "efWorkstationPostgreSqlRuntimeAsync": "passed_35_cases",
-    "efSatoriSqliteRuntimeAsync": "passed_35_cases",
-    "efSatoriPostgreSqlRuntimeAsync": "passed_35_cases",
-    "javaNativeSqlite": "pending_final_source_bound_native_build",
-    "javaNativePostgreSql": "pending_final_source_bound_native_build"
+    "efWorkstationSqliteRuntimeAsync": "passed_35_cases_attempt03_192MiB_policy",
+    "efWorkstationPostgreSqlRuntimeAsync": "passed_35_cases_attempt03_192MiB_policy",
+    "efSatoriSqliteRuntimeAsync": "passed_35_cases_attempt03_192MiB_policy",
+    "efSatoriPostgreSqlRuntimeAsync": "passed_35_cases_attempt03_192MiB_policy",
+    "javaNativeSqlite": "passed_35_cases_final_source_bound_native_image",
+    "javaNativePostgreSql": "passed_35_cases_final_source_bound_native_image"
+  },
+  "runtimeAsyncVerified": {
+    "compilerFlagInFourEfBuilds": true,
+    "asyncMetadataMethodsPerBuild": 19,
+    "independentSourcePdbBindingReviewed": true
+  },
+  "frozenMatrix": {
+    "path": "campaign/matrix-01.json",
+    "sha256": "450d0e8762db63dd5dada402c1c1b59797f3cb4207ef655375b6b63ba7e715ae",
+    "sourceAndConsumerBindingReviewPassed": true,
+    "validateOnlyPassed": true
+  },
+  "recovery": {
+    "workingDirectory": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan",
+    "command": [
+      "python3",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/run_matrix.py",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/matrix-01.json",
+      "--output",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01"
+    ],
+    "statusFile": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/current.json",
+    "rule": "Inspect live process/session and current.json before resuming. Never duplicate an active cell. Completed cell directories are immutable; use --only for a not-yet-started cell with the same boot/matrix."
   }
 }

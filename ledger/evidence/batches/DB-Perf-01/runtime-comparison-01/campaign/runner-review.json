@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "satori_research",
+  "reviewedAtUtc": "2026-11-28T08:34:00.424068+00:00",
+  "scope": "Final read-only comparison of matrix, actual frozen files, both Java admissions and matching finite verification receipts against the already reviewed runner/freezer. No build, server launch, workload, or campaign script execution.",
+  "reviewedOrchestrator": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/run_matrix.py",
+    "sha256": "70e2019c5b254d308fd44858532a62273a8eae0cd0bef16877746138ac69815b",
+    "lineCount": 336
+  },
+  "originalObserver": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Korda/benchmarks/db-perf/run.py",
+    "sha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86",
+    "matchesWorktreeHEAD": true
+  },
+  "fixtureVerifier": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixture.py",
+    "sha256": "7bccd0fe2dbb5669b199ac7c98e8b7bb9b939ac2538ac1621f2065535ede31f8"
+  },
+  "status": "final_matrix_read_only_acceptance_passed; no open launch findings",
+  "checkedWithoutBlocker": [
+    {
+      "area": "process ownership and wait4",
+      "basis": "Original run.py reaped()/execute()/stop_and_join(): waitid(WNOWAIT), one owner wait4, then child.returncode assignment. The campaign heartbeat reads JSONL only and does not poll/reap client or server PIDs.",
+      "conclusion": "No new competing wait/poll owner found."
+    },
+    {
+      "area": "fresh data and correctness",
+      "basis": "run_cell creates each cell directory with exist_ok=False. SQLite uses a fresh seed copy; PostgreSQL data directory is inside that new cell directory and original observer initdb creates a new cluster. The independent fixture verifier compares every customer/order/line plus metadata/schema/indexes before and after.",
+      "conclusion": "No cross-cell database reuse or count-only verification found."
+    },
+    {
+      "area": "PostgreSQL JDBC URL",
+      "basis": "Original observer always produces postgresql://korda@127.0.0.1:<dynamic-port>/db_perf_01. Campaign converts Java only to jdbc:postgresql://127.0.0.1:<port>/db_perf_01?user=korda&sslmode=disable. Java Database.open accepts JDBC URLs and uses the PostgreSQL driver directly.",
+      "conclusion": "Conversion matches this exact fixed-user/dedicated-server contract."
+    },
+    {
+      "area": "192 MiB policy scope",
+      "basis": "The environment override wraps only observer.execute/client launch, after PostgreSQL startup and fixture setup. memoryEnforcementClaimed is false. The policy explicitly excludes a PostgreSQL/Java cap.",
+      "conclusion": "No accidental PostgreSQL 192 MiB cap found; final C# override values require matrix inspection."
+    },
+    {
+      "area": "duration/count schema",
+      "basis": "Updated evaluate checks 1800 offered seconds, exact planned and attempted rate*1800, accounting equalities, monotonic boundaries, histogram populations, per-second totals, case order, fixed settings and 15-second released idle. These field names match C# Shared/OfferedLoad.cs and Java OfferedLoad/Main receipts.",
+      "conclusion": "No schema mismatch found in the updated validator."
+    },
+    {
+      "area": "failure and no automatic rerun",
+      "basis": "Fresh cell directories, original observer refuses existing raw evidence, unsuccessful status raises after preserved cell status/events, and all exceptions unwind the original PostgreSQL owner context for bounded stop/join.",
+      "conclusion": "No automatic retry or silent failed-cell overwrite found."
+    },
+    {
+      "area": "updated startup gate",
+      "basis": "validate_matrix runs before --validate-only can succeed and before the observer/server/client is launched. Exact generated cell names are enforced, including the heartbeat/command evidence name match.",
+      "conclusion": "The previously reported launch-setting gap is closed for the generated campaign."
+    },
+    {
+      "area": "freezer source/validated executable binding",
+      "basis": "Dapper build-receipt executableSha256 is checked. EF publishedArtifacts, RuntimeImages and sourceFilesSha256 are checked before complete publish-directory freeze. Java requires a passed finite-verification summary matching build-identity executableSha256, then checks the executable and source hashes. Original manifest uses queries/name and is checked against the owner policy hash.",
+      "conclusion": "No additional static binding mismatch found. The final Java receipt contents and final generated matrix must still be checked when available."
+    }
+  ],
+  "measurementCautions": [
+    {
+      "area": "CPU and peak RSS",
+      "finding": "Original observer wait4 counters are process-lifetime values, not the steady 1800-second cost. Client steady cost must use consumer monotonic boundaries; PostgreSQL tree snapshots are non-atomic and raw identities/reaped counts must be retained."
+    },
+    {
+      "area": "PostgreSQL statistics",
+      "finding": "pg_stats-before/after deliberately bracket fixture verification, consumer warmup/drain/idle as applicable. Their deltas are not pure steady-phase server costs; the source labels that scope accurately."
+    }
+  ],
+  "noSourceEditsOutsideOwnReviewFile": true,
+  "reviewRevision": 3,
+  "reviewedFreezer": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/freeze_matrix.py",
+    "sha256": "e73e9e90b145865c65c6e11fb1b98746dced57d791fa85c2492ef1629f2a25c7",
+    "lineCount": 139
+  },
+  "resolvedFindings": [
+    {
+      "id": "R1",
+      "resolution": "run_cell now verifies both cell and global frozen inputs after clean database retirement."
+    },
+    {
+      "id": "R2",
+      "resolution": "The initial host.json is retained. Resume compares hostName/bootId/matrixSha256/ownerMemoryPolicy; each invocation appends a separate observation."
+    },
+    {
+      "id": "R3",
+      "resolution": "validate_matrix checks exact eight-cell order/names, CPUs0-3, timeout2115, one copy of required command values, --verify, excluded diagnostics, C#0xC000000 and Java admission flag. Unknown --only is rejected."
+    },
+    {
+      "id": "F1",
+      "resolution": "freeze_matrix now compares Dapper ELF against the build receipt, and EF publishedArtifacts plus actual loaded RuntimeImages against the validated attempt03 hashes before creating the new freeze."
+    }
+  ],
+  "openFindings": [],
+  "readOnlyArtifactSpotChecks": {
+    "dapperSqliteExecutableMatchesBuildReceipt": true,
+    "dapperPostgresqlExecutableMatchesBuildReceipt": true,
+    "allEfAttempt03PublishedArtifactsMatchSummary": true,
+    "originalAndWorktreeObserverSha256": "296e6b802d8bc1bcf964d7faa71d4adaa37226a867c17a9a3b5f00284f769b86"
+  },
+  "finalMatrixReviewed": true,
+  "noBuildOrWorkloadExecuted": true,
+  "finalMatrixAcceptance": {
+    "status": "passed",
+    "matrixPath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/matrix-01.json",
+    "matrixSha256": "450d0e8762db63dd5dada402c1c1b59797f3cb4207ef655375b6b63ba7e715ae",
+    "allFrozenInputsMatched": true,
+    "distinctFrozenInputCount": 901,
+    "orderedCellCount": 8,
+    "manifestCaseOrderMatched": true,
+    "memoryPolicy": "192 MiB requested C# GC configuration without cgroup or enforcement claim; Java and PostgreSQL uncapped",
+    "cells": [
+      {
+        "name": "01-dapper-sqlite",
+        "provider": "sqlite",
+        "implementation": "dapper",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/builds/dapper-sqlite-01/out/DbPerf.Dapper",
+        "executableSha256": "a409898987b3c9b9596497b766ae750e608e914ddbe2f305f389d92269b97119",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3000,
+        "concurrency": 4,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 2
+      },
+      {
+        "name": "02-dapper-postgresql",
+        "provider": "postgresql",
+        "implementation": "dapper",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/builds/dapper-postgresql-01/out/DbPerf.Dapper",
+        "executableSha256": "68475fd46e3f050f8a66eff24fa9856c0d5a09d53871ee256458201a124defa1",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3600,
+        "concurrency": 8,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 2
+      },
+      {
+        "name": "03-ef-workstation-sqlite",
+        "provider": "sqlite",
+        "implementation": "ef-workstation",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/bin/publish/sqlite-workstation-attempt03/DbPerf.EfCore",
+        "executableSha256": "d2b2a99fed6f27414945c1f87763e20c009a1dd9248728f738d7adda394736a2",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3000,
+        "concurrency": 4,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 233
+      },
+      {
+        "name": "04-ef-workstation-postgresql",
+        "provider": "postgresql",
+        "implementation": "ef-workstation",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/bin/publish/postgresql-workstation-attempt03/DbPerf.EfCore",
+        "executableSha256": "d2b2a99fed6f27414945c1f87763e20c009a1dd9248728f738d7adda394736a2",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3600,
+        "concurrency": 8,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 230
+      },
+      {
+        "name": "05-ef-satori-sqlite",
+        "provider": "sqlite",
+        "implementation": "ef-satori",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/bin/publish/sqlite-satori-attempt03/DbPerf.EfCore",
+        "executableSha256": "d2b2a99fed6f27414945c1f87763e20c009a1dd9248728f738d7adda394736a2",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3000,
+        "concurrency": 4,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 234
+      },
+      {
+        "name": "06-ef-satori-postgresql",
+        "provider": "postgresql",
+        "implementation": "ef-satori",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/bin/publish/postgresql-satori-attempt03/DbPerf.EfCore",
+        "executableSha256": "d2b2a99fed6f27414945c1f87763e20c009a1dd9248728f738d7adda394736a2",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3600,
+        "concurrency": 8,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 231
+      },
+      {
+        "name": "07-java-native-sqlite",
+        "provider": "sqlite",
+        "implementation": "java-native",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "executableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3000,
+        "concurrency": 4,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 19
+      },
+      {
+        "name": "08-java-native-postgresql",
+        "provider": "postgresql",
+        "implementation": "java-native",
+        "executablePath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/target/runtime-comparison-java",
+        "executableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+        "formalSeconds": 1800,
+        "idleSeconds": 15,
+        "requestsPerSecond": 3600,
+        "concurrency": 8,
+        "clientCpus": "0-3",
+        "timeoutSeconds": 2115,
+        "frozenInputCount": 19
+      }
+    ],
+    "javaAdmissions": [
+      {
+        "provider": "sqlite",
+        "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/java-sqlite-admission.json",
+        "sha256": "9eecd5b52814f64ec9e2573e8e7ce7c9c06d8f2310b59b919ebe3f3091d4f7c5",
+        "executableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+        "finiteVerificationSha256": "caa3e852c884b7eff4a21fc3aefc7f0968b62a19066553d3957b9cad40abaf1a",
+        "bothProvidersVerified35Cases": true
+      },
+      {
+        "provider": "postgresql",
+        "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/java-postgresql-admission.json",
+        "sha256": "9d6678391c65a3b456dbea130166e4bca4fef078f84769c4a824981beec176f5",
+        "executableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+        "finiteVerificationSha256": "caa3e852c884b7eff4a21fc3aefc7f0968b62a19066553d3957b9cad40abaf1a",
+        "bothProvidersVerified35Cases": true
+      }
+    ],
+    "scope": "Launch prerequisites only; no performance result, duration completion or memory cap enforcement is claimed."
+  }
+}

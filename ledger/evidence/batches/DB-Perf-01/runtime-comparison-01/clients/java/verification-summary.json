@@ -1,0 +1,50 @@
+{
+  "schema": "DB-Runtime-Compare-01.java-preparation-summary.v1",
+  "recordedUtc": "2026-11-28T08:32:25.321338+00:00",
+  "preparationStatus": "complete; frozen candidate passed independent binding review; campaign owner supplies formal cell admission",
+  "formalRunsPerformedByThisPreparation": 0,
+  "pressureRunsPerformedByThisPreparation": 0,
+  "timingComparisonEligible": false,
+  "reason": "Finite correctness is not formal timing evidence; owner supplies separate per-cell admission after review",
+  "nativeExecutableSha256": "30f437c78ff6b9e1dcb16a70f97ab44eee660b07320536dd4fcd4a044402043e",
+  "buildIdentitySha256": "ae0f2adc1808f7f047b3fc56e84738f69a177abe0da0288d23b3997022d0f5d9",
+  "sourceFreeze": "verification/native-campaign-source-freeze.json",
+  "nativeVerification": "verification/native-campaign-final/verification-lifecycle.json",
+  "guardVerification": "verification/native-campaign-final/admission-rejections/receipt.json",
+  "retainedArtifacts": "verification/native-campaign-final/retained-artifacts.json",
+  "nativeProviderResults": {
+    "sqlite": {
+      "status": "passed",
+      "receiptSha256": "1b98b3b2706aec0c82130da585cf9396d1761d0a1bef94483831c2d734707867",
+      "verifiedCases": 35,
+      "warmupOperations": 64,
+      "oracleFailures": 0
+    },
+    "postgresql": {
+      "status": "passed",
+      "receiptSha256": "834f0829f5fb26f6b3822c21a79ae7c3dbf973842b6c468c9b26bcf8a0539c27",
+      "verifiedCases": 35,
+      "warmupOperations": 64,
+      "oracleFailures": 0
+    }
+  },
+  "postgresServerStopped": true,
+  "javaApplicationMemoryCapBytes": null,
+  "acceptedCSharpRequestedGcBudgetMiB": 192,
+  "cgroupRequired": false,
+  "knownLimitations": [
+    "No 30-minute or offered-load result has been generated during preparation",
+    "Finite Native correctness used one worker; formal matrix uses C4 SQLite/C8 PG",
+    "Native allocation is not instrumented; managed-allocation counter is reported only when supported by actual runtime",
+    "GC MXBean collection milliseconds are not a validated pause histogram",
+    "jOOQ graph reuse does not claim retained JDBC physical statements; pgJDBC prepareThreshold=0",
+    "Java jOOQ queries and typed DTO construction differ from Dapper-generated mapping; business oracle is the same"
+  ],
+  "sqlChanges": [
+    "left-join removes unused derived match-marker projection",
+    "related replaces 32 UNION ALL branches with one bounded tenant/key IN query, preserving every parent group and child order"
+  ],
+  "nativeCompatibilityFix": "38 actual builtin SQL array types recorded by GraalVM agent; reachability metadata only; prior failed executable and stack retained",
+  "independentBindingReviewPassed": true,
+  "independentReviewEvidence": "baseline-research/review-02/java-campaign-final-binding.json"
+}
