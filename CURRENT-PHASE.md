@@ -1,5 +1,16 @@
 # Current phase and recorded scope
 
+## Independent proposed direction
+
+[Korda-Orm-01](docs/korda-orm/README.md) defines a new jOOQ-derived pure C# SQL
+framework with independent rendering and mature .NET driver execution. Its
+implementation graph is isolated from the historical graphs below. Research and
+bounded prototype results are recorded in the [Linux handoff](ledger/evidence/batches/Korda-Orm-01/handoff-linux.md).
+All new product tasks remain planned candidates; this study does not authorize
+implementation, cutover, deletion or merge.
+
+## Existing product and historical records
+
 Korda is a C# Fluent ORM for PostgreSQL and SQLite with Native AOT and a C++20
 execution layer using libpq/sqlite3. Ordinary C# model/DTO changes reuse native
 assets. Provider packages remain independently installable. The historical Rust

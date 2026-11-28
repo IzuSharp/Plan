@@ -24,6 +24,24 @@ class Check:
     requirements: tuple[str, ...] = ()
 
 
+@dataclass(frozen=True)
+class IndependentGraph:
+    key: str
+    path: str
+    direction: str
+    task_prefix: str
+    packet_directory: str
+    schema: str = "schemas/independent-graph-v1.schema.json"
+
+
+# Independent directions do not become nodes or dependencies of the historical
+# R/D/A/B graphs. Each registration owns its own selected checks and packet root.
+INDEPENDENT_GRAPHS = (
+    IndependentGraph("orm", "docs/korda-orm/implementation-graph.json",
+                     "Korda-Orm-01", "ORM-", "docs/korda-orm/tasks"),
+)
+
+
 CHECKS = {
     "graph-schema": Check(("python3", "eng/ci/checks.py", "schema"), ("jsonschema==4.23.0",)),
     "task-links": Check(("python3", "eng/ci/checks.py", "links")),
@@ -61,3 +79,26 @@ REGISTRATIONS = (
 )
 
 GRAPH_FILES = ("research-graph.json", "documentation-graph.json", "delivery-graph.json")
+
+
+for graph in INDEPENDENT_GRAPHS:
+    schema_check = f"{graph.key}-graph-schema"
+    links_check = f"{graph.key}-task-links"
+    nodes_type = f"{graph.key}-task-nodes"
+    links_type = f"{graph.key}-task-dependencies"
+    packets_type = f"{graph.key}-task-packets"
+    schema_type = f"{graph.key}-graph-schema"
+    CHECKS[schema_check] = Check(("python3", "eng/ci/checks.py", "independent-schema", graph.key),
+                                ("jsonschema==4.23.0",))
+    CHECKS[links_check] = Check(("python3", "eng/ci/checks.py", "independent-links", graph.key))
+    TYPES[nodes_type] = DocumentType((schema_check,), (links_type,))
+    TYPES[links_type] = DocumentType((links_check,))
+    TYPES[packets_type] = DocumentType((), (links_type,))
+    TYPES[schema_type] = DocumentType((), (nodes_type,))
+    REGISTRATIONS += (
+        Registration((graph.path,), (nodes_type, links_type)),
+        Registration((graph.packet_directory + "/*.md",), (packets_type,)),
+        Registration((graph.schema,), (schema_type,)),
+    )
+    tooling = TYPES["ci-tooling"]
+    TYPES["ci-tooling"] = DocumentType(tooling.checks, tooling.affects + (nodes_type,))

@@ -6,6 +6,8 @@ live in [Korda-Design](https://github.com/IzuSharp/Korda-Design).
 
 ## Current records
 
+- [Korda.Orm independent implementation plan](docs/korda-orm/README.md): mature-runtime reuse and detailed execution specifications; 30 planned candidates, no product authorization
+- [Korda-Orm-01 research and Linux handoff](ledger/evidence/batches/Korda-Orm-01/handoff-linux.md)
 - [Current phase and historical boundaries](CURRENT-PHASE.md)
 - [Task index](task-index.md): 34 research, 32 documentation and 48 delivery definitions
 - [Acceptance register](acceptance-register.md): recorded outcomes and limitations
@@ -13,7 +15,7 @@ live in [Korda-Design](https://github.com/IzuSharp/Korda-Design).
 - [Final DB-Exec-11 comparison](ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-8/final-report.md)
 - [Three remaining cost-attribution directions](ledger/evidence/batches/DB-Perf-01/execution-refactor/continuation-7/remaining-hot-path-costs.md)
 
-The three JSON graphs retain their task IDs, recorded states and dependencies.
+The three historical JSON graphs retain their task IDs, recorded states and dependencies.
 The 114 task packets and ten fragments retain technical requirements and historical
 scope. Those historical definitions do not authorize implementation or revive
 retired product directions. Later delivered batches are documented separately.

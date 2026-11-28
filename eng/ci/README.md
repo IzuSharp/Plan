@@ -10,10 +10,13 @@ All matching `Registration` rows contribute types; a file may have several.
 | Registered content | Type | Selected checks |
 | --- | --- | --- |
 | Root guidance, `docs/`, authored `ledger/`, templates and prompts | prose | none |
-| Three task graphs | task-nodes + task-dependencies | graph-schema, task-links |
-| Task packets | prose + task-packets | task-links (surviving graph references) |
+| Three historical task graphs | task-nodes + task-dependencies | graph-schema, task-links |
+| Historical task packets | prose + task-packets | task-links (surviving graph references) |
 | `fragments/*.json` | task-fragments | task-links |
 | Graph schema | graph-schema | graph-schema and task-links through current graph users |
+| `docs/korda-orm/implementation-graph.json` | orm-task-nodes + orm-task-dependencies | orm-graph-schema, orm-task-links |
+| `docs/korda-orm/tasks/*.md` | prose + orm-task-packets | orm-task-links |
+| `schemas/independent-graph-v1.schema.json` | orm-graph-schema | orm-graph-schema and orm-task-links through its registered users |
 | CI Python, tests, requirements and workflow | ci-tooling | ci-self-test and current content checks |
 | License and Git metadata | repository-metadata | none |
 
@@ -64,8 +67,46 @@ verification. Tests construct real temporary commits, branches, merges, renames,
 deletions and a shallow origin, and exercise the normal command/event entrypoint.
 They do not write result files to this repository.
 
-The two content checks validate current graph schema, unique task IDs, references,
-packet existence, dependency cycles and fragment task ownership. They do not
+The historical content checks validate current graph schema, unique task IDs,
+references, packet existence, dependency cycles and fragment task ownership. They do not
 perform product tests or re-accept historical results. Routine validation should
 finish in under one minute. Actions reports selection and elapsed time in logs
 and its step summary; no document or intermediate artifact is uploaded.
+
+## Independent implementation directions
+
+`INDEPENDENT_GRAPHS` in the registry binds a direction's key, graph path, task
+prefix, packet directory and schema. Its registration generates separate document
+types and check commands using the existing router. Korda.Orm does not extend or
+join the historical R/D/A/B node sets. Adding ordinary prose under
+`docs/korda-orm/` still selects zero checks.
+
+For the ORM direction, `orm-graph-schema` uses the standard Draft 2020-12
+`jsonschema` validator and the pinned existing `jsonschema==4.23.0` dependency.
+`orm-task-links` is a dependency-free Python check. It validates:
+
+- Unique IDs inside the registered prefix and references only to that graph.
+- Distinct start and acceptance dependency lists, with a cycle check over their
+  union. Listing the same prerequisite at both gates is allowed; duplicates
+  within one list are rejected. The checker adds no artificial scheduling edges.
+- Unique declared contract IDs and valid per-task references to those declarations.
+- An explicit boolean authorization record. When false, every task remains
+  `planned_candidate`; a document check does not grant implementation permission.
+- A full 40-hex design revision. CI checks its format and does not fetch or check
+  out the external Design repository; reviewers verify its source and contents.
+- One safe `tasks/<ID>.md` packet per node, with the same ID in its first heading,
+  and no orphan Markdown packet in that direction's registered packet directory.
+
+A graph change selects only its own schema and link checks. A packet change,
+deletion or rename selects its own link check, including surviving references.
+Changing the independent schema selects its registered consumers; historical
+graphs remain unrelated. CI tooling changes still run self-tests and all current
+registered content checks, including both historical and independent directions.
+Retiring an entire direction requires retiring its graph/packets and registry
+entry together; deleting a registered graph alone fails validation.
+
+The self-tests use a small synthetic independent graph and real temporary Git
+commits. They exercise graph/prose/packet/schema routing, deletion, renaming,
+multi-commit push bounds, duplicate/missing/foreign references, combined-gate
+cycles, authorization states, unsafe packet paths and heading/orphan checks.
+Synthetic commit pins are test inputs, never reported product or design evidence.

@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import sys
 
-from registry import GRAPH_FILES
+from registry import GRAPH_FILES, INDEPENDENT_GRAPHS, IndependentGraph
 
 
 def graphs(root: Path) -> dict[str, dict]:
@@ -136,9 +136,138 @@ def links(root: Path) -> None:
     print(f"Task links: {len(nodes)} unique IDs, valid references, packets and acyclic dependencies")
 
 
+def independent_graph(root: Path, key: str) -> tuple[IndependentGraph, dict]:
+    matches = [item for item in INDEPENDENT_GRAPHS if item.key == key]
+    if len(matches) != 1:
+        raise ValueError(f"Unknown or duplicate independent graph registration {key!r}")
+    registration = matches[0]
+    path = root / registration.path
+    if not path.is_file():
+        raise ValueError(f"Missing registered independent graph {registration.path}")
+    graph = json.loads(path.read_text())
+    if not isinstance(graph, dict):
+        raise ValueError(f"{registration.path}: graph must be an object")
+    for field in ("direction", "task_prefix"):
+        if graph.get(field) != getattr(registration, field):
+            raise ValueError(f"{registration.path}: {field} does not match its registration")
+    return registration, graph
+
+
+def independent_schema(root: Path, key: str) -> None:
+    from jsonschema import Draft202012Validator
+    registration, graph = independent_graph(root, key)
+    specification = json.loads((root / registration.schema).read_text())
+    Draft202012Validator.check_schema(specification)
+    errors = list(Draft202012Validator(specification).iter_errors(graph))
+    if errors:
+        first = errors[0]
+        raise ValueError(f"{registration.path}:{'/'.join(map(str, first.absolute_path))}: {first.message}")
+    print(f"Independent graph schema: {registration.direction} valid")
+
+
+def independent_links(root: Path, key: str) -> None:
+    registration, graph = independent_graph(root, key)
+    prefix = registration.task_prefix
+    task_pattern = re.compile(re.escape(prefix) + r"[A-Z0-9]+(?:-[A-Z0-9]+)*")
+    contract_pattern = re.compile(re.escape(prefix) + r"C\d{2,}")
+
+    def references(value: object, field: str) -> list[str]:
+        if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
+            raise ValueError(f"{field}: expected reference list")
+        if len(set(value)) != len(value):
+            raise ValueError(f"{field}: duplicate reference")
+        return value
+
+    design = graph.get("design")
+    if not isinstance(design, dict):
+        raise ValueError(f"{registration.path}: missing design binding")
+    revision = design.get("commit")
+    if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", revision):
+        raise ValueError(f"{registration.path}: design commit must be a full 40-hex pin")
+    contracts = references(design.get("contracts"), "design.contracts")
+    if not contracts or any(not contract_pattern.fullmatch(item) for item in contracts):
+        raise ValueError(f"{registration.path}: invalid or foreign design contract ID")
+    authorized = graph.get("implementation_authorized")
+    if type(authorized) is not bool:
+        raise ValueError(f"{registration.path}: implementation_authorized must be a boolean")
+    current_nodes = graph.get("nodes")
+    if not isinstance(current_nodes, list) or not current_nodes:
+        raise ValueError(f"{registration.path}: nodes must be a nonempty array")
+    nodes: dict[str, dict] = {}
+    for node in current_nodes:
+        task = node.get("id") if isinstance(node, dict) else None
+        if not isinstance(task, str) or not task_pattern.fullmatch(task):
+            raise ValueError(f"{registration.path}: invalid or foreign task ID {task!r}")
+        if task in nodes:
+            raise ValueError(f"Duplicate independent task ID {task}")
+        if node.get("status") not in ("planned_candidate", "in_progress", "completed", "accepted"):
+            raise ValueError(f"{task}: invalid task status")
+        if not authorized and node["status"] != "planned_candidate":
+            raise ValueError(f"{task}: implementation is not authorized; status must be planned_candidate")
+        nodes[task] = node
+
+    edges: dict[str, set[str]] = {}
+    packets: set[str] = set()
+    packet_root = (root / registration.packet_directory).resolve()
+    for task, node in nodes.items():
+        edges[task] = set()
+        for field in ("start_dependencies", "acceptance_dependencies"):
+            for ref in references(node.get(field), f"{task}.{field}"):
+                if not task_pattern.fullmatch(ref):
+                    raise ValueError(f"{task}.{field}: foreign task reference {ref}")
+                if ref not in nodes:
+                    raise ValueError(f"{task}.{field}: missing task {ref}")
+                edges[task].add(ref)
+        required_contracts = references(node.get("contracts"), f"{task}.contracts")
+        if not required_contracts:
+            raise ValueError(f"{task}: at least one contract reference is required")
+        for ref in required_contracts:
+            if ref not in contracts:
+                raise ValueError(f"{task}.contracts: unknown contract {ref}")
+        packet = node.get("packet")
+        expected = f"{registration.packet_directory}/{task}.md"
+        if packet != expected:
+            raise ValueError(f"{task}: missing/unsafe task packet; expected {expected!r}")
+        path = (root / packet).resolve()
+        if not path.is_relative_to(root.resolve()) or not path.is_relative_to(packet_root) or not path.is_file():
+            raise ValueError(f"{task}: missing/unsafe task packet {packet!r}")
+        lines = path.read_text().splitlines()
+        heading = re.match(r"^#\s+([A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+)(?=\s|:|$)", lines[0]) if lines else None
+        if heading is None or heading[1] != task:
+            raise ValueError(f"{task}: task packet first heading must identify {task}")
+        packets.add(packet)
+
+    visited: set[str] = set()
+    active: set[str] = set()
+
+    def visit(task: str) -> None:
+        if task in active:
+            raise ValueError(f"Independent task dependency cycle involving {task}")
+        if task in visited:
+            return
+        active.add(task)
+        for ref in sorted(edges[task]):
+            visit(ref)
+        active.remove(task)
+        visited.add(task)
+
+    for task in nodes:
+        visit(task)
+    current_packets = {path.relative_to(root).as_posix()
+                       for path in (root / registration.packet_directory).rglob("*.md")}
+    orphaned = sorted(current_packets - packets)
+    if orphaned:
+        raise ValueError(f"{registration.direction}: orphan task packet {orphaned[0]}")
+    print(f"Independent task links: {registration.direction}, {len(nodes)} unique IDs, valid local references and packets")
+
+
 if __name__ == "__main__":
     try:
-        {"schema": schema, "links": links}[sys.argv[1]](Path.cwd())
+        mode = sys.argv[1]
+        if mode in ("independent-schema", "independent-links"):
+            {"independent-schema": independent_schema, "independent-links": independent_links}[mode](Path.cwd(), sys.argv[2])
+        else:
+            {"schema": schema, "links": links}[mode](Path.cwd())
     except (ValueError, KeyError, OSError, TypeError) as exc:
         print(f"Check failed: {exc}", file=sys.stderr)
         raise SystemExit(1)
