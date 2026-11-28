@@ -4,6 +4,10 @@ The graphs retain historical IDs, recorded states and dependencies. Later batch
 results are in [CURRENT-PHASE.md](CURRENT-PHASE.md); these task definitions do not
 authorize resuming implementation.
 
+The separate [Korda.Orm implementation plan](docs/korda-orm/README.md) owns its
+`ORM-*` task identities and independent graph. Its planned candidates do not
+change the historical states or dependencies listed below.
+
 ## Research
 
 | ID | Task | Recorded state | Packet |

@@ -1,6 +1,6 @@
 # Korda-Orm-01 research and design plan
 
-Status: in progress. This task authorizes research, design, an implementation plan,
+Status: research and design drafted; final integration review in progress. This task authorizes research, design, an implementation plan,
 and necessary document CI changes only. It does not authorize product work or a merge.
 
 ## Objective and boundaries
@@ -19,10 +19,10 @@ their task graphs and acceptance states do not govern this direction.
 
 | Workstream | Scope | Owner | Initial state |
 | --- | --- | --- | --- |
-| Core language | jOOQ DSL, model, types, nullability, mutability, JDBC coupling, licenses | Core researcher | Source inspection in progress |
-| SQL and generation | Rendering, dialects, transformations, advanced SQL, schema/codegen, parser and available tests | Dialect researcher | Source inspection in progress |
-| Execution and AOT | Dapper.AOT, drivers, generated binding/mapping, toolchain, dynamic SQL boundaries | Execution researcher | Source inspection in progress |
-| Integration | Repository norms, contracts, experiments, CI, implementation DAG, cross-review | Coordinating researcher | Repository baseline established |
+| Core language | jOOQ DSL, model, types, nullability, mutability, JDBC coupling, licenses | Core researcher | Source mapping, design and bounded generator probe complete |
+| SQL and generation | Rendering, dialects, transformations, advanced SQL, schema/codegen, parser and available tests | Dialect researcher | Source mapping, design and bounded Java/SQLite probes complete |
+| Execution and AOT | Dapper.AOT, drivers, generated binding/mapping, toolchain, dynamic SQL boundaries | Execution researcher | Source mapping, design and bounded Dapper.AOT/SQLite probe complete |
+| Integration | Repository norms, contracts, experiments, CI, implementation DAG, cross-review | Coordinating researcher | Shared contracts and 30-task graph drafted; final cross-review and PR CI pending |
 
 These are actual concurrent research assignments. Confirmed independent sections
 move into Design and Plan authoring while remaining research continues. Each author
@@ -59,17 +59,20 @@ stubs, or a commercial feature description with available implementation.
 Tests should compare semantics, parameter order/types and negative cases, not only
 SQL text. Measure construction/rendering separately from execution and mapping.
 
-The initial toolchain check found no `dotnet` on PATH. Availability of an installable
-SDK and Native AOT prerequisites is being checked; no compiled or AOT result is
-claimed at this stage. Lack of an executable environment must become an explicit
-validation limitation and a future task gate, not a fabricated success.
+The initially missing SDK was installed in an isolated local toolchain from official
+.NET 11.0.100 metadata with archive checksum verification. Bounded pure-DSL, offline
+Schema Generator and Dapper.AOT/SQLite Native AOT probes ran, including negative
+compilation cases. The exact conditions, results and limitations are maintained in
+[Design validation](https://github.com/IzuSharp/Korda-Design/blob/0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5/docs/korda-orm/validation.md).
+No product, full database matrix or performance parity is claimed.
 
 ## Document CI and persistence
 
 Existing `ledger/*.md` and `docs/*.md` prose rules cover authored documents and
 select zero checks. The legacy graph schema requires historical task identities;
-an isolated new implementation graph may need a small registered schema/check
-extension. Preserve each repository's current PR diff semantics and Python entrypoint.
+the isolated [implementation graph](../../../../docs/korda-orm/implementation-graph.json)
+therefore has its own registered schema and reference checks, without changing the
+legacy graph or the existing dispatcher/workflow. Preserve each repository's current PR diff semantics and Python entrypoint.
 No product build, database benchmark or evidence upload belongs in document CI.
 
 Commit and push formal milestones as they become reviewable. Keep only decisions,

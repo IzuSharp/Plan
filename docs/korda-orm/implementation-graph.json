@@ -1,0 +1,967 @@
+{
+  "schema_version": "1.0.0",
+  "direction": "Korda-Orm-01",
+  "task_prefix": "ORM-",
+  "implementation_authorized": false,
+  "design": {
+    "repository": "IzuSharp/Korda-Design",
+    "commit": "0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5",
+    "contracts": [
+      "ORM-C01",
+      "ORM-C02",
+      "ORM-C03",
+      "ORM-C04",
+      "ORM-C05",
+      "ORM-C06"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "ORM-FOUNDATION",
+      "title": "Compile shared contracts and establish isolated module ownership",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Architecture owner",
+      "start_dependencies": [],
+      "acceptance_dependencies": [],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-FOUNDATION.md",
+      "write_scopes": [
+        "src/Orm/Contracts/",
+        "tests/Orm/Contracts/",
+        "Korda.slnx",
+        "eng/ci/modules/orm.json"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-TYPES",
+      "title": "SQL types and typed parameter identities",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "SQL type owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-TYPES.md",
+      "write_scopes": [
+        "src/Orm/Types/",
+        "tests/Orm/Types/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-QUERY",
+      "title": "Immutable relational queries and typed projections",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Query owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-QUERY.md",
+      "write_scopes": [
+        "src/Orm/Query/",
+        "tests/Orm/Query/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-EXPRESSIONS",
+      "title": "Typed expressions, predicates and SQL truth semantics",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Expression owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-EXPRESSIONS.md",
+      "write_scopes": [
+        "src/Orm/Expressions/",
+        "tests/Orm/Expressions/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-DML",
+      "title": "Typed mutation semantics and returning projections",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Mutation language owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-QUERY"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-DML.md",
+      "write_scopes": [
+        "src/Orm/Dml/",
+        "tests/Orm/Dml/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-RELATIONAL",
+      "title": "CTEs, set operations and window coordination",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Relational language owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-QUERY",
+        "ORM-EXPRESSIONS"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-RELATIONAL.md",
+      "write_scopes": [
+        "src/Orm/Relational/",
+        "tests/Orm/Relational/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-RENDER",
+      "title": "Pure SQL rendering and capability evaluation",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Renderer owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-RENDER.md",
+      "write_scopes": [
+        "src/Orm/Rendering/",
+        "tests/Orm/Rendering/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-POSTGRES-DIALECT",
+      "title": "PostgreSQL SQL profile",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "PostgreSQL SQL owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-POSTGRES-DIALECT.md",
+      "write_scopes": [
+        "src/Orm/Dialects/PostgreSql/",
+        "tests/Orm/Dialects/PostgreSql/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-SQLITE-DIALECT",
+      "title": "SQLite SQL profile",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "SQLite SQL owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-SQLITE-DIALECT.md",
+      "write_scopes": [
+        "src/Orm/Dialects/Sqlite/",
+        "tests/Orm/Dialects/Sqlite/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-MYSQL-DIALECT",
+      "title": "MySQL SQL profile",
+      "status": "planned_candidate",
+      "track": "follow_on",
+      "owner_role": "MySQL SQL owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-MYSQL-DIALECT.md",
+      "write_scopes": [
+        "src/Orm/Dialects/MySql/",
+        "tests/Orm/Dialects/MySql/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-MARIADB-DIALECT",
+      "title": "MariaDB SQL profile",
+      "status": "planned_candidate",
+      "track": "follow_on",
+      "owner_role": "MariaDB SQL owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-MARIADB-DIALECT.md",
+      "write_scopes": [
+        "src/Orm/Dialects/MariaDb/",
+        "tests/Orm/Dialects/MariaDb/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-SCHEMA",
+      "title": "Neutral schema model and deterministic inputs",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Schema contract owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-SCHEMA.md",
+      "write_scopes": [
+        "src/Orm/Schema/",
+        "tests/Orm/Schema/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-SCHEMA-TOOL",
+      "title": "Explicit local schema acquisition workflow",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Schema tool owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-SCHEMA",
+        "ORM-POSTGRES-DRIVER",
+        "ORM-SQLITE-DRIVER",
+        "ORM-MYSQL-DRIVER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-SCHEMA-TOOL.md",
+      "write_scopes": [
+        "src/Orm/SchemaTool/",
+        "tests/Orm/SchemaTool/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-EXECUTION",
+      "title": "independent command execution",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Execution owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-EXECUTION.md",
+      "write_scopes": [
+        "src/Orm/Execution/",
+        "tests/Orm/Execution/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-GENERATOR",
+      "title": "typed binding and result generation",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Generator owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES",
+        "ORM-SCHEMA",
+        "ORM-EXECUTION"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-GENERATOR.md",
+      "write_scopes": [
+        "src/Orm/Generation/",
+        "tests/Orm/Generation/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-POSTGRES-DRIVER",
+      "title": "Npgsql execution and schema adapter",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "PostgreSQL driver owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-EXECUTION",
+        "ORM-SCHEMA",
+        "ORM-ADVANCED-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-POSTGRES-DRIVER.md",
+      "write_scopes": [
+        "src/Orm/Drivers/PostgreSql/",
+        "src/Orm/SchemaAdapters/PostgreSql/",
+        "tests/Orm/Drivers/PostgreSql/",
+        "tests/Orm/SchemaAdapters/PostgreSql/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-SQLITE-DRIVER",
+      "title": "Microsoft.Data.Sqlite execution and schema adapter",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "SQLite driver owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-EXECUTION",
+        "ORM-SCHEMA",
+        "ORM-ADVANCED-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-SQLITE-DRIVER.md",
+      "write_scopes": [
+        "src/Orm/Drivers/Sqlite/",
+        "src/Orm/SchemaAdapters/Sqlite/",
+        "tests/Orm/Drivers/Sqlite/",
+        "tests/Orm/SchemaAdapters/Sqlite/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-MYSQL-DRIVER",
+      "title": "MySqlConnector execution and schema adapter",
+      "status": "planned_candidate",
+      "track": "follow_on",
+      "owner_role": "MySQL and MariaDB driver owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-EXECUTION",
+        "ORM-SCHEMA",
+        "ORM-ADVANCED-TYPES"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-MYSQL-DRIVER.md",
+      "write_scopes": [
+        "src/Orm/Drivers/MySql/",
+        "src/Orm/SchemaAdapters/MySql/",
+        "tests/Orm/Drivers/MySql/",
+        "tests/Orm/SchemaAdapters/MySql/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-ADVANCED-TYPES",
+      "title": "explicit advanced database representations",
+      "status": "planned_candidate",
+      "track": "follow_on",
+      "owner_role": "Advanced type owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-EXPRESSIONS"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-ADVANCED-TYPES.md",
+      "write_scopes": [
+        "src/Orm/AdvancedTypes/",
+        "tests/Orm/AdvancedTypes/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-NESTED",
+      "title": "nested projections and result materialization",
+      "status": "planned_candidate",
+      "track": "follow_on",
+      "owner_role": "Nested projection owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-RELATIONAL",
+        "ORM-ADVANCED-TYPES",
+        "ORM-GENERATOR",
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-NESTED.md",
+      "write_scopes": [
+        "src/Orm/Nested/",
+        "tests/Orm/Nested/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-PARSER",
+      "title": "Optional SQL parsing and translation module",
+      "status": "planned_candidate",
+      "track": "optional",
+      "owner_role": "Parser owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-QUERY",
+        "ORM-RELATIONAL",
+        "ORM-EXPRESSIONS",
+        "ORM-DML",
+        "ORM-RENDER"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-PARSER.md",
+      "write_scopes": [
+        "src/Orm/Parser/",
+        "tests/Orm/Parser/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-ORACLE",
+      "title": "Maintain source-linked SQL semantic cases and the jOOQ oracle",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Conformance owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-ORACLE.md",
+      "write_scopes": [
+        "tests/Orm/Conformance/",
+        "eng/orm-oracle/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-CI",
+      "title": "Integrate independently selected product validation",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "CI integration owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "contracts": [
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-CI.md",
+      "write_scopes": [
+        "eng/ci/modules/orm.json",
+        "eng/ci/",
+        "tests/Tooling/",
+        ".github/workflows/",
+        "Korda.slnx",
+        "Directory.Build.props",
+        "global.json",
+        "NuGet.Config"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-PACKAGE",
+      "title": "independent packages and shipped consumer validation",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Packaging owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-QUERY",
+        "ORM-EXPRESSIONS",
+        "ORM-DML",
+        "ORM-RELATIONAL",
+        "ORM-RENDER",
+        "ORM-GENERATOR",
+        "ORM-SCHEMA-TOOL",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED",
+        "ORM-POSTGRES-DRIVER",
+        "ORM-SQLITE-DRIVER",
+        "ORM-MYSQL-DRIVER",
+        "ORM-POSTGRES-DIALECT",
+        "ORM-SQLITE-DIALECT",
+        "ORM-MYSQL-DIALECT",
+        "ORM-MARIADB-DIALECT",
+        "ORM-CI"
+      ],
+      "contracts": [
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-PACKAGE.md",
+      "write_scopes": [
+        "eng/orm-package/",
+        "packaging/orm/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-DOCS",
+      "title": "public contracts and compilable local workflows",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "API documentation owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-QUERY",
+        "ORM-GENERATOR",
+        "ORM-EXECUTION",
+        "ORM-POSTGRES-DIALECT",
+        "ORM-SQLITE-DIALECT",
+        "ORM-MYSQL-DIALECT",
+        "ORM-MARIADB-DIALECT"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-DOCS.md",
+      "write_scopes": [
+        "docs/orm/",
+        "samples/orm/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-INTEGRATION",
+      "title": "Compose real modules and validate each database profile",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Integration owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-TYPES",
+        "ORM-QUERY",
+        "ORM-EXPRESSIONS",
+        "ORM-DML",
+        "ORM-RELATIONAL",
+        "ORM-RENDER",
+        "ORM-POSTGRES-DIALECT",
+        "ORM-SQLITE-DIALECT",
+        "ORM-MYSQL-DIALECT",
+        "ORM-MARIADB-DIALECT",
+        "ORM-SCHEMA",
+        "ORM-SCHEMA-TOOL",
+        "ORM-EXECUTION",
+        "ORM-GENERATOR",
+        "ORM-POSTGRES-DRIVER",
+        "ORM-SQLITE-DRIVER",
+        "ORM-MYSQL-DRIVER",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED",
+        "ORM-ORACLE",
+        "ORM-CI",
+        "ORM-PACKAGE"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-INTEGRATION.md",
+      "write_scopes": [
+        "tests/Orm/Integration/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-PERFORMANCE",
+      "title": "attributable execution and rendering costs",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Performance owner",
+      "start_dependencies": [
+        "ORM-FOUNDATION"
+      ],
+      "acceptance_dependencies": [
+        "ORM-INTEGRATION"
+      ],
+      "contracts": [
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-PERFORMANCE.md",
+      "write_scopes": [
+        "benchmarks/Orm/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-ACCEPTANCE",
+      "title": "Independently accept the new product candidate",
+      "status": "planned_candidate",
+      "track": "primary",
+      "owner_role": "Independent acceptance reviewer",
+      "start_dependencies": [
+        "ORM-INTEGRATION",
+        "ORM-PERFORMANCE",
+        "ORM-DOCS"
+      ],
+      "acceptance_dependencies": [
+        "ORM-INTEGRATION",
+        "ORM-PERFORMANCE",
+        "ORM-DOCS"
+      ],
+      "contracts": [
+        "ORM-C01",
+        "ORM-C02",
+        "ORM-C03",
+        "ORM-C04",
+        "ORM-C05",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-ACCEPTANCE.md",
+      "write_scopes": [
+        "docs/orm/acceptance/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-CUTOVER",
+      "title": "Perform an explicitly authorized product migration",
+      "status": "planned_candidate",
+      "track": "migration",
+      "owner_role": "Migration owner",
+      "start_dependencies": [
+        "ORM-ACCEPTANCE"
+      ],
+      "acceptance_dependencies": [
+        "ORM-ACCEPTANCE"
+      ],
+      "contracts": [
+        "ORM-C04",
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-CUTOVER.md",
+      "write_scopes": [
+        "docs/orm/migration/",
+        "samples/orm/migration/",
+        "packaging/orm/release-metadata/"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    },
+    {
+      "id": "ORM-RETIRE",
+      "title": "Remove only the obsolete implementation after cutover",
+      "status": "planned_candidate",
+      "track": "migration",
+      "owner_role": "Retirement owner",
+      "start_dependencies": [
+        "ORM-CUTOVER"
+      ],
+      "acceptance_dependencies": [
+        "ORM-CUTOVER"
+      ],
+      "contracts": [
+        "ORM-C06"
+      ],
+      "packet": "docs/korda-orm/tasks/ORM-RETIRE.md",
+      "write_scopes": [
+        "docs/orm/migration/retirement.md"
+      ],
+      "validation": [
+        "Execute the packet-specific positive and negative correctness gates.",
+        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
+        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+      ]
+    }
+  ]
+}
