@@ -96,9 +96,9 @@ to reproduce evidence. Product implementation and merge remain unauthorized.
 
 | Parallel owner | Investigation and formal output | Initial state |
 | --- | --- | --- |
-| Mature .NET execution | Original Dapper.AOT dynamic bags; public runtime CommandFactory/RowFactory; complete native DSL-to-SQLite path and minimum source adaptations | Active |
-| Generator integration | Direct factory generation, natural Fluent terminals, same-compilation visibility, staged generation alternatives and precise generated-code contracts | Active |
-| Java/jOOQ execution | Binding/mapping/cursor source semantics, GraalVM/JDBC shared-library path, ownership/GC/deployment costs and hybrid alternatives | Active |
+| Mature .NET execution | Original Dapper.AOT dynamic bags; public runtime CommandFactory/RowFactory; complete native paths and minimum source adaptations | Native scalar/advanced/nested slices passed on four profiles; exact packet authoring active |
+| Generator integration | Direct factory generation, natural Fluent terminals, same-compilation visibility, staged generation alternatives and precise generated-code contracts | Direct runtime generation and stable staged generation passed natively; detailed schema/packet authoring active |
+| Java/jOOQ execution | Binding/mapping/cursor source semantics, GraalVM/JDBC shared-library path, ownership/GC/deployment costs and hybrid alternatives | Native C#→Graal/JDBC→DTO passed; source inheritance and dialect/nested packet authoring active |
 | Coordinator | Shared fixtures, other mature candidates, independent server matrix, controlled execution comparisons, exact contracts, packet completeness and reviews | Active |
 
 Each promising route must cross the complete typed DSL → SQL/typed parameters →

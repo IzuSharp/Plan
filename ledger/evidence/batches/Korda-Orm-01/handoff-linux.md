@@ -30,6 +30,7 @@ branches, PRs, workflows or settings have been changed.
 | Plan initial main | `911c9764d0bfe10e78862251b43fcf108a8696e8` |
 | Plan initial persisted plan/handoff | `5719606db7205d3d98e6cd903271f02c973dfa59` |
 | Plan substantive delivery | `0d19841d142ba49b2cafe27640c9347b0515ccc6`; complete implementation graph, packets and CI extension |
+| Plan continuation opening | `fb0079f649611927ac48ecab6486e35f69cdea91`; authorized reopening and detailed-specification plan |
 | Plan first delivered handoff | `e74b80af1df5377f1af473925b2e1dfd5abae5f2`; first delivery complete before the authorized continuation |
 
 A file cannot contain the hash of the commit that first contains that exact file.
@@ -48,16 +49,42 @@ integration, and jOOQ/Java native execution respectively; the coordinator owns
 comparisons, server fixtures, shared contracts and plan consistency. See the
 [continuation plan](plan.md#authorized-continuation-mature-execution-reuse-and-implementation-ready-packets).
 
-First confirmed source finding: pinned Dapper.AOT has an `IsDynamicBag` branch
-that calls `args.AddParameters(cmd.Command!)`; pinned Dapper also exposes explicit
-`DynamicParameters.AddParameters`. Runtime `Command<TArgs>`, `CommandFactory<TArgs>`
-and `RowFactory<T>` are public reusable components. Their complete native behavior,
-warning closure, mapping coverage and cost are being tested; source availability
-alone is not acceptance.
+Confirmed continuation findings and bounded native runs:
 
-Next: run native mature-reuse paths, examine generator integration and Java native
-interop, compare costs and only then revise the selected execution architecture.
-All experiments stay outside document repositories. No new branch or PR is created.
+- Original Dapper.AOT with explicit typed DynamicParameters completed the full
+  small DSL-to-SQLite-to-DTO path; 90 core assertions passed. A targeted command
+  initialization fault added three checks, including disposal by a minimal
+  CommandFactory override. Object-template bags failed at runtime in Reflection.Emit;
+  open generic vanilla Dapper calls need elevated DAP016 diagnostics.
+- A real generator emitted Dapper RowFactory subclasses and static generic mapping
+  registration across Core/Runtime/Models/Consumer assemblies; 17 native checks
+  passed. A netstandard2.0/Roslyn4.14 generator also compiled and loaded in the
+  SDK11/Roslyn5.12 host. A stable prebuild-generation route passed three native
+  checks; the experimental pre-compilation API is unnecessary for the default.
+- The complete mature-runtime matrix passed SQLite 3.53.4 (92 assertions),
+  PostgreSQL 18.7 (99), MySQL 8.4.11 (97) and MariaDB 11.8.10 (97), including declared
+  advanced JSON/array/range and nested DTO slices. Network-provider in-flight
+  cancellation, command timeout and subsequent connection reuse passed. This is
+  bounded research, not the full future product matrix.
+- A C# Native AOT consumer called a GraalVM shared library and SQLite JDBC, returning
+  typed DTOs; 27 assertions passed. This route is feasible and has additional
+  ownership, encoding, thread-attachment, deployment and dual-GC responsibilities.
+- The common Query/Projection/ParameterValues/template declaration surface and a
+  positive public consumer compiled. An incompatible typed parameter failed CS1503.
+  This checks signatures, not the unimplemented product bodies.
+
+The leading selection is direct reuse of the unmodified Dapper.AOT Runtime with
+small layout/provider adapters and statically generated RowFactory subclasses,
+plus jOOQ's source-derived SQL/conversion/nested semantics. Original explicit-bag
+Dapper.AOT and a stable staged-generator variant remain demonstrated alternatives;
+Java native execution is not dismissed as technically impossible. Representative
+costs and independent review still need integration into the final decision.
+
+Next: complete precise implementation packets, reconcile the source/contract
+interfaces and provider capabilities, independently review the actual revisions,
+then pin the new Design commit and run document CI. The formal design drafts are
+being consolidated in the existing task worktree; no new branch or PR is created.
+All raw experiments and logs remain only on the execution machine.
 
 ## First-delivery direction and research state
 
