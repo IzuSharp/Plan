@@ -1,176 +1,208 @@
 # Korda-Orm-01 Linux handoff
 
-Status: research reopened by the user's 2026-11-28 continuation. The first paired
-PR delivery and checks remain historical evidence below. Mature execution reuse
-and implementation-ready packet detail are now active; product implementation,
-merge, cutover and deletion remain unauthorized.
-This is the single maintained progress and continuation entry for this task.
+Status: **mature-runtime route selected; substantive specifications complete;
+final cross-file corrections and paired PR checks in progress**. Research stop
+condition A is met: the verified route merits implementation. Product implementation,
+merge, package publication, cutover and deletion remain unauthorized. This is the
+single maintained continuation and result record for Korda-Orm-01.
 
 ## Scope and formal entries
 
-- [Research plan](plan.md).
-- Paired open review PRs: [Korda-Design #23](https://github.com/IzuSharp/Korda-Design/pull/23) and [Plan #39](https://github.com/IzuSharp/Plan/pull/39); neither is merged.
-- [Implementation plan](../../../../docs/korda-orm/README.md), [independent graph](../../../../docs/korda-orm/implementation-graph.json) and 30 task packets.
-- [Design entry at the reviewed content milestone](https://github.com/IzuSharp/Korda-Design/tree/0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5/docs/korda-orm).
-- [Shared contracts](https://github.com/IzuSharp/Korda-Design/blob/0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5/docs/korda-orm/contracts.md): ORM-C01–ORM-C06, proposed version 0.1.0.
-- [Actual experiment results and reproduction methods](https://github.com/IzuSharp/Korda-Design/blob/0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5/docs/korda-orm/validation.md).
+- [Research and specification plan](plan.md).
+- Existing review PRs: [Korda-Design #23](https://github.com/IzuSharp/Korda-Design/pull/23) and [Plan #39](https://github.com/IzuSharp/Plan/pull/39); both remain open and unmerged.
+- [Implementation entry](../../../../docs/korda-orm/README.md), [independent graph](../../../../docs/korda-orm/implementation-graph.json) and 30 detailed task packets.
+- [Published Design checkpoint](https://github.com/IzuSharp/Korda-Design/tree/b67317b2a89245fe82337b9b69e2748626ac67cb/docs/korda-orm), with contracts ORM-C01–C06 version0.2.0 and implementation-spec.md.
+- [Execution selection and alternatives](https://github.com/IzuSharp/Korda-Design/blob/b67317b2a89245fe82337b9b69e2748626ac67cb/docs/korda-orm/execution-aot.md), [mature-runtime analysis](https://github.com/IzuSharp/Korda-Design/blob/b67317b2a89245fe82337b9b69e2748626ac67cb/docs/korda-orm/mature-execution.md) and [bounded validation](https://github.com/IzuSharp/Korda-Design/blob/b67317b2a89245fe82337b9b69e2748626ac67cb/docs/korda-orm/validation.md).
 
-Only IzuSharp/Korda-Design and IzuSharp/Plan are writable. Both use
-`task/Korda-Orm-01-linux` in isolated task/repository worktrees. Korda was inspected
-read-only at `36bd5ba169b628ba4d61dd9fe260eaef5ff15599`; no product files, remote
-branches, PRs, workflows or settings have been changed.
+Only IzuSharp/Korda-Design and IzuSharp/Plan are writable, on the existing
+`task/Korda-Orm-01-linux` branches in separate worktrees. IzuSharp/Korda was inspected
+read-only at `36bd5ba169b628ba4d61dd9fe260eaef5ff15599`; no product source, remote
+branch, PR, workflow or setting was changed. All raw experiments, checkouts,
+generated source, logs, archives, binaries and benchmark outputs remain outside
+the document repositories and were not uploaded elsewhere.
 
-## Confirmed repository revisions
+## Fixed decision and what the implementer receives
 
-| Repository | Confirmed revision and role |
+The default is a driver-free C# DSL and renderer translated from reviewed jOOQ
+semantics, **unmodified Dapper.AOT1.1.0 Runtime**, a small typed-layout
+CommandFactory adapter, ordinary incremental generation of RowFactory subclasses,
+and Npgsql/Microsoft.Data.Sqlite/MySqlConnector transport. jOOQ binding/conversion,
+constructor/presence and nested-result rules inform the explicit C# adaptation.
+There is no new Korda reader loop, pool, scheduler or retry engine.
+
+The earlier independent Korda binder/projector default is superseded. Original
+Dapper.AOT with explicit DynamicParameters remains a demonstrated compatibility
+route and performance control; it is not rejected merely because SQL is dynamic.
+A stable prebuild/interceptor route and a native Java/JDBC route are feasible
+alternatives. Their additional integration or ownership cost is unnecessary for
+the supported selected path. The comparison and unsuccessful alternatives retain
+precise limitations rather than claims of universal impossibility.
+
+All 30 packets are execution specifications. They fix file/module ownership,
+shared/public/internal signatures, node fields, source/symbol inheritance, ordered
+algorithms, state transitions, error codes, fixtures/expected results, commands,
+acceptance inputs and stop gates. This includes otherwise easy-to-miss details:
+
+- Typed captured cells and generic visitation; value-free templates; per-textual-
+  occurrence parameters; structural list arity; canonical fingerprints.
+- Exact normal SG output, public registrars, final-consumer rooting, closed row
+  registrations and schema/physical-output duplicate diagnostics.
+- Session admission and single-consumption rules; lazy single-use streams;
+  command initialization cleanup limited to the actual factory-owned window.
+- Logical versus physical result layouts, optional-child presence, strict NULL
+  handling, checked conversion provenance and bounded nested JSON decoding.
+- Pure profile-rule dispatch, scope/precedence/CTE/window/DML rules, explicit
+  unsupported semantics, SQLite scalar proofs/RETURNING and MariaDB JSON budgets.
+- Seven public packages, eleven pure-core assemblies, exact dependency closure,
+  isolated consumers and the necessary narrow existing-runner extension.
+
+The final Design pin and graph are the authority; an implementer returns a real
+contradiction to the contract owner rather than designing a second protocol.
+No throw-only declaration sample or research adapter is a production implementation.
+
+## Actual continuation evidence
+
+The principal environment was Debian13 Linuxx64, .NET SDK11.0.100 / C#15 / GCC14,
+using isolated official toolchains and fixed sources. Individual suites overlap;
+the following counts must not be added into an invented total.
+
+| Experiment | Observed result and boundary |
 | --- | --- |
-| Korda-Design initial main | `80746769f11874ae917e17a0f02f5ee47a3e250d` |
-| Korda-Design formal design milestone | `62b3cbf5aa8da10e66ad5405bfad6a9a05ef9795`; source mappings, architecture, contracts and bounded validation |
-| Korda-Design first delivered design | `0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5`; final profile-scope clarification, pinned by the implementation graph |
-| Plan initial main | `911c9764d0bfe10e78862251b43fcf108a8696e8` |
-| Plan initial persisted plan/handoff | `5719606db7205d3d98e6cd903271f02c973dfa59` |
-| Plan substantive delivery | `0d19841d142ba49b2cafe27640c9347b0515ccc6`; complete implementation graph, packets and CI extension |
-| Plan continuation opening | `fb0079f649611927ac48ecab6486e35f69cdea91`; authorized reopening and detailed-specification plan |
-| Plan first delivered handoff | `e74b80af1df5377f1af473925b2e1dfd5abae5f2`; first delivery complete before the authorized continuation |
+| Original Dapper.AOT and runtime reuse | Explicit typed DynamicParameters and a known DTO completed a runtime small-DSL SQLite path; the fault-focused suite ended at96 assertions. Object-template bag construction published but failed in Reflection.Emit natively. An open generic vanilla call was not intercepted and produced DAP016 Info, requiring the planned elevated diagnostic gate. |
+| Four-profile mature runtime | SQLite3.53.4:92; PostgreSQL18.7:99; MySQL8.4.11:97; MariaDB11.8.10:97 assertions. These include representative scalar, advanced and nested paths, not every proposed public operation. |
+| Typed-cell visitor closure | A separate13-check suite covered SQLite3/PostgreSQL4/MySQL3/MariaDB3, exercising the closed generic visitor/provider seam without runtime generic construction. |
+| Cancellation and timeout | Network-provider cancellation completed at about252/268/255ms, one-second command timeouts and subsequent connection reuse passed. A MySQL SLEEP-based first fixture had the wrong expectation and was replaced with the recorded row-scan query. |
+| Normal SG and final-consumer roots | Core/Runtime/Models/Consumer with actual generated Dapper factories passed21 Native AOT checks, rerun after the rooting correction with the same21 checks; a separate7-check closed-row registration suite passed. Native publishes had zero warnings. Library-only initialization failed natively despite managed success, which directly caused the final-consumer registrar design. |
+| Analyzer and schema host | netstandard2.0/Roslyn4.14/Immutable9 generator compiled and loaded in SDK11/Roslyn5.12 with zero warnings. Portable schema declarations compiled against net11 and netstandard references with zero warnings. This is not final NuGet/IDE consumer acceptance. |
+| Staged interceptor alternative | Ordinary SG output yielded zero Dapper interceptors, experimental pre-compilation output and physical source each yielded one; a stable physical prebuild route passed3 native checks. The experimental compiler facility is not required by the default. |
+| Native Java/JDBC bridge | C# Native AOT → GraalVM shared library → SQLite JDBC → typed DTO passed27 assertions, without a JVM/JIT process. The shared library was16.38MiB plus about1.1MiB SQLite native library; build1m26s/peakRSS1.32GiB, Java heap128MiB. One Xerial deprecated-argument warning remains explicitly recorded. |
+| Java boundary-only timing | About22.78–24.32ns per bridge ping versus3.27ns C# noinline control. This measures a boundary, not database throughput or Java heap allocation. |
+| Additional real SQL cases | Ordered nested SQL was exercised on PostgreSQL/MySQL/MariaDB. MariaDB46-byte budget succeeded at46 and rejected45; a UTF-8/quote/NUL case succeeded at88 and rejected87. SQLite multirow scalar returned its first row, and qualified RETURNING failed while unqualified target columns worked. |
+| Common signature checks | Split Contracts/Types/Language/Rendering/Nested/dialect declarations and extended positive consumers compiled with zero warnings; incompatible operands failed CS1503. Throw-only declarations check accessibility/type shape, not behavior. Final added surfaces retain Foundation's full compile gate. |
+| Actual runtime signature checks | Dapper.AOT CommandFactory/RowFactory and selected sync/async/stream/nonquery methods compiled. Contracts/metadata had zero warnings; bare csc with net11 references plus Dapper's net10 reference emitted two visible CS1701 framework-unification warnings, made nonfatal only in this signature experiment. It is not new native proof or a zero-warning overall claim. |
+| LINQ alternatives | EF's runtime QueryCompiler path has an explicit native compilation gate. Three LinqToDB6.4.0 attempts respectively failed strict trim/AOT diagnostics, trimmed SqliteTransaction reflection, then trimmed SqlExt/AsyncFactory initialization after an explicit SQLite assembly root. Later diagnostic builds retained254 IL2026 and106 IL3050 warnings each. No successful LinqToDB native query is claimed and no universal impossibility is inferred. |
+
+Database and native build processes used by these experiments have stopped. The
+selected implementation route does not depend on running research services.
+
+### Controlled cost comparison and its limits
+
+The SQLite comparison used the same two parameters/two rows,1,000 warmups,
+20,000 operations per round, seven rotated rounds and CPU affinity. First-campaign
+median microseconds / allocated bytes per operation were: direct14.024/1832,
+original static15.259/2104, original explicit bag15.982/2664, runtime bag15.893/2664,
+object layout14.864/2024 and small full DSL15.935/4208.
+
+A follow-up included typed cells: median15.015us/2072B, versus original explicit
+bag17.210us/2664B; typed bind-only317.03ns/480B versus bag739.89ns/960B. Allocation
+savings were592B per complete operation and480B per bind in those probes. Timing
+variance was too wide for a strict speed ranking or parity claim. The final full
+public wrappers, strict mapping and ownership guards were not all in those probes.
+ORM-PERFORMANCE fixes future public-path comparisons, budgets and noisy-run rules;
+those prospective gates have not passed merely because the research is promising.
+
+## Source pins and inheritance
+
+| Upstream | Pinned revision |
+| --- | --- |
+| jOOQ3.21.10 | `3c58109e7ab69772de75e640852935ee7e284177` |
+| Dapper.AOT1.1.0 | `0e071bf05e54caecfa98c885b075fa3e247f3ecc` |
+| Dapper2.1.100, original-bag control | `188094784256da61d7a37c43ea54c64213c2ce7c` |
+| Npgsql11.0.0 | `4d174200ed48e3e3ab16419dbf84dd655da59de6` |
+| EF/Microsoft.Data.Sqlite11.0.0 | `9e685c7a52d1a344d133a3d370e458db97417b3f` |
+| MySqlConnector3.0.0 | `95875a195369f0dd804f63ded2f95da3fed59ec2` |
+| LinqToDB6.4.0, diagnostic alternative | `82fbf0f91399cc8c9cea22d09dcae20e4d7568c6` |
+
+Design source maps distinguish unchanged dependency reuse, algorithm adaptation,
+C# representation changes and Korda-owned composition. Dapper.AOT's selected net10
+runtime dependency group does not require Dapper; Dapper is a control dependency,
+not a hidden default Execution dependency. Compiler/linker build tools and analyzer
+private dependencies are not misrepresented as application runtime requirements.
+
+## Independent review and repaired seams
+
+Independent execution, generation and Java/SQL owners reviewed other owners'
+authored specifications; the coordinator reconciled shared decisions and inspected
+existing product CI read-only. Findings repaired during this continuation include:
+
+1. Ordinary SG output is not automatically input to Dapper's generator. The default
+   emits direct runtime subclasses; public registrars and final-consumer roots fix
+   the observed Native AOT library-initializer gap.
+2. Invocation identity, lazy stream admission, scalar/row/dynamic registration,
+   typed parameter visitation and projection-specific prebound readers are explicit.
+   Empty-result runtime behavior is preserved rather than claiming unexecuted
+   physical reader validation.
+3. The command cleanup override covers failures before its factory return. It does
+   not claim to intercept later upstream connection/transaction/timeout setters;
+   supported providers prevalidate and require no concurrent caller resource mutation.
+4. Physical/logical nested layouts, optional presence, child access, shared JSON
+   budgets and whole-reader validation are consistent. Ordered collections require
+   order terms, with ties explicitly unspecified; there is no hidden key-proof rule.
+5. Rendering uses Contracts rules/visitor seams; concrete dialects depend inward
+   on pure language/advanced/nested modules. Contracts and Nested friend-assembly
+   access are explicit. Scalar degree/cardinality, returning scope and integer
+   arithmetic/cast conversion representations are fixed.
+6. SchemaModel is portable where source-linked; the analyzer and CLI have separate
+   host/dependency boundaries. Generated table keys/registrars and physical versus
+   AdditionalFiles modes have deterministic names and duplication behavior.
+7. Existing product package validation originally expected one target archive and
+   no NuGet dependencies. The plan now fixes candidate dependency staging,
+   NW_DEPENDENCY_FEED/MANIFEST, exact owned/external pins, hashes, whole closure
+   validation and dependency-first publication, preserving the old product branch.
+8. The graph separates start from acceptance, adds actual rendering/schema/nested/
+   provider/package inputs, and leaves all four mandatory profiles independently
+   startable after Foundation. Packet commands and scopes are reconciled with it.
+
+This is scoped independent research/specification review, not independent product
+acceptance or exhaustive coverage of the entire jOOQ implementation.
+
+## Revisions and document checks
+
+| Repository/milestone | Confirmed revision and observation |
+| --- | --- |
+| Design main | `80746769f11874ae917e17a0f02f5ee47a3e250d` |
+| Plan main | `911c9764d0bfe10e78862251b43fcf108a8696e8` |
+| Historical first Design delivery | `0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5`; superseded execution choice, valid bounded first-phase observations retained |
+| Historical first Plan handoff | `e74b80af1df5377f1af473925b2e1dfd5abae5f2` |
+| Continuation opening/progress | Plan `fb0079f649611927ac48ecab6486e35f69cdea91` and `74ccb558cb533b3ea6ab88d07eb66fa4b1922562` |
+| Published mature-reuse Design checkpoint | `b67317b2a89245fe82337b9b69e2748626ac67cb`; twelve formal Markdown files, no product code |
+| Checkpoint Design local PR selection | Passed; zero checks selected for registered prose |
+| Checkpoint Design GitHub CI | [Run46179904662](https://github.com/IzuSharp/Korda-Design/actions/runs/46179904662) succeeded at the b67317b2 checkpoint |
+| Current final-delivery checks | Pending final cross-file edits, exact final Design pin and the resulting Plan/Design heads; do not reuse checkpoint results as new-head evidence |
+
+The first delivery's Plan full/PR checks passed five registered checks, including
+48 CI self-tests,114 historical task IDs and30 ORM IDs. Historical GitHub runs
+[Design46168738533](https://github.com/IzuSharp/Korda-Design/actions/runs/46168738533)
+and [Plan46168697427](https://github.com/IzuSharp/Plan/actions/runs/46168697427)
+remain historical evidence, not the current continuation's checks.
 
 A file cannot contain the hash of the commit that first contains that exact file.
-The recorded substantive milestones and the current GitHub task-branch/PR head
-together identify the continuation point; never assume an older recorded hash is
-the latest branch state. The PR heads and Checks tabs identify any later handoff-only
-commit and its current CI result without a self-referential hash in this file.
+Recorded substantive revisions plus the current branch/PR head identify subsequent
+handoff-only commits. Consult the existing PR Checks tabs for the exact current
+head instead of treating any older recorded milestone as the latest revision.
 
-## Active continuation and next work
+## Historical first-phase observations
 
-The prior default Korda-owned binder/projector execution is under reconsideration.
-The user requires maximum mature source reuse and detailed specifications that
-leave implementers implementation work rather than unresolved architecture.
-Three actual parallel researchers own original/runtime Dapper.AOT reuse, generator
-integration, and jOOQ/Java native execution respectively; the coordinator owns
-comparisons, server fixtures, shared contracts and plan consistency. See the
-[continuation plan](plan.md#authorized-continuation-mature-execution-reuse-and-implementation-ready-packets).
+Retained earlier work includes the selected-source jOOQ semantic mapping; Java
+SQL-only oracle with two34-assertion branches; five actual SQLite SQL assertions;
+two11-assertion pure C# native runs plus negative generic compilation; eight native
+offline schema-generation assertions and negative schema/typed-comparison cases;
+and a bounded Dapper dynamic SQL/known DTO native check. These were not rerun merely
+to increase counts. The first own-binder/projector architectural default is
+superseded by the current mature-runtime decision.
 
-Confirmed continuation findings and bounded native runs:
+## Next action and stop boundary
 
-- Original Dapper.AOT with explicit typed DynamicParameters completed the full
-  small DSL-to-SQLite-to-DTO path; 90 core assertions passed. A targeted command
-  initialization fault added three checks, including disposal by a minimal
-  CommandFactory override. Object-template bags failed at runtime in Reflection.Emit;
-  open generic vanilla Dapper calls need elevated DAP016 diagnostics.
-- A real generator emitted Dapper RowFactory subclasses and static generic mapping
-  registration across Core/Runtime/Models/Consumer assemblies; 17 native checks
-  passed. A netstandard2.0/Roslyn4.14 generator also compiled and loaded in the
-  SDK11/Roslyn5.12 host. A stable prebuild-generation route passed three native
-  checks; the experimental pre-compilation API is unnecessary for the default.
-- The complete mature-runtime matrix passed SQLite 3.53.4 (92 assertions),
-  PostgreSQL 18.7 (99), MySQL 8.4.11 (97) and MariaDB 11.8.10 (97), including declared
-  advanced JSON/array/range and nested DTO slices. Network-provider in-flight
-  cancellation, command timeout and subsequent connection reuse passed. This is
-  bounded research, not the full future product matrix.
-- A C# Native AOT consumer called a GraalVM shared library and SQLite JDBC, returning
-  typed DTOs; 27 assertions passed. This route is feasible and has additional
-  ownership, encoding, thread-attachment, deployment and dual-GC responsibilities.
-- The common Query/Projection/ParameterValues/template declaration surface and a
-  positive public consumer compiled. An incompatible typed parameter failed CS1503.
-  This checks signatures, not the unimplemented product bodies.
+Finish the final shared-surface corrections and independent consistency review,
+publish Design, pin its exact head from Plan, run normal local and GitHub document
+checks on both heads, update the existing PR descriptions and this handoff, then
+stop for the user's paired review. No further equivalent Native AOT experiment is
+needed to choose a route. No hidden product implementation should be started.
 
-The leading selection is direct reuse of the unmodified Dapper.AOT Runtime with
-small layout/provider adapters and statically generated RowFactory subclasses,
-plus jOOQ's source-derived SQL/conversion/nested semantics. Original explicit-bag
-Dapper.AOT and a stable staged-generator variant remain demonstrated alternatives;
-Java native execution is not dismissed as technically impossible. Representative
-costs and independent review still need integration into the final decision.
-
-Next: complete precise implementation packets, reconcile the source/contract
-interfaces and provider capabilities, independently review the actual revisions,
-then pin the new Design commit and run document CI. The formal design drafts are
-being consolidated in the existing task worktree; no new branch or PR is created.
-All raw experiments and logs remain only on the execution machine.
-
-## First-delivery direction and research state
-
-| Area | State and result |
-| --- | --- |
-| jOOQ core/types | Selected-source review complete at 3.21.10 / `3c58109e7ab69772de75e640852935ee7e284177`; mature SQL concepts retained, Java JDBC/binding coupling separated |
-| Rendering/dialects/schema | Source mapping complete for listed symbols; commercial transformation gaps, unavailable full test corpus and execution-dependent RETURNING identified |
-| Dapper.AOT/drivers | Fixed-source review complete; default independent generated/manual typed execution selected, with optional Dapper bridge separately gated |
-| Architecture/contracts | Drafted and cross-reviewed; driver-free model/rendering, immutable template, per-invocation arguments, offline generation and profile-specific capabilities |
-| Implementation plan | 30 planned candidates in an isolated graph; start/acceptance dependencies separate, parser optional, cutover/retirement separate |
-| Document CI | Independent graph schema/reference checks added only in Plan; existing Python dispatcher/YAML and legacy graphs unchanged |
-| Final review | Independent source/semantic/execution/graph/CI reviews complete for actual authored files; findings repaired and rechecked |
-
-Selected architecture: pure C# DSL → semantic model/types → profile validation and
-renderer → SQL/typed occurrence/result template → independent binding/mapping →
-Npgsql, Microsoft.Data.Sqlite or MySqlConnector. No C++/Rust compiler or executor
-is a prerequisite. Existing product removal is deferred until separate acceptance
-and authorized cutover.
-
-Cross-review already resolved several real issues: render-template validation
-must not require request values; literal constants belong to shape cache identity;
-expanded-list arity is a structural render input; unused members of a known argument
-superset are permitted; same-name slots retain distinct identity; accessible init/
-record construction is supported; advanced neutral types do not wait for every
-driver; each provider now owns its declared advanced codec implementation; nested
-module fixtures are not represented as real database acceptance; package acceptance
-includes every actually shipped module. Contract references and root-file ownership
-were reconciled with the packets. Migration/deletion requires a concrete reviewed
-file manifest before expanding the currently recorded write scopes.
-
-## Actual bounded validation
-
-- Java jOOQ SQL-only oracle: two runtime branches, 34 assertions each; no JDBC driver or database connection.
-- Actual jOOQ SQLite output: five in-memory SQLite 3.53.1 semantic assertions passed.
-- Pure C# DSL: two Linux Native AOT runs, 11 assertions each; incompatible generic operand failed with CS1503; two emitted-SQL SQLite cases passed.
-- Offline incremental Schema Generator: native consumer passed eight assertions; invalid schema failed KO001 and wrong typed comparison failed CS0411.
-- Dapper 2.1.100 / Dapper.AOT 1.1.0 / Microsoft.Data.Sqlite 11.0.0: runtime SQL with known argument/DTO types ran natively, returned 3/2 rows and matched direct-driver results; unsupported CommandDefinition call failed DAP057.
-
-These are research probes, not product acceptance. PostgreSQL/MySQL/MariaDB live
-execution, the complete Korda generator/semantic corpus, streaming/cancellation
-matrix, exact shipped packages and controlled Dapper performance comparisons remain
-future implementation gates. No parity or zero-GC claim has been established.
-
-## Completed checks and review
-
-| Gate | Observed result |
-| --- | --- |
-| Design local committed diff | Registered prose, zero checks selected; no product jobs |
-| Plan required full check | All five registered checks passed with pinned dependencies; 48 CI self-tests, 114 historical task IDs and 30 ORM IDs valid |
-| Plan committed PR diff | All five checks passed; local run completed in 27.72 seconds |
-| Design GitHub PR CI | [Run 46168738533](https://github.com/IzuSharp/Korda-Design/actions/runs/46168738533) succeeded at `0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5` |
-| Plan substantive GitHub PR CI | [Run 46168697427](https://github.com/IzuSharp/Plan/actions/runs/46168697427) succeeded at `0d19841d142ba49b2cafe27640c9347b0515ccc6` |
-| Final metadata follow-up | This handoff/progress-only commit retains the checked graph/CI/design inputs; consult [Plan PR checks](https://github.com/IzuSharp/Plan/pull/39/checks) for its exact current head result |
-| File-purpose and link audit | Design 10 changed files; Plan 42 changed files; only formal Markdown, the isolated graph/schema and maintained CI Python; checked local links resolve |
-| Cross-repository binding | Plan graph pins the actual final Design head; all ORM nodes remain planned candidates and authorization remains false |
-
-Independent source/model, SQL/schema and execution reviewers examined other
-owners' actual design/packet files. Final graph reviews checked start/acceptance
-DAGs, contract inputs, scope ownership and the advanced/nested/provider split.
-A separate SQL/schema reviewer examined the CI author's actual registry/checker/
-schema/test changes. Found issues were repaired and the relevant revisions read
-again. This is an actual scoped cross-review, not a claim of exhaustive jOOQ
-coverage, independent product implementation or unperformed database tests.
-
-## Stop and continuation conditions
-
-The first delivery stopped with the two open PRs; the current user instruction
-explicitly reopens research and specification work in those PRs. After the
-continuation's mature-reuse decision, implementation-ready packet review and normal
-document CI are complete, stop again for the user's paired review. Product work,
-package publication, merge and old-code removal remain unauthorized.
-
-If the user later accepts these revisions and separately authorizes product work,
-start ORM-FOUNDATION from the then-current product main using the pinned contracts.
-After its shared signatures/ownership pass, launch the independent language,
-render/dialect, schema/generator, execution/provider and verification worktrees
-according to start dependencies. Acceptance dependencies still require real
-implementations. Parser remains optional. This plan's final aggregate includes
-four profiles and mandatory advanced/nested slices; any smaller release proposal
-must explicitly revise and review that scope. Cutover and retirement remain
-separate authorized stages with concrete file manifests.
-
-To resume this documentation task after an interruption, fetch both task branches,
-inspect their actual heads and PR checks, and use this document's remaining limits.
-Do not repeat completed source studies or bounded probes merely to recreate logs.
-
-No raw logs, prototypes, upstream copies, generated code, samples, command dumps,
-agent intermediate material, runtime state or recovery caches belong in either
-documentation repository. Reproduction recipes are concise maintained documents.
+After later explicit product authorization, read the then-current Korda rules and
+begin ORM-FOUNDATION from the accepted immutable Design/Plan revisions. Complete
+its actual shared contract/API/native data tests, then start the independent
+module owners against that surface. Real four-profile integration, exact package
+consumers, full public-path performance, supported-platform gates and independent
+product acceptance remain future work. Only a separately accepted concrete cutover
+and retirement scope can migrate or delete the old implementation.

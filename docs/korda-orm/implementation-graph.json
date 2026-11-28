@@ -5,7 +5,7 @@
   "implementation_authorized": false,
   "design": {
     "repository": "IzuSharp/Korda-Design",
-    "commit": "0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5",
+    "commit": "b67317b2a89245fe82337b9b69e2748626ac67cb",
     "contracts": [
       "ORM-C01",
       "ORM-C02",
@@ -37,12 +37,29 @@
         "src/Orm/Contracts/",
         "tests/Orm/Contracts/",
         "Korda.slnx",
-        "eng/ci/modules/orm.json"
+        "eng/ci/modules/orm.json",
+        "src/Orm/Types/Korda.Orm.Types.csproj",
+        "src/Orm/Language/Korda.Orm.Language.csproj",
+        "src/Orm/Rendering/Korda.Orm.Rendering.csproj",
+        "src/Orm/Schema/Korda.Orm.SchemaModel.csproj",
+        "src/Orm/Execution/Korda.Orm.Execution.csproj",
+        "src/Orm/Generation/Korda.Orm.Generators.csproj",
+        "src/Orm/AdvancedTypes/Korda.Orm.AdvancedTypes.csproj",
+        "src/Orm/Nested/Korda.Orm.Nested.csproj",
+        "src/Orm/Parser/Korda.Orm.Parser.csproj",
+        "src/Orm/SchemaTool/Korda.Orm.SchemaTool.csproj",
+        "src/Orm/Dialects/PostgreSql/Korda.Orm.Dialects.PostgreSql.csproj",
+        "src/Orm/Dialects/Sqlite/Korda.Orm.Dialects.Sqlite.csproj",
+        "src/Orm/Dialects/MySql/Korda.Orm.Dialects.MySql.csproj",
+        "src/Orm/Dialects/MariaDb/Korda.Orm.Dialects.MariaDb.csproj",
+        "src/Orm/Providers/PostgreSql/Korda.Orm.PostgreSql.csproj",
+        "src/Orm/Providers/Sqlite/Korda.Orm.Sqlite.csproj",
+        "src/Orm/Providers/MySql/Korda.Orm.MySql.csproj"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Compile the exact split-assembly signature surface, extended positive Fluent consumers and FND-05/06 negative generic cases.",
+        "Execute FND-01..12 native identity/snapshot/invocation tests; no missing implementation may be represented as a passing stub.",
+        "Run worker.py check-index and verify the fixed project/reference/friend-assembly map."
       ]
     },
     {
@@ -68,9 +85,9 @@
         "tests/Orm/Types/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Types/verify.py including TYP-01..10 and fixed Define/Nullable/Unicode scalar facet cases.",
+        "Native tests preserve SQL identity, nullable values, immutable snapshots and deterministic checked conversions.",
+        "Inspect pure assembly closure: no Dapper/provider/Roslyn or hidden runtime type discovery."
       ]
     },
     {
@@ -93,13 +110,13 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-QUERY.md",
       "write_scopes": [
-        "src/Orm/Query/",
+        "src/Orm/Language/Query/",
         "tests/Orm/Query/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Query/verify.py with immutable clause, scope, projection and dynamic-record fixtures.",
+        "Compile scalar/typed-row/DTO projection APIs; test Limit versus LimitLiteral and expected type mismatch diagnostics.",
+        "Verify final query handles carry captured sidecars separately from node graphs/templates."
       ]
     },
     {
@@ -121,13 +138,13 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-EXPRESSIONS.md",
       "write_scopes": [
-        "src/Orm/Expressions/",
+        "src/Orm/Language/Expressions/",
         "tests/Orm/Expressions/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Expressions/verify.py and EXP-01..12 including all SQL three-valued truth combinations.",
+        "Compile concrete operand/row/CASE overloads and negative mismatches; verify fixed aggregate descriptors/conversion IDs.",
+        "Real SQL outcomes remain separate oracle/integration gates, not inferred from a local evaluator."
       ]
     },
     {
@@ -150,13 +167,13 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-DML.md",
       "write_scopes": [
-        "src/Orm/Dml/",
+        "src/Orm/Language/Dml/",
         "tests/Orm/Dml/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Dml/verify.py with DML-01..12, typed Set/Values/Returning and AllRows guards.",
+        "Verify row-major occurrence order, old-row assignment semantics and operation-specific native RETURNING failures.",
+        "Compile Mutation/ReturningMutation rendering and Execute/query terminal seams; no discarded returned rows."
       ]
     },
     {
@@ -180,13 +197,13 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-RELATIONAL.md",
       "write_scopes": [
-        "src/Orm/Relational/",
+        "src/Orm/Language/Relational/",
         "tests/Orm/Relational/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Relational/verify.py with REL-01..12 and exact scalar/CTE/window overloads.",
+        "Preserve set grouping/recursive visibility/correlation and reject invalid frames or unproved SQLite scalar cardinality.",
+        "Supply deterministic real-row cases for four-profile Integration; pure tests do not accept server behavior."
       ]
     },
     {
@@ -199,7 +216,11 @@
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-TYPES"
+        "ORM-TYPES",
+        "ORM-QUERY",
+        "ORM-EXPRESSIONS",
+        "ORM-DML",
+        "ORM-RELATIONAL"
       ],
       "contracts": [
         "ORM-C01",
@@ -213,9 +234,9 @@
         "tests/Orm/Rendering/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Rendering/verify.py and RENDER-01..15 against real common language/types and contract dialect fakes.",
+        "Native core-only consumer checks exact SQL/occurrence/result/fingerprint, list-arity errors and concurrent isolation.",
+        "Validate Profile.Rules dispatch, unknown/altered profile rejection and explicit declared-SQL boundary."
       ]
     },
     {
@@ -228,7 +249,9 @@
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-RENDER"
+        "ORM-RENDER",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED"
       ],
       "contracts": [
         "ORM-C01",
@@ -242,9 +265,9 @@
         "tests/Orm/Dialects/PostgreSql/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run PostgreSql dialect packet local pure/native cases and exact SQL/layout fixtures.",
+        "Verify numbered occurrence binding, conflict/returning/CTE/set/window semantics and every rejected capability.",
+        "Accept actual pure nested/advanced lowering dependencies; live PostgreSQL results are independently required in Integration."
       ]
     },
     {
@@ -257,7 +280,9 @@
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-RENDER"
+        "ORM-RENDER",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED"
       ],
       "contracts": [
         "ORM-C01",
@@ -271,22 +296,24 @@
         "tests/Orm/Dialects/Sqlite/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run SQLite dialect pure/native cases, including literal scalar cardinality proof and unqualified RETURNING.",
+        "Reject exact decimal arithmetic/aggregate semantics not preserved by canonical TEXT transport; verify DQS/profile requirements.",
+        "Compare SQL/layout fixtures and the native SQLite integration lane at its actual runtime version."
       ]
     },
     {
       "id": "ORM-MYSQL-DIALECT",
       "title": "MySQL SQL profile",
       "status": "planned_candidate",
-      "track": "follow_on",
+      "track": "primary",
       "owner_role": "MySQL SQL owner",
       "start_dependencies": [
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-RENDER"
+        "ORM-RENDER",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED"
       ],
       "contracts": [
         "ORM-C01",
@@ -300,22 +327,24 @@
         "tests/Orm/Dialects/MySql/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run MySQL8.4 pure/native fixtures including conflict policy, assignment dependencies and unsupported RETURNING.",
+        "Verify exact modes, placeholder occurrence order and ordered window JSON collection lowering.",
+        "Require independent MySQL live results; MariaDB passing is not a substitute."
       ]
     },
     {
       "id": "ORM-MARIADB-DIALECT",
       "title": "MariaDB SQL profile",
       "status": "planned_candidate",
-      "track": "follow_on",
+      "track": "primary",
       "owner_role": "MariaDB SQL owner",
       "start_dependencies": [
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-RENDER"
+        "ORM-RENDER",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED"
       ],
       "contracts": [
         "ORM-C01",
@@ -329,9 +358,9 @@
         "tests/Orm/Dialects/MariaDb/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run MariaDB11.8 pure/native fixtures with its own capabilities/modes and returning support.",
+        "Verify JSON aggregation byte guard, empty collections and dedicated error envelope without session SET.",
+        "Require independent MariaDB live results and declared budget/cell codec cases."
       ]
     },
     {
@@ -357,9 +386,9 @@
         "tests/Orm/Schema/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run bash tests/Orm/Schema/check.sh with exact version1 portable model, canonical JSON, naming/filter/override cases.",
+        "Compile portable model/format/emitter source for net11 and netstandard2.0 without cross-target runtime references.",
+        "Reject duplicate/unresolved/invalid identity and preserve explicit external filtered foreign-key targets."
       ]
     },
     {
@@ -375,7 +404,8 @@
         "ORM-SCHEMA",
         "ORM-POSTGRES-DRIVER",
         "ORM-SQLITE-DRIVER",
-        "ORM-MYSQL-DRIVER"
+        "ORM-MYSQL-DRIVER",
+        "ORM-GENERATOR"
       ],
       "contracts": [
         "ORM-C01",
@@ -388,14 +418,14 @@
         "tests/Orm/SchemaTool/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run offline check.sh plus four explicitly selected provider acquisition lanes from ORM-SCHEMA-TOOL.",
+        "Validate acquire/validate/generate exit codes, atomic outputs and exactly-once SchemaSnapshotTransform.Apply.",
+        "Compile and natively run generated source; ordinary build never opens a database or loads arbitrary application codecs."
       ]
     },
     {
       "id": "ORM-EXECUTION",
-      "title": "independent command execution",
+      "title": "Reuse Dapper.AOT Runtime with exact layout and lifetime adapters",
       "status": "planned_candidate",
       "track": "primary",
       "owner_role": "Execution owner",
@@ -403,7 +433,9 @@
         "ORM-FOUNDATION"
       ],
       "acceptance_dependencies": [
-        "ORM-TYPES"
+        "ORM-TYPES",
+        "ORM-RENDER",
+        "ORM-SCHEMA"
       ],
       "contracts": [
         "ORM-C01",
@@ -417,14 +449,14 @@
         "tests/Orm/Execution/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Execution/check.py --mode managed and --mode native using the actual pinned Dapper runtime and EX fault matrix.",
+        "Verify preflight/lease/consumption, command-local cleanup, primary exceptions, stream ownership and exact Timeout semantics.",
+        "Compile all mature factory endpoints and test scalar/closed Row/DynamicRecord/static custom mapping without fallback."
       ]
     },
     {
       "id": "ORM-GENERATOR",
-      "title": "typed binding and result generation",
+      "title": "Generate mature row factories and explicit final-consumer registration roots",
       "status": "planned_candidate",
       "track": "primary",
       "owner_role": "Generator owner",
@@ -449,9 +481,9 @@
         "tests/Orm/Generation/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run bash tests/Orm/Generation/check.sh with exact ORMGEN positive/negative diagnostic and portable-host cases.",
+        "Run native final-consumer roots for cross-assembly DTOs/closed Rows, nullable/init/record and strict mapping wrappers.",
+        "Inspect generated code/analyzer private closure; physical and incremental schema generation cannot duplicate declarations."
       ]
     },
     {
@@ -466,7 +498,8 @@
       "acceptance_dependencies": [
         "ORM-EXECUTION",
         "ORM-SCHEMA",
-        "ORM-ADVANCED-TYPES"
+        "ORM-ADVANCED-TYPES",
+        "ORM-POSTGRES-DIALECT"
       ],
       "contracts": [
         "ORM-C01",
@@ -477,15 +510,13 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-POSTGRES-DRIVER.md",
       "write_scopes": [
-        "src/Orm/Drivers/PostgreSql/",
-        "src/Orm/SchemaAdapters/PostgreSql/",
-        "tests/Orm/Drivers/PostgreSql/",
-        "tests/Orm/SchemaAdapters/PostgreSql/"
+        "src/Orm/Providers/PostgreSql/",
+        "tests/Orm/Providers/PostgreSql/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run Providers/PostgreSql/check.py managed/native with KORDA_TEST_POSTGRES and exact profile/catalog fixtures.",
+        "Test closed scalar/JSONB/array/range codecs, cancellation/timeout/transactions and resource reuse.",
+        "Require typed parameter occurrence order, preflight validation and native DTO mapping; no dynamic JSON/unmapped-type fallback."
       ]
     },
     {
@@ -500,7 +531,8 @@
       "acceptance_dependencies": [
         "ORM-EXECUTION",
         "ORM-SCHEMA",
-        "ORM-ADVANCED-TYPES"
+        "ORM-ADVANCED-TYPES",
+        "ORM-SQLITE-DIALECT"
       ],
       "contracts": [
         "ORM-C01",
@@ -511,22 +543,20 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-SQLITE-DRIVER.md",
       "write_scopes": [
-        "src/Orm/Drivers/Sqlite/",
-        "src/Orm/SchemaAdapters/Sqlite/",
-        "tests/Orm/Drivers/Sqlite/",
-        "tests/Orm/SchemaAdapters/Sqlite/"
+        "src/Orm/Providers/Sqlite/",
+        "tests/Orm/Providers/Sqlite/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run Providers/Sqlite/check.py --mode managed and --mode native with disposable local databases.",
+        "Verify storage classes/canonical types/DQS flags, nullability, busy timeout, transactions and owned/borrowed cleanup.",
+        "Do not claim in-flight sqlite3_step cancellation; inspect exact driver-native package closure."
       ]
     },
     {
       "id": "ORM-MYSQL-DRIVER",
       "title": "MySqlConnector execution and schema adapter",
       "status": "planned_candidate",
-      "track": "follow_on",
+      "track": "primary",
       "owner_role": "MySQL and MariaDB driver owner",
       "start_dependencies": [
         "ORM-FOUNDATION"
@@ -534,7 +564,9 @@
       "acceptance_dependencies": [
         "ORM-EXECUTION",
         "ORM-SCHEMA",
-        "ORM-ADVANCED-TYPES"
+        "ORM-ADVANCED-TYPES",
+        "ORM-MYSQL-DIALECT",
+        "ORM-MARIADB-DIALECT"
       ],
       "contracts": [
         "ORM-C01",
@@ -545,22 +577,20 @@
       ],
       "packet": "docs/korda-orm/tasks/ORM-MYSQL-DRIVER.md",
       "write_scopes": [
-        "src/Orm/Drivers/MySql/",
-        "src/Orm/SchemaAdapters/MySql/",
-        "tests/Orm/Drivers/MySql/",
-        "tests/Orm/SchemaAdapters/MySql/"
+        "src/Orm/Providers/MySql/",
+        "tests/Orm/Providers/MySql/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run Providers/MySql/check.py for both mysql-8.4 and mariadb-11.8 native profiles and separate connection environment inputs.",
+        "Verify unsigned/decimal/temporal/JSON codecs, modes, catalog metadata, cancellation/timeout and subsequent reuse.",
+        "Reject family/version/mode or codec mismatch before execution and retain separate family evidence."
       ]
     },
     {
       "id": "ORM-ADVANCED-TYPES",
-      "title": "explicit advanced database representations",
+      "title": "Implement explicit neutral advanced types and closed conversions",
       "status": "planned_candidate",
-      "track": "follow_on",
+      "track": "primary",
       "owner_role": "Advanced type owner",
       "start_dependencies": [
         "ORM-FOUNDATION"
@@ -582,16 +612,16 @@
         "tests/Orm/AdvancedTypes/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run exact advanced-type packet tests for immutable neutral JSON/array/range/enum/domain and temporal descriptors.",
+        "Compile positive/negative operations and checked read/write conversions; preserve SQL NULL versus JSON null.",
+        "Verify each dialect capability and explicit TYPE diagnostics; provider transport is accepted by its own leaf."
       ]
     },
     {
       "id": "ORM-NESTED",
-      "title": "nested projections and result materialization",
+      "title": "Implement logical and physical nested shapes with bounded static decoders",
       "status": "planned_candidate",
-      "track": "follow_on",
+      "track": "primary",
       "owner_role": "Nested projection owner",
       "start_dependencies": [
         "ORM-FOUNDATION"
@@ -616,9 +646,9 @@
         "tests/Orm/Nested/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run nested pure/native decoder/presence/budget/ordering fixtures and complete logical/physical range checks.",
+        "Verify exact parent-generated child reads, relative ordinals, one outer Tokenize and bounded shared JSON-reader recursion.",
+        "Accept actual renderer/generator/advanced dependencies; Integration executes all four SQL encodings and truncation cases."
       ]
     },
     {
@@ -635,7 +665,8 @@
         "ORM-RELATIONAL",
         "ORM-EXPRESSIONS",
         "ORM-DML",
-        "ORM-RENDER"
+        "ORM-RENDER",
+        "ORM-SCHEMA"
       ],
       "contracts": [
         "ORM-C01",
@@ -649,9 +680,9 @@
         "tests/Orm/Parser/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run optional parser lexer/Pratt/scoping/metadata/returning fixtures with exact source locations and diagnostic codes.",
+        "Require complete token consumption and safe bound-value construction; unsupported syntax never becomes raw SQL fallback.",
+        "Compile checked Builder/ReturningMutation/query APIs against actual Schema/language/render modules; exclude parser from mandatory initial package."
       ]
     },
     {
@@ -678,9 +709,9 @@
         "eng/orm-oracle/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run tests/Orm/Conformance/verify.py with closed JSON schema, canonical fixture and intentionally perturbed negative cases.",
+        "Explicitly regenerate selected jOOQ references using fixed Maven SHA256 inputs; ordinary corpus checks stay offline.",
+        "Compare ordered total-order rows or multisets correctly; preserve NULL/order/cardinality/occurrence distinctions."
       ]
     },
     {
@@ -710,14 +741,14 @@
         "NuGet.Config"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run existing check-index, Tooling unittest, impact and worker commands with actual temporary Git fixtures CI-01..21.",
+        "Verify source/test/metadata ownership, linked generator inputs, provider-specific services and no Markdown-triggered product builds.",
+        "Exercise exact owned NuGet DAG staging/validation with target-only publication and unchanged legacy package policy."
       ]
     },
     {
       "id": "ORM-PACKAGE",
-      "title": "independent packages and shipped consumer validation",
+      "title": "Consume seven exact packages with verified owned dependency closure",
       "status": "planned_candidate",
       "track": "primary",
       "owner_role": "Packaging owner",
@@ -741,7 +772,8 @@
         "ORM-SQLITE-DIALECT",
         "ORM-MYSQL-DIALECT",
         "ORM-MARIADB-DIALECT",
-        "ORM-CI"
+        "ORM-CI",
+        "ORM-DOCS"
       ],
       "contracts": [
         "ORM-C03",
@@ -755,14 +787,14 @@
         "packaging/orm/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Build/inspect seven fixed nupkgs through NW_PACKAGE/NW_VERSION/NW_FEED/NW_INPUTS and declared dependency-feed protocol.",
+        "Restore exact owned/external closure into isolated caches and run each native or explicitly host-only consumer.",
+        "Verify no duplicated Execution/provider leakage, analyzer private load closure, notices/XML/API and multi-provider coexistence."
       ]
     },
     {
       "id": "ORM-DOCS",
-      "title": "public contracts and compilable local workflows",
+      "title": "Compile and document exact local development workflows",
       "status": "planned_candidate",
       "track": "primary",
       "owner_role": "API documentation owner",
@@ -776,7 +808,13 @@
         "ORM-POSTGRES-DIALECT",
         "ORM-SQLITE-DIALECT",
         "ORM-MYSQL-DIALECT",
-        "ORM-MARIADB-DIALECT"
+        "ORM-MARIADB-DIALECT",
+        "ORM-POSTGRES-DRIVER",
+        "ORM-SQLITE-DRIVER",
+        "ORM-MYSQL-DRIVER",
+        "ORM-SCHEMA-TOOL",
+        "ORM-ADVANCED-TYPES",
+        "ORM-NESTED"
       ],
       "contracts": [
         "ORM-C01",
@@ -792,9 +830,9 @@
         "samples/orm/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Run samples/orm/check.sh --all for exact render, DTO, schema, nested and provider profile cases from ORM-DOCS.",
+        "Verify XML/signatures/defaults/cancellation/nullability and generated/manual mapping examples against accepted source.",
+        "Package acceptance reruns these examples from exact candidate archives; documentation alone grants no product support."
       ]
     },
     {
@@ -843,14 +881,14 @@
         "tests/Orm/Integration/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Execute separate native postgres-18/sqlite-3.45/mysql-8.4/mariadb-11.8 lanes against actual modules and exact packages.",
+        "Require canonical typed optional/list/join/aggregate/DML/nested/advanced/lifetime cases and negative controls.",
+        "Record native/compiler/server versions and remaining excluded cells; no skip is relabelled as full success."
       ]
     },
     {
       "id": "ORM-PERFORMANCE",
-      "title": "attributable execution and rendering costs",
+      "title": "Measure complete public paths against fixed comparable budgets",
       "status": "planned_candidate",
       "track": "primary",
       "owner_role": "Performance owner",
@@ -871,9 +909,9 @@
         "benchmarks/Orm/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Use fixed comparable public-path workload/protocol and frozen overhead/allocation/value-isolation budgets.",
+        "Run two independent process campaigns with seven rotated rounds; preserve distributions and explicit invalid-measurement outcome.",
+        "Separate DSL/render/bind/map/end-to-end and network noise; no benchmark in ordinary document CI."
       ]
     },
     {
@@ -905,9 +943,9 @@
         "docs/orm/acceptance/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Independent reviewer executes ACCEPT-API/PURE/PARAM/NULL/MAP/EMPTY/RESOURCE/ONCE/GEN/FOUR/NESTED/PACK/CI/PERF.",
+        "Reconcile exact source/package/provenance/feature evidence and resolve every blocker/major before accepting.",
+        "Record accepted-for-cutover-review, changes-required or measurement-unresolved; never merge/publish automatically."
       ]
     },
     {
@@ -933,9 +971,9 @@
         "packaging/orm/release-metadata/"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Require accepted candidate and a concrete authorized consumer/file manifest before changing existing entry points.",
+        "Run CUT-01..10 side-by-side business cases with separate write fixtures, exact packages and rollback rehearsal.",
+        "Apply fixed package coexistence policy; retain old implementations and stop before retirement."
       ]
     },
     {
@@ -958,9 +996,9 @@
         "docs/orm/migration/retirement.md"
       ],
       "validation": [
-        "Execute the packet-specific positive and negative correctness gates.",
-        "Run applicable compiled Native AOT consumers; declare tooling-only host checks explicitly.",
-        "Inspect selected module CI and exact package/API impacts; record unexecuted gates honestly."
+        "Require reviewed current-blob removal manifest, completed cutover and explicit deletion authorization.",
+        "Run RET-01..10 dependency/native/package/link/retained-consumer checks on only affected closure.",
+        "Preserve shared assets/notices/history/prior releases; stop on any unexplained surviving consumer."
       ]
     }
   ]

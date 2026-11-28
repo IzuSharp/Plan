@@ -6,7 +6,7 @@ live in [Korda-Design](https://github.com/IzuSharp/Korda-Design).
 
 ## Current records
 
-- [Korda.Orm independent implementation plan](docs/korda-orm/README.md): source-informed C# SQL architecture; proposed tasks, no product authorization
+- [Korda.Orm independent implementation plan](docs/korda-orm/README.md): mature-runtime reuse and detailed execution specifications; 30 planned candidates, no product authorization
 - [Korda-Orm-01 research and Linux handoff](ledger/evidence/batches/Korda-Orm-01/handoff-linux.md)
 - [Current phase and historical boundaries](CURRENT-PHASE.md)
 - [Task index](task-index.md): 34 research, 32 documentation and 48 delivery definitions

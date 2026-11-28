@@ -1,126 +1,135 @@
-# Korda-Orm-01 research and design plan
+# Korda-Orm-01 research and implementation-specification plan
 
-Status: reopened by the user for mature execution reuse research and implementation-ready specifications. The first delivery remains recorded below. This task authorizes research, design, an implementation plan,
-and necessary document CI changes only. It does not authorize product work or a merge.
+Status: **research selection complete; final specification consistency and paired
+PR delivery in progress**. The user's 2026-11-28 continuation reopened the earlier
+own-executor choice and required instructions detailed enough for implementation
+without another architecture design phase. This task authorizes research, formal
+Design/Plan changes and necessary document CI only. Product implementation, merge,
+publication, cutover and deletion remain unauthorized.
 
-## Objective and boundaries
+## Objective and fixed result
 
-Design Korda.Orm as a Native AOT-first, type-safe SQL framework for C#: a source-informed
-semantic rewrite of jOOQ's open-source SQL language, with a driver-free DSL and an
-explicit SQL/typed-parameter boundary to mature .NET execution. Dapper.AOT is the
-execution and mapping reference, not a presumed solution to every dynamic query.
+Design a Native AOT-first C# SQL framework by translating reviewed jOOQ language,
+rendering, binding/conversion and nested-result semantics, while reusing mature
+execution wherever practical. The supported selected route is unmodified
+Dapper.AOT 1.1.0 Runtime, a small typed-layout CommandFactory adapter, statically
+generated RowFactory subclasses and mature .NET providers. Normal incremental
+generation writes those subclasses directly. The execution choice is now fixed;
+implementers do not choose an alternative engine or design a new reader loop.
 
-Only IzuSharp/Korda-Design and IzuSharp/Plan may change. Both use
-`task/Korda-Orm-01-linux` in separate task/repository-named worktrees. IzuSharp/Korda
-is read-only. Historical database, C++, Rust and Server tasks provide context only;
-their task graphs and acceptance states do not govern this direction.
+Original Dapper.AOT with controlled explicit DynamicParameters, stable prebuild
+generation and C# Native AOT calling Graal/JDBC were demonstrated separately.
+Original object-template bags and unhandled generic interceptor calls have concrete
+AOT limitations. LINQ alternatives were source-reviewed and attempted within the
+recorded limits. The comparison selects the smallest supported adaptation with a
+complete typed native path; it does not mistake an API limitation or one failed
+prototype for proof that a whole technology is impossible.
 
-## Work and ownership
+Only IzuSharp/Korda-Design and IzuSharp/Plan may change. Both continue the existing
+`task/Korda-Orm-01-linux` branch and paired PRs
+[Design #23](https://github.com/IzuSharp/Korda-Design/pull/23) /
+[Plan #39](https://github.com/IzuSharp/Plan/pull/39). IzuSharp/Korda remains read-only
+at the inspected revision. No new branch or PR is needed. Historical database,
+C++, Rust and Server task graphs provide context and do not govern the ORM DAG.
 
-| Workstream | Scope | Owner | Initial state |
-| --- | --- | --- | --- |
-| Core language | jOOQ DSL, model, types, nullability, mutability, JDBC coupling, licenses | Core researcher | Source mapping, design and bounded generator probe complete |
-| SQL and generation | Rendering, dialects, transformations, advanced SQL, schema/codegen, parser and available tests | Dialect researcher | Source mapping, design and bounded Java/SQLite probes complete |
-| Execution and AOT | Dapper.AOT, drivers, generated binding/mapping, toolchain, dynamic SQL boundaries | Execution researcher | Source mapping, design and bounded Dapper.AOT/SQLite probe complete |
-| Integration | Repository norms, contracts, experiments, CI, implementation DAG, cross-review | Coordinating researcher | Shared contracts and 30-task graph reviewed; local and substantive PR CI passed |
+## Formal deliverables and reading order
 
-These are actual concurrent research assignments. Confirmed independent sections
-move into Design and Plan authoring while remaining research continues. Each author
-owns distinct files; the coordinator owns shared contracts, the plan, and this batch's
-single [handoff](handoff-linux.md). Reviews examine other authors' actual deliverables.
+The [single Linux handoff](handoff-linux.md) records actual revisions, results,
+reviews, CI and future product gates. The
+[implementation entry](../../../../docs/korda-orm/README.md) and
+[30-node graph](../../../../docs/korda-orm/implementation-graph.json) are the
+implementation navigation and scheduling authority. The graph pins the immutable
+Design input, including ORM-C01–C06 version0.2.0 and implementation-spec.md.
 
-Paired deliverables: [Design #23](https://github.com/IzuSharp/Korda-Design/pull/23)
-and [Plan #39](https://github.com/IzuSharp/Plan/pull/39). The maintained handoff
-records exact revisions, CI runs, bounded experiments and remaining product gates.
-All seven research milestones below are complete within those recorded limits;
-the proposed product tasks remain unimplemented and unauthorized.
+Design contains architecture, exact common declarations and node layout, immutable
+capture/template protocols, profile/rule dispatch, execution ownership, generation,
+source mappings, capability tables, alternatives and bounded validation. Each Plan
+packet adds exact owned files and APIs, ordered algorithms, concrete state
+transitions, error codes, positive/negative inputs and expected results, command
+arrays, integration seams and stop gates. The plan is intentionally more precise
+than a feature list. Any contradiction requires a coordinated contract correction;
+it is not an open implementation choice.
 
-## Milestones and evidence gates
+## Completed research work and independent ownership
 
-1. Establish source snapshots, repository boundaries and this persistent plan.
-2. Inspect implementation paths and distinguish reusable OSS behavior, deliberate
-   C# adaptations, unavailable commercial code, and unresolved questions.
-3. Set shared model, rendering, parameter/result and generator contracts. Record
-   public promises separately from internal implementation suggestions.
-4. Run feasible local experiments for dynamic DSL/AOT, typing, SQL/parameter
-   correctness, generators and execution. Record exact environment, commands and
-   bounded results; identify every unexecuted gate explicitly.
-5. Author isolated architecture, semantics, API, provenance and verification
-   specifications in Korda-Design, and parallelizable task packets/DAG in Plan.
-6. Independently review source claims, contract consistency, task dependencies,
-   document routing and final file purpose. Repair substantive findings.
-7. Run selected local checks and normal PR CI, open one mutually linked PR in each
-   writable repository, update the handoff, and stop without merging.
+| Workstream | Actual work and formal output |
+| --- | --- |
+| Mature .NET execution | Original Dapper.AOT bags/interceptors, public runtime CommandFactory/RowFactory, four native provider paths, command initialization faults, typed-cell binding and execution/provider/integration/performance packets |
+| Generator integration | Normal SG factory emission, final-consumer roots, closed row registration, stable staged alternative, analyzer host compatibility, portable offline schema, tool, package and documentation protocols |
+| Java/jOOQ and SQL semantics | Execution/conversion/nested source inheritance, native shared-library/JDBC feasibility, dialect and nested real SQL edge cases, exact relational/expression/mutation surfaces and corresponding packets |
+| Coordination | Read-only product/CI inspection, controlled comparisons, alternative LINQ attempts, shared contracts/signature probes, DAG/ownership, package-runner extension, cross-review and paired delivery |
 
-The final plan must separate start dependencies from integration/acceptance
-dependencies so implementation can proceed against agreed interfaces. Schema,
-generator, renderer, provider and verification work must not inherit irrelevant
-historical prerequisites. Product migration and old-code removal are later gates.
+These were actual parallel assignments with disjoint formal-file ownership.
+Reviewers inspected other owners' sources and authored packets. Significant
+findings changed the specification: library-only mapping initialization was not a
+sufficient native root; template/runtime ownership and conversion provenance needed
+explicit seams; SQLite scalar/RETURNING and MariaDB JSON budget behavior required
+profile-specific rules; existing package validation needed an exact dependency
+closure protocol. The handoff records the final repairs and evidence boundaries.
 
-## Source and validation policy
+## Milestones and remaining delivery gates
 
-Pin release tags and full commit SHAs, then cite implementation symbols and the
-specific behavior they establish. Do not equate API documentation, open-source
-stubs, or a commercial feature description with available implementation.
-Tests should compare semantics, parameter order/types and negative cases, not only
-SQL text. Measure construction/rendering separately from execution and mapping.
+1. **Complete:** preserve the existing task branches/PRs, formal reopening and
+   read-only product scope; retain valid earlier jOOQ work without ritual reruns.
+2. **Complete:** inspect pinned sources and distinguish direct reuse, extension,
+   source translation, unavailable code and unsuccessful attempts.
+3. **Complete:** run bounded complete typed DSL-to-database-to-result Native AOT
+   experiments for promising routes and record exact environment/result limits.
+4. **Complete:** compare attributable costs/maintenance and select the supported
+   Dapper.AOT Runtime route. Research stop condition A is met: a route merits
+   implementation. Further equivalent runtime experiments are not a prerequisite.
+5. **Substantive authoring complete, final seam review in progress:** replace all
+   30 generic task packets with concrete execution specifications; reconcile exact
+   contracts, dependency direction, conversion propagation and package ownership.
+6. **In progress:** publish final Design corrections, pin that exact revision from
+   Plan, perform final independent consistency/file-purpose review and run normal
+   local/PR document CI on the resulting heads.
+7. **Pending only final delivery:** update this same handoff and existing PR bodies,
+   report the supported decision and limits, and stop for paired review without
+   implementing, merging, publishing or deleting the product.
 
-The initially missing SDK was installed in an isolated local toolchain from official
-.NET 11.0.100 metadata with archive checksum verification. Bounded pure-DSL, offline
-Schema Generator and Dapper.AOT/SQLite Native AOT probes ran, including negative
-compilation cases. The exact conditions, results and limitations are maintained in
-[Design validation](https://github.com/IzuSharp/Korda-Design/blob/0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5/docs/korda-orm/validation.md).
-No product, full database matrix or performance parity is claimed.
+Start dependencies are separate from acceptance dependencies. Foundation provides
+compiled shared contracts and ownership, then language/rendering/dialects,
+schema/generation, execution/providers and verification harnesses start in parallel.
+Real modules and services become mandatory at each declared acceptance gate.
+Four database profiles plus specified advanced/nested slices are mandatory final
+scope; Parser is optional. Product cutover and retirement have later independent
+review and concrete authorization requirements.
+
+## Source and evidence policy
+
+Every selected upstream is pinned to a release and full commit. Cite the exact
+implementation path/symbol and the behavior it establishes. Preserve Apache/MIT
+and transitive notices according to source/package ownership; do not equate a
+commercial description, API stub or incomplete public test corpus with available
+implementation. Reviewed jOOQ semantics are translated into deliberate C# contracts,
+not a claim that Java's entire object model was copied unchanged.
+
+Native research uses the isolated official .NET11.0.100 toolchain and the versions
+recorded in Design validation. Actual generation, native execution, database rows,
+resource behavior and timing are distinct observations. Signature-only compiles
+are not functional implementations. Research probes do not satisfy the future
+full public API, all package-consumer, platform, feature or performance gates.
+The final strict public execution wrappers and complete plan are not claimed to
+have been measured or shipped.
+
+The implementation packets freeze prospective correctness and performance gates,
+including negative tests and invalid/noisy measurement outcomes. They never
+promote skipped cells or warnings suppressed for a diagnostic experiment into a
+successful Native AOT result. Full product parity and zero-allocation claims remain
+unestablished.
 
 ## Document CI and persistence
 
-Existing `ledger/*.md` and `docs/*.md` prose rules cover authored documents and
-select zero checks. The legacy graph schema requires historical task identities;
-the isolated [implementation graph](../../../../docs/korda-orm/implementation-graph.json)
-therefore has its own registered schema and reference checks, without changing the
-legacy graph or the existing dispatcher/workflow. Preserve each repository's current PR diff semantics and Python entrypoint.
-No product build, database benchmark or evidence upload belongs in document CI.
+The existing docs/ledger prose rules select zero checks. The independent ORM graph
+uses its registered schema/reference checks; the historical graph and existing
+Python dispatcher/workflow semantics are preserved. No product build, database,
+benchmark, cross-repository checkout or raw evidence upload is added to document CI.
+Future product CI adaptations are fully specified in ORM-CI/ORM-PACKAGE but are not
+implemented by this research delivery.
 
-Commit and push formal milestones as they become reviewable. Keep only decisions,
-source references, concise results, reproduction methods and next work in Git.
-All upstream checkouts, experiments, logs, scripts, samples and intermediate agent
-material stay outside the document worktrees and are never uploaded elsewhere.
-
-## Authorized continuation: mature execution reuse and implementation-ready packets
-
-The 2026-11-28 continuation keeps PRs Design #23 / Plan #39 and the existing task
-branches. The earlier default of independent Korda binder/projector execution is
-reopened; it is a comparison/fallback candidate, not a settled architecture. Keep
-valid jOOQ language work and earlier bounded results without rerunning them merely
-to reproduce evidence. Product implementation and merge remain unauthorized.
-
-| Parallel owner | Investigation and formal output | Initial state |
-| --- | --- | --- |
-| Mature .NET execution | Original Dapper.AOT dynamic bags; public runtime CommandFactory/RowFactory; complete native paths and minimum source adaptations | Native scalar/advanced/nested slices passed on four profiles; exact packet authoring active |
-| Generator integration | Direct factory generation, natural Fluent terminals, same-compilation visibility, staged generation alternatives and precise generated-code contracts | Direct runtime generation and stable staged generation passed natively; detailed schema/packet authoring active |
-| Java/jOOQ execution | Binding/mapping/cursor source semantics, GraalVM/JDBC shared-library path, ownership/GC/deployment costs and hybrid alternatives | Native C#→Graal/JDBC→DTO passed; source inheritance and dialect/nested packet authoring active |
-| Coordinator | Shared fixtures, other mature candidates, independent server matrix, controlled execution comparisons, exact contracts, packet completeness and reviews | Active |
-
-Each promising route must cross the complete typed DSL → SQL/typed parameters →
-mature execution → real database → known C# result boundary in a native consumer.
-Report library/compiler/driver/license/environment limitations separately. A public
-API or generator limitation does not by itself establish technical impossibility.
-Prefer reuse, then extension, then source translation; new execution mechanisms
-require a specific remaining gap and an explicit reason.
-
-The implementation plan must become an execution specification: fixed public and
-internal signatures, file/module boundaries, upstream symbol mappings, ordered
-algorithms, state/ownership transitions, exact diagnostics, positive and negative
-fixtures with expected values, local commands, integration seams and stop gates.
-Shared design decisions belong in Design and are pinned from each packet; packet
-implementers must not choose the architecture or invent missing protocols. Compile
-representative specification surfaces in disposable experiments before describing
-them as compile-checked. Do not label unchecked pseudocode as working product code.
-
-Continuation milestones: (1) record this reopening; (2) verify substantive mature
-reuse routes and native end-to-end behavior; (3) compare representative costs and
-maintenance responsibilities; (4) select and specify the implementation in detail;
-(5) cross-review actual sources, evidence and packets; (6) pin final Design from
-Plan, pass normal local/PR document checks, update the same handoff and stop for
-review. Stop the research only when a supported route merits implementation, or
-when remaining reasonable routes have substantiated blockers and recovery conditions.
+Commit and push reviewable formal milestones in the two allowed repositories.
+Keep decisions, source references, concise results, reproduction methods and next
+work in Git. Upstream checkouts, generated code, disposable prototypes, binaries,
+logs, benchmark outputs, temporary scripts and agent notes remain only in scratch
+and are never uploaded to Git, another application or a file library.
