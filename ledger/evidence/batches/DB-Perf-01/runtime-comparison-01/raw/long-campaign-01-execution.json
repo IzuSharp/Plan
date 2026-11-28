@@ -1,0 +1,216 @@
+{
+  "schema": "DB-Runtime-Compare-01.archive-execution.v1",
+  "recordedUtc": "2026-11-28T12:44:32.070998+00:00",
+  "evidenceScope": "Actual offline archive execution, complete member readback recorded by the archive tool, and separate sha256sum full-list validation. Benchmark outcomes are not changed.",
+  "cpuAffinity": [
+    8
+  ],
+  "sourceCampaign": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01",
+  "output": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01",
+  "archiveTool": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/archive_completed.py",
+    "sha256": "e0bd5b09cb563ca35e0ffc87fb4ba8eee888a6fc1b918fcd35bf33d058c431f6"
+  },
+  "archiveRun": {
+    "command": [
+      "taskset",
+      "-c",
+      "8",
+      "python3",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/archive_completed.py",
+      "--campaign",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01",
+      "--output",
+      "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01",
+      "--cpu",
+      "8"
+    ],
+    "executorSessionId": 67990,
+    "exitCode": 0,
+    "archiveVerificationStatus": "verified",
+    "archiveCount": 9,
+    "originalFileCount": 103
+  },
+  "separateChecksumCheck": {
+    "command": [
+      "taskset",
+      "-c",
+      "8",
+      "sha256sum",
+      "--check",
+      "--strict",
+      "SHA256SUMS"
+    ],
+    "workingDirectory": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01",
+    "exitCode": 0,
+    "allEntriesPassed": true,
+    "entries": [
+      "01-dapper-sqlite.tar.gz",
+      "02-dapper-postgresql.tar.gz",
+      "03-ef-workstation-sqlite.tar.gz",
+      "04-ef-workstation-postgresql.tar.gz",
+      "05-ef-satori-sqlite.tar.gz",
+      "06-ef-satori-postgresql.tar.gz",
+      "07-java-native-sqlite.tar.gz",
+      "08-java-native-postgresql.tar.gz",
+      "campaign-metadata.tar.gz",
+      "manifest.json",
+      "verification.json"
+    ]
+  },
+  "verification": {
+    "verifiedMemberCount": 103,
+    "allMemberSizesAndSha256Matched": true,
+    "manifestAndReadbackMembershipAgree": true,
+    "incompleteMarkerPresent": false,
+    "failureMarkerPresent": false,
+    "originalFailed02Preserved": true
+  },
+  "recordedOutcomeCounts": {
+    "failed": 1,
+    "passed": 7
+  },
+  "recordedCellOutcomes": [
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T09:05:40.684381+00:00",
+      "name": "01-dapper-sqlite",
+      "recordedResultSha256": "75f131e488ebcdc0ef2f88f947f3d1d29095d1ff32c39574a74c21fc7e2dc76b",
+      "status": "passed",
+      "statusFileSha256": "e6af6e9c88c39687ef738b15ba5a49b9ec0cd22f39ce8519fa266c1e77e4293f"
+    },
+    {
+      "failures": [
+        "released_idle"
+      ],
+      "finishedUtc": "2026-11-28T09:35:58.231164+00:00",
+      "name": "02-dapper-postgresql",
+      "recordedResultSha256": "61f45dae1a6a687298e87e81bdae689fa26a9aae88cd25a60d62e8368de6a50c",
+      "status": "failed",
+      "statusFileSha256": "9576fc157dbcc8acae8b4515f78ec1f5fe901be8e7379f9d7203d73da32e82c4"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T10:08:03.655769+00:00",
+      "name": "03-ef-workstation-sqlite",
+      "recordedResultSha256": "a21fae8b5b49d7025c0085240d69efb6be51164da55d7d7eca0c3595211aa13c",
+      "status": "passed",
+      "statusFileSha256": "9693e15570bc470b59b2cb64f1430030b2b617d92d3143a7a940172813c8900e"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T10:38:51.285757+00:00",
+      "name": "04-ef-workstation-postgresql",
+      "recordedResultSha256": "4f373c1af918aff36dc1f50a8e60ef0e6b3856044cbd1fe549d4c680d330fa96",
+      "status": "passed",
+      "statusFileSha256": "ad00958cd12fbd9fed44017fa2bc12386bb8bed3b95619ba858f8430268c733d"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T11:09:31.062098+00:00",
+      "name": "05-ef-satori-sqlite",
+      "recordedResultSha256": "715caf1b7c1a3f6a708e1f081304b1b0cc1eef4d3dfd49194ff0a2d95e8eff87",
+      "status": "passed",
+      "statusFileSha256": "18867bc47f4e4763f00d4a0faaa7393161dd2d982c5dc99031458229dce32cdf"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T11:40:20.584802+00:00",
+      "name": "06-ef-satori-postgresql",
+      "recordedResultSha256": "74cf08344675fca5d3dd3a3d11e35b85fca8bf25abc9b6d45e188b088d40063e",
+      "status": "passed",
+      "statusFileSha256": "ac36428c5fa3f60d5b7a9405fd62dfa178b8ad2a37d853f24d86f413c3c97dc9"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T12:11:14.587318+00:00",
+      "name": "07-java-native-sqlite",
+      "recordedResultSha256": "3fb83080165dce58d61600ae6ed917535d54cb65b8b9be5862ed317b26cdda84",
+      "status": "passed",
+      "statusFileSha256": "1f19f02504125f7d53e55dce326565aa34f091c99af75ea86da39cc4012368f7"
+    },
+    {
+      "failures": [],
+      "finishedUtc": "2026-11-28T12:42:27.341481+00:00",
+      "name": "08-java-native-postgresql",
+      "recordedResultSha256": "c04a4556ca009e146ecc86efe86b888a327a620ca7fc723a59034aeac9ccb14a",
+      "status": "passed",
+      "statusFileSha256": "d54effa8051e2d01340470a0a3d4f3f1606c12c35451b659064d0b67ad5aca67"
+    }
+  ],
+  "sizes": {
+    "originalPayloadBytes": 93870632,
+    "compressedArchiveBytes": 5605260,
+    "archiveDirectoryBytes": 5662726,
+    "compressionRatio": 0.05971260532261038
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/01-dapper-sqlite.tar.gz",
+      "bytes": 537605,
+      "sha256": "9a75b9a0c94f27866c00a03141a881beb1d03a1d19a76f19ac4653bf69fb95ea"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/02-dapper-postgresql.tar.gz",
+      "bytes": 779777,
+      "sha256": "4045b4cde2469ba14ca23dc98694f1a29d390896305c64fad520db34b4726480"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/03-ef-workstation-sqlite.tar.gz",
+      "bytes": 537622,
+      "sha256": "6123cd89c20cf76694ab2380fea600d8c59929736063b52301d60a38876e2ed7"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/04-ef-workstation-postgresql.tar.gz",
+      "bytes": 768022,
+      "sha256": "881e009653d9731430ff14119457ed11cc0e0b8442cdf0873db25ead35782214"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/05-ef-satori-sqlite.tar.gz",
+      "bytes": 587255,
+      "sha256": "992b75b7a17cf0f01c32921513e676475ba6d042486e3f0fc7ca163c5da47c71"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/06-ef-satori-postgresql.tar.gz",
+      "bytes": 818360,
+      "sha256": "ed47eeeaf919701bf12620a81d118a3a687e3afbafa9fed50d272db23a386a1e"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/07-java-native-sqlite.tar.gz",
+      "bytes": 662348,
+      "sha256": "f326e35ab3be09ae47492755aa71ec4d192198cef13c98ac87daaa168de5e2d0"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/08-java-native-postgresql.tar.gz",
+      "bytes": 910479,
+      "sha256": "54a64935a0e1a0e62c4e48896ddd5143fb24534ae6bc5fda252747544062c35a"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/SHA256SUMS",
+      "bytes": 1023,
+      "sha256": "eb211e002724a7b640e04a8dd1d71ca892d1626edd64a1a017eb6235b331923d"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/campaign-metadata.tar.gz",
+      "bytes": 3792,
+      "sha256": "5d08d9aae6b773b4be45cea3978ced22ff7d348aafa9b7485aa19a02408f358f"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/manifest.json",
+      "bytes": 29315,
+      "sha256": "563d4cd331d6c6e8255b5c5a615a6fd44e74c092f94f377d9300dc8f6189f0c1"
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/raw/long-campaign-01/verification.json",
+      "bytes": 27128,
+      "sha256": "512a7baadf067527b6758e708968ba7ff366588e7b62d83abf99ef31c4ad5847"
+    }
+  ],
+  "scopeControls": {
+    "clientExecuted": false,
+    "databaseAccessed": false,
+    "buildExecuted": false,
+    "stressTestExecuted": false,
+    "originalRecordsModified": false
+  }
+}

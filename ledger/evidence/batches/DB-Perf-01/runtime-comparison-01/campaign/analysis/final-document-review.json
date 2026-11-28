@@ -1,0 +1,157 @@
+{
+  "schema": "DB-Runtime-Compare-01.final-document-review.v1",
+  "recordedUtc": "2026-11-28T12:58:43.676094+00:00",
+  "reviewer": "/root/java_research",
+  "scope": "Independent local read-only document/evidence consistency and arithmetic review; no client, DB, build, benchmark, calibration or analyzer execution.",
+  "cpuAffinity": [
+    8
+  ],
+  "reviewPassed": true,
+  "openFindings": [],
+  "reviewedFiles": [
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/final-report.md",
+      "sha256": "34313d4d1a7ec27e5138481b735d2df45b4d9224ebf5ce4a11006bfee6127b6a",
+      "bytes": 16918
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/final-state.json",
+      "sha256": "0465ee95479c48b91de7f6872ef11c8ddd217d759502a2a1737a675ffd9156a6",
+      "bytes": 3927
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/handoff.md",
+      "sha256": "fa1945a481df2aa1f1e5dff36aa0da5e29dd7e9964ac94aa14e16b3cab276f96",
+      "bytes": 2443
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/README.md",
+      "sha256": "e7c4434fe27013600780fd565964f898b27ffa61fbb5af1488c07cefe2c4ff34",
+      "bytes": 12598
+    },
+    {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/validation/README.md",
+      "sha256": "c60d28c49dec658ee4fa686d3b76b1da208066b0c47119e113bfb85fc5c5a0ff",
+      "bytes": 4044
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "pathRelativeToEvidence": "campaign/analysis/offline-01/summary.json",
+      "sha256": "68ae224f3768f44d880007413f3844f8bd41078a376226c81f1754ac1b4d7d2e"
+    },
+    {
+      "pathRelativeToEvidence": "campaign/matrix-01.json",
+      "sha256": "450d0e8762db63dd5dada402c1c1b59797f3cb4207ef655375b6b63ba7e715ae"
+    },
+    {
+      "pathRelativeToEvidence": "campaign/analysis/final-independent-review.json",
+      "sha256": "4ffb064c14bd90a3d5b9b27b0de3cd044495a142cdb8cc9ea0a0f2176562ed33"
+    },
+    {
+      "pathRelativeToEvidence": "raw/long-campaign-01/manifest.json",
+      "sha256": "563d4cd331d6c6e8255b5c5a615a6fd44e74c092f94f377d9300dc8f6189f0c1"
+    },
+    {
+      "pathRelativeToEvidence": "raw/long-campaign-01/verification.json",
+      "sha256": "512a7baadf067527b6758e708968ba7ff366588e7b62d83abf99ef31c4ad5847"
+    },
+    {
+      "pathRelativeToEvidence": "raw/long-campaign-01-execution.json",
+      "sha256": "de60732e2724389236b481a50c55826e2e1ae283c8979a36654e8a3cc0d75c61"
+    },
+    {
+      "pathRelativeToEvidence": "clients/java/verification/native-campaign-final/build-identity.json",
+      "sha256": "ae0f2adc1808f7f047b3fc56e84738f69a177abe0da0288d23b3997022d0f5d9"
+    },
+    {
+      "pathRelativeToEvidence": "validation/final-korda-impact-receipt.json",
+      "sha256": "7b91d62f79fb5b828695571a9aca341b027caf51e09b69fa55d7f93272666ba2"
+    },
+    {
+      "pathRelativeToEvidence": "validation/final-korda-impact.json",
+      "sha256": "9b47bc16ca666ffeb5afa72b8feadd051923112f52e47d98c761befe978f1766"
+    },
+    {
+      "pathRelativeToEvidence": "validation/plan-static-01/receipt.json",
+      "sha256": "b04d50b0b6b6258ce7ad77e31bb8630e89a9aa15da84d8afdcff879293488cc9"
+    },
+    {
+      "pathRelativeToEvidence": "validation/plan-historical-perf-01/receipt.json",
+      "sha256": "4d9a2565c45c5ccedcc0c57b1776fce2074a8edd236802fb0fa6637bd607b0f5"
+    },
+    {
+      "pathRelativeToEvidence": "ci/frozen-dc048-01/receipt.json",
+      "sha256": "cd8b28494212af8ce4fe171a28a9f342cbbcaefa03f42ec647af92c59f1e7ffe"
+    }
+  ],
+  "checks": [
+    {
+      "id": "numeric-tables-and-identities",
+      "passed": true,
+      "detail": "36 report rows (cost, memory, latency, GC and PG lifetime CPU) match independently recomputed formatting from offline-01. Aggregate counts and all eight result hashes/statuses match final-state and archive. Matrix and summary hashes match."
+    },
+    {
+      "id": "strict-versus-business-acceptance",
+      "passed": true,
+      "detail": "Eight actual producer windows are each at least 1800 seconds. Seven strict passes remain separate from the exact-SHA 02 failed/released_idle record and its reviewed business-only acceptance. All business/oracle errors are zero."
+    },
+    {
+      "id": "memory-and-gc",
+      "passed": true,
+      "detail": "192 MiB is requested C# GC configuration, with no cgroup or whole-process hard-cap claim. Workstation and Satori available-memory differences, actual runtime builds, IsServerGC identities and 19 runtime-async methods per EF image are disclosed. No GC-only causality or Satori enforcement is claimed."
+    },
+    {
+      "id": "missing-metrics-and-java-scope",
+      "passed": true,
+      "detail": "Whole-PG steady CPU/RSS/PSS remain unavailable; wait4 lifetime and observed subset stay separate. Java allocation remains null, collection time is not validated STW time, and Runtime heap-capacity API values are not physical RSS or OS commitment."
+    },
+    {
+      "id": "fluent-sql-and-harness",
+      "passed": true,
+      "detail": "EF documents 32 Fluent/transaction cases plus two window SQL exceptions and original raw-sql. Java jOOQ LEFT JOIN/bounded IN, graph reuse and per-operation related/transaction construction match client source/README; physical statement reuse is not claimed identical. Whole-client CPU includes harness without assumed subtraction."
+    },
+    {
+      "id": "versions-and-reproducibility",
+      "passed": true,
+      "detail": "Java formal receipt ELF matches final build identity; Java 25.0.5.1 and GraalVM CE 25.6.5.1+2.1 identities match. Recorded .NET/EF/Satori versions, common SQLite 3.51.3 and PG18.0 conditions are consistent with frozen identities and preparation evidence. Source/compiler differences from historical native binaries are disclosed."
+    },
+    {
+      "id": "archive-and-validation",
+      "passed": true,
+      "detail": "103 source records, nine archives and reported sizes match actual archive execution/readback. Current-branch historical gate failure, immutable-input pass and cancelled CI remain distinct. Latest zero-package product-impact receipt is included and matches unchanged product/design scope."
+    },
+    {
+      "id": "claims-and-stopping-scope",
+      "passed": true,
+      "detail": "Single long-run descriptive comparison does not claim zero-refusal cost, saturation knee, significance, alignment or framework-only allocation. Korda optimization remains stopped, temporary PR stays draft/open, and completed cells are not queued for rerun."
+    },
+    {
+      "id": "local-links",
+      "passed": true,
+      "detail": "51 local Markdown links resolve."
+    }
+  ],
+  "resolvedClarifications": [
+    {
+      "id": "allocation-denominator-wording",
+      "status": "resolved-by-owner",
+      "document": "final-report.md",
+      "detail": "3.08x/3.40x now explicitly compares whole-process allocated B per successful operation, not total allocated bytes."
+    }
+  ],
+  "limits": [
+    "Remote PR/head/Actions state was not freshly queried by this reviewer. Documents defer actual final publication head and CI status to the recording PR.",
+    "No binary was rebuilt or rerun and no new performance measurements were collected. Existing raw-data independent review and archive readback retain their separate evidentiary scope."
+  ],
+  "controls": {
+    "reviewedDocumentsModifiedByReviewer": false,
+    "frozenInputsModified": false,
+    "rawInputsModified": false,
+    "clientExecuted": false,
+    "databaseAccessed": false,
+    "buildExecuted": false,
+    "stressTestExecuted": false,
+    "analyzerExecuted": false
+  }
+}

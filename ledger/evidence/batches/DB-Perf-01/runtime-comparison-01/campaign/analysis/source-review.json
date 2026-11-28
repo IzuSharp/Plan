@@ -1,0 +1,33 @@
+{
+  "schema": "DB-Runtime-Compare-01.analysis-source-review.v1",
+  "recordedUtc": "2026-11-28T08:50:16.961219+00:00",
+  "recordedBy": "baseline_recovery",
+  "independentReviewer": "satori_research",
+  "analysisScriptSha256": "2129d33dcde790d786fe7363a926670ee6921ec086a37afb34679b3dcd6036d8",
+  "scope": "Lightweight read-only source review and ast.parse syntax parsing only. No formal result/JSONL analysis, client, database, build or plotting executed. All exec commands used taskset -c 8.",
+  "findingsClosed": [
+    {
+      "id": "A1",
+      "finding": "CSharp receipt Provider contains driver names, unlike normalized matrix and Java names.",
+      "resolution": "Map CSharp SQLite to Microsoft.Data.Sqlite.Core and PostgreSQL to Npgsql; preserve original receipt Provider in identity."
+    },
+    {
+      "id": "A2",
+      "finding": "Prior Satori enforcement probe tested 128 MiB, not the newly requested 192 MiB boundary.",
+      "resolution": "Explicitly distinguish the 128 MiB over-budget probe from this unproven 192 MiB requested configuration; preserve each run observed available-memory value."
+    }
+  ],
+  "sourceSemanticsReviewed": [
+    "CSharp Snapshot DrainedTicks can be later than consumer SteadyEnd; do not require equality.",
+    "Java unsupported negative collector values and null aggregate remain unavailable, not zero.",
+    "Postgres sampled CPU uses one last-minus-first raw endpoint difference of own plus already-reaped ticks; negative endpoint delta unavailable, negative adjacent observations retained.",
+    "No per-PID maximum accumulation, positive-only delta accumulation, or adding wait4 lifetime totals.",
+    "Global job index modulo 35 gives exact planned case counts; full attempted/admitted/drain reconciliation permits derived per-case rejection.",
+    "Single-run descriptive comparison, no significance or GC-only causal claim; requested budget is not process cap; released idle RSS not a leakage conclusion."
+  ],
+  "sourceSyntaxParsed": true,
+  "analysisExecuted": false,
+  "formalResultsRead": false,
+  "runtimeValidationOfAnalyzerCompleted": false,
+  "status": "Source preparation complete; await root authorization after all eight terminal cells before offline execution."
+}

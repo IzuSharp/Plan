@@ -1,0 +1,25 @@
+{
+  "schema": "DB-Runtime-Compare-01.analysis-source-change.v1",
+  "recordedUtc": "2026-11-28T09:17:40.866269+00:00",
+  "previousAnalysisScriptSha256": "555a495e104ab5bd94ec6a35ff85d3aa5703bb8404d37c1c2c720ed36a836a44",
+  "analysisScriptSha256": "294abee4eff1ce4e28399c513e71beef4075e6d41658053d69648d02c74781e4",
+  "independentReviewer": "satori_research",
+  "reviewScope": "Static source only on CPU8; no further formal result/resource/proc reads.",
+  "closedFindings": [
+    {
+      "id": "PG-Coverage-1",
+      "finding": "Server-only missing/duplicate root identity went through general errors, potentially invalidating client results.",
+      "resolution": "Separate serverObservationErrors, exclude unusable server endpoints, mark coverage incomplete and emit warning; client counter/CPU validation is unaffected."
+    },
+    {
+      "id": "PG-Coverage-2",
+      "finding": "SQLite output incorrectly inherited expected PostgreSQL backend-count metadata.",
+      "resolution": "Provider-aware applicable=false/status=not-applicable and null expected backend counts for SQLite."
+    }
+  ],
+  "unchangedPolicy": "Whole-server steady CPU/RSS/PSS remain null. Only explicitly partial observed-subset data and separate OS lifetime wait4 are exposed.",
+  "syntaxParsed": true,
+  "analysisExecuted": false,
+  "databaseRequestsExecuted": false,
+  "frozenInputsChanged": false
+}

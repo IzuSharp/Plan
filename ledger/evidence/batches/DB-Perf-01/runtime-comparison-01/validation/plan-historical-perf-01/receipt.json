@@ -1,0 +1,47 @@
+{
+  "sourceCommit": "38f8ce8a01f88e6e4c4459926f197c5438c2f6fc",
+  "workflow": ".github/workflows/native-slices-final-check.yml",
+  "scope": "Exact existing CI immutable historical performance-record input and unchanged static gate; no performance execution",
+  "performanceExecuted": false,
+  "commands": [
+    {
+      "name": "checkout",
+      "argv": [
+        "git",
+        "worktree",
+        "add",
+        "--detach",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/static-history/perf/Plan",
+        "38f8ce8a01f88e6e4c4459926f197c5438c2f6fc"
+      ],
+      "cwd": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan",
+      "startedUtc": "2026-11-28T12:44:59.107815+00:00",
+      "elapsedSeconds": 12.388565856999776,
+      "exitCode": 0
+    },
+    {
+      "name": "gate",
+      "argv": [
+        "python3",
+        "tools/verify_db_perf.py"
+      ],
+      "cwd": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/static-history/perf/Plan",
+      "startedUtc": "2026-11-28T12:45:11.496438+00:00",
+      "elapsedSeconds": 6.235615566998604,
+      "exitCode": 0
+    },
+    {
+      "name": "cleanup",
+      "exitCode": 0
+    }
+  ],
+  "exitCode": 0,
+  "files": {
+    "checkout.stdout.log": "89b0f4955637090165c085696d2a1f5354a4bbcee58f577488628d8adb062382",
+    "cleanup.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gate.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gate.stdout.log": "5205619495a637086cdf93d802c88750590dbe30eaebac1a3d18165965de8b42",
+    "checkout.stderr.log": "9e5ea2f46b850b2959dc19549909437bd1ab8702dceb505fef916fa6b4d8d0a9"
+  }
+}

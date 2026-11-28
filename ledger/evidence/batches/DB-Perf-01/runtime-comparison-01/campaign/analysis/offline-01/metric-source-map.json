@@ -1,0 +1,183 @@
+{
+  "schema": "DB-Runtime-Compare-01.metric-source-map.v1",
+  "scope": "Descriptive source-field map for the completed frozen consumers and offline analysis; not a claim of a complete validating JSON Schema.",
+  "rawResultSchemaVersion": 1,
+  "derivedSummarySchema": "DB-Runtime-Compare-01.offline-analysis.v1",
+  "rawReceiptFamilies": {
+    "CSharpDapper": {
+      "resultIdentity": [
+        "Route",
+        "Provider",
+        "NativeAot",
+        "PackageVersion",
+        "DatabaseVersion",
+        "ExecutableSha256"
+      ],
+      "runtimeIdentityRecorded": false,
+      "gcFields": [
+        "Gen0",
+        "Gen1",
+        "Gen2"
+      ],
+      "pauseDurationRecorded": false
+    },
+    "CSharpEFCore": {
+      "extends": "CSharpDapper",
+      "runtimeIdentity": "RuntimeIdentity",
+      "gcPauseFields": [
+        "GcPauseTicksBefore",
+        "GcPauseTicksAfter",
+        "GcPauseTicks",
+        "GcPauseScope"
+      ],
+      "runtimeDetails": [
+        "FrameworkDescription",
+        "EnvironmentVersion",
+        "IsServerGc",
+        "SatoriGc",
+        "RuntimeImages",
+        "ManagedAssemblySha256",
+        "GcConfiguration",
+        "GcTotalAvailableMemoryBytesAtStartup",
+        "ObservedConfiguredGcHeapHardLimitBytes",
+        "ClientMemoryBudgetEnforced",
+        "GcHeapBudgetEnforcementProven",
+        "EvaluatedCompilerFeatures",
+        "RuntimeAsyncMethodCount"
+      ]
+    },
+    "JavaNative": {
+      "resultIdentity": [
+        "Route",
+        "Provider",
+        "NativeAot",
+        "PackageVersion",
+        "JavaVersion",
+        "VmVersion",
+        "Database",
+        "ExecutableSha256",
+        "ContractSha256"
+      ],
+      "formalAdmission": "FormalAdmission",
+      "gcFields": [
+        "GcBefore",
+        "GcAfter"
+      ],
+      "heapFields": "ProcessAfter.JavaHeapUsedBytes/JavaHeapCommittedBytes/JavaHeapMaximumBytes",
+      "allocationUnavailableInBothActualRuns": true
+    }
+  },
+  "sources": [
+    {
+      "metric": "primary success throughput",
+      "raw": "OfferedLoad.Succeeded / EffectiveSeconds",
+      "scope": "Includes accepted work drain; separate normalization to requested 1800 seconds and first-1800-second completion counters is retained."
+    },
+    {
+      "metric": "rejection and correctness",
+      "raw": "OfferedLoad.Planned/Attempted/Sent/Started/Completed/Succeeded/Failed/Rejected/Rows; OracleFailures; Cases; ApplicationConnectionsReturnedToZero",
+      "scope": "Attempted=Sent+Rejected; Sent=Started=Completed; Succeeded+Failed=Completed; failures and oracles separately checked."
+    },
+    {
+      "metric": "service and scheduled percentiles",
+      "raw": "OfferedLoad.SuccessServiceHistogram/SuccessScheduledHistogram/AllCompletedScheduledHistogram/StartDelayHistogram",
+      "scope": "8192 base-2 nanosecond bins, 128 subdivisions per exponent; reported microsecond bin upper bounds. Rejected work has no success latency."
+    },
+    {
+      "metric": "whole-client steady CPU per success",
+      "raw": "(ProcessAfter.UserCpuSeconds-ProcessBefore.UserCpuSeconds + ProcessAfter.SystemCpuSeconds-ProcessBefore.SystemCpuSeconds) / OfferedLoad.Succeeded",
+      "scope": "Whole-process execution CPU includes workload scheduler, harness, driver, DTO and runtime/GC; blocked wall wait is not CPU. Not framework-only attribution."
+    },
+    {
+      "metric": "whole-process allocated bytes",
+      "raw": "AllocatedBytes; AllocatedBefore/AllocatedAfter",
+      "scope": "C# process counter delta; Java ThreadMXBean unavailable gives null in both runs. Native allocation unavailable. No framework/driver/DTO subtraction."
+    },
+    {
+      "metric": "consumer reported peak RSS",
+      "raw": "ProcessAfter.PeakRssBytes",
+      "scope": "High-water value visible to this snapshot after business measurement; may include earlier warmup, not post-exit lifetime."
+    },
+    {
+      "metric": "OS lifecycle CPU and maxRSS",
+      "raw": "<cell>.command.json.processLifetimeUserCpuSeconds/processLifetimeSystemCpuSeconds/processLifetimeMaxRssBytes",
+      "scope": "OS wait4 lifecycle values include startup, warmup, release, idle and exit. Do not add to primary client CPU."
+    },
+    {
+      "metric": "observer client RSS/PSS peaks",
+      "raw": "<cell>.resources.jsonl client record; monotonicNs/acquiredThroughMonotonicNs; matching client PID/startTicks",
+      "scope": "Maximum discrete sample fully inside result SteadyStartMonotonicNs..SteadyEndMonotonicNs. Do not merge with other peak sources or impose ordering."
+    },
+    {
+      "metric": "released idle RSS",
+      "raw": "Idle.After.RssBytes and Idle.ObservedSeconds",
+      "scope": "Actual observed duration, no forced GC; cannot prove leak/no leak. 02 actual 14.997119729 seconds is kept."
+    },
+    {
+      "metric": "dotnet GC counts and time",
+      "raw": "Gen0/Gen1/Gen2; EF-only GcPauseTicks",
+      "scope": "Separate process generation counts, not summed; EF ticks are TimeSpan 100 ns. Stock and Satori API accounting are not assumed equivalent; Dapper pause missing=null."
+    },
+    {
+      "metric": "Java GC counts and collection time",
+      "raw": "GcAfter minus GcBefore; per-collector Count/CollectionMilliseconds",
+      "scope": "Process MXBean counters, not a measured pause histogram. Unsupported counters remain null."
+    },
+    {
+      "metric": "Java heap API values",
+      "raw": "ProcessAfter.JavaHeapUsedBytes=(Runtime.totalMemory-freeMemory); JavaHeapCommittedBytes=Runtime.totalMemory; JavaHeapMaximumBytes=Runtime.maxMemory",
+      "scope": "Historical committed field name retained; Runtime API values are not physical RSS or proof of OS committed pages."
+    },
+    {
+      "metric": "PostgreSQL server costs",
+      "raw": "resources server records; postgres-owner.json wait4; postgres-stats-before/after.json",
+      "scope": "All four observed only postmaster, so whole-server steady CPU/RSS/PSS are null. Observed subset endpoint own+reaped deltas and lifecycle wait4 are separate; wider pg_stat_database window is not pure steady execution cost."
+    },
+    {
+      "metric": "per-case population",
+      "raw": "Cases[].Name/Started/Succeeded/Failed/Rows; global job index modulo 35",
+      "scope": "Planned count derived from immutable schedule; rejected=planned-started only after full-drain accounting. Planned vs successful shares retained; no CPU attribution from aggregate alone."
+    },
+    {
+      "metric": "original strict state and precise exception",
+      "raw": "cell-status.json and analysis/02-idle-deviation-review.json",
+      "scope": "Only exact-name/result/status/review SHA-bound 02 classification accepts business window; strict failed and strict idle false persist."
+    }
+  ],
+  "rawResultPaths": {
+    "01-dapper-sqlite": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/01-dapper-sqlite/result.json",
+      "sha256": "75f131e488ebcdc0ef2f88f947f3d1d29095d1ff32c39574a74c21fc7e2dc76b"
+    },
+    "02-dapper-postgresql": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/result.json",
+      "sha256": "61f45dae1a6a687298e87e81bdae689fa26a9aae88cd25a60d62e8368de6a50c"
+    },
+    "03-ef-workstation-sqlite": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/03-ef-workstation-sqlite/result.json",
+      "sha256": "a21fae8b5b49d7025c0085240d69efb6be51164da55d7d7eca0c3595211aa13c"
+    },
+    "04-ef-workstation-postgresql": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/04-ef-workstation-postgresql/result.json",
+      "sha256": "4f373c1af918aff36dc1f50a8e60ef0e6b3856044cbd1fe549d4c680d330fa96"
+    },
+    "05-ef-satori-sqlite": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/05-ef-satori-sqlite/result.json",
+      "sha256": "715caf1b7c1a3f6a708e1f081304b1b0cc1eef4d3dfd49194ff0a2d95e8eff87"
+    },
+    "06-ef-satori-postgresql": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/06-ef-satori-postgresql/result.json",
+      "sha256": "74cf08344675fca5d3dd3a3d11e35b85fca8bf25abc9b6d45e188b088d40063e"
+    },
+    "07-java-native-sqlite": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/07-java-native-sqlite/result.json",
+      "sha256": "3fb83080165dce58d61600ae6ed917535d54cb65b8b9be5862ed317b26cdda84"
+    },
+    "08-java-native-postgresql": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/08-java-native-postgresql/result.json",
+      "sha256": "c04a4556ca009e146ecc86efe86b888a327a620ca7fc723a59034aeac9ccb14a"
+    }
+  },
+  "summarySha256": "68ae224f3768f44d880007413f3844f8bd41078a376226c81f1754ac1b4d7d2e",
+  "analysisScriptSha256": "27fb73e8c33d8a4b027e8aa7acdea198650c1cde3423a9c28058ce8297bba595"
+}

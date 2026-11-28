@@ -1,5 +1,26 @@
 # DB-Runtime-Compare-01 — temporary local comparison record
 
+## Completed results — 2026-11-28
+
+**8/8 complete 1,800-second business intervals finished, serially on local Linux x64.**
+Seven original strict passes and one exact-hash reviewed released-idle deviation
+remain separate. All eight business windows are valid for descriptive comparison;
+all business/oracle errors are zero, data is restored, and connections returned.
+
+The accepted C# policy is **192 MiB requested GC configuration, no cgroup**.
+Actual memory is reported, including Satori OS wait4 maxRSS of 194.609375 MiB
+(SQLite) and 219.34765625 MiB (PostgreSQL). No enforced process cap is claimed.
+
+- [Final report](final-report.md): findings, absolute metrics, actual runtimes, SQL choices and limits.
+- [Full derived analysis](campaign/analysis/offline-01/report.md) and [summary JSON](campaign/analysis/offline-01/summary.json).
+- [Independent final review](campaign/analysis/final-independent-review.md).
+- [Raw archive manifest](raw/long-campaign-01/manifest.json) and [readback verification](raw/long-campaign-01/verification.json): 103 files, nine archives, every member verified.
+- [Final state](final-state.json) and [handoff](handoff.md): no active long run; do not repeat completed cells.
+
+The temporary [Plan #37](https://github.com/IzuSharp/Plan/pull/37) remains a draft
+record. Its body records the published head and actual CI status. Product and CI
+workflows are unchanged; no Korda optimization, merge or release is selected.
+
 ## Current owner scope
 
 **Latest memory instruction:** the owner accepted 192 MiB and explicitly removed
@@ -19,8 +40,8 @@ Keep this new PR as a draft record; no product merge or package release is selec
 
 The owner clarified that the original 128 MB budget belonged to the **C# client**.
 PostgreSQL's external server is outside that client budget. SQLite's native
-memory is in the client process and therefore included in a process-group
-boundary. Preserve the existing database configuration; do not describe
+memory is in the client process and is included in its actual RSS; no cgroup
+boundary is applied. Preserve the existing database configuration; do not describe
 PostgreSQL's `shared_buffers` as a client limit.
 An actual enforced memory limit must be distinguished from GC heap configuration,
 sampled RSS and total process memory. The latest owner instruction permits the
@@ -126,10 +147,11 @@ The Fluent consumer uses jOOQ 3.21.10, pgJDBC 42.7.15 and sqlite-jdbc 3.51.3.0.
 Its JNI wrapper must use the same SQLite 3.51.3 library as the C# consumers.
 Version lookup is not a successful build or a successful workload execution.
 
-## Current preparation state and recovery
+## Historical prelaunch preparation checkpoint
 
-Long measurements completed: **0/8**. No formal measurement is running at this
-checkpoint. Source worktrees were created from the three current main snapshots.
+The following is the preserved preparation snapshot, superseded by the completed
+results above. At that earlier checkpoint, long measurements completed: **0/8**
+and no formal measurement was running. Source worktrees were created from the three current main snapshots.
 The .NET SDK, both actual Dapper.AOT consumers, SQLite 3.51.3 and PostgreSQL 18.0
 were built. Both database fixtures passed row/schema/index validation, and their
 normalized order digests match. Dapper passed all 35 cases on each provider with

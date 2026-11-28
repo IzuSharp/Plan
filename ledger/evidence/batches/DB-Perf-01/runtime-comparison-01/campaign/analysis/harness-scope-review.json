@@ -1,0 +1,435 @@
+{
+  "schema": "DB-Runtime-Compare-01.harness-scope-static-review.v1",
+  "recordedUtc": "2026-11-28T11:20:40.632269+00:00",
+  "scope": "Read-only source comparison; this artifact is not a frozen runtime input and is not a performance attribution result",
+  "reviewCpuAffinity": [
+    8
+  ],
+  "controls": {
+    "clientsExecuted": false,
+    "emptyDriverExecuted": false,
+    "calibrationExecuted": false,
+    "buildsExecuted": false,
+    "databaseRequestsIssued": false,
+    "formalResultsOrLargeResourcePayloadsRead": false,
+    "runtimeSourcesChanged": false
+  },
+  "sources": [
+    {
+      "id": "CS-HARNESS",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Korda/benchmarks/db-perf/managed/Shared/OfferedLoad.cs",
+      "sha256": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+      "bytes": 12757,
+      "lines": 238
+    },
+    {
+      "id": "EF-HARNESS",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/OfferedLoad.cs",
+      "sha256": "2adb14584476da8b8a49bb2e5db6bd85b136f3823aee5e2f004bc263eb2bc92b",
+      "bytes": 12757,
+      "lines": 238
+    },
+    {
+      "id": "JAVA-HARNESS",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/src/main/java/org/korda/compare/OfferedLoad.java",
+      "sha256": "b43abb84ae61d1806d5b46c6b1666609e4ee5338919c9b1f71133e4b46e33b05",
+      "bytes": 9608,
+      "lines": 133
+    },
+    {
+      "id": "DAPPER-MEASURE",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Korda/benchmarks/db-perf/managed/Dapper/Measurement.cs",
+      "sha256": "fdf8f6354f3eb33bb9a77030ee050cb846d1d3eca6bcc08512df8b0d6b837952",
+      "bytes": 21271,
+      "lines": 332
+    },
+    {
+      "id": "EF-MEASURE",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/efcore/Measurement.cs",
+      "sha256": "43e242265cff53689786cc4612c06ff4097075cf6f5349a044c664343fb1b6b5",
+      "bytes": 23349,
+      "lines": 359
+    },
+    {
+      "id": "JAVA-MAIN",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/src/main/java/org/korda/compare/Main.java",
+      "sha256": "c43c7ed7892b286862561b7fafc08a53b1ab002a341507410c2e791f518d2ec7",
+      "bytes": 11749,
+      "lines": 122
+    },
+    {
+      "id": "JAVA-STATS",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/src/main/java/org/korda/compare/ProcessStats.java",
+      "sha256": "aaa498291700c4751af8431852a74fe9d2f5027d41f2d7c38ee13a56bbabadb7",
+      "bytes": 3085,
+      "lines": 46
+    },
+    {
+      "id": "JAVA-WORKLOAD",
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/clients/java/src/main/java/org/korda/compare/Workload.java",
+      "sha256": "b5e33a50d1e5e0b0cb4c8a79035eba5c64c023ffe2d866adee64f955b2fd9e74",
+      "bytes": 20520,
+      "lines": 270
+    }
+  ],
+  "csharpOriginalAndEfHarnessByteIdentical": true,
+  "conclusion": {
+    "coreOfferedLoadContractAligned": true,
+    "producerHighLevelWaitPolicyAligned": true,
+    "consumerMechanismsIdentical": false,
+    "waitPrimitiveMachineCostEqualityProven": false,
+    "clientCpuIncludesHarness": true,
+    "harnessCpuShareMeasured": false,
+    "performanceAttributionMade": false
+  },
+  "findings": [
+    {
+      "id": "arrival-contract",
+      "classification": "source-confirmed",
+      "subject": "Absolute fixed-rate schedule and catch-up behavior",
+      "csharp": "Planned=ceil(seconds*rate); due=StartedTicks+(long)(i*(Stopwatch.Frequency/rate)); every planned index is attempted; a late producer does not skip overdue indices.",
+      "java": "planned=ceil(seconds*rate); due=began+(long)(i*(1e9/rate)); every planned index is attempted; a late producer does not skip overdue indices.",
+      "conclusion": "Same core offered-load contract. Planned arrival times are not a guarantee of exact OS-time admission; realized lateness is not isolated by this source review.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "OfferedLoad constructor",
+            "Start",
+            "Produce"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "OfferedLoad constructor",
+            "start",
+            "produce"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "producer-wait",
+      "classification": "source-confirmed",
+      "subject": "Matching high-level producer waiting policy with different runtime primitives",
+      "csharp": "WaitUntil repeatedly reads Stopwatch.GetTimestamp; returns when left<=0; requests Thread.Sleep(1) if left>Stopwatch.Frequency/500 (nominal 2ms), otherwise calls static Thread.SpinWait(32).",
+      "java": "waitUntil repeatedly reads System.nanoTime; returns when left<=0; requests Thread.sleep(1) if left>2_000_000ns, otherwise loops 32 times calling Thread.onSpinWait().",
+      "conclusion": "The same high-level threshold/sleep/short-spin strategy is present in both sources. Parameter 32 is not proof of equal instruction count, CPU time, or OS scheduling behavior across .NET AOT, JIT and GraalVM Native Image.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "WaitUntil"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "waitUntil"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yield-and-park",
+      "classification": "source-confirmed-with-runtime-details-unobserved",
+      "subject": "Explicit API calls versus hidden runtime/OS waiting",
+      "csharp": "No Thread.Yield, Task.Yield, or adaptive SpinWait.SpinOnce call appears in the producer loop. Startup uses ManualResetEventSlim; empty-queue waiting is Channel.Reader.WaitToReadAsync.",
+      "java": "No Thread.yield or LockSupport.park call appears in the producer loop. Startup uses CountDownLatch.await; consumers call Object.wait/notify/notifyAll through the synchronized queue.",
+      "conclusion": "Do not describe either producer as explicitly yielding/parking each arrival. Sleep, latches, channels and monitors may have runtime/OS wait implementations; their park/futex/yield counts and costs were not inspected or measured.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "WaitUntil",
+            "Produce",
+            "Consume",
+            "OfferedLoad constructor"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "waitUntil",
+            "Queue.take",
+            "Queue.offer",
+            "Queue.complete",
+            "OfferedLoad constructor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "queue-admission",
+      "classification": "source-confirmed",
+      "subject": "No wait for queue capacity; internal implementation differs",
+      "csharp": "Bounded Channel<Job>; SingleWriter=true, SingleReader conditional, AllowSynchronousContinuations=false, FullMode=Wait. Producer nevertheless uses TryWrite only; false increments rejection. Channel storage is grown/drained before timing.",
+      "java": "Preallocated primitive ring arrays; synchronized offer returns false if full; successful offer writes index/planned time and calls notify. No per-arrival Job allocation; one mutable Job is owned per consumer.",
+      "conclusion": "Both reject rather than await free capacity. This is not a lock-free or zero-contention claim: Java offer must enter a monitor, while .NET Channel internals were outside this source review. Both producer loops capture now immediately before TryWrite/offer, then use that captured timestamp for sent/rejected per-second buckets. These buckets do not provide an enqueue-completed timestamp.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "OfferedLoad constructor",
+            "Produce"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "Queue.offer",
+            "Queue.take",
+            "consume"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consumer-model",
+      "classification": "source-confirmed",
+      "subject": "Distinct consumer scheduling models",
+      "csharp": "Consume is an async Task; awaits WaitToReadAsync then drains TryRead; awaits a ValueTask-returning operation with ConfigureAwait(false). The harness does not create a dedicated Thread per consumer. Channel synchronous continuations are disabled.",
+      "java": "One explicit platform Thread per consumer; Queue.take waits while empty and reacquires the synchronized monitor before removing an item; scheduled(job.index) is a synchronous call on that worker.",
+      "conclusion": "Core queue/workload semantics match; consumer waiting and dispatch mechanisms are not identical. An await does not establish that a context switch or suspension occurred for every operation.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "Consume",
+            "OfferedLoad constructor"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "OfferedLoad constructor",
+            "Queue.take",
+            "consume"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "latency-boundaries",
+      "classification": "source-confirmed",
+      "subject": "Per-operation latency definitions and what they include",
+      "csharp": "began is captured immediately after TryRead succeeds; Started/per-second/start-delay metrics execute after began. ended is captured after the awaited operation returns. Measurement.Worker.ExecuteScheduled has already updated its per-case success/row/suspension counters before returning; only the outer OfferedLoad completion counters and histograms follow ended.",
+      "java": "b is captured immediately after Queue.take returns; Started/per-second/start-delay metrics execute after b. end is captured after scheduled returns. Workload.scheduled has already updated per-case success/row counters before returning; only the outer OfferedLoad completion counters and histograms follow end.",
+      "conclusion": "Start delay=begin-planned; successful service=end-begin; successful scheduled=end-planned. Start delay includes producer lateness, admission and possible lock acquisition, queued wait, wakeup and dequeue up to begin. No actual enqueue timestamp is stored, so pure queue residence cannot be separated. Service includes post-begin bookkeeping, case selection/counting, business/driver/DTO work, validation, per-case completion statistics and any wait until the operation returns. Outer OfferedLoad post-end completion counters and histogram updates are outside that operation service sample but inside the process CPU window.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "Consume"
+          ]
+        },
+        {
+          "source": "DAPPER-MEASURE",
+          "symbols": [
+            "Worker.ExecuteScheduled",
+            "Worker.Execute",
+            "Worker.Validate"
+          ]
+        },
+        {
+          "source": "EF-MEASURE",
+          "symbols": [
+            "Worker.ExecuteScheduled",
+            "Worker.Execute",
+            "Worker.Validate"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "consume"
+          ]
+        },
+        {
+          "source": "JAVA-WORKLOAD",
+          "symbols": [
+            "scheduled",
+            "executeValidated"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "histograms-and-rejections",
+      "classification": "source-confirmed",
+      "subject": "Four histograms and admission outcomes",
+      "csharp": "Success service, success planned-to-complete, all completed planned-to-complete, and planned-to-start; 8192 bins with 128 subdivisions per exponent. Per-second updates use Interlocked.Add.",
+      "java": "Same four histogram meanings and dimensions; nanosecond timestamps; per-second updates use AtomicLongArray.addAndGet.",
+      "conclusion": "Rejected jobs have no begin/end/service sample. Their admission work remains in process CPU. All-completed means successful+failed started operations, not rejected attempts. Exact clock conversion/bin arithmetic implementation is not byte-identical across languages.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "Produce",
+            "Consume",
+            "Record",
+            "Add",
+            "Snapshot"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "produce",
+            "consume",
+            "record",
+            "add",
+            "receipt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drain-and-timestamp",
+      "classification": "source-confirmed",
+      "subject": "Same full accepted-work drain, different aggregate end timestamp placement",
+      "csharp": "Producer waits through DeadlineTicks, timestamps offered-end, reads allocation/GC counters, completes the channel and resolves producerDone. Measurement awaits Task.WhenAll for consumer Tasks plus producerDone, samples endedAt, then after-counters/CPU. This completion condition is not producer Thread.Join, which is deferred to Dispose. Snapshot subsequently samples its own end used as OfferedLoad.DrainedTicks.",
+      "java": "Producer waits through deadline, timestamps offered-end and reads allocation/GC counters, then completes queue. join waits for the producer and all consumer platform Threads to exit and records drained. Main takes after-counters/CPU next; receipt uses the saved drained.",
+      "conclusion": "Both drain accepted work and enforce accounting. C# EffectiveSeconds/SteadyEnd uses endedAt before CPU-after read; its nested DrainedTicks is sampled later in Snapshot. Java EffectiveSeconds/SteadyEnd/nested DrainedTicks use the same saved join-end. These are source-level boundary differences with no magnitude assigned. Both primary end/CPU-after snapshots precede worker/session/source closure, so accepted-work full drain does not mean connection disposal is included in effective duration. Offered-end counter collection precedes queue completion and can contribute to process CPU and drain duration; matching fields do not establish matching cost.",
+      "evidence": [
+        {
+          "source": "CS-HARNESS",
+          "symbols": [
+            "constructor Completion",
+            "Produce",
+            "Snapshot",
+            "Dispose"
+          ]
+        },
+        {
+          "source": "DAPPER-MEASURE",
+          "symbols": [
+            "Measurement.Run"
+          ]
+        },
+        {
+          "source": "EF-MEASURE",
+          "symbols": [
+            "Measurement.Run"
+          ]
+        },
+        {
+          "source": "JAVA-HARNESS",
+          "symbols": [
+            "produce",
+            "join",
+            "receipt"
+          ]
+        },
+        {
+          "source": "JAVA-MAIN",
+          "symbols": [
+            "run"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpu-scope",
+      "classification": "source-confirmed",
+      "subject": "Whole-client process CPU includes pressure harness work",
+      "csharp": "ProcessReading.Read uses Process.UserProcessorTime and PrivilegedProcessorTime. Harness construction/warmup precede the before snapshot; process snapshots bracket Start/await-completion plus adjacent counter/observer work.",
+      "java": "ProcessStats.read uses process /proc/self/stat utime/stime with CLK_TCK. Harness construction/warmup precede processBefore; Start/join and adjacent counter/observer work precede processAfter.",
+      "conclusion": "Reported CPU per success is process user+system CPU delta divided by successful operations. Numerator includes arrival producer, waiting/spin bookkeeping, queue/continuation/monitor work, per-operation statistics, business/driver/DTO validation, in-process SQLite and runtime/GC work within the interval, plus adjacent before/after observer work. It is not a measured harness-free data-access CPU value. The larger C# Snapshot/per-case report aggregation and Java receipt/per-case report aggregation occur after process-after sampling and are not all included in this primary CPU window. External PostgreSQL server CPU is outside these client process counters. Process CPU accumulates execution time granted to threads; blocked wall-clock time is not itself CPU time, while wait-call and wakeup bookkeeping may consume CPU.",
+      "evidence": [
+        {
+          "source": "DAPPER-MEASURE",
+          "symbols": [
+            "ProcessReading.Read",
+            "Measurement.Run"
+          ]
+        },
+        {
+          "source": "EF-MEASURE",
+          "symbols": [
+            "ProcessReading.Read",
+            "Measurement.Run"
+          ]
+        },
+        {
+          "source": "JAVA-STATS",
+          "symbols": [
+            "initialize",
+            "read"
+          ]
+        },
+        {
+          "source": "JAVA-MAIN",
+          "symbols": [
+            "run"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "idle-boundary",
+      "classification": "source-confirmed",
+      "subject": "Released idle is outside the principal CPU/latency window",
+      "csharp": "After the primary process-after sample and workload/source drain, idle uses await Task.Delay(TimeSpan.FromSeconds(...)); idle process snapshots are separate.",
+      "java": "After the primary process-after sample and connection closure, idle uses Thread.sleep(idleSeconds*1000); idle process snapshots are separate.",
+      "conclusion": "The idle waiting API also differs. Do not include its duration in the primary effective/service latency or assume external lifetime sampling has the same boundaries as the receipt CPU delta.",
+      "evidence": [
+        {
+          "source": "DAPPER-MEASURE",
+          "symbols": [
+            "Measurement.Run idle block"
+          ]
+        },
+        {
+          "source": "EF-MEASURE",
+          "symbols": [
+            "Measurement.Run idle block"
+          ]
+        },
+        {
+          "source": "JAVA-MAIN",
+          "symbols": [
+            "run idle block"
+          ]
+        }
+      ]
+    }
+  ],
+  "parameterArithmeticOnly": {
+    "declaredCampaignRatesPerSecond": [
+      3000,
+      3600
+    ],
+    "nominalInterarrivalMicroseconds": [
+      333.3333333333333,
+      277.77777777777777
+    ],
+    "nominalLongWaitThresholdMicroseconds": 2000,
+    "interpretation": "Declared interarrival intervals are below the long-wait threshold. Short-wait/spin or already-overdue return is consistent with both producers. This is parameter arithmetic, not measured branch counts, utilization, core occupancy or CPU attribution."
+  },
+  "unknownFromThisReview": [
+    "Per-cell producer, queue, driver, DTO/validation, runtime/GC and JIT CPU seconds or percentages",
+    "Actual spin instruction sequences, calibration factors and cost of 32 in each runtime",
+    "Actual sleep durations, OS park/futex/yield counts, context switches, preemption and core migrations",
+    "How often C# awaits complete synchronously or resume on another thread",
+    "Java monitor/channel contention, wakeup latency and separate pure queue residence",
+    "Observed frequency of overdue arrivals or catch-up bursts",
+    "Contribution of any source difference to throughput, rejection, latency or CPU differences between actual formal cells"
+  ],
+  "reportingRule": "Report raw client-process CPU per successful business including the arrival/queue harness; preserve server CPU separately; do not subtract an assumed core or a guessed harness constant; no per-component CPU share is established.",
+  "recommendedChineseWording": "客户端CPU/成功操作包含固定到达率producer、队列与消费者调度、业务与驱动执行及进程内运行时工作。两套harness采用相同的核心到达/拒绝/排空契约和高层短等待策略；C#与Java的等待原语及消费模型不同。本轮未测量调度器分段CPU，报告保留原始进程口径，不据源码扣减或归因性能差距。",
+  "allReviewedSourceHashesUnchanged": true,
+  "independentSourceCrossCheck": {
+    "reviewer": "/root/baseline_recovery",
+    "method": "read-only static source review on CPU 8; no client execution, build, calibration, database request or formal-resource read",
+    "sourceConclusionsConfirmed": true,
+    "wordingClarificationsIncorporated": [
+      "per-case completion statistics are inside service; outer OfferedLoad completion statistics are after service end",
+      "C# completion includes consumers and producerDone, while producer Thread.Join is deferred; Java joins producer and all consumer platform Threads",
+      "full accepted-work drain is before connection/source closure",
+      "large Snapshot/receipt aggregation occurs after primary process-after sampling",
+      "offered-end timestamp precedes allocation/GC reads and queue completion"
+    ]
+  }
+}

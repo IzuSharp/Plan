@@ -1,0 +1,161 @@
+{
+  "schema": "DB-Runtime-Compare-01.exact-idle-adjudication.v1",
+  "recordedUtc": "2026-11-28T09:39:39.822007+00:00",
+  "cellName": "02-dapper-postgresql",
+  "classification": "business-valid/idle-deviation",
+  "reviewedBy": [
+    "/root",
+    "/root/baseline_recovery"
+  ],
+  "reviewKind": "Two independent assistant reviews; manual evidence adjudication, not a claim of new user/human approval.",
+  "originalStrictStatus": "failed",
+  "originalStrictFailures": [
+    "released_idle"
+  ],
+  "strictIdleRequirementMet": false,
+  "fullStrictAcceptance": false,
+  "businessMeasurementAccepted": true,
+  "evidence": {
+    "result": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/result.json",
+      "sha256": "61f45dae1a6a687298e87e81bdae689fa26a9aae88cd25a60d62e8368de6a50c"
+    },
+    "status": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/cell-status.json",
+      "sha256": "9576fc157dbcc8acae8b4515f78ec1f5fe901be8e7379f9d7203d73da32e82c4"
+    },
+    "command": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/02-dapper-postgresql.command.json",
+      "sha256": "d21c3fcdb3650be436a097f3d3f796bd317478bcdc220b0c50d9482c046e999d"
+    },
+    "plan": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/plan.json",
+      "sha256": "1366bfc9357c96b0b6946fee4a1c6622cdbdcbd8558d27c3025da8b1774d338b"
+    },
+    "postgresOwner": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/postgres-owner.json",
+      "sha256": "2e9fd12e779c60c45ad1f009dc225d598c1e4956cdbf2976eddf4ec997ef39c4"
+    },
+    "fixtureBefore": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/fixture-before.json",
+      "sha256": "c4f05085e5f0e9f6d13802cb6c727e0d3871c59586f338d840a04be9b0e6d700"
+    },
+    "fixtureAfter": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/long-runs/campaign-01/02-dapper-postgresql/fixture-after.json",
+      "sha256": "c4f05085e5f0e9f6d13802cb6c727e0d3871c59586f338d840a04be9b0e6d700"
+    }
+  },
+  "manifest": {
+    "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Korda/benchmarks/db-perf/workload/queries-v3.json",
+    "sha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2"
+  },
+  "source": {
+    "dapperMeasurement": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Korda/benchmarks/db-perf/managed/Dapper/Measurement.cs",
+      "sha256": "fdf8f6354f3eb33bb9a77030ee050cb846d1d3eca6bcc08512df8b0d6b837952"
+    },
+    "frozenRunner": {
+      "path": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/worktree-Plan/ledger/evidence/batches/DB-Perf-01/runtime-comparison-01/campaign/run_matrix.py",
+      "sha256": "70e2019c5b254d308fd44858532a62273a8eae0cd0bef16877746138ac69815b"
+    }
+  },
+  "idle": {
+    "requestedSeconds": 15,
+    "observedSeconds": 14.997119729,
+    "observedSecondsExactDecimal": "14.997119729",
+    "utcStarted": "2026-11-28T09:35:42.5668336+00:00",
+    "utcFinished": "2026-11-28T09:35:57.5639753+00:00",
+    "utcElapsedSecondsExactDecimal": "14.9971417",
+    "shortfallSecondsExactDecimal": "0.002880271",
+    "shortfallMillisecondsExactDecimal": "2.880271000",
+    "utcMinusMonotonicMicrosecondsExactDecimal": "21.971000000",
+    "raw": {
+      "StartedUtc": "2026-11-28T09:35:42.5668336+00:00",
+      "FinishedUtc": "2026-11-28T09:35:57.5639753+00:00",
+      "RequestedSeconds": 15,
+      "ObservedSeconds": 14.997119729,
+      "Before": {
+        "UserCpuSeconds": 2704.50941,
+        "SystemCpuSeconds": 249.592892,
+        "RssBytes": 36454400,
+        "PeakRssBytes": 39903232,
+        "PssBytes": 35484672
+      },
+      "After": {
+        "UserCpuSeconds": 2704.509966,
+        "SystemCpuSeconds": 249.594951,
+        "RssBytes": 36499456,
+        "PeakRssBytes": 39903232,
+        "PssBytes": 35571712
+      },
+      "UserCpuSeconds": 0.000555999999960477,
+      "SystemCpuSeconds": 0.0020590000000026976,
+      "ManagedBytesBefore": 9442520,
+      "ManagedBytesAfter": 9442520,
+      "Scope": "After workload/session/source drain; no forced GC; outside effective duration and raw allocation boundary; observer costs included"
+    },
+    "strictlyAtLeast15Seconds": false
+  },
+  "business": {
+    "effectiveSeconds": 1800.004439463,
+    "steadyStartMonotonicNs": 7231243333668,
+    "steadyEndMonotonicNs": 9031247773131,
+    "planned": 6480000,
+    "attempted": 6480000,
+    "succeeded": 6470481,
+    "rejected": 9519,
+    "failed": 0,
+    "oracleFailures": 0,
+    "checks": {
+      "clientExitZeroAndObserverClean": true,
+      "exactPlannedAndAttempted": true,
+      "admissionAndFullDrain": true,
+      "topLevelCountsAgree": true,
+      "businessAndOracleZero": true,
+      "offeredMonotonicDeadlineExactly1800": true,
+      "offeredAndDrainMonotonicOrdering": true,
+      "consumerEffectiveAtLeast1800": true,
+      "consumerWindowWithinCommand": true,
+      "exactBusinessSettings": true,
+      "actual35CaseOrder": true,
+      "manifestExpectedOracles": true,
+      "noRetriesOrTruncation": true,
+      "consumerEligibleConnectionsReturned": true,
+      "storedRowsRestored": true,
+      "postgreSqlShutdownClean": true,
+      "noNativeAllocationInstrumentation": true,
+      "strictFailureOnlyReleasedIdle": true,
+      "resultHashBoundToOriginalStatus": true,
+      "histogram:SuccessServiceHistogram": true,
+      "histogram:SuccessScheduledHistogram": true,
+      "histogram:AllCompletedScheduledHistogram": true,
+      "histogram:StartDelayHistogram": true,
+      "perSecond:Planned": true,
+      "perSecond:Sent": true,
+      "perSecond:Started": true,
+      "perSecond:Succeeded": true,
+      "perSecond:Failed": true,
+      "perSecond:Rejected": true,
+      "perSecond:Rows": true,
+      "perCase:Started": true,
+      "perCase:Succeeded": true,
+      "perCase:Failed": true,
+      "perCase:Rows": true
+    },
+    "allBusinessChecksPassed": true
+  },
+  "finding": "Both clocks measure an idle shorter than 15 seconds; this is not JSON floating-point rounding. The original implementation awaits Task.Delay(15s) once without a Stopwatch-deadline top-up. The exact runtime/OS timer cause was not measured and remains unproven.",
+  "scopeDecision": "The 1800-second business interval, client CPU/allocation boundaries and connection/source drain precede this idle. Preserve the original failed strict receipt. Permit descriptive business-window comparison for this exact evidence only; report idle memory with its actual 14.997119729-second observation.",
+  "claimRestrictions": [
+    "Do not rewrite or round ObservedSeconds to 15.",
+    "Do not label the original runner strict status passed.",
+    "Do not generalize a millisecond tolerance to other cells.",
+    "Do not infer a leak/no-leak conclusion from this idle memory sample.",
+    "Do not change frozen runner, matrix, clients or raw results.",
+    "No workload rerun for this observation; future deviations require their own independent evidence review."
+  ],
+  "originalEvidenceChanged": false,
+  "workloadRerun": false,
+  "analyzerExecuted": false,
+  "analysisScriptBeforeAdjudicationSha256": "294abee4eff1ce4e28399c513e71beef4075e6d41658053d69648d02c74781e4"
+}
