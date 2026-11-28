@@ -1,8 +1,9 @@
 # Korda-Orm-01 Linux handoff
 
-Status: delivered for user review. Source research, proposed design, implementation
-plan and required document checks are complete within the limits below. No product
-implementation, merge, cutover or deletion is authorized.
+Status: research reopened by the user's 2026-11-28 continuation. The first paired
+PR delivery and checks remain historical evidence below. Mature execution reuse
+and implementation-ready packet detail are now active; product implementation,
+merge, cutover and deletion remain unauthorized.
 This is the single maintained progress and continuation entry for this task.
 
 ## Scope and formal entries
@@ -25,11 +26,11 @@ branches, PRs, workflows or settings have been changed.
 | --- | --- |
 | Korda-Design initial main | `80746769f11874ae917e17a0f02f5ee47a3e250d` |
 | Korda-Design formal design milestone | `62b3cbf5aa8da10e66ad5405bfad6a9a05ef9795`; source mappings, architecture, contracts and bounded validation |
-| Korda-Design final proposed design | `0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5`; final profile-scope clarification, pinned by the implementation graph |
+| Korda-Design first delivered design | `0c5f2c20cca4e386ac8f18c7a3d4c777f7f985d5`; final profile-scope clarification, pinned by the implementation graph |
 | Plan initial main | `911c9764d0bfe10e78862251b43fcf108a8696e8` |
 | Plan initial persisted plan/handoff | `5719606db7205d3d98e6cd903271f02c973dfa59` |
 | Plan substantive delivery | `0d19841d142ba49b2cafe27640c9347b0515ccc6`; complete implementation graph, packets and CI extension |
-| Plan final handoff revision | The commit containing this document at [PR #39 head](https://github.com/IzuSharp/Plan/pull/39); follow-up changes only record delivery/progress metadata |
+| Plan first delivered handoff | `e74b80af1df5377f1af473925b2e1dfd5abae5f2`; first delivery complete before the authorized continuation |
 
 A file cannot contain the hash of the commit that first contains that exact file.
 The recorded substantive milestones and the current GitHub task-branch/PR head
@@ -37,7 +38,28 @@ together identify the continuation point; never assume an older recorded hash is
 the latest branch state. The PR heads and Checks tabs identify any later handoff-only
 commit and its current CI result without a self-referential hash in this file.
 
-## Confirmed direction and research state
+## Active continuation and next work
+
+The prior default Korda-owned binder/projector execution is under reconsideration.
+The user requires maximum mature source reuse and detailed specifications that
+leave implementers implementation work rather than unresolved architecture.
+Three actual parallel researchers own original/runtime Dapper.AOT reuse, generator
+integration, and jOOQ/Java native execution respectively; the coordinator owns
+comparisons, server fixtures, shared contracts and plan consistency. See the
+[continuation plan](plan.md#authorized-continuation-mature-execution-reuse-and-implementation-ready-packets).
+
+First confirmed source finding: pinned Dapper.AOT has an `IsDynamicBag` branch
+that calls `args.AddParameters(cmd.Command!)`; pinned Dapper also exposes explicit
+`DynamicParameters.AddParameters`. Runtime `Command<TArgs>`, `CommandFactory<TArgs>`
+and `RowFactory<T>` are public reusable components. Their complete native behavior,
+warning closure, mapping coverage and cost are being tested; source availability
+alone is not acceptance.
+
+Next: run native mature-reuse paths, examine generator integration and Java native
+interop, compare costs and only then revise the selected execution architecture.
+All experiments stay outside document repositories. No new branch or PR is created.
+
+## First-delivery direction and research state
 
 | Area | State and result |
 | --- | --- |
@@ -102,9 +124,11 @@ coverage, independent product implementation or unperformed database tests.
 
 ## Stop and continuation conditions
 
-This research task stops with the two open PRs. No further research campaign,
-product implementation, package publication, merge or old-code removal starts
-implicitly. The next action is the user's paired design/plan review.
+The first delivery stopped with the two open PRs; the current user instruction
+explicitly reopens research and specification work in those PRs. After the
+continuation's mature-reuse decision, implementation-ready packet review and normal
+document CI are complete, stop again for the user's paired review. Product work,
+package publication, merge and old-code removal remain unauthorized.
 
 If the user later accepts these revisions and separately authorizes product work,
 start ORM-FOUNDATION from the then-current product main using the pinned contracts.

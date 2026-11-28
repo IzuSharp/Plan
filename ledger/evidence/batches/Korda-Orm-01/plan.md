@@ -1,6 +1,6 @@
 # Korda-Orm-01 research and design plan
 
-Status: research/design/plan delivered for user review; required document checks passed. This task authorizes research, design, an implementation plan,
+Status: reopened by the user for mature execution reuse research and implementation-ready specifications. The first delivery remains recorded below. This task authorizes research, design, an implementation plan,
 and necessary document CI changes only. It does not authorize product work or a merge.
 
 ## Objective and boundaries
@@ -85,3 +85,42 @@ Commit and push formal milestones as they become reviewable. Keep only decisions
 source references, concise results, reproduction methods and next work in Git.
 All upstream checkouts, experiments, logs, scripts, samples and intermediate agent
 material stay outside the document worktrees and are never uploaded elsewhere.
+
+## Authorized continuation: mature execution reuse and implementation-ready packets
+
+The 2026-11-28 continuation keeps PRs Design #23 / Plan #39 and the existing task
+branches. The earlier default of independent Korda binder/projector execution is
+reopened; it is a comparison/fallback candidate, not a settled architecture. Keep
+valid jOOQ language work and earlier bounded results without rerunning them merely
+to reproduce evidence. Product implementation and merge remain unauthorized.
+
+| Parallel owner | Investigation and formal output | Initial state |
+| --- | --- | --- |
+| Mature .NET execution | Original Dapper.AOT dynamic bags; public runtime CommandFactory/RowFactory; complete native DSL-to-SQLite path and minimum source adaptations | Active |
+| Generator integration | Direct factory generation, natural Fluent terminals, same-compilation visibility, staged generation alternatives and precise generated-code contracts | Active |
+| Java/jOOQ execution | Binding/mapping/cursor source semantics, GraalVM/JDBC shared-library path, ownership/GC/deployment costs and hybrid alternatives | Active |
+| Coordinator | Shared fixtures, other mature candidates, independent server matrix, controlled execution comparisons, exact contracts, packet completeness and reviews | Active |
+
+Each promising route must cross the complete typed DSL → SQL/typed parameters →
+mature execution → real database → known C# result boundary in a native consumer.
+Report library/compiler/driver/license/environment limitations separately. A public
+API or generator limitation does not by itself establish technical impossibility.
+Prefer reuse, then extension, then source translation; new execution mechanisms
+require a specific remaining gap and an explicit reason.
+
+The implementation plan must become an execution specification: fixed public and
+internal signatures, file/module boundaries, upstream symbol mappings, ordered
+algorithms, state/ownership transitions, exact diagnostics, positive and negative
+fixtures with expected values, local commands, integration seams and stop gates.
+Shared design decisions belong in Design and are pinned from each packet; packet
+implementers must not choose the architecture or invent missing protocols. Compile
+representative specification surfaces in disposable experiments before describing
+them as compile-checked. Do not label unchecked pseudocode as working product code.
+
+Continuation milestones: (1) record this reopening; (2) verify substantive mature
+reuse routes and native end-to-end behavior; (3) compare representative costs and
+maintenance responsibilities; (4) select and specify the implementation in detail;
+(5) cross-review actual sources, evidence and packets; (6) pin final Design from
+Plan, pass normal local/PR document checks, update the same handoff and stop for
+review. Stop the research only when a supported route merits implementation, or
+when remaining reasonable routes have substantiated blockers and recovery conditions.
