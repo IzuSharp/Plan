@@ -1,0 +1,43 @@
+{
+  "command": [
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/builds/dapper-sqlite-01/out/DbPerf.Dapper",
+    "--connection",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/preflights/dapper-sqlite-02/fixture.sqlite",
+    "--case",
+    "mixed",
+    "--mode",
+    "prepared",
+    "--session",
+    "persistent",
+    "--concurrency",
+    "1",
+    "--rows",
+    "32",
+    "--batch-rows",
+    "32",
+    "--tenants",
+    "8",
+    "--orders-per-tenant",
+    "1024",
+    "--warmup",
+    "64",
+    "--operations",
+    "35",
+    "--verify",
+    "--idle-seconds",
+    "0",
+    "--native-library",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/sqlite/lib/libsqlite3.so",
+    "--output",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/preflights/dapper-sqlite-02/result.json"
+  ],
+  "environmentOverrides": {
+    "DOTNET_GCHeapHardLimit": "0x8000000"
+  },
+  "exitCode": 0,
+  "scope": "finite correctness only; no long-run credit",
+  "executableSha256": "a409898987b3c9b9596497b766ae750e608e914ddbe2f305f389d92269b97119",
+  "sqliteLibrarySha256": "ad64754d771625bc16b482962d453341f95e4619c3c42e501c5c93b38318e738",
+  "previousAttempt": "dapper-sqlite/receipt.json",
+  "correction": "Warmup must be at least 1; use the baseline 64 warmup operations."
+}

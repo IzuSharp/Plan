@@ -1,0 +1,739 @@
+{
+  "schemaVersion": 1,
+  "lifecycleSqlMode": "matched",
+  "manifestSha256": "76443b1c88bf011f57b3c9819dc85a8bedb5376121d3ef2670304f96b6d2aae2",
+  "validatorSha256": "dee39c17dc303aef532d437511048db2f1829bfd118d4b7ef2a223180db3de45",
+  "sources": {
+    "Contracts.generated.cs": "9f996925ea274dd03dc57dae3c34f6c925f75104b172c0c8f942961a2720c6dd",
+    "LifecycleCases.cs": "cae4b52c9e0574545bab71da31f833ab84c38d15b12c195614704404818a74af",
+    "LifecycleVerification.cs": "e9176c54de50c0094f983a81f8249bb8da7fd9d2e3103a6e3116860eb9af0db1",
+    "Models.cs": "f3143a5ca4801bd789b74780c3b265dd90d1beb2e34280b8d51a5a4f9d367c3f",
+    "Workload.cs": "9b34f97d8dd16eea27de18f4294e74512732e0982c3ff26d741f592d3a1c1d7b"
+  },
+  "lifecycle": {
+    "policySha256": "f6e792bc031bb5f13927fbf173f09f2b3b6244743ff41a707e931ca341a8b6f0",
+    "constants": {
+      "FindSql": {
+        "sql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = @tenant AND \"orders\".\"Id\" = @id LIMIT @take",
+        "orderedParameters": [
+          {
+            "name": "tenant",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "id",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "take",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          }
+        ]
+      },
+      "UpdateSql": {
+        "sql": "UPDATE \"orders\" SET \"Note\" = @note, \"Version\" = @version WHERE \"TenantId\" = @tenant AND \"Id\" = @id",
+        "orderedParameters": [
+          {
+            "name": "note",
+            "dbType": "String",
+            "manifestKind": "string"
+          },
+          {
+            "name": "version",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "tenant",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "id",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          }
+        ]
+      },
+      "PartialSql": {
+        "sql": "UPDATE \"orders\" SET \"Note\" = @note WHERE \"TenantId\" = @tenant AND \"Id\" = @id",
+        "orderedParameters": [
+          {
+            "name": "note",
+            "dbType": "String",
+            "manifestKind": "nullable-string"
+          },
+          {
+            "name": "tenant",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "id",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          }
+        ]
+      },
+      "CheckedSql": {
+        "sql": "UPDATE \"orders\" SET \"Note\" = @note, \"Version\" = @version WHERE \"TenantId\" = @tenant AND \"Id\" = @id AND \"Version\" = @expected",
+        "orderedParameters": [
+          {
+            "name": "note",
+            "dbType": "String",
+            "manifestKind": "string"
+          },
+          {
+            "name": "version",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "tenant",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "id",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "expected",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          }
+        ]
+      },
+      "StaleSql": {
+        "sql": "UPDATE \"orders\" SET \"Note\" = @note WHERE \"TenantId\" = @tenant AND \"Id\" = @id AND \"Version\" = @expected",
+        "orderedParameters": [
+          {
+            "name": "note",
+            "dbType": "String",
+            "manifestKind": "string"
+          },
+          {
+            "name": "tenant",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "id",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          },
+          {
+            "name": "expected",
+            "dbType": "Int64",
+            "manifestKind": "int64"
+          }
+        ]
+      }
+    },
+    "cases": {
+      "tx-commit": {
+        "steps": [
+          {
+            "step": "find-original",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "change",
+            "constant": "UpdateSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1, \"Version\" = $2 WHERE \"TenantId\" = $3 AND \"Id\" = $4",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ?, \"Version\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "perf-mutated",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "version"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p4",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              }
+            ]
+          },
+          {
+            "step": "find-changed",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "restore-before-commit",
+            "constant": "UpdateSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1, \"Version\" = $2 WHERE \"TenantId\" = $3 AND \"Id\" = $4",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ?, \"Version\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "note-0",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "version"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p4",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              }
+            ]
+          },
+          {
+            "step": "commit",
+            "providerTransactionApi": true
+          },
+          {
+            "step": "find-persisted",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          }
+        ],
+        "expectedRows": 3,
+        "expectedDigest": "2994971384347016340"
+      },
+      "tx-rollback": {
+        "steps": [
+          {
+            "step": "find-original",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "change",
+            "constant": "UpdateSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1, \"Version\" = $2 WHERE \"TenantId\" = $3 AND \"Id\" = $4",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ?, \"Version\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "perf-mutated",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "version"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p4",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              }
+            ]
+          },
+          {
+            "step": "find-changed",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "rollback",
+            "providerTransactionApi": true
+          },
+          {
+            "step": "find-persisted",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          }
+        ],
+        "expectedRows": 3,
+        "expectedDigest": "2994971384347016340"
+      },
+      "partial-update": {
+        "steps": [
+          {
+            "step": "find-original",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "change",
+            "constant": "PartialSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1 WHERE \"TenantId\" = $2 AND \"Id\" = $3",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "nullable-string",
+                "value": null,
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              }
+            ]
+          },
+          {
+            "step": "find-changed",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "restore-before-commit",
+            "constant": "PartialSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1 WHERE \"TenantId\" = $2 AND \"Id\" = $3",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "note-0",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              }
+            ]
+          },
+          {
+            "step": "commit",
+            "providerTransactionApi": true
+          },
+          {
+            "step": "find-persisted",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          }
+        ],
+        "expectedRows": 3,
+        "expectedDigest": "8359773139214255609"
+      },
+      "stale-conflict": {
+        "steps": [
+          {
+            "step": "find-original",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          },
+          {
+            "step": "change",
+            "constant": "CheckedSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1, \"Version\" = $2 WHERE \"TenantId\" = $3 AND \"Id\" = $4 AND \"Version\" = $5",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ?, \"Version\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ? AND \"Version\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "perf-mutated",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "version"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p4",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p5",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "expected"
+              }
+            ]
+          },
+          {
+            "step": "stale-change",
+            "constant": "StaleSql",
+            "kordaSql": {
+              "postgresql": "UPDATE \"orders\" SET \"Note\" = $1 WHERE \"TenantId\" = $2 AND \"Id\" = $3 AND \"Version\" = $4",
+              "sqlite": "UPDATE \"orders\" SET \"Note\" = ? WHERE \"TenantId\" = ? AND \"Id\" = ? AND \"Version\" = ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "string",
+                "value": "stale-write",
+                "driverName": "note"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p4",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "expected"
+              }
+            ]
+          },
+          {
+            "step": "rollback",
+            "providerTransactionApi": true
+          },
+          {
+            "step": "find-persisted",
+            "constant": "FindSql",
+            "kordaSql": {
+              "postgresql": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = $1 AND \"orders\".\"Id\" = $2 LIMIT $3",
+              "sqlite": "SELECT \"orders\".\"TenantId\" AS \"TenantId\", \"orders\".\"Id\" AS \"Id\", \"orders\".\"CreatedAt\" AS \"CreatedAt\", \"orders\".\"CustomerId\" AS \"CustomerId\", \"orders\".\"Total\" AS \"Total\", \"orders\".\"Note\" AS \"Note\", \"orders\".\"Version\" AS \"Version\", \"orders\".\"Settings\" AS \"Settings\", \"orders\".\"InternalMemo\" AS \"InternalMemo\" FROM \"orders\" WHERE \"orders\".\"TenantId\" = ? AND \"orders\".\"Id\" = ? LIMIT ?"
+            },
+            "parameters": [
+              {
+                "name": "p1",
+                "kind": "int64",
+                "value": 1,
+                "driverName": "tenant"
+              },
+              {
+                "name": "p2",
+                "kind": "int64",
+                "value": 1024,
+                "driverName": "id"
+              },
+              {
+                "name": "p3",
+                "kind": "int64",
+                "value": 2,
+                "driverName": "take"
+              }
+            ]
+          }
+        ],
+        "expectedRows": 2,
+        "expectedDigest": "11358637336320375014"
+      }
+    },
+    "resultColumns": [
+      "TenantId",
+      "Id",
+      "CreatedAt",
+      "CustomerId",
+      "Total",
+      "Note",
+      "Version",
+      "Settings",
+      "InternalMemo"
+    ],
+    "placeholderPolicy": {
+      "postgresql": "Named parameters rewrite to positional $N in SQL occurrence order; require byte-identical resulting business SQL and same ordered DbType values.",
+      "sqlite": "The sole permitted difference is ordinal ? to unique @name. All other SQL bytes, ordered types and values must match; raw SQLite SQL bytes are not claimed identical."
+    },
+    "providerControls": "Use each provider normal transaction API. Do not add Korda internal SELECT 1, protocol Sync, or PRAGMA query_only work to Dapper."
+  },
+  "generatedFactoriesVerified": false,
+  "runtimeSqlTraceVerified": false,
+  "scope": "Static source contract. Generated factories and actual business results require their own evidence."
+}

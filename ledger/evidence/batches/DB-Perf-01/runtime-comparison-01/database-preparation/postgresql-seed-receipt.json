@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "source": "https://github.com/IzuSharp/Korda/blob/36bd5ba169b628ba4d61dd9fe260eaef5ff15599/benchmarks/db-perf/managed/Korda/Dataset.cs",
+  "provider": "postgresql",
+  "tenants": 8,
+  "ordersPerTenant": 1024,
+  "customers": 256,
+  "lines": 13120,
+  "sqlPath": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgresql.sql",
+  "sqlSha256": "45f042d1558d87076695f659ecc07a7375de209baf01b1e32a1373357e8631f8",
+  "scriptSha256": "7bccd0fe2dbb5669b199ac7c98e8b7bb9b939ac2538ac1621f2065535ede31f8",
+  "startedUnixSeconds": 1795852368.324873,
+  "isPressureTest": false,
+  "verification": {
+    "counts": {
+      "db_perf_metadata": 1,
+      "customers": 256,
+      "orders": 8192,
+      "order_lines": 13120
+    },
+    "schema": {
+      "db_perf_metadata": [
+        [
+          "schema_version",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "tenants",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "orders_per_tenant",
+          "BIGINT",
+          "NO",
+          null
+        ]
+      ],
+      "customers": [
+        [
+          "Id",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "Name",
+          "TEXT",
+          "NO",
+          null
+        ],
+        [
+          "Email",
+          "TEXT",
+          "YES",
+          null
+        ]
+      ],
+      "orders": [
+        [
+          "TenantId",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "Id",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "CreatedAt",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "CustomerId",
+          "BIGINT",
+          "YES",
+          null
+        ],
+        [
+          "Total",
+          "NUMERIC(18,2)",
+          "NO",
+          null
+        ],
+        [
+          "Note",
+          "TEXT",
+          "YES",
+          null
+        ],
+        [
+          "Version",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "Settings",
+          "JSONB",
+          "NO",
+          null
+        ],
+        [
+          "InternalMemo",
+          "TEXT",
+          "NO",
+          null
+        ]
+      ],
+      "order_lines": [
+        [
+          "Id",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "TenantId",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "OrderId",
+          "BIGINT",
+          "NO",
+          null
+        ],
+        [
+          "Product",
+          "TEXT",
+          "NO",
+          null
+        ],
+        [
+          "Quantity",
+          "BIGINT",
+          "NO",
+          null
+        ]
+      ]
+    },
+    "allStoredRowsMatchSeedFormula": true,
+    "normalizedOrdersSha256": "ea625936eca3ebca21150852021fa25ef2d89065b289ca37e69c1ec30b231510",
+    "version": [
+      "PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+      "180000"
+    ],
+    "indexes": [
+      [
+        "customers_pkey",
+        "CREATE UNIQUE INDEX customers_pkey ON public.customers USING btree (\"Id\")"
+      ],
+      [
+        "order_lines_parent",
+        "CREATE INDEX order_lines_parent ON public.order_lines USING btree (\"TenantId\", \"OrderId\")"
+      ],
+      [
+        "order_lines_pkey",
+        "CREATE UNIQUE INDEX order_lines_pkey ON public.order_lines USING btree (\"Id\")"
+      ],
+      [
+        "order_lines_product",
+        "CREATE INDEX order_lines_product ON public.order_lines USING btree (\"TenantId\", \"Product\", \"OrderId\")"
+      ],
+      [
+        "orders_created",
+        "CREATE INDEX orders_created ON public.orders USING btree (\"TenantId\", \"CreatedAt\", \"Id\")"
+      ],
+      [
+        "orders_customer",
+        "CREATE INDEX orders_customer ON public.orders USING btree (\"TenantId\", \"CustomerId\", \"Id\")"
+      ],
+      [
+        "orders_pkey",
+        "CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (\"TenantId\", \"Id\")"
+      ]
+    ]
+  },
+  "status": "verified",
+  "finishedUnixSeconds": 1795852368.9246197
+}

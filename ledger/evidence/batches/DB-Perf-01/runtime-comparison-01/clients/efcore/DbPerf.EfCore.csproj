@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="PublishWithSatoriGC" Version="11.0.2-satori.45942668844.1" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <LangVersion>15.0</LangVersion>
+    <Features>$(Features);runtime-async=on</Features>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);SATORI002</WarningsNotAsErrors>
+    <UseSharedCompilation>false</UseSharedCompilation>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <PublishAot>false</PublishAot>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <AssemblyName>DbPerf.EfCore</AssemblyName>
+    <Provider Condition="'$(Provider)' == ''">Sqlite</Provider>
+    <DefineConstants Condition="'$(Provider)' == 'PostgreSql'">$(DefineConstants);POSTGRES</DefineConstants>
+    <DefineConstants Condition="'$(UseSatoriGC)' == 'true'">$(DefineConstants);EXPECT_SATORI</DefineConstants>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <NuGetLockFilePath>locks/packages.$(Provider).$(UseSatoriGC).lock.json</NuGetLockFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyMetadata Include="CompilerFeatures" Value="$(Features)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="11.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="11.0.0" Condition="'$(Provider)' == 'PostgreSql'" />
+    <PackageReference Include="Npgsql" Version="11.0.0" Condition="'$(Provider)' == 'PostgreSql'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="11.0.0" Condition="'$(Provider)' == 'Sqlite'" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="11.0.0" Condition="'$(Provider)' == 'Sqlite'" />
+    <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="3.0.5" Condition="'$(Provider)' == 'Sqlite'" />
+  </ItemGroup>
+  <Target Name="ValidateComparisonRuntime" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(Provider)' != 'Sqlite' and '$(Provider)' != 'PostgreSql'" Text="Provider must be Sqlite or PostgreSql." />
+    <Error Condition="'$(PublishAot)' == 'true'" Text="This client is the EF Core JIT comparison, not an AOT consumer." />
+  </Target>
+  <Target Name="RecordExecutedCompilerArguments" AfterTargets="CoreCompile"
+          Condition="'$(CompilerEvidencePath)' != '' and '$(ProvideCommandLineArgs)' == 'true'">
+    <WriteLinesToFile File="$(CompilerEvidencePath)" Lines="Evaluated Features=$(Features);@(CscCommandLineArgs)" Overwrite="true" />
+  </Target>
+</Project>

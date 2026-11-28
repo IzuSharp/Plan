@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "isPressureTest": false,
+  "startedUnixSeconds": 1795852367.4494932,
+  "uid": 1000,
+  "commands": [
+    {
+      "label": "postgres-initdb",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/initdb",
+        "-D",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+        "-U",
+        "korda",
+        "-A",
+        "trust",
+        "--no-locale",
+        "--encoding=UTF8"
+      ],
+      "startedUnixSeconds": 1795852367.4495053,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852368.040943
+    },
+    {
+      "label": "postgres-start",
+      "command": [
+        "taskset",
+        "-c",
+        "4-7",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/pg_ctl",
+        "-D",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+        "-l",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgres.log",
+        "-o",
+        "-h 127.0.0.1 -p 48277 -c unix_socket_directories= -c max_connections=64 -c fsync=on -c synchronous_commit=on -c full_page_writes=on -c timezone=UTC -c shared_buffers=128MB -c default_transaction_isolation='read committed'",
+        "-w",
+        "-t",
+        "30",
+        "start"
+      ],
+      "startedUnixSeconds": 1795852368.0412612,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852368.1482265
+    },
+    {
+      "label": "postgres-createdb",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/psql",
+        "--no-psqlrc",
+        "--set",
+        "ON_ERROR_STOP=1",
+        "--dbname",
+        "postgresql://korda@127.0.0.1:48277/postgres",
+        "--command",
+        "CREATE DATABASE db_perf_01"
+      ],
+      "startedUnixSeconds": 1795852368.1484833,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852368.1875913
+    },
+    {
+      "label": "postgres-seed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixture.py",
+        "--provider",
+        "postgresql",
+        "--sql-output",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgresql.sql",
+        "--receipt",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgresql-seed-receipt.json",
+        "--psql",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/psql",
+        "--connection",
+        "postgresql://korda@127.0.0.1:48277/db_perf_01"
+      ],
+      "startedUnixSeconds": 1795852368.1878126,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852368.9319315
+    },
+    {
+      "label": "postgres-settings",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/psql",
+        "--no-psqlrc",
+        "--set",
+        "ON_ERROR_STOP=1",
+        "--tuples-only",
+        "--no-align",
+        "--dbname",
+        "postgresql://korda@127.0.0.1:48277/db_perf_01",
+        "--command",
+        "SELECT json_build_object('server_version',current_setting('server_version'),'server_encoding',current_setting('server_encoding'),'client_encoding',current_setting('client_encoding'),'fsync',current_setting('fsync'),'synchronous_commit',current_setting('synchronous_commit'),'full_page_writes',current_setting('full_page_writes'),'timezone',current_setting('timezone'),'shared_buffers',current_setting('shared_buffers'),'default_transaction_isolation',current_setting('default_transaction_isolation'),'max_connections',current_setting('max_connections'),'jit',current_setting('jit'),'plan_cache_mode',current_setting('plan_cache_mode'),'collation',(SELECT datcollate FROM pg_database WHERE datname=current_database()),'ctype',(SELECT datctype FROM pg_database WHERE datname=current_database()));"
+      ],
+      "startedUnixSeconds": 1795852368.9321578,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852368.937784
+    },
+    {
+      "label": "postgres-stop",
+      "command": [
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/pg_ctl",
+        "-D",
+        "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+        "-m",
+        "fast",
+        "-w",
+        "-t",
+        "30",
+        "stop"
+      ],
+      "startedUnixSeconds": 1795852368.938076,
+      "exitCode": 0,
+      "finishedUnixSeconds": 1795852369.0394082
+    }
+  ],
+  "data": "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+  "databaseLimitedTo128MB": false,
+  "historicalSharedBuffers": "128MB",
+  "startCommand": [
+    "taskset",
+    "-c",
+    "4-7",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/postgres/bin/pg_ctl",
+    "-D",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/pgdata",
+    "-l",
+    "/workspace/scratch/4a4a6f01f129/DB-Runtime-Compare-01/toolchains/native-db/fixtures/postgres.log",
+    "-o",
+    "-h 127.0.0.1 -p 48277 -c unix_socket_directories= -c max_connections=64 -c fsync=on -c synchronous_commit=on -c full_page_writes=on -c timezone=UTC -c shared_buffers=128MB -c default_transaction_isolation='read committed'",
+    "-w",
+    "-t",
+    "30",
+    "start"
+  ],
+  "postmasterPid": 21,
+  "serverCpuAffinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "connection": "postgresql://korda@127.0.0.1:48277/db_perf_01",
+  "settings": {
+    "server_version": "18.0",
+    "server_encoding": "UTF8",
+    "client_encoding": "UTF8",
+    "fsync": "on",
+    "synchronous_commit": "on",
+    "full_page_writes": "on",
+    "timezone": "UTC",
+    "shared_buffers": "128MB",
+    "default_transaction_isolation": "read committed",
+    "max_connections": "64",
+    "jit": "on",
+    "plan_cache_mode": "auto",
+    "collation": "C",
+    "ctype": "C"
+  },
+  "crossDatabaseNormalizedOrdersMatched": true,
+  "status": "verified",
+  "serverStopped": true,
+  "finishedUnixSeconds": 1795852369.0396223,
+  "scriptSha256": "0515d5fd78331439fbb42d2c6913cab7fe7c985f6ff3cf324176df8ef9f7e123"
+}
