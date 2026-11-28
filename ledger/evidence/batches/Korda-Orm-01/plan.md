@@ -1,6 +1,6 @@
 # Korda-Orm-01 research and design plan
 
-Status: research and design drafted; final integration review in progress. This task authorizes research, design, an implementation plan,
+Status: research/design/plan delivered for user review; required document checks passed. This task authorizes research, design, an implementation plan,
 and necessary document CI changes only. It does not authorize product work or a merge.
 
 ## Objective and boundaries
@@ -22,12 +22,18 @@ their task graphs and acceptance states do not govern this direction.
 | Core language | jOOQ DSL, model, types, nullability, mutability, JDBC coupling, licenses | Core researcher | Source mapping, design and bounded generator probe complete |
 | SQL and generation | Rendering, dialects, transformations, advanced SQL, schema/codegen, parser and available tests | Dialect researcher | Source mapping, design and bounded Java/SQLite probes complete |
 | Execution and AOT | Dapper.AOT, drivers, generated binding/mapping, toolchain, dynamic SQL boundaries | Execution researcher | Source mapping, design and bounded Dapper.AOT/SQLite probe complete |
-| Integration | Repository norms, contracts, experiments, CI, implementation DAG, cross-review | Coordinating researcher | Shared contracts and 30-task graph drafted; final cross-review and PR CI pending |
+| Integration | Repository norms, contracts, experiments, CI, implementation DAG, cross-review | Coordinating researcher | Shared contracts and 30-task graph reviewed; local and substantive PR CI passed |
 
 These are actual concurrent research assignments. Confirmed independent sections
 move into Design and Plan authoring while remaining research continues. Each author
 owns distinct files; the coordinator owns shared contracts, the plan, and this batch's
 single [handoff](handoff-linux.md). Reviews examine other authors' actual deliverables.
+
+Paired deliverables: [Design #23](https://github.com/IzuSharp/Korda-Design/pull/23)
+and [Plan #39](https://github.com/IzuSharp/Plan/pull/39). The maintained handoff
+records exact revisions, CI runs, bounded experiments and remaining product gates.
+All seven research milestones below are complete within those recorded limits;
+the proposed product tasks remain unimplemented and unauthorized.
 
 ## Milestones and evidence gates
 
