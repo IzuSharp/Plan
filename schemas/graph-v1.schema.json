@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/IzuSharp/Plan/schemas/graph-v1.schema.json",
-  "title": "NativeWeave independent research/documentation/delivery graph v1",
+  "title": "Korda Plan task graph structure",
   "type": "object",
   "required": [
     "schema_version",
@@ -68,10 +68,7 @@
         "outputs",
         "write_scopes",
         "resource_locks",
-        "prompt",
-        "packet_sha256",
-        "acceptance_evidence",
-        "independent_reviewers"
+        "prompt"
       ],
       "properties": {
         "id": {
@@ -264,52 +261,6 @@
         "prompt": {
           "type": "string"
         },
-        "packet_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
-        },
-        "acceptance_evidence": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "manifest_path",
-              "sha256"
-            ],
-            "properties": {
-              "manifest_path": {
-                "type": "string",
-                "pattern": "^(Plan|NativeWeave-Design|NativeWeave):"
-              },
-              "sha256": {
-                "type": "string",
-                "pattern": "^[0-9a-f]{64}$"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "independent_reviewers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "manifest_path",
-              "sha256"
-            ],
-            "properties": {
-              "manifest_path": {
-                "type": "string",
-                "pattern": "^(Plan|NativeWeave-Design|NativeWeave):"
-              },
-              "sha256": {
-                "type": "string",
-                "pattern": "^[0-9a-f]{64}$"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
         "verification_requirements": {
           "type": "array",
           "minItems": 1,
@@ -471,14 +422,6 @@
             "pattern": "^NativeWeave-Design:"
           }
         },
-        "api_design_input_sha256": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
-          }
-        },
         "api_contract_types": {
           "type": "array",
           "uniqueItems": true,
@@ -567,7 +510,6 @@
                 "selection_status",
                 "implementation_authorization",
                 "api_design_inputs",
-                "api_design_input_sha256",
                 "api_contract_types",
                 "api_surface_responsibility",
                 "documentation_owner_role",
@@ -578,5 +520,6 @@
         }
       }
     }
-  ]
+  ],
+  "description": "Current task shape and scheduling metadata. Execution receipts and byte-bound historical acceptance are outside this schema."
 }

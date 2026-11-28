@@ -1,9 +1,17 @@
-# Research Policy
+# Research policy
 
-The 34 existing research IDs proceed in parallel according to actual questions. Recovery starts by checking reports/evidence/coverage and reviews; do not infer that no results exist from a planned status, or infer completion from the existence of a directory. Pin exact source/test versions and the scope actually read; downloading files is not reading an entire repository. The Rust DB/ORM/Server mission is no longer an open architectural question about reversing that direction.
+Research tasks record questions, source scope, alternatives, costs, failure
+behavior, applicability and concise conclusions. Pin source versions when they
+matter. Distinguish source/tests read from tests actually executed; downloading
+a repository is not reading all of it.
 
-Each research task provides technical conclusions, alternative costs, normal/failure/boundary semantics, necessary actual experiments, and applicability. Mark upstream tests read and tests executed separately. Use actual mature engines; structurally identical mocks cannot replace evidence of generality. Finite models, byte sums, and CI duration cannot become guarantees of production performance/memory/weak-memory correctness.
+Reuse earlier findings and run new experiments for concrete unresolved questions.
+Keep failed hypotheses and their reasons in the final conclusion. State platform
+or access limits precisely. Assign future product obligations to relevant tasks;
+research acceptance does not imply implementation or production performance.
 
-Reuse existing successful experiments; run incremental regressions only for a specific unresolved risk or a new fix. Preserve failed hypotheses, actual output, commits, and input hashes; explain Windows CRLF/LF differences rather than falsely presenting them as identical bytes. Assign product verification obligations arising from research to existing A/B tasks; resolve now any question that research can resolve.
-
-Acceptance requires actual independent technical review and exact content/dependency bindings; correct stale status after review. The absence of product implementation does not prevent acceptance of mature research. For a target that truly cannot be executed, identify the specific tool/platform/source blocker and the minimum remaining action, rather than vaguely deferring it to later research. Current evidence lives in Design; Plan records tasks and acceptance mechanisms.
+Raw output, temporary source copies, samples and recovery state stay on the
+execution machine. Submit maintained conclusions and useful references through
+Git/PRs. Plan owns task state and dependencies; Korda-Design owns the research
+rationale and resulting design. Historical Rust/Server research remains scoped
+to its recorded versions; see [CURRENT-PHASE.md](CURRENT-PHASE.md).

@@ -1,24 +1,18 @@
-# DB-Scope-01 — current database product scope
+# Milestones and parallel work
 
-The owner authorized DB-Scope-01 on 2026-11-21: stop Perf-01, retain the PostgreSQL/SQLite strong-typed Fluent ORM with Rust SeaQuery/SQLx and Native AOT, remove NativeWeave-owned Server/gRPC/MCP and non-database engines/demos, run real Linux consumers, review and merge, then stop. Ordinary C# applications choose their own hosting; no new HTTP/gRPC wrapper or ORM feature is in scope.
+[CURRENT-PHASE.md](CURRENT-PHASE.md) records delivered database batches and the
+current scope. The three graphs retain 34 research, 32 documentation and 48
+original delivery task definitions. Task edges describe local prerequisites;
+A/B labels are not whole-project serial barriers.
 
-**Start here:** [current execution plan](ledger/evidence/batches/DB-Scope-01/plan.md), [Linux handoff](ledger/evidence/batches/DB-Scope-01/handoff-linux.md), [acceptance](ledger/evidence/batches/DB-Scope-01/acceptance.json), and `delivery-graph.json.current_execution`. These supersede older phase/authorization/product-scope statements. Database Host remains part of the database execution layer. Performance optimization and 30-minute load tests are deferred.
+Historical parallel work groups remain useful for interpreting task intent:
 
-The three legacy graphs, 114 packets, prior source-driven baseline, original acceptance bindings and delivered Task-01 through Task-07 evidence remain historical. Do not alter them to invent acceptance or resume removed components. Current acceptance requires new source-bound DB-Scope-01 evidence; unchanged historical gates run against their exact original inputs.
-
-## Historical planning text (superseded for current product scope)
-
-# Parallel Milestones for Existing Tasks
-
-The current milestone is completion of the 34 Research / 32 Documentation tasks and mature instructions for the 48 Delivery tasks, without product execution. The actual research order is core ABI/ownership/async and platforms; database and Rust server source/experiments in parallel; then cross-domain performance/packaging/future Engines/overall review. This is only an execution ordering of existing tasks, not a new graph or a global serial lock.
-
-After future authorization of the product phase:
-
-| Work that may proceed in parallel | Subsequent work unlocked | Acceptance ownership |
+| Work group | Dependent work | Acceptance scope |
 | --- | --- | --- |
-| A01 layout, A19 models, A21 benchmark tooling, B01 shared Data seam | Local Core modules, native providers, and query bindings | Actual code/evidence for each component |
-| A03–A12 local Interop/generation; B02/B03/B05/B06/B07/B09 | A17/A18 actual Engines, B04 Host, B11/B12/B13 | Actual native/AOT assembly |
-| B15 C# application, B16 streaming component, B17 Rust Host | B18 Tonic, B19 rmcp, B20 diagnostics | Native networking/protocols/release |
-| A14/A15 platforms and A16 packages; B21 complete reference service | B22 failure/soak, B23 performance, B24 domain release | Independent NuGet, clean no-Rust, both OSes, real DB/networking, and long-term resources |
+| ABI, models, shared data boundary | Interop, providers and query bindings | Component contracts and actual implementation |
+| Interop/generation and database foundations | Host, mapping, queries and relations | Native and C# behavior with resource ownership |
+| Platforms and independent packages | Consumer composition and releases | Applicable Native AOT, package and runtime checks |
+| Diagnostics and comparison design | Fault/resource/performance investigations | Actual scoped measurements and explicit limitations |
 
-The exact edges in delivery-graph.json are authoritative. A/B are not barriers requiring each entire phase to finish serially; an Engine that does not use an optional Core capability does not start that runtime. GUI/GPU/mobile boundaries follow D21; do not make future hardware/platform certification a prerequisite for ordinary Windows/Linux development.
+Retired Server and future hardware/mobile tasks are historical plans, not current
+execution authority or prerequisites for ordinary database development.

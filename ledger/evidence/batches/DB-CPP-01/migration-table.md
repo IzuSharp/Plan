@@ -1,8 +1,9 @@
 # DB-CPP-01 contract migration table
 
-The fixed Rust reference is NativeWeave `465cd0f90e6af05ec50eb581156240377cf0825b`. The accepted C++ candidate is `39b5b72ff9bf4d8a485b55debf940f4ded83bbe2`, normally merged as `3badc05be503991b5591732629dd7e5b0dbad111`; both trees are `3264de79b73c8a89f1cac1eff57d0c0ff2c841c2`. All 21 source-bound checks and seven phases pass in [acceptance.json](acceptance.json). The actual [PR CI44974091036](https://github.com/IzuSharp/NativeWeave/actions/runs/44974091036) and [main CI44977773509](https://github.com/IzuSharp/NativeWeave/actions/runs/44977773509) passed their full mandatory gates. Earlier candidate failures remain historical; none was relabeled as accepted.
-
-The fixed-Rust four-cell comparison belongs to the candidate's actual PR/local executions. Normal main has its own regression/build/package/no-Rust gates and does not repeat the historical comparison. This final evidence-only follow-up has separate review and PR/main checks; its ledger accepts the delivered Product21 / Design15 / Plan26 identities.
+The fixed Rust reference is `465cd0f90e6af05ec50eb581156240377cf0825b`;
+the accepted C++ candidate is `39b5b72ff9bf4d8a485b55debf940f4ded83bbe2`.
+See the [final migration result](migration-report-linux.md) for source, delivery
+and acceptance boundaries. Earlier candidate failures were not relabeled as accepted.
 
 | Existing contract | C++ owning modules | Reused tests / independent checks | Status |
 | --- | --- | --- | --- |
@@ -17,4 +18,4 @@ The fixed-Rust four-cell comparison belongs to the candidate's actual PR/local e
 | Migrations / catalog / history / checksums | `administration`, dedicated Host admin lease | 69 actual database assertions, historical-file/PG-copy consumer | Accepted; candidate-7 complete PR and merged-main gates passed |
 | Build / presets / format / tidy / sanitizers | CMake, pinned LLVM 23.1.5 and dependency lock | Shared Release + ASan/UBSan presets; source-bound producer; clean-image Rust absence | Accepted; candidate-7 complete PR and merged-main gates passed |
 | NuGet IDs / provider leaves / RID / ordinary models | Existing .NET/package graph with C++ inventory producer | Retained Core closure checks; both database packages × JIT/AOT; native hash after DTO edit | Accepted; twelve-package preparation and four-cell comparison passed; complete release/pristine/runtime/no-Rust gates passed |
-| PR review / merge / merged-main CI | Three repository task branches | Independent technical review, exact tested-tree and CI receipts | Accepted; Design15, Product21 and Plan26 normally merged with successful exact PR/main CI; final evidence record checks are separate |
+| PR review / merge / merged-main CI | Three repository task branches | Independent technical review, observed tested-tree and CI results | Accepted; Design15, Product21 and Plan26 normally merged with successful exact PR/main CI; final evidence record checks are separate |
